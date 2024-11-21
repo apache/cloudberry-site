@@ -1,12 +1,3 @@
-cloudberrydbteam:
-  name: Cloudberrydb Team
-  image_url: /img/blog/dbteam.png
-Jianghua.yjh:
-  name: Jianghua.yjh
-  image_url: /img/yjh.jpeg
-Jiajia.li:
-  name: Jiajia Li
-  image_url: /img/blog/dbteam.png
-ed-espino:
-  name: Ed Espino
+asfcloudberry:
+  name: Apache Cloudberry
   image_url: /img/blog/dbteam.png
