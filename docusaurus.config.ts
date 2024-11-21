@@ -205,7 +205,7 @@ const config: Config = {
           items: [
             {
               label: "GitHub Issues",
-              href: "https://github.com/cloudberrydb/cloudberrydb/issues",
+              href: "https://github.com/apache/cloudberry/issues",
             },
             {
               label: "GitHub Discussions",
@@ -221,7 +221,7 @@ const config: Config = {
             },
             {
               label: "Youtube",
-              href: "https://youtube.com/@cloudberrydb",
+              href: "https://youtube.com/@ApacheCloudberry",
             },
             {
               label: "Security",
@@ -234,7 +234,7 @@ const config: Config = {
           items: [
             {
               label: "Download",
-              href: "https://github.com/cloudberrydb/cloudberrydb/releases",
+              href: "https://github.com/apache/cloudberry/releases",
             },
             {
               label: "Documentation",
@@ -281,11 +281,6 @@ const config: Config = {
       theme: prismThemes.github,
       darkTheme: prismThemes.dracula,
     },
-    // algolia: {
-    //   appId: "GHWUNOM15G",
-    //   apiKey: "0dc1117a5a8d029a60ac5245da2afd91",
-    //   indexName: "cloudberrydb",
-    // },
   } satisfies Preset.ThemeConfig,
 };
 

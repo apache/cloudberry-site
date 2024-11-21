@@ -64,7 +64,9 @@ You can find us as follows:
 - Visit the website: [https://cloudberry.apache.org](https://cloudberry.apache.org)
 - Follow us on GitHub: [https://github.com/apache/cloudberry](https://github.com/apache/cloudberry)
 - Join Slack workspace: [https://apache-cloudberry.slack.com](https://apache-cloudberry.slack.com)
-- Subscribe to the dev mailing list: [dev@cloudberry.apache.org](mailto:dev@cloudberry.apache.org)
+- Dev mailing list: 
+	* To subscribe to dev mailing list: Send an email to dev-subscribe@cloudberry.apache.org
+	* To browse past dev mailing list discussions: https://lists.apache.org/list.html?dev@cloudberry.apache.org
 
 [^1]: https://lists.apache.org/thread/qzfb38dzb1x3cg29snq4doy95gd6pzy8
 [^2]: https://investors.broadcom.com/news-releases/news-release-details/broadcom-completes-acquisition-vmware
