@@ -39,16 +39,16 @@ You can participate by:
 - Helping out in the Slack channels, see [Slack
   Guide](../community/slack).
 - Answering questions on [GitHub
-  Discussions](https://github.com/orgs/cloudberrydb/discussions/categories/q-a).
+  Discussions](https://github.com/apache/cloudberry/discussions/categories/q-a).
 - Investigating [GitHub
   issues](https://github.com/cloudberrydb/cloudberrydb/issues).
 - [Reporting a new
   bug](https://github.com/cloudberrydb/cloudberrydb/issues/new/choose).
 - [Sharing ideas for new
-  features](https://github.com/orgs/cloudberrydb/discussions/new?category=ideas-feature-requests).
+  features](https://github.com/apache/cloudberry/discussions/new?category=ideas-feature-requests).
 - Helping review [Pull
   Requests](https://github.com/cloudberrydb/cloudberrydb/pulls) or
-  [Proposals](https://github.com/orgs/cloudberrydb/discussions/categories/proposal).
+  [Proposals](https://github.com/apache/cloudberry/discussions/categories/proposal).
 - Proposing your proposal, see [Proposal Guide](./proposal).
 - [Reporting security issues](../community/security).
 - Testing code, testing releases.

@@ -91,7 +91,7 @@ let COMMUNITY_PAGE: CommunityPageConfig = {
                 "Share your ideas and request new features on GitHub Discussions to help shape the future of the Cloudberry Database.",
               link: {
                 text: "Share your ideas",
-                href: "https://github.com/orgs/cloudberrydb/discussions/new?category=ideas-feature-requests",
+                href: "https://github.com/apache/cloudberry/discussions/new?category=ideas-feature-requests",
               },
             },
             {
@@ -128,7 +128,7 @@ let COMMUNITY_PAGE: CommunityPageConfig = {
                 "Ask for help on GitHub Discussions when running or developing Cloudberry Database. We're always here to assist you.",
               link: {
                 text: "Ask for help",
-                href: "https://github.com/orgs/cloudberrydb/discussions/categories/q-a",
+                href: "https://github.com/apache/cloudberry/discussions/categories/q-a",
               },
             },
           ],
@@ -155,7 +155,7 @@ let COMMUNITY_PAGE: CommunityPageConfig = {
                 'For news and updates, follow @cloudberrydb on Twitter("X" now).',
               link: {
                 text: "Follow us",
-                href: "https://twitter.com/cloudberrydb",
+                href: "https://x.com/ASFCloudberry",
               },
             },
           ],
@@ -169,7 +169,7 @@ let COMMUNITY_PAGE: CommunityPageConfig = {
                 "News and updates from the team on the GitHub Discussions channel.",
               link: {
                 text: "Stay informed with news",
-                href: "https://github.com/orgs/cloudberrydb/discussions/categories/announcements",
+                href: "https://github.com/apache/cloudberry/discussions/categories/announcements",
               },
             },
             {
@@ -291,7 +291,7 @@ if (isZhLangrage()) {
                   "在 GitHub Discussions 上分享你的好想法、提出新的功能需求，共同塑造 Cloudberry Database 的良好体验。",
                 link: {
                   text: "分享点子",
-                  href: "https://github.com/orgs/cloudberrydb/discussions/new?category=ideas-feature-requests",
+                  href: "https://github.com/apache/cloudberry/discussions/new?category=ideas-feature-requests",
                 },
               },
               {
@@ -328,7 +328,7 @@ if (isZhLangrage()) {
                   "在运行或开发 Cloudberry Database 时遇到问题，你可以在 GitHub Discussions 上发帖请求帮助。",
                 link: {
                   text: "请求帮助",
-                  href: "https://github.com/orgs/cloudberrydb/discussions/categories/q-a",
+                  href: "https://github.com/apache/cloudberry/discussions/categories/q-a",
                 },
               },
             ],
@@ -355,7 +355,7 @@ if (isZhLangrage()) {
                   "欢迎关注我们的 X（原 Twitter）帐号 @cloudberrydb，获取新闻和动态。",
                 link: {
                   text: "关注我们",
-                  href: "https://twitter.com/cloudberrydb",
+                  href: "https://x.com/ASFCloudberry",
                 },
               },
             ],
@@ -369,7 +369,7 @@ if (isZhLangrage()) {
                   "我们在 GitHub Discussions 通告频道发布团队和产品相关的动态与更新。",
                 link: {
                   text: "保持追踪",
-                  href: "https://github.com/orgs/cloudberrydb/discussions/categories/announcements",
+                  href: "https://github.com/apache/cloudberry/discussions/categories/announcements",
                 },
               },
               {

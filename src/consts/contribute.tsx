@@ -81,7 +81,7 @@ let CONTRIBUTE_PAGE_CONFIG: ConfigProps = {
           "Feel free to reach out to us in Slack{" "}
           <span className={styles.highLight}>#dev</span> channels or{" "}
           <span className={styles.highLight}>
-            <LinkWithBaseUrl to="https://github.com/orgs/cloudberrydb/discussions">
+            <LinkWithBaseUrl to="https://github.com/apache/cloudberry/discussions">
               GitHub Discussions
             </LinkWithBaseUrl>
           </span>{" "}
@@ -157,7 +157,7 @@ if (isZhLangrage()) {
             "欢迎在 Slack{" "}
             <span className={styles.highLight}>#dev</span> 频道或{" "}
             <span className={styles.highLight}>
-              <LinkWithBaseUrl to="https://github.com/orgs/cloudberrydb/discussions">
+              <LinkWithBaseUrl to="https://github.com/apache/cloudberry/discussions">
                 GitHub Discussions
               </LinkWithBaseUrl>
             </span>{" "}

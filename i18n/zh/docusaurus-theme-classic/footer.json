@@ -17,11 +17,11 @@
   },
   "link.item.label.Twitter": {
     "message": "Twitter",
-    "description": "The label of footer link with label=Twitter linking to https://twitter.com/cloudberrydb"
+    "description": "The label of footer link with label=Twitter linking to https://x.com/ASFCloudberry"
   },
   "link.item.label.Slack": {
     "message": "Slack",
-    "description": "The label of footer link with label=Slack linking to https://communityinviter.com/apps/cloudberrydb/welcome"
+    "description": "The label of footer link with label=Slack linking to https://inviter.co/apache-cloudberry"
   },
   "link.item.label.Youtube": {
     "message": "Youtube",

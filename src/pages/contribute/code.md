@@ -265,7 +265,7 @@ For acronyms and abbreviations used in the code review, you can read
 * Make sure your Pull Request has a clear title and commit message.
 * List your communication in the [GitHub
   Issues](https://github.com/cloudberrydb/cloudberrydb/issues) or
-  [Discussions](https://github.com/orgs/cloudberrydb/discussions) (if
+  [Discussions](https://github.com/apache/cloudberry/discussions) (if
   has or needed).
 * Run the unit tests and regression tests.
 * Pass `make installcheck`, `make -C src/test

@@ -89,8 +89,8 @@ const config: Config = {
       logo: {
         href: "/",
         alt: "Apache Cloudberry (Incubating)",
-        src: "/img/cloudberrydb_color_black.svg",
-        srcDark: "/img/cloudberrydb_color_white.svg",
+        src: "/img/apache_cloudberry_color_black.svg",
+        srcDark: "/img/apache_cloudberry_color_white.svg",
       },
       items: [
         {
@@ -126,11 +126,11 @@ const config: Config = {
           items: [
             {
               label: "Roadmap",
-              to: "https://github.com/orgs/cloudberrydb/discussions/369",
+              to: "https://github.com/apache/cloudberry/discussions/369",
             },
             {
               label: "Forum",
-              to: "https://github.com/orgs/cloudberrydb/discussions",
+              to: "https://github.com/apache/cloudberry/discussions",
             },
             {
               label: "Bootcamp",
@@ -209,15 +209,15 @@ const config: Config = {
             },
             {
               label: "GitHub Discussions",
-              href: "https://github.com/orgs/cloudberrydb/discussions",
+              href: "https://github.com/apache/cloudberry/discussions",
             },
             {
               label: "Slack",
-              href: "https://communityinviter.com/apps/cloudberrydb/welcome",
+              href: "https://inviter.co/apache-cloudberry",
             },
             {
               label: "Twitter",
-              href: "https://twitter.com/cloudberrydb",
+              href: "https://x.com/ASFCloudberry",
             },
             {
               label: "Youtube",

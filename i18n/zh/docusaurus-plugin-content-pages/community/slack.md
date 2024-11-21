@@ -7,7 +7,7 @@ description: 全球社区成员实时交流互动平台，开始阅读我们的 
 
 我们有不同的平台供社区成员交流，包括 [GitHub
 Issues](https://github.com/cloudberrydb/cloudberrydb/issues) 和 [GitHub
-Discussions](https://github.com/orgs/cloudberrydb/discussions)。它们都是异步沟通渠道，但如果你想实时聊天（我们也提倡异步沟通），你可以加入 Slack。
+Discussions](https://github.com/apache/cloudberry/discussions)。它们都是异步沟通渠道，但如果你想实时聊天（我们也提倡异步沟通），你可以加入 Slack。
 
 :::caution
 
@@ -44,4 +44,4 @@ Slack 公司可能会针对部分区域用户推出某些限制措施致使无�
 
 ## 加入 Slack 频道
 
-点击即可加入我们的 Slack 频道 [![Join Cloudberry Database Slack](/img/slack_button.svg)](https://communityinviter.com/apps/cloudberrydb/welcome)
+点击即可加入我们的 Slack 频道 [![Join Cloudberry Database Slack](/img/slack_button.svg)](https://inviter.co/apache-cloudberry)

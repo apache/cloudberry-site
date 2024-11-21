@@ -178,7 +178,7 @@ License Agreement，CLA），在你提交第一个 Pull Request 时根据 CLAass
 * 确保你的 Pull Request 具有清晰的标题和提交信息。
 * 在 Pull Request 和提交信息中列出关联的 [GitHub
   issue](https://github.com/cloudberrydb/cloudberrydb/issues) 或
-  [Discussions](https://github.com/orgs/cloudberrydb/discussions) 链接（如有）。
+  [Discussions](https://github.com/apache/cloudberry/discussions) 链接（如有）。
 * 运行单元测试和回归测试。
 * 本地通过 `make installcheck` 和 `make -C src/test installcheck-cbdb-parallel` 测试。
 * 确保导入的组件许可与 Apache License V2 保持兼容。

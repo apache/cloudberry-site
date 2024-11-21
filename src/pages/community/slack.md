@@ -10,7 +10,7 @@ We have different platforms for our community members to communicate,
 including [GitHub
 Issues](https://github.com/cloudberrydb/cloudberrydb/issues), and
 [GitHub
-Discussions](https://github.com/orgs/cloudberrydb/discussions). They're
+Discussions](https://github.com/apache/cloudberry/discussions). They're
 all asynchronous communication channels, but if you want real-time
 chatting with other people, you can join Slack.
 
@@ -52,4 +52,4 @@ a warning, repeated offense may lead to removal.
 
 ## Join
 
-Click to join our Slack channel! [![Join Cloudberry Database Slack](../../../static/img/slack_button.svg)](https://communityinviter.com/apps/cloudberrydb/welcome)
+Click to join our Slack channel! [![Join Cloudberry Database Slack](../../../static/img/slack_button.svg)](https://inviter.co/apache-cloudberry)

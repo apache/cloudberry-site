@@ -12,7 +12,7 @@ description: 如果你计划对 Cloudberry Database 进行重大更改，需要�
 如果变更仅仅是小更新或常规错误修复，只需要直接创建 pull request 即可！
 
 如果你只有初步想法或不太正式的功能需求，可以考虑先在 [GitHub Discussions - Ideas / Feature
-Requests](https://github.com/orgs/cloudberrydb/discussions/new?category=ideas-feature-requests) 板块上发帖和大家讨论、获取反馈。
+Requests](https://github.com/apache/cloudberry/discussions/new?category=ideas-feature-requests) 板块上发帖和大家讨论、获取反馈。
 
 如有以下任何一种情况，均可视为重大更改，需要发起提案：
 
@@ -37,7 +37,7 @@ Requests](https://github.com/orgs/cloudberrydb/discussions/new?category=ideas-fe
 
 ### Draft（草案）
 
-你可以通过 [GitHub Discussions 模板](https://github.com/orgs/cloudberrydb/discussions/new?category=proposal)发起提案。请尽可能填写所有字段，至少包括必需字段，如：
+你可以通过 [GitHub Discussions 模板](https://github.com/apache/cloudberry/discussions/new?category=proposal)发起提案。请尽可能填写所有字段，至少包括必需字段，如：
 
 - 提案标题。保持直接清晰。请在标题前添加 `[Proposal]` 前缀。
 - 提案人。列出所有提案人，可以是一个人、多个人、一个团队或一家公司。
@@ -123,7 +123,7 @@ Requests](https://github.com/orgs/cloudberrydb/discussions/new?category=ideas-fe
 
 | 序号  | 标题   | 状态  | 讨论   |
 | ---- | ---------------------------------------------------------------------------- | ------- | ---------------------------------------------------- |
-| CP-2 | [Proposal] Implement Scorll Parallel Retrieve Cursor                         | Discuss | https://github.com/orgs/cloudberrydb/discussions/120 |
-| CP-1 | [Proposal] Support Incremental View Maintenance (IVM) in Cloudberry Database | Discuss | https://github.com/orgs/cloudberrydb/discussions/36  |
+| CP-2 | [Proposal] Implement Scorll Parallel Retrieve Cursor                         | Discuss | https://github.com/apache/cloudberry/discussions/120 |
+| CP-1 | [Proposal] Support Incremental View Maintenance (IVM) in Cloudberry Database | Discuss | https://github.com/apache/cloudberry/discussions/36  |
 
 你可以[在此](https://github.com/cloudberrydb/community)查看全部提案。

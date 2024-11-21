@@ -72,7 +72,7 @@ const configData = {
         <>
           Ask for help when running/developing Cloudberry Database, visit GitHub{" "}
           <LinkWithBaseUrl
-            href="https://github.com/orgs/cloudberrydb/discussions/categories/q-a"
+            href="https://github.com/apache/cloudberry/discussions/categories/q-a"
             className="active-color"
             target="_blank"
           >
@@ -88,7 +88,7 @@ const configData = {
         <>
           Share ideas for new features, visit{" "}
           <LinkWithBaseUrl
-            href="https://github.com/orgs/cloudberrydb/discussions/categories/ideas-feature-requests"
+            href="https://github.com/apache/cloudberry/discussions/categories/ideas-feature-requests"
             className="active-color"
             target="_blank"
           >
@@ -156,7 +156,7 @@ const configData = {
         <>
           Follow our{" "}
           <LinkWithBaseUrl
-            href="https://twitter.com/cloudberrydb"
+            href="https://x.com/ASFCloudberry"
             className="active-color"
             target="_blank"
           >
@@ -282,7 +282,7 @@ if (isZhLangrage()) {
         <>
           在运行/开发 Cloudberry Database 时遇到问题，可在 {" "}
           <LinkWithBaseUrl
-            href="https://github.com/orgs/cloudberrydb/discussions/categories/q-a"
+            href="https://github.com/apache/cloudberry/discussions/categories/q-a"
             className="active-color"
             target="_blank"
           >
@@ -298,7 +298,7 @@ if (isZhLangrage()) {
         <>
           分享有关新功能的想法，请前往{" "}
           <LinkWithBaseUrl
-            href="https://github.com/orgs/cloudberrydb/discussions/categories/ideas-feature-requests"
+            href="https://github.com/apache/cloudberry/discussions/categories/ideas-feature-requests"
             className="active-color"
             target="_blank"
           >
@@ -365,7 +365,7 @@ if (isZhLangrage()) {
         <>
           欢迎关注{" "}
           <LinkWithBaseUrl
-            href="https://twitter.com/cloudberrydb"
+            href="https://x.com/ASFCloudberry"
             className="active-color"
             target="_blank"
           >

@@ -16,7 +16,7 @@
 #
 
 github:
-  description: Website sources for Cloudberry Database
+  description: Website sources for Apache Cloudberry™️ (Incubating)
   homepage: https://cloudberry.apache.org
   labels:
     - docusaurus

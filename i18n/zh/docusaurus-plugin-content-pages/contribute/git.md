@@ -175,7 +175,7 @@ git config --global commit.template .gitmessage
 
 如果你发现 Cloudberry Database 内核相关的问题，请在 [GitHub Issues](https://github.com/cloudberrydb/cloudberrydb/issues/new/choose) 报告。
 
-如果你要请求帮助、回答问题，或分享功能点子，或获取自己提案的反馈，请在 GitHub Discussions [发布新帖子](https://github.com/orgs/cloudberrydb/discussions/new/choose)。
+如果你要请求帮助、回答问题，或分享功能点子，或获取自己提案的反馈，请在 GitHub Discussions [发布新帖子](https://github.com/apache/cloudberry/discussions/new/choose)。
 
 | GitHub Discussion 板块       | 描述                                      |
 |------------------------------|-------------------------------------------|

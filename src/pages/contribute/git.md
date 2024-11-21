@@ -216,7 +216,7 @@ Issues](https://github.com/cloudberrydb/cloudberrydb/issues/new/choose).
 
 If you want to ask for help, answer questions, share your new ideas
 for features, and get feedback for your proposal, please [create new
-discussions](https://github.com/orgs/cloudberrydb/discussions/new/choose)
+discussions](https://github.com/apache/cloudberry/discussions/new/choose)
 directly.
 
 | GitHub Discussion Categories | Description                                                      |

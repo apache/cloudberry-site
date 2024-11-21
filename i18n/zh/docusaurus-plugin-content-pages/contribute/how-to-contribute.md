@@ -27,13 +27,13 @@ description: 查看贡献指南，了解如何贡献、请求帮助以及参与�
 - [改进文档](./doc)。
 - 在 Slack 频道中提供帮助，详情可参考 [Slack 使用指南](../community/slack)。
 - 在 [GitHub
-  Discussions](https://github.com/orgs/cloudberrydb/discussions/categories/q-a) 上回答问题。
+  Discussions](https://github.com/apache/cloudberry/discussions/categories/q-a) 上回答问题。
 - 帮助解决 [GitHub
   issue](https://github.com/cloudberrydb/cloudberrydb/issues)。
 - [报告 bug](https://github.com/cloudberrydb/cloudberrydb/issues/new/choose)。
-- 分享有关[新功能/好点子](https://github.com/orgs/cloudberrydb/discussions/new?category=ideas-feature-requests)。
+- 分享有关[新功能/好点子](https://github.com/apache/cloudberry/discussions/new?category=ideas-feature-requests)。
 - 帮助审阅 [Pull
-  Request](https://github.com/cloudberrydb/cloudberrydb/pulls) 或[提案](https://github.com/orgs/cloudberrydb/discussions/categories/proposal)。
+  Request](https://github.com/cloudberrydb/cloudberrydb/pulls) 或[提案](https://github.com/apache/cloudberry/discussions/categories/proposal)。
 - 提出你的提案，详情可参见[提案指南](./proposal)。
 - [报告安全问题](../community/security)。
 - 测试代码，测试发布版本。

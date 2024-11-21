@@ -43,7 +43,7 @@ let OUR_ROADMAP = {
       </div>
       <a
         className="active-color"
-        href="https://github.com/orgs/cloudberrydb/discussions/369"
+        href="https://github.com/apache/cloudberry/discussions/369"
         target="_blank"
       >
         check the roadmap details{" "}
@@ -115,7 +115,7 @@ let TRY_IT_OUT = {
             2. Build on your machine, check the{" "}
             <LinkWithBaseUrl
               className="active-color"
-              href="https://cloudberrydb.org/docs/cbdb-linux-compile"
+              href="https://cloudberry.apache.org/docs/cbdb-linux-compile/"
             >
               doc
             </LinkWithBaseUrl>
@@ -133,7 +133,7 @@ let TRY_IT_OUT = {
           the
           <LinkWithBaseUrl
             className="active-color"
-            href="https://cloudberrydb.org/bootcamp#cloudberrydb-sandbox"
+            href="https://cloudberry.apache.org/bootcamp/#cloudberrydb-sandbox"
           >
             {" "}
             bootcamp{" "}
@@ -161,25 +161,25 @@ let SLACK_TWITTER_TWITTER_WECHAT = {
       title: "Slack",
       icon: "/img/home/links/slack.svg",
       desc: "Global channels for community members.",
-      link: "https://communityinviter.com/apps/cloudberrydb/welcome",
+      link: "https://inviter.co/apache-cloudberry",
     },
     {
       title: "LinkedIn",
       icon: "/img/home/links/linked.svg",
       desc: "Follow us on LinkedIn",
-      link: "https://www.linkedin.com/company/cloudberrydb/",
+      link: "https://www.linkedin.com/company/apache-cloudberry",
     },
     {
       title: "Twitter",
       icon: "/img/home/links/twitter.svg",
       desc: 'Follow @cloudberrydb on Twitter("X" now).',
-      link: "https://twitter.com/cloudberrydb",
+      link: "https://x.com/ASFCloudberry",
     },
     {
       title: "Youtube",
       icon: "/img/home/links/youtube.svg",
       desc: "Watch the latest videos.",
-      link: "https://www.youtube.com/@cloudberrydb",
+      link: "https://www.youtube.com/@ApacheCloudberry",
     },
     {
       title: "WeChat",
@@ -241,7 +241,7 @@ let FREQUENTLY_ASKED_QUESTIONS = {
           You can check our{" "}
           <LinkWithBaseUrl
             className="active-color"
-            href="https://github.com/orgs/cloudberrydb/discussions/369"
+            href="https://github.com/apache/cloudberry/discussions/369"
           >
             Roadmap 2024
           </LinkWithBaseUrl>{" "}
@@ -257,7 +257,7 @@ let FREQUENTLY_ASKED_QUESTIONS = {
           Though Apache Cloudberry (Incubating) takes the Greenplum Database 7 as its codebase, Cloudberry has a newer solid PostgreSQL kernel built-in and has more features. You can check the 
           <LinkWithBaseUrl
             className="active-color"
-            href="https://cloudberrydb.org/docs/cbdb-vs-gp-features"
+            href="https://cloudberry.apache.org/docs/cbdb-vs-gp-features"
           >
             {" "}
             docs{" "}
@@ -280,7 +280,7 @@ let FREQUENTLY_ASKED_QUESTIONS = {
           read our
           <LinkWithBaseUrl
             className="active-color"
-            href="https://cloudberrydb.org/contribute"
+            href="https://cloudberry.apache.org/contribute"
           >
             {" "}
             contribution guide{" "}
@@ -298,9 +298,9 @@ if (isZhLangrage()) {
 
 const LINKS = {
   github: "https://github.com/cloudberrydb",
-  twitter: "https://twitter.com/cloudberrydb",
+  twitter: "https://x.com/ASFCloudberry",
   youtube: "https://youtube.com/@cloudberrydb",
-  community: "https://communityinviter.com/apps/cloudberrydb/welcome",
+  community: "https://inviter.co/apache-cloudberry",
   linkedIn: "https://www.linkedin.com/company/cloudberrydb",
   wechat: "/community/wechat",
   discoverMore: "/docs",

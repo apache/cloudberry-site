@@ -15,7 +15,7 @@ a pull request directly!
 
 When you just have one idea or a more `casual` feature request,
 consider choosing [Ideas / Feature
-Requests](https://github.com/orgs/cloudberrydb/discussions/new?category=ideas-feature-requests)
+Requests](https://github.com/apache/cloudberry/discussions/new?category=ideas-feature-requests)
 to get feedback via GitHub Discussions.
 
 But any of the following can be considered a major change that needs
@@ -56,7 +56,7 @@ Draft --> Discuss --> Vote -|                  Inactive
 ### Draft
 
 You can submit your proposal via [GitHub Discussions
-template](https://github.com/orgs/cloudberrydb/discussions/new?category=proposal). Fill
+template](https://github.com/apache/cloudberry/discussions/new?category=proposal). Fill
 all the fields as you can, at least the required ones, including:
 
 - Proposal title. Be direct, and clear. Please also keep the prefix
@@ -205,8 +205,8 @@ changes in your implementation.
 
 | No.  | Title                                                                        | Status  | Discussion Thread                                    |
 | ---- | ---------------------------------------------------------------------------- | ------- | ---------------------------------------------------- |
-| CP-2 | [Proposal] Implement Scorll Parallel Retrieve Cursor                         | Discuss | https://github.com/orgs/cloudberrydb/discussions/120 |
-| CP-1 | [Proposal] Support Incremental View Maintenance (IVM) in Cloudberry Database | Discuss | https://github.com/orgs/cloudberrydb/discussions/36  |
+| CP-2 | [Proposal] Implement Scorll Parallel Retrieve Cursor                         | Discuss | https://github.com/apache/cloudberry/discussions/120 |
+| CP-1 | [Proposal] Support Incremental View Maintenance (IVM) in Cloudberry Database | Discuss | https://github.com/apache/cloudberry/discussions/36  |
 
 You can find more proposal
 [here](https://github.com/cloudberrydb/community).
