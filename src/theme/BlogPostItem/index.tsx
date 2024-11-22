@@ -3,21 +3,21 @@ import type { Props } from "@theme/BlogPostItem";
 
 import BlogPostItemContainer from "./Container";
 import BlogPostItemContent from "./Content";
-import BlogItemTitle from "./components/Title";
-import BlogItemTags from "./components/Tags";
+import BlogPostItemAuthors from "./components/Authors";
 import BlogItemCover from "./components/Cover";
 import BlogItemDesc from "./components/Desc";
-import BlogPostItemAuthors from "./components/Authors";
+import BlogItemTags from "./components/Tags";
+import BlogItemTitle from "./components/Title";
 
-import styles from "./styles.module.scss";
 import LinkWithBaseUrl from "@site/src/components/common/LinkWithBaseUrl";
 import { isZhLangrage } from "@site/src/utils";
+import styles from "./styles.module.scss";
 
 const BlogListItem = () => {
   const {
     metadata: { permalink },
   } = useBlogPost();
-  if (useBlogPost().metadata.frontMatter['zh_hidden'] && isZhLangrage()) {
+  if (useBlogPost().metadata.frontMatter["zh_hidden"] && isZhLangrage()) {
     return null;
   }
   return (
@@ -25,15 +25,13 @@ const BlogListItem = () => {
       <header style={{ padding: "7px 6px" }} className="link-wrap">
         <LinkWithBaseUrl to={permalink}>
           <BlogItemCover />
-          <div style={{ padding: "0 11px" }}>
+          <div style={{ padding: "0 11px 10px" }}>
             <div style={{ cursor: "pointer" }}>
               <BlogItemTags style={{ marginTop: 6, marginBottom: 17 }} />
               <BlogItemTitle />
               <BlogItemDesc style={{ marginTop: 17 }} />
             </div>
-            <BlogPostItemAuthors
-              styles={{ position: "absolute", bottom: 26 }}
-            />
+            <BlogPostItemAuthors />
           </div>
         </LinkWithBaseUrl>
       </header>

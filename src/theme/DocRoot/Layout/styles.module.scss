@@ -12,9 +12,11 @@
 .docsWrapper {
   display: flex;
   flex: 1 0 auto;
-  @media screen and (min-width: 1024px) {
-    max-width: 1600px !important;
+  @media screen and (min-width: 1600px) {
     width: 1600px !important;
+    max-width: 1600px !important;
+  }
+  @media screen and (min-width: 1024px) {
     table {
       th {
         min-width: 110px;
