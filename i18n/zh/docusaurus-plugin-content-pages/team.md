@@ -3,46 +3,45 @@ title: 团队
 description: 基于开源，为了开源。
 ---
 
-Cloudberry Database 团队专注于数据库内核、周边工具开发以及网站、文档等更新。Cloudberry Database 项目起始于 2022 年，基于新版 Postgres 稳定内核和 Greenplum Database 分布式架构构建。如果没有这 2 个项目贡献者的宝贵贡献，Cloudberry Database 则无法快速发展、实现今天的成就。我们对他们致以诚挚的感谢。
+Apache Cloudberry 团队专注于数据库内核、周边工具开发以及网站、文档等更新。
 
-[![GitHub Contributor Over Time](https://contributor-overtime-api.git-contributor.com/contributors-svg?chart=contributorOverTime&repo=cloudberrydb/cloudberrydb)](https://git-contributor.com?chart=contributorOverTime&repo=cloudberrydb/cloudberrydb)
+## Podling PMC
 
-除了[主仓库](https://github.com/cloudberrydb/cloudberrydb)外，我们在 GitHub 上还开源了一些生态项目。如果要查看 Cloudberry Database 社区全部贡献者，敬请访问 [GitHub 主页](https://github.com/cloudberrydb/)查看详情。下面的图片仅展示了部分贡献者（包括活跃贡献者、上游贡献者，不包括匿名贡献者），可点击图片查看更多贡献者信息。
+每个孵化项目管理委员会 (PPMC) 都帮助其孵化项目 (Podling) 学习如何自我管理。它类似于 PMC，但不向 ASF 董事会报告，而向孵化器 PMC 报告。最初，它由孵化项目的导师和初始提交者（committers）组成。孵化项目管理委员会直接负责监督孵化项目，并决定将谁新增为 PPMC 成员。
 
-- **[cloudberrydb/cloudberrydb](https://github.com/cloudberrydb/cloudberrydb):**
+|姓名| 邮箱 | GitHub ID | 所在组织|
+|--|--|--|--|
+| Andrey Borodin | amborodin@acm.org | x4m |  Yandex Cloud |
+| Antonio Petrole | antoniopetrole@gmail.com | antoniopetrole | Individual |
+| Dianjin Wang | wangdianjin@gmail.com | tuhaihe | HashData |
+| Ed Espino | espino@apache.org | edespino | Individual |
+| Greg Spiegelberg | gspiegelberg@gmail.com | gspiegelberg | Individual |
+| Hao Wu | gfphoenix78@gmail.com | gfphoenix78 | HashData |
+| Hope Gao | gaoxueyu_hope@163.com | gaoxueyu | HighGo |
+| Jianghua Yang | yjhjstz@gmail.com | yjhjstz | HashData |
+| Jiaqi Zhou | jiaqizho@163.com | jiaqizho | HashData |
+| Jinbao Chen | chenjinbao1989@gmail.com | oppenheimer01 | HashData |
+| Kirill Reshke | reshkekirill@gmail.com | reshke  | Yandex Cloud | Yandex Cloud |
+| Kent Yao *(Mentor)* | yao@apache.org | yaooqinn | Apache Member, NetEase |
+| Louis Mugnano | lmugnano297@gmail.com | lmugnano4537 | Individual |
+| Max Yang | maxyang128@gmail.com | my-ship-it | HashData |
+| Maxim Smyatkin | smyatkinmaxim@gmail.com | Smyatkin-Maxim | Yandex Cloud |
+| Roman Shaposhnik *(Mentor)* | rvs@apache.org | rvs | Ainekko |
+| Sen Hu | husen.xjtu@gmail.com | HuSen8891 | HashData |
+| Shine Zhang | xinzweb@hotmail.com | xinzweb | Individual |
+| Tushar Pednekar | tushar.pednekar@gmail.com | 2shar-p | Individual |
+| Weinan WANG | wang.wn827@gmail.com | weinan003 | HashData |
+| Willem Jiang *(Mentor)*|ningjiang@apache.org | WillemJiang | Apache Member, ByteDance |
+| Xiaoran Wang | fanfuxiaoran@gmail.com | fanfuxiaoran | HashData |
+| Xin (Alwin) Tang | xtang.code@gmail.com | xtangcode | HashData |
+| Zhang Mingli | avamingli@gmail.com | avamingli | HashData |
 
-<a href="https://github.com/cloudberrydb/cloudberrydb/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=cloudberrydb/cloudberrydb&max=800&columns=20&anon=0" />
-</a>
-
-- **[cloudberrydb/cloudberrydb-site](https://github.com/cloudberrydb/cloudberrydb-site):**
-
-<a href="https://github.com/cloudberrydb/cloudberrydb-site/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=cloudberrydb/cloudberrydb-site&max=800&columns=20&anon=0" />
-</a>
-
-- **[cloudberrydb/bootcamp](https://github.com/cloudberrydb/bootcamp):**
-
-<a href="https://github.com/cloudberrydb/bootcamp/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=cloudberrydb/bootcamp&max=800&columns=20&anon=0" />
-</a>
-
-- **[cloudberrydb/gpbackup](https://github.com/cloudberrydb/gpbackup):**
-
-<a href="https://github.com/cloudberrydb/gpbackup/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=cloudberrydb/gpbackup&max=800&columns=20&anon=0" />
-</a>
-
-- **[cloudberrydb/gp-common-go-libs](https://github.com/cloudberrydb/gp-common-go-libs):**
-
-<a href="https://github.com/cloudberrydb/gp-common-go-libs/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=cloudberrydb/gp-common-go-libs&max=800&columns=20&anon=0" />
-</a>
+Cloudberry 项目起始于 2022 年，基于新版 Postgres 稳定内核和 Greenplum Database 分布式架构构建。如果没有这 2 个项目贡献者的宝贵贡献，Cloudberry 则无法快速发展、实现今天的成就。我们对他们致以诚挚的感谢。
 
 # 成为贡献者
 
-Cloudberry Database 作为面向分析和 AI 场景打造的下一代统一型开源数据库，致力于构建开放、友好、中立的开源社区，欢迎越来越多的人加入社区，参与到 Cloudberry Database 发展中来。我们欢迎所有人的贡献，无论贡献大小都值得鼓励和赞扬。如果你对贡献有兴趣，可查看我们的[贡献指南](/contribute)了解详情。
+我们欢迎所有人的贡献，无论贡献大小都值得鼓励和赞扬。如果你对贡献有兴趣，可查看我们的[贡献指南](/contribute)了解详情。
 
-你在学习、使用和贡献 Cloudberry Database 过程中，遇到任何问题，都可以通过[官方支持渠道](/support)获得帮助。
+你在学习、使用和贡献 Cloudberry 过程中，遇到任何问题，都可以通过[官方支持渠道](/support)获得帮助。
 
 加入我们吧！

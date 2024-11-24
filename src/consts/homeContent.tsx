@@ -149,8 +149,7 @@ let TRY_IT_OUT = {
 let MEET_THE_COMMUNITY = {
   title: (
     <>
-      <p>Meet the</p>
-      <p>community</p>
+      <p>Meet the community</p>
     </>
   ),
 };
@@ -229,11 +228,6 @@ let FREQUENTLY_ASKED_QUESTIONS = {
     </>
   ),
   list: [
-    {
-      title: "Can I use the Apache Cloudberry (Incubating) for commercial purposes?",
-      content:
-        "Apache Cloudberry (Incubating) is open-source under Apache License V2.0, which permits commercial use, as long as following the license agreement.",
-    },
     {
       title: "What's the product plan for the Apache Cloudberry (Incubating)?",
       content: (
