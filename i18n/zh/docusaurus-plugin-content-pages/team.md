@@ -36,7 +36,7 @@ Apache Cloudberry 团队专注于数据库内核、周边工具开发以及网�
 | Xin (Alwin) Tang | xtang.code@gmail.com | xtangcode | HashData |
 | Zhang Mingli | avamingli@gmail.com | avamingli | HashData |
 
-Cloudberry 项目起始于 2022 年，基于新版 Postgres 稳定内核和 Greenplum Database 分布式架构构建。如果没有这 2 个项目贡献者的宝贵贡献，Cloudberry 则无法快速发展、实现今天的成就。我们对他们致以诚挚的感谢。
+我们的旅程始于 2022 年，我们的基础建立在 PostgreSQL 和 Greenplum 数据库之上。如果没有这两个项目贡献者的宝贵贡献，我们不可能有今天的成就。我们向他们致以衷心的感谢。
 
 # 成为贡献者
 
