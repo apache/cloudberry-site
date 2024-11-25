@@ -4,7 +4,7 @@ title: Use Column-Level Compression
 
 # Use Column-Level Compression
 
-Cloudberry Database supports column-level compression, which reduces storage space by compressing specific columns. In some cases, it can also improve query performance, especially when processing large-scale data.
+Apache Cloudberry supports column-level compression, which reduces storage space by compressing specific columns. In some cases, it can also improve query performance, especially when processing large-scale data.
 
 ## User scenarios
 
@@ -14,7 +14,7 @@ Cloudberry Database supports column-level compression, which reduces storage spa
 
 ## Example usage
 
-The following is a simple example demonstrating how column-level compression can make a difference in Cloudberry Database.
+The following is a simple example demonstrating how column-level compression can make a difference in Apache Cloudberry.
 
 1. Create a table without column-level compression.
 
