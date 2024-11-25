@@ -16,20 +16,26 @@ Since v1.5.0, Cloudberry Database supports automatically using materialized view
 
 To enable AQUMV, you need to create a materialized view and set the value of the system parameter `enable_answer_query_using_materialized_views` to `ON`. The following example compares the results of the same complex query without AQUMV and with AQUMV.
 
-1. Create a table `aqumv_t1`.
+1. Turn off the GPORCA planner to use the Postgres-based planner.
+
+    ```sql
+    SET optimizer TO off;
+    ```
+
+2. Create a table `aqumv_t1`.
 
     ```sql
     CREATE TABLE aqumv_t1(c1 INT, c2 INT, c3 INT) DISTRIBUTED BY (c1);
     ```
 
-2. Insert data into the table and collect statistics from the table.
+3. Insert data into the table and collect statistics from the table.
 
     ```sql
     INSERT INTO aqumv_t1 SELECT i, i+1, i+2 FROM generate_series(1, 100000000) i;
     ANALYZE aqumv_t1;
     ```
 
-3. Execute a query without enabling AQUMV. The query takes 7384.329 ms.
+4. Execute a query without enabling AQUMV. The query takes 7384.329 ms.
 
     ```sql
     SELECT SQRT(ABS(ABS(c2) - c1 - 1) + ABS(c2)) FROM aqumv_t1 WHERE c1 > 30 AND c1 < 40 AND SQRT(ABS(c2)) > 5.8;
@@ -57,7 +63,7 @@ To enable AQUMV, you need to create a materialized view and set the value of the
     (4 rows)
     ```
 
-4. Create a materialized view `mvt1` based on `aqumv_t1` and collect statistics on the view.
+5. Create a materialized view `mvt1` based on `aqumv_t1` and collect statistics on the view.
 
     ```sql
     CREATE INCREMENTAL MATERIALIZED VIEW mvt1 AS SELECT c1 AS mc1, c2 AS mc2, ABS(c2) AS mc3, ABS(ABS(c2) - c1 - 1) AS mc4
@@ -66,13 +72,13 @@ To enable AQUMV, you need to create a materialized view and set the value of the
     ANALYZE mvt1;
     ```
 
-5. Enable the AQUMV-related configuration parameter.
+6. Enable the AQUMV-related configuration parameter.
 
     ```sql
     SET enable_answer_query_using_materialized_views = ON;
     ```
 
-6. Now AQUMV is enabled. Execute the same query again, which takes only 45.701 ms.
+7. Now AQUMV is enabled. Execute the same query again, which takes only 45.701 ms.
 
     ```sql
     SELECT SQRT(ABS(ABS(c2) - c1 - 1) + ABS(c2)) FROM aqumv_t1 WHERE c1 > 30 AND c1 < 40 AND SQRT(ABS(c2)) > 5.8;

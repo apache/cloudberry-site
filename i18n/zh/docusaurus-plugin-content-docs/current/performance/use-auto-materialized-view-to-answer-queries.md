@@ -16,20 +16,26 @@ title: 自动使用物化视图进行查询优化
 
 要启用 AQUMV 功能，需要先创建物化视图，并将系统参数 `enable_answer_query_using_materialized_views` 的值设为 `ON`。下面是不使用 AQUMV 与使用 AQUMV 执行相同复杂查询的结果对比。
 
-1. 创建表格 `aqumv_t1`。
+1. 关闭 GPORCA 执行优化器，使用基于 Postgres 的执行优化器。
+
+    ```sql
+    SET optimizer TO off;
+    ```
+
+2. 创建表格 `aqumv_t1`。
 
     ```sql
     CREATE TABLE aqumv_t1(c1 INT, c2 INT, c3 INT) DISTRIBUTED BY (c1);
     ```
 
-2. 往表中插入数据，并收集表上的统计信息。
+3. 往表中插入数据，并收集表上的统计信息。
 
     ```sql
     INSERT INTO aqumv_t1 SELECT i, i+1, i+2 FROM generate_series(1, 100000000) i;
     ANALYZE aqumv_t1;
     ```
 
-3. 在不开启 AQUMV 的情况下执行查询，耗时 7384.329 ms。
+4. 在不开启 AQUMV 的情况下执行查询，耗时 7384.329 ms。
 
     ```sql
     SELECT SQRT(ABS(ABS(c2) - c1 - 1) + ABS(c2)) FROM aqumv_t1 WHERE c1 > 30 AND c1 < 40 AND SQRT(ABS(c2)) > 5.8;
@@ -57,7 +63,7 @@ title: 自动使用物化视图进行查询优化
     (4 rows)
     ```
 
-4. 现在基于 `aqumv_t1` 创建物化视图 `mvt1`，并收集该视图的统计信息。
+5. 现在基于 `aqumv_t1` 创建物化视图 `mvt1`，并收集该视图的统计信息。
 
     ```sql
     CREATE INCREMENTAL MATERIALIZED VIEW mvt1 AS SELECT c1 AS mc1, c2 AS mc2, ABS(c2) AS mc3, ABS(ABS(c2) - c1 - 1) AS mc4
@@ -66,13 +72,13 @@ title: 自动使用物化视图进行查询优化
     ANALYZE mvt1;
     ```
 
-5. 开启 AQUMV 相关配置参数：
+6. 开启 AQUMV 相关配置参数：
 
     ```sql
     SET enable_answer_query_using_materialized_views = ON;
     ```
 
-6. 现在 AQUMV 已开启，再次执行相同的表查询，耗时 45.701 ms。
+7. 现在 AQUMV 已开启，再次执行相同的表查询，耗时 45.701 ms。
 
     ```sql
     SELECT SQRT(ABS(ABS(c2) - c1 - 1) + ABS(c2)) FROM aqumv_t1 WHERE c1 > 30 AND c1 < 40 AND SQRT(ABS(c2)) > 5.8;
@@ -127,6 +133,6 @@ AQUMV 是通过对查询树进行等效转换来实现查询优化的。
 
 ## 相关其他功能
 
-[并行创建 AO 表与刷新物化视图](/i18n/zh/docusaurus-plugin-content-docs/current/parallel-create-ao-refresh-mv.md)
+[并行创建 AO 表与刷新物化视图](/i18n/zh/docusaurus-plugin-content-docs/current/performance/parallel-create-ao-refresh-mv.md)
 
-[增量物化视图说明文档](/i18n/zh/docusaurus-plugin-content-docs/current/use-incremental-materialized-view.md)
+[增量物化视图说明文档](/i18n/zh/docusaurus-plugin-content-docs/current/performance/use-incremental-materialized-view.md)
