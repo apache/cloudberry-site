@@ -2,9 +2,9 @@
 title: Prepare to Deploy
 ---
 
-# Prepare to Deploy on Physical Machine
+# Prepare to Deploy on Physical or Virtual Machine
 
-Before deploying Cloudberry Database on physical machines, you need to do some preparations. Read this document and [Software and Hardware Configuration Requirements](/docs/cbdb-op-software-hardware.md) before you start to deploy Cloudberry Database.
+Before deploying Cloudberry Database on physical or virtual machines, you need to do some preparations. Read this document and [Software and Hardware Configuration Requirements](/docs/cbdb-op-software-hardware.md) before you start to deploy Cloudberry Database.
 
 ## Plan the deployment architecture
 

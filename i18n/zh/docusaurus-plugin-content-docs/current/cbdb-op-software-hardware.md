@@ -4,13 +4,13 @@ title: 软硬件配置需求
 
 # 软硬件配置需求
 
-本文介绍 Cloudberry Database 所需要的软件和硬件配置需求。
+本文介绍 Apache Cloudberry 所需要的软件和硬件配置需求。
 
 ## 硬件需求
 
-### 物理机
+### 支持的部署环境
 
-以下介绍 Cloudberry Database 在测试和生产环境中，推荐的物理机配置。
+Apache Cloudberry 支持在物理机和虚拟机上部署。以下是推荐的的环境配置。
 
 #### 开发及测试环境
 
@@ -29,6 +29,8 @@ title: 软硬件配置需求
 | Segment | 8 核+  | 32 GB+ | SSD      | 万兆网卡（2 块最佳） | 2+       |
 | ETCD    | 16 核+ | 64 GB+ | SSD      | 万兆网卡（2 块最佳） | 3+       |
 | FTS     | 4 核+  | 8+ GB   | SSD      | 万兆网卡（2 块最佳） | 3+       |
+
+Apache Cloudberry 还可以部署在公有云平台上，例如 AWS、Azure 和 GCP。基于这些平台上选择的实例类型，云端部署的硬件要求可能会有所不同。请参考具体云服务提供商的文档，了解符合或超出推荐硬件规格的实例配置。
 
 ### 存储
 
@@ -96,7 +98,7 @@ mount /dev/data/data2 /data2/
 
 ### 支持的操作系统
 
-CloudBerry Database 支持操作系统包括：
+Apache Cloudberry 支持操作系统包括：
 
 - Kylin V10 SP1 或 SP2
 - 中标麒麟 V7update6

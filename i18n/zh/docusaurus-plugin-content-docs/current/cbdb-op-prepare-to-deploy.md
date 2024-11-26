@@ -2,9 +2,9 @@
 title: 部署前准备
 ---
 
-# 物理机部署前准备工作
+# 物理机/虚拟机部署前准备工作
 
-在物理机上部署 Cloudberry Database 前，你需要做一些准备工作。在开始部署之前，请阅读本文档以及[软硬件配置要求](/i18n/zh/docusaurus-plugin-content-docs/current/cbdb-op-software-hardware.md)。
+在物理机/虚拟机上部署 Cloudberry Database 前，你需要做一些准备工作。在开始部署之前，请阅读本文档以及[软硬件配置要求](/i18n/zh/docusaurus-plugin-content-docs/current/cbdb-op-software-hardware.md)。
 
 ## 规划部署架构
 

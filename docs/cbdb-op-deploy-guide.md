@@ -4,7 +4,7 @@ title: Deploy Manually Using RPM Package
 
 # Deploy Cloudberry Database Manually Using RPM Package
 
-This document introduces how to manually deploy Cloudberry Database on physical machines using RPM package. Before reading this document, it is recommended to first read the [Software and Hardware Configuration Requirements](/docs/cbdb-op-software-hardware.md) and [Prepare to Deploy Cloudberry Database on Physical Machine](/docs/cbdb-op-prepare-to-deploy.md).
+This document introduces how to manually deploy Cloudberry Database on physical/virtual machines using RPM package. Before reading this document, it is recommended to first read the [Software and Hardware Configuration Requirements](/docs/cbdb-op-software-hardware.md) and [Prepare to Deploy Cloudberry Database](/docs/cbdb-op-prepare-to-deploy.md).
 
 The deployment method in this document is for production environments.
 
@@ -18,7 +18,7 @@ The example in this document uses CentOS 7.6 and deploys Cloudberry Database v1.
 
 ## Step 1: Prepare server nodes
 
-Read the [Prepare to Deploy Cloudberry Database on Physical Machine](/docs/cbdb-op-prepare-to-deploy.md) document to prepare the server nodes.
+Read the [Prepare to Deploy Cloudberry Database](/docs/cbdb-op-prepare-to-deploy.md) document to prepare the server nodes.
 
 ## Step 2. Install the RPM package
 

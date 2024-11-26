@@ -2,13 +2,13 @@
 title: 通过 RPM 包手动部署
 ---
 
-# 通过 RPM 包在物理机上手动部署 Cloudberry Database
+# 通过 RPM 包手动部署 Apache Cloudberry
 
-本文档介绍如何通过 RPM 包在物理机上安装与部署 Cloudberry Database。在阅读本文前，建议先阅读[软硬件配置需求](/i18n/zh/docusaurus-plugin-content-docs/current/cbdb-op-software-hardware.md)和[物理机部署前准备工作](/i18n/zh/docusaurus-plugin-content-docs/current/cbdb-op-prepare-to-deploy.md)。
+本文档介绍如何通过 RPM 包在物理机/虚拟机上安装与部署 Apache Cloudberry。在阅读本文前，建议先阅读[软硬件配置需求](/i18n/zh/docusaurus-plugin-content-docs/current/cbdb-op-software-hardware.md)和[部署前准备工作](/i18n/zh/docusaurus-plugin-content-docs/current/cbdb-op-prepare-to-deploy.md)。
 
 本文所介绍的部署方法可用于生产环境。
 
-本文示例以 CentOS 7.6 为例，说明如何部署 Cloudberry Database v1.0.0。主要分为以下步骤：
+本文示例以 CentOS 7.6 为例，说明如何部署 Apache Cloudberry v1.0.0。主要分为以下步骤：
 
 1. [准备节点服务器](#第-1-步准备节点服务器)。
 2. [安装 RPM 包](#第-2-步安装-rpm-包)。
@@ -18,13 +18,13 @@ title: 通过 RPM 包手动部署
 
 ## 第 1 步：准备节点服务器
 
-参照[物理机部署前准备工作](/i18n/zh/docusaurus-plugin-content-docs/current/cbdb-op-prepare-to-deploy.md)的内容，完成节点服务器的准备工作。
+参照[部署前准备工作](/i18n/zh/docusaurus-plugin-content-docs/current/cbdb-op-prepare-to-deploy.md)的内容，完成节点服务器的准备工作。
 
 ## 第 2 步：安装 RPM 包
 
-在完成准备工作后，就可以安装 Cloudberry Database 了。你需要从 [Cloudberry Database 发布页面](https://github.com/cloudberrydb/cloudberrydb/releases)下载对应的 RPM 安装包，然后在每个节点上通过安装包进行安装。
+在完成准备工作后，就可以安装 Apache Cloudberry 了。你需要从 [Apache Cloudberry 发布页面](https://github.com/cloudberrydb/cloudberrydb/releases)下载对应的 RPM 安装包，然后在每个节点上通过安装包进行安装。
 
-1. 下载 Cloudberry Database 的 RPM 安装包至 `gpadmin` 主目录 `/home/gpadmin/`：
+1. 下载 Apache Cloudberry 的 RPM 安装包至 `gpadmin` 主目录 `/home/gpadmin/`：
 
     ```bash
     wget -P /home/gpadmin <下载地址>
@@ -128,7 +128,7 @@ title: 通过 RPM 包手动部署
 
         若无法执行 `gpssh`，可在 Coordinator 节点先执行如下命令 `source /usr/local/cloudberry-db/greenplum_path.sh`。
 
-## 第 4 步：初始化 Cloudberry Database
+## 第 4 步：初始化 Apache Cloudberry
 
 执行以下操作前，你需要先执行 `su - gpadmin` 切换到 `gpadmin` 用户。
 
@@ -259,7 +259,7 @@ title: 通过 RPM 包手动部署
             DATABASE_NAME=warehouse
             ```
 
-9. 初始化 Cloudberry Database。使用 `gpinitsystem` 命令进行初始化，命令示例如下：
+9. 初始化 Apache Cloudberry。使用 `gpinitsystem` 命令进行初始化，命令示例如下：
 
     ```bash
     gpinitsystem -c  gpinitsystem_config -h /home/gpadmin/seg_hosts
@@ -275,7 +275,7 @@ title: 通过 RPM 包手动部署
 
 ## 第 5 步：登录数据库
 
-至此，Cloudberry Database 已经成功部署，你可以参考以下命令来登录数据库：
+至此，Apache Cloudberry 已经成功部署，你可以参考以下命令来登录数据库：
 
 ```bash
 psql -h <hostname> -p <port> -U <username> -d <database>
@@ -283,12 +283,12 @@ psql -h <hostname> -p <port> -U <username> -d <database>
 
 以上命令中：
 
-- `<hostname>` 是 Cloudberry Database 服务器的 Coordinator 节点 IP 地址。
-- `<port>` 是 Cloudberry Database 的端口号，默认为 `5432`。
+- `<hostname>` 是 Apache Cloudberry 服务器的 Coordinator 节点 IP 地址。
+- `<port>` 是 Apache Cloudberry 的端口号，默认为 `5432`。
 - `<username>` 是数据库的用户名。
 - `<database>` 是要连接的数据库名称。
 
-执行命令后，系统将提示你输入数据库密码。输入正确的密码后，你将成功登录到 Cloudberry Database，并可以执行相应的 SQL 查询和操作。请确保你有正确的权限来访问目标数据库。
+执行命令后，系统将提示你输入数据库密码。输入正确的密码后，你将成功登录到 Apache Cloudberry，并可以执行相应的 SQL 查询和操作。请确保你有正确的权限来访问目标数据库。
 
 ```sql
 [gpadmin@cddb-coordinator ~]$ psql warehouse
