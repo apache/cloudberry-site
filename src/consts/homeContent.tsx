@@ -4,7 +4,7 @@ import DockerSvg from "/img/home/try-it-out/docker.svg";
 import SystemSvg from "/img/home/try-it-out/system.svg";
 
 let TIPS_CONTENT = (
-  <LinkWithBaseUrl href="https://github.com/cloudberrydb/cloudberrydb">
+  <LinkWithBaseUrl href="https://github.com/apache/cloudberry">
     <span>If you like Apache Cloudberry (Incubating), give it a star on GitHub! </span>
     <img src="/img/home/hcard/star.svg" alt="" />
   </LinkWithBaseUrl>
@@ -57,42 +57,42 @@ let OUR_ROADMAP = {
       lightIcon: "/img/home/feature/hesc-light.png",
       title: "Streaming Support",
       content:
-        "Cloudberry Database is compatible with Greenplum Database, but with a newer PostgreSQL 14.4 kernel and more advanced features Greenplum doesn't support.",
+        "Apache Cloudberry is compatible with Greenplum Database, but with a newer PostgreSQL 14.4 kernel and more advanced features Greenplum doesn't support.",
     },
     {
       icon: "/img/home/feature/sac.png",
       lightIcon: "/img/home/feature/sac-light.png",
       title: "AI/ML ",
       content:
-        "Inheriting the rich analytical features from PostgreSQL and Greenplum Database, Cloudberry Database leverages them to the data platform, and seamlessly integrates the mainstream ETL and BI tools.",
+        "Inheriting the rich analytical features from PostgreSQL and Greenplum Database, Apache Cloudberry leverages them to the data platform, and seamlessly integrates the mainstream ETL and BI tools.",
     },
     {
       icon: "/img/home/feature/cuwmt.png",
       lightIcon: "/img/home/feature/cuwmt-light.png",
       title: "Strong Analytical Capability",
       content:
-        "Cloudberry Database has done a lot of work to speed up the query performance, including supporting parallel query execution, aggregation pushdown and supporting RuntimeFilter, and more.",
+        "Apache Cloudberry has done a lot of work to speed up the query performance, including supporting parallel query execution, aggregation pushdown and supporting RuntimeFilter, and more.",
     },
     {
       icon: "/img/home/feature/p14i.png",
       lightIcon: "/img/home/feature/p14i-light.png",
       title: "Features and Enhancements",
       content:
-        "Cloudberry Database has a newer PostgreSQL 14.4 kernel inside to let users enjoy more with the backend global community.",
+        "Apache Cloudberry has a newer PostgreSQL 14.4 kernel inside to let users enjoy more with the backend global community.",
     },
     {
       icon: "/img/home/feature/mef.png",
       lightIcon: "/img/home/feature/mef-light.png",
       title: "Kernel Upgrade",
       content:
-        "Cloudberry Database supports password security policy, transparent data encryption (TDE) and more encryption algorithms besides the AES algorithm.",
+        "Apache Cloudberry supports password security policy, transparent data encryption (TDE) and more encryption algorithms besides the AES algorithm.",
     },
     {
       icon: "/img/home/feature/muc.png",
       lightIcon: "/img/home/feature/muc-light.png",
       title: "Utilities and Ecosystem",
       content:
-        "Cloudberry Database can be used in different scenarios, including batch processing data warehouse offline, building data warehouse in real-time, and more.",
+        "Apache Cloudberry can be used in different scenarios, including batch processing data warehouse offline, building data warehouse in real-time, and more.",
     },
   ],
 };
@@ -133,7 +133,7 @@ let TRY_IT_OUT = {
           the
           <LinkWithBaseUrl
             className="active-color"
-            href="https://cloudberry.apache.org/bootcamp/#cloudberrydb-sandbox"
+            href="https://cloudberry.apache.org/bootcamp/#cloudberry-sandbox"
           >
             {" "}
             bootcamp{" "}
