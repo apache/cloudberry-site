@@ -23,6 +23,7 @@ github:
     - database
     - greenplum
     - postgresql
+    - cloudberry
   features:
     # Enable wiki for documentation
     wiki: false

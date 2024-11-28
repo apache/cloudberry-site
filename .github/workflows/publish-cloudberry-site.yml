@@ -17,7 +17,8 @@
 
 # publish-cloudberry-site.yml
 #
-# This workflow builds and publishes the Apache CloudBerry website to cloudberry.apache.org
+# This workflow builds and publishes the Apache Cloudberry website to 
+# cloudberry.apache.org.
 # The site is built using Node.js and published to the asf-site branch,
 # which Apache infrastructure then serves at cloudberry.apache.org
 #
