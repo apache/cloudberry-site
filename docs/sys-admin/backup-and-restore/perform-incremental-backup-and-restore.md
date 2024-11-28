@@ -4,7 +4,7 @@ title: Perform Incremental Backup and Restore
 
 # Perform Incremental Backup and Restore
 
-Before reading this document, you are expected to first read the [Perform Full Backup and Restore](/docs/sys-admin/perform-full-backup-and-restore.md) document.
+Before reading this document, you are expected to first read the [Perform Full Backup and Restore](/docs/sys-admin/backup-and-restore/perform-full-backup-and-restore.md) document.
 
 To back up and restore tables incrementally, use the `gpbackup` and `gprestore` utilities. Incremental backups include all specified heap tables, and append-optimized tables (including column-oriented ones) that have changed. Even a single row change triggers a backup of the entire append-optimized table. For partitioned append-optimized tables, only the modified leaf partitions are backed up.
 
