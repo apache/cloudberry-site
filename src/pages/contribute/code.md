@@ -5,9 +5,9 @@ description: Learn the code conventions, contribution workflow, how to review co
 
 ## Code of Conduct
 
-Everyone who participates in Apache Cloudberry, either as a user or
-a contributor, is obliged to follow our [community Code of
-Conduct](../community/coc).
+Everyone who participates in Apache Cloudberry, either as a user or a
+contributor, is obliged to follow our [community Code of
+Conduct](https://www.apache.org/foundation/policies/conduct).
 
 ## Ready to contribute
 
@@ -25,30 +25,12 @@ the GitHub Issues with labels “good first issue” and "help wanted"
 which can help you familiarize yourself with the contribution
 workflow, and for the dev teams to become acquainted with you.
 
-In addition, all code contributors are required to sign a Contributor
-License Agreement (CLA), you can sign it as CLA assistant prompts when
-submitting your first Pull Request.
-
-:::caution
-
-It's not required for upstream contributors to sign CLA if you cherry
-pick the commits from upstream projects like PostgreSQL or Greenplum
-Database, so just ignore the CLA assistant's warning, which will not
-block your PR's merge.
-
-:::
-
 :::warning
 
-In addition, please don't change(remove) the original copyright
-information and open source license headers. If you have modified the
-files at large, you can add information following the original file
-license.
-
 Don't import components under GPLv2/3 License or other non-OSI
-licenses for your code, which will interfere with Cloudberry
-Database's Apache License. If you are not sure, please contact
-info@cloudberrydb.org.
+licenses for your code, which will interfere with Cloudberry's Apache
+License. If you are not sure, please contact
+dev@cloudberry.apache.org.
 
 :::
 
@@ -71,13 +53,13 @@ in the PostgreSQL codebase we can `try to make your patch consistent
 with nearby code`(See discussions in [PostgreSQL mailing
 list](https://www.postgresql.org/message-id/16342.1221133325%40sss.pgh.pa.us).)
 
-We can use existing configurations for Apache Cloudberry
-development, such as
-[Vim](https://github.com/cloudberrydb/cloudberrydb/blob/main/src/tools/editors/vim.samples),
-[Emacs](https://github.com/cloudberrydb/cloudberrydb/blob/main/src/tools/editors/emacs.samples),
-[Clion](https://github.com/cloudberrydb/cloudberrydb/blob/main/src/tools/editors/clion.xml)
+We can use existing configurations for Apache Cloudberry development,
+such as
+[Vim](https://github.com/apache/cloudberry/blob/main/src/tools/editors/vim.samples),
+[Emacs](https://github.com/apache/cloudberry/blob/main/src/tools/editors/emacs.samples),
+[Clion](https://github.com/apache/cloudberry/blob/main/src/tools/editors/clion.xml)
 and [other
-editors](https://github.com/cloudberrydb/cloudberrydb/blob/main/.editorconfig).
+editors](https://github.com/apache/cloudberry/blob/main/.editorconfig).
 
 ### Error Messages
 
@@ -94,26 +76,26 @@ guide](./git) again.
 To contribute to Apache Cloudberry development:
 
 1. Fork the [Apache Cloudberry
-repo](https://github.com/cloudberrydb/cloudberrydb) to your own GitHub
+repo](https://github.com/apache/cloudberry) to your own GitHub
 account.
 
 2. Clone down the repo to your local system.
 
     ```
-    $ git clone git@github.com:your-user-name/cloudberrydb.git
+    $ git clone https://github.com/your-user-name/cloudberry.git
     ```
 
 3. Add the upstream repo. (You only have to do this once, not every
 time.)
 
     ```
-    $ git remote add upstream https://github.com/cloudberrydb/cloudberrydb.git
+    $ git remote add upstream https://github.com/apache/cloudberry.git
     ```
 
     now, when you run `git remote -v` will show two remote repositories
     named:
 
-    * `upstream`, which refers to the 'cloudberrydb' repository
+    * `upstream`, which refers to the 'apache/cloudberry' repository
     * `origin`, which refers to your personal fork
 
 4. Create a new branch to hold your work.
@@ -153,10 +135,11 @@ refer to [Commit Conventions](./git#commit-conventions).
 9. Get your code reviewed.
 
     Apache Cloudberry maintainers and other contributors will review
-    your PR. Please participate in the conversation, and try to make any
-    requested changes. If you get no review comments within two weeks,
-    feel free to ask for feedback by mentioning @cloudberry/dev team in
-    your PR comment.
+    your PR. Please participate in the conversation, and try to make
+    any requested changes. If you get no review comments within two
+    weeks, feel free to ask for feedback by ask the [cloudberry
+    committers](https://github.com/orgs/apache/teams/cloudberry-committers)
+    in your PR comment.
 
     Once the maintainers are happy with your change, they'll approve the
     pull request. At this point, the maintainer will take over, possibly
@@ -184,8 +167,13 @@ repository is up to date:
     ```
     $ git fetch upstream
     ```
+3. Rebase your codebase to the upstream main branch.
 
-3. Create a new branch if you are starting new work.
+    ```
+    $ git rebase upstream/main
+    ```
+
+4. Create a new branch if you are starting new work.
 
     ```
     $ git checkout -b branch-name
@@ -222,13 +210,13 @@ Here are some questions to keep in mind during the code review
 process:
 
 - Do we want this in Apache Cloudberry? Is it likely to be used? Do
-  you, as a Apache Cloudberry user, like the change and intend to
-  use it? Is this change in the scope of Apache Cloudberry? Will the
-  cost of maintaining a new feature be worth its benefits?
+  you, as a Apache Cloudberry user, like the change and intend to use
+  it? Is this change in the scope of Apache Cloudberry? Will the cost
+  of maintaining a new feature be worth its benefits?
 - Is it too large to review? Does it need to split into multi PR?
 - If it's a proposal, does it have been accepted and start to code?
-- Is it duplicated with other existing code contributions in CBDB or
-  commits in upstream projects?
+- Is it duplicated with other existing code contributions in
+  Cloudberry or commits in upstream projects?
 - Does it follow our code conventions?
 - Does it need to have a proposal before getting the code review?
 - Does the PR have a good commit message following our commit
@@ -258,13 +246,11 @@ For acronyms and abbreviations used in the code review, you can read
 
 * Read the contributing guidelines.
 * Read the Code of Conduct.
-* Ensure you have signed the Contributor License Agreement (CLA),
-  especially for your first-time contribution.
 * Check if your changes are consistent with the Apache Cloudberry
   coding style.
 * Make sure your Pull Request has a clear title and commit message.
 * List your communication in the [GitHub
-  Issues](https://github.com/cloudberrydb/cloudberrydb/issues) or
+  Issues](https://github.com/apache/cloudberry/issues) or
   [Discussions](https://github.com/apache/cloudberry/discussions) (if
   has or needed).
 * Run the unit tests and regression tests.

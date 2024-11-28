@@ -11,7 +11,7 @@ summits, conferences, Office Hours, and more!
 :::note
 
 If you want to add your events related to the Apache Cloudberry,
-welcome to email us: info@cloudberrydb.org.
+welcome to email us: dev@cloudberry.apache.org.
 
 :::
 

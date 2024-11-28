@@ -1,14 +1,20 @@
 ---
-title: Cloudberry Database Proposal Guide
-description: If you are planning to make significant changes to the Cloudberry Database, please submit a proposal for review.
+title: Apache Cloudberry Proposal Guide
+description: If you are planning to make significant changes to the Apache Cloudberry, please submit a proposal for review.
 ---
 
-This page describes a `Cloudberry Database Proposal(CP)` process for
-proposing major changes to Cloudberry Database.
+:::caution
+
+This page will be reshaped to match the Apache rules.
+
+:::
+
+This page describes a `Apache Cloudberry Proposal` process for
+proposing major changes to Apache Cloudberry.
 
 ## When
 
-Not all changes need one CP.
+Not all changes need one proposal.
 
 When changes are just minor updates or general bug fixes, just create
 a pull request directly!
@@ -21,10 +27,9 @@ to get feedback via GitHub Discussions.
 But any of the following can be considered a major change that needs
 to have a **Proposal**:
 
-- Any change that impacts the public interfaces of Cloudberry
-  Database.
+- Any change that impacts the public interfaces of Apache Cloudberry.
 - Any new component, module, or code that introduces a new concept
-  into Cloudberry Database or alters the behavior of an existing one.
+  into Apache Cloudberry or alters the behavior of an existing one.
 - Any large code refactors to address general code re-usability and
   structure.
 - Any important breaking backward or forward compatibility.
@@ -39,7 +44,7 @@ directly in our Slack.
 
 ## Who
 
-Anyone can initiate one CP. For the proposer, it can be only you, a
+Anyone can initiate one proposal. For the proposer, it can be only you, a
 group of developers, or one team. Please list all the proposers' names
 in the proposal.
 
@@ -56,7 +61,7 @@ Draft --> Discuss --> Vote -|                  Inactive
 ### Draft
 
 You can submit your proposal via [GitHub Discussions
-template](https://github.com/apache/cloudberry/discussions/new?category=proposal). Fill
+template](https://github.com/apache/cloudberry/discussions/new?category=proposal) or send it the `dev@cloudberry.apache.org`. Fill
 all the fields as you can, at least the required ones, including:
 
 - Proposal title. Be direct, and clear. Please also keep the prefix
@@ -65,7 +70,7 @@ all the fields as you can, at least the required ones, including:
   team, company.
 - Proposal Status. Choose one from the following: `Under
 Discussion`/`In Progress`/`Completed`/`Inactive`/`Abandoned`, `Under
-Discussion` as default when you initiate the CP.
+Discussion` as default when you initiate the proposal.
 - Abstract. A clear and concise description of what your proposal is.
 - Motivation. Please outline the motivation and why it should be
   implemented.
@@ -75,13 +80,13 @@ Discussion` as default when you initiate the CP.
 ### Discuss
 
 When your proposal draft is ready, you can share the GitHub link to
-our `#dev` Slack Channel or mention others to get feedback from the
+our `dev@cloudberry.apache.org` mainling list to get feedback from the
 community. It is important to be responsive to any questions or
 concerns raised by others. This stage is intended to gather a variety
 of feedback, suggestions, and constructive criticism from different
 perspectives.
 
-The duration of your CP is at least 7 days, allowing community members
+The duration of your proposal is at least 3 days, allowing community members
 from various timezones to view and participate in discussions until
 all concerns have been addressed.
 
@@ -141,7 +146,7 @@ has been accepted you can do so following the same procedure.
 :::
 
 Next up is breaking down tasks. You should break down tasks on
-Cloudberry Database GitHub issues page. Once a proposal is accepted,
+Apache Cloudberry GitHub issues page. Once a proposal is accepted,
 it moves into the implementation phase, status as `In Progress`.
 
 ### In Progress
@@ -199,14 +204,3 @@ changes in your implementation.
 
 :::
 
----
-
-## List of Cloudberry Database Proposals(CPs)
-
-| No.  | Title                                                                        | Status  | Discussion Thread                                    |
-| ---- | ---------------------------------------------------------------------------- | ------- | ---------------------------------------------------- |
-| CP-2 | [Proposal] Implement Scorll Parallel Retrieve Cursor                         | Discuss | https://github.com/apache/cloudberry/discussions/120 |
-| CP-1 | [Proposal] Support Incremental View Maintenance (IVM) in Cloudberry Database | Discuss | https://github.com/apache/cloudberry/discussions/36  |
-
-You can find more proposal
-[here](https://github.com/cloudberrydb/community).

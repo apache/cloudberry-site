@@ -33,7 +33,7 @@ let COMMUNITY_PAGE: CommunityPageConfig = {
   headerCard: {
     titleText: "We're the community because of you. Be part of us now.",
     subText:
-      "Cloudberry Database is maintained actively by a group of database experts by individuals and companies. We believe in the power of open source way and community. Explore ways to get involved, and stay up-to-date with the latest announcements and events.",
+      "Apache Cloudberry is maintained actively by a group of database experts by individuals and companies. We believe in the power of open source way and community. Explore ways to get involved, and stay up-to-date with the latest announcements and events.",
   },
   cardWraps: [
     {
@@ -78,17 +78,17 @@ let COMMUNITY_PAGE: CommunityPageConfig = {
               icon: <ReportBugsIcon fill={"#fff"} />,
               title: "Report bugs",
               content:
-                "If you find any bugs in Cloudberry Database's core, please submit them on GitHub. More eyes result in fewer bugs.",
+                "If you find any bugs in Apache Cloudberry's core, please submit them on GitHub. More eyes result in fewer bugs.",
               link: {
                 text: "File an issue on GitHub",
-                href: "https://github.com/cloudberrydb/cloudberrydb/issues",
+                href: "https://github.com/apache/cloudberry/issues",
               },
             },
             {
               icon: <ForDevIcon fill="#fff" />,
               title: "Share new ideas / Make feature requests",
               content:
-                "Share your ideas and request new features on GitHub Discussions to help shape the future of the Cloudberry Database.",
+                "Share your ideas and request new features on GitHub Discussions to help shape the future of the Apache Cloudberry.",
               link: {
                 text: "Share your ideas",
                 href: "https://github.com/apache/cloudberry/discussions/new?category=ideas-feature-requests",
@@ -118,14 +118,14 @@ let COMMUNITY_PAGE: CommunityPageConfig = {
               style: { width: 474 },
               title: "Documentation",
               content:
-                "The knowledge base is where you can find most of the usage and troubleshooting in the Cloudberry Database.",
+                "The knowledge base is where you can find most of the usage and troubleshooting in the Apache Cloudberry.",
               link: { text: "View the doc", href: "/docs" },
             },
             {
               style: { width: 474 },
               title: "Q&A",
               content:
-                "Ask for help on GitHub Discussions when running or developing Cloudberry Database. We're always here to assist you.",
+                "Ask for help on GitHub Discussions when running or developing Apache Cloudberry. We're always here to assist you.",
               link: {
                 text: "Ask for help",
                 href: "https://github.com/apache/cloudberry/discussions/categories/q-a",
@@ -152,7 +152,7 @@ let COMMUNITY_PAGE: CommunityPageConfig = {
               title: "Twitter",
               style: { width: 474 },
               content:
-                'For news and updates, follow @cloudberrydb on Twitter("X" now).',
+                'For news and updates, follow @ASFCloudberry on Twitter("X" now).',
               link: {
                 text: "Follow us",
                 href: "https://x.com/ASFCloudberry",
@@ -180,10 +180,10 @@ let COMMUNITY_PAGE: CommunityPageConfig = {
             {
               title: "Youtube",
               content:
-                "Get notified about the latest videos by subscribing to the CloudberryDB channel.",
+                "Get notified about the latest videos by subscribing to the Apache Cloudberry channel.",
               link: {
                 text: "Watch now",
-                href: "https://youtube.com/@cloudberrydb",
+                href: "https://youtube.com/@ApacheCloudberry",
               },
             },
           ],
@@ -200,7 +200,7 @@ let COMMUNITY_PAGE: CommunityPageConfig = {
               title: "Code of Conduct",
               content:
                 "Work together to create an open, welcoming, diverse, inclusive, and healthy space for everyone.",
-              link: { text: "Learn more", href: "/community/coc" },
+              link: { text: "Learn more", href: "https://www.apache.org/foundation/policies/conduct" },
             },
             {
               title: "Brand Guidelines",
@@ -214,10 +214,10 @@ let COMMUNITY_PAGE: CommunityPageConfig = {
             {
               title: "Security Policy",
               content:
-                "View the security policy to learn how to report security issues to us.",
+                "View the Apache security policy to learn how to report security issues to us.",
               link: {
                 text: "Learn the security policy",
-                href: "/community/security",
+                href: "https://github.com/apache/cloudberry/blob/main/SECURITY.md",
               },
             },
           ],
@@ -383,7 +383,7 @@ if (isZhLangrage()) {
                   "欢迎订阅 CloudberryDB Youtube 频道，第一时间查看我们发布的视频。",
                 link: {
                   text: "现在观看",
-                  href: "https://youtube.com/@cloudberrydb",
+                  href: "https://youtube.com/@ApacheCloudberry",
                 },
               },
             ],

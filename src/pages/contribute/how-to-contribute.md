@@ -9,13 +9,13 @@ guide will help you get started with the contribution.
 
 ## Code of Conduct
 
-Everyone who participates in Apache Cloudberry, either as a user or
-a contributor, is obliged to follow our community [Code of
-Conduct](../community/coc). Every violation against it will be
-reviewed and investigated and will result in a response that is deemed
-necessary and appropriate to the circumstances. The moderator team is
-obligated to maintain confidentiality regarding the reporter of an
-incident.
+Everyone who participates in Apache Cloudberry, either as a user or a
+contributor, is obliged to follow our community [Code of
+Conduct](https://www.apache.org/foundation/policies/conduct). Every
+violation against it will be reviewed and investigated and will result
+in a response that is deemed necessary and appropriate to the
+circumstances. The moderator team is obligated to maintain
+confidentiality regarding the reporter of an incident.
 
 Some behaviors that contribute to creating a positive environment
 include:
@@ -41,13 +41,13 @@ You can participate by:
 - Answering questions on [GitHub
   Discussions](https://github.com/apache/cloudberry/discussions/categories/q-a).
 - Investigating [GitHub
-  issues](https://github.com/cloudberrydb/cloudberrydb/issues).
+  issues](https://github.com/apache/cloudberry/issues).
 - [Reporting a new
-  bug](https://github.com/cloudberrydb/cloudberrydb/issues/new/choose).
+  bug](https://github.com/apache/cloudberry/issues/new/choose).
 - [Sharing ideas for new
   features](https://github.com/apache/cloudberry/discussions/new?category=ideas-feature-requests).
 - Helping review [Pull
-  Requests](https://github.com/cloudberrydb/cloudberrydb/pulls) or
+  Requests](https://github.com/apache/cloudberry/pulls) or
   [Proposals](https://github.com/apache/cloudberry/discussions/categories/proposal).
 - Proposing your proposal, see [Proposal Guide](./proposal).
 - [Reporting security issues](../community/security).
@@ -62,8 +62,8 @@ You can participate by:
 
 Feel free to reach out to us in [Slack `#dev`
 channels](../community/slack) or [GitHub
-Discussions](https://github.com/cloudberrydb/cloudberrydb/discussions)
-when your contribution is blocked, especially when making your first
+Discussions](https://github.com/apache/cloudberry/discussions) when
+your contribution is blocked, especially when making your first
 contribution. Don't be shy, we're happy to help.
 
 As the next-generation unified database, Apache Cloudberry cannot

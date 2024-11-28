@@ -17,19 +17,19 @@ let MMP_ARCHITECTURE = {
       pic: "/img/home/os.png",
       title: "Petabyte-Scale Data",
       content:
-        "Cloudberry Database offers excellent performance for handling large-scale data workloads with high throughput.",
+        "Apache Cloudberry offers excellent performance for handling large-scale data workloads with high throughput.",
     },
     {
       pic: "/img/home/pr.png",
       title: "Mature Technology",
       content:
-        "Cloudberry Database integrates solid PostgreSQL and Greenplum Database upstream technology, which both have wide adoption, active ecosystems, and tons of real-world use cases.",
+        "Apache Cloudberry integrates solid PostgreSQL and Greenplum Database upstream technology, which both have wide adoption, active ecosystems, and tons of real-world use cases.",
     },
     {
       pic: "/img/home/pc.png",
       title: "Security Reinforcement",
       content:
-        "Cloudberry Database supports more encryption methods and algorithms including AES 128, AES 192, AES 256, DES and SCRAM-SHA-256, MD5, LDAP, and RADIUS.",
+        "Apache Cloudberry supports more encryption methods and algorithms including AES 128, AES 192, AES 256, DES and SCRAM-SHA-256, MD5, LDAP, and RADIUS.",
     },
   ],
 };
@@ -39,7 +39,7 @@ let OUR_ROADMAP = {
   subTitle: (
     <>
       <div>
-        Welcome to join us in shaping the future of Cloudberry Database,
+        Welcome to join us in shaping the future of Apache Cloudberry,
       </div>
       <a
         className="active-color"
@@ -107,7 +107,7 @@ let TRY_IT_OUT = {
           <div>
             <div>1. Clone the latest source code.</div>
             <span className="code-block">
-              git clone https://github.com/cloudberrydb/cloudberrydb.git
+              git clone https://github.com/apache/cloudberry.git
             </span>
           </div>
           <div>
@@ -171,7 +171,7 @@ let SLACK_TWITTER_TWITTER_WECHAT = {
     {
       title: "Twitter",
       icon: "/img/home/links/twitter.svg",
-      desc: 'Follow @cloudberrydb on Twitter("X" now).',
+      desc: 'Follow @ASFCloudberry on Twitter("X" now).',
       link: "https://x.com/ASFCloudberry",
     },
     {
@@ -286,16 +286,13 @@ let FREQUENTLY_ASKED_QUESTIONS = {
   ],
 };
 
-// zh language
-if (isZhLangrage()) {
-}
 
 const LINKS = {
-  github: "https://github.com/cloudberrydb",
+  github: "https://github.com/apache/cloudberry",
   twitter: "https://x.com/ASFCloudberry",
-  youtube: "https://youtube.com/@cloudberrydb",
+  youtube: "https://youtube.com/@ApacheCloudberry",
   community: "https://inviter.co/apache-cloudberry",
-  linkedIn: "https://www.linkedin.com/company/cloudberrydb",
+  linkedIn: "https://www.linkedin.com/company/apache-cloudberry",
   wechat: "/community/wechat",
   discoverMore: "/docs",
 };

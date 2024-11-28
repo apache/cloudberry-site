@@ -1,5 +1,5 @@
 ---
-title: Documentation Contribution Guide 
+title: Documentation Contribution Guide
 description: We appreciate any contributions you can make to our documentation, including the website and other related materials.
 ---
 
@@ -7,7 +7,7 @@ description: We appreciate any contributions you can make to our documentation, 
 
 We are committed to fostering a welcoming and respectful
 community. All contributors are expected to adhere to our [Code of
-Conduct](https://cloudberrydb.io/community/coc).
+Conduct](https://www.apache.org/foundation/policies/conduct).
 
 ## What contributors can do
 
@@ -28,6 +28,8 @@ Here are some of the key files in our documentation repository:
 - `i18n/zh/docusaurus-plugin-content-docs/current/`: This directory
   contains the Chinese documentation.
 
+If you want to add other language support for the documents, welcome!
+
 ## How to contribute
 
 :::info
@@ -42,9 +44,8 @@ create a Pull Request.
 
 For simple updates such as typo or link fixing in a single document:
 
-1. Navigate to the target page on the [Apache Cloudberry
-   documentation site](https://cloudberrydb.io/docs/) you
-   wish to update.
+1. Navigate to the target page on the [Apache Cloudberry documentation
+   site](https://cloudberry.apache.org/docs/) you wish to update.
 2. Click **Edit this page** at the left bottom of the page. This will
    take you to the GitHub edit page for that file.
 3. Make your changes in the GitHub editor.
@@ -52,14 +53,13 @@ For simple updates such as typo or link fixing in a single document:
    description of your changes in the first field, and a more detailed
    description in the second field.
 5. Click **Propose changes** to create a pull request.
-6. Sign the Contributor License Agreement as CLAassistant prompts.
 
 ### For more complex updates or new content
 
 For more complex updates or adding new content in multiple documents:
 
 1. Fork the [Apache Cloudberry site
-   repository](https://github.com/cloudberrydb/cloudberrydb-site).
+   repository](https://github.com/apache/cloudberry-site).
 2. Clone your forked repository to your local machine.
 3. Create a new branch for your changes.
 4. Make your changes in your local environment.
@@ -67,12 +67,11 @@ For more complex updates or adding new content in multiple documents:
 6. Navigate to the original Apache Cloudberry site repository.
 7. Click **New pull request**.
 8. Choose your forked repository's branch in the comparison, and
-   choose the `main` branch for the `cloudberrydb/cloudberrydb-site`
+   choose the `main` branch for the `apache/cloudberry-site`
    repository.
 9. Enter a clear and concise title for your pull request. In the
    description, explain the purpose of your changes.
 10. Click **Create pull request**.
-11. Sign the Contributor License Agreement as CLAassistant prompts.
 
 ## Styling
 
@@ -102,9 +101,9 @@ For more details about writing styles, you can read:
 ## PR Review Process
 
 After you submit your PR, it will be reviewed by the Cloudberry
-Database team. We aim to review PRs within a week of submission, but
-it might take longer depending on the complexity of the changes. We
-appreciate your patience during this process.
+team. We aim to review PRs within a week of submission, but it might
+take longer depending on the complexity of the changes. We appreciate
+your patience during this process.
 
 Please keep an eye on your PR after submission. You might receive
 feedback or questions in the PR comments. Addressing these comments
@@ -117,10 +116,10 @@ adding a new section or rewriting a large part of it, we recommend the
 following process:
 
 1. Open an issue in the [Apache Cloudberry site
-   repository](https://github.com/cloudberrydb/cloudberrydb-site)
-   describing your proposed changes. This allows the Cloudberry
-   Database team and community to provide feedback before you invest a
-   lot of time in writing.
+   repository](https://github.com/apache/cloudberry-site) describing
+   your proposed changes. This allows the Cloudberry team and
+   community to provide feedback before you invest a lot of time in
+   writing.
 2. Once you have received feedback and agreement on your proposal,
    follow the contribution process described above to implement your
    changes and submit a pull request.
