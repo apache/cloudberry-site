@@ -225,7 +225,7 @@ const config: Config = {
             },
             {
               label: "Security",
-              to: "/community/security",
+              to: "https://github.com/apache/cloudberry/blob/main/SECURITY.md",
             },
           ],
         },
