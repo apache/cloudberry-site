@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import './Contributors.css';
+import styles from './Contributors.module.css';
 
 const Contributors = () => {
   const [contributors, setContributors] = useState([]);
@@ -18,13 +18,13 @@ const Contributors = () => {
 
   return (
     <div>
-      <div className="grid">
+      <div className={styles.grid}>
         {contributors.map((contributor) => (
-          <div key={contributor.login} className="card">
+          <div key={contributor.login} className={styles.card}>
             <img
               src={contributor.avatar_url || 'https://via.placeholder.com/100'}
               alt={contributor.login}
-              className="avatar"
+              className={styles.avatar}
             />
             <p><strong>{contributor.login}</strong></p>
           </div>

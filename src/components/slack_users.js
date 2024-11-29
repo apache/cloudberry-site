@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import './SlackUsers.css';
+import styles from './SlackUsers.module.css';
 
 const SlackUsers = () => {
   const [users, setUsers] = useState([]);
@@ -15,13 +15,13 @@ const SlackUsers = () => {
 
   return (
     <div>
-      <div className="grid">
+      <div className={styles.grid}>
         {users.map((user) => (
-          <div key={user.id} className="card">
+          <div key={user.id} className={styles.card}>
             <img
               src={user.profile_image || 'https://via.placeholder.com/100'}
               alt={user.name}
-              className="avatar"
+              className={styles.avatar}
             />
             <p><strong>{user.name}</strong></p>
             <p>{user.email}</p>
