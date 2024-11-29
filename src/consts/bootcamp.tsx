@@ -132,14 +132,6 @@ let BOOTCAMP_PAGE_CONFIG = {
           href: "/bootcamp/104-1-introduction-to-cloudberrydb-in-database-analytics",
         },
       },
-      {
-        title: "104-2",
-        style: { width: 474 },
-        link: {
-          text: "HashML for Data Science",
-          href: "/bootcamp/104-2-hashml-for-datascience",
-        },
-      },
     ],
   },
   GET_SOURCE: {

@@ -1,20 +1,20 @@
 ---
-title: "[104-1] Introduction to CloudberryDB In-Database Analytics"
-description: Run analytics directly in the Cloudberry Database by MADlib.
+title: "[104-1] Introduction to Apache Cloudberry In-Database Analytics"
+description: Run analytics directly in the Apache Cloudberry by MADlib.
 ---
 
-Running analytics directly in Cloudberry Database, rather than exporting data to a separate analytics engine, allows greater agility when exploring large data sets and much better performance due to parallelizing the analytic processes across all the segments.
+Running analytics directly in Apache Cloudberry, rather than exporting data to a separate analytics engine, allows greater agility when exploring large data sets and much better performance due to parallelizing the analytic processes across all the segments.
 
-A variety of power analytic tools is available for use with Cloudberry Database:
+A variety of power analytic tools is available for use with Apache Cloudberry:
 
 * MADlib, an open-source, MPP implementation of many analytic algorithms, available at [http://madlib.apache.org/](http://madlib.apache.org/)
 * R statistical language
 * SAS, in many forms, but especially with the SAS Accelerator for Cloudberry
 * PMML, Predictive Modeling Markup Language
 
-The exercises in this chapter introduce using MADlib with Cloudberry Database, using the FAA on-time data example dataset. You will examine scenarios comparing airlines and airports to learn whether there are significant relationships to be found.
+The exercises in this chapter introduce using MADlib with Apache Cloudberry, using the FAA on-time data example dataset. You will examine scenarios comparing airlines and airports to learn whether there are significant relationships to be found.
 
-In this lesson, you will use [Apache Zeppelin](https://zeppelin.apache.org/) to submit SQL statements to the Cloudberry Database.  Apache Zeppelin is a web-based notebook that enables interactive data analytics. A [PostgreSQL interpreter](https://issues.apache.org/jira/browse/ZEPPELIN-250) has been added to Zeppelin, so that it can now work directly with products such as Pivotal Cloudberry Database and Pivotal HDB.
+In this lesson, you will use [Apache Zeppelin](https://zeppelin.apache.org/) to submit SQL statements to the Apache Cloudberry.  Apache Zeppelin is a web-based notebook that enables interactive data analytics. A [PostgreSQL interpreter](https://issues.apache.org/jira/browse/ZEPPELIN-250) has been added to Zeppelin, so that it can now work directly with products such as Pivotal Apache Cloudberry and Pivotal HDB.
 
 ## Prepare Apache Zeppelin
 
@@ -48,7 +48,7 @@ In this lesson, you will use [Apache Zeppelin](https://zeppelin.apache.org/) to 
 
 ## Run PostgreSQL built-in aggregates
 
-PostgreSQL has built-in aggregate functions to get standard statistics on database columns—minimum, maximum, average, and standard deviation, for example. The functions take advantage of the Cloudberry Database MPP architecture, aggregating data on the segments and then assembling results on the master.
+PostgreSQL has built-in aggregate functions to get standard statistics on database columns—minimum, maximum, average, and standard deviation, for example. The functions take advantage of the Apache Cloudberry MPP architecture, aggregating data on the segments and then assembling results on the master.
 
 First, gather simple descriptive statistics on some of the data you will analyze with MADlib. The commands in this exercise are in the stats.sql script in the sample data directory.
 

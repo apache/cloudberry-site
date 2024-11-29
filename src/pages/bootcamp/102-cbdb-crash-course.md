@@ -1,9 +1,9 @@
 ---
-title: "[102] Cloudberry Database Crash Course"
-description: If you want to learn the Cloudberry Database quickly, follow this crash course.
+title: "[102] Apache Cloudberry Crash Course"
+description: If you want to learn the Apache Cloudberry quickly, follow this crash course.
 ---
 
-This crash course provides an extensive overview of Cloudberry Database, an open-source Massively Parallel Processing (MPP) database. It covers key concepts, features, utilities, and hands-on exercises to become proficient with CBDB.
+This crash course provides an extensive overview of Apache Cloudberry, an open-source Massively Parallel Processing (MPP) database. It covers key concepts, features, utilities, and hands-on exercises to become proficient with CBDB.
 
 Topics include:
 
@@ -33,18 +33,18 @@ Topics include:
 
 ## Lesson 0. Prerequisite
 
-Before starting this crash course, spend some time going through the [Cloudberry Database Tutorials Based on Single-Node Installation](./#1-cloudberrydb-sandbox) to get familiar with Cloudberry Database and how it works.
+Before starting this crash course, spend some time going through the [Apache Cloudberry Tutorials Based on Single-Node Installation](./#1-cloudberry-sandbox) to get familiar with Apache Cloudberry and how it works.
 
 ## Lesson 1. Where to read the official documentation
 
-Take a quick look at the official [CBDB Documentation](https://cloudberrydb.org/docs). No need to worry if you do not understand everything.
+Take a quick look at the official [Cloudberry Documentation](https://cloudberry.apache.org/docs). No need to worry if you do not understand everything.
 
 ## Lesson 2. How to install CBDB
 
 To begin your journey with CBDB, you are expected to install CBDB in your preferred environment. The following options are available:
 
-- For testing or trying out CBDB in a sandbox environment, see [Install CBDB in a Sandbox](./cbdb-sandbox).
-- For deploying CBDB in other environments (including the production environment) and the prerequisite software/hardware configuration, see [CBDB Deployment Guide](https://cloudberrydb.org/docs/cbdb-op-deploy-guide).
+- For testing or trying out CBDB in a sandbox environment, see [Install Cloudberry in a Sandbox](./cbdb-sandbox).
+- For deploying CBDB in other environments (including the production environment) and the prerequisite software/hardware configuration, see [Cloudberry Deployment Guide](https://cloudberry.apache.org/docs/cbdb-op-deploy-guide).
 
 ## Lesson 3. Cluster architecture
 
@@ -138,7 +138,7 @@ Read the help information for these tools (`<tool_name> --help`).
     ```shell
     20230823:16:14:23:004256 gpstart:mdw:gpadmin-[INFO]:-Starting gpstart with args: -a
     20230823:16:14:23:004256 gpstart:mdw:gpadmin-[INFO]:-Gathering information and validating the environment...
-    20230823:16:14:23:004256 gpstart:mdw:gpadmin-[INFO]:-Cloudberry Binary Version: 'postgres (Cloudberry Database) 1.0.0 build dev'
+    20230823:16:14:23:004256 gpstart:mdw:gpadmin-[INFO]:-Cloudberry Binary Version: 'postgres (Apache Cloudberry) 1.0.0 build dev'
     20230823:16:14:23:004256 gpstart:mdw:gpadmin-[INFO]:-Cloudberry Catalog Version: '302206171'
     20230823:16:14:23:004256 gpstart:mdw:gpadmin-[INFO]:-Starting Coordinator instance in admin mode
     20230823:16:14:23:004256 gpstart:mdw:gpadmin-[INFO]:-CoordinatorStart pg_ctl cmd is env GPSESSID=0000000000 GPERA=None $GPHOME/bin/pg_ctl -D /data0/database/master/gpseg-1 -l /data0/database/master/gpseg-1/log/startup.log -w -t 600 -o " -p 5432 -c gp_role=utility " start
@@ -176,7 +176,7 @@ Read the help information for these tools (`<tool_name> --help`).
     20230823:16:14:18:004143 gpstop:mdw:gpadmin-[INFO]:-Gathering information and validating the environment...
     20230823:16:14:18:004143 gpstop:mdw:gpadmin-[INFO]:-Obtaining Cloudberry Coordinator catalog information
     20230823:16:14:18:004143 gpstop:mdw:gpadmin-[INFO]:-Obtaining Segment details from coordinator...
-    20230823:16:14:18:004143 gpstop:mdw:gpadmin-[INFO]:-Cloudberry Version: 'postgres (Cloudberry Database) 1.0.0 build dev'
+    20230823:16:14:18:004143 gpstop:mdw:gpadmin-[INFO]:-Cloudberry Version: 'postgres (Apache Cloudberry) 1.0.0 build dev'
     20230823:16:14:18:004143 gpstop:mdw:gpadmin-[INFO]:-Commencing Coordinator instance shutdown with mode='smart'
     20230823:16:14:18:004143 gpstop:mdw:gpadmin-[INFO]:-Coordinator segment instance directory=/data0/database/master/gpseg-1
     20230823:16:14:18:004143 gpstop:mdw:gpadmin-[INFO]:-Stopping coordinator segment and waiting for user connections to finish ...
@@ -215,8 +215,8 @@ Read the log entries for `gpstop` and `gpstart`, and try to understand what they
 
     ```shell
     20230823:16:17:41:004530 gpstate:mdw:gpadmin-[INFO]:-Starting gpstate with args:
-    20230823:16:17:41:004530 gpstate:mdw:gpadmin-[INFO]:-local Cloudberry Version: 'postgres (Cloudberry Database) 1.0.0 build dev'
-    20230823:16:17:41:004530 gpstate:mdw:gpadmin-[INFO]:-coordinator Cloudberry Version: 'PostgreSQL 14.4 (Cloudberry Database 1.0.0 build dev) on aarch64-unknown-linux-gnu, compiled by gcc (GCC) 10.2.1 20210130 (Red Hat 10.2.1-11), 64-bit compiled on Aug  9 2023 14:45:43'
+    20230823:16:17:41:004530 gpstate:mdw:gpadmin-[INFO]:-local Cloudberry Version: 'postgres (Apache Cloudberry) 1.0.0 build dev'
+    20230823:16:17:41:004530 gpstate:mdw:gpadmin-[INFO]:-coordinator Cloudberry Version: 'PostgreSQL 14.4 (Apache Cloudberry 1.0.0 build dev) on aarch64-unknown-linux-gnu, compiled by gcc (GCC) 10.2.1 20210130 (Red Hat 10.2.1-11), 64-bit compiled on Aug  9 2023 14:45:43'
     20230823:16:17:41:004530 gpstate:mdw:gpadmin-[INFO]:-Obtaining Segment details from coordinator...
     20230823:16:17:41:004530 gpstate:mdw:gpadmin-[INFO]:-Gathering data from segments...
     20230823:16:17:41:004530 gpstate:mdw:gpadmin-[INFO]:-Cloudberry instance status summary
@@ -267,7 +267,7 @@ Check the cluster state and try to collect the information using `gpstate` or `g
 
 **CBDB mirroring overview:**
 
-Each segment instance in a Cloudberry Database has 2 possible roles: primary and mirror.
+Each segment instance in a Apache Cloudberry has 2 possible roles: primary and mirror.
 
 - Primary role: serves user queries.
 - Mirror role: tracks and records data changes from the primary using WAL replication but does not serve user queries.
@@ -323,8 +323,8 @@ If your CBDB cluster was initially created without mirrors, you can use the `gpa
 
 ```shell
 20230823:16:02:50:003517 gpaddmirrors:mdw:gpadmin-[INFO]:-Starting gpaddmirrors with args:
-20230823:16:02:50:003517 gpaddmirrors:mdw:gpadmin-[INFO]:-local Cloudberry Version: 'postgres (Cloudberry Database) 1.0.0 build dev'
-20230823:16:02:50:003517 gpaddmirrors:mdw:gpadmin-[INFO]:-coordinator Cloudberry Version: 'PostgreSQL 14.4 (Cloudberry Database 1.0.0 build dev) on aarch64-unknown-linux-gnu, compiled by gcc (GCC) 10.2.1 20210130 (Red Hat 10.2.1-11), 64-bit compiled on Aug  9 2023 14:45:43'
+20230823:16:02:50:003517 gpaddmirrors:mdw:gpadmin-[INFO]:-local Cloudberry Version: 'postgres (Apache Cloudberry) 1.0.0 build dev'
+20230823:16:02:50:003517 gpaddmirrors:mdw:gpadmin-[INFO]:-coordinator Cloudberry Version: 'PostgreSQL 14.4 (Apache Cloudberry 1.0.0 build dev) on aarch64-unknown-linux-gnu, compiled by gcc (GCC) 10.2.1 20210130 (Red Hat 10.2.1-11), 64-bit compiled on Aug  9 2023 14:45:43'
 20230823:16:02:50:003517 gpaddmirrors:mdw:gpadmin-[INFO]:-Obtaining Segment details from coordinator...
 20230823:16:02:50:003517 gpaddmirrors:mdw:gpadmin-[INFO]:-Successfully finished pg_controldata /data0/database/primary/gpseg0 for dbid 2:
 stdout: pg_control version number:            13000700

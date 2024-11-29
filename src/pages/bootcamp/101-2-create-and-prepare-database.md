@@ -1,9 +1,9 @@
 ---
 title: "[101-2] Lesson 2: Create and Prepare Database"
-description: Let's create one new database in the Cloudberry Database.
+description: Let's create one new database in the Apache Cloudberry.
 ---
 
-To create a new database in Cloudberry Database, you can either use the `CREATE DATABASE` SQL command in the `psql` client, or use the `createdb` utility. The `createdb` utility is a wrapper around the `CREATE DATABASE` command.
+To create a new database in Apache Cloudberry, you can either use the `CREATE DATABASE` SQL command in the `psql` client, or use the `createdb` utility. The `createdb` utility is a wrapper around the `CREATE DATABASE` command.
 
 ## Quick-start operations
 
@@ -13,7 +13,7 @@ Before moving on to the operations, make sure that you have completed the previo
 
 ### Create database
 
-1. Log into Cloudberry Database in Docker. Before creating the `tutorial` database, make sure that this database does not exist.
+1. Log into Apache Cloudberry in Docker. Before creating the `tutorial` database, make sure that this database does not exist.
 
     ```shell
     [gpadmin@mdw ~]$ dropdb tutorial
@@ -58,7 +58,7 @@ Before moving on to the operations, make sure that you have completed the previo
 
     > **Info:**
     >
-    > - `pg_hba.conf` is the configuration file for client access control in Cloudberry Database.
+    > - `pg_hba.conf` is the configuration file for client access control in Apache Cloudberry.
     > - `md5` is the authentication methods, which means that the user needs to enter the password to log in.
 
 
@@ -73,7 +73,7 @@ Before moving on to the operations, make sure that you have completed the previo
     20230818:14:18:45:003733 gpstop:mdw:gpadmin-[INFO]:-Gathering information and validating the environment...
     20230818:14:18:45:003733 gpstop:mdw:gpadmin-[INFO]:-Obtaining Cloudberry Coordinator catalog information
     20230818:14:18:45:003733 gpstop:mdw:gpadmin-[INFO]:-Obtaining Segment details from coordinator...
-    20230818:14:18:45:003733 gpstop:mdw:gpadmin-[INFO]:-Cloudberry Version: 'postgres (Cloudberry Database) 1.0.0 build dev'
+    20230818:14:18:45:003733 gpstop:mdw:gpadmin-[INFO]:-Cloudberry Version: 'postgres (Apache Cloudberry) 1.0.0 build dev'
     20230818:14:18:45:003733 gpstop:mdw:gpadmin-[INFO]:-Signalling all postmaster processes to reload
     ```
 
