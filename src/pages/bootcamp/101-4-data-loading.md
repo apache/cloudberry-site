@@ -1,19 +1,19 @@
 ---
 title: "[101-4] Lesson 4: Data Loading"
-description: Load your data to the Cloudberry Database.
+description: Load your data to the Apache Cloudberry.
 ---
 
-This tutorial briefly introduces 3 methods to load the example data `FAA` into Cloudberry Database tables you have created in the previous tutorial [Lesson 3: Create Tables](./101-3-create-tables). Before continuing, make sure you have completed the previous tutorial.
+This tutorial briefly introduces 3 methods to load the example data `FAA` into Apache Cloudberry tables you have created in the previous tutorial [Lesson 3: Create Tables](./101-3-create-tables). Before continuing, make sure you have completed the previous tutorial.
 
 - Method 1: Use the `INSERT` statement. This is the easiest way to load data. You can execute `INSERT` directly in psql, run scripts that have `INSERT` statements, or run a client-side application with database connection. It is not recommended to use `INSERT` to load a large amount of data, because the loading efficiency is low.
 
 - Method 2: Use the SQL statement `COPY` to load data into database. The `COPY` syntax allows you to define the format of the text file so that data can be parsed into rows and columns. This method is faster than the `INSERT` statement. But, like `INSERT` statement, `COPY` is not a parallel data loading process.
 
-    The `COPY` statement requires that external files be accessible to the host where the master process is running. On a multi-node Cloudberry Database system, data files might reside on a file system that is not accessible from master node. In this case, you need to use the psql command `\copy meta-command` that streams data to Cloudberry master node over `psql` connection. Some example scripts in this tutorial use the `\copy meta-command`.
+    The `COPY` statement requires that external files be accessible to the host where the master process is running. On a multi-node Apache Cloudberry system, data files might reside on a file system that is not accessible from master node. In this case, you need to use the psql command `\copy meta-command` that streams data to Cloudberry master node over `psql` connection. Some example scripts in this tutorial use the `\copy meta-command`.
 
-- Method 3: Use Cloudberry Database utilities to load external data into tables. When you are working with a large-scale data warehouse, you might often face the challenge of loading large amounts of data in a short time. The utilities, `gpfdist` and `gpload`, are tailored for this purpose, enabling you to achieve rapid, parallel data transfers.
+- Method 3: Use Apache Cloudberry utilities to load external data into tables. When you are working with a large-scale data warehouse, you might often face the challenge of loading large amounts of data in a short time. The utilities, `gpfdist` and `gpload`, are tailored for this purpose, enabling you to achieve rapid, parallel data transfers.
 
-    During your data loading process, if any rows run into issues, they will be noted. You can set an error threshold that fits your needs. If the number of problematic rows exceeds this limit, Cloudberry Database will stop the loading process.
+    During your data loading process, if any rows run into issues, they will be noted. You can set an error threshold that fits your needs. If the number of problematic rows exceeds this limit, Apache Cloudberry will stop the loading process.
 
     For optimal speed, combine the use of external tables with the parallel file server (`gpfdist`). This approach will help you maximize efficiency, making your data loading tasks smoother and more efficient.
 
@@ -34,7 +34,7 @@ The `faa.d_cancellation_codes` table is a simple 2-column look-up table. You wil
 
 <!-- You change to directory faa, containing FAA data and scripts, take a look at table faa.d_cancellation_codes, insert data into table.  -->
 
-1. Log into Cloudberry Database in Docker as `gpadmin`, and change to the `faa` directory. This directory contains `faa` data and scripts.
+1. Log into Apache Cloudberry in Docker as `gpadmin`, and change to the `faa` directory. This directory contains `faa` data and scripts.
 
     ```shell
     [gpadmin@mdw ~]$ cd /tmp/faa
@@ -152,11 +152,11 @@ The `COPY` statement moves data from the file system to database tables. Data fo
 
 For the `faa` fact table, you will use an ETL (Extract, Transform, Load) process to load data from the source gzip files into a data table. For the best loading speed, use the `gpfdist` utility to distribute rows to segments.
 
-In production system, `gpfdist` runs on file servers that external data resides. However, for a single-node Cloudberry Database instance, there is only one logical host, so you run `gpfdist` on it as well. Starting `gpfdist` is similar as a file server, no data movement will occur until SQL query request has been ended.
+In production system, `gpfdist` runs on file servers that external data resides. However, for a single-node Apache Cloudberry instance, there is only one logical host, so you run `gpfdist` on it as well. Starting `gpfdist` is similar as a file server, no data movement will occur until SQL query request has been ended.
 
 > **Note:**
 >
-> This exercise loads data using `gpfdsit` to move data from external data files into Cloudberry Database. Moving data between the database and external tables also needs security request. Therefore, only superusers are permitted to use `gpfdsit` and you will complete this exercise as `gpadmin` user.
+> This exercise loads data using `gpfdsit` to move data from external data files into Apache Cloudberry. Moving data between the database and external tables also needs security request. Therefore, only superusers are permitted to use `gpfdsit` and you will complete this exercise as `gpadmin` user.
 
 1. Start `gpfdist`:
 
@@ -239,7 +239,7 @@ The following operations are performed in this section:
     tutorial=# INSERT INTO faa.faa_otp_load SELECT * FROM faa.ext_load_otp;
     ```
 
-    Note: Cloudberry Database facilitates moving data from the gzip files into the database's load table. In a production setting, there might be several `gpfdist` processes running, either on separate hosts or multiple on one host, each using a different port.
+    Note: Apache Cloudberry facilitates moving data from the gzip files into the database's load table. In a production setting, there might be several `gpfdist` processes running, either on separate hosts or multiple on one host, each using a different port.
 
 3. Examine load errors.
 
@@ -262,7 +262,7 @@ The following operations are performed in this section:
 
 ### Load data using the `gpload` utility
 
-Cloudberry Database provides a wrapper program for `gpfdist` called `gpload` that does much of the work to set up external table and data movement. In this exercise, you will reload the `faa_otp_load` table using the gpload utility. 
+Apache Cloudberry provides a wrapper program for `gpfdist` called `gpload` that does much of the work to set up external table and data movement. In this exercise, you will reload the `faa_otp_load` table using the gpload utility. 
 
 In this section, we walk through the process of loading data with `gpload`. The steps are:
 
@@ -321,7 +321,7 @@ In this section, we walk through the process of loading data with `gpload`. The 
     [gpadmin@mdw faa]$ gpload -f gpload.yaml -l gpload.log
     ```
 
-    Summary: At the end of this guide, you would have successfully used gpload to load data into CloudberryDB. Make sure to check the logs for any warnings or errors to ensure data consistency and integrity.
+    Summary: At the end of this guide, you would have successfully used gpload to load data into Apache Cloudberry. Make sure to check the logs for any warnings or errors to ensure data consistency and integrity.
 
 
 ### Create and load fact tables
@@ -351,14 +351,14 @@ tutorial=#
 
 - Key Feature: rapid data loading
 
-    - Extract, load, and t ransform (ELT): This method takes advantage of the massive parallelism of Cloudberry Database.
+    - Extract, load, and t ransform (ELT): This method takes advantage of the massive parallelism of Apache Cloudberry.
     - Staging: Data can be staged using methods like external tables.
-    - Transformation: Data transformations occur within the Cloudberry Database.
+    - Transformation: Data transformations occur within the Apache Cloudberry.
     - Performance: Set-based operations are done in parallel to maximize efficiency.
 
 - Loading mechanisms
 
-    - `COPY`: Loads data via the master in a single process, but doesn't harness CloudberryDB's parallel capabilities.
+    - `COPY`: Loads data via the master in a single process, but doesn't harness Apache Cloudberry's parallel capabilities.
     - External tables:
         - Advantage: Takes advantage of the parallel processing power of segments.
         - Flexibility: One `SELECT` statement can access multiple data sources.
@@ -379,11 +379,11 @@ tutorial=#
         - There is a risk of data duplication, especially when extracting data from another database.
         - Users need to be cautious and verify data when using Web tables.
 
-Understanding and using these features and mechanisms effectively can ensure optimal data loading and management within the Cloudberry Database.
+Understanding and using these features and mechanisms effectively can ensure optimal data loading and management within the Apache Cloudberry.
 
 ## What's next
 
-In this tutorial, you learned how to load data into Cloudberry Database. You learned about the different loading mechanisms and how to use them. You also learned how to use the `gpload` utility to load data. Finally, you learned how to create and load fact tables. You can now move on to the next tutorial, [Lesson 5: Queries and Performance Tuning](./101-5-queries-and-performance-tuning), to learn about query performance tuning in Cloudberry Database.
+In this tutorial, you learned how to load data into Apache Cloudberry. You learned about the different loading mechanisms and how to use them. You also learned how to use the `gpload` utility to load data. Finally, you learned how to create and load fact tables. You can now move on to the next tutorial, [Lesson 5: Queries and Performance Tuning](./101-5-queries-and-performance-tuning), to learn about query performance tuning in Apache Cloudberry.
 
 Other tutorials:
 

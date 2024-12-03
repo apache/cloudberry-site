@@ -37,10 +37,14 @@ Each Podling Project Management Committee (PPMC) helps its Podling learn how to 
 
 Our journey began in 2022, and we have built our foundation on PostgreSQL and Greenplum Database. We would not be where we are today without the invaluable contributions of the two project contributors. We extend our heartfelt thanks to them.
 
-# Become a contributor
+import Contributors from '@site/src/components/contributors';
+import SlackUsers from '@site/src/components/slack_users';
 
-The Apache Cloudberry community welcomes everyone to contribute, regardless of their level of experience. We encourage all types of contributions, no matter how small. Our [contribution guide](/contribute) is available to help you get started with the process.
+# Contributors wall
+## GitHub Committers and PPMC members
 
-In addition, we offer various channels for community members to discuss, seek help, provide feedback, and chat. You can find [support](/support) here. Let us know if you have any questions or feedback - we're always here to help.
+<Contributors />
 
-Join us and be part of us!
+## Slack Community
+
+<SlackUsers />

@@ -3,7 +3,7 @@ import type { Config } from "@docusaurus/types";
 import { themes as prismThemes } from "prism-react-renderer";
 const config: Config = {
   title: "Apache Cloudberry (Incubating)",
-  tagline: "One advanced and mature open-source MPP (Massively Parallel Processing) databases available.",
+  tagline: "One advanced and mature open-source MPP (Massively Parallel Processing) database. Open source alternative to Greenplum Database.",
   favicon: "/img/favicon.ico",
   url: "https://cloudberry.apache.org",
   baseUrl: "/",
@@ -225,7 +225,7 @@ const config: Config = {
             },
             {
               label: "Security",
-              to: "/community/security",
+              to: "https://github.com/apache/cloudberry/blob/main/SECURITY.md",
             },
           ],
         },
@@ -243,10 +243,6 @@ const config: Config = {
             {
               label: "Events",
               to: "/community/events",
-            },
-            {
-              label: "Code of Conduct",
-              href: "/community/coc",
             },
             {
               label: "Brand Guidelines",

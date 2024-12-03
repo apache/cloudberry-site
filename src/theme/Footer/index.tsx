@@ -80,12 +80,6 @@ export default function Footer() {
               src={useBaseUrl((footerConfig as any).logo.src)}
               alt=""
             />
-            <img
-              className={styles.swap}
-              onClick={handleCheckLang}
-              src={useBaseUrl("/img/en_zh.png")}
-              alt=""
-            />
           </div>
           <div className={styles.links}>
             <GithubSvg

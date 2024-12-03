@@ -1,9 +1,9 @@
 ---
-title: Install Single-Node Cloudberry Database in a Docker Container (Sandbox)
-description: Learn how to quickly set up and connect to a single-node Cloudberry Database in a Docker environment.
+title: Install Single-Node Apache Cloudberry in a Docker Container (Sandbox)
+description: Learn how to quickly set up and connect to a single-node Apache Cloudberry in a Docker environment.
 ---
 
-This document guides you on how to quickly set up and connect to a single-node Cloudberry Database in a Docker environment. You can try out Cloudberry Database by performing some basic operations and running SQL commands.
+This document guides you on how to quickly set up and connect to a single-node Apache Cloudberry in a Docker environment. You can try out Apache Cloudberry by performing some basic operations and running SQL commands.
 
 :::warning
 
@@ -20,16 +20,16 @@ Make sure that your environment meets the following requirements:
 
 ## Build the Sandbox
 
-This section introduces how to set up the Docker container in which the source code of Cloudberry Database v1.5.1 (released in [Cloudberry Database Release Page](https://github.com/cloudberrydb/cloudberrydb/releases)) will be compiled. In this CentOS 7.9 Docker container, a single-node cluster will be initialized with one coordinator and two segments. Both x86 and ARM CPUs (including Apple chips) are supported.
+This section introduces how to set up the Docker container in which the source code of Apache Cloudberry v1.5.1 (released in [Apache Cloudberry Release Page](https://github.com/apache/cloudberry/releases)) will be compiled. In this CentOS 7.9 Docker container, a single-node cluster will be initialized with one coordinator and two segments. Both x86 and ARM CPUs (including Apple chips) are supported.
 
 Build steps:
 
 1. Start Docker Desktop and make sure it is running properly on your host platform.
 
-2. Download this repository (which is [cloudberrydb/bootcamp](https://github.com/cloudberrydb/bootcamp)) to the target machine.
+2. Download this repository (which is [apache/cloudberry-bootcamp](https://github.com/apache/cloudberry-bootcamp)) to the target machine.
 
     ```shell
-    git clone https://github.com/cloudberrydb/bootcamp.git
+    git clone https://github.com/apache/cloudberry-bootcamp.git
     ```
 
 3. Enter the repository and run the `run.sh` script to start the Docker container. This will start the automatic installation process.
@@ -58,7 +58,7 @@ You can now connect to the database and try some basic operations.
     [root@mdw /]$
     ```
 
-2. Log into Cloudberry Database in Docker. See the following commands and example outputs:
+2. Log into Apache Cloudberry in Docker. See the following commands and example outputs:
 
     ```shell
     [root@mdw /] su - gpadmin  # Switches to the gpadmin user.
@@ -77,7 +77,7 @@ You can now connect to the database and try some basic operations.
 
     -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     -----
-    PostgreSQL 14.4 (Cloudberry Database 1.0.0 build dev) on aarch64-unknown-linux-gnu, compiled by gcc (GCC) 10.2.1 20210130 (Red Hat 10.2.1-11), 64-bit compiled on Oct 24 2023 10:24:28
+    PostgreSQL 14.4 (Apache Cloudberry 1.0.0 build dev) on aarch64-unknown-linux-gnu, compiled by gcc (GCC) 10.2.1 20210130 (Red Hat 10.2.1-11), 64-bit compiled on Oct 24 2023 10:24:28
     (1 row)
     ```
 
@@ -87,5 +87,5 @@ In addition to using the `docker exec` command, you can also use the `ssh` comma
 ssh gpadmin@localhost # Password: cbdb@123
 ```
 
-Now you have a Cloudberry Database and can continue with [101 Cloudberry Database Tutorials](./#2-101-cloudberrydb-tourials)! Enjoy!
+Now you have a Apache Cloudberry and can continue with [101 Apache Cloudberry Tutorials](./#2-101-cloudberry-tourials)! Enjoy!
 

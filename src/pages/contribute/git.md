@@ -3,11 +3,10 @@ title: Working with Git & GitHub
 description: Before starting, it's important to learn Git and GitHub to effectively contribute and communicate with other members.
 ---
 
-Apache Cloudberry (Incubating) is hosted on GitHub. We use GitHub Issues as the
-bug report system, use GitHub Discussions for discussion and get
-feedback, and use Git as our version control system. Given these, it's
-important for community users and developers to learn how to work well
-with GitHub and Git.
+Apache Cloudberry (Incubating) is hosted on GitHub. We use GitHub
+Issues as the bug report system, and use Git as our version control
+system. Given these, it's important for community users and developers
+to learn how to work well with GitHub and Git.
 
 Please note, we do not aim to write one complete guide for Git or
 GitHub on this page, but we list the key points in your future work.
@@ -22,11 +21,7 @@ please create one.
 Then you need to edit your public GitHub profile, including your name,
 avatar, bio, social accounts, etc. to let other people know you.
 
-### Step 2: Configure two-factor authentication
-
-This is required only for Apache Cloudberry organization members,
-including committers, and PMC members. If you're an outside
-contributor, you can skip this step.
+### (Option) Step 2: Configure two-factor authentication
 
 You can take [GitHub Document: Configuring two-factor
 authentication](https://docs.github.com/en/authentication/securing-your-account-with-two-factor-authentication-2fa/configuring-two-factor-authentication)
@@ -54,8 +49,7 @@ git config --global user.name "Your Name"
 :::caution
 
 If you are used to working on different laptops, please make sure to
-have the same email address and name settings for your Git, in case
-that our CLABot has difficulty detecting the contributor information.
+have the right email address and name settings.
 
 :::
 
@@ -83,7 +77,7 @@ pull request.
 ## Commit Conventions
 
 We have one [git commit message
-template](https://raw.githubusercontent.com/cloudberrydb/cloudberrydb/main/.gitmessage)
+template](https://raw.githubusercontent.com/apache/cloudberry/main/.gitmessage)
 for coding contributions. You can download the file and run the
 following command to apply it globally:
 
@@ -212,7 +206,7 @@ new features, and share proposals for Apache Cloudberry.
 
 If you find problems and issues with code in Apache Cloudberry core,
 welcome to report to [GitHub
-Issues](https://github.com/cloudberrydb/cloudberrydb/issues/new/choose).
+Issues](https://github.com/apache/cloudberry/issues/new/choose).
 
 If you want to ask for help, answer questions, share your new ideas
 for features, and get feedback for your proposal, please [create new
@@ -223,7 +217,7 @@ directly.
 |------------------------------|------------------------------------------------------------------|
 | Announcements                | New Release, events, blog and more (*Only maintainers can post*) |
 | Ideas / Feature Requests     | Share ideas for new features                                     |
-| Proposal                     | Share proposals of major changes to Apache Cloudberry          |
+| Proposal                     | Share proposals of major changes to Apache Cloudberry            |
 | Q&A                          | Ask the community for help                                       |
 
 :::note
@@ -231,54 +225,6 @@ Read GitHub blog '[What is GitHub Discussions? A complete
 guide](https://resources.github.com/devops/process/planning/discussions/)'
 to learn more.
 :::
-
-## GitHub Projects
-
-Now, our project is only public to the Apache Cloudberry
-organization members. If you're a member, you can open
-https://github.com/orgs/cloudberrydb/projects/5. We list the fields
-for your reference.
-
-<table>
-<thead>
-<tr>
-<th>Status</th>
-<th>Priority</th>
-<th>Size</th>
-<th>Story Type</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<p>🧊 Icebox</p>
-<p>📋 Backlog</p>
-<p>🏗 In progress</p>
-<p>👀 In review</p>
-<p>✅ Done</p>
-</td>
-<td>
-<p>🌋 Urgent</p>
-<p>🏔 High</p>
-<p>🏕 Medium</p>
-<p>🏝 Low</p>
-</td>
-<td>
-<p>🐋 X-Large</p>
-<p>🦑 Large</p>
-<p>🐂 Medium</p>
-<p>🐇 Small</p>
-<p>🦔 Tiny</p>
-</td>
-<td>
-<p>🤩 Feature</p>
-<p>🥳 Chore</p>
-<p>🐛 Bug</p>
-<p>🚀️ Release</p>
-</td>
-</tr>
-</tbody>
-</table>
 
 ## Advanced Usage in GitHub
 

@@ -4,7 +4,7 @@ import DockerSvg from "/img/home/try-it-out/docker.svg";
 import SystemSvg from "/img/home/try-it-out/system.svg";
 
 let TIPS_CONTENT = (
-  <LinkWithBaseUrl href="https://github.com/cloudberrydb/cloudberrydb">
+  <LinkWithBaseUrl href="https://github.com/apache/cloudberry">
     <span>If you like Apache Cloudberry (Incubating), give it a star on GitHub! </span>
     <img src="/img/home/hcard/star.svg" alt="" />
   </LinkWithBaseUrl>
@@ -17,19 +17,19 @@ let MMP_ARCHITECTURE = {
       pic: "/img/home/os.png",
       title: "Petabyte-Scale Data",
       content:
-        "Cloudberry Database offers excellent performance for handling large-scale data workloads with high throughput.",
+        "Apache Cloudberry offers excellent performance for handling large-scale data workloads with high throughput.",
     },
     {
       pic: "/img/home/pr.png",
       title: "Mature Technology",
       content:
-        "Cloudberry Database integrates solid PostgreSQL and Greenplum Database upstream technology, which both have wide adoption, active ecosystems, and tons of real-world use cases.",
+        "Apache Cloudberry integrates solid PostgreSQL and Greenplum Database upstream technology, which both have wide adoption, active ecosystems, and tons of real-world use cases.",
     },
     {
       pic: "/img/home/pc.png",
       title: "Security Reinforcement",
       content:
-        "Cloudberry Database supports more encryption methods and algorithms including AES 128, AES 192, AES 256, DES and SCRAM-SHA-256, MD5, LDAP, and RADIUS.",
+        "Apache Cloudberry supports more encryption methods and algorithms including AES 128, AES 192, AES 256, DES and SCRAM-SHA-256, MD5, LDAP, and RADIUS.",
     },
   ],
 };
@@ -39,7 +39,7 @@ let OUR_ROADMAP = {
   subTitle: (
     <>
       <div>
-        Welcome to join us in shaping the future of Cloudberry Database,
+        Welcome to join us in shaping the future of Apache Cloudberry,
       </div>
       <a
         className="active-color"
@@ -57,42 +57,42 @@ let OUR_ROADMAP = {
       lightIcon: "/img/home/feature/hesc-light.png",
       title: "Streaming Support",
       content:
-        "Cloudberry Database is compatible with Greenplum Database, but with a newer PostgreSQL 14.4 kernel and more advanced features Greenplum doesn't support.",
+        "Apache Cloudberry is compatible with Greenplum Database, but with a newer PostgreSQL 14.4 kernel and more advanced features Greenplum doesn't support.",
     },
     {
       icon: "/img/home/feature/sac.png",
       lightIcon: "/img/home/feature/sac-light.png",
       title: "AI/ML ",
       content:
-        "Inheriting the rich analytical features from PostgreSQL and Greenplum Database, Cloudberry Database leverages them to the data platform, and seamlessly integrates the mainstream ETL and BI tools.",
+        "Inheriting the rich analytical features from PostgreSQL and Greenplum Database, Apache Cloudberry leverages them to the data platform, and seamlessly integrates the mainstream ETL and BI tools.",
     },
     {
       icon: "/img/home/feature/cuwmt.png",
       lightIcon: "/img/home/feature/cuwmt-light.png",
       title: "Strong Analytical Capability",
       content:
-        "Cloudberry Database has done a lot of work to speed up the query performance, including supporting parallel query execution, aggregation pushdown and supporting RuntimeFilter, and more.",
+        "Apache Cloudberry has done a lot of work to speed up the query performance, including supporting parallel query execution, aggregation pushdown and supporting RuntimeFilter, and more.",
     },
     {
       icon: "/img/home/feature/p14i.png",
       lightIcon: "/img/home/feature/p14i-light.png",
       title: "Features and Enhancements",
       content:
-        "Cloudberry Database has a newer PostgreSQL 14.4 kernel inside to let users enjoy more with the backend global community.",
+        "Apache Cloudberry has a newer PostgreSQL 14.4 kernel inside to let users enjoy more with the backend global community.",
     },
     {
       icon: "/img/home/feature/mef.png",
       lightIcon: "/img/home/feature/mef-light.png",
       title: "Kernel Upgrade",
       content:
-        "Cloudberry Database supports password security policy, transparent data encryption (TDE) and more encryption algorithms besides the AES algorithm.",
+        "Apache Cloudberry supports password security policy, transparent data encryption (TDE) and more encryption algorithms besides the AES algorithm.",
     },
     {
       icon: "/img/home/feature/muc.png",
       lightIcon: "/img/home/feature/muc-light.png",
       title: "Utilities and Ecosystem",
       content:
-        "Cloudberry Database can be used in different scenarios, including batch processing data warehouse offline, building data warehouse in real-time, and more.",
+        "Apache Cloudberry can be used in different scenarios, including batch processing data warehouse offline, building data warehouse in real-time, and more.",
     },
   ],
 };
@@ -107,7 +107,7 @@ let TRY_IT_OUT = {
           <div>
             <div>1. Clone the latest source code.</div>
             <span className="code-block">
-              git clone https://github.com/cloudberrydb/cloudberrydb.git
+              git clone https://github.com/apache/cloudberry.git
             </span>
           </div>
           <div>
@@ -133,7 +133,7 @@ let TRY_IT_OUT = {
           the
           <LinkWithBaseUrl
             className="active-color"
-            href="https://cloudberry.apache.org/bootcamp/#cloudberrydb-sandbox"
+            href="https://cloudberry.apache.org/bootcamp/#cloudberry-sandbox"
           >
             {" "}
             bootcamp{" "}
@@ -171,7 +171,7 @@ let SLACK_TWITTER_TWITTER_WECHAT = {
     {
       title: "Twitter",
       icon: "/img/home/links/twitter.svg",
-      desc: 'Follow @cloudberrydb on Twitter("X" now).',
+      desc: 'Follow @ASFCloudberry on Twitter("X" now).',
       link: "https://x.com/ASFCloudberry",
     },
     {
@@ -286,16 +286,13 @@ let FREQUENTLY_ASKED_QUESTIONS = {
   ],
 };
 
-// zh language
-if (isZhLangrage()) {
-}
 
 const LINKS = {
-  github: "https://github.com/cloudberrydb",
+  github: "https://github.com/apache/cloudberry",
   twitter: "https://x.com/ASFCloudberry",
-  youtube: "https://youtube.com/@cloudberrydb",
+  youtube: "https://youtube.com/@ApacheCloudberry",
   community: "https://inviter.co/apache-cloudberry",
-  linkedIn: "https://www.linkedin.com/company/cloudberrydb",
+  linkedIn: "https://www.linkedin.com/company/apache-cloudberry",
   wechat: "/community/wechat",
   discoverMore: "/docs",
 };
