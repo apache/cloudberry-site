@@ -30,7 +30,7 @@ const sidebars: SidebarsConfig = {
       },
       {
         type: 'category',
-        label: 'Deploy on Physical Machine',
+        label: 'Deploy on Physical or Virtual Machine',
         items: ['cbdb-op-software-hardware', 'cbdb-op-prepare-to-deploy', 'cbdb-op-deploy-guide','deploy-cbdb-with-single-node']
       }
      ]
