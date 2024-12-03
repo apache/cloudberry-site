@@ -1,23 +1,23 @@
 ---
 title: "[101-3] Lesson 3: Create Tables"
-description: Learn how to create tables in the Cloudberry Database.
+description: Learn how to create tables in the Apache Cloudberry.
 ---
 
 After creating and preparing a database in [Lesson 2: Create and Prepare a Database](./101-2-create-and-prepare-database), you can start to create tables in the database.
 
 :::note
 
-To introduce Cloudberry Database, we use a public data set, the Airline On-Time Statistics and Delay Causes data set, published by the United States Department of Transportation at http://www.transtats.bts.gov/. The On-Time Performance dataset records flights by date, airline, originating airport, destination airport, and many other flight details. The data is available for flights since 1987. The exercises in this guide use data for about a million flights in 2009 and 2010. You are encouraged to review the SQL scripts in the GitHub `000-cbdb-sandbox/configs/faa.tar.gz` directory as you work through this introduction. You can run most of the exercises by entering the commands yourself or by executing a script in the `faa` directory.
+To introduce Apache Cloudberry, we use a public data set, the Airline On-Time Statistics and Delay Causes data set, published by the United States Department of Transportation at http://www.transtats.bts.gov/. The On-Time Performance dataset records flights by date, airline, originating airport, destination airport, and many other flight details. The data is available for flights since 1987. The exercises in this guide use data for about a million flights in 2009 and 2010. You are encouraged to review the SQL scripts in the GitHub `000-cbdb-sandbox/configs/faa.tar.gz` directory as you work through this introduction. You can run most of the exercises by entering the commands yourself or by executing a script in the `faa` directory.
 
 :::
 
 ## Create tables using a SQL file in psql
 
-In Cloudberry Database, you can use the `CREATE TABLE` SQL statement to create a table.
+In Apache Cloudberry, you can use the `CREATE TABLE` SQL statement to create a table.
 
 In the following steps, you will be guided to run a SQL file `create_dim_tables.sql` that contains the `CREATE TABLE` statements needed to create `faa` databases.
 
-1. Log into Cloudberry Database in Docker as `gpadmin`. Then enter the `faa` directory, in which the SQL file `create_dim_tables.sql` is located.
+1. Log into Apache Cloudberry in Docker as `gpadmin`. Then enter the `faa` directory, in which the SQL file `create_dim_tables.sql` is located.
 
     ```shell
     [gpadmin@mdw tmp]$ cd /tmp
@@ -140,7 +140,7 @@ The definition of a table includes the distribution policy for the data, which i
 
 The distribution policy determines how data is distributed among segments. To get an effective distribution policy requires understanding of the data's characteristics, what kind of queries that would be executed on the data and what distribution strategy will best utilize the parallel execution capacity among segments.
 
-Use the `DISTRIBUTED` clause in `CREATE TABLE` statement to define the distribution policy for a table. Ideally, each segment possesses an equal volume of data and performs equal share of work when queries run. There are 2 kinds of distribution policy syntax in Cloudberry Database:
+Use the `DISTRIBUTED` clause in `CREATE TABLE` statement to define the distribution policy for a table. Ideally, each segment possesses an equal volume of data and performs equal share of work when queries run. There are 2 kinds of distribution policy syntax in Apache Cloudberry:
 
 - `DISTRIBUTED BY (column, ...)` defines a distribution key from one or more columns. A hash function applied to the distribution key determines which segment stores the corresponding row. Rows that have same distribution key are stored on the same segment. If the distribution keys are unique, the hash function will ensure that data is distributed evenly. The default distribution policy is a hash on the primary key of the table or the first column of table if no primary key is specified.
 - `DISTRIBUTED RANDOMLY` distributes rows in round-robin fashion among segments.

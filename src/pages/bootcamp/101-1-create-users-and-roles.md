@@ -1,9 +1,9 @@
 ---
 title: "[101-1] Lesson 1: Create Users and Roles"
-description: Learn how to create users and roles in the Cloudberry Database with this helpful introduction.
+description: Learn how to create users and roles in the Apache Cloudberry with this helpful introduction.
 ---
 
-Cloudberry Database manages database access using roles. Initially, there is one superuser role, the role associated with the OS user who initialized the database instance, usually `gpadmin`. This user owns all of the Cloudberry Database files and OS processes, so it is important to reserve the `gpadmin` role for system tasks only.
+Apache Cloudberry manages database access using roles. Initially, there is one superuser role, the role associated with the OS user who initialized the database instance, usually `gpadmin`. This user owns all of the Apache Cloudberry files and OS processes, so it is important to reserve the `gpadmin` role for system tasks only.
 
 A role can be a user or a group. A user role can log into a database; that is, it has the `LOGIN` attribute. A user or group role can become a member of a group.
 
@@ -13,11 +13,11 @@ Permissions can be granted to users or groups. Initially, only the `gpadmin` rol
 
 You can follow the examples below to create users and roles.
 
-Before moving on to the operations, make sure that you have installed Cloudberry Database by following [Install a Single-Node Cloudberry Database](./cbdb-sandbox).
+Before moving on to the operations, make sure that you have installed Apache Cloudberry by following [Install a Single-Node Apache Cloudberry](./cbdb-sandbox).
 
 ### Create a user using the CREATE USER command
 
-1. Log into Cloudberry Database in Docker. Connect to the database as the `gpadmin` user.
+1. Log into Apache Cloudberry in Docker. Connect to the database as the `gpadmin` user.
 
     ```shell
     [gpadmin@mdw ~]$ psql
@@ -152,7 +152,7 @@ Before moving on to the operations, make sure that you have installed Cloudberry
      users     | Cannot login                                   | {}
     ```
 
-However, after creating the `users` group, `lily` and `lucy` cannot log into Cloudberry Database yet. See the following error messages.
+However, after creating the `users` group, `lily` and `lucy` cannot log into Apache Cloudberry yet. See the following error messages.
 
 ```shell
 [gpadmin@mdw ~]$ psql -U lily -d gpadmin
@@ -181,7 +181,7 @@ To make users (`lily` and `lucy`) able to log into the database, you need to adj
 
     > **Info:**
     >
-    > - `pg_hba.conf` is a configuration file in Cloudberry Database to control access permissions.
+    > - `pg_hba.conf` is a configuration file in Apache Cloudberry to control access permissions.
     > - `md5` and `trust` are the authentication methods. `md5` means that the user needs to enter the password to log in. `trust` means that the user can log in without entering the password.
 
 2. Use `gpstop` to populate the change.
@@ -195,7 +195,7 @@ To make users (`lily` and `lucy`) able to log into the database, you need to adj
     20230818:14:16:05:003653 gpstop:mdw:gpadmin-[INFO]:-Gathering information and validating the environment...
     20230818:14:16:05:003653 gpstop:mdw:gpadmin-[INFO]:-Obtaining Cloudberry Coordinator catalog information
     20230818:14:16:05:003653 gpstop:mdw:gpadmin-[INFO]:-Obtaining Segment details from coordinator...
-    20230818:14:16:05:003653 gpstop:mdw:gpadmin-[INFO]:-Cloudberry Version: 'postgres (Cloudberry Database) 1.0.0 build dev'
+    20230818:14:16:05:003653 gpstop:mdw:gpadmin-[INFO]:-Cloudberry Version: 'postgres (Apache Cloudberry) 1.0.0 build dev'
     20230818:14:16:05:003653 gpstop:mdw:gpadmin-[INFO]:-Signalling all postmaster processes to reload
     ```
 

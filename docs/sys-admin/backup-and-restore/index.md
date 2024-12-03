@@ -12,7 +12,7 @@ Cloudberry Database provides `gpbackup` and `gprestore` for parallel backup and 
 
 Backup files created with `gpbackup` are designed to provide future capabilities for restoring individual database objects along with their dependencies, such as functions and required user-defined data types.
 
-For details about backup and restore using `gpbackup` and `gprestore`, see [Perform Full Backup and Restore](/docs/sys-admin/perform-full-backup-and-restore.md) and [Perform Incremental Backup and Restore](/docs/sys-admin/perform-incremental-backup-and-restore.md).
+For details about backup and restore using `gpbackup` and `gprestore`, see [Perform Full Backup and Restore](/docs/sys-admin/backup-and-restore/perform-full-backup-and-restore.md) and [Perform Incremental Backup and Restore](/docs/sys-admin/backup-and-restore/perform-incremental-backup-and-restore.md).
 
 ## Non-parallel backup with `pg_dump`
 

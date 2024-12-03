@@ -10,7 +10,7 @@ The `file://` protocol is used in a URI that specifies the location of an operat
 
 The URI includes the host name, port, and path to the file. Each file must locate on a segment host in a location accessible by the Cloudberry Database superuser (`gpadmin`). The host name used in the URI must match a segment host name registered in the `gp_segment_configuration` system catalog table.
 
-The `LOCATION` clause can have multiple URIs, as shown in [Usage examples](#usage-example).
+The `LOCATION` clause can have multiple URIs, as shown in [Usage examples](#usage-examples).
 
 The number of URIs you specify in the `LOCATION` clause is the number of segment instances that will work in parallel to access the external table. For each URI, Cloudberry Database assigns a primary segment on the specified host to the file. For maximum parallelism when loading data, divide the data into as many equally sized files as you have primary segments. This ensures that all segments participate in the load. The number of external files per segment host cannot exceed the number of primary segment instances on that host. For example, if your array has 4 primary segment instances per segment host, you can place 4 external files on each segment host. Tables based on the `file://` protocol can only be readable tables.
 

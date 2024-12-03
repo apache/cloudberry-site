@@ -1,13 +1,13 @@
 ---
 title: "[101-5] Lesson 5: Queries and Performance Tuning"
-description: Understand the queries in the Cloudberry Database.
+description: Understand the queries in the Apache Cloudberry.
 ---
 
-This lesson provides an overview of how Cloudberry Database processes queries. Understanding this process can be useful when you write and tune queries.
+This lesson provides an overview of how Apache Cloudberry processes queries. Understanding this process can be useful when you write and tune queries.
 
 ## Concepts
 
-Users submit queries to Cloudberry Database as they would to any database management system. They connect to the database instance on the CloudberryDB master host using a client application such as psql and submit SQL statements.
+Users submit queries to Apache Cloudberry as they would to any database management system. They connect to the database instance on the Apache Cloudberry master host using a client application such as psql and submit SQL statements.
 
 ### Understand query planning and dispatch
 
@@ -21,21 +21,21 @@ _Figure 1. Dispatch the parallel query plan_
 
 ### Understand query plans
 
-A query plan is a set of operations Cloudberry Database will perform to produce the answer to a query. Each node or step in the plan represents a database operation such as a table scan, join, aggregation or sort. Plans are read and executed from bottom to top.
+A query plan is a set of operations Apache Cloudberry will perform to produce the answer to a query. Each node or step in the plan represents a database operation such as a table scan, join, aggregation or sort. Plans are read and executed from bottom to top.
 
-In addition to common database operations such as tables scan and join, Cloudberry Database has an additional operation type called "motion". A motion operation involves moving tuples between segments during query processing.
+In addition to common database operations such as tables scan and join, Apache Cloudberry has an additional operation type called "motion". A motion operation involves moving tuples between segments during query processing.
 
-To achieve maximum parallelism during query execution, Cloudberry Database divides the work of a query plan into slices. A slice is a portion of the plan that segments can work on independently. A query plan is sliced wherever a motion operation occurs in the plan with one slice on each side of the motion.
+To achieve maximum parallelism during query execution, Apache Cloudberry divides the work of a query plan into slices. A slice is a portion of the plan that segments can work on independently. A query plan is sliced wherever a motion operation occurs in the plan with one slice on each side of the motion.
 
 ### Understand parallel query execution
 
-Cloudberry Database creates a number of database processes to handle the work of a query. On the master, the query worker process is called "query dispatcher"  or "QD". QD is responsible for creating and dispatching query plan. It also accumulates and presents the final results. On segments, a query worker process is called "query executor" or "QE". QE is responsible for completing its portion of work and communicating its intermediate results to other worker processes.
+Apache Cloudberry creates a number of database processes to handle the work of a query. On the master, the query worker process is called "query dispatcher"  or "QD". QD is responsible for creating and dispatching query plan. It also accumulates and presents the final results. On segments, a query worker process is called "query executor" or "QE". QE is responsible for completing its portion of work and communicating its intermediate results to other worker processes.
 
 There is at least one worker process assigned to each slice of the query plan. A worker process works on its assigned portion of the query plan independently. During query execution, each segment will have a number of processes working on the query in parallel.
 
-Related processes that are working on the same slice of the query plan but on different segments are called "gangs". As a portion of work is completed, tuples flow up the query plan from one gang of processes to the next. This inter-process communication between segments is referred to as the interconnect component of Cloudberry Database. 
+Related processes that are working on the same slice of the query plan but on different segments are called "gangs". As a portion of work is completed, tuples flow up the query plan from one gang of processes to the next. This inter-process communication between segments is referred to as the interconnect component of Apache Cloudberry. 
 
-The following section introduces some of the basic principles of query and performance tuning in a Cloudberry database.
+The following section introduces some of the basic principles of query and performance tuning in a Apache Cloudberry.
 
 Some items to consider in performance tuning:
 
@@ -52,11 +52,11 @@ After doing the following exercises, you are expected to finish the previous tut
 
 ### Analyze the tables
 
-Cloudberry Database uses Multi-version Concurrency Control (MVCC) to guarantee data isolation, one of the ACID properties of relational databases. MVCC allows multiple users of the database to obtain consistent results for a query, even if the data is changing as the query is being executed. There can be multiple versions of rows in the database, but a query sees a snapshot of the database at a single point in time, containing only the versions of rows that are valid at that point in time. When a row is updated or deleted and no active transactions continue to reference it, it can be removed. The `VACUUM` command removes older versions that are no longer needed, leaving free space that can be reused.
+Apache Cloudberry uses Multi-version Concurrency Control (MVCC) to guarantee data isolation, one of the ACID properties of relational databases. MVCC allows multiple users of the database to obtain consistent results for a query, even if the data is changing as the query is being executed. There can be multiple versions of rows in the database, but a query sees a snapshot of the database at a single point in time, containing only the versions of rows that are valid at that point in time. When a row is updated or deleted and no active transactions continue to reference it, it can be removed. The `VACUUM` command removes older versions that are no longer needed, leaving free space that can be reused.
 
-In a Cloudberry Database, regular OLTP operations do not create the need for vacuuming out old rows, but loading data while tables are in use might create such a need. It is a best practice to `VACUUM` a table after a load. If the table is partitioned, and only a single partition is being altered, then a `VACUUM` on that partition might suffice.
+In a Apache Cloudberry, regular OLTP operations do not create the need for vacuuming out old rows, but loading data while tables are in use might create such a need. It is a best practice to `VACUUM` a table after a load. If the table is partitioned, and only a single partition is being altered, then a `VACUUM` on that partition might suffice.
 
-The `VACUUM FULL` command behaves much differently than `VACUUM`, and its use is not recommended in Cloudberry databases. It can be expensive in CPU and I/O consumption, cause bloat in indexes, and lock data for long periods of time.
+The `VACUUM FULL` command behaves much differently than `VACUUM`, and its use is not recommended in Apache Cloudberry. It can be expensive in CPU and I/O consumption, cause bloat in indexes, and lock data for long periods of time.
 
 The ANALYZE command generates statistics about the distribution of data in a table. In particular, it stores histograms about the values in each of the columns. The query optimizer depends on these statistics to select the best plan for executing a query. For example, the optimizer can use distribution data to decide on join orders. One of the optimizer's goals in a join is to minimize the volume of data that must be analyzed and potentially moved between segments by using the statistics to choose the smallest result set to work with first.
 
@@ -210,13 +210,13 @@ By default, the sandbox instance disables the Pivotal Query Optimizer and you mi
     20230726:14:42:49:031465 gpstop:mdw:gpadmin-[INFO]:-Gathering information and validating the environment...
     20230726:14:42:49:031465 gpstop:mdw:gpadmin-[INFO]:-Obtaining Cloudberry Coordinator catalog information
     20230726:14:42:49:031465 gpstop:mdw:gpadmin-[INFO]:-Obtaining Segment details from coordinator...
-    20230726:14:42:49:031465 gpstop:mdw:gpadmin-[INFO]:-Cloudberry Version: 'postgres (Cloudberry Database) 1.0.0 build dev'
+    20230726:14:42:49:031465 gpstop:mdw:gpadmin-[INFO]:-Cloudberry Version: 'postgres (Apache Cloudberry) 1.0.0 build dev'
     20230726:14:42:49:031465 gpstop:mdw:gpadmin-[INFO]:-Signalling all postmaster processes to reload
     ```
 
 ### Indexes and performance
 
-Cloudberry Database does not depend upon indexes to the same degree as traditional data warehouse systems. Because the segments execute table scans in parallel, each segment scanning a small part of the table, the traditional performance advantage from indexes is gone. Indexes consume large amounts of space and require considerable CPU time slot to compute during data loads. There are, however, times when indexes are useful, especially for highly selective queries. When a query looks up a single row, an index can dramatically improve performance.
+Apache Cloudberry does not depend upon indexes to the same degree as traditional data warehouse systems. Because the segments execute table scans in parallel, each segment scanning a small part of the table, the traditional performance advantage from indexes is gone. Indexes consume large amounts of space and require considerable CPU time slot to compute during data loads. There are, however, times when indexes are useful, especially for highly selective queries. When a query looks up a single row, an index can dramatically improve performance.
 
 In this exercise, you work with the legacy optimizer to know how index can improve performance. You first run a single row lookup on the sample table without an index, then rerun the query after creating an index.
 
@@ -282,7 +282,7 @@ tutorial=# EXPLAIN SELECT * FROM sample WHERE big = 12345 OR big = 12355;
 
 ### Row vs. column orientation
 
-Cloudberry Database offers the ability to store a table in either row or column orientation. Both storage options have advantages, depending upon data compression characteristics, the kinds of queries executed, the row length, and the complexity, and the number of join columns.
+Apache Cloudberry offers the ability to store a table in either row or column orientation. Both storage options have advantages, depending upon data compression characteristics, the kinds of queries executed, the row length, and the complexity, and the number of join columns.
 
 As a general rule, very wide tables are better stored in row orientation, especially if there are joins on many columns. Column orientation works well to save space with compression and to reduce I/O when there is much duplicated data in columns.
 
@@ -573,17 +573,17 @@ Partitions can improve query performance dramatically. When a query predicate fi
 
 A common application for partitioning is to maintain a rolling window of data based on date, for example, a fact table containing the most recent 12 months of data. Using the `ALTER TABLE` statement, an existing partition can be dropped by removing its child file. This is much more efficient than scanning the entire table and removing rows with a `DELETE` statement.
 
-Partitions might also be sub-partitioned. For example, a table can be partitioned by month, and the month partitions can be sub-partitioned by week. Cloudberry Database creates child files for the months and weeks. The actual data, however, is stored in the child files created for the week subpartitions. Only child files at the leaf level hold data.
+Partitions might also be sub-partitioned. For example, a table can be partitioned by month, and the month partitions can be sub-partitioned by week. Apache Cloudberry creates child files for the months and weeks. The actual data, however, is stored in the child files created for the week subpartitions. Only child files at the leaf level hold data.
 
 When a new partition is added, you can run `ANALYZE` on just the data in that partition. `ANALYZE` can run on the root partition (the name of the table in the `CREATE TABLE` statement) or on a child file created for a leaf partition. If `ANALYZE` has already run on the other partitions and the data is static, it is not necessary to run it again on those partitions.
 
-Cloudberry Database supports:
+Apache Cloudberry supports:
 
 - Range partitioning: division of data based on a numerical range, such as date or price.
 - List partitioning: division of data based on a list of values, such as sales territory or product line.
 - A combination of both types.
 
-![Cloudberry Database partitioning](./images/part.jpg)
+![Apache Cloudberry partitioning](./images/part.jpg)
 
 The following exercise compares `SELECT` statements with `WHERE` clauses that do and do not use a partitioned column.
 

@@ -1,10 +1,10 @@
 ---
-title: "[103-1] TPC-H: Decision Support Benchmark for Cloudberry Database"
-description: Run the TPC-H benchmark automatically on an existing Cloudberry Database cluster.
+title: "[103-1] TPC-H: Decision Support Benchmark for Apache Cloudberry"
+description: Run the TPC-H benchmark automatically on an existing Apache Cloudberry cluster.
 ---
 
 This tool is based on the benchmark tool [TPC-H](https://www.tpc.org/tpch/default5.asp). 
-This repo will guide you on how to run the TPC-H benchmark automatically on an existing CloudberryDB cluster in the CloudberryDB Sandbox.
+This repo will guide you on how to run the TPC-H benchmark automatically on an existing Apache Cloudberry cluster in the Apache Cloudberry Sandbox.
 
 :::note
 
@@ -27,7 +27,7 @@ TPC has published the following TPC-H standards over time:
 
 ### Prerequisites
 
-This is a follow-up tutorial for previous bootcamp steps. Please make sure to have the environment ready for Cloudberry Database Sandbox up and running.
+This is a follow-up tutorial for previous bootcamp steps. Please make sure to have the environment ready for Apache Cloudberry Sandbox up and running.
 
 ### TPC-H Tools Dependencies
 
@@ -54,7 +54,7 @@ TPC-H and TPC-DS packages are already placed under "mdw:/tmp/" folder.
 
 ### Execution
 
-To run the benchmark, login as `gpadmin` on `mdw` in the CloudberryDB Sandbox, and execute the following command:
+To run the benchmark, login as `gpadmin` on `mdw` in the Apache Cloudberry Sandbox, and execute the following command:
 
 ```bash
 su - gpadmin
