@@ -48,32 +48,51 @@ jobs:
     permissions:
       contents: write
     steps:
+      # Checkout the repository
       - uses: actions/checkout@v4
+
+      # Set up Node.js environment
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      
+
       # Install dependencies and build site
       - name: Install dependencies
         run: npm install
+
       - name: Build site
         run: npm run build
+
       - name: Copy ASF config
         run: cp .asf.yaml build/.asf.yaml
 
-      # Deploy to asf-staged for PR preview
+      # Ensure asf-staging branch exists
+
+      - name: Ensure asf-staging branch exists
+        run: |
+          git fetch origin
+          if ! git show-ref --quiet refs/remotes/origin/asf-staging; then
+            git config user.name "GitHub Actions"
+            git config user.email "actions@github.com"
+            git checkout --orphan asf-staging
+            git commit --allow-empty -m "Initialize asf-staging branch"
+            git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+            git push origin asf-staging
+          fi
+
+      # Deploy to asf-staging for PR preview
       - name: Deploy to staging
         if: github.event_name == 'pull_request'
-        uses: peaceiris/actions-gh-pages@v3
+        uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./build
           publish_branch: asf-staging
-          
+
       # Deploy to asf-site for production
       - name: Deploy to production
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        uses: peaceiris/actions-gh-pages@v3
+        uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./build
