@@ -66,20 +66,6 @@ jobs:
       - name: Copy ASF config
         run: cp .asf.yaml build/.asf.yaml
 
-      # Ensure asf-staging branch exists
-
-      - name: Ensure asf-staging branch exists
-        run: |
-          git fetch origin
-          if ! git show-ref --quiet refs/remotes/origin/asf-staging; then
-            git config user.name "GitHub Actions"
-            git config user.email "actions@github.com"
-            git checkout --orphan asf-staging
-            git commit --allow-empty -m "Initialize asf-staging branch"
-            git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
-            git push origin asf-staging
-          fi
-
       # Deploy to asf-staging for PR preview
       - name: Deploy to staging
         if: github.event_name == 'pull_request'
