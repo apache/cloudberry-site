@@ -40,6 +40,7 @@ github:
     rebase: true
   protected_branches:
     asf-site: {}
+    asf-staging: {}
     main:
       required_status_checks:
         # strict means "Require branches to be up to date before merging".
