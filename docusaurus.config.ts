@@ -164,7 +164,7 @@ const config: Config = {
             },
             {
               label: 'Security',
-              to: 'https://github.com/apache/cloudberry/blob/main/SECURITY.md'
+              to: 'https://www.apache.org/security/'
             },
             {
               label: 'Sponsorship',
@@ -225,7 +225,7 @@ const config: Config = {
             },
             {
               label: "Security",
-              to: "https://github.com/apache/cloudberry/blob/main/SECURITY.md",
+              to: "/community/security",
             },
           ],
         },
