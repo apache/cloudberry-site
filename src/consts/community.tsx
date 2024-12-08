@@ -235,7 +235,7 @@ let COMMUNITY_PAGE: CommunityPageConfig = {
                 "View the Apache security policy to learn how to report security issues to us.",
               link: {
                 text: "Learn the security policy",
-                href: "https://github.com/apache/cloudberry/blob/main/SECURITY.md",
+                href: "/community/security",
               },
             },
           ],

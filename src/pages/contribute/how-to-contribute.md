@@ -50,7 +50,7 @@ You can participate by:
   Requests](https://github.com/apache/cloudberry/pulls) or
   [Proposals](https://github.com/apache/cloudberry/discussions/categories/proposal).
 - Proposing your proposal, see [Proposal Guide](./proposal).
-- [Reporting security issues](https://github.com/apache/cloudberry/blob/main/SECURITY.md).
+- [Reporting security issues](/community/security).
 - Testing code, testing releases.
 - Creating educational content (Blog posts, tutorials, videos, etc.)
 - Spreading the word about Apache Cloudberry on social media(eg,
