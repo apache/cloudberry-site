@@ -17,7 +17,6 @@
   "dependencies": {
     "@docusaurus/core": "^3.1.1",
     "@docusaurus/plugin-client-redirects": "^3.5.1",
-    "@docusaurus/plugin-google-gtag": "^3.1.1",
     "@docusaurus/preset-classic": "^3.1.1",
     "@easyops-cn/docusaurus-search-local": "^0.40.1",
     "@floating-ui/react": "^0.26.6",
@@ -27,6 +26,7 @@
     "ahooks": "^3.7.10",
     "clsx": "^2.0.0",
     "dayjs": "^1.11.10",
+    "docusaurus-plugin-matomo": "^0.0.8",
     "docusaurus-plugin-sass": "^0.2.5",
     "lodash-es": "^4.17.21",
     "prism-react-renderer": "^2.3.0",
