@@ -16,6 +16,7 @@ const config: Config = {
   
   plugins: [
     "docusaurus-plugin-sass",
+    'docusaurus-plugin-matomo',
     [
       "@easyops-cn/docusaurus-search-local",
       { hashed: true, indexPages: true, language: ["en", "zh"] },
@@ -63,10 +64,6 @@ const config: Config = {
             "./src/css/design-style.scss",
             "./src/css/design-class.scss",
           ],
-        },
-        gtag: {
-          trackingID: "G-5RF5B25JHD",
-          anonymizeIP: true,
         },
       } satisfies Preset.Options,
     ],
@@ -276,6 +273,13 @@ const config: Config = {
     prism: {
       theme: prismThemes.github,
       darkTheme: prismThemes.dracula,
+    },
+    // Change website analytics from Google Analytics to Matomo
+    matomo: {
+      matomoUrl: 'https://analytics.apache.org/',
+      siteId: '66',
+      phpLoader: 'matomo.php',
+      jsLoader: 'matomo.js',
     },
   } satisfies Preset.ThemeConfig,
 };
