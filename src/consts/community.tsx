@@ -196,6 +196,15 @@ let COMMUNITY_PAGE: CommunityPageConfig = {
                 href: "https://youtube.com/@ApacheCloudberry",
               },
             },
+            {
+              title: "LinkedIn",
+              content:
+                "Stay connected with the latest updates by following our LikedIn page!",
+              link: {
+                text: "Follow now",
+                href: "https://www.linkedin.com/company/apache-cloudberry",
+              },
+            },
           ],
         },
       ],
