@@ -1,10 +1,11 @@
-import { formatStrHorizontalLine, isZhLangrage } from "../utils";
+import { formatStrHorizontalLine } from "../utils";
 import EventsIcon from "/img/community/events.svg";
 import ForDevIcon from "/img/community/for-dev.svg";
 import ReportBugsIcon from "/img/community/report-bugs.svg";
 import ShareNewIdeasIcon from "/img/community/share-new-ideas.svg";
 import SlackIcon from "/img/community/slack.svg";
 import WechatIcon from "/img/community/wechat.svg";
+import MailingLists from '/img/community/mailing-lists.svg'
 
 interface CommunityPageConfig {
   headerCard: {
@@ -40,7 +41,7 @@ let COMMUNITY_PAGE: CommunityPageConfig = {
       title: "Get Involved",
       cardLines: [
         {
-          style: { height: 216 },
+          style: {},
           cards: [
             {
               icon: <SlackIcon fill="#fff" />,
@@ -69,11 +70,6 @@ let COMMUNITY_PAGE: CommunityPageConfig = {
                 href: "/community/events",
               },
             },
-          ],
-        },
-        {
-          style: { height: 216 },
-          cards: [
             {
               icon: <ReportBugsIcon fill={"#fff"} />,
               title: "Report bugs",
@@ -105,7 +101,7 @@ let COMMUNITY_PAGE: CommunityPageConfig = {
               },
             },
             {
-              icon: <ShareNewIdeasIcon fill="#fff" />,
+              icon: <MailingLists fill="#fff" />,
               title: "Mailing Lists",
               content:
                 "Learn how to participate in Apache Cloudberry's community through our mailing lists.",
@@ -171,7 +167,7 @@ let COMMUNITY_PAGE: CommunityPageConfig = {
           ],
         },
         {
-          style: { height: 176 },
+          style: { height: 'auto',marginTop: 40 },
           cards: [
             {
               title: "Announcements",
@@ -219,7 +215,10 @@ let COMMUNITY_PAGE: CommunityPageConfig = {
               title: "Code of Conduct",
               content:
                 "Work together to create an open, welcoming, diverse, inclusive, and healthy space for everyone.",
-              link: { text: "Learn more", href: "https://www.apache.org/foundation/policies/conduct" },
+              link: {
+                text: "Learn more",
+                href: "https://www.apache.org/foundation/policies/conduct",
+              },
             },
             {
               title: "Brand Guidelines",

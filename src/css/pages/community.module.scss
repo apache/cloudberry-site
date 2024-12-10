@@ -8,12 +8,10 @@
   .leftContent {
     padding-top: 68px;
     .cardLine {
-      display: flex;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
       justify-content: space-between;
-
-      &:last-child {
-        margin-top: 40px;
-      }
+      gap: 40px;
     }
   }
   .rightContent {
