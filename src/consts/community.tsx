@@ -104,6 +104,16 @@ let COMMUNITY_PAGE: CommunityPageConfig = {
                 href: "/contribute",
               },
             },
+            {
+              icon: <ShareNewIdeasIcon fill="#fff" />,
+              title: "Mailing Lists",
+              content:
+                "Learn how to participate in Apache Cloudberry's community through our mailing lists.",
+              link: {
+                text: "See how to participate",
+                href: "/community/mailing-lists",
+              },
+            },
           ],
         },
       ],
