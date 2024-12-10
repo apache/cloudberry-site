@@ -68,7 +68,7 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./build
-          publish_branch: asf-staging
+          publish_branch: preview/${{ github.event.pull_request.number }}
           
       # Deploy to asf-site for production
       - name: Deploy to production

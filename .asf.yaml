@@ -70,6 +70,7 @@ notifications:
 staging:
   profile: ~
   whoami:  asf-staging
+  autostage: preview/*
  
 publish:
   whoami:  asf-site
