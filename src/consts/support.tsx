@@ -56,7 +56,7 @@ const configData = {
         <>
           View our{" "}
           <LinkWithBaseUrl
-            href="https://github.com/apache/cloudberry/blob/main/SECURITY.md"
+            href="/community/security"
             className="active-color"
             target="_blank"
           >
