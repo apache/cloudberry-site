@@ -11,9 +11,9 @@
     "message": "部署和构建",
     "description": "The label for category deployment guides in sidebar docs"
   },
-  "sidebar.docsbars.category.Deploy on Physical Machine": {
-    "message": "物理机部署",
-    "description": "The label for category physical machine deployment guides in sidebar docs"
+  "sidebar.docsbars.category.Deploy on Physical or Virtual Machine": {
+    "message": "物理机/虚拟机部署",
+    "description": "The label for category physical/virtual machine deployment guides in sidebar docs"
   },
   "sidebar.docsbars.category.Build from Source Code": {
     "message": "从源码编译安装",

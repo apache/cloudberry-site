@@ -4,13 +4,13 @@ title: Software and Hardware Configuration
 
 # Software and Hardware Configuration
 
-This document introduces the software and hardware configuration required for Cloudberry Database.
+This document introduces the software and hardware configuration required for Apache Cloudberry.
 
 ## Hardware requirements
 
-### Physical machine
+### Supported deployment environments
 
-The following section describes the recommended physical machine configuration for Cloudberry Database in test and production environments.
+Apache Cloudberry supports deployment on both physical machines and virtual machines. Below are the recommended configurations for the environments.
 
 #### For development or test environments
 
@@ -29,6 +29,8 @@ The following section describes the recommended physical machine configuration f
 | Segment | 8+ cores  | 32+ GB | SSD      | 10 Gbps NIC (2 preferred) | 2+       |
 | ETCD    | 16+ cores | 64+ GB | SSD      | 10 Gbps NIC (2 preferred) | 3+       |
 | FTS     | 4+ cores  | 8+ GB   | SSD      | 10 Gbps NIC (2 preferred) | 3+       |
+
+Apache Cloudberry can also be deployed on public cloud platforms such as AWS, Azure, and GCP. The hardware requirements for cloud-based deployments might vary based on the instance types selected on these platforms. Refer to the specific cloud provider’s documentation for instance configurations that meet or exceed the recommended hardware specifications.
 
 ### Storage
 
@@ -96,7 +98,7 @@ mount /dev/data/data2 /data2/
 
 ### Supported OS
 
-Cloudberry Database supports the following operating systems:
+Apache Cloudberry supports the following operating systems:
 
 - Kylin V10 SP1 or SP2
 - NeoKylin V7update6
