@@ -52,11 +52,28 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      - run: npm install
-      - run: npm run build
-      - run: cp .asf.yaml build/.asf.yaml
-      - uses: peaceiris/actions-gh-pages@v3
-        if: github.event_name != 'pull_request'
+      
+      # Install dependencies and build site
+      - name: Install dependencies
+        run: npm install
+      - name: Build site
+        run: npm run build
+      - name: Copy ASF config
+        run: cp .asf.yaml build/.asf.yaml
+
+      # Deploy to asf-staging for PR preview
+      - name: Deploy to staging
+        if: github.event_name == 'pull_request'
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build
+          publish_branch: preview
+          
+      # Deploy to asf-site for production
+      - name: Deploy to production
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./build
