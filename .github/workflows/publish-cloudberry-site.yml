@@ -61,15 +61,15 @@ jobs:
       - name: Copy ASF config
         run: cp .asf.yaml build/.asf.yaml
 
-      # Deploy to asf-staging for PR preview
-      # You can view the staging site at https://cloudberry.staged.apache.org 
-      - name: Deploy to staging
-        if: github.event_name == 'pull_request'
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./build
-          publish_branch: asf-staging
+      ## Deploy to asf-staging for PR preview
+      ## You can view the staging site at https://cloudberry.staged.apache.org
+      #- name: Deploy to staging
+      #  if: github.event_name == 'pull_request'
+      #  uses: peaceiris/actions-gh-pages@v4
+      #  with:
+      #    github_token: ${{ secrets.GITHUB_TOKEN }}
+      #    publish_dir: ./build
+      #    publish_branch: asf-staging
           
       # Deploy to asf-site for production
       - name: Deploy to production
