@@ -41,6 +41,9 @@ on:
   push:
     branches: [ main ]
   pull_request:
+  pull_request_target:
+    types:
+      - closed
 
 jobs:
   publish:
@@ -52,7 +55,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      
+
       # Install dependencies and build site
       - name: Install dependencies
         run: npm install
@@ -61,16 +64,27 @@ jobs:
       - name: Copy ASF config
         run: cp .asf.yaml build/.asf.yaml
 
-      # Deploy to asf-staging for PR preview
-      # You can view the staging site at https://cloudberry.staged.apache.org 
-      - name: Deploy to staging
+      # Deploy to dynamic staging branch for PR preview
+      - name: Deploy to dynamic preview branch
         if: github.event_name == 'pull_request'
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./build
-          publish_branch: asf-staging
-          
+          publish_branch: preview/pr-${{ github.event.pull_request.number }}
+
+      # Sync to asf-staging branch
+      - name: Sync to asf-staging
+        if: github.event_name == 'pull_request'
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout -b asf-staging
+          cp -r ./build/* .
+          git add .
+          git commit -m "Sync preview PR#${{ github.event.pull_request.number }} to asf-staging"
+          git push origin asf-staging --force
+
       # Deploy to asf-site for production
       - name: Deploy to production
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
@@ -79,3 +93,20 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./build
           publish_branch: asf-site
+
+  delete-preview-branch:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true
+    steps:
+      - name: Delete preview branch
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const octokit = github.getOctokit(process.env.GITHUB_TOKEN);
+            const prNumber = context.payload.pull_request.number;
+            const branchName = `preview/pr-${prNumber}`;
+            await octokit.rest.git.deleteRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: `heads/${branchName}`,
+            });
