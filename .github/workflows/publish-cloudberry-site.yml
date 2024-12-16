@@ -52,7 +52,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      
+
       # Install dependencies and build site
       - name: Install dependencies
         run: npm install
@@ -61,16 +61,30 @@ jobs:
       - name: Copy ASF config
         run: cp .asf.yaml build/.asf.yaml
 
-      # Deploy to asf-staging for PR preview
-      # You can view the staging site at https://cloudberry.staged.apache.org 
-      - name: Deploy to staging
-        if: github.event_name == 'pull_request'
-        uses: peaceiris/actions-gh-pages@v4
+      # Upload preview artifacts for fork PRs
+      - name: Upload preview for fork PR
+        if: github.event_name == 'pull_request' &&
+            github.event.pull_request.head.repo.full_name != 'apache/cloudberry-site'
+        uses: actions/upload-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./build
-          publish_branch: asf-staging
-          
+          name: preview-site
+          path: ./build
+
+      # Post preview link as PR comment for fork PRs
+      - name: Post preview link
+        if: github.event_name == 'pull_request' &&
+            github.event.pull_request.head.repo.full_name != 'apache/cloudberry-site'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const previewUrl = `https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}`;
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `Preview build uploaded. Download artifacts [here](${previewUrl}).`
+            });
+
       # Deploy to asf-site for production
       - name: Deploy to production
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
