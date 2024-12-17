@@ -13,7 +13,7 @@ The example in this document uses CentOS 7.6 and deploys Apache Cloudberry v1.0.
 1. [Prepare node servers](#step-1-prepare-server-nodes).
 2. [Install the RPM package](#step-2-install-the-rpm-package).
 3. [Configure mutual trust between nodes](#step-3-configure-mutual-trust-between-nodes).
-4. [Initialize the database](#step-4-initialize-cloudberry-database).
+4. [Initialize the database](#step-4-initialize-apache-cloudberry).
 5. [Log into the database](#step-5-log-into-apache-cloudberry).
 
 ## Step 1: Prepare server nodes

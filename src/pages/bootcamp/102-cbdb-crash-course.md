@@ -33,7 +33,7 @@ Topics include:
 
 ## Lesson 0. Prerequisite
 
-Before starting this crash course, spend some time going through the [Apache Cloudberry Tutorials Based on Single-Node Installation](./#1-cloudberry-sandbox) to get familiar with Apache Cloudberry and how it works.
+Before starting this crash course, spend some time going through the [Apache Cloudberry Tutorials Based on Single-Node Installation](./cbdb-sandbox.md) to get familiar with Apache Cloudberry and how it works.
 
 ## Lesson 1. Where to read the official documentation
 
