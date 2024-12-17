@@ -55,7 +55,7 @@ This command will work independent of whether `foo` is an aggregate, function, o
 
 ## Compatibility
 
-This statement is partially compatible with the `ALTER ROUTINE` statement in the SQL standard. Refer to [ALTER FUNCTION](/docs/sql-stmts/alter-function.md) and [ALTER PROCEDURE](/docs/sql-stmts/alter-procedure.md) for more details. Allowing routine names to refer to aggregate functions is a Cloudberry Database extension.
+This statement is partially compatible with the `ALTER ROUTINE` statement in the SQL standard. Refer to [ALTER FUNCTION](/docs/sql-stmts/alter-function.md) and [ALTER PROCEDURE](/docs/sql-stmts/alter-procedure.md) for more details. Allowing routine names to refer to aggregate functions is a Apache Cloudberry extension.
 
 ## See also
 

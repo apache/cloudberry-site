@@ -4,11 +4,11 @@ title: Create Unique Index on AO Table
 
 # Create Unique Index on AO Table (New in v1.5.0)
 
-Starting from v1.5.0, you can create a unique index on an Append-Optimized (AO) or Append-Optimized Column Store (AOCS) table in Cloudberry Database. With a unique index, Cloudberry Database checks the unique constraint when data is inserted into the AO table to ensure the uniqueness of the data. At the same time, the database optimizes specific queries with the optimizer to improve the query performance. However, this also brings some overhead for maintaining a unique index, especially when inserting data.
+Starting from v1.5.0, you can create a unique index on an Append-Optimized (AO) or Append-Optimized Column Store (AOCS) table in Apache Cloudberry. With a unique index, Apache Cloudberry checks the unique constraint when data is inserted into the AO table to ensure the uniqueness of the data. At the same time, the database optimizes specific queries with the optimizer to improve the query performance. However, this also brings some overhead for maintaining a unique index, especially when inserting data.
 
 ## How it works
 
-For scenarios where a unique index exists in an AO table, when a tuple is inserted into the AO table, Cloudberry Database inserts a placeholder into the auxiliary index structure BlockDirectory of the AO table, which blocks the insertion of the same key and achieves a unique index.
+For scenarios where a unique index exists in an AO table, when a tuple is inserted into the AO table, Apache Cloudberry inserts a placeholder into the auxiliary index structure BlockDirectory of the AO table, which blocks the insertion of the same key and achieves a unique index.
 
 ## How to add a unique index on an AO table
 

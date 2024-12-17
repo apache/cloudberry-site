@@ -4,7 +4,7 @@ title: Choose the Table Storage Model
 
 # Choose the Table Storage Model
 
-Cloudberry Database supports several storage models and a mix of storage models. When you create a table, you choose how to store its data. This document explains the options for table storage and how to choose the best storage model for your workload.
+Apache Cloudberry supports several storage models and a mix of storage models. When you create a table, you choose how to store its data. This document explains the options for table storage and how to choose the best storage model for your workload.
 
 - [Heap Storage](#heap-storage)
 - [Append-Optimized Storage](#append-optimized-storage)
@@ -13,14 +13,14 @@ Cloudberry Database supports several storage models and a mix of storage models.
 - [Dropping a Table](#dropping-a-table)
 
 :::info
-To simplify the creation of database tables, you can specify the default values for some table storage options with the Cloudberry Database server configuration parameter `gp_default_storage_options`.
+To simplify the creation of database tables, you can specify the default values for some table storage options with the Apache Cloudberry server configuration parameter `gp_default_storage_options`.
 :::
 
 <!-- **Parent topic:** [Defining Database Objects](../ddl/ddl.html) -->
 
 ## Heap storage
 
-By default, Cloudberry Database uses the same heap storage model as PostgreSQL. Heap table storage works best with OLTP-type workloads where the data is often modified after it is initially loaded. `UPDATE` and `DELETE` operations require storing row-level versioning information to ensure reliable database transaction processing. Heap tables are best suited for smaller tables, such as dimension tables, that are often updated after they are initially loaded.
+By default, Apache Cloudberry uses the same heap storage model as PostgreSQL. Heap table storage works best with OLTP-type workloads where the data is often modified after it is initially loaded. `UPDATE` and `DELETE` operations require storing row-level versioning information to ensure reliable database transaction processing. Heap tables are best suited for smaller tables, such as dimension tables, that are often updated after they are initially loaded.
 
 ## Append-optimized storage
 
@@ -43,14 +43,14 @@ Use the `WITH` clause of the `CREATE TABLE` command to declare the table storage
 ```
 
 :::info
-You use the `appendoptimized=value` syntax to specify the append-optimized table storage type. `appendoptimized` is a thin alias for the `appendonly` legacy storage option. Cloudberry Database stores `appendonly` in the catalog, and displays the same when listing storage options for append-optimized tables.
+You use the `appendoptimized=value` syntax to specify the append-optimized table storage type. `appendoptimized` is a thin alias for the `appendonly` legacy storage option. Apache Cloudberry stores `appendonly` in the catalog, and displays the same when listing storage options for append-optimized tables.
 :::
 
 `UPDATE` and `DELETE` are not allowed on append-optimized tables in a repeatable read or serizalizable transaction and will cause the transaction to end prematurely.
 
 ## Choose row or column-oriented storage
 
-Cloudberry Database provides a choice of storage orientation models: row, column, or a combination of both. This section provides general guidelines for choosing the optimal storage orientation for a table. Evaluate performance using your own data and query workloads.
+Apache Cloudberry provides a choice of storage orientation models: row, column, or a combination of both. This section provides general guidelines for choosing the optimal storage orientation for a table. Evaluate performance using your own data and query workloads.
 
 - Row-oriented storage: good for OLTP types of workloads with many iterative transactions and many columns of a single row needed all at once, so retrieving is efficient.
 - Column-oriented storage: good for data warehouse workloads with aggregations of data computed over a small number of columns, or for single columns that require regular updates without modifying other column data.

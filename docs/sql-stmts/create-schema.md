@@ -47,7 +47,7 @@ The role name of the user who will own the new schema. If omitted, defaults to t
 
 An SQL statement defining an object to be created within the schema. Currently, only `CREATE TABLE`, `CREATE VIEW`, `CREATE INDEX`, `CREATE SEQUENCE`, `CREATE TRIGGER`, and `GRANT` are accepted as clauses within `CREATE SCHEMA`. Other kinds of objects may be created in separate commands after the schema is created.
 
-    > **Note** Cloudberry Database does not support triggers.
+    > **Note** Apache Cloudberry does not support triggers.
 
 **`IF NOT EXISTS`**
 
@@ -99,13 +99,13 @@ CREATE VIEW hollywood.winners AS
 
 ## Compatibility
 
-The SQL standard allows a `DEFAULT CHARACTER SET` clause in `CREATE SCHEMA`, as well as more subcommand types than are presently accepted by Cloudberry Database.
+The SQL standard allows a `DEFAULT CHARACTER SET` clause in `CREATE SCHEMA`, as well as more subcommand types than are presently accepted by Apache Cloudberry.
 
-The SQL standard specifies that the subcommands in `CREATE SCHEMA` may appear in any order. The present Cloudberry Database implementation does not handle all cases of forward references in subcommands; it may sometimes be necessary to reorder the subcommands in order to avoid forward references.
+The SQL standard specifies that the subcommands in `CREATE SCHEMA` may appear in any order. The present Apache Cloudberry implementation does not handle all cases of forward references in subcommands; it may sometimes be necessary to reorder the subcommands in order to avoid forward references.
 
-According to the SQL standard, the owner of a schema always owns all objects within it. Cloudberry Database allows schemas to contain objects owned by users other than the schema owner. This can happen only if the schema owner grants the `CREATE` privilege on the schema to someone else, or a superuser chooses to create objects in it.
+According to the SQL standard, the owner of a schema always owns all objects within it. Apache Cloudberry allows schemas to contain objects owned by users other than the schema owner. This can happen only if the schema owner grants the `CREATE` privilege on the schema to someone else, or a superuser chooses to create objects in it.
 
-The `IF NOT EXISTS` option is a Cloudberry Database extension.
+The `IF NOT EXISTS` option is a Apache Cloudberry extension.
 
 ## See also
 

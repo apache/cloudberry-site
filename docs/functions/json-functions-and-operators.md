@@ -2,7 +2,7 @@
 title: JSON Functions and Operators
 ---
 
-# JSON Functions and Operators in Cloudberry Database
+# JSON Functions and Operators in Apache Cloudberry
 
 This document describes:
 
@@ -11,7 +11,7 @@ This document describes:
 
 ## Process and creating JSON data
 
-Cloudberry Database includes built-in functions and operators that create and manipulate JSON data:
+Apache Cloudberry includes built-in functions and operators that create and manipulate JSON data:
 
 - [JSON operators](#json-operators)
 - [JSON creation functions](#json-creation-functions)
@@ -96,7 +96,7 @@ This table shows the functions that aggregate records to an array of JSON object
 
 ### SQL/JSON path language
 
-SQL/JSON path expressions specify the items to be retrieved from the JSON data, similar to XPath expressions used for SQL access to XML. In Cloudberry Database, path expressions are implemented as the `jsonpath` data type.
+SQL/JSON path expressions specify the items to be retrieved from the JSON data, similar to XPath expressions used for SQL access to XML. In Apache Cloudberry, path expressions are implemented as the `jsonpath` data type.
 
 JSON query functions and operators pass the provided path expression to the *path engine* for evaluation. If the expression matches the queried JSON data, the corresponding SQL/JSON item is returned. Path expressions are written in the SQL/JSON path language and can also include arithmetic expressions and functions. Query functions treat the provided expression as a text string, so it must be enclosed in single quotes.
 
@@ -194,10 +194,10 @@ This expression returns the size of the track if it contains any segments with h
 
 ### Deviations from standard
 
-Cloudberry Database's implementation of SQL/JSON path language has the following deviations from the SQL/JSON standard:
+Apache Cloudberry's implementation of SQL/JSON path language has the following deviations from the SQL/JSON standard:
 
-- `.datetime()` item method is not implemented yet mainly because immutable `jsonpath` functions and operators cannot reference session timezone, which is used in some datetime operations. Datetime support will be added to `jsonpath` in future versions of Cloudberry Database.
-- A path expression can be a Boolean predicate, although the SQL/JSON standard allows predicates only in filters. This is necessary for implementation of the `@@` operator. For example, the following `jsonpath` expression is valid in Cloudberry Database:
+- `.datetime()` item method is not implemented yet mainly because immutable `jsonpath` functions and operators cannot reference session timezone, which is used in some datetime operations. Datetime support will be added to `jsonpath` in future versions of Apache Cloudberry.
+- A path expression can be a Boolean predicate, although the SQL/JSON standard allows predicates only in filters. This is necessary for implementation of the `@@` operator. For example, the following `jsonpath` expression is valid in Apache Cloudberry:
 
     ```shell
     '$.track.segments[*].HR < 70'
@@ -252,7 +252,7 @@ SQL/JSON path expressions allow matching text to a regular expression with the `
 
 The optional flag string may include one or more of the characters `i` for case-insensitive match, `m` to allow `^` and `$` to match at newlines, `s` to allow `.` to match a newline, and `q` to quote the whole pattern (reducing the behavior to a simple substring match).
 
-The SQL/JSON standard borrows its definition for regular expressions from the `LIKE_REGEX` operator, which in turn uses the XQuery standard. Cloudberry Database does not currently support the `LIKE_REGEX` operator. Therefore, the `like_regex` filter is implemented using the POSIX regular expression engine as described in [POSIX Regular Expressions](https://www.postgresql.org/docs/12/functions-matching.html#FUNCTIONS-POSIX-REGEXP). This leads to various minor discrepancies from standard SQL/JSON behavior which are catalogued in [Differences From XQuery (LIKE_REGEX)](https://www.postgresql.org/docs/12/functions-matching.html#POSIX-VS-XQUERY). Note, however, that the flag-letter incompatibilities described there do not apply to SQL/JSON, as it translates the XQuery flag letters to match what the POSIX engine expects.
+The SQL/JSON standard borrows its definition for regular expressions from the `LIKE_REGEX` operator, which in turn uses the XQuery standard. Apache Cloudberry does not currently support the `LIKE_REGEX` operator. Therefore, the `like_regex` filter is implemented using the POSIX regular expression engine as described in [POSIX Regular Expressions](https://www.postgresql.org/docs/12/functions-matching.html#FUNCTIONS-POSIX-REGEXP). This leads to various minor discrepancies from standard SQL/JSON behavior which are catalogued in [Differences From XQuery (LIKE_REGEX)](https://www.postgresql.org/docs/12/functions-matching.html#POSIX-VS-XQUERY). Note, however, that the flag-letter incompatibilities described there do not apply to SQL/JSON, as it translates the XQuery flag letters to match what the POSIX engine expects.
 
 Keep in mind that the pattern argument of `like_regex` is a JSON path string literal, written according to the rules given in jsonpath Type. This means in particular that any backslashes you want to use in the regular expression must be doubled. For example, to match string values of the root document that contain only digits:
 

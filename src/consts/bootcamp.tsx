@@ -32,7 +32,7 @@ let BOOTCAMP_PAGE_CONFIG = {
         title: "Lesson 0",
         link: {
           text: "Introduction to Database and Cloudberry Architecture",
-          href: "/bootcamp/101-0-introduction-to-database-and-cloudberrydb-architecture",
+          href: "/bootcamp/101-0-introduction-to-database-and-cloudberry-architecture",
         },
         style: { width: 221 },
       },
@@ -129,7 +129,7 @@ let BOOTCAMP_PAGE_CONFIG = {
         style: { width: 474 },
         link: {
           text: "Introduction to Cloudberry In-Database Analytics",
-          href: "/bootcamp/104-1-introduction-to-cloudberrydb-in-database-analytics",
+          href: "/bootcamp/104-1-introduction-to-cloudberry-in-database-analytics",
         },
       },
     ],

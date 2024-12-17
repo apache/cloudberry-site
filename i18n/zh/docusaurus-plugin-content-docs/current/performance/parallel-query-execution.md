@@ -4,7 +4,7 @@ title: 并行执行查询
 
 # 并行执行查询
 
-本文档介绍 Cloudberry Database 并行查询的使用场景、使用方法、使用限制和使用该功能的常见问题。Cloudberry Database 支持并行查询功能，即利用多个 CPU 核心来处理单个查询，以此来提高查询性能。在执行查询过程中，计算节点（包括 `SeqScan` 算子）的数量会随着数据量变化动态调整。
+本文档介绍 Apache Cloudberry 并行查询的使用场景、使用方法、使用限制和使用该功能的常见问题。Apache Cloudberry 支持并行查询功能，即利用多个 CPU 核心来处理单个查询，以此来提高查询性能。在执行查询过程中，计算节点（包括 `SeqScan` 算子）的数量会随着数据量变化动态调整。
 
 ## 使用场景
 
@@ -14,7 +14,7 @@ title: 并行执行查询
 
 ## 使用方法
 
-Cloudberry Database 支持在 AO/AOCO 表和 Heap 表上进行并行查询。
+Apache Cloudberry 支持在 AO/AOCO 表和 Heap 表上进行并行查询。
 
 ### 并行查询 Heap 表
 
@@ -83,7 +83,7 @@ Cloudberry Database 支持在 AO/AOCO 表和 Heap 表上进行并行查询。
 
 ## 常见问题
 
-- 目前支持并行执行包含下列算子的查询语句。Cloudberry Database 暂不支持包含其他算子的查询。
+- 目前支持并行执行包含下列算子的查询语句。Apache Cloudberry 暂不支持包含其他算子的查询。
 
     ```sql
     sequence scan

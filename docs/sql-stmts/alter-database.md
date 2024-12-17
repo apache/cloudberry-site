@@ -41,7 +41,7 @@ The third form changes the owner of the database. To alter the owner, you must o
 
 The fourth form changes the default tablespace of the database. Only the database owner or a superuser can do this; you must also have create privilege for the new tablespace. This command physically moves any tables or indexes in the database's old default tablespace to the new tablespace. The new default tablespace must be empty for this database, and no one can be connected to the database. Note that tables and indexes in non-default tablespaces are not affected.
 
-The remaining forms change the session default for a configuration parameter for a Cloudberry Database. Whenever a new session is subsequently started in that database, the specified value becomes the session default value. The database-specific default overrides whatever setting is present in the server configuration file (`postgresql.conf`). Only the database owner or a superuser can change the session defaults for a database. Certain parameters cannot be set this way, or can only be set by a superuser.
+The remaining forms change the session default for a configuration parameter for a Apache Cloudberry. Whenever a new session is subsequently started in that database, the specified value becomes the session default value. The database-specific default overrides whatever setting is present in the server configuration file (`postgresql.conf`). Only the database owner or a superuser can change the session defaults for a database. Certain parameters cannot be set this way, or can only be set by a superuser.
 
 ## Parameters
 
@@ -55,7 +55,7 @@ If `false`, then no one can connect to this database.
 
 **`connlimit`**
 
-The maximum number of concurrent connections allowed to this database on the coordinator. The default is `-1`, no limit. Cloudberry Database superusers are exempt from this limit.
+The maximum number of concurrent connections allowed to this database on the coordinator. The default is `-1`, no limit. Apache Cloudberry superusers are exempt from this limit.
 
 **`istemplate`**
 
@@ -101,7 +101,7 @@ ALTER DATABASE mydatabase SET search_path TO myschema, public, pg_catalog;
 
 ## Compatibility
 
-The `ALTER DATABASE` statement is a Cloudberry Database extension.
+The `ALTER DATABASE` statement is a Apache Cloudberry extension.
 
 ## See also
 

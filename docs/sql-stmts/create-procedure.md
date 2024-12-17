@@ -127,7 +127,7 @@ CALL insert_data(1, 2);
 
 ## Compatibility
 
-A `CREATE PROCEDURE` command is defined in the SQL standard. The Cloudberry Database version is similar but not fully compatible. For details see also [CREATE FUNCTION](/docs/sql-stmts/create-function.md).
+A `CREATE PROCEDURE` command is defined in the SQL standard. The Apache Cloudberry version is similar but not fully compatible. For details see also [CREATE FUNCTION](/docs/sql-stmts/create-function.md).
 
 ## See also
 

@@ -92,7 +92,7 @@ Ignored for conformance with the SQL standard.
 
 ## Notes
 
-Cloudberry Database has limitations on the use of functions defined as `STABLE` or `VOLATILE`. See [CREATE FUNCTION](/docs/sql-stmts/create-function.md) for more information.
+Apache Cloudberry has limitations on the use of functions defined as `STABLE` or `VOLATILE`. See [CREATE FUNCTION](/docs/sql-stmts/create-function.md) for more information.
 
 ## Examples
 
@@ -136,7 +136,7 @@ The procedure will now execute with whatever search path is used by its caller.
 
 ## Compatibility
 
-This statement is partially compatible with the `ALTER PROCEDURE` statement in the SQL standard. The standard allows more properties of a procedure to be modified, but does not provide the ability to rename a procedure, make a procedure a security definer, attach configuration parameter values to a procedure, or change the owner, schema, or volatility of a procedure. The standard also requires the `RESTRICT` key word, which is optional in Cloudberry Database.
+This statement is partially compatible with the `ALTER PROCEDURE` statement in the SQL standard. The standard allows more properties of a procedure to be modified, but does not provide the ability to rename a procedure, make a procedure a security definer, attach configuration parameter values to a procedure, or change the owner, schema, or volatility of a procedure. The standard also requires the `RESTRICT` key word, which is optional in Apache Cloudberry.
 
 ## See also
 

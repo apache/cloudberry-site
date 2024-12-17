@@ -22,7 +22,7 @@ DROP TABLESPACE [IF EXISTS] <name>
 
 **`IF EXISTS`**
 
-如果表空间不存在，则不抛出错误。在这种情况下，Cloudberry Database 会发出一个提醒。
+如果表空间不存在，则不抛出错误。在这种情况下，Apache Cloudberry 会发出一个提醒。
 
 **`name`**
 
@@ -32,7 +32,7 @@ DROP TABLESPACE [IF EXISTS] <name>
 
 不能在事务块中执行 `DROP TABLESPACE`。
 
-建议在系统活动较低的时段执行 `DROP TABLESPACE` 命令，这样可以避免因表和临时对象的并发创建引发的问题。在删除表空间的过程中，存在一个极短的时间窗口，可能会有新的表被创建于即将删除的表空间内。如果出现这种情况，Cloudberry Database 将会发出警告。这是一个 `DROP TABLESPACE` 警告的示例。
+建议在系统活动较低的时段执行 `DROP TABLESPACE` 命令，这样可以避免因表和临时对象的并发创建引发的问题。在删除表空间的过程中，存在一个极短的时间窗口，可能会有新的表被创建于即将删除的表空间内。如果出现这种情况，Apache Cloudberry 将会发出警告。这是一个 `DROP TABLESPACE` 警告的示例。
 
 ```sql
 testdb=# DROP TABLESPACE mytest; 
@@ -54,7 +54,7 @@ DROP TABLESPACE mystuff;
 
 ## 兼容性
 
-`DROP TABLESPACE` 是 Cloudberry Database 的扩展。
+`DROP TABLESPACE` 是 Apache Cloudberry 的扩展。
 
 ## 另见
 

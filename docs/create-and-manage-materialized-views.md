@@ -2,9 +2,9 @@
 title: Create and Manage Materialized Views
 ---
 
-# Create and Manage Materialized Views in Cloudberry Database
+# Create and Manage Materialized Views in Apache Cloudberry
 
-In Cloudberry Database, materialized views are similar to views. A materialized view enables you to save a frequently used or complex query, then access the query results in a `SELECT` statement as if they were a table. Materialized views persist the query results in a table-like form.
+In Apache Cloudberry, materialized views are similar to views. A materialized view enables you to save a frequently used or complex query, then access the query results in a `SELECT` statement as if they were a table. Materialized views persist the query results in a table-like form.
 
 Although accessing the data stored in a materialized view can be much faster than accessing the underlying tables directly or through a regular view, the data is not always current. The materialized view data cannot be directly updated. To refresh the materialized view data, use the `REFRESH MATERIALIZED VIEW` command.
 
@@ -27,7 +27,7 @@ The materialized view might be useful for displaying a graph in the dashboard cr
 REFRESH MATERIALIZED VIEW sales_summary;
 ```
 
-The information about a materialized view in the Cloudberry Database system catalogs is exactly the same as it is for a table or view. A materialized view is a relation, just like a table or a view. When a materialized view is referenced in a query, the data is returned directly from the materialized view, just like from a table. The query in the materialized view definition is only used for populating the materialized view.
+The information about a materialized view in the Apache Cloudberry system catalogs is exactly the same as it is for a table or view. A materialized view is a relation, just like a table or a view. When a materialized view is referenced in a query, the data is returned directly from the materialized view, just like from a table. The query in the materialized view definition is only used for populating the materialized view.
 
 If you can tolerate periodically updating the materialized view data, you can get great performance benefit from the view.
 
