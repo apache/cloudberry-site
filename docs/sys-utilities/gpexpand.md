@@ -100,7 +100,7 @@ This file can contain hostnames with or without network interfaces specified. Th
 
 > **Note** The Apache Cloudberry segment host naming convention is `sdwN` where `sdw` is a prefix and `N` is an integer. For example, `sdw1`, `sdw2` and so on. For hosts with multiple interfaces, the convention is to append a dash (`-`) and number to the host name. For example, `sdw1-1` and `sdw1-2` are the two interface names for host `sdw1`.
 
-For information about using a hostname or IP address, see [Specifying Hosts using Hostnames or IP Addresses](#specify-hosts-using-hostnames-or-ip-addresses). Also, see [Using Host Systems with Multiple NICs](#using-host-systems-with-multiple-nics).
+For information about using a hostname or IP address, see [Specifying Hosts using Hostnames or IP Addresses](#specify-hosts-using-hostnames-or-ip-addresses). Also, see [Using Host Systems with Multiple NICs](#use-host-systems-with-multiple-nics).
 
 **`-i | --input input_file`**
 

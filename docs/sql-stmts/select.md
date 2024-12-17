@@ -371,11 +371,11 @@ If an existing_window_name is specified, it must refer to an earlier entry in th
 
 **`PARTITION BY`**
 
-The `PARTITION BY` clause organizes the result set into logical groups based on the unique values of the specified expression. The elements of the `PARTITION BY` clause are interpreted in much the same fashion as elements of a [GROUP BY Clause](#groupbyclause), except that they are always simple expressions and never the name or number of an output column. Another difference is that these expressions can contain aggregate function calls, which are not allowed in a regular `GROUP BY` clause. They are allowed here because windowing occurs after grouping and aggregation. When used with window functions, the functions are applied to each partition independently. For example, if you follow `PARTITION BY` with a column name, the result set is partitioned by the distinct values of that column. If omitted, the entire result set is considered one partition.
+The `PARTITION BY` clause organizes the result set into logical groups based on the unique values of the specified expression. The elements of the `PARTITION BY` clause are interpreted in much the same fashion as elements of a [GROUP BY Clause](#the-group-by-clause), except that they are always simple expressions and never the name or number of an output column. Another difference is that these expressions can contain aggregate function calls, which are not allowed in a regular `GROUP BY` clause. They are allowed here because windowing occurs after grouping and aggregation. When used with window functions, the functions are applied to each partition independently. For example, if you follow `PARTITION BY` with a column name, the result set is partitioned by the distinct values of that column. If omitted, the entire result set is considered one partition.
 
 **`ORDER BY`**
 
-Similarly, the elements of the `ORDER BY` list are interpreted in much the same fashion as elements of an [ORDER BY Clause](#orderbyclause), except that the expressions are always taken as simple expressions and never the name or number of an output column.
+Similarly, the elements of the `ORDER BY` list are interpreted in much the same fashion as elements of an [ORDER BY Clause](#the-order-by-clause), except that the expressions are always taken as simple expressions and never the name or number of an output column.
 
 > **Note** The elements of the `ORDER BY` clause define how to sort the rows in each partition of the result set. If omitted, rows are returned in whatever order is most efficient and may vary.
 
@@ -869,7 +869,7 @@ Apache Cloudberry recognizes functional dependency (allowing columns to be omitt
 
 **LIMIT and OFFSET**
 
-The clauses `LIMIT` and `OFFSET` are Apache Cloudberry-specific syntax, also used by MySQL. The SQL:2008 standard has introduced the clauses `OFFSET .. FETCH {FIRST|NEXT} ...` for the same functionality, as shown above in [LIMIT Clause](#limitclause). This syntax is also used by IBM DB2. (Applications for Oracle frequently use a workaround involving the automatically generated `rownum` column, which is not available in Apache Cloudberry, to implement the effects of these clauses.)
+The clauses `LIMIT` and `OFFSET` are Apache Cloudberry-specific syntax, also used by MySQL. The SQL:2008 standard has introduced the clauses `OFFSET .. FETCH {FIRST|NEXT} ...` for the same functionality, as shown above in [LIMIT Clause](#the-limit-clause). This syntax is also used by IBM DB2. (Applications for Oracle frequently use a workaround involving the automatically generated `rownum` column, which is not available in Apache Cloudberry, to implement the effects of these clauses.)
 
 **FOR NO KEY UPDATE, FOR UPDATE, FOR SHARE, and FOR KEY SHARE**
 

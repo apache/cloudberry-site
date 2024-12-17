@@ -204,7 +204,7 @@ Specifies the newline used in your data files — `LF` (Line feed, 0x0A), `CR` (
 
 **`CSV`**
 
-Selects Comma Separated Value (CSV) mode. See [CSV Format](#section9).
+Selects Comma Separated Value (CSV) mode. See [CSV Format](#file-formats).
 
 **`FILL MISSING FIELDS`**
 
