@@ -106,7 +106,7 @@ A configuration file containing one line for each mirror segment you want to cre
 <contentID>|<address>|<port>|<data_dir>
 ```
 
-Where `<contentID>` is the segment instance content ID, `<address>` is the hostname or IP address of the segment host, `<port>` is the communication port, and `<data_dir>` is the segment instance data directory. For information about using a hostname or IP address, see [Specifying Hosts using Hostnames or IP Addresses](#specifying-hosts-using-hostnames-or-ip-addresses). Also, see [Using Host Systems with Multiple NICs](#using-host-systems-with-multiple-nics).
+Where `<contentID>` is the segment instance content ID, `<address>` is the hostname or IP address of the segment host, `<port>` is the communication port, and `<data_dir>` is the segment instance data directory. For information about using a hostname or IP address, see [Specifying Hosts using Hostnames or IP Addresses](#specify-hosts-using-hostnames-or-ip-addresses). Also, see [Using Host Systems with Multiple NICs](#use-host-systems-with-multiple-nics).
 
 **`-l logfile_directory`**
 
