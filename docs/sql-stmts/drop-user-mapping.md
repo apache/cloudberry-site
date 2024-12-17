@@ -23,7 +23,7 @@ The owner of a foreign server can drop user mappings for that server for any use
 
 **`IF EXISTS`**
 
-Do not throw an error if the user mapping does not exist. Cloudberry Database issues a notice in this case.
+Do not throw an error if the user mapping does not exist. Apache Cloudberry issues a notice in this case.
 
 **`user_name`**
 
@@ -43,7 +43,7 @@ DROP USER MAPPING IF EXISTS FOR bob SERVER foo;
 
 ## Compatibility
 
-`DROP SERVER` conforms to ISO/IEC 9075-9 (SQL/MED). The `IF EXISTS` clause is a Cloudberry Database extension.
+`DROP SERVER` conforms to ISO/IEC 9075-9 (SQL/MED). The `IF EXISTS` clause is a Apache Cloudberry extension.
 
 ## See also
 

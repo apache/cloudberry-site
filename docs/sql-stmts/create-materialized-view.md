@@ -63,7 +63,7 @@ This clause specifies whether or not the materialized view should be populated w
 **`DISTRIBUTED RANDOMLY`**<br />
 **`DISTRIBUTED REPLICATED`**
 
-Used to declare the Cloudberry Database distribution policy for the materialized view data. For information about a table distribution policy, see [CREATE TABLE](/docs/sql-stmts/create-table.md).
+Used to declare the Apache Cloudberry distribution policy for the materialized view data. For information about a table distribution policy, see [CREATE TABLE](/docs/sql-stmts/create-table.md).
 
 ## Notes
 
@@ -91,7 +91,7 @@ names, rank WHERE rank < '11' AND names.id=rank.id;
 
 ## Compatibility
 
-`CREATE MATERIALIZED VIEW` is a Cloudberry Database extension of the SQL standard.
+`CREATE MATERIALIZED VIEW` is a Apache Cloudberry extension of the SQL standard.
 
 ## See also
 

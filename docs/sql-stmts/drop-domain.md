@@ -44,7 +44,7 @@ DROP DOMAIN us_postal_code;
 
 ## Compatibility
 
-This command conforms to the SQL standard, except for the `IF EXISTS` option, which is a Cloudberry Database extension.
+This command conforms to the SQL standard, except for the `IF EXISTS` option, which is a Apache Cloudberry extension.
 
 ## See also
 

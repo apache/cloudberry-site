@@ -4,7 +4,7 @@ title: Transparent Data Encryption
 
 # Transparent Data Encryption
 
-To meet the requirements for protecting user data security, Cloudberry Database supports Transparent Data Encryption (TDE).
+To meet the requirements for protecting user data security, Apache Cloudberry supports Transparent Data Encryption (TDE).
 
 TDE is a technology used to encrypt database data files:
 
@@ -32,7 +32,7 @@ Encryption algorithms are divided into the following types:
 - Symmetric encryption: The same key is used for both encryption and decryption.
 - Asymmetric encryption: Public key for encryption, private key for decryption, suitable for one-to-many and many-to-one encryption needs.
 
-Block encryption algorithms in symmetric encryption are the mainstream choice, offering better performance than stream encryption and asymmetric encryption. Cloudberry Database supports two block encryption algorithms: AES and SM4.
+Block encryption algorithms in symmetric encryption are the mainstream choice, offering better performance than stream encryption and asymmetric encryption. Apache Cloudberry supports two block encryption algorithms: AES and SM4.
 
 #### AES encryption algorithm
 
@@ -56,10 +56,10 @@ More ISO/IEC encryption algorithms include:
 
 Before using the TDE feature, ensure the following conditions are met:
 
-- Install OpenSSL: OpenSSL is expected to be installed on the Cloudberry Database node. Typically, Linux distributions come with OpenSSL pre-installed.
-- Cloudberry Database version: Make sure your Cloudberry Database version is not less than v1.6.0, which is when TDE support was introduced.
+- Install OpenSSL: OpenSSL is expected to be installed on the Apache Cloudberry node. Typically, Linux distributions come with OpenSSL pre-installed.
+- Apache Cloudberry version: Make sure your Apache Cloudberry version is not less than v1.6.0, which is when TDE support was introduced.
 
-When deploying Cloudberry Database, you can enable the TDE feature through settings, making all subsequent data encryption operations completely transparent to users. To enable TDE during database initialization, use the `gpinitsystem` command with the `-T` parameter. Cloudberry Database supports two encryption algorithms: AES and SM4. Here are examples of enabling TDE:
+When deploying Apache Cloudberry, you can enable the TDE feature through settings, making all subsequent data encryption operations completely transparent to users. To enable TDE during database initialization, use the `gpinitsystem` command with the `-T` parameter. Apache Cloudberry supports two encryption algorithms: AES and SM4. Here are examples of enabling TDE:
 
 - Using the AES256 encryption algorithm:
 

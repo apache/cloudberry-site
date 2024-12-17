@@ -18,15 +18,15 @@ CLUSTER [VERBOSE]
 
 ## Description
 
-`CLUSTER` instructs Cloudberry Database to order the table specified by `<table_name>` based on the index specified by `<index_name>`. The index must already have been defined on `<table_name>`.
+`CLUSTER` instructs Apache Cloudberry to order the table specified by `<table_name>` based on the index specified by `<index_name>`. The index must already have been defined on `<table_name>`.
 
-Cloudberry Database supports `CLUSTER` operations on append-optimized tables only for B-tree indexes.
+Apache Cloudberry supports `CLUSTER` operations on append-optimized tables only for B-tree indexes.
 
-> **Note** Cloudberry Database 7 does not support `CLUSTER`ing a partitioned table.
+> **Note** Apache Cloudberry does not support `CLUSTER`ing a partitioned table.
 
 When a table is clustered, it is physically reordered on disk based on the index information. Clustering is a one-time operation: when the table is subsequently updated, the changes are not clustered. That is, no attempt is made to store new or updated rows according to their index order. If you wish, you can periodically recluster by issuing the command again. Setting the table's `FILLFACTOR` storage parameter to less than 100% can aid in preserving cluster ordering during updates, because updated rows are kept on the same page if enough space is available there.
 
-When a table is clustered using this command, Cloudberry Database remembers on which index it was clustered. The form `CLUSTER <table_name>` reclusters the table on the same index that it was clustered before. You can use the `CLUSTER` or `SET WITHOUT CLUSTER` forms of [ALTER TABLE](/docs/sql-stmts/alter-table.md) to set the index to use for future cluster operations, or to clear any previous setting. `CLUSTER` without any parameter reclusters all previously clustered tables in the current database that the calling user owns, or all tables if called by a superuser. This form of `CLUSTER` cannot be run inside a transaction block.
+When a table is clustered using this command, Apache Cloudberry remembers on which index it was clustered. The form `CLUSTER <table_name>` reclusters the table on the same index that it was clustered before. You can use the `CLUSTER` or `SET WITHOUT CLUSTER` forms of [ALTER TABLE](/docs/sql-stmts/alter-table.md) to set the index to use for future cluster operations, or to clear any previous setting. `CLUSTER` without any parameter reclusters all previously clustered tables in the current database that the calling user owns, or all tables if called by a superuser. This form of `CLUSTER` cannot be run inside a transaction block.
 
 When a table is being clustered, an `ACCESS EXCLUSIVE` lock is acquired on it. This prevents any other database operations (both reads and writes) from operating on the table until the `CLUSTER` is finished.
 

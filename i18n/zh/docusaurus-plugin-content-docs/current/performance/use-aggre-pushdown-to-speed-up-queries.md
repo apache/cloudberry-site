@@ -4,12 +4,12 @@ title: 使用聚集下推优化查询
 
 # 使用聚集下推优化查询
 
-聚集下推 (Aggregation Pushdown) 是使聚集 (Aggregation) 操作的运算更接近数据源的一种优化技术。Cloudberry Database 支持将聚集运算下推，即将聚集算子提前到连接 (Join) 算子之前进行计算。
+聚集下推 (Aggregation Pushdown) 是使聚集 (Aggregation) 操作的运算更接近数据源的一种优化技术。Apache Cloudberry 支持将聚集运算下推，即将聚集算子提前到连接 (Join) 算子之前进行计算。
 
 在[适用的场景](#适用场景)下，聚集下推能够明显地减少连接算子或者聚集算子的输入集大小，进而提升算子的执行性能。
 
 :::tip 提示
-- 在原生 PostgreSQL 内核的优化器逻辑中，每个查询中的聚集操作始终都在全部连接操作结束后才会进行（不包含子查询的情况下）。因此 Cloudberry Database 引入聚集下推特性，使得 Cloudberry Database 能够在合适的场景下选择提前执行聚集操作。
+- 在原生 PostgreSQL 内核的优化器逻辑中，每个查询中的聚集操作始终都在全部连接操作结束后才会进行（不包含子查询的情况下）。因此 Apache Cloudberry 引入聚集下推特性，使得 Apache Cloudberry 能够在合适的场景下选择提前执行聚集操作。
 - 要判断优化器选择的执行计划是否应用了聚集下推优化，可以观察 Aggregation 和 Join 在执行计划树中的位置关系。若某个执行计划先进行了 Partial Aggregation 然后再进行 Join 操作，最终才进行 Final Aggregation，则表示优化器应用了聚集下推。
 :::
 
@@ -49,7 +49,7 @@ Optimizer: Postgres query optimizer
 (13 rows)
 ```
 
-从以上示例的执行计划结果中，可以看到在进行 HashJoin 运算前，Cloudberry Database 先对 `t1` 表根据 `id` 列提前执行了聚集运算。该聚集运算并不会破坏语句执行结果的正确性，并大概率能减少进入 HashJoin 的数据量，进而提升语句执行的效率。
+从以上示例的执行计划结果中，可以看到在进行 HashJoin 运算前，Apache Cloudberry 先对 `t1` 表根据 `id` 列提前执行了聚集运算。该聚集运算并不会破坏语句执行结果的正确性，并大概率能减少进入 HashJoin 的数据量，进而提升语句执行的效率。
 
 ## 适用场景
 
@@ -69,7 +69,7 @@ SELECT o.order_id, SUM(price)
 ```
 
 - 在 PostgreSQL 原生优化器中的执行方式：PostgreSQL 原生优化器只能先将两表连接再进行聚集运算。由于 `order_line_tbl` 表中的每个订单项一定存在对应的 `order_tbl` 表中的订单信息，因此该 Join 算子并不会筛选掉任何数据。
-- 在 Cloudberry Database 中的执行方式：假设每个订单平均包含 10 个订单项，那么经过 Aggregation 算子进行聚集后，数据量预计会减少 10 倍。开启聚集下推后，数据库将先对 `order_line_tbl` 中的数据根据 `order_id` 进行提前聚集，由此传入 Join 算子的数据量将减少 10 倍，进而显著地降低 Join 算子的开销。对应的执行计划如下：
+- 在 Apache Cloudberry 中的执行方式：假设每个订单平均包含 10 个订单项，那么经过 Aggregation 算子进行聚集后，数据量预计会减少 10 倍。开启聚集下推后，数据库将先对 `order_line_tbl` 中的数据根据 `order_id` 进行提前聚集，由此传入 Join 算子的数据量将减少 10 倍，进而显著地降低 Join 算子的开销。对应的执行计划如下：
 
 ```sql
 EXPLAIN SELECT o.order_id, SUM(price)
@@ -100,7 +100,7 @@ SELECT proj_name, sum(cost)
     GROUP BY proj_name;
 ```
 
-对于该查询，开启聚集下推后，Cloudberry Database 会提前对 `experiment` 表根据 `e_pid` 列进行预聚集，将同一个 `project` 的信息先聚集在一起。
+对于该查询，开启聚集下推后，Apache Cloudberry 会提前对 `experiment` 表根据 `e_pid` 列进行预聚集，将同一个 `project` 的信息先聚集在一起。
 
 但如果该查询在 `project` 表上也做了许多筛选的话，可能使得  Join 的筛选率过高，导致执行效率不高，因此聚集下推暂时不适用于这种情况。
 
@@ -201,8 +201,8 @@ SELECT id, sum1 * cnt2 FROM
 WHERE AT1.id = AT2.id GROUP BY id;
 ```
 
-该例子中将聚集操作同时下推到了 Join 的两侧。对于 `t1` 表中 `id` 为 `100` 的全部元组，Cloudberry Database 对其 `val` 提前进行了求和，得到了对应的 `sum1`。
+该例子中将聚集操作同时下推到了 Join 的两侧。对于 `t1` 表中 `id` 为 `100` 的全部元组，Apache Cloudberry 对其 `val` 提前进行了求和，得到了对应的 `sum1`。
 
-在实际进行连接的过程中，对于 `t2` 表中每个 `id` 为 `100` 的元组，都会与 `sum1` 所属的元组进行连接并得到对应的元组。也就是说 `t2` 中每有一个 `id` 为 `100`，`sum1` 就会在最终的求和结果中出现一次，因此 Cloudberry Database 可以提前对 `t2` 进行聚集，计算出总共有 `cnt2` 个 `id` 为 `100` 的 元组，最后可以通过 `sum1 * cnt2` 来计算最终的结果。
+在实际进行连接的过程中，对于 `t2` 表中每个 `id` 为 `100` 的元组，都会与 `sum1` 所属的元组进行连接并得到对应的元组。也就是说 `t2` 中每有一个 `id` 为 `100`，`sum1` 就会在最终的求和结果中出现一次，因此 Apache Cloudberry 可以提前对 `t2` 进行聚集，计算出总共有 `cnt2` 个 `id` 为 `100` 的 元组，最后可以通过 `sum1 * cnt2` 来计算最终的结果。
 
 由于该场景涉及到相对复杂的语句改写以及表达式改写，在目前产品中暂不支持。

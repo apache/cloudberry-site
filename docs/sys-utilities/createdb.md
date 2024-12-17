@@ -18,7 +18,7 @@ createdb -V | --version
 
 ## Description
 
-`createdb` creates a new database in a Cloudberry Database system.
+`createdb` creates a new database in a Apache Cloudberry system.
 
 Normally, the database user who runs this command becomes the owner of the new database. However, a different owner can be specified via the `-O` option, if the executing user has appropriate privileges.
 
@@ -28,7 +28,7 @@ Normally, the database user who runs this command becomes the owner of the new d
 
 **`dbname`**
 
-The name of the database to be created. The name must be unique among all other databases in the Cloudberry Database system. If not specified, reads from the environment variable `PGDATABASE`, then `PGUSER` or defaults to the current system user.
+The name of the database to be created. The name must be unique among all other databases in the Apache Cloudberry system. If not specified, reads from the environment variable `PGDATABASE`, then `PGUSER` or defaults to the current system user.
 
 **`description`**
 
@@ -80,11 +80,11 @@ The options `-D`, `-l`, `-E`, `-O`, and `-T` correspond to options of the underl
 
 **`-h host | --host=HOSTNAME`**
 
-The host name of the machine on which the Cloudberry Database coordinator server is running. If not specified, reads from the environment variable `PGHOST` or defaults to localhost.
+The host name of the machine on which the Apache Cloudberry coordinator server is running. If not specified, reads from the environment variable `PGHOST` or defaults to localhost.
 
 **`-p port | --port=PORT`**
 
-The TCP port on which the Cloudberry Database coordinator server is listening for connections. If not specified, reads from the environment variable `PGPORT` or defaults to 5432.
+The TCP port on which the Apache Cloudberry coordinator server is listening for connections. If not specified, reads from the environment variable `PGPORT` or defaults to 5432.
 
 **`-U username | --username=USERNAME`**
 
@@ -110,7 +110,7 @@ To create the database `test` using the default options:
 createdb test
 ```
 
-To create the database `demo` using the Cloudberry Database coordinator on host `gpcoord`, port `54321`, using the `LATIN1` encoding scheme:
+To create the database `demo` using the Apache Cloudberry coordinator on host `gpcoord`, port `54321`, using the `LATIN1` encoding scheme:
 
 ```shell
 createdb -p 54321 -h gpcoord -E LATIN1 demo

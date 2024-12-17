@@ -26,7 +26,7 @@ CREATE DATABASE name
 
 默认情况下，数据库的创建者为新数据库的所有者。超级用户可以使用 `OWNER` 子句创建其他用户拥有的数据库。超级用户甚至可以创建无特殊权限的用户拥有的数据库。拥有 `CREATEDB` 权限的非超级用户只能创建自己拥有的数据库。
 
-默认情况下，新数据库将通过克隆系统数据库 `template1` 来创建。可以通过在命令中使用 `TEMPLATE name` 来指定不同的模板。特别地，在命令中使用 `TEMPLATE template0` 可以创建一个仅包含 Cloudberry Database 预定义标准对象的干净数据库。如果你希望避免将那些可能已添加到 `template1` 的任何安装本地对象复制到新数据库，使用该选项将非常有用。
+默认情况下，新数据库将通过克隆系统数据库 `template1` 来创建。可以通过在命令中使用 `TEMPLATE name` 来指定不同的模板。特别地，在命令中使用 `TEMPLATE template0` 可以创建一个仅包含 Apache Cloudberry 预定义标准对象的干净数据库。如果你希望避免将那些可能已添加到 `template1` 的任何安装本地对象复制到新数据库，使用该选项将非常有用。
 
 ## 参数
 
@@ -52,7 +52,7 @@ CREATE DATABASE name
 
 **`connlimit`**
 
-Coordinator 上允许连接到该数据库的最大并发连接数。默认值为 `-1`，表示没有限制。Cloudberry Database 超级用户不受此限制。
+Coordinator 上允许连接到该数据库的最大并发连接数。默认值为 `-1`，表示没有限制。Apache Cloudberry 超级用户不受此限制。
 
 **`istemplate`**
 

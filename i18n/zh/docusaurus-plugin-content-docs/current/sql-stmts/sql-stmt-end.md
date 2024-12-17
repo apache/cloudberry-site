@@ -14,7 +14,7 @@ END [WORK | TRANSACTION] [AND [NO] CHAIN]
 
 ## 描述
 
-`END` 提交当前事务。事务中的所有更改对其他用户可见，并且在发生崩溃时保证是持久的。该命令是 Cloudberry Database 的扩展，等效于 [`COMMIT`](https://github.com/cloudberrydb/cloudberrydb-site/blob/cbdb-doc-validation/docs/sql-stmts/commit.md)。
+`END` 提交当前事务。事务中的所有更改对其他用户可见，并且在发生崩溃时保证是持久的。该命令是 Apache Cloudberry 的扩展，等效于 [`COMMIT`](https://github.com/cloudberrydb/cloudberrydb-site/blob/cbdb-doc-validation/docs/sql-stmts/commit.md)。
 
 ## 参数
 
@@ -43,7 +43,7 @@ END;
 
 ## 兼容性
 
-`END` 是 Cloudberry Database 的扩展，提供了与 SQL 标准中的 [`COMMIT`](https://github.com/cloudberrydb/cloudberrydb-site/blob/cbdb-doc-validation/docs/sql-stmts/commit.md) 等效的功能。
+`END` 是 Apache Cloudberry 的扩展，提供了与 SQL 标准中的 [`COMMIT`](https://github.com/cloudberrydb/cloudberrydb-site/blob/cbdb-doc-validation/docs/sql-stmts/commit.md) 等效的功能。
 
 ## 另见
 

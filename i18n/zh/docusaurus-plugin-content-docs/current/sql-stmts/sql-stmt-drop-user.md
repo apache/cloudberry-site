@@ -18,7 +18,7 @@ DROP USER [IF EXISTS] <name> [, ...]
 
 ## 兼容性
 
-`DROP USER` 命令是 Cloudberry Database 特别添加的功能，并非 SQL 标准中的内容。SQL 标准没有具体规定用户的定义方式，这是由各个数据库系统自己决定的。
+`DROP USER` 命令是 Apache Cloudberry 特别添加的功能，并非 SQL 标准中的内容。SQL 标准没有具体规定用户的定义方式，这是由各个数据库系统自己决定的。
 
 ## 另见
 

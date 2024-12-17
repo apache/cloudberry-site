@@ -2,9 +2,9 @@
 title: Load Data Using gpload
 ---
 
-# Load Data into Cloudberry Database Using `gpload`
+# Load Data into Apache Cloudberry Using `gpload`
 
-The `gpload` utility of Cloudberry Database loads data using readable external tables and the Cloudberry Database parallel file server (gpfdist). It handles parallel file-based external table setup and allows users to configure their data format, external table definition, and gpfdist setup in a single configuration file.
+The `gpload` utility of Apache Cloudberry loads data using readable external tables and the Apache Cloudberry parallel file server (gpfdist). It handles parallel file-based external table setup and allows users to configure their data format, external table definition, and gpfdist setup in a single configuration file.
 
 :::tip
 In `gpload`, `MERGE` and `UPDATE` operations are not supported if the target table column name is a reserved keyword, has capital letters, or includes any character that requires quotes `" "` to identify the column.
@@ -12,13 +12,13 @@ In `gpload`, `MERGE` and `UPDATE` operations are not supported if the target tab
 
 ## To use gpload 
 
-1. Ensure that your environment is set up to run `gpload`. Some dependent files from your Cloudberry Database installation are required, such as gpfdist and Python 3, as well as network access to the Cloudberry Database segment hosts. `gpload` also requires that you install the following packages:
+1. Ensure that your environment is set up to run `gpload`. Some dependent files from your Apache Cloudberry installation are required, such as gpfdist and Python 3, as well as network access to the Apache Cloudberry segment hosts. `gpload` also requires that you install the following packages:
 
     ```shell
     pip install psycopg2 pyyaml
     ```
 
-2. Create your load control file. This is a YAML-formatted file that specifies the Cloudberry Database connection information, gpfdist configuration information, external table options, and data format.
+2. Create your load control file. This is a YAML-formatted file that specifies the Apache Cloudberry connection information, gpfdist configuration information, external table options, and data format.
 
     For example:
 

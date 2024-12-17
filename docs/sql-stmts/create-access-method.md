@@ -47,7 +47,7 @@ CREATE ACCESS METHOD heptree TYPE INDEX HANDLER heptree_handler;
 
 ## Compatibility
 
-`CREATE ACCESS METHOD` is a Cloudberry Database extension.
+`CREATE ACCESS METHOD` is a Apache Cloudberry extension.
 
 ## See also
 

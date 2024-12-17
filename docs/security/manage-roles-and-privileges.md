@@ -2,26 +2,26 @@
 title: Manage Roles and Privileges
 ---
 
-# Manage Roles and Privileges in Cloudberry Database
+# Manage Roles and Privileges in Apache Cloudberry
 
-The Cloudberry Database authorization mechanism stores roles and privileges to access database objects in the database and is administered using SQL statements or command-line utilities.
+The Apache Cloudberry authorization mechanism stores roles and privileges to access database objects in the database and is administered using SQL statements or command-line utilities.
 
-Cloudberry Database manages database access privileges using *roles*. The concept of roles subsumes the concepts of *users* and *groups*. A role can be a database user, a group, or both. Roles can own database objects (for example, tables) and can assign privileges on those objects to other roles to control access to the objects. Roles can be members of other roles, thus a member role can inherit the object privileges of its parent role.
+Apache Cloudberry manages database access privileges using *roles*. The concept of roles subsumes the concepts of *users* and *groups*. A role can be a database user, a group, or both. Roles can own database objects (for example, tables) and can assign privileges on those objects to other roles to control access to the objects. Roles can be members of other roles, thus a member role can inherit the object privileges of its parent role.
 
-Every Cloudberry Database system contains a set of database roles (users and groups). Those roles are separate from the users and groups managed by the operating system on which the server runs. However, for convenience you may want to maintain a relationship between operating system user names and Cloudberry Database role names, since many of the client applications use the current operating system user name as the default.
+Every Apache Cloudberry system contains a set of database roles (users and groups). Those roles are separate from the users and groups managed by the operating system on which the server runs. However, for convenience you may want to maintain a relationship between operating system user names and Apache Cloudberry role names, since many of the client applications use the current operating system user name as the default.
 
-In Cloudberry Database, users log in and connect through the coordinator instance, which then verifies their role and access privileges. The coordinator then issues commands to the segment instances behind the scenes as the currently logged-in role.
+In Apache Cloudberry, users log in and connect through the coordinator instance, which then verifies their role and access privileges. The coordinator then issues commands to the segment instances behind the scenes as the currently logged-in role.
 
 Roles are defined at the system level, meaning they are valid for all databases in the system.
 
-In order to bootstrap the Cloudberry Database system, a freshly initialized system always contains one predefined *superuser* role (also referred to as the system user). This role will have the same name as the operating system user that initialized the Cloudberry Database system. Customarily, this role is named `gpadmin`. In order to create more roles you first have to connect as this initial role.
+In order to bootstrap the Apache Cloudberry system, a freshly initialized system always contains one predefined *superuser* role (also referred to as the system user). This role will have the same name as the operating system user that initialized the Apache Cloudberry system. Customarily, this role is named `gpadmin`. In order to create more roles you first have to connect as this initial role.
 
 ## Security best practices for roles and privileges
 
-- **Secure the gpadmin system user.** Cloudberry Database requires a UNIX user ID to install and initialize the Cloudberry Database system. This system user is referred to as `gpadmin` in the Cloudberry Database documentation. This `gpadmin` user is the default database superuser in Cloudberry Database, as well as the file system owner of the Cloudberry Database installation and its underlying data files. This default administrator account is fundamental to the design of Cloudberry Database. The system cannot run without it, and there is no way to limit the access of this gpadmin user ID. Use roles to manage who has access to the database for specific purposes. You should only use the `gpadmin` account for system maintenance tasks such as expansion and upgrade. Anyone who logs on to a Cloudberry Database host as this user ID can read, alter or delete any data, including system catalog data and database access rights. Therefore, it is very important to secure the gpadmin user ID and only provide access to essential system administrators. Administrators should only log in to Cloudberry Database as `gpadmin` when performing certain system maintenance tasks (such as upgrade or expansion). Database users should never log on as `gpadmin`, and ETL or production workloads should never run as `gpadmin`.
-- **Assign a distinct role to each user that logs in.** For logging and auditing purposes, each user that is allowed to log in to Cloudberry Database should be given their own database role. For applications or web services, consider creating a distinct role for each application or service. See [Create New Roles (Users)](#create-new-roles-users).
+- **Secure the gpadmin system user.** Apache Cloudberry requires a UNIX user ID to install and initialize the Apache Cloudberry system. This system user is referred to as `gpadmin` in the Apache Cloudberry documentation. This `gpadmin` user is the default database superuser in Apache Cloudberry, as well as the file system owner of the Apache Cloudberry installation and its underlying data files. This default administrator account is fundamental to the design of Apache Cloudberry. The system cannot run without it, and there is no way to limit the access of this gpadmin user ID. Use roles to manage who has access to the database for specific purposes. You should only use the `gpadmin` account for system maintenance tasks such as expansion and upgrade. Anyone who logs on to a Apache Cloudberry host as this user ID can read, alter or delete any data, including system catalog data and database access rights. Therefore, it is very important to secure the gpadmin user ID and only provide access to essential system administrators. Administrators should only log in to Apache Cloudberry as `gpadmin` when performing certain system maintenance tasks (such as upgrade or expansion). Database users should never log on as `gpadmin`, and ETL or production workloads should never run as `gpadmin`.
+- **Assign a distinct role to each user that logs in.** For logging and auditing purposes, each user that is allowed to log in to Apache Cloudberry should be given their own database role. For applications or web services, consider creating a distinct role for each application or service. See [Create New Roles (Users)](#create-new-roles-users).
 - **Use groups to manage access privileges.** See [Role membership](#role-membership).
-- **Limit users who have the SUPERUSER role attribute.** Roles that are superusers bypass all access privilege checks in Cloudberry Database, as well as resource queuing. Only system administrators should be given superuser rights. See [Altering Role Attributes](#alter-role-attributes).
+- **Limit users who have the SUPERUSER role attribute.** Roles that are superusers bypass all access privilege checks in Apache Cloudberry, as well as resource queuing. Only system administrators should be given superuser rights. See [Altering Role Attributes](#alter-role-attributes).
 
 ## Create new roles (users)
 
@@ -65,7 +65,7 @@ A role can also have role-specific defaults for many of the server configuration
 
 ## Role membership
 
-It is frequently convenient to group users together to ease management of object privileges: that way, privileges can be granted to, or revoked from, a group as a whole. In Cloudberry Database, this is done by creating a role that represents the group, and then granting membership in the group role to individual user roles.
+It is frequently convenient to group users together to ease management of object privileges: that way, privileges can be granted to, or revoked from, a group as a whole. In Apache Cloudberry, this is done by creating a role that represents the group, and then granting membership in the group role to individual user roles.
 
 Use the `CREATE ROLE` SQL command to create a new group role. For example:
 
@@ -96,7 +96,7 @@ The role attributes `LOGIN`, `SUPERUSER`, `CREATEDB`, `CREATEROLE`, `CREATEEXTTA
 
 ## Manage object privileges
 
-When an object (table, view, sequence, database, function, language, schema, or tablespace) is created, it is assigned an owner. The owner is normally the role that ran the creation statement. For most kinds of objects, the initial state is that only the owner (or a superuser) can do anything with the object. To allow other roles to use it, privileges must be granted. Cloudberry Database supports the following privileges for each object type:
+When an object (table, view, sequence, database, function, language, schema, or tablespace) is created, it is assigned an owner. The owner is normally the role that ran the creation statement. For most kinds of objects, the initial state is that only the owner (or a superuser) can do anything with the object. To allow other roles to use it, privileges must be granted. Apache Cloudberry supports the following privileges for each object type:
 
 | Object Type                  |  privileges                                                                           |
 | :-----------------------------| :--------------------------------------------------------------------------------------|
@@ -145,7 +145,7 @@ You can also use the `DROP OWNED` and `REASSIGN OWNED` commands for managing obj
 
 ## Encrypt data
 
-Cloudberry Database is installed with an optional module of encryption/decryption functions called `pgcrypto`. The `pgcrypto` functions allow database administrators to store certain columns of data in encrypted form. This adds an extra layer of protection for sensitive data, as data stored in Cloudberry Database in encrypted form cannot be read by anyone who does not have the encryption key, nor can it be read directly from the disks.
+Apache Cloudberry is installed with an optional module of encryption/decryption functions called `pgcrypto`. The `pgcrypto` functions allow database administrators to store certain columns of data in encrypted form. This adds an extra layer of protection for sensitive data, as data stored in Apache Cloudberry in encrypted form cannot be read by anyone who does not have the encryption key, nor can it be read directly from the disks.
 
 :::info
 The `pgcrypto` functions run inside the database server, which means that all the data and passwords move between `pgcrypto` and the client application in clear-text.

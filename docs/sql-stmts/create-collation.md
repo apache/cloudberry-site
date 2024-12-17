@@ -54,7 +54,7 @@ Specifies the provider to use for locale services associated with this collation
 
 **`DETERMINISTIC`**
 
-Specifies whether the collation should use deterministic comparisons. The default is `true`. A deterministic comparison considers strings that are not byte-wise equal to be unequal even if they are considered logically equal by the comparison. Cloudberry Database breaks ties using a byte-wise comparison. Comparison that is not deterministic can make the collation be, say, case- or accent-insensitive. For that, you need to choose an appropriate `LC_COLLATE` setting and set the collation to not deterministic here.
+Specifies whether the collation should use deterministic comparisons. The default is `true`. A deterministic comparison considers strings that are not byte-wise equal to be unequal even if they are considered logically equal by the comparison. Apache Cloudberry breaks ties using a byte-wise comparison. Comparison that is not deterministic can make the collation be, say, case- or accent-insensitive. For that, you need to choose an appropriate `LC_COLLATE` setting and set the collation to not deterministic here.
 
 Nondeterministic collations are only supported with the `icu` provider.
 
@@ -74,7 +74,7 @@ The name of an existing collation to copy. The new collation will have the same 
 
 Use [DROP COLLATION](/docs/sql-stmts/drop-collation.md) to remove user-defined collations.
 
-See [Collation Support](https://www.postgresql.org/docs/12/collation.html) in the PostgreSQL documentation for more information about collation support in Cloudberry Database.
+See [Collation Support](https://www.postgresql.org/docs/12/collation.html) in the PostgreSQL documentation for more information about collation support in Apache Cloudberry.
 
 When using the `libc` collation provider, the, locale must be applicable to the current database encoding. See [CREATE DATABASE](/docs/sql-stmts/create-database.md) for the precise rules.
 
@@ -102,7 +102,7 @@ This can be convenient to be able to use operating-system-independent collation 
 
 ## Compatibility
 
-There is a `CREATE COLLATION` statement in the SQL standard, but it is limited to copying an existing collation. The syntax to create a new collation is a Cloudberry Database extension.
+There is a `CREATE COLLATION` statement in the SQL standard, but it is limited to copying an existing collation. The syntax to create a new collation is a Apache Cloudberry extension.
 
 ## See also
 

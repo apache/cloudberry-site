@@ -29,7 +29,7 @@ ABORT [WORK | TRANSACTION] [AND [NO] CHAIN]
 
 ## 注意事项
 
-使用 [`COMMIT`](https://github.com/cloudberrydb/cloudberrydb-site/blob/cbdb-doc-validation/docs/sql-stmts/commit.md) 成功终止事务。
+使用 [`COMMIT`](https://github.com/apache/cloudberry-site/blob/cbdb-doc-validation/docs/sql-stmts/commit.md) 成功终止事务。
 
 在事务块之外执行 `ABORT` 会报错，而且不会生效。
 
@@ -43,7 +43,7 @@ ABORT;
 
 ## 兼容性
 
-该命令是 Cloudberry Database 的扩展，仅出于历史原因而存在。`ROLLBACK` 是等效的标准 SQL 命令。
+该命令是 Apache Cloudberry 的扩展，仅出于历史原因而存在。`ROLLBACK` 是等效的标准 SQL 命令。
 
 ## 另见
 

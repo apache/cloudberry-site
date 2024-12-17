@@ -32,7 +32,7 @@ title: 通过 RPM 包手动部署
 
 2. 在 `/home/gpadmin` 目录下安装 RPM 包。
 
-    执行以下命令时，你需要将 `<RPM 安装包路径>` 替换为实际的安装包路径，并使用 `root` 用户执行。安装时，会自动创建默认安装目录 `/usr/local/cloudberry-db/`。
+    执行以下命令时，你需要将 `<RPM 安装包路径>` 替换为实际的安装包路径，并使用 `root` 用户执行。安装时，会自动创建默认安装目录 `/usr/local/cloudberry/`。
 
     ```bash
     cd /home/gpadmin
@@ -79,14 +79,14 @@ title: 通过 RPM 包手动部署
     1. 在各主机上执行 `ssh-keygen` 生成 SSH 密钥，示例如下：
 
         ```bash
-        [gpadmin@cbbd-coordinator cloudberry-db-1.0.0]$ ssh-keygen
+        [gpadmin@cbbd-coordinator cloudberry-1.0.0]$ ssh-keygen
 
         Generating public/private rsa key pair.
-        Enter file in which to save the key (/usr/local/cloudberry-db/.ssh/id_rsa):
+        Enter file in which to save the key (/usr/local/cloudberry/.ssh/id_rsa):
         Enter passphrase (empty for no passphrase):
         Enter same passphrase again:
-        Your identification has been saved in /usr/local/cloudberry-db/.ssh/id_rsa.
-        Your public key has been saved in /usr/local/cloudberry-db/.ssh/id_rsa.pub.
+        Your identification has been saved in /usr/local/cloudberry/.ssh/id_rsa.
+        Your public key has been saved in /usr/local/cloudberry/.ssh/id_rsa.pub.
         The key fingerprint is:
         SHA256:cvcYS87egYCyh/v6UtdqrejVU5qqF7OvpcHg/T9lRrg gpadmin@cbbd-coordinator
         The key's randomart image is:
@@ -118,15 +118,15 @@ title: 通过 RPM 包手动部署
         ```bash
         [gpadmin@cbdb-coordinator ~]$ gpssh -f all_hosts
         => pwd
-        [ cbdb-datanode03] b'/usr/local/cloudberry-db\r'
-        [ cbdb-coordinator] b'/usr/local/cloudberry-db\r'
-        [ cbdb-datanode02] b'/usr/local/cloudberry-db\r'
-        [cbdb-standbycoordinator] b'/usr/local/cloudberry-db\r'
-        [ cbdb-datanode01] b'/usr/local/cloudberry-db\r'
+        [ cbdb-datanode03] b'/usr/local/cloudberry\r'
+        [ cbdb-coordinator] b'/usr/local/cloudberry\r'
+        [ cbdb-datanode02] b'/usr/local/cloudberry\r'
+        [cbdb-standbycoordinator] b'/usr/local/cloudberry\r'
+        [ cbdb-datanode01] b'/usr/local/cloudberry\r'
         =>
         ```
 
-        若无法执行 `gpssh`，可在 Coordinator 节点先执行如下命令 `source /usr/local/cloudberry-db/greenplum_path.sh`。
+        若无法执行 `gpssh`，可在 Coordinator 节点先执行如下命令 `source /usr/local/cloudberry/greenplum_path.sh`。
 
 ## 第 4 步：初始化 Apache Cloudberry
 
@@ -135,7 +135,7 @@ title: 通过 RPM 包手动部署
 1. 在所有节点（Coordinator/Standby Coordinator/Segment）的 `~/.bashrc` 文件中新增一行 `source` 命令，示例如下：
 
     ```bash
-    source /usr/local/cloudberry-db/greenplum_path.sh
+    source /usr/local/cloudberry/greenplum_path.sh
     ```
 
 2. 执行 `source` 命令使得新增内容生效：

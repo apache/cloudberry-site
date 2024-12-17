@@ -4,9 +4,9 @@ title: Comparison with Greenplum Features
 
 # Comparison with Greenplum Features
 
-Cloudberry Database is 100% compatible with Greenplum, and provides all the Greenplum features you need.
+Apache Cloudberry is 100% compatible with Greenplum, and provides all the Greenplum features you need.
 
-In addition, Cloudberry Database possesses some features that Greenplum currently lacks or does not support. More details are listed below.
+In addition, Apache Cloudberry possesses some features that Greenplum currently lacks or does not support. More details are listed below.
 
 ## General features
 
@@ -17,7 +17,7 @@ In addition, Cloudberry Database possesses some features that Greenplum currentl
 
 :::
 
-| Feature names                                   | Cloudberry Database | Greenplum   |
+| Feature names                                   | Apache Cloudberry | Greenplum   |
 | ---------------------------------------- | ------------------- | ----------- |
 | `EXPLAIN` (WAL) support | ✅                   | ❌           |
 | Multiranges                     | ✅                   | ❌           |
@@ -45,7 +45,7 @@ In addition, Cloudberry Database possesses some features that Greenplum currentl
 
 ## Performance-related features
 
-| Feature names                                      | Cloudberry Database | Greenplum |
+| Feature names                                      | Apache Cloudberry | Greenplum |
 | ------------------------------------------- | ------------------- | --------- |
 | `REINDEX CONCURRENTLY`         | ✅                   | ❌         |
 | Aggregation pushdown                                | ✅                   | ❌         |
@@ -64,7 +64,7 @@ In addition, Cloudberry Database possesses some features that Greenplum currentl
 
 ## Security-related features
 
-| Feature names                      | Cloudberry Database | Greenplum |
+| Feature names                      | Apache Cloudberry | Greenplum |
 | --------------------------- | ------------------- | --------- |
 | Transparent Data Encryption (TDE)          | ✅                   | ❌         |
 | Trusted extensions                    | ✅                   | ❌         |

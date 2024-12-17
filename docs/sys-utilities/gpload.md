@@ -22,13 +22,13 @@ gpload --version
 
 The client machine where `gpload` is run must have the following:
 
-- The [gpfdist](/docs/sys-utilities/gpfdist.md) parallel file distribution program installed and in your `$PATH`. This program is located in `$GPHOME/bin` of your Cloudberry Database server installation.
-- Network access to and from all hosts in your Cloudberry Database array (coordinator and segments).
+- The [gpfdist](/docs/sys-utilities/gpfdist.md) parallel file distribution program installed and in your `$PATH`. This program is located in `$GPHOME/bin` of your Apache Cloudberry server installation.
+- Network access to and from all hosts in your Apache Cloudberry array (coordinator and segments).
 - Network access to and from the hosts where the data to be loaded resides (ETL servers).
 
 ## Description
 
-`gpload` is a data loading utility that acts as an interface to the Cloudberry Database external table parallel loading feature. Using a load specification defined in a YAML formatted control file, `gpload` runs a load by invoking the Cloudberry Database parallel file server ([gpfdist](/docs/sys-utilities/gpfdist.md)), creating an external table definition based on the source data defined, and running an `INSERT`, `UPDATE` or `MERGE` operation to load the source data into the target table in the database.
+`gpload` is a data loading utility that acts as an interface to the Apache Cloudberry external table parallel loading feature. Using a load specification defined in a YAML formatted control file, `gpload` runs a load by invoking the Apache Cloudberry parallel file server ([gpfdist](/docs/sys-utilities/gpfdist.md)), creating an external table definition based on the source data defined, and running an `INSERT`, `UPDATE` or `MERGE` operation to load the source data into the target table in the database.
 
 > **Note** `MERGE` and `UPDATE` operations are not supported if the target table column name is a reserved keyword, has capital letters, or includes any character that requires quotes (" ") to identify the column.
 
@@ -86,15 +86,15 @@ The database to load into. If not specified, reads from the load control file, t
 
 **`-h hostname`**
 
-Specifies the host name of the machine on which the Cloudberry Database coordinator database server is running. If not specified, reads from the load control file, the environment variable `$PGHOST` or defaults to `localhost`.
+Specifies the host name of the machine on which the Apache Cloudberry coordinator database server is running. If not specified, reads from the load control file, the environment variable `$PGHOST` or defaults to `localhost`.
 
 **`-p port`**
 
-Specifies the TCP port on which the Cloudberry Database coordinator database server is listening for connections. If not specified, reads from the load control file, the environment variable `$PGPORT` or defaults to 5432.
+Specifies the TCP port on which the Apache Cloudberry coordinator database server is listening for connections. If not specified, reads from the load control file, the environment variable `$PGPORT` or defaults to 5432.
 
 **`--max_retries retry_times`**
 
-Specifies the maximum number of times `gpload` attempts to connect to Cloudberry Database after a connection timeout. The default value is `0`, do not attempt to connect after a connection timeout. A negative integer, such as `-1`, specifies an unlimited number of attempts.
+Specifies the maximum number of times `gpload` attempts to connect to Apache Cloudberry after a connection timeout. The default value is `0`, do not attempt to connect after a connection timeout. A negative integer, such as `-1`, specifies an unlimited number of attempts.
 
 **`-U username`**
 
@@ -106,7 +106,7 @@ Force a password prompt. If not specified, reads the password from the environme
 
 ## Control File Format
 
-The `gpload` control file uses the [YAML 1.1](http://yaml.org/spec/1.1/) document format and then implements its own schema for defining the various steps of a Cloudberry Database load operation. The control file must be a valid YAML document.
+The `gpload` control file uses the [YAML 1.1](http://yaml.org/spec/1.1/) document format and then implements its own schema for defining the various steps of a Apache Cloudberry load operation. The control file must be a valid YAML document.
 
 The `gpload` program processes the control file document in order and uses indentation (spaces) to determine the document hierarchy and the relationships of the sections to one another. The use of white space is significant. White space should not be used simply for formatting purposes, and tabs should not be used at all.
 
@@ -176,21 +176,21 @@ Optional. The version of the `gpload` control file schema. The current version i
 
 **`DATABASE`**
 
-Optional. Specifies which database in the Cloudberry Database system to connect to. If not specified, defaults to `$PGDATABASE` if set or the current system user name. You can also specify the database on the command line using the `-d` option.
+Optional. Specifies which database in the Apache Cloudberry system to connect to. If not specified, defaults to `$PGDATABASE` if set or the current system user name. You can also specify the database on the command line using the `-d` option.
 
 **`USER`**
 
 Optional. Specifies which database role to use to connect. If not specified, defaults to the current user or `$PGUSER` if set. You can also specify the database role on the command line using the `-U` option.
 
-If the user running `gpload` is not a Cloudberry Database superuser, then the appropriate rights must be granted to the user for the load to be processed.
+If the user running `gpload` is not a Apache Cloudberry superuser, then the appropriate rights must be granted to the user for the load to be processed.
 
 **`HOST`**
 
-Optional. Specifies Cloudberry Database coordinator host name. If not specified, defaults to localhost or `$PGHOST` if set. You can also specify the coordinator host name on the command line using the `-h` option.
+Optional. Specifies Apache Cloudberry coordinator host name. If not specified, defaults to localhost or `$PGHOST` if set. You can also specify the coordinator host name on the command line using the `-h` option.
 
 **`PORT`**
 
-Optional. Specifies Cloudberry Database coordinator port. If not specified, defaults to 5432 or `$PGPORT` if set. You can also specify the coordinator port on the command line using the `-p` option.
+Optional. Specifies Apache Cloudberry coordinator port. If not specified, defaults to 5432 or `$PGPORT` if set. You can also specify the coordinator port on the command line using the `-p` option.
 
 **`GPLOAD`**
 
@@ -198,7 +198,7 @@ Required. Begins the load specification section. A `GPLOAD` specification must h
 
 **`INPUT`**
 
-Required. Defines the location and the format of the input data to be loaded. `gpload` will start one or more instances of the [gpfdist](/docs/sys-utilities/gpfdist.md) file distribution program on the current host and create the required external table definition(s) in Cloudberry Database that point to the source data. Note that the host from which you run `gpload` must be accessible over the network by all Cloudberry Database hosts (coordinator and segments).
+Required. Defines the location and the format of the input data to be loaded. `gpload` will start one or more instances of the [gpfdist](/docs/sys-utilities/gpfdist.md) file distribution program on the current host and create the required external table definition(s) in Apache Cloudberry that point to the source data. Note that the host from which you run `gpload` must be accessible over the network by all Apache Cloudberry hosts (coordinator and segments).
 
 SOURCE**
 
@@ -246,7 +246,7 @@ The root directory (`/`) cannot be specified as `CERTIFICATES_PATH`.
 
 Optional. Specifies whether `gpload` resolve hostnames to the fully qualified domain name (FQDN) or the local hostname. If the value is set to `true`, names are resolved to the FQDN. If the value is set to `false`, resolution is to the local hostname. The default is `false`.
 
-A fully qualified domain name might be required in some situations. For example, if the Cloudberry Database system is in a different domain than an ETL application that is being accessed by `gpload`.
+A fully qualified domain name might be required in some situations. For example, if the Apache Cloudberry system is in a different domain than an ETL application that is being accessed by `gpload`.
 
 **`COLUMNS`**
 
@@ -288,7 +288,7 @@ Specifies the type of newline used in your data files, one of:
 - CR (Carriage return, 0x0D)
 - CRLF (Carriage return plus line feed, 0x0D 0x0A).
 
-If not specified, Cloudberry Database detects the newline type by examining the first row of data that it receives, and uses the first newline type that it encounters.
+If not specified, Apache Cloudberry detects the newline type by examining the first row of data that it receives, and uses the first newline type that it encounters.
 
 **`NULL_AS`**
 
@@ -296,7 +296,7 @@ Optional. Specifies the string that represents a null value. The default is `\N`
 
 **`FILL_MISSING_FIELDS`**
 
-Optional. The default value is `false`. When reading a row of data that has missing trailing field values (the row of data has missing data fields at the end of a line or row), Cloudberry Database returns an error.
+Optional. The default value is `false`. When reading a row of data that has missing trailing field values (the row of data has missing data fields at the end of a line or row), Apache Cloudberry returns an error.
 
 If the value is `true`, when reading a row of data that has missing trailing field values, the values are set to `NULL`. Blank rows, fields with a `NOT NULL` constraint, and trailing delimiters on a line will still report an error.
 
@@ -322,18 +322,18 @@ Optional. Character set encoding of the source data. Specify a string constant (
 
 **`ERROR_LIMIT`**
 
-Optional. Enables single row error isolation mode for this load operation. When enabled, input rows that have format errors will be discarded provided that the error limit count is not reached on any Cloudberry Database segment instance during input processing. If the error limit is not reached, all good rows will be loaded and any error rows will either be discarded or captured as part of error log information. The default is to cancel the load operation on the first error encountered. Note that single row error isolation only applies to data rows with format errors; for example, extra or missing attributes, attributes of a wrong data type, or invalid client encoding sequences. Constraint errors, such as primary key violations, will still cause the load operation to be cancelled if encountered. For information about handling load errors, see [Loading data](../data-loading/).
+Optional. Enables single row error isolation mode for this load operation. When enabled, input rows that have format errors will be discarded provided that the error limit count is not reached on any Apache Cloudberry segment instance during input processing. If the error limit is not reached, all good rows will be loaded and any error rows will either be discarded or captured as part of error log information. The default is to cancel the load operation on the first error encountered. Note that single row error isolation only applies to data rows with format errors; for example, extra or missing attributes, attributes of a wrong data type, or invalid client encoding sequences. Constraint errors, such as primary key violations, will still cause the load operation to be cancelled if encountered. For information about handling load errors, see [Loading data](../data-loading/).
 
 **`LOG_ERRORS`**
 
-Optional when `ERROR_LIMIT` is declared. Value is either `true` or `false`. The default value is `false`. If the value is `true`, rows with formatting errors are logged internally when running in single row error isolation mode. You can examine formatting errors with the Cloudberry Database built-in SQL function `gp_read_error_log('<table_name>')`. If formatting errors are detected when loading data, `gpload` generates a warning message with the name of the table that contains the error information similar to this message.
+Optional when `ERROR_LIMIT` is declared. Value is either `true` or `false`. The default value is `false`. If the value is `true`, rows with formatting errors are logged internally when running in single row error isolation mode. You can examine formatting errors with the Apache Cloudberry built-in SQL function `gp_read_error_log('<table_name>')`. If formatting errors are detected when loading data, `gpload` generates a warning message with the name of the table that contains the error information similar to this message.
 
 ```shell
 <timestamp>|WARN|1 bad row, please use GPDB built-in function gp_read_error_log('table-name') 
     to access the detailed error row
 ```
 
-If `LOG_ERRORS: true` is specified, `REUSE_TABLES: true` must be specified to retain the formatting errors in Cloudberry Database error logs. If `REUSE_TABLES: true` is not specified, the error information is deleted after the `gpload` operation. Only summary information about formatting errors is returned. You can delete the formatting errors from the error logs with the Cloudberry Database function `gp_truncate_error_log()`.
+If `LOG_ERRORS: true` is specified, `REUSE_TABLES: true` must be specified to retain the formatting errors in Apache Cloudberry error logs. If `REUSE_TABLES: true` is not specified, the error information is deleted after the `gpload` operation. Only summary information about formatting errors is returned. You can delete the formatting errors from the error logs with the Apache Cloudberry function `gp_truncate_error_log()`.
 
 > **Note** When `gpfdist` reads data and encounters a data formatting error, the error message includes a row number indicating the location of the formatting error. `gpfdist` attempts to capture the row that contains the error. However, `gpfdist` might not capture the exact row for some formatting errors.
 
@@ -341,7 +341,7 @@ If `LOG_ERRORS: true` is specified, `REUSE_TABLES: true` must be specified to re
 
 Optional. Defines the schema of the external table database objects created by `gpload`.
 
-The default is to use the Cloudberry Database `search_path`.
+The default is to use the Apache Cloudberry `search_path`.
 
 :SCHEMA
 
@@ -407,7 +407,7 @@ Optional. If set to true, `gpload` will remove all rows in the target table prio
 
 Optional. If set to true, `gpload` will not drop the external table objects and staging table objects it creates. These objects will be reused for future load operations that use the same load specifications. This improves performance of trickle loads (ongoing small loads to the same target table).
 
-If `LOG_ERRORS: true` is specified, `REUSE_TABLES: true` must be specified to retain the formatting errors in Cloudberry Database error logs. If `REUSE_TABLES: true` is not specified, formatting error information is deleted after the `gpload` operation.
+If `LOG_ERRORS: true` is specified, `REUSE_TABLES: true` must be specified to retain the formatting errors in Apache Cloudberry error logs. If `REUSE_TABLES: true` is not specified, formatting error information is deleted after the `gpload` operation.
 
 If the `<external_table_name>` exists, the utility uses the existing table. The utility returns an error if the table schema does not match the `OUTPUT` table schema.
 

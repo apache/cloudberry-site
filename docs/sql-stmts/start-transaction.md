@@ -29,11 +29,11 @@ Refer to [SET TRANSACTION](/docs/sql-stmts/set-transaction.md) for information o
 
 ## Compatibility
 
-In the standard, it is not necessary to issue `START TRANSACTION` to start a transaction block: any SQL command implicitly begins a block. Cloudberry Database's behavior can be seen as implicitly issuing a `COMMIT` after each command that does not follow `START TRANSACTION` (or `BEGIN`), and it is therefore often called 'autocommit'. Other relational database systems may offer an autocommit feature as a convenience.
+In the standard, it is not necessary to issue `START TRANSACTION` to start a transaction block: any SQL command implicitly begins a block. Apache Cloudberry's behavior can be seen as implicitly issuing a `COMMIT` after each command that does not follow `START TRANSACTION` (or `BEGIN`), and it is therefore often called 'autocommit'. Other relational database systems may offer an autocommit feature as a convenience.
 
-The `DEFERRABLE` transaction_mode is a Cloudberry Database language extension.
+The `DEFERRABLE` transaction_mode is a Apache Cloudberry language extension.
 
-The SQL standard requires commas between successive transaction_modes, but for historical reasons Cloudberry Database allows the commas to be omitted.
+The SQL standard requires commas between successive transaction_modes, but for historical reasons Apache Cloudberry allows the commas to be omitted.
 
 See also the compatibility section of [SET TRANSACTION](/docs/sql-stmts/set-transaction.md).
 

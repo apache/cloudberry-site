@@ -42,8 +42,8 @@ The coordinator data directory. If not specified, the value set for `$COORDINATO
 
 **`--hba-hostnames boolean`**
 
-Optional. Controls whether this utility uses IP addresses or host names in the `pg_hba.conf` file when updating this file with addresses that can connect to Cloudberry Database. When set to 0 -- the default value -- this utility uses IP addresses when updating this file. When set to 1, this utility uses host names when updating this file. For consistency, use the same value that was specified for `HBA_HOSTNAMES` when the Cloudberry Database system was initialized.
-<!-- For information about how Cloudberry Database resolves host names in the `pg_hba.conf` file, see [Configuring Client Authentication](../../admin_guide/client_auth.html). -->
+Optional. Controls whether this utility uses IP addresses or host names in the `pg_hba.conf` file when updating this file with addresses that can connect to Apache Cloudberry. When set to 0 -- the default value -- this utility uses IP addresses when updating this file. When set to 1, this utility uses host names when updating this file. For consistency, use the same value that was specified for `HBA_HOSTNAMES` when the Apache Cloudberry system was initialized.
+<!-- For information about how Apache Cloudberry resolves host names in the `pg_hba.conf` file, see [Configuring Client Authentication](../../admin_guide/client_auth.html). -->
 
 **`-i move_config_file`**
 
@@ -75,7 +75,7 @@ Displays the online help.
 
 ## Examples
 
-Moves mirrors from an existing Cloudberry Database system to a different set of hosts:
+Moves mirrors from an existing Apache Cloudberry system to a different set of hosts:
 
 ```shell
 $ gpmovemirrors -i move_config_file

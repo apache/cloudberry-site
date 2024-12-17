@@ -36,7 +36,7 @@ The name of the index method this operator family is for.
 
 ## Compatibility
 
-`CREATE OPERATOR FAMILY` is a Cloudberry Database extension. There is no `CREATE OPERATOR FAMILY` statement in the SQL standard.
+`CREATE OPERATOR FAMILY` is a Apache Cloudberry extension. There is no `CREATE OPERATOR FAMILY` statement in the SQL standard.
 
 ## See also
 

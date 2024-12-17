@@ -18,7 +18,7 @@ dropuser -V | --version
 
 ## Description
 
-`dropuser` removes an existing role from Cloudberry Database. Only superusers and users with the `CREATEROLE` privilege can remove roles. To remove a superuser role, you must yourself be a superuser.
+`dropuser` removes an existing role from Apache Cloudberry. Only superusers and users with the `CREATEROLE` privilege can remove roles. To remove a superuser role, you must yourself be a superuser.
 
 `dropuser` is a wrapper around the SQL command `DROP ROLE`.
 

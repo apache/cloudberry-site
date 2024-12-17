@@ -4,7 +4,7 @@ title: gpstate
 
 # gpstate
 
-Shows the status of a running Cloudberry Database system.
+Shows the status of a running Apache Cloudberry system.
 
 ## Synopsis
 
@@ -18,7 +18,7 @@ gpstate -? | -h | --help
 
 ## Description
 
-The `gpstate` utility displays information about a running Cloudberry Database instance. There is additional information you may want to know about a Cloudberry Database system, since it is comprised of multiple PostgreSQL database instances (segments) spanning multiple machines. The `gpstate` utility provides additional status information for a Cloudberry Database system, such as:
+The `gpstate` utility displays information about a running Apache Cloudberry instance. There is additional information you may want to know about a Apache Cloudberry system, since it is comprised of multiple PostgreSQL database instances (segments) spanning multiple machines. The `gpstate` utility provides additional status information for a Apache Cloudberry system, such as:
 
 - Which segments are down.
 - Coordinator and segment configuration information (hosts, data directories, etc.).
@@ -29,7 +29,7 @@ The `gpstate` utility displays information about a running Cloudberry Database i
 
 **`-b (brief status)`**
 
-Optional. Display a brief summary of the state of the Cloudberry Database system. This is the default option.
+Optional. Display a brief summary of the state of the Apache Cloudberry system. This is the default option.
 
 **`-B parallel_processes`**
 
@@ -59,9 +59,9 @@ Show details on primary/mirror segment pairs that have potential issues. These i
 **`-f (show standby coordinator details)`**
 Display details of the standby coordinator host if configured.
 
-**`-i (show Cloudberry Database version)`**
+**`-i (show Apache Cloudberry version)`**
 
-Display the Cloudberry Database software version information for each instance.
+Display the Apache Cloudberry software version information for each instance.
 
 **`-l logfile_directory`**
 
@@ -73,7 +73,7 @@ Optional. List the mirror segment instances in the system and their current role
 
 **`-p (show ports)`**
 
-List the port numbers used throughout the Cloudberry Database system.
+List the port numbers used throughout the Apache Cloudberry system.
 
 **`-q (no screen output)`**
 
@@ -85,7 +85,7 @@ Optional. Checks segment status in the system catalog on the coordinator host. D
 
 **`-s (detailed status)`**
 
-Optional. Displays detailed status information about the Cloudberry Database system.
+Optional. Displays detailed status information about the Apache Cloudberry system.
 
 **`-v (verbose output)`**
 
@@ -93,7 +93,7 @@ Optional. Displays error messages and outputs detailed status and progress infor
 
 **`-x (expand)`**
 
-Optional. Displays detailed information about the progress and state of a Cloudberry Database system expansion.
+Optional. Displays detailed information about the progress and state of a Apache Cloudberry system expansion.
 
 **`-? | -h | --help (help)`**
 
@@ -110,11 +110,11 @@ The following output fields are reported by `gpstate -s` for the coordinator:
 |Coordinator data directory|file system location of the coordinator data directory|
 |Coordinator port|port of the coordinator `postgres` database listener process|
 |Coordinator current role|dispatch = regular operating mode<br/><br/>utility = maintenance mode|
-|CloudberryDB array configuration type|Standard = one NIC per host<br/><br/>Multi-Home = multiple NICs per host|
-|CloudberryDB initsystem version|version of Cloudberry Database when system was first initialized|
-|CloudberryDB current version|current version of Cloudberry Database|
-|Postgres version|version of PostgreSQL that Cloudberry Database is based on|
-|CloudberryDB mirroring status|physical mirroring or none|
+|Cloudberry array configuration type|Standard = one NIC per host<br/><br/>Multi-Home = multiple NICs per host|
+|Cloudberry initsystem version|version of Apache Cloudberry when system was first initialized|
+|Cloudberry current version|current version of Apache Cloudberry|
+|Postgres version|version of PostgreSQL that Apache Cloudberry is based on|
+|Cloudberry mirroring status|physical mirroring or none|
 |Coordinator standby|host name of the standby coordinator|
 |Standby coordinator state|status of the standby coordinator: active or passive|
 
@@ -133,7 +133,7 @@ The following output fields are reported by `gpstate -s` for each primary segmen
 |Bytes remaining to send to mirror|Bytes remaining to be sent from primary to mirror|
 |Active PID|active process ID of a segment|
 |Configuration reports status as|segment status as reported in the system catalog: Up or Down|
-|Database status|status of Cloudberry Database to incoming requests: Up, Down, or Suspended. A Suspended state means database activity is temporarily paused while a segment transitions from one state to another.|
+|Database status|status of Apache Cloudberry to incoming requests: Up, Down, or Suspended. A Suspended state means database activity is temporarily paused while a segment transitions from one state to another.|
 
 The following output fields are reported by `gpstate -s` for each mirror segment:
 
@@ -153,7 +153,7 @@ The following output fields are reported by `gpstate -s` for each mirror segment
 |Bytes received but remain to replay|Difference between replay log location and sent log location|
 |Active PID|active process ID of a segment|
 |Configuration reports status as|segment status as reported in the system catalog: Up or Down|
-|Database status|status of Cloudberry Database to incoming requests: Up, Down, or Suspended. A Suspended state means database activity is temporarily paused while a segment transitions from one state to another.|
+|Database status|status of Apache Cloudberry to incoming requests: Up, Down, or Suspended. A Suspended state means database activity is temporarily paused while a segment transitions from one state to another.|
 
 :::info
 When there is no connection between a primary segment and its mirror, `gpstate -s` displays `Unknown` in the following fields:
@@ -183,7 +183,7 @@ The following output fields are reported by `gpstate -f` for standby coordinator
 
 ## Examples
 
-Show detailed status information of a Cloudberry Database system:
+Show detailed status information of a Apache Cloudberry system:
 
 ```shell
 gpstate -s
@@ -207,7 +207,7 @@ Show information about the standby coordinator configuration:
 gpstate -f
 ```
 
-Display the Cloudberry Database software version information:
+Display the Apache Cloudberry software version information:
 
 ```shell
 gpstate -i

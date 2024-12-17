@@ -2,9 +2,9 @@
 title: Create and Manage Schemas
 ---
 
-# Create and Manage Schemas in Cloudberry Database
+# Create and Manage Schemas in Apache Cloudberry
 
-In Cloudberry Database, schemas logically organize objects and data in a database. Schemas allow you to have more than one object (such as tables) with the same name in the database without conflict if the objects are in different schemas.
+In Apache Cloudberry, schemas logically organize objects and data in a database. Schemas allow you to have more than one object (such as tables) with the same name in the database without conflict if the objects are in different schemas.
 
 ## The Default "Public" Schema
 
@@ -59,7 +59,7 @@ pg_catalog;
 ```
 
 :::tip
-When working with Cloudberry Database, it is recommended that you:
+When working with Apache Cloudberry, it is recommended that you:
 
 - Explicitly specify the schema when creating new objects to ensure they are created in the intended schema.
 - Not rely on `search_path` to implicitly direct the creation of new objects to a specific schema other than `public`. Otherwise, the database might create the objects in an unintended schema.
@@ -99,7 +99,7 @@ The following system-level schemas exist in every database:
 
 - `pg_catalog` contains the system catalog tables, built-in data types, functions, and operators. It is always part of the schema search path, even if it is not explicitly named in the search path.
 - `information_schema` consists of a standardized set of views that contain information about the objects in the database. These views get system information from the system catalog tables in a standardized way.
-- `pg_toast` stores large objects such as records that exceed the page size. This schema is used internally by the Cloudberry Database system.
-- `pg_bitmapindex` stores bitmap index objects such as lists of values. This schema is used internally by the Cloudberry Database system.
-- `pg_aoseg` stores append-optimized table objects. This schema is used internally by the Cloudberry Database system.
+- `pg_toast` stores large objects such as records that exceed the page size. This schema is used internally by the Apache Cloudberry system.
+- `pg_bitmapindex` stores bitmap index objects such as lists of values. This schema is used internally by the Apache Cloudberry system.
+- `pg_aoseg` stores append-optimized table objects. This schema is used internally by the Apache Cloudberry system.
 - `gp_toolkit` is an administrative schema that contains external tables, views, and functions that you can access with SQL commands. All database users can access `gp_toolkit` to view and query the system log files and other system metrics.

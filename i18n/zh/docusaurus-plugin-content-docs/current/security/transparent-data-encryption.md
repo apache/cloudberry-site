@@ -4,7 +4,7 @@ title: 透明数据加密
 
 # 透明数据加密
 
-为了满足保护用户数据安全的需求，Cloudberry Database 支持透明数据加密（Transparent Data Encryption，简称  TDE）功能。
+为了满足保护用户数据安全的需求，Apache Cloudberry 支持透明数据加密（Transparent Data Encryption，简称  TDE）功能。
 
 透明数据加密（TDE）是一种用于加密数据库数据文件的技术：
 
@@ -32,7 +32,7 @@ title: 透明数据加密
 - 对称加密：加密和解密使用相同密钥。
 - 非对称加密：公钥加密，私钥解密，适合一对多、多对一的加密需求。
 
-对称加密中的分组加密算法是主流选择，性能优于流加密和非对称加密。Cloudberry Database 支持 AES 和 SM4 两种分组加密算法。
+对称加密中的分组加密算法是主流选择，性能优于流加密和非对称加密。Apache Cloudberry 支持 AES 和 SM4 两种分组加密算法。
 
 #### AES 加密算法
 
@@ -56,10 +56,10 @@ AES 是国际标准的分组加密算法，支持 128、192 和 256 位密钥，
 
 在使用透明数据加密（TDE）功能前，请确保满足以下条件：
 
-- 安装 OpenSSL：Cloudberry Database 节点上必须安装 OpenSSL。通常，Linux 发行版的操作系统会自带 OpenSSL。
-- Cloudberry Database 版本：确保你的 Cloudberry Database 版本不低于 v1.6.0，该版本开始支持 TDE 功能。
+- 安装 OpenSSL：Apache Cloudberry 节点上必须安装 OpenSSL。通常，Linux 发行版的操作系统会自带 OpenSSL。
+- Apache Cloudberry 版本：确保你的 Apache Cloudberry 版本不低于 v1.6.0，该版本开始支持 TDE 功能。
 
-在部署 Cloudberry Database 时，可以通过设置来开启 TDE 功能，之后的所有数据加密操作将对用户完全透明。要在数据库初始化时启用 TDE，使用 `gpinitsystem` 命令并指定 `-T` 参数。Cloudberry Database 支持两种加密算法：AES 和 SM4。以下是开启 TDE 的示例：
+在部署 Apache Cloudberry 时，可以通过设置来开启 TDE 功能，之后的所有数据加密操作将对用户完全透明。要在数据库初始化时启用 TDE，使用 `gpinitsystem` 命令并指定 `-T` 参数。Apache Cloudberry 支持两种加密算法：AES 和 SM4。以下是开启 TDE 的示例：
 
 - 使用 AES256 加密算法：
 

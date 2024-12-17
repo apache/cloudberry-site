@@ -25,7 +25,7 @@ The key field(s) for the index are specified as column names, or alternatively a
 
 An index field can be an expression computed from the values of one or more columns of the table row. This feature can be used to obtain fast access to data based on some transformation of the basic data. For example, an index computed on `upper(col)` would allow the clause `WHERE upper(col) = 'JIM'` to use an index.
 
-Cloudberry Database provides the index methods B-tree, hash, bitmap, GiST, SP-GiST, GIN, and BRIN. Users can also define their own index methods, but that is fairly complicated.
+Apache Cloudberry provides the index methods B-tree, hash, bitmap, GiST, SP-GiST, GIN, and BRIN. Users can also define their own index methods, but that is fairly complicated.
 
 When the `WHERE` clause is present, a partial index is created. A partial index is an index that contains entries for only a portion of a table, usually a portion that is more useful for indexing than the rest of the table. For example, if you have a table that contains both billed and unbilled orders where the unbilled orders take up a small fraction of the total table and yet is most often selected, you can improve performance by creating an index on just that portion. Another possible application is to use `WHERE` with `UNIQUE` to enforce uniqueness over a subset of a table. See [Partial Indexes](https://www.postgresql.org/docs/14/indexes-partial.html) in the PostgreSQL documentation for more information.
 
@@ -59,7 +59,7 @@ Currently, the B-tree and the GiST index access methods support `INCLUDE`. In B-
 
 **`name`**
 
-The name of the index to be created. The index is always created in the same schema as its parent table. If the name is omitted, Cloudberry Database chooses a suitable name based on the parent table's name and the indexed column name(s).
+The name of the index to be created. The index is always created in the same schema as its parent table. If the name is omitted, Apache Cloudberry chooses a suitable name based on the parent table's name and the indexed column name(s).
 
 **`ONLY`**
 
@@ -137,7 +137,7 @@ GiST indexes additionally accept this parameter:
 
 **`buffering`**
 
-Determines whether Cloudberry Database builds the index using the buffering build technique described in [GiST buffering build](https://www.postgresql.org/docs/14/gist-implementation.html) in the PostgreSQL documentation. With `OFF` it is deactivated, with `ON` it is activated, and with `AUTO` it is initially deactivated, but turned on on-the-fly once the index size reaches effective_cache_size. The default is `AUTO`.
+Determines whether Apache Cloudberry builds the index using the buffering build technique described in [GiST buffering build](https://www.postgresql.org/docs/14/gist-implementation.html) in the PostgreSQL documentation. With `OFF` it is deactivated, with `ON` it is activated, and with `AUTO` it is initially deactivated, but turned on on-the-fly once the index size reaches effective_cache_size. The default is `AUTO`.
 
 GIN indexes accept different parameters:
 
@@ -247,7 +247,7 @@ SELECT * FROM points WHERE box(location,location) && '(0,0),(1,1)'::box;
 
 ## Compatibility
 
-`CREATE INDEX` is a Cloudberry Database extension to the SQL standard. There are no provisions for indexes in the SQL standard.
+`CREATE INDEX` is a Apache Cloudberry extension to the SQL standard. There are no provisions for indexes in the SQL standard.
 
 ## See also
 

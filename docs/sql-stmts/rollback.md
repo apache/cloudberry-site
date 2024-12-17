@@ -43,7 +43,7 @@ ROLLBACK;
 
 ## Compatibility
 
-The command `ROLLBACK` conforms to the SQL standard. The form `ROLLBACK TRANSACTION` is a Cloudberry Database extension.
+The command `ROLLBACK` conforms to the SQL standard. The form `ROLLBACK TRANSACTION` is a Apache Cloudberry extension.
 
 ## See also
 

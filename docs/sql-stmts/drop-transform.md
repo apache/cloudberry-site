@@ -22,7 +22,7 @@ To drop a transform, you must own the type and the language. These are the same 
 
 **`IF EXISTS`**
 
-Do not throw an error if the transform does not exist. Cloudberry Database issues a notice in this case.
+Do not throw an error if the transform does not exist. Apache Cloudberry issues a notice in this case.
 
 **`type_name`**
 
@@ -50,7 +50,7 @@ DROP TRANSFORM FOR hstore LANGUAGE plpython3u;
 
 ## Compatibility
 
-This form of `DROP TRANSFORM` is a Cloudberry Database extension. See [CREATE TRANSFORM](/docs/sql-stmts/create-transform.md) for details.
+This form of `DROP TRANSFORM` is a Apache Cloudberry extension. See [CREATE TRANSFORM](/docs/sql-stmts/create-transform.md) for details.
 
 ## See also
 

@@ -4,12 +4,12 @@ title: Use Aggregation Pushdown to Speed Up Query Execution
 
 # Use aggregation pushdown to speed up query execution
 
-Aggregation pushdown is an optimization technique that moves the aggregation operation closer to the data source. Cloudberry Database supports pushing down aggregation operations, which means that the aggregation operator is processed before the join operator.
+Aggregation pushdown is an optimization technique that moves the aggregation operation closer to the data source. Apache Cloudberry supports pushing down aggregation operations, which means that the aggregation operator is processed before the join operator.
 
 In [applicable scenarios](#applicable-scenarios), aggregation pushdown can greatly reduce the size of the input set for join or aggregation operators, thereby enhancing their performance.
 
 :::tip
-- In the native PostgreSQL kernel's optimization logic, aggregation operations in each query are always performed after all join operations have been completed (excluding subqueries). Therefore, Cloudberry Database introduces aggregation pushdown, permitting the early execution of aggregation operations in applicable scenarios.
+- In the native PostgreSQL kernel's optimization logic, aggregation operations in each query are always performed after all join operations have been completed (excluding subqueries). Therefore, Apache Cloudberry introduces aggregation pushdown, permitting the early execution of aggregation operations in applicable scenarios.
 - To determine whether the optimizer's chosen execution plan applies the aggregation pushdown optimization, check the position relationship between aggregation and join in the execution plan tree. If a plan first executes `Partial Aggregation`, then performs `Join`, and finally performs `Final Aggregation`, it indicates that the optimizer has applied aggregation pushdown.
 :::
 
@@ -49,7 +49,7 @@ Optimizer: Postgres query optimizer
 (13 rows)
 ```
 
-From the execution plan result of the above example, you can see that before performing the HashJoin operation, Cloudberry Database first performs an aggregation operation on table `t1` based on the `id` column. This aggregation operation does not compromise the correctness of the statement's results and is likely to reduce the amount of data entering the HashJoin, thereby improving the efficiency of the statement execution.
+From the execution plan result of the above example, you can see that before performing the HashJoin operation, Apache Cloudberry first performs an aggregation operation on table `t1` based on the `id` column. This aggregation operation does not compromise the correctness of the statement's results and is likely to reduce the amount of data entering the HashJoin, thereby improving the efficiency of the statement execution.
 
 ## Applicable scenarios
 
@@ -69,7 +69,7 @@ SELECT o.order_id, SUM(price)
 ```
 
 - Execution method in the native PostgreSQL optimizer: PostgreSQL's native optimizer can perform aggregation only after joining tables. Because every item in `order_line_tbl` corresponds to an order in `order_tbl`, the Join operator will not filter out any data.
-- Execution method in Cloudberry Database: assuming that each order contains an average of 10 items, the volume of data is expected to decrease tenfold after aggregation. With aggregation pushdown enabled, the database first aggregates data in `order_line_tbl` based on `order_id`, reducing the volume of data entering the Join operator by tenfold, significantly reducing the cost of the Join operator. The corresponding execution plan is as follows:
+- Execution method in Apache Cloudberry: assuming that each order contains an average of 10 items, the volume of data is expected to decrease tenfold after aggregation. With aggregation pushdown enabled, the database first aggregates data in `order_line_tbl` based on `order_id`, reducing the volume of data entering the Join operator by tenfold, significantly reducing the cost of the Join operator. The corresponding execution plan is as follows:
 
 ```sql
 EXPLAIN SELECT o.order_id, SUM(price)
@@ -100,7 +100,7 @@ SELECT proj_name, sum(cost)
     GROUP BY proj_name;
 ```
 
-For this query, with aggregation pushdown enabled, Cloudberry Database performs pre-aggregation on the experiment table based on the `e_pid` column, aggregating information of the same project together.
+For this query, with aggregation pushdown enabled, Apache Cloudberry performs pre-aggregation on the experiment table based on the `e_pid` column, aggregating information of the same project together.
 
 However, if this query also applies many filters on the project table, this might cause a high selectivity rate for join, leading to inefficient execution. Therefore, aggregation pushdown might not be suitable in such cases.
 
@@ -201,8 +201,8 @@ SELECT id, sum1 * cnt2 FROM
 WHERE AT1.id = AT2.id GROUP BY id;
 ```
 
-In this example, the aggregation operation is pushed down to both sides of the join. For all tuples in the `t1` table with `id` 100, Cloudberry Database pre-aggregates their `val` s, resulting in a corresponding `sum1`.
+In this example, the aggregation operation is pushed down to both sides of the join. For all tuples in the `t1` table with `id` 100, Apache Cloudberry pre-aggregates their `val` s, resulting in a corresponding `sum1`.
 
-During the actual join process, for each tuple in the `t2` table with `id` 100, a join is performed with the tuple belonging to `sum1`, resulting in the corresponding tuples. This means that for each `id` 100 in `t2`, `sum1` will appear once in the final sum, allowing Cloudberry Database to pre-aggregate `t2`, calculating the total number of tuples with `id` 100 as `cnt2`. The final result can then be calculated through `sum1 * cnt2`.
+During the actual join process, for each tuple in the `t2` table with `id` 100, a join is performed with the tuple belonging to `sum1`, resulting in the corresponding tuples. This means that for each `id` 100 in `t2`, `sum1` will appear once in the final sum, allowing Apache Cloudberry to pre-aggregate `t2`, calculating the total number of tuples with `id` 100 as `cnt2`. The final result can then be calculated through `sum1 * cnt2`.
 
-This scenario involves relatively complex statement and expression rewriting, and is currently not supported in Cloudberry Database.
+This scenario involves relatively complex statement and expression rewriting, and is currently not supported in Apache Cloudberry.

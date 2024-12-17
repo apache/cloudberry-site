@@ -2,9 +2,9 @@
 title: Window Functions
 ---
 
-# Window Functions in Cloudberry Database
+# Window Functions in Apache Cloudberry
 
-The following are Cloudberry Database built-in window functions. All window functions are *immutable*.<!-- For more information about window functions, see "Window Expressions" in the *Cloudberry Database Administrator Guide*. -->
+The following are Apache Cloudberry built-in window functions. All window functions are *immutable*.<!-- For more information about window functions, see "Window Expressions" in the *Apache Cloudberry Administrator Guide*. -->
 
 |Function|Return Type|Full Syntax|Description|
 |--------|-----------|-----------|-----------|

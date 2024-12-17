@@ -4,9 +4,9 @@ title: pg_filedump
 
 # pg_filedump
 
-Filedump, also known as the command-line tool `pg_filedump`, is a system utility that formats Cloudberry Database heap files, index files, and control files into human-readable forms. Using filedump, you can format and dump files in multiple ways, as described in the [Command-line options](#command-line-options) section, and even dump binary data directly.
+Filedump, also known as the command-line tool `pg_filedump`, is a system utility that formats Apache Cloudberry heap files, index files, and control files into human-readable forms. Using filedump, you can format and dump files in multiple ways, as described in the [Command-line options](#command-line-options) section, and even dump binary data directly.
 
-The repository for Cloudberry Database's filedump can be found at: `https://github.com/cloudberrydb/filedump`
+The repository for Apache Cloudberry's filedump can be found at: `https://github.com/cloudberry-contrib/filedump`
 
 ## User scenarios
 
@@ -19,19 +19,19 @@ The filedump tool is primarily used in the following scenarios:
 
 ## Compile and install filedump
 
-Before compiling filedump, you need to have a Cloudberry Database cluster installed with version 1.0.0 or later. The following are the typical steps for compilation:
+Before compiling filedump, you need to have a Apache Cloudberry cluster installed with version 1.0.0 or later. The following are the typical steps for compilation:
 
-1. Ensure the CloudberryDB package can be found:
+1. Ensure the Cloudberry package can be found:
 
     ```bash
     su - gpadmin
-    source /usr/local/cloudberry-db/greenplum_path.sh
+    source /usr/local/cloudberry/greenplum_path.sh
     ```
 
-2. Clone the GitHub repository `cloudberrydb/filedump` to your local environment:
+2. Clone the GitHub repository `cloudberry-contrib/filedump` to your local environment:
 
     ```bash
-    git clone https://github.com/cloudberrydb/filedump.git
+    git clone https://github.com/cloudberry-contrib/filedump.git
     ```
 
 3. Enter the repository directory and run the compilation command:

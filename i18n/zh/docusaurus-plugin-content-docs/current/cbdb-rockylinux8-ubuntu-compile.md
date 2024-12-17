@@ -55,7 +55,7 @@ git clone https://github.com/apache/cloudberry.git
 3. 执行 `README.Rhel-Rocky.bash` 脚本安装更多依赖项。
 
     ```bash
-    cd ~/cloudberrydb/deploy/build/
+    cd ~/cloudberry/deploy/build/
     ./README.Rhel-Rocky.bash
     ```
 
@@ -66,7 +66,7 @@ git clone https://github.com/apache/cloudberry.git
 
     ```shell
     # 执行该脚本需要输入密码。
-    sudo ~/cloudberrydb/deploy/build/README.Ubuntu.bash
+    sudo ~/cloudberry/deploy/build/README.Ubuntu.bash
     ```
 
     :::info 提示
@@ -131,7 +131,7 @@ git clone https://github.com/apache/cloudberry.git
 
 安装完所有依赖项并执行了平台准备工作后，你就可以开始构建 Apache Cloudberry 了。按顺序执行以下命令。
 
-1. 进入 `cloudberrydb` 目录，执行 `configure` 脚本。
+1. 进入 `cloudberry` 目录，执行 `configure` 脚本。
 
     ```bash
     cd ../..
@@ -142,7 +142,7 @@ git clone https://github.com/apache/cloudberry.git
     Apache Cloudberry 默认使用 GPORCA 构建。如果你希望构建出不使用 GPORCA 的 Apache Cloudberry，请在 `./configure` 命令中添加 `--disable-orca` 参数。
 
     ```bash
-    ./configure --disable-orca --with-perl --with-python --with-libxml --prefix=/usr/local/cloudberrydb
+    ./configure --disable-orca --with-perl --with-python --with-libxml --prefix=/usr/local/cloudberry
     ```
 
     :::
@@ -158,12 +158,12 @@ git clone https://github.com/apache/cloudberry.git
 
     ```bash
     cd ..
-    cp -r cloudberrydb/ /home/gpadmin/
+    cp -r cloudberry/ /home/gpadmin/
     cd /home/gpadmin/
-    chown -R gpadmin:gpadmin cloudberrydb/
+    chown -R gpadmin:gpadmin cloudberry/
     su - gpadmin
-    cd cloudberrydb/
-    source /usr/local/cloudberrydb/greenplum_path.sh
+    cd cloudberry/
+    source /usr/local/cloudberry/greenplum_path.sh
     ```
 
 4. 启动示例集群。
@@ -219,13 +219,13 @@ git clone https://github.com/apache/cloudberry.git
 
      dbid | content | role | preferred_role | mode | status | port |  hostname  |  address   |                                   datadir                                    | warehouseid 
     ------+---------+------+----------------+------+--------+------+------------+------------+------------------------------------------------------------------------------+-------------
-        1 |      -1 | p    | p              | n    | u      | 7000 | i-6wvpa9wt | i-6wvpa9wt | /home/gpadmin/cloudberrydb/gpAux/gpdemo/datadirs/qddir/demoDataDir-1         |           0
-        8 |      -1 | m    | m              | s    | u      | 7001 | i-6wvpa9wt | i-6wvpa9wt | /home/gpadmin/cloudberrydb/gpAux/gpdemo/datadirs/standby                     |           0
-        3 |       1 | p    | p              | s    | u      | 7003 | i-6wvpa9wt | i-6wvpa9wt | /home/gpadmin/cloudberrydb/gpAux/gpdemo/datadirs/dbfast2/demoDataDir1        |           0
-        6 |       1 | m    | m              | s    | u      | 7006 | i-6wvpa9wt | i-6wvpa9wt | /home/gpadmin/cloudberrydb/gpAux/gpdemo/datadirs/dbfast_mirror2/demoDataDir1 |           0
-        2 |       0 | p    | p              | s    | u      | 7002 | i-6wvpa9wt | i-6wvpa9wt | /home/gpadmin/cloudberrydb/gpAux/gpdemo/datadirs/dbfast1/demoDataDir0        |           0
-        5 |       0 | m    | m              | s    | u      | 7005 | i-6wvpa9wt | i-6wvpa9wt | /home/gpadmin/cloudberrydb/gpAux/gpdemo/datadirs/dbfast_mirror1/demoDataDir0 |           0
-        4 |       2 | p    | p              | s    | u      | 7004 | i-6wvpa9wt | i-6wvpa9wt | /home/gpadmin/cloudberrydb/gpAux/gpdemo/datadirs/dbfast3/demoDataDir2        |           0
-        7 |       2 | m    | m              | s    | u      | 7007 | i-6wvpa9wt | i-6wvpa9wt | /home/gpadmin/cloudberrydb/gpAux/gpdemo/datadirs/dbfast_mirror3/demoDataDir2 |           0
+        1 |      -1 | p    | p              | n    | u      | 7000 | i-6wvpa9wt | i-6wvpa9wt | /home/gpadmin/cloudberry/gpAux/gpdemo/datadirs/qddir/demoDataDir-1         |           0
+        8 |      -1 | m    | m              | s    | u      | 7001 | i-6wvpa9wt | i-6wvpa9wt | /home/gpadmin/cloudberry/gpAux/gpdemo/datadirs/standby                     |           0
+        3 |       1 | p    | p              | s    | u      | 7003 | i-6wvpa9wt | i-6wvpa9wt | /home/gpadmin/cloudberry/gpAux/gpdemo/datadirs/dbfast2/demoDataDir1        |           0
+        6 |       1 | m    | m              | s    | u      | 7006 | i-6wvpa9wt | i-6wvpa9wt | /home/gpadmin/cloudberry/gpAux/gpdemo/datadirs/dbfast_mirror2/demoDataDir1 |           0
+        2 |       0 | p    | p              | s    | u      | 7002 | i-6wvpa9wt | i-6wvpa9wt | /home/gpadmin/cloudberry/gpAux/gpdemo/datadirs/dbfast1/demoDataDir0        |           0
+        5 |       0 | m    | m              | s    | u      | 7005 | i-6wvpa9wt | i-6wvpa9wt | /home/gpadmin/cloudberry/gpAux/gpdemo/datadirs/dbfast_mirror1/demoDataDir0 |           0
+        4 |       2 | p    | p              | s    | u      | 7004 | i-6wvpa9wt | i-6wvpa9wt | /home/gpadmin/cloudberry/gpAux/gpdemo/datadirs/dbfast3/demoDataDir2        |           0
+        7 |       2 | m    | m              | s    | u      | 7007 | i-6wvpa9wt | i-6wvpa9wt | /home/gpadmin/cloudberry/gpAux/gpdemo/datadirs/dbfast_mirror3/demoDataDir2 |           0
     (8 rows)
     ```

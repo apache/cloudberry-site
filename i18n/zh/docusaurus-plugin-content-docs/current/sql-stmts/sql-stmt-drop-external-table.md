@@ -24,7 +24,7 @@ DROP EXTERNAL [WEB] TABLE [IF EXISTS] <name> [CASCADE | RESTRICT]
 
 **`IF EXISTS`**
 
-如果外部表不存在，则不抛出错误。在这种情况下，Cloudberry Database 会发出一个提醒。
+如果外部表不存在，则不抛出错误。在这种情况下，Apache Cloudberry 会发出一个提醒。
 
 **`name`**
 
@@ -36,7 +36,7 @@ DROP EXTERNAL [WEB] TABLE [IF EXISTS] <name> [CASCADE | RESTRICT]
 
 **`RESTRICT`**
 
-如果有任何对象依赖于外部表，Cloudberry Database 会拒绝删除外部表。这是默认行为。
+如果有任何对象依赖于外部表，Apache Cloudberry 会拒绝删除外部表。这是默认行为。
 
 ## 示例
 

@@ -42,7 +42,7 @@ ALTER RULE notify_all ON emp RENAME TO notify_me;
 
 ## 兼容性
 
-`ALTER RULE` 是 Cloudberry Database 的扩展，整个查询重写系统也是如此。
+`ALTER RULE` 是 Apache Cloudberry 的扩展，整个查询重写系统也是如此。
 
 ## 另见
 

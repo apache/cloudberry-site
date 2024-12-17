@@ -46,7 +46,7 @@ The name of the foreign server from which to import the table definitions.
 
 **`local_schema`**
 
-The schema in which Cloudberry Database will create the imported foreign tables.
+The schema in which Apache Cloudberry will create the imported foreign tables.
 
 **`OPTIONS ( option 'value' [, ... ] )`**
 
@@ -71,7 +71,7 @@ IMPORT FOREIGN SCHEMA foreign_films LIMIT TO (actors, directors)
 
 ## Compatibility
 
-The `IMPORT FOREIGN SCHEMA` command conforms to the SQL standard, except that the `OPTIONS` clause is a Cloudberry Database extension.
+The `IMPORT FOREIGN SCHEMA` command conforms to the SQL standard, except that the `OPTIONS` clause is a Apache Cloudberry extension.
 
 ## See also
 

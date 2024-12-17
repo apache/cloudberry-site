@@ -18,7 +18,7 @@ createuser -V | --version
 
 ## Description
 
-`createuser` creates a new Cloudberry Database role. You must be a superuser or have the `CREATEROLE` privilege to create new roles. You must connect to the database as a superuser to create new superusers.
+`createuser` creates a new Apache Cloudberry role. You must be a superuser or have the `CREATEROLE` privilege to create new roles. You must connect to the database as a superuser to create new superusers.
 
 Superusers can bypass all access permission checks within the database, so superuser privileges should not be granted lightly.
 
@@ -28,7 +28,7 @@ Superusers can bypass all access permission checks within the database, so super
 
 **`role_name`**
 
-The name of the role to be created. This name must be different from all existing roles in this Cloudberry Database installation.
+The name of the role to be created. This name must be different from all existing roles in this Apache Cloudberry installation.
 
 **`-c number | --connection-limit=number`**
 
@@ -64,7 +64,7 @@ Prompt for the user name if none is specified on the command line, and also prom
 
 **`-l | --login`**
 
-The new role will be allowed to log in to Cloudberry Database. This is the default.
+The new role will be allowed to log in to Apache Cloudberry. This is the default.
 
 **`-L | --no-login`**
 

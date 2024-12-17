@@ -50,7 +50,7 @@ DROP OWNED BY sally;
 
 ## Compatibility
 
-The `DROP OWNED` command is a Cloudberry Database extension.
+The `DROP OWNED` command is a Apache Cloudberry extension.
 
 ## See also
 

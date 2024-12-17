@@ -832,7 +832,7 @@ Explore the data directory and subdirectories. Take a look at the configuration 
 
 ```
 [gpadmin@mdw ~]$ ps aux|grep 5432
-gpadmin   4409  0.0  0.4 209960 39776 ?        Ss   16:14   0:00 /usr/local/cloudberry-db/bin/postgres -D /data0/database/master/gpseg-1 -p 5432 -c gp_role=dispatch
+gpadmin   4409  0.0  0.4 209960 39776 ?        Ss   16:14   0:00 /usr/local/cloudberry/bin/postgres -D /data0/database/master/gpseg-1 -p 5432 -c gp_role=dispatch
 gpadmin   4410  0.0  0.0  45544  5160 ?        Ss   16:14   0:00 postgres:  5432, master logger process
 gpadmin   4412  0.0  0.1 210256  9484 ?        Ss   16:14   0:00 postgres:  5432, checkpointer
 gpadmin   4413  0.0  0.0 210124  7440 ?        Ss   16:14   0:00 postgres:  5432, background writer
@@ -851,7 +851,7 @@ gpadmin   4846  0.0  0.5 294692 48516 ?        Ssl  16:25   0:00 postgres:  5432
 
 ```
 [gpadmin@mdw ~]$ ps aux|grep 40000
-gpadmin   4373  0.0  0.5 212912 41404 ?        Ss   16:14   0:00 /usr/local/cloudberry-db/bin/postgres -D /data0/database/primary/gpseg0 -p 40000 -c gp_role=execute
+gpadmin   4373  0.0  0.5 212912 41404 ?        Ss   16:14   0:00 /usr/local/cloudberry/bin/postgres -D /data0/database/primary/gpseg0 -p 40000 -c gp_role=execute
 gpadmin   4377  0.0  0.0  45540  5272 ?        Ss   16:14   0:00 postgres: 40000, logger process
 gpadmin   4390  0.0  0.1 213212  9328 ?        Ss   16:14   0:00 postgres: 40000, checkpointer
 gpadmin   4391  0.0  0.0 213076  7856 ?        Ss   16:14   0:00 postgres: 40000, background writer
@@ -867,7 +867,7 @@ gpadmin   4400  0.0  0.1 214868 12432 ?        Ss   16:14   0:00 postgres: 40000
 
 ```
 [gpadmin@mdw ~]$ ps aux|grep 41000
-gpadmin   4375  0.0  0.5 212912 41196 ?        Ss   16:14   0:00 /usr/local/cloudberry-db/bin/postgres -D /data0/database/mirror/gpseg0 -p 41000 -c gp_role=execute
+gpadmin   4375  0.0  0.5 212912 41196 ?        Ss   16:14   0:00 /usr/local/cloudberry/bin/postgres -D /data0/database/mirror/gpseg0 -p 41000 -c gp_role=execute
 gpadmin   4379  0.0  0.0  45540  5160 ?        Ss   16:14   0:00 postgres: 41000, logger process
 gpadmin   4383  0.0  0.1 213344 10908 ?        Ss   16:14   0:00 postgres: 41000, startup recovering 000000010000000000000004
 gpadmin   4385  0.0  0.1 212912  8352 ?        Ss   16:14   0:00 postgres: 41000, checkpointer

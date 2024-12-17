@@ -4,17 +4,17 @@ title: 地理空间分析
 
 # 地理空间分析
 
-[PostGIS](https://postgis.net/) 扩展了 PostgreSQL 的功能，增加了对地理空间数据的存储、索引和查询支持。Cloudberry Database 支持 PostGIS 进行地理空间分析。
+[PostGIS](https://postgis.net/) 扩展了 PostgreSQL 的功能，增加了对地理空间数据的存储、索引和查询支持。Apache Cloudberry 支持 PostGIS 进行地理空间分析。
 
-本文介绍了如何为你的 Cloudberry Database 集群编译和构建 PostGIS。
+本文介绍了如何为你的 Apache Cloudberry 集群编译和构建 PostGIS。
 
-要查看 Cloudberry Database PostGIS 项目的仓库，请访问 [`cloudberrydb/postgis`](https://github.com/cloudberrydb/postgis)。该仓库的 PostGIS 是专门为 Cloudberry Database 打造的，本文档介绍的编译构建方法，是基于该仓库的代码。
+要查看 Apache Cloudberry PostGIS 项目的仓库，请访问 [`cloudberry-contrib/postgis`](https://github.com/cloudberry-contrib/postgis)。该仓库的 PostGIS 是专门为 Apache Cloudberry 打造的，本文档介绍的编译构建方法，是基于该仓库的代码。
 
-## 为 Cloudberry Database 编译 PostGIS
+## 为 Apache Cloudberry 编译 PostGIS
 
-在为 Cloudberry Database 安装 PostGIS 之前，请先安装所需的依赖项并编译若干组件。目前，仅支持在 CentOS 系统上进行编译构建，未来计划支持 Rocky Linux。
+在为 Apache Cloudberry 安装 PostGIS 之前，请先安装所需的依赖项并编译若干组件。目前，仅支持在 CentOS 系统上进行编译构建，未来计划支持 Rocky Linux。
 
-在开始编译之前，请确保 Cloudberry Database 已正确安装。如果尚未安装，请参阅[文档](https://cloudberrydb.org/zh/docs/)获取安装说明。
+在开始编译之前，请确保 Apache Cloudberry 已正确安装。如果尚未安装，请参阅[文档](https://cloudberry.apache.org/zh/docs/)获取安装说明。
 
 1. 安装相关依赖。
 
@@ -93,10 +93,10 @@ title: 地理空间分析
 
 3. 构建并安装 PostGIS.
 
-    1. 将 `cloudberrydb/postgis` 仓库下载到你的 `/home/gpadmin` 目录中：
+    1. 将 `cloudberry-contrib/postgis` 仓库下载到你的 `/home/gpadmin` 目录中：
 
         ```bash
-        git clone https://github.com/cloudberrydb/postgis.git /home/gpadmin/postgis
+        git clone https://github.com/cloudberry-contrib/postgis.git /home/gpadmin/postgis
         chown -R gpadmin:gpadmin /home/gpadmin/postgis
         ```
 
@@ -105,8 +105,8 @@ title: 地理空间分析
         在开始编译流程前，执行以下命令，以确保环境变量设置完毕：
 
             ```bash
-            source /usr/local/cloudberrydb/greenplum_path.sh
-            source /home/gpadmin/cloudberrydb/gpAux/gpdemo/gpdemo-env.sh
+            source /usr/local/cloudberry/greenplum_path.sh
+            source /home/gpadmin/cloudberry/gpAux/gpdemo/gpdemo-env.sh
             scl enable devtoolset-10 bash
             source /opt/rh/devtoolset-10/enable
             ```
@@ -120,9 +120,9 @@ title: 地理空间分析
         make && make install
         ```
 
-## 在 Cloudberry Database 中使用 PostGIS
+## 在 Apache Cloudberry 中使用 PostGIS
 
-在 Cloudberry Database 集群上编译和加载 PostGIS，并已启动演示集群后，你可以运行以下命令来启用 PostGIS 和支持的扩展：
+在 Apache Cloudberry 集群上编译和加载 PostGIS，并已启动演示集群后，你可以运行以下命令来启用 PostGIS 和支持的扩展：
 
 ```sql
 $ psql -p 7000 postgres

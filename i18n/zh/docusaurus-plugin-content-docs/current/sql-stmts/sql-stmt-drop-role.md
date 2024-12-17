@@ -40,7 +40,7 @@ DROP ROLE sally, bob;
 
 ## 兼容性
 
-SQL 标准定义了 `DROP ROLE`，但一次只允许删除一个角色，并且它规定的权限要求与 Cloudberry Database 使用的不同。
+SQL 标准定义了 `DROP ROLE`，但一次只允许删除一个角色，并且它规定的权限要求与 Apache Cloudberry 使用的不同。
 
 ## 另见
 

@@ -31,13 +31,13 @@ The name of the foreign-data wrapper to create. The name must be unique within t
 
 **`HANDLER handler_function`**
 
-The name of a previously registered function that Cloudberry Database calls to retrieve the execution functions for foreign tables. hander_function must take no arguments, and its return type must be `fdw_handler`.
+The name of a previously registered function that Apache Cloudberry calls to retrieve the execution functions for foreign tables. hander_function must take no arguments, and its return type must be `fdw_handler`.
 
 It is possible to create a foreign-data wrapper with no handler function, but you can only declare, not access, foreign tables using such a wrapper.
 
 **`VALIDATOR validator_function`**
 
-The name of a previously registered function that Cloudberry Database calls to check the generic options provided to the foreign-data wrapper. This function also checks the options for foreign servers, user mappings, and foreign tables that use the foreign-data wrapper. If no validator function or `NO VALIDATOR` is specified, Cloudberry Database does not check options at creation time. (Depending upon the implementation, foreign-data wrappers may ignore or reject invalid options at runtime.)
+The name of a previously registered function that Apache Cloudberry calls to check the generic options provided to the foreign-data wrapper. This function also checks the options for foreign servers, user mappings, and foreign tables that use the foreign-data wrapper. If no validator function or `NO VALIDATOR` is specified, Apache Cloudberry does not check options at creation time. (Depending upon the implementation, foreign-data wrappers may ignore or reject invalid options at runtime.)
 
 validator_function must take two arguments: one of type `text[]`, which contains the array of options as stored in the system catalogs, and one of type `oid`, which identifies the OID of the system catalog containing the options.
 
@@ -49,13 +49,13 @@ The options for the new foreign-data wrapper. Option names must be unique. The o
 
 **`mpp_execute { 'coordinator' | 'any' | 'all segments' }`**
 
-A Cloudberry Database-specific option that identifies the host from which the foreign-data wrapper reads or writes data:
+A Apache Cloudberry-specific option that identifies the host from which the foreign-data wrapper reads or writes data:
 
 - `coordinator` (the default)—Read or write data from the coordinator host.
 - `any`—Read data from either the coordinator host or any one segment, depending on which path costs less.
 - `all segments`—Read or write data from all segments. To support this option value, the foreign-data wrapper must have a policy that matches the segments to data.
 
-> **Note** Cloudberry Database supports parallel writes to foreign tables only when you set `mpp_execute 'all segments'`.
+> **Note** Apache Cloudberry supports parallel writes to foreign tables only when you set `mpp_execute 'all segments'`.
 
 Support for the foreign-data wrapper `mpp_execute` option, and the specific modes, is foreign-data wrapper-specific.
 
@@ -87,7 +87,7 @@ CREATE FOREIGN DATA WRAPPER mywrapper OPTIONS (debug 'true');
 
 ## Compatibility
 
-`CREATE FOREIGN DATA WRAPPER` conforms to ISO/IEC 9075-9 (SQL/MED), with the exception that the `HANDLER` and `VALIDATOR` clauses are extensions, and the standard clauses `LIBRARY` and `LANGUAGE` are not implemented in Cloudberry Database.
+`CREATE FOREIGN DATA WRAPPER` conforms to ISO/IEC 9075-9 (SQL/MED), with the exception that the `HANDLER` and `VALIDATOR` clauses are extensions, and the standard clauses `LIBRARY` and `LANGUAGE` are not implemented in Apache Cloudberry.
 
 Note, however, that the SQL/MED functionality as a whole is not yet conforming.
 

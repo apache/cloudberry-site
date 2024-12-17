@@ -41,7 +41,7 @@ Adds a new attribute to a composite type, using the same syntax as [CREATE TYPE]
 
 **`DROP ATTRIBUTE [ IF EXISTS ]`**
 
-Drops an attribute from a composite type. If `IF EXISTS` is specified and the attribute does not exist, no error is thrown. In this case Cloudberry Database issues a notice instead.
+Drops an attribute from a composite type. If `IF EXISTS` is specified and the attribute does not exist, no error is thrown. In this case Apache Cloudberry issues a notice instead.
 
 **`SET DATA TYPE`**
 
@@ -63,7 +63,7 @@ Moves the type into another schema.
 
 Adds a new value to an enum type. The new value's place in the enum's ordering can be specified as being `BEFORE` or `AFTER` one of the existing values. Otherwise, the new item is added at the end of the list of values.
 
-If `IF NOT EXISTS` is specified, it is not an error if the type already contains the new value; Cloudberry Database issues a notice but takes no other action. Otherwise, an error will occur if the new value is already present.
+If `IF NOT EXISTS` is specified, it is not an error if the type already contains the new value; Apache Cloudberry issues a notice but takes no other action. Otherwise, an error will occur if the new value is already present.
 
 **`RENAME VALUE`**
 
@@ -73,7 +73,7 @@ The `ADD ATTRIBUTE`, `DROP ATTRIBUTE`, and `ALTER ATTRIBUTE` actions can be comb
 
 You can change the name, the owner, and the schema of a type. You can also add or update storage options for a scalar type.
 
-> **Note** Cloudberry Database does not support adding storage options for row or composite types.
+> **Note** Apache Cloudberry does not support adding storage options for row or composite types.
 
 You must own the type to use `ALTER TYPE`. To change the schema of a type, you must also have `CREATE` privilege on the new schema. To alter the owner, you must also be a direct or indirect member of the new owning role, and that role must have `CREATE` privilege on the type's schema. (These restrictions enforce that altering the owner does not do anything that could be done by dropping and recreating the type. However, a superuser can alter ownership of any type.) To add an attribute or alter an attribute type, you must also have `USAGE` privilege on the data type.
 
@@ -191,7 +191,7 @@ ALTER TYPE colors RENAME VALUE 'purple' TO 'mauve';
 
 ## Compatibility
 
-The variants to add and drop attributes are part of the SQL standard; the other variants are Cloudberry Database extensions.
+The variants to add and drop attributes are part of the SQL standard; the other variants are Apache Cloudberry extensions.
 
 ## See also
 

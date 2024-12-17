@@ -5,11 +5,11 @@ toc_max_heading_level: 5
 
 # Configure Database System
 
-Server configuration parameters affect the behavior of Cloudberry Database. They are part of the PostgreSQL "Grand Unified Configuration" system, so they are sometimes called "GUCs". Most of the Cloudberry Database server configuration parameters are the same as the PostgreSQL configuration parameters, but some are specific to Cloudberry Database.
+Server configuration parameters affect the behavior of Apache Cloudberry. They are part of the PostgreSQL "Grand Unified Configuration" system, so they are sometimes called "GUCs". Most of the Apache Cloudberry server configuration parameters are the same as the PostgreSQL configuration parameters, but some are specific to Apache Cloudberry.
 
 ## Coordinator and local parameters
 
-Server configuration files contain parameters that configure server behavior. The Cloudberry Database configuration file, `postgresql.conf`, resides in the data directory of the database instance.
+Server configuration files contain parameters that configure server behavior. The Apache Cloudberry configuration file, `postgresql.conf`, resides in the data directory of the database instance.
 
 The coordinator and each segment instance have their own `postgresql.conf` file. Some parameters are local: each segment instance examines its `postgresql.conf` file to get the value of that parameter. Set local parameters on the coordinator and on each segment instance.
 
@@ -17,19 +17,19 @@ Other parameters are coordinator parameters that you set on the coordinator inst
 
 ## Set configuration parameters
 
-Many configuration parameters limit who can change them and where or when they can be set. For example, to change certain parameters, you must be a Cloudberry Database superuser. Other parameters can be set only at the system level in the `postgresql.conf` file or require a system restart to take effect.
+Many configuration parameters limit who can change them and where or when they can be set. For example, to change certain parameters, you must be a Apache Cloudberry superuser. Other parameters can be set only at the system level in the `postgresql.conf` file or require a system restart to take effect.
 
 Many configuration parameters are session parameters. You can set session parameters at the system level, the database level, the role level or the session level. Database users can change most session parameters within their session, but some require superuser permissions.
 
 ### Set a local configuration parameter
 
-To change a local configuration parameter across multiple segments, update the parameter in the `postgresql.conf` file of each targeted segment, both primary and mirror. Use the `gpconfig` utility to set a parameter in all Cloudberry Database `postgresql.conf` files. For example:
+To change a local configuration parameter across multiple segments, update the parameter in the `postgresql.conf` file of each targeted segment, both primary and mirror. Use the `gpconfig` utility to set a parameter in all Apache Cloudberry `postgresql.conf` files. For example:
 
 ```shell
 $ gpconfig -c gp_vmem_protect_limit -v 4096
 ```
 
-Restart Cloudberry Database to make the configuration changes effective:
+Restart Apache Cloudberry to make the configuration changes effective:
 
 ```shell
 $ gpstop -r
@@ -37,7 +37,7 @@ $ gpstop -r
 
 ### Set a coordinator configuration parameter
 
-To set a coordinator configuration parameter, set it at the Cloudberry Database coordinator instance. If it is also a session parameter, you can set the parameter for a particular database, role or session. If a parameter is set at multiple levels, the most granular level takes precedence. For example, session overrides role, role overrides database, and database overrides system.
+To set a coordinator configuration parameter, set it at the Apache Cloudberry coordinator instance. If it is also a session parameter, you can set the parameter for a particular database, role or session. If a parameter is set at multiple levels, the most granular level takes precedence. For example, session overrides role, role overrides database, and database overrides system.
 
 #### Set parameters at the system level
 
@@ -52,7 +52,7 @@ Coordinator parameter settings in the coordinator `postgresql.conf` file are the
     $ gpstop -u
     ```
 
-    For parameter changes that require a server restart, restart Cloudberry Database as follows:
+    For parameter changes that require a server restart, restart Apache Cloudberry as follows:
 
     ```shell
     $ gpstop -r

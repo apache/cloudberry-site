@@ -20,7 +20,7 @@ DROP SERVER [ IF EXISTS ] <name> [, ...] [ CASCADE | RESTRICT ]
 
 **`IF EXISTS`**
 
-Do not throw an error if the server does not exist. Cloudberry Database issues a notice in this case.
+Do not throw an error if the server does not exist. Apache Cloudberry issues a notice in this case.
 
 **`name`**
 
@@ -44,7 +44,7 @@ DROP SERVER IF EXISTS foo;
 
 ## Compatibility
 
-`DROP SERVER` conforms to ISO/IEC 9075-9 (SQL/MED). The `IF EXISTS` clause is a Cloudberry Database extension.
+`DROP SERVER` conforms to ISO/IEC 9075-9 (SQL/MED). The `IF EXISTS` clause is a Apache Cloudberry extension.
 
 ## See also
 

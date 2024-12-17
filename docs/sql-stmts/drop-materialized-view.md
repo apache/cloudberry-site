@@ -44,7 +44,7 @@ DROP MATERIALIZED VIEW order_summary;
 
 ## Compatibility
 
-`DROP MATERIALIZED VIEW` is a Cloudberry Database extension of the SQL standard.
+`DROP MATERIALIZED VIEW` is a Apache Cloudberry extension of the SQL standard.
 
 ## See also
 

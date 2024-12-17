@@ -4,11 +4,11 @@ title: Directory Table
 
 # Directory Table
 
-Cloudberry Database has introduced *directory tables* in v1.5.3 for unified management of unstructured data on local or object storage.
+Apache Cloudberry has introduced *directory tables* in v1.5.3 for unified management of unstructured data on local or object storage.
 
 In the context of large-scale AI, AI applications have generated the need to manage unstructured multi-modal corpora. There is a need to continuously prepare a large amount of high-quality curated unstructured corpora, train large models through data iteration, and summarize rich knowledge bases. Therefore, there are technical challenges in the management and processing of structured corpora.
 
-To address these challenges, Cloudberry Database introduces directory tables for managing multiple types of unstructured data. Developer users can use simple SQL statements to take advantage of the capabilities of multiple computing engines to achieve one-stop data processing and application development.
+To address these challenges, Apache Cloudberry introduces directory tables for managing multiple types of unstructured data. Developer users can use simple SQL statements to take advantage of the capabilities of multiple computing engines to achieve one-stop data processing and application development.
 
 Directory tables store, manage, and analyze unstructured data objects. They reside within tablespaces. When unstructured data files are imported, a directory table record (file metadata) is created, and the file itself is loaded into object storage. The table metadata remains associated with the corresponding object storage file.
 
@@ -40,7 +40,7 @@ CREATE DIRECTORY TABLE <table_name>;
 
 To create a directory table in an external storage, you first need to create a tablespace in that storage. You'll need to provide connection information of the external storage server, such as server IP address, protocol, and access credentials. The following examples show how to create directory tables on QingCloud Object Storage and HDFS.
 
-1. Create server objects and define connection methods for external data sources. Cloudberry Database supports protocols for multiple storage options, including S3 object storage and HDFS. The following examples create server objects named `oss_server` and `hdfs_server` on QingCloud and HDFS, respectively.
+1. Create server objects and define connection methods for external data sources. Apache Cloudberry supports protocols for multiple storage options, including S3 object storage and HDFS. The following examples create server objects named `oss_server` and `hdfs_server` on QingCloud and HDFS, respectively.
 
     - For QingCloud:
 
@@ -58,7 +58,7 @@ To create a directory table in an external storage, you first need to create a t
 
     - `protocol`: The protocol used to connect to the external data source. In the examples above, `'qingstor'` indicates using the QingCloud object storage service protocol, and `'hdfs'` indicates using the HDFS storage service protocol.
     - `prefix`: Sets the path prefix when accessing object storage. If this prefix is set, all operations will be limited to this specific path, such as `prefix '/rose-oss-test4/usf1'`. This is typically used to organize and isolate data stored in the same bucket.
-    - `endpoint`: Specifies the network address of the external object storage service. For example, `'pek3b.qingstor.com'` is a specific regional node of the QingCloud service. Through this endpoint, Cloudberry Database can access external data.
+    - `endpoint`: Specifies the network address of the external object storage service. For example, `'pek3b.qingstor.com'` is a specific regional node of the QingCloud service. Through this endpoint, Apache Cloudberry can access external data.
     - `https`: Specifies whether to connect to the object storage service using the HTTPS protocol. In this command, `'false'` indicates using an unencrypted HTTP connection. This setting might be influenced by data transmission security requirements, and it is generally recommended to use HTTPS to ensure data security.
     - `virtual_host`: Determines whether to access the bucket using virtual hosting. `'false'` means that bucket access is not done in virtual host style (which means that the bucket name is not included in the URL). This option is typically dependent on the URL format support provided by the storage service provider.
     - `namenode`: Represents the IP of the HDFS node. You need to replace `<HDFS node IP:port>` with the actual IP address and port number, such as `'192.168.51.106:8020'`.
@@ -134,7 +134,7 @@ In general, the fields of a directory table are as follows:
 
 ### Upload file into directory table
 
-After uploading a file to a directory table, Cloudberry Database manages the file's upload to local storage or object storage and stores the file's metadata in the directory table. In Cloudberry Database v1.5.3, users cannot directly manage object storage directory files.
+After uploading a file to a directory table, Apache Cloudberry manages the file's upload to local storage or object storage and stores the file's metadata in the directory table. In Apache Cloudberry v1.5.3, users cannot directly manage object storage directory files.
 
 Upload files from local storage to database object storage:
 

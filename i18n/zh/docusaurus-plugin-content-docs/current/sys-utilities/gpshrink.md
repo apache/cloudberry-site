@@ -4,7 +4,7 @@ title: gpshrink
 
 # gpshrink
 
-Cloudberry Database 通过 gpshrink 系统工具缩容集群。集群资源空闲时，例如磁盘空间占用长期低于 20%、CPU 或内存占用率持续较低，则可以使用 gpshrink 来实现集群的缩容，从而节省服务器资源。用户可以通过 gpshrink 工具删除多余服务器上的 segment，从而实现集群缩容。
+Apache Cloudberry 通过 gpshrink 系统工具缩容集群。集群资源空闲时，例如磁盘空间占用长期低于 20%、CPU 或内存占用率持续较低，则可以使用 gpshrink 来实现集群的缩容，从而节省服务器资源。用户可以通过 gpshrink 工具删除多余服务器上的 segment，从而实现集群缩容。
 
 gpshrink 在执行时分为两阶段：
 
@@ -42,8 +42,8 @@ gpshrink 在执行时分为两阶段：
 
     ```bash
     # 以删除一个 segment 为例，以下为写入的 primary 和 mirror 的信息
-    i-thd001y0|i-thd001y0|7004|/home/gpadmin/cloudberrydb/gpAux/gpdemo/datadirs/dbfast3/demoDataDir2|4|2|p
-    i-thd001y0|i-thd001y0|7007|/home/gpadmin/cloudberrydb/gpAux/gpdemo/datadirs/dbfast_mirror3/demoDataDir2|7|2|m
+    i-thd001y0|i-thd001y0|7004|/home/gpadmin/cloudberry/gpAux/gpdemo/datadirs/dbfast3/demoDataDir2|4|2|p
+    i-thd001y0|i-thd001y0|7007|/home/gpadmin/cloudberry/gpAux/gpdemo/datadirs/dbfast_mirror3/demoDataDir2|7|2|m
     ```
 
 4. 执行 `gpshrink` 命令两次。

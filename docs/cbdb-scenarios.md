@@ -2,11 +2,11 @@
 title: User Scenarios
 ---
 
-This document introduces the use cases of Cloudberry Database.
+This document introduces the use cases of Apache Cloudberry.
 
 **Scenario 1: Batch processing data warehouse offline and building data marts**
 
-- Builds high-performance Cloudberry Database warehouses and data marts for storing and querying large-scale datasets. This includes Operational Data Store (ODS), Data Warehouse Detail (DWD), and Data Warehouse Summary (DWS). Supports building source model, normalization model, dimension tables, fact tables, and more, with multiple ways to load source data into the data warehouse.
+- Builds high-performance Apache Cloudberry warehouses and data marts for storing and querying large-scale datasets. This includes Operational Data Store (ODS), Data Warehouse Detail (DWD), and Data Warehouse Summary (DWS). Supports building source model, normalization model, dimension tables, fact tables, and more, with multiple ways to load source data into the data warehouse.
 - Supports multiple types of data processing.
 - Supports building data warehouse and data marts with high concurrency, high performance, and low maintenance cost.
 - Supports complex data analysis and query needs, including data aggregation, multi-dimensional analysis, and correlated queries.
@@ -31,6 +31,6 @@ This document introduces the use cases of Cloudberry Database.
 
 **Scenario 6: Applicable to Geographic Information System (GIS) applications**
 
-- Builds Geographic Information System (GIS) applications on Cloudberry Database.
+- Builds Geographic Information System (GIS) applications on Apache Cloudberry.
 - Stores and queries geographic location data. Supports spatial data analysis, geocoding, and map visualization.
 - Can be applied to city planning, geographic analysis, and map navigation.

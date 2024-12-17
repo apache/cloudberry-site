@@ -4,7 +4,7 @@ title: 更新统计信息
 
 # 更新统计信息
 
-要获得良好的查询性能，准确的统计信息准确十分重要。通过使用 `ANALYZE` 语句更新统计信息，可以使查询优化器生成最优的查询计划。Cloudberry Database 对表进行分析时，相关的数据信息被存储在系统目录表中。如果存储的信息过时了，查询优化器可能会生成低效的查询计划。
+要获得良好的查询性能，准确的统计信息准确十分重要。通过使用 `ANALYZE` 语句更新统计信息，可以使查询优化器生成最优的查询计划。Apache Cloudberry 对表进行分析时，相关的数据信息被存储在系统目录表中。如果存储的信息过时了，查询优化器可能会生成低效的查询计划。
 
 ## 查看统计信息是否已更新
 
@@ -24,7 +24,7 @@ WHERE relname = 'test_analyze';
 
 对大表执行 `ANALYZE` 可能需要很长时间。如果无法对大表的所有列执行 `ANALYZE`，可以仅针对特定列使用  `ANALYZE table(column, ...)` 来生成统计信息。确保在这些条件中使用的列被包含在内：连接、`WHERE` 子句、`SORT` 子句、`GROUP BY` 子句或 `HAVING` 子句。
 
-对于分区表，可以仅对发生变化的分区执行 `ANALYZE`，例如，添加新分区时。请注意，对于分区表，可以在根分区表或叶分区（实际存储数据和统计信息的文件）上执行 `ANALYZE`。在 Cloudberry Database 中，对分区表的单个分区执行 `ANALYZE` 还会更新根表的统计信息，这表明对一个分区进行统计信息收集可能会影响整个分区表的优化器统计信息。使用 `pg_partition_tree()` 函数可以找到叶分区的名称。
+对于分区表，可以仅对发生变化的分区执行 `ANALYZE`，例如，添加新分区时。请注意，对于分区表，可以在根分区表或叶分区（实际存储数据和统计信息的文件）上执行 `ANALYZE`。在 Apache Cloudberry 中，对分区表的单个分区执行 `ANALYZE` 还会更新根表的统计信息，这表明对一个分区进行统计信息收集可能会影响整个分区表的优化器统计信息。使用 `pg_partition_tree()` 函数可以找到叶分区的名称。
 
 ```sql
 SELECT * FROM pg_partition_tree( 'parent_table' );
@@ -58,7 +58,7 @@ SELECT * FROM pg_partition_tree( 'parent_table' );
 
 而将 `gp_autostats_mode` 设置为 `on_change` 时，仅当受影响的行数超过 `gp_autostats_on_change_threshold` 所设定的阈值时，才会进行统计信息收集。这个阈值的默认值是 `2147483647`。在表所有者执行 `CREATE TABLE AS SELECT`、`UPDATE`、`DELETE`、`INSERT` 和 `COPY` 操作时，如果受影响的行数超过了这个阈值，就会触发自动统计信息收集。
 
-另外，若将服务器配置参数 `gp_autostats_allow_nonowner` 设置为 `true`，Cloudberry Database 将会在以下情况对表进行自动统计信息收集：
+另外，若将服务器配置参数 `gp_autostats_allow_nonowner` 设置为 `true`，Apache Cloudberry 将会在以下情况对表进行自动统计信息收集：
 
 - 当 `gp_autostats_mode` 被设置为 `on_no_stats`，并且第一个对表执行 `INSERT` 或 `COPY` 操作的非所有者用户。
 

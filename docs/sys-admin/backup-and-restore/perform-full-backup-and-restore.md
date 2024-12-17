@@ -4,36 +4,36 @@ title: Perform Full Backup and Restore
 
 # Perform Full Backup and Restore
 
-Cloudberry Database supports backing up and restoring the full database in parallel. Parallel operations scale regardless of the number of segments in your system, because segment hosts each write their data to local disk storage at the same time.
+Apache Cloudberry supports backing up and restoring the full database in parallel. Parallel operations scale regardless of the number of segments in your system, because segment hosts each write their data to local disk storage at the same time.
 
-`gpbackup` and `gprestore` are Cloudberry Database command-line utilities that create and restore backup sets for Cloudberry Database. By default, `gpbackup` stores only the object metadata files and DDL files for a backup in the Cloudberry Database coordinator data directory. Cloudberry Database segments use the `COPY ... ON SEGMENT` command to store their data for backed-up tables in compressed CSV data files, located in each segment's backups directory.
+`gpbackup` and `gprestore` are Apache Cloudberry command-line utilities that create and restore backup sets for Apache Cloudberry. By default, `gpbackup` stores only the object metadata files and DDL files for a backup in the Apache Cloudberry coordinator data directory. Apache Cloudberry segments use the `COPY ... ON SEGMENT` command to store their data for backed-up tables in compressed CSV data files, located in each segment's backups directory.
 
-The backup metadata files contain all of the information that `gprestore` needs to restore a full backup set in parallel. Each `gpbackup` task uses a single transaction in Cloudberry Database. During this transaction, metadata is backed up on the coordinator host, and data for each table on each segment host is written to CSV backup files using `COPY ... ON SEGMENT` commands in parallel. The backup process acquires an `ACCESS SHARE` lock on each table that is backed up.
+The backup metadata files contain all of the information that `gprestore` needs to restore a full backup set in parallel. Each `gpbackup` task uses a single transaction in Apache Cloudberry. During this transaction, metadata is backed up on the coordinator host, and data for each table on each segment host is written to CSV backup files using `COPY ... ON SEGMENT` commands in parallel. The backup process acquires an `ACCESS SHARE` lock on each table that is backed up.
 
 ## Install the `gpbackup` and `gprestore` utilities
 
 Before installing the `gpbackup` and `gprestore` utilities, make sure that you have the [Golang](https://golang.org/doc/) (v1.11 or later) installed and that you have set the [Go `PATH` environment
 variable](https://go.dev/doc/install).
 
-1. Pull the `cloudberrydb/gpbackup` GitHub repository to the target machine.
+1. Pull the `apache/cloudberry-gpbackup` GitHub repository to the target machine.
 
     ```bash
-    go install github.com/cloudberrydb/gpbackup@latest
+    go install github.com/apache/cloudberry-gpbackup@latest
     ```
 
-    The repository is placed in `$GOPATH/pkg/mod/github.com/cloudberrydb/gpbackup`.
+    The repository is placed in `$GOPATH/pkg/mod/github.com/apache/cloudberry-gpbackup`.
 
-2. Enter the `cloudberrydb/gpbackup` directory. Then, build and install the source code:
+2. Enter the `apache/cloudberry-gpbackup` directory. Then, build and install the source code:
 
     ```bash
-    cd <$GOPATH/pkg/mod/github.com/cloudberrydb/gpbackup>
+    cd <$GOPATH/pkg/mod/github.com/apache/cloudberry-gpbackup>
     make depend
     make build
     ```
 
     You might encounter the `fatal: Not a git repository (or any of the parent directories): .git` prompt after running `make depend`. Ignore this prompt, because this does not affect the building.
 
-    The `build` target will put the `gpbackup` and `gprestore` binaries in `$HOME/go/bin`. This operation will also try to copy `gpbackup_helper` to the Cloudberry Database segments (by retrieving hostnames from `gp_segment_configuration`).
+    The `build` target will put the `gpbackup` and `gprestore` binaries in `$HOME/go/bin`. This operation will also try to copy `gpbackup_helper` to the Apache Cloudberry segments (by retrieving hostnames from `gp_segment_configuration`).
 
 3. Check whether the build is successful by checking whether your `$HOME/go/bin` directory contains `gpback`, `gprestore`, and `gpbackup_helper`.
 
@@ -50,7 +50,7 @@ variable](https://go.dev/doc/install).
 
 ## Back up the full database
 
-To perform a complete backup of a database, as well as Cloudberry Database system metadata, use the command:
+To perform a complete backup of a database, as well as Apache Cloudberry system metadata, use the command:
 
 ```bash
 gpbackup --dbname <database_name>
@@ -78,12 +78,12 @@ $ gpbackup --dbname test_04
 20240108:17:17:18 gpbackup:gpadmin:cbdb-coordinator:001945-[INFO]:-Pre-data metadata metadata backup complete
 20240108:17:17:18 gpbackup:gpadmin:cbdb-coordinator:001945-[INFO]:-Writing post-data metadata
 20240108:17:17:18 gpbackup:gpadmin:cbdb-coordinator:001945-[INFO]:-Post-data metadata backup complete
-20240108:17:17:19 gpbackup:gpadmin:cbdb-coordinator:001945-[INFO]:-Found neither /usr/local/cloudberry-db-1.0.0/bin/gp_email_contacts.yaml nor /home/gpadmin//gp_email_contacts.yaml
+20240108:17:17:19 gpbackup:gpadmin:cbdb-coordinator:001945-[INFO]:-Found neither /usr/local/cloudberry-1.0.0/bin/gp_email_contacts.yaml nor /home/gpadmin//gp_email_contacts.yaml
 20240108:17:17:19 gpbackup:gpadmin:cbdb-coordinator:001945-[INFO]:-Email containing gpbackup report /data0/coordinator/gpseg-1/backups/20240108/20240108171718/gpbackup_20240108171718_report will not be sent
 20240108:17:17:19 gpbackup:gpadmin:cbdb-coordinator:001945-[INFO]:-Backup completed successfully
 ```
 
-The above command creates a file that contains global and database-specific metadata on the Cloudberry Database coordinator host in the default directory, `$COORDINATOR_DATA_DIRECTORY/backups/<YYYYMMDD>/<YYYYMMDDHHMMSS>/`. For example:
+The above command creates a file that contains global and database-specific metadata on the Apache Cloudberry coordinator host in the default directory, `$COORDINATOR_DATA_DIRECTORY/backups/<YYYYMMDD>/<YYYYMMDDHHMMSS>/`. For example:
 
 ```bash
 ls $COORDINATOR_DATA_DIRECTORY/backups/20240108/20240108171718
@@ -146,7 +146,7 @@ Pre-data objects restored:  3 / 3 [=================================] 100.00% 0s
 20240108:17:42:26 gprestore:gpadmin:cbdb-coordinator:004115-[INFO]:-Pre-data metadata restore complete
 20240108:17:42:26 gprestore:gpadmin:cbdb-coordinator:004115-[INFO]:-Restoring post-data metadata
 20240108:17:42:26 gprestore:gpadmin:cbdb-coordinator:004115-[INFO]:-Post-data metadata restore complete
-20240108:17:42:26 gprestore:gpadmin:cbdb-coordinator:004115-[INFO]:-Found neither /usr/local/cloudberry-db-1.0.0/bin/gp_email_contacts.yaml nor /home/gpadmin//gp_email_contacts.yaml
+20240108:17:42:26 gprestore:gpadmin:cbdb-coordinator:004115-[INFO]:-Found neither /usr/local/cloudberry-1.0.0/bin/gp_email_contacts.yaml nor /home/gpadmin//gp_email_contacts.yaml
 20240108:17:42:26 gprestore:gpadmin:cbdb-coordinator:004115-[INFO]:-Email containing gprestore report /data0/coordinator/gpseg-1/backups/20240108/20240108171718/gprestore_20240108171718_20240108174226_report will not be sent
 20240108:17:42:26 gprestore:gpadmin:cbdb-coordinator:004115-[INFO]:-Restore completed successfully
 ```
@@ -162,7 +162,7 @@ $ gprestore --backup-dir /home/gpadmin/backups/ --timestamp 20240109102646 --cre
 20240109:10:33:17 gprestore:gpadmin:cbdb-coordinator:017112-[INFO]:-Restore completed successfully
 ```
 
-`gprestore` does not attempt to restore global metadata for the Cloudberry Database system by default. If this is required, include the `--with-globals` argument.
+`gprestore` does not attempt to restore global metadata for the Apache Cloudberry system by default. If this is required, include the `--with-globals` argument.
 
 By default, `gprestore` uses 1 connection to restore table data and metadata. If you have a large backup set, you can improve performance of the restore by increasing the number of parallel connections with the `--jobs` option. For example:
 
@@ -250,7 +250,7 @@ After creating a backup set with `gpbackup`, you can filter the schemas and tabl
 - The tables that you attempt to restore must not already exist in the database.
 - If you attempt to restore a schema or table that does not exist in the backup set, the `gprestore` does not execute.
 - If you use the `--include-schema` option, `gprestore` cannot restore objects that have dependencies on multiple schemas.
-- If you use the `--include-table-file` option, `gprestore` does not create roles or set the owner of the tables. The utility restores table indexes and rules. Triggers are also restored but are not supported in Cloudberry Database.
+- If you use the `--include-table-file` option, `gprestore` does not create roles or set the owner of the tables. The utility restores table indexes and rules. Triggers are also restored but are not supported in Apache Cloudberry.
 - The file that you specify with `--include-table-file` cannot include a leaf partition name, as it can when you specify this option with `gpbackup`. If you specified leaf partitions in the backup set, specify the partitioned table to restore the leaf partition data.
 
     When restoring a backup set that contains data from some leaf partitions of a partitioned table, the partitioned table is restored along with the data for the leaf partitions. For example, you create a backup with the `gpbackup` option `--include-table-file` and the text file lists some leaf partitions of a partitioned table. Restoring the backup creates the partitioned table and restores the data only for the leaf partitions listed in the file.
@@ -318,7 +318,7 @@ When leaf partitions are backed up, the leaf partition data is backed up along w
 
 When performing a backup or restore operation, `gpbackup` and `gprestore` generate a report file that contains the detailed information of the operations. When email notification is configured, the email sent contains the contents of the report file. For information about email notification, see [Configure email notifications](#configure-email-notifications).
 
-The report file is placed in the Cloudberry Database coordinator backup directory. The report file name contains the timestamp of the operation. Thes following are the formats of the `gpbackup` and `gprestore` report file names.
+The report file is placed in the Apache Cloudberry coordinator backup directory. The report file name contains the timestamp of the operation. Thes following are the formats of the `gpbackup` and `gprestore` report file names.
 
 ```
 gpbackup_<backup_timestamp>_report
@@ -332,7 +332,7 @@ gpbackup_20240109111719_report
 gprestore_20240109111719_20240109112545_report
 ```
 
-This backup directory on a Cloudberry Database coordinator host contains both a `gpbackup` and `gprestore` report file.
+This backup directory on a Apache Cloudberry coordinator host contains both a `gpbackup` and `gprestore` report file.
 
 ```bash
 $ ls -l /data0/coordinator/gpseg-1/backups/20240109/20240109111719/
@@ -388,7 +388,7 @@ gpbackup 20200925140738 on mdw completed: Failure
 The email contains summary information about the operation including options, duration, and number of objects backed up or restored. For information about the contents of a notification email, see Report Files.
 
 :::tip
-The UNIX mail utility must be running on the Cloudberry Database host and must be configured to allow the Cloudberry Database superuser (`gpadmin`) to send email. Also ensure that the mail program executable is locatable via the `gpadmin` user's `$PATH`.
+The UNIX mail utility must be running on the Apache Cloudberry host and must be configured to allow the Apache Cloudberry superuser (`gpadmin`) to send email. Also ensure that the mail program executable is locatable via the `gpadmin` user's `$PATH`.
 :::
 
 ### gpbackup and gprestore email file format

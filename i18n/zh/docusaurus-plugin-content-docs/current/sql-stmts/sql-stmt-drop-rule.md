@@ -20,7 +20,7 @@ DROP RULE [IF EXISTS] <name> ON <table_name> [CASCADE | RESTRICT]
 
 **`IF EXISTS`**
 
-如果规则不存在，则不抛出错误。在这种情况下，Cloudberry Database 会发出一个提醒。
+如果规则不存在，则不抛出错误。在这种情况下，Apache Cloudberry 会发出一个提醒。
 
 **`name`**
 
@@ -36,7 +36,7 @@ DROP RULE [IF EXISTS] <name> ON <table_name> [CASCADE | RESTRICT]
 
 **`RESTRICT`**
 
-如果有对象依赖于规则，Cloudberry Database 会拒绝删除规则。这是默认值。
+如果有对象依赖于规则，Apache Cloudberry 会拒绝删除规则。这是默认值。
 
 ## 示例
 
@@ -48,7 +48,7 @@ DROP RULE sales_2006 ON sales;
 
 ## 兼容性
 
-`DROP RULE` 是 Cloudberry Database 的扩展，整个查询重写系统也是如此。
+`DROP RULE` 是 Apache Cloudberry 的扩展，整个查询重写系统也是如此。
 
 ## 另见
 

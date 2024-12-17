@@ -20,7 +20,7 @@ DROP FOREIGN TABLE [ IF EXISTS ] <name> [, ...] [ CASCADE | RESTRICT ]
 
 **`IF EXISTS`**
 
-Do not throw an error if the foreign table does not exist. Cloudberry Database issues a notice in this case.
+Do not throw an error if the foreign table does not exist. Apache Cloudberry issues a notice in this case.
 
 **`name`**
 
@@ -44,7 +44,7 @@ DROP FOREIGN TABLE films, distributors;
 
 ## Compatibility
 
-`DROP FOREIGN TABLE` conforms to ISO/IEC 9075-9 (SQL/MED), except that the standard only allows one foreign table to be dropped per command. The `IF EXISTS` clause is a Cloudberry Database extension.
+`DROP FOREIGN TABLE` conforms to ISO/IEC 9075-9 (SQL/MED), except that the standard only allows one foreign table to be dropped per command. The `IF EXISTS` clause is a Apache Cloudberry extension.
 
 ## See also
 

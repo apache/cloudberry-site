@@ -4,7 +4,7 @@ title: 并行创建 AO/AOCO 表与刷新物化视图
 
 # 并行创建 AO/AOCO 表与刷新物化视图（引入自 v1.5.0 版本）
 
-自 v1.5.0 起，Cloudberry Database 支持使用 `CREATE TABLE AS` 语句并行创建 Append-Optimized (AO) 表和 Append-Optimized Column Oriented (AOCO) 表，同时支持并行刷新基于该表的物化视图，从而加速建表和物化视图刷新。
+自 v1.5.0 起，Apache Cloudberry 支持使用 `CREATE TABLE AS` 语句并行创建 Append-Optimized (AO) 表和 Append-Optimized Column Oriented (AOCO) 表，同时支持并行刷新基于该表的物化视图，从而加速建表和物化视图刷新。
 
 要使用该并发功能，你需要先将系统参数 `enable_parallel` 的值设为 `ON`。
 

@@ -2,12 +2,12 @@
 title: Set Password Profile
 ---
 
-# Set password policy in Cloudberry Database (New in v1.5.0)
+# Set password policy in Apache Cloudberry (New in v1.5.0)
 
-Profile refers to the password policy configuration, which is used to control the password security policy of users in Cloudberry Database. You can bind a profile to one or more users to control the password security policy of database users. Profile defines the rules for user management and password reuse. With Profile, the database administrator can use SQL to force some constraints, such as locking accounts after login failures or controlling the number of password reuses.
+Profile refers to the password policy configuration, which is used to control the password security policy of users in Apache Cloudberry. You can bind a profile to one or more users to control the password security policy of database users. Profile defines the rules for user management and password reuse. With Profile, the database administrator can use SQL to force some constraints, such as locking accounts after login failures or controlling the number of password reuses.
 
 :::info
-- In general, Profile includes password policy and user resource usage restrictions. Profile in Cloudberry Database only supports password policy. "Profile" mentioned in this document refers to password policy configuration.
+- In general, Profile includes password policy and user resource usage restrictions. Profile in Apache Cloudberry only supports password policy. "Profile" mentioned in this document refers to password policy configuration.
 - Only superusers can create or modify Profile policies, and superusers are not restricted by any Profile policies. Profile policies will take effect only when regular users are allowed to use Profile.
 :::
 
@@ -24,7 +24,7 @@ gpstop -ra
 
 ## Implementation principle
 
-Similar to the Autovacuum mechanism, Profile introduces the Login Monitor Launcher and Login Monitor Worker processes. When user login verification fails, Cloudberry Database will send a signal to the postmaster. After receiving the signal, the postmaster will send a signal to the launcher process. After receiving the signal, the launcher process will notify the postmaster to launch a worker process to perform the metadata write-back operation, and notify the user process and the launcher process after completion.
+Similar to the Autovacuum mechanism, Profile introduces the Login Monitor Launcher and Login Monitor Worker processes. When user login verification fails, Apache Cloudberry will send a signal to the postmaster. After receiving the signal, the postmaster will send a signal to the launcher process. After receiving the signal, the launcher process will notify the postmaster to launch a worker process to perform the metadata write-back operation, and notify the user process and the launcher process after completion.
 
 ## Set password policies using SQL
 
@@ -126,7 +126,7 @@ ALTER USER user ACCOUNT
 
 ## Check password policy information in system tables
 
-After applying the password configuration policy, Cloudberry Database will update metadata: add two system tables `pg_profile` and `pg_password_history`, and add some fields to the system tables/views `pg_authid` and `pg_roles`. For example:
+After applying the password configuration policy, Apache Cloudberry will update metadata: add two system tables `pg_profile` and `pg_password_history`, and add some fields to the system tables/views `pg_authid` and `pg_roles`. For example:
 
 - **pg_catalog.pg_roles**: In `pg_roles`, the `rolprofile`, `rolaccountstatus`, and `rolfailedlogins` fields are added to record database users who use Profile, the account status, and the number of failed logins.
 
@@ -261,7 +261,7 @@ After applying the password configuration policy, Cloudberry Database will updat
 
 ## Default password policy
 
-When you create a user, Cloudberry Database applies the default Profile to the user by default if no specific password policy is specified. The default Profile is the default password policy during system initialization. The default Profile in Cloudberry Database is the `pg_default` row in the `pg_profile` table. The `pg_default` row defines default values for the Profile parameters, and only superusers can modify these parameters.
+When you create a user, Apache Cloudberry applies the default Profile to the user by default if no specific password policy is specified. The default Profile is the default password policy during system initialization. The default Profile in Apache Cloudberry is the `pg_default` row in the `pg_profile` table. The `pg_default` row defines default values for the Profile parameters, and only superusers can modify these parameters.
 
 If a user sets a parameter with the default value `-1`, the parameter will get its value from `pg_default`. The default values of `pg_default` are as follows. Refer to [Scenario 3](#scenario-3-use-default-profile) for how to use the default Profile.
 
@@ -444,7 +444,7 @@ If `PASSWORD_REUSE_MAX` is set to `0`, the password can never be changed. If set
 
 ### Scenario 3: Use DEFAULT PROFILE
 
-If you do not explicitly specify a parameter value when creating a profile, the parameter value  in the `pg_profile` table is `-1` by default, which means that Cloudberry Database will obtain the value of this parameter from `pg_default`.
+If you do not explicitly specify a parameter value when creating a profile, the parameter value  in the `pg_profile` table is `-1` by default, which means that Apache Cloudberry will obtain the value of this parameter from `pg_default`.
 
 Take `FAILED_LOGIN_ATTEMPTS` as an example:
 
