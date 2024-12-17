@@ -25,7 +25,7 @@ CREATE [UNIQUE] INDEX [[IF NOT EXISTS] <name>] ON [ONLY] <table_name> [USING <me
 
 索引字段可以是基于表行的一个或多个列值计算得出的表达式。这项功能能够让我们基于对原始数据的某种处理快速访问数据。例如，基于 `upper(col)` 计算得出的索引能使得查询子句 `WHERE upper(col) = 'JIM'` 利用索引进行快速检索。
 
-Cloudberry Database 提供了 B-tree、hash、bitmap、GiST、SP-GiST、GIN 和 BRIN 索引方法。用户也可以定义自己的索引方法，但这相当复杂。
+Apache Cloudberry 提供了 B-tree、hash、bitmap、GiST、SP-GiST、GIN 和 BRIN 索引方法。用户也可以定义自己的索引方法，但这相当复杂。
 
 当语句中存在 `WHERE` 子句时，将创建一个部分索引。部分索引仅涵盖表中的部分条目，通常是指那些相较于表的其他部分，更适合进行索引的部分。例如，如果你有一个包含已开票和未开票订单的表，其中未开票订单占总表的一小部分，但是最常被选择，你可以通过只在这部分上创建索引来提高性能。另一个可能的应用是使用 `WHERE` 和 `UNIQUE` 来强制表的子集上的唯一性。更多信息请参见 PostgreSQL 文档中的 [部分索引](https://www.postgresql.org/docs/14/indexes-partial.html)。
 
@@ -43,7 +43,7 @@ Cloudberry Database 提供了 B-tree、hash、bitmap、GiST、SP-GiST、GIN 和 
 
 **`IF NOT EXISTS`**
 
-如果同名的关系已经存在，则不报错。在这种情况下 Cloudberry Database 会发出一个提醒。请注意，不保证现有的索引与将要创建的索引相似。当指定了 `IF NOT EXISTS` 时，索引名是必需的。
+如果同名的关系已经存在，则不报错。在这种情况下 Apache Cloudberry 会发出一个提醒。请注意，不保证现有的索引与将要创建的索引相似。当指定了 `IF NOT EXISTS` 时，索引名是必需的。
 
 **`INCLUDE`**
 
@@ -59,7 +59,7 @@ Cloudberry Database 提供了 B-tree、hash、bitmap、GiST、SP-GiST、GIN 和 
 
 **`name`**
 
-要创建的索引的名称。索引总是在与其父表相同的模式中创建。如果省略了名称，Cloudberry Database 将根据父表的名称和索引列的名称选择一个合适的名称。
+要创建的索引的名称。索引总是在与其父表相同的模式中创建。如果省略了名称，Apache Cloudberry 将根据父表的名称和索引列的名称选择一个合适的名称。
 
 **`ONLY`**
 
@@ -137,7 +137,7 @@ GiST 索引还接受这个参数：
 
 **`buffering`**
 
-指定 Cloudberry Database 是否使用 PostgreSQL 文档中描述的 [GiST buffering build](https://www.postgresql.org/docs/14/gist-implementation.html) 技术来构建索引。`OFF` 表示不使用，`ON` 表示使用，`AUTO` 表示初始时不使用，但一旦索引大小达到 `effective_cache_size` 时就会在运行时启用。默认值是 `AUTO`。
+指定 Apache Cloudberry 是否使用 PostgreSQL 文档中描述的 [GiST buffering build](https://www.postgresql.org/docs/14/gist-implementation.html) 技术来构建索引。`OFF` 表示不使用，`ON` 表示使用，`AUTO` 表示初始时不使用，但一旦索引大小达到 `effective_cache_size` 时就会在运行时启用。默认值是 `AUTO`。
 
 GIN 索引还接受这个参数：
 
@@ -247,7 +247,7 @@ SELECT * FROM points WHERE box(location,location) && '(0,0),(1,1)'::box;
 
 ## 兼容性
 
-`CREATE INDEX` 是 Cloudberry Database 对 SQL 标准的扩展。SQL 标准中没有索引的规定。
+`CREATE INDEX` 是 Apache Cloudberry 对 SQL 标准的扩展。SQL 标准中没有索引的规定。
 
 ## 另见
 

@@ -48,7 +48,7 @@ RESET statement_mem;
 
 ## Compatibility
 
-`RESET` is a Cloudberry Database extension.
+`RESET` is a Apache Cloudberry extension.
 
 ## See also
 

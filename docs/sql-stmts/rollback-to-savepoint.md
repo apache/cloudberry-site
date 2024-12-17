@@ -67,7 +67,7 @@ COMMIT;
 
 ## Compatibility
 
-The SQL standard specifies that the key word `SAVEPOINT` is mandatory, but Cloudberry Database (and Oracle) allow it to be omitted. SQL allows only `WORK`, not `TRANSACTION`, as a noise word after `ROLLBACK`. Also, SQL has an optional clause `AND [NO] CHAIN` which is not currently supported by Cloudberry Database. Otherwise, this command conforms to the SQL standard.
+The SQL standard specifies that the key word `SAVEPOINT` is mandatory, but Apache Cloudberry (and Oracle) allow it to be omitted. SQL allows only `WORK`, not `TRANSACTION`, as a noise word after `ROLLBACK`. Also, SQL has an optional clause `AND [NO] CHAIN` which is not currently supported by Apache Cloudberry. Otherwise, this command conforms to the SQL standard.
 
 ## See also
 

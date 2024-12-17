@@ -4,7 +4,7 @@ title: gplogfilter
 
 # gplogfilter
 
-Searches through Cloudberry Database log files for specified entries.
+Searches through Apache Cloudberry log files for specified entries.
 
 ## Synopsis
 
@@ -19,13 +19,13 @@ gplogfilter --version
 
 ## Description
 
-The `gplogfilter` utility can be used to search through a Cloudberry Database log file for entries matching the specified criteria. If an input file is not supplied, then `gplogfilter` will use the `$COORDINATOR_DATA_DIRECTORY` environment variable to locate the Cloudberry coordinator log file in the standard logging location. To read from standard input, use a dash (`-`) as the input file name. Input files may be compressed using `gzip`. In an input file, a log entry is identified by its timestamp in `YYYY-MM-DD [hh:mm[:ss]]` format.
+The `gplogfilter` utility can be used to search through a Apache Cloudberry log file for entries matching the specified criteria. If an input file is not supplied, then `gplogfilter` will use the `$COORDINATOR_DATA_DIRECTORY` environment variable to locate the Cloudberry coordinator log file in the standard logging location. To read from standard input, use a dash (`-`) as the input file name. Input files may be compressed using `gzip`. In an input file, a log entry is identified by its timestamp in `YYYY-MM-DD [hh:mm[:ss]]` format.
 
 You can also use `gplogfilter` to search through all segment log files at once by running it through the [gpssh](/docs/sys-utilities/gpssh.md) utility. For example, to display the last three lines of each segment log file:
 
 ```shell
 gpssh -f seg_host_file
-=> source /usr/local/cloudberry-db/greenplum_path.sh
+=> source /usr/local/cloudberry/greenplum_path.sh
 => gplogfilter -n 3 /gpdata/*/log/gpdb*.csv
 ```
 
@@ -115,7 +115,7 @@ If the output file already exists, appends to the file instead of overwriting it
 
 **`input_file`**
 
-The name of the input log file(s) to search through. If an input file is not supplied, `gplogfilter` will use the `$COORDINATOR_DATA_DIRECTORY` environment variable to locate the Cloudberry Database coordinator log file. To read from standard input, use a dash (`-`) as the input file name.
+The name of the input log file(s) to search through. If an input file is not supplied, `gplogfilter` will use the `$COORDINATOR_DATA_DIRECTORY` environment variable to locate the Apache Cloudberry coordinator log file. To read from standard input, use a dash (`-`) as the input file name.
 
 **`-u | --unzip`**
 
@@ -153,7 +153,7 @@ Using [gpssh](/docs/sys-utilities/gpssh.md), run `gplogfilter` on the segment ho
 
 ```shell
 gpssh -f seg_hosts_file -e 'source 
-/usr/local/cloudberry-db/greenplum_path.sh ; gplogfilter -f 
+/usr/local/cloudberry/greenplum_path.sh ; gplogfilter -f 
 con6 /gpdata/*/log/gpdb*.csv' > seglog.out
 ```
 

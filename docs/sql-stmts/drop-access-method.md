@@ -20,7 +20,7 @@ DROP ACCESS METHOD [IF EXISTS] <name> [CASCADE | RESTRICT]
 
 **`IF EXISTS`**
 
-Do not throw an error if the access method does not exist. Cloudberry Database issues a notice in this case.
+Do not throw an error if the access method does not exist. Apache Cloudberry issues a notice in this case.
 
 **`name`**
 
@@ -44,7 +44,7 @@ DROP ACCESS METHOD heptree;
 
 ## Compatibility
 
-`DROP ACCESS METHOD` is a Cloudberry Database extension.
+`DROP ACCESS METHOD` is a Apache Cloudberry extension.
 
 ## See also
 

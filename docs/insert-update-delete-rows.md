@@ -2,9 +2,9 @@
 title: Insert, Update, and Delete Rows
 ---
 
-# Insert, Update, and Delete Row Data in Cloudberry Database
+# Insert, Update, and Delete Row Data in Apache Cloudberry
 
-This document introduces how to manipulate row data in Cloudberry Database, including:
+This document introduces how to manipulate row data in Apache Cloudberry, including:
 
 - [Inserting rows](#insert-rows)
 - [Updating existing rows](#update-existing-rows)
@@ -65,7 +65,7 @@ The above statement will automatically insert the data row into the correct part
 
 To insert large amounts of data, use external tables or the `COPY` command. These load mechanisms are more efficient than `INSERT` for inserting many rows.
 
-The storage model of append-optimized tables in Cloudberry Database is designed for efficient bulk data loading rather than single row `INSERT` statements. For high-volume data insertions, it is recommended to use batch loading methods such as the `COPY` command. Cloudberry Database can support multiple concurrent `INSERT` transactions on append-optimized tables; however, this capability is typically intended for batch insertions rather than single-row operations.
+The storage model of append-optimized tables in Apache Cloudberry is designed for efficient bulk data loading rather than single row `INSERT` statements. For high-volume data insertions, it is recommended to use batch loading methods such as the `COPY` command. Apache Cloudberry can support multiple concurrent `INSERT` transactions on append-optimized tables; however, this capability is typically intended for batch insertions rather than single-row operations.
 
 ## Update existing rows
 
@@ -105,7 +105,7 @@ Use the `TRUNCATE` command to quickly remove all rows in a table. For example:
 TRUNCATE mytable;
 ```
 
-This command empties a table of all rows in one operation. Note that in Cloudberry Database, the `TRUNCATE` command will affect inherited child tables by default, even without using the `CASCADE` option. In addition, because Cloudberry Database does not support foreign key constraints, the `TRUNCATE` command will not trigger any `ON DELETE` actions or rewrite rules. The command truncates only rows in the named table.
+This command empties a table of all rows in one operation. Note that in Apache Cloudberry, the `TRUNCATE` command will affect inherited child tables by default, even without using the `CASCADE` option. In addition, because Apache Cloudberry does not support foreign key constraints, the `TRUNCATE` command will not trigger any `ON DELETE` actions or rewrite rules. The command truncates only rows in the named table.
 
 ## Vacuum the database
 
@@ -117,7 +117,7 @@ VACUUM mytable;
 
 The `VACUUM` command collects table-level statistics such as the number of rows and pages. Vacuum all tables after loading data, including append-optimized tables.
 
-You need to use the `VACUUM`, `VACUUM FULL`, and `VACUUM ANALYZE` commands to maintain the data in a Cloudberry Database especially if updates and deletes are frequently performed on your database data.
+You need to use the `VACUUM`, `VACUUM FULL`, and `VACUUM ANALYZE` commands to maintain the data in a Apache Cloudberry especially if updates and deletes are frequently performed on your database data.
 
 ## See also
 

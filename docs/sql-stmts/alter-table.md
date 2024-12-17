@@ -204,7 +204,7 @@ and <subpartition_spec> is:
 
 ## Description
 
-`ALTER TABLE` changes the definition of an existing table. There are several subforms described below. Note that the lock level required may differ for each subform. An `ACCESS EXCLUSIVE` lock is acquired unless explicitly noted. When multiple subcommands are provided, Cloudberry Database acquires the strictest lock required by any subcommand.
+`ALTER TABLE` changes the definition of an existing table. There are several subforms described below. Note that the lock level required may differ for each subform. An `ACCESS EXCLUSIVE` lock is acquired unless explicitly noted. When multiple subcommands are provided, Apache Cloudberry acquires the strictest lock required by any subcommand.
 
 **`ADD COLUMN [ IF NOT EXISTS ]`**
 
@@ -212,13 +212,13 @@ Adds a new column to the table, using the same syntax as [CREATE TABLE](/docs/sq
 
 **`DROP COLUMN [ IF EXISTS ]`**
 
-Drops a column from a table. Note that if you drop table columns that are being used as the Cloudberry Database distribution key, the distribution policy for the table will be changed to `DISTRIBUTED RANDOMLY`. Indexes and table constraints involving the column are automatically dropped as well. Multivariate statistics referencing the dropped column will also be removed if the removal of the column would cause the statistics to contain data for only a single column. You need to specify `CASCADE` if anything outside of the table depends on the column, such as views. If `IF EXISTS` is specified and the column does not exist, no error is thrown; Cloudberry Database issues a notice instead.
+Drops a column from a table. Note that if you drop table columns that are being used as the Apache Cloudberry distribution key, the distribution policy for the table will be changed to `DISTRIBUTED RANDOMLY`. Indexes and table constraints involving the column are automatically dropped as well. Multivariate statistics referencing the dropped column will also be removed if the removal of the column would cause the statistics to contain data for only a single column. You need to specify `CASCADE` if anything outside of the table depends on the column, such as views. If `IF EXISTS` is specified and the column does not exist, no error is thrown; Apache Cloudberry issues a notice instead.
 
 **`SET DATA TYPE`**
 
 This form changes the data type of a column of a table. Note that you cannot alter column data types that are being used as distribution or partitioning keys. Indexes and simple table constraints involving the column will be automatically converted to use the new column type by reparsing the originally supplied expression. The optional `COLLATE` clause specifies a collation for the new column; if omitted, the collation is the default for the new column type. The optional `USING` clause specifies how to compute the new column value from the old. If omitted, the default conversion is the same as an assignment cast from old data type to new. A `USING` clause must be provided if there is no implicit or assignment cast from old to new type.
 
-> **Note** The Cloudberry Query Optimizer (GPORCA) supports collation only when all columns in the query use the same collation. If columns in the query use different collations, then Cloudberry Database uses the Postgres Planner.
+> **Note** The Cloudberry Query Optimizer (GPORCA) supports collation only when all columns in the query use the same collation. If columns in the query use different collations, then Apache Cloudberry uses the Postgres Planner.
 
 Changing a column data type may or may not require a table rewrite. For information about table rewrites performed by `ALTER TABLE`, see [Notes](#notes).
 
@@ -232,7 +232,7 @@ Sets or removes the default value for a column. Default values apply only in sub
 
 Changes whether a column is marked to allow null values or to reject null values.
 
-`SET NOT NULL` may only be applied to a column provided none of the records in the table contain a `NULL` value for the column. This is typically checked during the `ALTER TABLE` by scanning the entire table; however, if a valid `CHECK` constraint is found which proves no `NULL` can exist, then Cloudberry Database skips the table scan.
+`SET NOT NULL` may only be applied to a column provided none of the records in the table contain a `NULL` value for the column. This is typically checked during the `ALTER TABLE` by scanning the entire table; however, if a valid `CHECK` constraint is found which proves no `NULL` can exist, then Apache Cloudberry skips the table scan.
 
 If this table is a partition, you cannot `DROP NOT NULL` on a column if it is marked `NOT NULL` in the parent table. To drop the `NOT NULL` constraint from all the partitions, perform `DROP NOT NULL` on the parent table. Even if there is no `NOT NULL` constraint on the parent, such a constraint can still be added to individual partitions, if desired; that is, the children can disallow nulls even if the parent allows them, but not the other way around.
 
@@ -242,7 +242,7 @@ If this table is a partition, you cannot `DROP NOT NULL` on a column if it is ma
 
 These forms change whether a column is an identity column or change the generation attribute of an existing identity column. See [CREATE TABLE](/docs/sql-stmts/create-table.md) for details.
 
-If `DROP IDENTITY IF EXISTS` is specified and the column is not an identity column, no error is thrown. In this case Cloudberry Database issues a notice instead.
+If `DROP IDENTITY IF EXISTS` is specified and the column is not an identity column, no error is thrown. In this case Apache Cloudberry issues a notice instead.
 
 **`SET sequence_option`**<br />
 **`RESTART`**
@@ -276,7 +276,7 @@ This form sets column encoding options for append-optimized, column-oriented tab
 
 Adds a new constraint to a table using the same syntax as [CREATE TABLE](/docs/sql-stmts/create-table.md). The `NOT VALID` option is currently allowed only for foreign key and `CHECK` constraints.
 
-Normally, this form causes a scan of the table to verify that all existing rows in the table satisfy the new constraint.  If the constraint is marked `NOT VALID`, Cloudberry Database skips the potentially-lengthy initial check to verify that all rows in the table satisfy the constraint. The constraint will still be enforced against subsequent inserts or updates (that is, they'll fail unless there is a matching row in the referenced table, in the case of foreign keys; and they'll fail unless the new row matches the specified check constraints). But the database will not assume that the constraint holds for all rows in the table, until it is validated by using the `VALIDATE CONSTRAINT` option. See the [Notes](#notes) for more information about using the `NOT VALID` option.
+Normally, this form causes a scan of the table to verify that all existing rows in the table satisfy the new constraint.  If the constraint is marked `NOT VALID`, Apache Cloudberry skips the potentially-lengthy initial check to verify that all rows in the table satisfy the constraint. The constraint will still be enforced against subsequent inserts or updates (that is, they'll fail unless there is a matching row in the referenced table, in the case of foreign keys; and they'll fail unless the new row matches the specified check constraints). But the database will not assume that the constraint holds for all rows in the table, until it is validated by using the `VALIDATE CONSTRAINT` option. See the [Notes](#notes) for more information about using the `NOT VALID` option.
 
 Most forms of `ADD <table_constraint>` require an `ACCESS EXCLUSIVE` lock.
 
@@ -290,7 +290,7 @@ The index cannot have expression columns nor be a partial index. Also, it must b
 
 If `PRIMARY KEY` is specified, and the index's columns are not already marked `NOT NULL`, then this command attempts to `ALTER COLUMN SET NOT NULL` against each such column. That requires a full table scan to verify the column(s) contain no nulls. In all other cases, this is a fast operation.
 
-If a constraint name is provided then Cloudberry Database renames the index to match the constraint name. Otherwise the constraint will be named the same as the index.
+If a constraint name is provided then Apache Cloudberry renames the index to match the constraint name. Otherwise the constraint will be named the same as the index.
 
 After this command is executed, the index is "owned" by the constraint, in the same way as if the index had been built by a regular `ADD PRIMARY KEY` or `ADD UNIQUE` command. In particular, dropping the constraint will make the index disappear too.
 
@@ -298,7 +298,7 @@ This form is not currently supported on partitioned tables.
 
 **`ALTER CONSTRAINT`**
 
-This form alters the attributes of a constraint that was previously created. Currently only foreign key constraints may be altered, which Cloudberry Database will accept, but not enforce.
+This form alters the attributes of a constraint that was previously created. Currently only foreign key constraints may be altered, which Apache Cloudberry will accept, but not enforce.
 
 **`VALIDATE CONSTRAINT`**
 
@@ -308,12 +308,12 @@ This command acquires a `SHARE UPDATE EXCLUSIVE` lock.
 
 **`DROP CONSTRAINT [IF EXISTS]`**
 
-Drops the specified constraint on a table, along with any index underlying the constraint. If `IF EXISTS` is specified and the constraint does not exist, no error is thrown. Cloudberry Database issues a notice in this case instead.
+Drops the specified constraint on a table, along with any index underlying the constraint. If `IF EXISTS` is specified and the constraint does not exist, no error is thrown. Apache Cloudberry issues a notice in this case instead.
 
 **`DISABLE ROW LEVEL SECURITY`**<br />
 **`ENABLE ROW LEVEL SECURITY`**
 
-These forms control the application of row security policies belonging to the table. If enabled and no policies exist for the table, then Cloudberry Database applies a default-deny policy. Note that policies can exist for a table even if row level security is disabled - in this case, the policies will NOT be applied and the policies will be ignored. See also [CREATE POLICY](/docs/sql-stmts/create-policy.md).
+These forms control the application of row security policies belonging to the table. If enabled and no policies exist for the table, then Apache Cloudberry applies a default-deny policy. Note that policies can exist for a table even if row level security is disabled - in this case, the policies will NOT be applied and the policies will be ignored. See also [CREATE POLICY](/docs/sql-stmts/create-policy.md).
 
 **`NO FORCE ROW LEVEL SECURITY`**<br />
 **`FORCE ROW LEVEL SECURITY`**
@@ -354,7 +354,7 @@ This form changes the table from unlogged to logged or vice-versa. It cannot be 
 
 This form changes one or more table-level options. See [Storage Parameters](/docs/sql-stmts/create-table.md#storage-parameters) in the `CREATE TABLE` reference for details on the available parameters. Note that for heap tables, the table contents will not be modified immediately by this command; depending on the parameter, you may need to rewrite the table to get the desired effects. That can be done with [VACUUM FULL](/docs/sql-stmts/vacuum.md), [CLUSTER](/docs/sql-stmts/cluster.md) or one of the forms of `ALTER TABLE` that forces a table rewrite, see [Notes](#notes). For append-optimized column-oriented tables, changing a storage parameter always results in a table rewrite. For planner-related parameters, changes take effect from the next time the table is locked, so currently executing queries are not affected.
 
-Cloudberry Database takes a `SHARE UPDATE EXCLUSIVE` lock when setting `fillfactor`, toast and autovacuum storage parameters, and the planner parameter `parallel_workers`.
+Apache Cloudberry takes a `SHARE UPDATE EXCLUSIVE` lock when setting `fillfactor`, toast and autovacuum storage parameters, and the planner parameter `parallel_workers`.
 
 **`RESET ( storage_parameter [, ... ] )`**
 
@@ -402,7 +402,7 @@ Moves the table into another schema. Associated indexes, constraints, and sequen
 
 Changes the distribution policy of a table. Changing a hash distribution policy, or changing to or from a replicated policy, will cause the table data to be physically redistributed on disk, which can be resource intensive. If you declare the same hash distribution policy or change from hash to random distribution, data will not be redistributed unless you declare `SET WITH (reorganize=true)`.
 
-While Cloudberry Database permits changing the distribution policy of a writable external table, the operation never results in physical redistribution of the external data.
+While Apache Cloudberry permits changing the distribution policy of a writable external table, the operation never results in physical redistribution of the external data.
 
 **`ATTACH PARTITION partition_name { FOR VALUES partition_bound_spec | DEFAULT }`**
 
@@ -410,7 +410,7 @@ This form of the *modern partitioning syntax* attaches an existing table (which 
 
 A partition using `FOR VALUES` uses the same syntax for partition_bound_spec> as [CREATE TABLE](/docs/sql-stmts/create-table.md). The partition bound specification must correspond to the partitioning strategy and partition key of the target table. The table to be attached must have all the same columns as the target table and no more; moreover, the column types must also match. Also, it must have all of the `NOT NULL` and `CHECK` constraints of the target table. Currently `FOREIGN KEY` constraints are not considered. `UNIQUE` and `PRIMARY KEY` constraints from the parent table will be created in the partition, if they don't already exist. If any of the `CHECK` constraints of the table being attached are marked `NO INHERIT`, the command will fail; such constraints must be recreated without the `NO INHERIT` clause.
 
-If the new partition is a regular table, Cloudberry Database performs a full table scan to check that existing rows in the table do not violate the partition constraint. It is possible to avoid this scan by adding a valid `CHECK` constraint to the table that allows only rows satisfying the desired partition constraint before running this command. The `CHECK` constraint will be used to determine that the table need not be scanned to validate the partition constraint. This does not work, however, if any of the partition keys is an expression and the partition does not accept `NULL` values. If attaching a list partition that will not accept `NULL` values, also add a `NOT NULL` constraint to the partition key column, unless it's an expression.
+If the new partition is a regular table, Apache Cloudberry performs a full table scan to check that existing rows in the table do not violate the partition constraint. It is possible to avoid this scan by adding a valid `CHECK` constraint to the table that allows only rows satisfying the desired partition constraint before running this command. The `CHECK` constraint will be used to determine that the table need not be scanned to validate the partition constraint. This does not work, however, if any of the partition keys is an expression and the partition does not accept `NULL` values. If attaching a list partition that will not accept `NULL` values, also add a `NOT NULL` constraint to the partition key column, unless it's an expression.
 
 If the new partition is a foreign table, nothing is done to verify that all of the rows in the foreign table obey the partition constraint. (See the discussion in [CREATE FOREIGN TABLE](/docs/sql-stmts/create-foreign-table.md) about constraints on the foreign table.)
 
@@ -440,7 +440,7 @@ You must own the table to use `ALTER TABLE`. To change the schema or tablespace 
 
 **`IF EXISTS`**
 
-Do not throw an error if the table does not exist. Cloudberry Database issues a notice in this case.
+Do not throw an error if the table does not exist. Apache Cloudberry issues a notice in this case.
 
 **`name`**
 
@@ -450,7 +450,7 @@ The name (possibly schema-qualified) of an existing table to alter. If `ONLY` is
 
 **`column_name`**
 
-Name of a new or existing column. Note that Cloudberry Database distribution key columns must be treated with special care. Altering or dropping these columns can change the distribution policy for the table.
+Name of a new or existing column. Note that Apache Cloudberry distribution key columns must be treated with special care. Altering or dropping these columns can change the distribution policy for the table.
 
 **`new_column_name`**
 
@@ -466,7 +466,7 @@ Data type of the new column, or new data type for an existing column. If changin
 
 **`table_constraint`**
 
-New table constraint for the table. Note that foreign key constraints are currently not supported in Cloudberry Database. Also a table is only allowed one unique constraint and the uniqueness must be within the Cloudberry Database distribution key.
+New table constraint for the table. Note that foreign key constraints are currently not supported in Apache Cloudberry. Also a table is only allowed one unique constraint and the uniqueness must be within the Apache Cloudberry distribution key.
 
 **`constraint_name`**
 
@@ -476,7 +476,7 @@ Name of an existing constraint to drop.
 
 The `ENCODING` clause is valid only for append-optimized, column-oriented tables.
 
-When you add a column to an append-optimized, column-oriented table, Cloudberry Database sets each data compression parameter for the column (`compresstype`, `compresslevel`, and `blocksize`) based on the following setting, in order of preference.
+When you add a column to an append-optimized, column-oriented table, Apache Cloudberry sets each data compression parameter for the column (`compresstype`, `compresslevel`, and `blocksize`) based on the following setting, in order of preference.
 
 1. The compression parameter setting specified in the `ALTER TABLE` command `ENCODING` clause.
 2. The table's data compression setting specified in the `WITH` clause when the table was created.
@@ -531,7 +531,7 @@ The partition bound specification for a new partition. Refer to [CREATE TABLE](/
 
 **`access_method`**
 
-The method to use for accessing the table. Refer to Choosing the Storage Model for more information on the table storage models and access methods available in Cloudberry Database. Set to `heap` to access the table as a heap-storage table, `ao_row` to access the table as an append-optimized table with row-oriented storage (AO), or `ao_column` to access the table as an append-optimized table with column-oriented storage (AO/CO).
+The method to use for accessing the table. Refer to Choosing the Storage Model for more information on the table storage models and access methods available in Apache Cloudberry. Set to `heap` to access the table as a heap-storage table, `ao_row` to access the table as an append-optimized table with row-oriented storage (AO), or `ao_column` to access the table as an append-optimized table with column-oriented storage (AO/CO).
 
 > **Note:**
 >
@@ -644,7 +644,7 @@ Adding a `CHECK` or `NOT NULL` constraint requires scanning the table to verify 
 
 Similarly, when attaching a new partition it may be scanned to verify that existing rows meet the partition constraint.
 
-Cloudberry Database provides the option to specify multiple changes in a single `ALTER TABLE` so that multiple table scans or rewrites can be combined into a single pass over the table.
+Apache Cloudberry provides the option to specify multiple changes in a single `ALTER TABLE` so that multiple table scans or rewrites can be combined into a single pass over the table.
 
 Scanning a large table to verify a new check constraint can take a long time, and other updates to the table are locked out until the `ALTER TABLE ADD CONSTRAINT` command is committed. The main purpose of the `NOT VALID` constraint option is to reduce the impact of adding a constraint on concurrent updates. With `NOT VALID`, the `ADD CONSTRAINT` command does not scan the table and can be committed immediately. After that, a `VALIDATE CONSTRAINT` command can be issued to verify that existing rows satisfy the constraint. The validation step does not need to lock out concurrent updates, since it knows that other transactions will be enforcing the constraint for rows that they insert or update; only pre-existing rows need to be checked. Hence, validation acquires only a `SHARE UPDATE EXCLUSIVE` lock on the table being altered. In addition to improving concurrency, it can be useful to use `NOT VALID` and `VALIDATE CONSTRAINT` in cases where the table is known to contain pre-existing violations. Once the constraint is in place, no new violations can be inserted, and you can correct the existing problems until `VALIDATE CONSTRAINT` finally succeeds.
 
@@ -662,7 +662,7 @@ This table lists the `ALTER TABLE` operations that require a table rewrite when 
 
 > **Important** The forms of `ALTER TABLE` that perform a table rewrite are not MVCC-safe. After a table rewrite, the table will appear empty to concurrent transactions if they are using a snapshot taken before the rewrite occurred. See [MVCC Caveats](https://www.postgresql.org/docs/12/mvcc-caveats.html) for more details.
 
-Take special care when altering or dropping columns that are part of the Cloudberry Database distribution key as this can change the distribution policy for the table.
+Take special care when altering or dropping columns that are part of the Apache Cloudberry distribution key as this can change the distribution policy for the table.
 
 The `USING` option of `SET DATA TYPE` can actually specify any expression involving the old values of the row; that is, it can refer to other columns as well as the one being converted. This allows very general conversions to be done with the `SET DATA TYPE` syntax. Because of this flexibility, the `USING` expression is not applied to the column's default value (if any); the result might not be a constant expression as required for a default. This means that when there is no implicit or assignment cast from old to new type, `SET DATA TYPE` might fail to convert the default even though a `USING` clause is supplied. In such cases, drop the default with `DROP DEFAULT`, perform the `ALTER TYPE`, and then use `SET DEFAULT` to add a suitable new default. Similar considerations apply to indexes and constraints involving the column.
 
@@ -672,9 +672,9 @@ A recursive `DROP COLUMN` operation will remove a descendant table's column only
 
 The actions for identity columns (`ADD GENERATED`, `SET` etc., `DROP IDENTITY`), as well as the actions `CLUSTER`, `OWNER`, and `TABLESPACE` never recurse to descendant tables; that is, they always act as though `ONLY` were specified. Adding a constraint recurses only for `CHECK` constraints that are not marked `NO INHERIT`.
 
-Cloudberry Database does not currently support foreign key constraints. For a unique constraint to be enforced in Cloudberry Database, the table must be hash-distributed (not `DISTRIBUTED RANDOMLY`), and all of the distribution key columns must be the same as the initial columns of the unique constraint columns.
+Apache Cloudberry does not currently support foreign key constraints. For a unique constraint to be enforced in Apache Cloudberry, the table must be hash-distributed (not `DISTRIBUTED RANDOMLY`), and all of the distribution key columns must be the same as the initial columns of the unique constraint columns.
 
-Cloudberry Database does not permit changing any part of a system catalog table.
+Apache Cloudberry does not permit changing any part of a system catalog table.
 
 Refer to [CREATE TABLE](/docs/sql-stmts/create-table.md) for a further description of valid parameters.
 
@@ -992,7 +992,7 @@ In the previous command, the two `ALTER PARTITION` clauses identify which `regio
 
 ## Compatibility
 
-The forms `ADD` (without `USING INDEX`), `DROP [COLUMN]`, `DROP IDENTITY`, `RESTART`, `SET DEFAULT`, `SET DATA TYPE` (without `USING`), `SET GENERATED`, and `SET <sequence_option>` conform with the SQL standard. The other forms are Cloudberry Database extensions of the SQL standard. Also, the ability to specify more than one manipulation in a single `ALTER TABLE` command is an extension.
+The forms `ADD` (without `USING INDEX`), `DROP [COLUMN]`, `DROP IDENTITY`, `RESTART`, `SET DEFAULT`, `SET DATA TYPE` (without `USING`), `SET GENERATED`, and `SET <sequence_option>` conform with the SQL standard. The other forms are Apache Cloudberry extensions of the SQL standard. Also, the ability to specify more than one manipulation in a single `ALTER TABLE` command is an extension.
 
 `ALTER TABLE DROP COLUMN` can be used to drop the only column of a table, leaving a zero-column table. This is an extension of SQL, which disallows zero-column tables.
 

@@ -2,11 +2,11 @@
 title: Load Data Using gpfdist
 ---
 
-# Load Data into Cloudberry Database Using `gpfdist`
+# Load Data into Apache Cloudberry Using `gpfdist`
 
-To load data from local host files or files accessible via internal network, you can use the `gpfdist` protocol in the `CREATE EXTERNAL TABLE` statement. gpfdist is a file server utility that runs on a host other than the Cloudberry Database coordinator or standby coordinator. `gpfdist` serves files from a directory on the host to Cloudberry Database segments.
+To load data from local host files or files accessible via internal network, you can use the `gpfdist` protocol in the `CREATE EXTERNAL TABLE` statement. gpfdist is a file server utility that runs on a host other than the Apache Cloudberry coordinator or standby coordinator. `gpfdist` serves files from a directory on the host to Apache Cloudberry segments.
 
-When external data is served by gpfdist, all segments in the Cloudberry Database system can read or write external table data in parallel.
+When external data is served by gpfdist, all segments in the Apache Cloudberry system can read or write external table data in parallel.
 
 The supported data formats are:
 
@@ -16,7 +16,7 @@ The supported data formats are:
 
 The general procedure for loading data using `gpfdist` is as follows:
 
-1. Install gpfdist on a host other than the Cloudberry Database coordinator or standby coordinator. See [Install gpfdist](#step-1-install-gpfdist).
+1. Install gpfdist on a host other than the Apache Cloudberry coordinator or standby coordinator. See [Install gpfdist](#step-1-install-gpfdist).
 2. Start gpfdist on the host. See [Start and stop gpfdist](#step-2-start-and-stop-gpfdist).
 3. Create an external table using the `gpfdist` protocol. See [Examples for using gpfdist with external tables](#step-3-use-gpfdist-with-external-tables-to-load-data).
 
@@ -29,30 +29,30 @@ Before using gpfdist, you might need to know how it works. This section provides
 
 ### About gpfdist and external tables
 
-The `gpfdist` file server utility is located in the `$GPHOME/bin` directory on your Cloudberry Database coordinator host and on each segment host. When you start a `gpfdist` instance you specify a listen port and the path to a directory containing files to read or where files are to be written. For example, this command runs `gpfdist` in the background, listening on port `8801`, and serving files in the `/home/gpadmin/external_files` directory:
+The `gpfdist` file server utility is located in the `$GPHOME/bin` directory on your Apache Cloudberry coordinator host and on each segment host. When you start a `gpfdist` instance you specify a listen port and the path to a directory containing files to read or where files are to be written. For example, this command runs `gpfdist` in the background, listening on port `8801`, and serving files in the `/home/gpadmin/external_files` directory:
 
 ```shell
 $ gpfdist -p 8801 -d /home/gpadmin/external_files &
 ```
 
-The `CREATE EXTERNAL TABLE` command `LOCATION` clause connects an external table definition to one or more `gpfdist` instances. If the external table is readable, the `gpfdist` server reads data records from files from in specified directory, packs them into a block, and sends the block in a response to a Cloudberry Database segment's request. The segments unpack rows that they receive and distribute the rows according to the external table's distribution policy. If the external table is a writable table, segments send blocks of rows in a request to gpfdist and gpfdist writes them to the external file.
+The `CREATE EXTERNAL TABLE` command `LOCATION` clause connects an external table definition to one or more `gpfdist` instances. If the external table is readable, the `gpfdist` server reads data records from files from in specified directory, packs them into a block, and sends the block in a response to a Apache Cloudberry segment's request. The segments unpack rows that they receive and distribute the rows according to the external table's distribution policy. If the external table is a writable table, segments send blocks of rows in a request to gpfdist and gpfdist writes them to the external file.
 
 External data files can contain rows in CSV format or any delimited text format supported by the `FORMAT` clause of the `CREATE EXTERNAL TABLE` command.
 
-<!-- In addition, `gpfdist` can be configured with a YAML-formatted file to transform external data files between a supported text format and another format, for example XML or JSON. See <ref\> for an example that shows how to use `gpfdist` to read external XML files into a Cloudberry Database readable external table. -->
+<!-- In addition, `gpfdist` can be configured with a YAML-formatted file to transform external data files between a supported text format and another format, for example XML or JSON. See <ref\> for an example that shows how to use `gpfdist` to read external XML files into a Apache Cloudberry readable external table. -->
 
 For readable external tables, `gpfdist` uncompresses `gzip` (`.gz`) and `bzip2` (.`bz2`) files automatically. You can use the wildcard character (`*`) or other C-style pattern matching to denote multiple files to read. External files are assumed to be relative to the directory specified when you started the `gpfdist` instance.
 
 ### About gpfdist setup and performance
 
-You can run `gpfdist` instances on multiple hosts and you can run multiple `gpfdist` instances on each host. This allows you to deploy `gpfdist` servers strategically so that you can attain fast data load and unload rates by utilizing all of the available network bandwidth and Cloudberry Database's parallelism.
+You can run `gpfdist` instances on multiple hosts and you can run multiple `gpfdist` instances on each host. This allows you to deploy `gpfdist` servers strategically so that you can attain fast data load and unload rates by utilizing all of the available network bandwidth and Apache Cloudberry's parallelism.
 
 - Allow network traffic to use all ETL host network interfaces simultaneously. Run one instance of gpfdist for each interface on the ETL host, then declare the host name of each NIC in the `LOCATION` clause of your external table definition (see [Examples for Creating External Tables](#example-1---run-single-gpfdist-instance-on-a-single-nic-machine)).
 
 - Divide external table data equally among multiple gpfdist instances on the ETL host. For example, on an ETL system with two NICs, run two gpfdist instances (one on each NIC) to optimize data load performance and divide the external table data files evenly between the two gpfdist servers.
 
 :::tip
-Use pipes (`|`) to separate formatted text when you submit files to gpfdist. Cloudberry Database encloses comma-separated text strings in single or double quotes. gpfdist has to remove the quotes to parse the strings. Using pipes to separate formatted text avoids the extra step and improves performance.
+Use pipes (`|`) to separate formatted text when you submit files to gpfdist. Apache Cloudberry encloses comma-separated text strings in single or double quotes. gpfdist has to remove the quotes to parse the strings. Using pipes to separate formatted text avoids the extra step and improves performance.
 :::
 
 ### Control segment parallelism
@@ -63,7 +63,7 @@ The `gp_external_max_segs` server configuration parameter controls the number of
 
 ## Step 1. Install gpfdist
 
-gpfdist is installed in `$GPHOME/bin` of your Cloudberry Database coordinator host installation. Run gpfdist on a machine other than the Cloudberry Database coordinator or standby coordinator, such as on a machine devoted to ETL processing. Running gpfdist on the coordinator or standby coordinator can have a performance impact on query execution.
+gpfdist is installed in `$GPHOME/bin` of your Apache Cloudberry coordinator host installation. Run gpfdist on a machine other than the Apache Cloudberry coordinator or standby coordinator, such as on a machine devoted to ETL processing. Running gpfdist on the coordinator or standby coordinator can have a performance impact on query execution.
 
 ## Step 2. Start and stop gpfdist
 
@@ -110,7 +110,7 @@ $ kill 3457
 
 ## Step 3. Use gpfdist with external tables to load data
 
-The following examples show how to use gpfdist when creating an external table to load data into Cloudberry Database.
+The following examples show how to use gpfdist when creating an external table to load data into Apache Cloudberry.
 
 :::tip
 When using IPv6, always enclose the numeric IP addresses in square brackets.
@@ -158,7 +158,7 @@ Creates a readable external table, `ext_expenses`, from all files with the txt e
 
 Uses the gpfdist protocol to create a readable external table, `ext_expenses`, from all files with the txt extension. The column delimiter is a pipe (`|`) and NULL (' ') is a space.
 
-Access to the external table is single row error isolation mode. Input data formatting errors are captured internally in Cloudberry Database with a description of the error. <!-- See Viewing Bad Rows in the Error Log for information about investigating error rows.--> You can view the errors, fix the issues, and then reload the rejected data. If the error count on a segment is greater than `5` (the `SEGMENT REJECT LIMIT` value), the entire external table operation fails and no rows are processed.
+Access to the external table is single row error isolation mode. Input data formatting errors are captured internally in Apache Cloudberry with a description of the error. <!-- See Viewing Bad Rows in the Error Log for information about investigating error rows.--> You can view the errors, fix the issues, and then reload the rejected data. If the error count on a segment is greater than `5` (the `SEGMENT REJECT LIMIT` value), the entire external table operation fails and no rows are processed.
 
 ```sql
 =# CREATE EXTERNAL TABLE ext_expenses ( name text, 

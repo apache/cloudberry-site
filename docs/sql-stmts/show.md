@@ -16,7 +16,7 @@ SHOW ALL
 
 ## Description
 
-`SHOW` displays the current settings of Cloudberry Database run-time system configuration parameters. You can set these parameters with the `SET` statement, by editing the `postgresql.conf` configuration file of the Cloudberry Database coordinator, through the `PGOPTIONS` environment variable (when using libpq or a libpq-based application), or through command-line flags when starting the Cloudberry Database server.
+`SHOW` displays the current settings of Apache Cloudberry run-time system configuration parameters. You can set these parameters with the `SET` statement, by editing the `postgresql.conf` configuration file of the Apache Cloudberry coordinator, through the `PGOPTIONS` environment variable (when using libpq or a libpq-based application), or through command-line flags when starting the Apache Cloudberry server.
 
 
 ## Parameters
@@ -29,7 +29,7 @@ Some parameters viewable by `SHOW` are read-only — you can view their values b
 
 **`SERVER_VERSION`**
 
-Shows the version number of the Cloudberry Database server.
+Shows the version number of the Apache Cloudberry server.
 
 **`SERVER_ENCODING`**
 
@@ -94,7 +94,7 @@ SHOW ALL;
 
 ## Compatibility
 
-The `SHOW` command is a Cloudberry Database extension.
+The `SHOW` command is a Apache Cloudberry extension.
 
 ## See also
 

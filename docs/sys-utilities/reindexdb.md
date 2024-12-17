@@ -24,7 +24,7 @@ reindexdb -V | --version
 
 ## Description
 
-`reindexdb` is a utility for rebuilding indexes in Cloudberry Database.
+`reindexdb` is a utility for rebuilding indexes in Apache Cloudberry.
 
 `reindexdb` is a wrapper around the SQL command [`REINDEX`](/docs/sql-stmts/reindex.md). There is no effective difference between reindexing databases via this utility and via other methods for accessing the server.
 
@@ -40,7 +40,7 @@ Reindex all databases.
 **`[-d] dbname`**<br />
 **`[--dbname=]dbname`**
 
-Specifies the name of the database to be reindexed, when `-a` or `--all` is not used. If this is not specified, Cloudberry Database reads the database name from the environment variable `PGDATABASE`. If that is not set, the user name specified for the connection is used. The dbname can be a [connection string](https://www.postgresql.org/docs/12/libpq-connect.html#LIBPQ-CONNSTRING). If so, connection string parameters will override any conflicting command line options.
+Specifies the name of the database to be reindexed, when `-a` or `--all` is not used. If this is not specified, Apache Cloudberry reads the database name from the environment variable `PGDATABASE`. If that is not set, the user name specified for the connection is used. The dbname can be a [connection string](https://www.postgresql.org/docs/12/libpq-connect.html#LIBPQ-CONNSTRING). If so, connection string parameters will override any conflicting command line options.
 
 **`-e`**<br />
 **`--echo`**
@@ -140,7 +140,7 @@ Default connection parameters.
 
 Specifies whether to use color in diagnostic messages. Possible values are `always`, `auto`, and `never`.
 
-This utility, like most other Cloudberry Database utilities, also uses the environment variables supported by `libpq`.
+This utility, like most other Apache Cloudberry utilities, also uses the environment variables supported by `libpq`.
 
 ## Diagnostics
 
@@ -148,7 +148,7 @@ In case of difficulty, see [REINDEX](/docs/sql-stmts/reindex.md) and [psql](/doc
 
 ## Notes
 
-`reindexdb` might need to connect several times to the Cloudberry Database server, asking for a password each time. It is convenient to have a `~/.pgpass` file in such cases.
+`reindexdb` might need to connect several times to the Apache Cloudberry server, asking for a password each time. It is convenient to have a `~/.pgpass` file in such cases.
 
 ## Examples
 

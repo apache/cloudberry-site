@@ -24,7 +24,7 @@ You must be a superuser to use `ALTER TEXT SEARCH TEMPLATE`.
 
 **`IF EXISTS`**
 
-Do not throw an error if the text search template does not exist. Cloudberry Database issues a notice in this case.
+Do not throw an error if the text search template does not exist. Apache Cloudberry issues a notice in this case.
 
 **`name`**
 

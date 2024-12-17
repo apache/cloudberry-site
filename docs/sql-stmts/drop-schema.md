@@ -50,7 +50,7 @@ DROP SCHEMA mystuff CASCADE;
 
 ## Compatibility
 
-`DROP SCHEMA` is fully conforming with the SQL standard, except that the standard only allows one schema to be dropped per command. Also, the `IF EXISTS` option is a Cloudberry Database extension.
+`DROP SCHEMA` is fully conforming with the SQL standard, except that the standard only allows one schema to be dropped per command. Also, the `IF EXISTS` option is a Apache Cloudberry extension.
 
 ## See also
 

@@ -4,7 +4,7 @@ title: Summary of Built-in Functions
 
 #  Summary of Built-in Functions
 
-Cloudberry Database supports built-in functions and operators including analytic functions and window functions that can be used in window expressions.
+Apache Cloudberry supports built-in functions and operators including analytic functions and window functions that can be used in window expressions.
 
 
 ```mdx-code-block
@@ -13,9 +13,9 @@ import DocCardList from '@theme/DocCardList';
 <DocCardList />
 ```
 
-## Cloudberry Database function types
+## Apache Cloudberry function types
 
-Cloudberry Database evaluates functions and operators used in SQL expressions. Some functions and operators are only allowed to run on the coordinator since they could lead to inconsistencies in Cloudberry Database segment instances. This table describes the Cloudberry Database Function Types.
+Apache Cloudberry evaluates functions and operators used in SQL expressions. Some functions and operators are only allowed to run on the coordinator since they could lead to inconsistencies in Apache Cloudberry segment instances. This table describes the Apache Cloudberry Function Types.
 
 |Function Type|Cloudberry Support|Description|Comments|
 |-------------|-----------------|-----------|--------|
@@ -23,7 +23,7 @@ Cloudberry Database evaluates functions and operators used in SQL expressions. S
 |STABLE|Yes, in most cases|Within a single table scan, returns the same result for same argument values, but results change across SQL statements.|Results depend on database lookups or parameter values. `current_timestamp` family of functions is `STABLE`; values do not change within an execution.|
 |VOLATILE|Restricted|Function values can change within a single table scan. For example: `random()`, `timeofday()`.|Any function with side effects is volatile, even if its result is predictable. For example: `setval()`.|
 
-In Cloudberry Database, data is divided up across segments — each segment is a distinct PostgreSQL database. To prevent inconsistent or unexpected results, do not run functions classified as `VOLATILE` at the segment level if they contain SQL commands or modify the database in any way. For example, functions such as `setval()` are not allowed to run on distributed data in Cloudberry Database because they can cause inconsistent data between segment instances.
+In Apache Cloudberry, data is divided up across segments — each segment is a distinct PostgreSQL database. To prevent inconsistent or unexpected results, do not run functions classified as `VOLATILE` at the segment level if they contain SQL commands or modify the database in any way. For example, functions such as `setval()` are not allowed to run on distributed data in Apache Cloudberry because they can cause inconsistent data between segment instances.
 
 To ensure data consistency, you can safely use `VOLATILE` and `STABLE` functions in statements that are evaluated on and run from the coordinator. For example, the following statements run on the coordinator (statements without a `FROM` clause):
 
@@ -38,11 +38,11 @@ If a statement has a `FROM` clause containing a distributed table *and* the func
 SELECT * from foo();
 ```
 
-Cloudberry Database does not support functions that return a table reference (`rangeFuncs`) or functions that use the `refCursor` datatype.
+Apache Cloudberry does not support functions that return a table reference (`rangeFuncs`) or functions that use the `refCursor` datatype.
 
 ## Built-in functions and operators
 
-The following table lists the categories of built-in functions and operators supported by PostgreSQL. All functions and operators are supported in Cloudberry Database as in PostgreSQL with the exception of `STABLE` and `VOLATILE` functions, which are subject to the restrictions noted in [Cloudberry Database Function Types](#topic27). See the [Functions and Operators](https://www.postgresql.org/docs/14/functions.html) section of the PostgreSQL documentation for more information about these built-in functions and operators.
+The following table lists the categories of built-in functions and operators supported by PostgreSQL. All functions and operators are supported in Apache Cloudberry as in PostgreSQL with the exception of `STABLE` and `VOLATILE` functions, which are subject to the restrictions noted in [Apache Cloudberry Function Types](#topic27). See the [Functions and Operators](https://www.postgresql.org/docs/14/functions.html) section of the PostgreSQL documentation for more information about these built-in functions and operators.
 
 |Operator/Function Category|VOLATILE Functions|STABLE Functions|Restrictions|
 |--------------------------|------------------|----------------|------------|

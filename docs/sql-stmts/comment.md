@@ -65,7 +65,7 @@ COMMENT ON
 
 `COMMENT` stores a comment about a database object. Only one comment string is stored for each object, so to modify a comment, issue a new `COMMENT` command for the same object. To remove a comment, specify `NULL` in place of the text string. Comments are automatically dropped when the object is dropped.
 
-Cloudberry Database acquires a `SHARE UPDATE EXCLUSIVE` lock on the object to be commented.
+Apache Cloudberry acquires a `SHARE UPDATE EXCLUSIVE` lock on the object to be commented.
 
 For most kinds of object, only the object's owner can set the comment. Roles don't have owners, so the rule for `COMMENT ON ROLE` is that you must be superuser to comment on a superuser role, or have the `CREATEROLE` privilege to comment on non-superuser roles. Likewise, access methods don't have owners either; you must be superuser to comment on an access method. Of course, a superuser can comment on anything.
 
@@ -87,7 +87,7 @@ You can view comments using the `psql` meta-commands `\dd`, `\d+`, and `\l+`. Ot
 
 The name of the object to be commented. Names of tables, aggregates, collations, conversions, domains, foreign tables, functions, indexes, operators, operator classes, operator families, procedures, routines, sequences, statistics, text search objects, types, views, and materialized views can be schema-qualified. When commenting on a column, relation_name must refer to a table, view, materialized view, composite type, or foreign table.
 
-> **Note** Cloudberry Database does not support triggers.
+> **Note** Apache Cloudberry does not support triggers.
 
 **`table_name`**<br />
 **`domain_name`**
@@ -121,7 +121,7 @@ The data type(s) of the operator's arguments (optionally schema-qualified). Spec
 
 **`PROCEDURAL`**
 
-Cloudberry Database ignores this noise word.
+Apache Cloudberry ignores this noise word.
 
 **`type_name`**
 
