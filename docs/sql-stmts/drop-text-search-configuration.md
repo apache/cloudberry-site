@@ -20,7 +20,7 @@ DROP TEXT SEARCH CONFIGURATION [ IF EXISTS ] <name> [ CASCADE | RESTRICT ]
 
 **`IF EXISTS`**
 
-Do not throw an error if the text search configuration does not exist. Cloudberry Database issues a notice in this case.
+Do not throw an error if the text search configuration does not exist. Apache Cloudberry issues a notice in this case.
 
 **`name`**
 

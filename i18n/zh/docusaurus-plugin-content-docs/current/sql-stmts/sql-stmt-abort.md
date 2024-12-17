@@ -43,7 +43,7 @@ ABORT;
 
 ## 兼容性
 
-该命令是 Cloudberry Database 的扩展，仅出于历史原因而存在。`ROLLBACK` 是等效的标准 SQL 命令。
+该命令是 Apache Cloudberry 的扩展，仅出于历史原因而存在。`ROLLBACK` 是等效的标准 SQL 命令。
 
 ## 另见
 

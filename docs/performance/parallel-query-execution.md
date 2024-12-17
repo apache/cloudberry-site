@@ -4,7 +4,7 @@ title: Parallel Queries Execution
 
 # Use Parallel Queries Execution
 
-This document introduces the usage scenarios, usage examples, restrictions, and common issues of parallel query execution in Cloudberry Database. When Cloudberry Database executes a query, multiple CPU cores are used to process a single query, thereby improving query performance. The database dynamically adjusts the number of computing nodes (including the `SeqScan` operator) according to the data volume change.
+This document introduces the usage scenarios, usage examples, restrictions, and common issues of parallel query execution in Apache Cloudberry. When Apache Cloudberry executes a query, multiple CPU cores are used to process a single query, thereby improving query performance. The database dynamically adjusts the number of computing nodes (including the `SeqScan` operator) according to the data volume change.
 
 ## Applicable scenarios
 
@@ -14,7 +14,7 @@ When the host CPU and disk load are not high, enabling parallel sessions for ope
 
 ## How to use
 
-Cloudberry Database supports parallel query execution on AO/AOCO and heap tables.
+Apache Cloudberry supports parallel query execution on AO/AOCO and heap tables.
 
 ### Parallel queries on heap tables
 
@@ -88,7 +88,7 @@ Cloudberry Database supports parallel query execution on AO/AOCO and heap tables
 
 ## Frequently asked questions
 
-- Currently, Cloudberry Database supports executing queries in parallel that contain the following operators. If a query contains other operators, it will not be executed in parallel.
+- Currently, Apache Cloudberry supports executing queries in parallel that contain the following operators. If a query contains other operators, it will not be executed in parallel.
 
     ```sql
     sequence scan      

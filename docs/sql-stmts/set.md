@@ -4,7 +4,7 @@ title: SET
 
 # SET
 
-Changes the value of a run-time Cloudberry Database configuration parameter.
+Changes the value of a run-time Apache Cloudberry configuration parameter.
 
 ## Synopsis
 
@@ -40,7 +40,7 @@ Specifies that the command takes effect for only the current transaction. After 
 
 **`configuration_parameter`**
 
-The name of a settable Cloudberry Database run-time configuration parameter. Only parameters classified as *session* can be changed with `SET`. See Server Configuration Parameters for details.
+The name of a settable Apache Cloudberry run-time configuration parameter. Only parameters classified as *session* can be changed with `SET`. See Server Configuration Parameters for details.
 
 **`value`**
 
@@ -80,7 +80,7 @@ SELECT setseed(value);
 
 Set the time zone to your local time zone (that is, server's default value of timezone).
 
-See the [Time Zones](https://www.postgresql.org/docs/12/datatype-datetime.html#DATATYPE-TIMEZONES) section of the PostgreSQL documentation for more information about time zones in Cloudberry Database.
+See the [Time Zones](https://www.postgresql.org/docs/12/datatype-datetime.html#DATATYPE-TIMEZONES) section of the PostgreSQL documentation for more information about time zones in Apache Cloudberry.
 
 ## Examples
 
@@ -116,7 +116,7 @@ SET TIME ZONE 'Europe/Rome';
 
 ## Compatibility
 
-`SET TIME ZONE` extends syntax defined in the SQL standard. The standard allows only numeric time zone offsets while Cloudberry Database allows more flexible time-zone specifications. All other `SET` features are Cloudberry Database extensions.
+`SET TIME ZONE` extends syntax defined in the SQL standard. The standard allows only numeric time zone offsets while Apache Cloudberry allows more flexible time-zone specifications. All other `SET` features are Apache Cloudberry extensions.
 
 ## See also
 

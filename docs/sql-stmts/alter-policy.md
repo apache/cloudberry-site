@@ -53,7 +53,7 @@ The `WITH CHECK` expression for the policy. See [CREATE POLICY](/docs/sql-stmts/
 
 ## Compatibility
 
-`ALTER POLICY` is a Cloudberry Database extension to the SQL standard.
+`ALTER POLICY` is a Apache Cloudberry extension to the SQL standard.
 
 ## See also
 

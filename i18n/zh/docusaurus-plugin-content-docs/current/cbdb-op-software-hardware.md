@@ -4,13 +4,13 @@ title: 软硬件配置需求
 
 # 软硬件配置需求
 
-本文介绍 Cloudberry Database 所需要的软件和硬件配置需求。
+本文介绍 Apache Cloudberry 所需要的软件和硬件配置需求。
 
 ## 硬件需求
 
 ### 物理机
 
-以下介绍 Cloudberry Database 在测试和生产环境中，推荐的物理机配置。
+以下介绍 Apache Cloudberry 在测试和生产环境中，推荐的物理机配置。
 
 #### 开发及测试环境
 
@@ -96,7 +96,7 @@ mount /dev/data/data2 /data2/
 
 ### 支持的操作系统
 
-CloudBerry Database 支持操作系统包括：
+Apache Cloudberry 支持操作系统包括：
 
 - Kylin V10 SP1 或 SP2
 - 中标麒麟 V7update6

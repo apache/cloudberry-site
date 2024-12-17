@@ -5,20 +5,20 @@ title: 在 Linux 上
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# 在 Linux 系统上编译和安装 Cloudberry Database
+# 在 Linux 系统上编译和安装 Apache Cloudberry
 
 :::info
 本文档来自 GitHub 仓库 [`cloudberrydb/cloudberrydb`](https://github.com/cloudberrydb/cloudberrydb/blob/main/deploy/build/README.Linux.md).
 :::
 
-本文档分享如何在 Linux 系统（CentOS 7、RHEL 和 Ubuntu）上编译和安装 Cloudberry Database。请注意，本文档仅供开发人员在单节点环境中尝试 Cloudberry Database。**请勿将本文档用于生产环境**。
+本文档分享如何在 Linux 系统（CentOS 7、RHEL 和 Ubuntu）上编译和安装 Apache Cloudberry。请注意，本文档仅供开发人员在单节点环境中尝试 Apache Cloudberry。**请勿将本文档用于生产环境**。
 
 按照以下步骤设置开发环境：
 
 1. [克隆 GitHub 仓库](#第-1-步克隆-github-仓库)。
 2. [安装依赖项](#第-2-步安装依赖项)。
 3. [执行平台准备工作](#第-3-步执行平台准备工作)。
-4. [构建 Cloudberry Database](#第-4-步构建-cloudberry-database)。
+4. [构建 Apache Cloudberry](#第-4-步构建-apache-cloudberry)。
 5. [验证集群](#第-5-步验证集群)。
 
 ## 第 1 步：克隆 GitHub 仓库
@@ -124,7 +124,7 @@ git clone https://github.com/cloudberrydb/cloudberrydb.git
 
 ## 第 3 步：执行平台准备工作
 
-在操作系统上安装所有依赖项后，在构建 Cloudberry Database 之前你还需要执行一些平台准备工作。这些操作包括在平台上手动运行 `ldconfig`、创建 `gpadmin` 用户以及设置密码以启动 Cloudberry Database 并进行测试。
+在操作系统上安装所有依赖项后，在构建 Apache Cloudberry 之前你还需要执行一些平台准备工作。这些操作包括在平台上手动运行 `ldconfig`、创建 `gpadmin` 用户以及设置密码以启动 Apache Cloudberry 并进行测试。
 
 1. 确保将 `/usr/local/lib` 和 `/usr/local/lib64` 添加到 `/etc/ld.so.conf` 文件中。
 
@@ -162,9 +162,9 @@ git clone https://github.com/cloudberrydb/cloudberrydb.git
     </TabItem>
     </Tabs>
 
-## 第 4 步：构建 Cloudberry Database
+## 第 4 步：构建 Apache Cloudberry
 
-安装完所有依赖项并执行了平台准备工作后，你就可以开始构建 Cloudberry Database 了。按顺序执行以下命令。
+安装完所有依赖项并执行了平台准备工作后，你就可以开始构建 Apache Cloudberry 了。按顺序执行以下命令。
 
 1. 进入 `cloudberrydb` 目录，执行 `configure` 脚本。
 
@@ -174,7 +174,7 @@ git clone https://github.com/cloudberrydb/cloudberrydb.git
     ```
 
     :::info 提示
-    Cloudberry Database 默认使用 GPORCA 构建。如果你希望构建出不使用 GPORCA 的 Cloudberry Database，请在 `./configure` 命令中添加 `--disable-orca` 参数。
+    Apache Cloudberry 默认使用 GPORCA 构建。如果你希望构建出不使用 GPORCA 的 Apache Cloudberry，请在 `./configure` 命令中添加 `--disable-orca` 参数。
 
     ```bash
     ./configure --disable-orca --with-perl --with-python --with-libxml --prefix=/usr/local/cloudberrydb
@@ -238,7 +238,7 @@ git clone https://github.com/cloudberrydb/cloudberrydb.git
     ps -ef | grep postgres
     ```
 
-2. 连接至 Cloudberry Database，通过查询系统表 `gp_segement_configuration` 查看活跃 segment 的信息。有关此系统表的详细描述，参见 [Greenplum 文档](https://docs.vmware.com/en/VMware-Greenplum/7/greenplum-database/ref_guide-system_catalogs-gp_segment_configuration.html)。
+2. 连接至 Apache Cloudberry，通过查询系统表 `gp_segement_configuration` 查看活跃 segment 的信息。有关此系统表的详细描述，参见 [Greenplum 文档](https://docs.vmware.com/en/VMware-Greenplum/7/greenplum-database/ref_guide-system_catalogs-gp_segment_configuration.html)。
 
     ```sql
     $ psql -p 7000 postgres
@@ -248,7 +248,7 @@ git clone https://github.com/cloudberrydb/cloudberrydb.git
     postgres=# select version();
                                                                                             version                                                                                         
     -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    PostgreSQL 14.4 (Cloudberry Database 1.0.0+1c0d6e2224 build dev) on x86_64( GCC 13.2.0) 13.2.0, 64-bit compiled on Sep 22 2023 10:56:01
+    PostgreSQL 14.4 (Apache Cloudberry 1.0.0+1c0d6e2224 build dev) on x86_64( GCC 13.2.0) 13.2.0, 64-bit compiled on Sep 22 2023 10:56:01
     (1 row)
     
     postgres=# select * from gp_segment_configuration;

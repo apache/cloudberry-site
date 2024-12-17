@@ -4,7 +4,7 @@ title: gpshrink
 
 # gpshrink
 
-Cloudberry Database scales in clusters using the `gpshrink` system tool. When cluster resources are idle, such as disk space usage consistently below 20% or low CPU and memory usage, `gpshrink` can be used to reduce the size of the cluster, saving server resources. Users can remove segments from redundant servers with the `gpshrink` tool to scale in the cluster.
+Apache Cloudberry scales in clusters using the `gpshrink` system tool. When cluster resources are idle, such as disk space usage consistently below 20% or low CPU and memory usage, `gpshrink` can be used to reduce the size of the cluster, saving server resources. Users can remove segments from redundant servers with the `gpshrink` tool to scale in the cluster.
 
 The gpshrink tool operates in two phases:
 

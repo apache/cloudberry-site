@@ -2,13 +2,13 @@
 title: On macOS
 ---
 
-# Compile and Install Cloudberry Database on macOS
+# Compile and Install Apache Cloudberry on macOS
 
 :::info
 The source of this document is from the GitHub repository [`cloudberrydb/cloudberrydb`](https://github.com/cloudberrydb/cloudberrydb/blob/main/deploy/build/README.macOS.md).
 :::
 
-This document shares how to build, compile, and install Cloudberry Database on macOS (single node) for development and trial purposes. Follow the steps below.
+This document shares how to build, compile, and install Apache Cloudberry on macOS (single node) for development and trial purposes. Follow the steps below.
 
 According to our test, these steps work well on macOS Ventura 13.4+ with both Intel and Apple silicon processors (M1 or M2). If you have an older version of macOS, upgrading is recommended. Make sure that the Mac you use has at least 4 cores and 8 GB memory, and is connected to the Internet.
 
@@ -18,7 +18,7 @@ DO NOT use this guide for production deployment.
 
 ## Step 1. Install needed dependencies
 
-1. Clone the source code of Cloudberry Database from GitHub to your local Mac.
+1. Clone the source code of Apache Cloudberry from GitHub to your local Mac.
 
     ```bash
     git clone git@github.com:cloudberrydb/cloudberrydb.git
@@ -82,12 +82,12 @@ DO NOT use this guide for production deployment.
 
 BREWPREFIX=$(brew --prefix); export PATH="$BREWPREFIX/opt/gnu-sed/libexec/gnubin:$BREWPREFIX/opt/apr/bin:$PATH"; CXXFLAGS="-I $BREWPREFIX/include" CFLAGS="-ggdb -Og -g3 -fno-omit-frame-pointer -I $BREWPREFIX/include" LDFLAGS="-L $BREWPREFIX/lib" CC=$(which gcc-13) CXX=$(which g++-13) ./configure --enable-debug --prefix=$(cd ~; pwd)/install/cbdb;
 
-# 2. Compile and install Cloudberry Database.
+# 2. Compile and install Apache Cloudberry.
 
 make -j8
 make -j8 install
 
-# 3. Bring in Greenplum environment for Cloudberry Database into your running shell.
+# 3. Bring in Greenplum environment for Apache Cloudberry into your running shell.
 
 source $(cd ~; pwd)/install/cbdb/greenplum_path.sh
 
@@ -114,7 +114,7 @@ source gpAux/gpdemo/gpdemo-env.sh
     ps -ef | grep postgres
     ```
     
-2. Connect to the Cloudberry Database and see the active segment information by querying the system table `gp_segement_configuration`. For detailed description of this table, see the Greenplum document [here](https://docs.vmware.com/en/VMware-Greenplum/7/greenplum-database/ref_guide-system_catalogs-gp_segment_configuration.html).
+2. Connect to the Apache Cloudberry and see the active segment information by querying the system table `gp_segement_configuration`. For detailed description of this table, see the Greenplum document [here](https://docs.vmware.com/en/VMware-Greenplum/7/greenplum-database/ref_guide-system_catalogs-gp_segment_configuration.html).
 
     ```sql
     $ psql -p 8000 postgres
@@ -132,7 +132,7 @@ source gpAux/gpdemo/gpdemo-env.sh
     postgres=# select version();
                                                                                              version                                                                                         
     -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     PostgreSQL 14.4 (Cloudberry Database 1.0.0+1c0d6e2224 build dev) on x86_64-apple-darwin22.4.0, compiled by gcc-13 (Homebrew GCC 13.2.0) 13.2.0, 64-bit compiled on Sep 22 2023 10:56:01
+     PostgreSQL 14.4 (Apache Cloudberry 1.0.0+1c0d6e2224 build dev) on x86_64-apple-darwin22.4.0, compiled by gcc-13 (Homebrew GCC 13.2.0) 13.2.0, 64-bit compiled on Sep 22 2023 10:56:01
     (1 row)
 
     postgres=# select * from gp_segment_configuration;

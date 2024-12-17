@@ -30,7 +30,7 @@ Close all open cursors.
 
 ## Notes
 
-Cloudberry Database does not have an explicit `OPEN` cursor statement. A cursor is considered open when it is declared. Use the [DECLARE](/docs/sql-stmts/declare.md) statement to declare (and open) a cursor.
+Apache Cloudberry does not have an explicit `OPEN` cursor statement. A cursor is considered open when it is declared. Use the [DECLARE](/docs/sql-stmts/declare.md) statement to declare (and open) a cursor.
 
 You can see all available cursors by querying the `pg_cursors` system view.
 
@@ -46,7 +46,7 @@ CLOSE portala;
 
 ## Compatibility
 
-`CLOSE` is fully conforming with the SQL standard. `CLOSE ALL` is a Cloudberry Database extension.
+`CLOSE` is fully conforming with the SQL standard. `CLOSE ALL` is a Apache Cloudberry extension.
 
 ## See also
 

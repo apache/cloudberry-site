@@ -4,7 +4,7 @@ title: gpbackup
 
 # gpbackup
 
-Create a Cloudberry Database backup for use with the `gprestore` utility.
+Create a Apache Cloudberry backup for use with the `gprestore` utility.
 
 ## Synopsis
 
@@ -44,17 +44,17 @@ gpbackup --help
 
 The `gpbackup` utility backs up the contents of a database into a collection of metadata files and data files that can be used to restore the database at a later time using `gprestore`. When you back up a database, you can specify table level and schema level filter options to back up specific tables. For example, you can combine schema level and table level options to back up all the tables in a schema except for a single table.
 
-By default, `gpbackup` backs up objects in the specified database as well as global Cloudberry Database system objects. Use `--without-globals` to omit global objects. `gprestore` does not restore global objects by default; use `--with-globals` to restore them.
+By default, `gpbackup` backs up objects in the specified database as well as global Apache Cloudberry system objects. Use `--without-globals` to omit global objects. `gprestore` does not restore global objects by default; use `--with-globals` to restore them.
 
 For materialized views, data is not backed up, only the materialized view definition is backed up.
 
-`gpbackup` stores the object metadata files and DDL files for a backup in the Cloudberry Database master data directory by default. Cloudberry Database segments use the `COPY ... ON SEGMENT` command to store their data for backed-up tables in compressed CSV data files, located in each segment's data directory.
+`gpbackup` stores the object metadata files and DDL files for a backup in the Apache Cloudberry master data directory by default. Apache Cloudberry segments use the `COPY ... ON SEGMENT` command to store their data for backed-up tables in compressed CSV data files, located in each segment's data directory.
 
-You can add the `--backup-dir` option to copy all backup files from the Cloudberry Database master and segment hosts to an absolute path for later use. Additional options are provided to filter the backup set in order to include or exclude specific tables.
+You can add the `--backup-dir` option to copy all backup files from the Apache Cloudberry master and segment hosts to an absolute path for later use. Additional options are provided to filter the backup set in order to include or exclude specific tables.
 
 You can create an incremental backup with the `--incremental` option. Incremental backups are efficient when the total amount of data in append-optimized tables or table partitions that changed is small compared to the data has not changed.
 
-With the default `--jobs` option (1 job), each `gpbackup` operation uses a single transaction on the Cloudberry Database master host. The `COPY ... ON SEGMENT` command performs the backup task in parallel on each segment host. The backup process acquires an `ACCESS SHARE` lock on each table that is backed up. During the table locking process, the database should be in a quiescent state.
+With the default `--jobs` option (1 job), each `gpbackup` operation uses a single transaction on the Apache Cloudberry master host. The `COPY ... ON SEGMENT` command performs the backup task in parallel on each segment host. The backup process acquires an `ACCESS SHARE` lock on each table that is backed up. During the table locking process, the database should be in a quiescent state.
 
 When a back up operation completes, `gpbackup` returns a status code.
 
@@ -62,13 +62,13 @@ The `gpbackup` utility cannot be run while `gpexpand` is initializing new segmen
 
 `gpbackup` can send status email notifications after a back up operation completes. You specify when the utility sends the mail and the email recipients in a configuration file.
 
-**Note**: This utility uses secure shell (SSH) connections between systems to perform its tasks. In large Cloudberry Database deployments, cloud deployments, or deployments with a large number of segments per host, this utility may exceed the host's maximum threshold for unauthenticated connections. Consider updating the SSH `MaxStartups` and `MaxSessions` configuration parameters to increase this threshold. For more information about SSH configuration options, refer to the SSH documentation for your Linux distribution.
+**Note**: This utility uses secure shell (SSH) connections between systems to perform its tasks. In large Apache Cloudberry deployments, cloud deployments, or deployments with a large number of segments per host, this utility may exceed the host's maximum threshold for unauthenticated connections. Consider updating the SSH `MaxStartups` and `MaxSessions` configuration parameters to increase this threshold. For more information about SSH configuration options, refer to the SSH documentation for your Linux distribution.
 
 ## Options
 
 **--dbname database_name:** Required. Specifies the database to back up.
 
-**--backup-dir directory:** Optional. Copies all required backup files (metadata files and data files) to the specified directory. You must specify directory as an absolute path (not relative). If you do not supply this option, metadata files are created on the Cloudberry Database master host in the $MASTER_DATA_DIRECTORY/backups/YYYYMMDD/YYYYMMDDhhmmss/ directory. Segment hosts create CSV data files in the `<seg_dir>/backups/YYYYMMDD/YYYYMMDDhhmmss/` directory. When you specify a custom backup directory, files are copied to these paths in subdirectories of the backup directory.
+**--backup-dir directory:** Optional. Copies all required backup files (metadata files and data files) to the specified directory. You must specify directory as an absolute path (not relative). If you do not supply this option, metadata files are created on the Apache Cloudberry master host in the $MASTER_DATA_DIRECTORY/backups/YYYYMMDD/YYYYMMDDhhmmss/ directory. Segment hosts create CSV data files in the `<seg_dir>/backups/YYYYMMDD/YYYYMMDDhhmmss/` directory. When you specify a custom backup directory, files are copied to these paths in subdirectories of the backup directory.
 
 You cannot combine this option with the option `--plugin-config`.
 
@@ -156,7 +156,7 @@ You cannot combine this option with the option `--backup-dir`.
 
 **--with-stats**: Optional. Include query plan statistics in the backup set.
 
-**--without-globals**: Optional. Omit the global Cloudberry Database system objects during backup.
+**--without-globals**: Optional. Omit the global Apache Cloudberry system objects during backup.
 
 **--help:** Displays the online help.
 
@@ -207,7 +207,7 @@ my#1schema.my_$590_Table
 
 ## Examples
 
-Backup all schemas and tables in the "demo" database, including global Cloudberry Database system objects statistics:
+Backup all schemas and tables in the "demo" database, including global Apache Cloudberry system objects statistics:
 
 ```
 $ gpbackup --dbname demo
@@ -225,7 +225,7 @@ Backup only the "twitter" schema in the "demo" database:
 $ gpbackup --dbname demo --include-schema twitter
 ```
 
-Backup all schemas and tables in the "demo" database, including global Cloudberry Database system objects and query statistics, and copy all backup files to the /home/gpadmin/backup directory:
+Backup all schemas and tables in the "demo" database, including global Apache Cloudberry system objects and query statistics, and copy all backup files to the /home/gpadmin/backup directory:
 
 ```
 $ gpbackup --dbname demo --with-stats --backup-dir /home/gpadmin/backup

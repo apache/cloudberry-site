@@ -32,7 +32,7 @@ Server name of the user mapping.
 
 **`OPTIONS ( [ ADD | SET | DROP ] option ['value'] [, ... ] )`**
 
-Change options for the user mapping. The new options override any previously specified options. `ADD`, `SET`, and `DROP` specify the action to perform. If no operation is explicitly specified, the default operation is `ADD`. Option names must be unique. Cloudberry Database validates names and values using the server's foreign-data wrapper.
+Change options for the user mapping. The new options override any previously specified options. `ADD`, `SET`, and `DROP` specify the action to perform. If no operation is explicitly specified, the default operation is `ADD`. Option names must be unique. Apache Cloudberry validates names and values using the server's foreign-data wrapper.
 
 ## Examples
 
@@ -44,7 +44,7 @@ ALTER USER MAPPING FOR bob SERVER foo OPTIONS (SET password 'public');
 
 ## Compatibility
 
-`ALTER USER MAPPING` conforms to ISO/IEC 9075-9 (SQL/MED). There is a subtle syntax issue: The standard omits the `FOR` key word. Since both `CREATE USER MAPPING` and `DROP USER MAPPING` use `FOR` in analogous positions, Cloudberry Database diverges from the standard here in the interest of consistency and interoperability.
+`ALTER USER MAPPING` conforms to ISO/IEC 9075-9 (SQL/MED). There is a subtle syntax issue: The standard omits the `FOR` key word. Since both `CREATE USER MAPPING` and `DROP USER MAPPING` use `FOR` in analogous positions, Apache Cloudberry diverges from the standard here in the interest of consistency and interoperability.
 
 ## See also
 

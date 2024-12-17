@@ -4,7 +4,7 @@ title: gprestore
 
 # gprestore
 
-Restore a Cloudberry Database backup that was created using the `gpbackup` utility. By default `gprestore` uses backed up metadata files and DDL files located in the Cloudberry Database master host data directory, with table data stored locally on segment hosts in CSV data files.
+Restore a Apache Cloudberry backup that was created using the `gpbackup` utility. By default `gprestore` uses backed up metadata files and DDL files located in the Apache Cloudberry master host data directory, with table data stored locally on segment hosts in CSV data files.
 
 ## Synopsis
 
@@ -53,7 +53,7 @@ When restoring from a backup set, `gprestore` restores to a database with the sa
 
 When restoring a backup set that contains data from some leaf partitions of a partitioned tables, the partitioned table is restored along with the data for the leaf partitions. For example, you create a backup with the `gpbackup` option `--include-table-file` and the text file lists some leaf partitions of a partitioned table. Restoring the backup creates the partitioned table and restores the data only for the leaf partitions listed in the file.
 
-By default, only database objects in the backup set are restored. Cloudberry Database system objects are automatically included in a `gpbackup` backup set, but these objects are only restored if you include the `--with-globals` option to `gprestore`.
+By default, only database objects in the backup set are restored. Apache Cloudberry system objects are automatically included in a `gpbackup` backup set, but these objects are only restored if you include the `--with-globals` option to `gprestore`.
 
 During a restore operation, automatic updating of table statistics is deactivated for the tables being restored. If you backed up query plan statistics using the `--with-stats` option, you can restore those statistics by providing `--with-stats` to `gprestore`. If you did not use `--with-stats` during a backup, or you want to collect current statistics during the restore operation, you can use the `--run-analyze` option to run `ANALYZE` on the restored tables.
 
@@ -65,17 +65,17 @@ When a restore operation completes, `gprestore` returns a status code.
 
 `gprestore` can send status email notifications after a back up operation completes. You specify when the utility sends the mail and the email recipients in a configuration file.
 
-Note: This utility uses secure shell (SSH) connections between systems to perform its tasks. In large Cloudberry Database deployments, cloud deployments, or deployments with a large number of segments per host, this utility may exceed the host's maximum threshold for unauthenticated connections. Consider updating the SSH `MaxStartups` and `MaxSessions` configuration parameters to increase this threshold. For more information about SSH configuration options, refer to the SSH documentation for your Linux distribution.
+Note: This utility uses secure shell (SSH) connections between systems to perform its tasks. In large Apache Cloudberry deployments, cloud deployments, or deployments with a large number of segments per host, this utility may exceed the host's maximum threshold for unauthenticated connections. Consider updating the SSH `MaxStartups` and `MaxSessions` configuration parameters to increase this threshold. For more information about SSH configuration options, refer to the SSH documentation for your Linux distribution.
 
 ## Options
 
 **--timestamp YYYYMMDDHHMMSS**
 
-Required. Specifies the timestamp of the `gpbackup` backup set to restore. By default `gprestore` tries to locate metadata files for the timestamp on the Cloudberry Database master host in the $MASTER_DATA_DIRECTORY/backups/YYYYMMDD/YYYYMMDDhhmmss/ directory, and CSV data files in the `<seg_dir>/backups/YYYYMMDD/YYYYMMDDhhmmss/` directory of each segment host.
+Required. Specifies the timestamp of the `gpbackup` backup set to restore. By default `gprestore` tries to locate metadata files for the timestamp on the Apache Cloudberry master host in the $MASTER_DATA_DIRECTORY/backups/YYYYMMDD/YYYYMMDDhhmmss/ directory, and CSV data files in the `<seg_dir>/backups/YYYYMMDD/YYYYMMDDhhmmss/` directory of each segment host.
 
 **--backup-dir directory**
 
-Optional. Sources all backup files (metadata files and data files) from the specified directory. You must specify directory as an absolute path (not relative). If you do not supply this option, `gprestore` tries to locate metadata files for the timestamp on the Cloudberry Database master host in the $MASTER_DATA_DIRECTORY/backups/YYYYMMDD/YYYYMMDDhhmmss/ directory. CSV data files must be available on each segment in the `<seg_dir>/backups/YYYYMMDD/YYYYMMDDhhmmss/` directory. Include this option when you specify a custom backup directory with `gpbackup`.
+Optional. Sources all backup files (metadata files and data files) from the specified directory. You must specify directory as an absolute path (not relative). If you do not supply this option, `gprestore` tries to locate metadata files for the timestamp on the Apache Cloudberry master host in the $MASTER_DATA_DIRECTORY/backups/YYYYMMDD/YYYYMMDDhhmmss/ directory. CSV data files must be available on each segment in the `<seg_dir>/backups/YYYYMMDD/YYYYMMDDhhmmss/` directory. Include this option when you specify a custom backup directory with `gpbackup`.
 
 You cannot combine this option with the option `--plugin-config`.
 
@@ -155,7 +155,7 @@ If you specify this option, the utility does not automatically restore dependent
 
 For a materialized view, the data is not restored. To populate the materialized view with data, you must use `REFRESH MATERIALIZED VIEW` and the tables that are referenced by the materialized view definition must be available.
 
-If you use the `--include-table-file` option, `gprestore` does not create roles or set the owner of the tables. The utility restores table indexes and rules. Triggers are also restored but are not supported in Cloudberry Database.
+If you use the `--include-table-file` option, `gprestore` does not create roles or set the owner of the tables. The utility restores table indexes and rules. Triggers are also restored but are not supported in Apache Cloudberry.
 
 **--incremental (Beta)**
 
@@ -203,7 +203,7 @@ Optional. Specifies the number of parallel connections to use when restoring tab
 
 **--metadata-only**
 
-Optional. Creates database tables from a backup created with the `gpbackup` utility, but does not restore the table data. This option assumes the tables do not exist in the target database. To create a specific set of tables from a backup set, you can specify an option to include tables or schemas or exclude tables or schemas. Specify the option `--with-globals` to restore the Cloudberry Database system objects.
+Optional. Creates database tables from a backup created with the `gpbackup` utility, but does not restore the table data. This option assumes the tables do not exist in the target database. To create a specific set of tables from a backup set, you can specify an option to include tables or schemas or exclude tables or schemas. Specify the option `--with-globals` to restore the Apache Cloudberry system objects.
 
 The backup set must contain the DDL for tables to be restored. For example, a backup created with the `gpbackup` option `--data-only` does not contain the DDL for tables.
 
@@ -238,7 +238,7 @@ Optional. Displays verbose log messages during a restore operation.--versionOpti
 
 **--with-globals**
 
-Optional. Restores Cloudberry Database system objects in the backup set, in addition to database objects.
+Optional. Restores Apache Cloudberry system objects in the backup set, in addition to database objects.
 
 **--with-stats**
 
@@ -282,7 +282,7 @@ $ createdb demo2
 $ gprestore --timestamp 20171103152558 --redirect-db demo2
 ```
 
-Restore global Cloudberry Database metadata and query plan statistics in addition to the database objects:
+Restore global Apache Cloudberry metadata and query plan statistics in addition to the database objects:
 
 ```
 $ gprestore --timestamp 20171103152558 --create-db --with-globals --with-stats

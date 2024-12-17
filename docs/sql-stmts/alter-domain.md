@@ -132,7 +132,7 @@ ALTER DOMAIN zipcode SET SCHEMA customers;
 
 ## Compatibility
 
-`ALTER DOMAIN` conforms to the SQL standard, except for the `OWNER`, `RENAME`, `SET SCHEMA`, and `VALIDATE CONSTRAINT` variants, which are Cloudberry Database extensions. The `NOT VALID` clause of the `ADD CONSTRAINT` variant is also a Cloudberry Database extension.
+`ALTER DOMAIN` conforms to the SQL standard, except for the `OWNER`, `RENAME`, `SET SCHEMA`, and `VALIDATE CONSTRAINT` variants, which are Apache Cloudberry extensions. The `NOT VALID` clause of the `ADD CONSTRAINT` variant is also a Apache Cloudberry extension.
 
 ## See also
 
