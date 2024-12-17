@@ -442,7 +442,7 @@ The new query buffer is then re-parsed according to the normal rules of `psql`, 
 
 If a line number is specified, `psql` will position the cursor on the specified line of the file or query buffer. Note that if a single all-digits argument is given, `psql` assumes it is a line number, not a file name.
 
-See [Environment](#section17) for information about configuring and customizing your editor.
+See [Environment](#environment) for information about configuring and customizing your editor.
 
 **`\echo text [ ... ]`**
 

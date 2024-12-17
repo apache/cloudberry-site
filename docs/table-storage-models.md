@@ -6,12 +6,6 @@ title: Choose the Table Storage Model
 
 Apache Cloudberry supports several storage models and a mix of storage models. When you create a table, you choose how to store its data. This document explains the options for table storage and how to choose the best storage model for your workload.
 
-- [Heap Storage](#heap-storage)
-- [Append-Optimized Storage](#append-optimized-storage)
-- [Choosing Row or Column-Oriented Storage](#choosing-row-or-column-oriented-storage)
-- [Altering a Table](#altering-a-table)
-- [Dropping a Table](#dropping-a-table)
-
 :::info
 To simplify the creation of database tables, you can specify the default values for some table storage options with the Apache Cloudberry server configuration parameter `gp_default_storage_options`.
 :::

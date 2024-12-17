@@ -42,7 +42,7 @@ Apache Cloudberry does not support functions that return a table reference (`ran
 
 ## Built-in functions and operators
 
-The following table lists the categories of built-in functions and operators supported by PostgreSQL. All functions and operators are supported in Apache Cloudberry as in PostgreSQL with the exception of `STABLE` and `VOLATILE` functions, which are subject to the restrictions noted in [Apache Cloudberry Function Types](#topic27). See the [Functions and Operators](https://www.postgresql.org/docs/14/functions.html) section of the PostgreSQL documentation for more information about these built-in functions and operators.
+The following table lists the categories of built-in functions and operators supported by PostgreSQL. All functions and operators are supported in Apache Cloudberry as in PostgreSQL with the exception of `STABLE` and `VOLATILE` functions, which are subject to the restrictions noted in [Apache Cloudberry Function Types](#built-in-functions-and-operators). See the [Functions and Operators](https://www.postgresql.org/docs/14/functions.html) section of the PostgreSQL documentation for more information about these built-in functions and operators.
 
 |Operator/Function Category|VOLATILE Functions|STABLE Functions|Restrictions|
 |--------------------------|------------------|----------------|------------|

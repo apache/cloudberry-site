@@ -16,7 +16,7 @@ Apache Cloudberry includes built-in functions and operators that create and mani
 - [JSON operators](#json-operators)
 - [JSON creation functions](#json-creation-functions)
 - [JSON aggregate functions](#json-aggregate-functions)
-- [JSON processing functions](#json-processing-functions)
+- [JSON processing functions](#sqljson-path-language)
 
 ### JSON operators
 
