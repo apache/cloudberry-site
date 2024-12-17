@@ -200,7 +200,7 @@ Required. Begins the load specification section. A `GPLOAD` specification must h
 
 Required. Defines the location and the format of the input data to be loaded. `gpload` will start one or more instances of the [gpfdist](/docs/sys-utilities/gpfdist.md) file distribution program on the current host and create the required external table definition(s) in Apache Cloudberry that point to the source data. Note that the host from which you run `gpload` must be accessible over the network by all Apache Cloudberry hosts (coordinator and segments).
 
-SOURCE**
+**`SOURCE`**
 
 Required. The `SOURCE` block of an `INPUT` specification defines the location of a source file. An `INPUT` section can have more than one `SOURCE` block defined. Each `SOURCE` block defined corresponds to one instance of the [gpfdist](/docs/sys-utilities/gpfdist.md) file distribution program that will be started on the local machine. Each `SOURCE` block defined must have a `FILE` specification.
 

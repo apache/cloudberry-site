@@ -18,7 +18,7 @@ Take the following steps to compile and install Apache Cloudberry:
 1. [Clone GitHub repo](#step-1-clone-github-repo).
 2. [Install dependencies](#step-2-install-dependencies).
 3. [Perform prerequisite platform tasks](#step-3-perform-prerequisite-platform-tasks).
-4. [Build Apache Cloudberry](#step-4-build-apache-database).
+4. [Build Apache Cloudberry](#step-4-build-apache-cloudberry).
 5. [Verify the cluster](#step-5-verify-the-cluster).
 
 ## Step 1. Clone GitHub repo
