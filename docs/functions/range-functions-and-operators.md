@@ -2,7 +2,7 @@
 title: Range Functions and Operators
 ---
 
-# Range Functions and Operators in Cloudberry Database
+# Range Functions and Operators in Apache Cloudberry
 
 The following table shows the operators available for range types.
 

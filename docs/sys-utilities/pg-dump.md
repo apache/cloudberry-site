@@ -18,14 +18,14 @@ pg_dump -V | --version
 
 ## Description
 
-`pg_dump` is a standard PostgreSQL utility for backing up a database, and is also supported in Cloudberry Database. It creates a single (non-parallel) dump file. For routine backups of Cloudberry Database, it is better to use the Cloudberry Database backup utility, gpbackup, for the best performance.
+`pg_dump` is a standard PostgreSQL utility for backing up a database, and is also supported in Apache Cloudberry. It creates a single (non-parallel) dump file. For routine backups of Apache Cloudberry, it is better to use the Apache Cloudberry backup utility, gpbackup, for the best performance.
 
-Use `pg_dump` if you are migrating your data to another database vendor's system, or to another Cloudberry Database system with a different segment configuration (for example, if the system you are migrating to has greater or fewer segment instances). To restore, you must use the corresponding [pg_restore](/docs/sys-utilities/pg-restore.md) utility (if the dump file is in archive format), or you can use a client program such as [psql](/docs/sys-utilities/psql.md) (if the dump file is in plain text format).
+Use `pg_dump` if you are migrating your data to another database vendor's system, or to another Apache Cloudberry system with a different segment configuration (for example, if the system you are migrating to has greater or fewer segment instances). To restore, you must use the corresponding [pg_restore](/docs/sys-utilities/pg-restore.md) utility (if the dump file is in archive format), or you can use a client program such as [psql](/docs/sys-utilities/psql.md) (if the dump file is in plain text format).
 
-Since `pg_dump` is compatible with regular PostgreSQL, it can be used to migrate data into Cloudberry Database. The `pg_dump` utility in Cloudberry Database is very similar to the PostgreSQL `pg_dump` utility, with the following exceptions and limitations:
+Since `pg_dump` is compatible with regular PostgreSQL, it can be used to migrate data into Apache Cloudberry. The `pg_dump` utility in Apache Cloudberry is very similar to the PostgreSQL `pg_dump` utility, with the following exceptions and limitations:
 
-- If using `pg_dump` to backup a Cloudberry Database database, keep in mind that the dump operation can take a long time (several hours) for very large databases. Also, you must make sure you have sufficient disk space to create the dump file.
-- If you are migrating data from one Cloudberry Database system to another, use the `--gp-syntax` command-line option to include the `DISTRIBUTED BY` clause in `CREATE TABLE` statements. This ensures that Cloudberry Database table data is distributed with the correct distribution key columns upon restore.
+- If using `pg_dump` to backup a Apache Cloudberry database, keep in mind that the dump operation can take a long time (several hours) for very large databases. Also, you must make sure you have sufficient disk space to create the dump file.
+- If you are migrating data from one Apache Cloudberry system to another, use the `--gp-syntax` command-line option to include the `DISTRIBUTED BY` clause in `CREATE TABLE` statements. This ensures that Apache Cloudberry table data is distributed with the correct distribution key columns upon restore.
 
 `pg_dump` makes consistent backups even if the database is being used concurrently. `pg_dump` does not block other users accessing the database (readers or writers).
 
@@ -48,7 +48,7 @@ This option is similar to, but for historical reasons not identical to, specifyi
 
 Include large objects in the dump. This is the default behavior except when `--schema`, `--table`, or `--schema-only` is specified. The `-b` switch is only useful add large objects to dumps where a specific schema or table has been requested. Note that blobs are considered data and therefore will be included when `--data-only` is used, but not when `--schema-only` is.
 
-> **Note** Cloudberry Database does not support the PostgreSQL [large object facility](https://www.postgresql.org/docs/12/largeobjects.html) for streaming user data that is stored in large-object structures.
+> **Note** Apache Cloudberry does not support the PostgreSQL [large object facility](https://www.postgresql.org/docs/12/largeobjects.html) for streaming user data that is stored in large-object structures.
 
 **`-c | --clean`**
 
@@ -103,7 +103,7 @@ Do not dump any schemas matching the schema pattern. The pattern is interpreted 
 
 **`-o | --oids`**
 
-Dump object identifiers (OIDs) as part of the data for every table. Use of this option is not recommended for files that are intended to be restored into Cloudberry Database.
+Dump object identifiers (OIDs) as part of the data for every table. Use of this option is not recommended for files that are intended to be restored into Apache Cloudberry.
 
 **`-O | --no-owner`**
 
@@ -123,7 +123,7 @@ To exclude table data for only a subset of tables in the database, see `--exclud
 
 Specify the superuser user name to use when deactivating triggers. This is relevant only if `--disable-triggers` is used. It is better to leave this out, and instead start the resulting script as a superuser.
 
-> **Note** Cloudberry Database does not support user-defined triggers.
+> **Note** Apache Cloudberry does not support user-defined triggers.
 
 **`-t <table> | --table=<table>`**
 
@@ -173,7 +173,7 @@ This option deactivates the use of dollar quoting for function bodies, and force
 
 This option is relevant only when creating a data-only dump. It instructs `pg_dump` to include commands to temporarily deactivate triggers on the target tables while the data is reloaded. Use this if you have triggers on the tables that you do not want to invoke during data reload. The commands emitted for `--disable-triggers` must be done as superuser. So, you should also specify a superuser name with `-S`, or preferably be careful to start the resulting script as a superuser. This option is only meaningful for the plain-text format. For the archive formats, you may specify the option when you call [pg_restore](/docs/sys-utilities/pg-restore.md).
 
-> **Note** Cloudberry Database does not support user-defined triggers.
+> **Note** Apache Cloudberry does not support user-defined triggers.
 
 **`--exclude-table-and-children=<table>`**
 
@@ -217,7 +217,7 @@ Do not dump the contents of unlogged tables. This option has no effect on whethe
 
 **`--quote-all-identifiers`**
 
-Force quoting of all identifiers. This option is recommended when dumping a database from a server whose Cloudberry Database major version is different from `pg_dump`'s, or when the output is intended to be loaded into a server of a different major version. By default, `pg_dump` quotes only identifiers that are reserved words in its own major version. This sometimes results in compatibility issues when dealing with servers of other versions that may have slightly different sets of reserved words. Using `--quote-all-identifiers` prevents such issues, at the price of a harder-to-read dump script.
+Force quoting of all identifiers. This option is recommended when dumping a database from a server whose Apache Cloudberry major version is different from `pg_dump`'s, or when the output is intended to be loaded into a server of a different major version. By default, `pg_dump` quotes only identifiers that are reserved words in its own major version. This sometimes results in compatibility issues when dealing with servers of other versions that may have slightly different sets of reserved words. Using `--quote-all-identifiers` prevents such issues, at the price of a harder-to-read dump script.
 
 **`--section=<sectionname>`**
 
@@ -233,7 +233,7 @@ This option is not beneficial for a dump which is intended only for disaster rec
 
 This option will make no difference if there are no read-write transactions active when `pg_dump` is started. If read-write transactions are active, the start of the dump may be delayed for an indeterminate length of time. Once running, performance with or without the switch is the same.
 
-> **Note** Because Cloudberry Database does not support serializable transactions, the `--serializable-deferrable` option has no effect in Cloudberry Database.
+> **Note** Because Apache Cloudberry does not support serializable transactions, the `--serializable-deferrable` option has no effect in Apache Cloudberry.
 
 **`--table-and-children=<table>`**
 
@@ -245,7 +245,7 @@ Output SQL-standard `SET SESSION AUTHORIZATION` commands instead of `ALTER OWNER
 
 **`--gp-syntax | --no-gp-syntax`**
 
-Use `--gp-syntax` to dump Cloudberry Database syntax in the `CREATE TABLE` statements. This allows the distribution policy (`DISTRIBUTED BY` or `DISTRIBUTED RANDOMLY` clauses) of a Cloudberry Database table to be dumped, which is useful for restoring into other Cloudberry Database systems. The default is to include Cloudberry Database syntax when connected to a Cloudberry Database system, and to exclude it when connected to a regular PostgreSQL system.
+Use `--gp-syntax` to dump Apache Cloudberry syntax in the `CREATE TABLE` statements. This allows the distribution policy (`DISTRIBUTED BY` or `DISTRIBUTED RANDOMLY` clauses) of a Apache Cloudberry table to be dumped, which is useful for restoring into other Apache Cloudberry systems. The default is to include Apache Cloudberry syntax when connected to a Apache Cloudberry system, and to exclude it when connected to a regular PostgreSQL system.
 
 **`--function-oids <oids>`**
 
@@ -273,11 +273,11 @@ If this parameter contains an `=` sign or starts with a valid URI prefix (`postg
 
 **`-h <host> | --host=<host>`**
 
-The host name of the machine on which the Cloudberry Database coordinator database server is running. If not specified, reads from the environment variable `PGHOST` or defaults to localhost.
+The host name of the machine on which the Apache Cloudberry coordinator database server is running. If not specified, reads from the environment variable `PGHOST` or defaults to localhost.
 
 **`-p <port> | --port=<port>`**
 
-The TCP port on which the Cloudberry Database coordinator database server is listening for connections. If not specified, reads from the environment variable `PGPORT` or defaults to 5432.
+The TCP port on which the Apache Cloudberry coordinator database server is listening for connections. If not specified, reads from the environment variable `PGPORT` or defaults to 5432.
 
 **`-U <username> | --username=<username>`**
 
@@ -303,7 +303,7 @@ The dump file produced by `pg_dump` does not contain the statistics used by the 
 
 The database activity of `pg_dump` is normally collected by the statistics collector. If this is undesirable, you can set parameter `track_counts` to false via `PGOPTIONS` or the `ALTER USER` command.
 
-Because `pg_dump` may be used to transfer data to newer versions of Cloudberry Database, the output of `pg_dump` can be expected to load into Cloudberry Database versions newer than `pg_dump`'s version. `pg_dump` can also dump from Cloudberry Database versions older than its own version. However, `pg_dump` cannot dump from Cloudberry Database versions newer than its own major version; it will refuse to even try, rather than risk making an invalid dump. Also, it is not guaranteed that `pg_dump`'s output can be loaded into a server of an older major version — not even if the dump was taken from a server of that version. Loading a dump file into an older server may require manual editing of the dump file to remove syntax not understood by the older server. Use of the `--quote-all-identifiers` option is recommended in cross-version cases, as it can prevent problems arising from varying reserved-word lists in different Cloudberry Database versions.
+Because `pg_dump` may be used to transfer data to newer versions of Apache Cloudberry, the output of `pg_dump` can be expected to load into Apache Cloudberry versions newer than `pg_dump`'s version. `pg_dump` can also dump from Apache Cloudberry versions older than its own version. However, `pg_dump` cannot dump from Apache Cloudberry versions newer than its own major version; it will refuse to even try, rather than risk making an invalid dump. Also, it is not guaranteed that `pg_dump`'s output can be loaded into a server of an older major version — not even if the dump was taken from a server of that version. Loading a dump file into an older server may require manual editing of the dump file to remove syntax not understood by the older server. Use of the `--quote-all-identifiers` option is recommended in cross-version cases, as it can prevent problems arising from varying reserved-word lists in different Apache Cloudberry versions.
 
 ## Examples
 
@@ -319,7 +319,7 @@ To reload such a script into a (freshly created) database named `newdb`:
 psql -d newdb -f db.sql
 ```
 
-Dump a Cloudberry Database in tar file format and include distribution policy information:
+Dump a Apache Cloudberry in tar file format and include distribution policy information:
 
 ```shell
 pg_dump -Ft --gp-syntax mydb > db.tar

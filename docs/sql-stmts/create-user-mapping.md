@@ -24,15 +24,15 @@ The owner of a foreign server can create user mappings for that server for any u
 
 **`IF NOT EXISTS`**
 
-Do not throw an error if a mapping of the given user to the given foreign server already exists. Cloudberry Database issues a notice in this case. Note that there is no guarantee that the existing user mapping is anything like the one that would have been created.
+Do not throw an error if a mapping of the given user to the given foreign server already exists. Apache Cloudberry issues a notice in this case. Note that there is no guarantee that the existing user mapping is anything like the one that would have been created.
 
 **`user_name`**
 
-The name of an existing user that is mapped to the foreign server. `CURRENT_USER` and `USER` match the name of the current user. When `PUBLIC` is specified, Cloudberry Database creates a so-called public mapping that is used when no user-specific mapping is applicable.
+The name of an existing user that is mapped to the foreign server. `CURRENT_USER` and `USER` match the name of the current user. When `PUBLIC` is specified, Apache Cloudberry creates a so-called public mapping that is used when no user-specific mapping is applicable.
 
 **`server_name`**
 
-The name of an existing server for which Cloudberry Database is to create the user mapping.
+The name of an existing server for which Apache Cloudberry is to create the user mapping.
 
 **`OPTIONS ( option 'value' [, ... ] )`**
 

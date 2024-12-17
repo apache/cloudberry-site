@@ -26,7 +26,7 @@ DROP INDEX [ CONCURRENTLY ] [ IF EXISTS ] <name> [, ...] [ CASCADE | RESTRICT ]
 
 **`IF EXISTS`**
 
-如果索引不存在，则不抛出错误。在这种情况下，Cloudberry Database 会发出一个提醒。
+如果索引不存在，则不抛出错误。在这种情况下，Apache Cloudberry 会发出一个提醒。
 
 **`name`**
 
@@ -38,7 +38,7 @@ DROP INDEX [ CONCURRENTLY ] [ IF EXISTS ] <name> [, ...] [ CASCADE | RESTRICT ]
 
 **`RESTRICT`**
 
-如果有任何对象依赖于索引，Cloudberry Database 会拒绝删除索引。这是默认行为。
+如果有任何对象依赖于索引，Apache Cloudberry 会拒绝删除索引。这是默认行为。
 
 ## 示例
 
@@ -50,7 +50,7 @@ DROP INDEX title_idx;
 
 ## 兼容性
 
-`DROP INDEX` 是 Cloudberry Database 的语言扩展。SQL 标准中没有关于索引的规定。
+`DROP INDEX` 是 Apache Cloudberry 的语言扩展。SQL 标准中没有关于索引的规定。
 
 ## 另见
 

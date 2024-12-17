@@ -2,13 +2,13 @@
 title: 使用 COPY 加载数据
 ---
 
-# 使用 `COPY` 命令将数据加载进 Cloudberry Database
+# 使用 `COPY` 命令将数据加载进 Apache Cloudberry
 
-你可以使用 `COPY FROM` 命令从本地文件系统中的文件或通过标准输入加载数据到数据库表中，并将这些数据添加到表的末尾。使用 `COPY` 命令加载数据是一个串行过程，即所有数据都通过单进程在 Cloudberry Database 的 Coordinator 实例中加载。因此，`COPY` 命令更适合数据量较小的情况。
+你可以使用 `COPY FROM` 命令从本地文件系统中的文件或通过标准输入加载数据到数据库表中，并将这些数据添加到表的末尾。使用 `COPY` 命令加载数据是一个串行过程，即所有数据都通过单进程在 Apache Cloudberry 的 Coordinator 实例中加载。因此，`COPY` 命令更适合数据量较小的情况。
 
 在使用 `COPY` 命令时，Coordinator 主机上运行的 `postgres` 进程必须能够访问源文件。你可以通过指定相对于 Coordinator 主机数据目录的源文件名，或者指定一个绝对路径来直接指定文件的位置。
 
-此外，Cloudberry Database 可以通过客户端与 Coordinator 服务器之间的连接，从标准输入 (STDIN) 读取数据，或向标准输出 (STDOUT) 写入数据。该功能使数据加载更灵活，使得从各种数据源向数据库传输数据成为可能。
+此外，Apache Cloudberry 可以通过客户端与 Coordinator 服务器之间的连接，从标准输入 (STDIN) 读取数据，或向标准输出 (STDOUT) 写入数据。该功能使数据加载更灵活，使得从各种数据源向数据库传输数据成为可能。
 
 ## 从文件加载数据
 
@@ -50,7 +50,7 @@ COPY <table_name> FROM </path/to/filename> WITH (FORMAT csv);
 COPY <table_name> FROM </path/to/filename> WITH (FORMAT text, DELIMITER '|');
 ```
 
-默认情况下，Cloudberry Database 使用默认的客户端编码，你可以通过 `ENCODING` 选项来更改这一设置。数据来自其他操作系统时，这非常有用。
+默认情况下，Apache Cloudberry 使用默认的客户端编码，你可以通过 `ENCODING` 选项来更改这一设置。数据来自其他操作系统时，这非常有用。
 
 ```sql
 COPY <table_name> FROM </path/to/filename> WITH (ENCODING 'latin1');

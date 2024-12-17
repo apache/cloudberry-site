@@ -118,7 +118,7 @@ Default connection parameters.
 
 Specifies whether to use color in diagnostic messages. Possible values are `always`, `auto`, and `never`.
 
-This utility, like most other Cloudberry Database utilities, also uses the environment variables supported by `libpq`.
+This utility, like most other Apache Cloudberry utilities, also uses the environment variables supported by `libpq`.
 
 ## Diagnostics
 

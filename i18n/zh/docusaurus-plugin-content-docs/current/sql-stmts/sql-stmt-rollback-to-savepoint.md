@@ -67,7 +67,7 @@ COMMIT;
 
 ## 兼容性
 
-SQL 标准规定关键字 `SAVEPOINT` 是必须的，但 Cloudberry Database（以及 Oracle）允许它被省略。SQL 只允许在 `ROLLBACK` 之后使用 `WORK`，而不是 `TRANSACTION`。此外，SQL 还有一个可选的 `AND [NO] CHAIN` 子句，Cloudberry Database 目前不支持。除此之外，该命令符合 SQL 标准。
+SQL 标准规定关键字 `SAVEPOINT` 是必须的，但 Apache Cloudberry（以及 Oracle）允许它被省略。SQL 只允许在 `ROLLBACK` 之后使用 `WORK`，而不是 `TRANSACTION`。此外，SQL 还有一个可选的 `AND [NO] CHAIN` 子句，Apache Cloudberry 目前不支持。除此之外，该命令符合 SQL 标准。
 
 ## 另见
 

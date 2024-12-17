@@ -56,7 +56,7 @@ ALTER USER { <role_specification> | ALL } [ IN DATABASE <database_name> ] RESET 
 
 ## Compatibility
 
-The `ALTER USER` statement is a Cloudberry Database extension. The SQL standard leaves the definition of users to the implementation.
+The `ALTER USER` statement is a Apache Cloudberry extension. The SQL standard leaves the definition of users to the implementation.
 
 ## See also
 

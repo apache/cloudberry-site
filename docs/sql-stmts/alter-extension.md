@@ -158,7 +158,7 @@ ALTER EXTENSION hstore ADD FUNCTION populate_record(anyelement, hstore);
 
 ## Compatibility
 
-`ALTER EXTENSION` is a Cloudberry Database extension.
+`ALTER EXTENSION` is a Apache Cloudberry extension.
 
 ## See also
 

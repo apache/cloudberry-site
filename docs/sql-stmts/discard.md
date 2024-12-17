@@ -16,7 +16,7 @@ DISCARD { ALL | PLANS | SEQUENCES | TEMPORARY | TEMP }
 
 `DISCARD` releases internal resources associated with a database session. This command is useful for partially or fully resetting the session's state. There are several subcommands to release different types of resources; the `DISCARD ALL` variant subsumes all the others, and also resets additional state.
 
-Cloudberry Database does not support invoking `DISCARD ALL` in a transaction.
+Apache Cloudberry does not support invoking `DISCARD ALL` in a transaction.
 
 ## Parameters
 
@@ -54,4 +54,4 @@ Releases all temporary resources associated with the current session and resets 
 
 ## Compatibility
 
-`DISCARD` is a Cloudberry Database extension.
+`DISCARD` is a Apache Cloudberry extension.

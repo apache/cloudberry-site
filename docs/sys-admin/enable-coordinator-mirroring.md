@@ -1,11 +1,11 @@
 ---
-title: Enable Coordinator Mirroring for Cloudberry Database
+title: Enable Coordinator Mirroring for Apache Cloudberry
 toc_max_heading_level: 5
 ---
 
-# Enable Coordinator Mirroring for Cloudberry Database
+# Enable Coordinator Mirroring for Apache Cloudberry
 
-Cloudberry Database provides a series of high-availability features to make sure your database system can tolerate unexpected incidents such as a hardware platform failure and can be quickly recovered from such incidents.
+Apache Cloudberry provides a series of high-availability features to make sure your database system can tolerate unexpected incidents such as a hardware platform failure and can be quickly recovered from such incidents.
 
 This topic describes how to configure coordinator mirroring to ensure a smooth coordinator node failover.
 
@@ -33,7 +33,7 @@ Make sure that you have already configured a standby coordinator on a different 
 
 :::note
 
-If you follow the steps described in the [Prepare to Deploy](https://cloudberrydb.org/docs/cbdb-op-prepare-to-deploy) and [Deploy Cloudberry Database Manually Using RPM Package](https://cloudberrydb.org/docs/cbdb-op-deploy-guide) topics to deploy the cluster, a host for the standby coordinator ( `cbdb-standbycoordinator`) is already configured in the cluster.
+If you follow the steps described in the [Prepare to Deploy](https://cloudberry.apache.org/docs/cbdb-op-prepare-to-deploy) and [Deploy Apache Cloudberry Manually Using RPM Package](https://cloudberry.apache.org/docs/cbdb-op-deploy-guide) topics to deploy the cluster, a host for the standby coordinator ( `cbdb-standbycoordinator`) is already configured in the cluster.
 
 :::
 

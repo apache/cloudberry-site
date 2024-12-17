@@ -50,9 +50,9 @@
 
 ## Extension
 
-- [CREATE EXTENSION](./create-extension.md) - Registers an extension in a Cloudberry Database.
+- [CREATE EXTENSION](./create-extension.md) - Registers an extension in a Apache Cloudberry.
 - [ALTER EXTENSION](./alter-extension.md) - Change the definition of an extension.
-- [DROP EXTENSION](./drop-extension.md) - Removes an extension from a Cloudberry Database.
+- [DROP EXTENSION](./drop-extension.md) - Removes an extension from a Apache Cloudberry.
 
 ## External Table
 
@@ -174,7 +174,7 @@
 
 ## Protocol
 
-- [CREATE PROTOCOL](./create-protocol.md) - Registers a custom data access protocol that can be specified when defining a Cloudberry Database external table.
+- [CREATE PROTOCOL](./create-protocol.md) - Registers a custom data access protocol that can be specified when defining a Apache Cloudberry external table.
 - [ALTER PROTOCOL](./alter-protocol.md) - Changes the definition of a protocol.
 - [DROP PROTOCOL](./drop-protocol.md) - Removes a data access protocol from a database.
 
@@ -320,7 +320,7 @@
 
 ## Configuration Parameter
 
-- [SET](./set.md) - Changes the value of a run-time Cloudberry Database configuration parameter.
+- [SET](./set.md) - Changes the value of a run-time Apache Cloudberry configuration parameter.
 - [RESET](./reset.md) - Restores the value of a run-time system configuration parameter to the default value.
 - [SHOW](./show.md) - Shows the value of a run-time system configuration parameter.
 

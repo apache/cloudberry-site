@@ -6,13 +6,13 @@ title: Configure Client Authentication
 
 This topic explains how to configure client connections and authentication for Apache Cloudberry.
 
-When a Cloudberry Database system is first initialized, the system contains one predefined *superuser* role. This role will have the same name as the operating system user who initialized the Cloudberry Database system. This role is referred to as `gpadmin`. By default, the system is configured to only allow local connections to the database from the `gpadmin` role. If you want to allow any other roles to connect, or if you want to allow connections from remote hosts, you have to configure Cloudberry Database to allow such connections. This section explains how to configure client connections and authentication to Cloudberry Database.
+When a Apache Cloudberry system is first initialized, the system contains one predefined *superuser* role. This role will have the same name as the operating system user who initialized the Apache Cloudberry system. This role is referred to as `gpadmin`. By default, the system is configured to only allow local connections to the database from the `gpadmin` role. If you want to allow any other roles to connect, or if you want to allow connections from remote hosts, you have to configure Apache Cloudberry to allow such connections. This section explains how to configure client connections and authentication to Apache Cloudberry.
 
-## Allowing Connections to Cloudberry Database 
+## Allowing Connections to Apache Cloudberry 
 
 Client access and authentication is controlled by a configuration file named `pg_hba.conf` (the standard PostgreSQL host-based authentication file). For detailed information about this file, see [The pg_hba.conf File](https://www.postgresql.org/docs/14/auth-pg-hba-conf.html) in the PostgreSQL documentation.
 
-In Cloudberry Database, the `pg_hba.conf` file of the coordinator instance controls client access and authentication to your Cloudberry system. The segments also have `pg_hba.conf` files, but these are already correctly configured to only allow client connections from the coordinator host. The segments never accept outside client connections, so there is no need to alter the `pg_hba.conf` file on segments.
+In Apache Cloudberry, the `pg_hba.conf` file of the coordinator instance controls client access and authentication to your Cloudberry system. The segments also have `pg_hba.conf` files, but these are already correctly configured to only allow client connections from the coordinator host. The segments never accept outside client connections, so there is no need to alter the `pg_hba.conf` file on segments.
 
 The general format of the `pg_hba.conf` file is a set of records, one per line. Blank lines are ignored, as is any text after a \# comment character. A record is made up of a number of fields which are separated by spaces and/or tabs. Fields can contain white space if the field value is quoted. Records cannot be continued across lines.
 
@@ -36,7 +36,7 @@ Matches connection attempts using UNIX-domain sockets. Without a record of this 
 
 **`host`**
 
-Matches connection attempts made using TCP/IP. Remote TCP/IP connections will not be possible unless the server is started with an appropriate value for the `listen_addresses` server configuration parameter. Cloudberry Database by default allows connections from all hosts (`'*'`).
+Matches connection attempts made using TCP/IP. Remote TCP/IP connections will not be possible unless the server is started with an appropriate value for the `listen_addresses` server configuration parameter. Apache Cloudberry by default allows connections from all hosts (`'*'`).
 
 **`hostssl`**
 
@@ -107,10 +107,10 @@ For a more secure system, remove records for remote connections that use `trust`
 
 ## Editing the pg_hba.conf File 
 
-Initially, the `pg_hba.conf` file is set up with generous permissions for the gpadmin user and no database access for other Cloudberry Database roles. You will need to edit the `pg_hba.conf` file to enable users' access to databases and to secure the gpadmin user. Consider removing entries that have `trust` authentication, since they allow anyone with access to the server to connect with any role they choose. For local (UNIX socket) connections, use `ident` authentication, which requires the operating system user to match the role specified. For local and remote TCP connections, `ident` authentication requires the client's host to run an indent service. You could install an ident service on the coordinator host and then use `ident` authentication for local TCP connections, for example `127.0.0.1/28`. Using `ident` authentication for remote TCP connections is less secure because it requires you to trust the integrity of the ident service on the client's host.
+Initially, the `pg_hba.conf` file is set up with generous permissions for the gpadmin user and no database access for other Apache Cloudberry roles. You will need to edit the `pg_hba.conf` file to enable users' access to databases and to secure the gpadmin user. Consider removing entries that have `trust` authentication, since they allow anyone with access to the server to connect with any role they choose. For local (UNIX socket) connections, use `ident` authentication, which requires the operating system user to match the role specified. For local and remote TCP connections, `ident` authentication requires the client's host to run an indent service. You could install an ident service on the coordinator host and then use `ident` authentication for local TCP connections, for example `127.0.0.1/28`. Using `ident` authentication for remote TCP connections is less secure because it requires you to trust the integrity of the ident service on the client's host.
 
 :::info
-Cloudberry Command Center provides an interface for editing the `pg_hba.conf` file. It verifies entries before you save them, keeps a version history of the file so that you can reload a previous version of the file, and reloads the file into Cloudberry Database.
+Cloudberry Command Center provides an interface for editing the `pg_hba.conf` file. It verifies entries before you save them, keeps a version history of the file so that you can reload a previous version of the file, and reloads the file into Apache Cloudberry.
 :::
 
 This example shows how to edit the `pg_hba.conf` file on the coordinator host to allow remote client access to all databases from all roles using encrypted password authentication.
@@ -219,7 +219,7 @@ Authentication method:
 
 ### OpenSSL Configuration 
 
-You can make changes to the OpenSSL configuration by updating the `openssl.cnf` file under your OpenSSL installation directory, or the file referenced by `$OPENSSL_CONF`, if present, and then restarting the Cloudberry Database server.
+You can make changes to the OpenSSL configuration by updating the `openssl.cnf` file under your OpenSSL installation directory, or the file referenced by `$OPENSSL_CONF`, if present, and then restarting the Apache Cloudberry server.
 
 ### Creating a Self-Signed Certificate 
 
@@ -274,14 +274,14 @@ The following Server settings need to be specified in the `postgresql.conf` con
   It is possible to have authentication without encryption overhead by using `NULL-SHA` or `NULL-MD5` ciphers. However, a man-in-the-middle could read and pass communications between client and server. Also, encryption overhead is minimal compared to the overhead of authentication. For these reasons, NULL ciphers should not be used.
   :::
 
-The default location for the following SSL server files is the Cloudberry Database coordinator data directory (`$COORDINATOR_DATA_DIRECTORY`):
+The default location for the following SSL server files is the Apache Cloudberry coordinator data directory (`$COORDINATOR_DATA_DIRECTORY`):
 
 - `server.crt` - Server certificate.
 - `server.key` - Server private key.
 - `root.crt` - Trusted certificate authorities.
 - `root.crl` - Certificates revoked by certificate authorities.
 
-If Cloudberry Database coordinator mirroring is enabled with SSL client authentication, the SSL server files *should not be placed* in the default directory `$COORDINATOR_DATA_DIRECTORY`. If a `gpinitstandby` operation is performed, the contents of `$COORDINATOR_DATA_DIRECTORY` is copied from the coordinator to the standby coordinator and the incorrect SSL key, and cert files (the coordinator files, and not the standby coordinator files) will prevent standby coordinator start up.
+If Apache Cloudberry coordinator mirroring is enabled with SSL client authentication, the SSL server files *should not be placed* in the default directory `$COORDINATOR_DATA_DIRECTORY`. If a `gpinitstandby` operation is performed, the contents of `$COORDINATOR_DATA_DIRECTORY` is copied from the coordinator to the standby coordinator and the incorrect SSL key, and cert files (the coordinator files, and not the standby coordinator files) will prevent standby coordinator start up.
 
 You can specify a different directory for the location of the SSL server files with the `postgresql.conf` parameters `sslcert`, `sslkey`, `sslrootcert`, and `sslcrl`.
 
@@ -337,9 +337,9 @@ psql "sslmode=verify-ca host=localhost dbname=postgres"
 
 ## Limiting Concurrent Connections 
 
-Cloudberry Database allocates some resources on a per-connection basis, so setting the maximum number of connections allowed is recommended.
+Apache Cloudberry allocates some resources on a per-connection basis, so setting the maximum number of connections allowed is recommended.
 
-To limit the number of active concurrent sessions to your Cloudberry Database system, you can configure the `max_connections` server configuration parameter. This is a *local* parameter, meaning that you must set it in the `postgresql.conf` file of the coordinator, the standby coordinator, and each segment instance (primary and mirror). The recommended value of `max_connections` on segments is 5-10 times the value on the coordinator.
+To limit the number of active concurrent sessions to your Apache Cloudberry system, you can configure the `max_connections` server configuration parameter. This is a *local* parameter, meaning that you must set it in the `postgresql.conf` file of the coordinator, the standby coordinator, and each segment instance (primary and mirror). The recommended value of `max_connections` on segments is 5-10 times the value on the coordinator.
 
 When you set `max_connections`, you must also set the dependent parameter `max_prepared_transactions`. This value must be at least as large as the value of `max_connections` on the coordinator, and segment instances should be set to the same value as the coordinator.
 
@@ -360,11 +360,11 @@ For example:
     ```
 
 
-The following steps set the parameter values with the Cloudberry Database utility `gpconfig`.
+The following steps set the parameter values with the Apache Cloudberry utility `gpconfig`.
 
 ### To change the number of allowed connections 
 
-1. Log into the Cloudberry Database coordinator host as the Cloudberry Database administrator and source the file `$GPHOME/greenplum_path.sh`.
+1. Log into the Apache Cloudberry coordinator host as the Apache Cloudberry administrator and source the file `$GPHOME/greenplum_path.sh`.
 2. Set the value of the `max_connections` parameter. This `gpconfig` command sets the value on the segments to 1000 and the value on the coordinator to 200.
 
     ```shell
@@ -381,7 +381,7 @@ The following steps set the parameter values with the Cloudberry Database utilit
 
     The value of `max_prepared_transactions` must be greater than or equal to `max_connections` on the coordinator.
 
-4. Stop and restart your Cloudberry Database system.
+4. Stop and restart your Apache Cloudberry system.
 
     ```shell
     $ gpstop -r
@@ -394,32 +394,32 @@ The following steps set the parameter values with the Cloudberry Database utilit
     ```
 
 :::info
-Raising the values of these parameters may cause Cloudberry Database to request more shared memory. To mitigate this effect, consider decreasing other memory-related parameters such as `gp_cached_segworkers_threshold`.
+Raising the values of these parameters may cause Apache Cloudberry to request more shared memory. To mitigate this effect, consider decreasing other memory-related parameters such as `gp_cached_segworkers_threshold`.
 :::
 
 ## Encrypting Client/Server Connections 
 
-Enable SSL for client connections to Cloudberry Database to encrypt the data passed over the network between the client and the database.
+Enable SSL for client connections to Apache Cloudberry to encrypt the data passed over the network between the client and the database.
 
-Cloudberry Database has native support for SSL connections between the client and the coordinator server. SSL connections prevent third parties from snooping on the packets, and also prevent man-in-the-middle attacks. SSL should be used whenever the client connection goes through an insecure link, and must be used whenever client certificate authentication is used.
+Apache Cloudberry has native support for SSL connections between the client and the coordinator server. SSL connections prevent third parties from snooping on the packets, and also prevent man-in-the-middle attacks. SSL should be used whenever the client connection goes through an insecure link, and must be used whenever client certificate authentication is used.
 
-Enabling Cloudberry Database in SSL mode requires the following items.
+Enabling Apache Cloudberry in SSL mode requires the following items.
 
 - OpenSSL installed on both the client and the coordinator server hosts (coordinator and standby coordinator).
 - The SSL files server.key (server private key) and server.crt (server certificate) should be correctly generated for the coordinator host and standby coordinator host.
 
-    - The private key should not be protected with a passphrase. The server does not prompt for a passphrase for the private key, and Cloudberry Database start up fails with an error if one is required.
+    - The private key should not be protected with a passphrase. The server does not prompt for a passphrase for the private key, and Apache Cloudberry start up fails with an error if one is required.
     - On a production system, there should be a key and certificate pair for the coordinator host and a pair for the standby coordinator host with a subject CN (Common Name) for the coordinator host and standby coordinator host.
 
     A self-signed certificate can be used for testing, but a certificate signed by a certificate authority (CA) should be used in production, so the client can verify the identity of the server. Either a global or local CA can be used. If all the clients are local to the organization, a local CA is recommended.
 
-- Ensure that Cloudberry Database can access server.key and server.crt, and any additional authentication files such as `root.crt` (for trusted certificate authorities). When starting in SSL mode, the Cloudberry Database coordinator looks for server.key and server.crt. As the default, Cloudberry Database does not start if the files are not in the coordinator data directory (`$COORDINATOR_DATA_DIRECTORY`). Also, if you use other SSL authentication files such as `root.crt` (trusted certificate authorities), the files must be on the coordinator host.
+- Ensure that Apache Cloudberry can access server.key and server.crt, and any additional authentication files such as `root.crt` (for trusted certificate authorities). When starting in SSL mode, the Apache Cloudberry coordinator looks for server.key and server.crt. As the default, Apache Cloudberry does not start if the files are not in the coordinator data directory (`$COORDINATOR_DATA_DIRECTORY`). Also, if you use other SSL authentication files such as `root.crt` (trusted certificate authorities), the files must be on the coordinator host.
 
-    If Cloudberry Database coordinator mirroring is enabled with SSL client authentication, SSL authentication files must be on both the coordinator host and standby coordinator host and *should not be placed* in the default directory `$COORDINATOR_DATA_DIRECTORY`. When coordinator mirroring is enabled, an `initstandby` operation copies the contents of the `$COORDINATOR_DATA_DIRECTORY` from the coordinator to the standby coordinator and the incorrect SSL key, and cert files (the coordinator files, and not the standby coordinator files) will prevent standby coordinator start up.
+    If Apache Cloudberry coordinator mirroring is enabled with SSL client authentication, SSL authentication files must be on both the coordinator host and standby coordinator host and *should not be placed* in the default directory `$COORDINATOR_DATA_DIRECTORY`. When coordinator mirroring is enabled, an `initstandby` operation copies the contents of the `$COORDINATOR_DATA_DIRECTORY` from the coordinator to the standby coordinator and the incorrect SSL key, and cert files (the coordinator files, and not the standby coordinator files) will prevent standby coordinator start up.
 
     You can specify a different directory for the location of the SSL server files with the `postgresql.conf` parameters `sslcert`, `sslkey`, `sslrootcert`, and `sslcrl`.
 
-Cloudberry Database can be started with SSL enabled by setting the server configuration parameter `ssl=on` in the `postgresql.conf` file on the coordinator and standby coordinator hosts. This `gpconfig` command sets the parameter:
+Apache Cloudberry can be started with SSL enabled by setting the server configuration parameter `ssl=on` in the `postgresql.conf` file on the coordinator and standby coordinator hosts. This `gpconfig` command sets the parameter:
 
 ```shell
 gpconfig -c ssl -m on -v off
@@ -439,7 +439,7 @@ Enter the information requested by the prompts. Be sure to enter the local host 
 
 The program will generate a key that is passphrase protected, and does not accept a passphrase that is less than four characters long.
 
-To use this certificate with Cloudberry Database, remove the passphrase with the following commands:
+To use this certificate with Apache Cloudberry, remove the passphrase with the following commands:
 
 ```
 # openssl rsa -in privkey.pem -out server.key

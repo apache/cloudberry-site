@@ -14,7 +14,7 @@ UNLISTEN { <channel> | * }
 
 ## Description
 
-`UNLISTEN` is used to remove an existing registration for `NOTIFY` events. `UNLISTEN` cancels any existing registration of the current Cloudberry Database session as a listener on the notification channel named channel. The special wildcard `*` cancels all listener registrations for the current session.
+`UNLISTEN` is used to remove an existing registration for `NOTIFY` events. `UNLISTEN` cancels any existing registration of the current Apache Cloudberry session as a listener on the notification channel named channel. The special wildcard `*` cancels all listener registrations for the current session.
 
 [NOTIFY](/docs/sql-stmts/notify.md) contains a more extensive discussion of the use of `LISTEN` and `NOTIFY`.
 

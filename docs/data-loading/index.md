@@ -4,11 +4,11 @@ title: Data Loading Overview
 
 # Data Loading Overview
 
-Cloudberry Database loads data mainly by transforming external data into external tables (or foreign tables) via loading tools. Then it reads data from these external tables or writes data into them to achieve external data loading.
+Apache Cloudberry loads data mainly by transforming external data into external tables (or foreign tables) via loading tools. Then it reads data from these external tables or writes data into them to achieve external data loading.
 
 ## Loading process
 
-The general process of loading external data into Cloudberry Database is as follows:
+The general process of loading external data into Apache Cloudberry is as follows:
 
 1. Assess the data loading scenario (such as data source location, data type, and data volume) and select an appropriate loading tool.
 2. Set up and enable the loading tool.
@@ -17,7 +17,7 @@ The general process of loading external data into Cloudberry Database is as foll
 
 ## Loading methods and scenarios
 
-Cloudberry Database offers multiple data loading solutions, and you can select different data loading methods according to different data sources.
+Apache Cloudberry offers multiple data loading solutions, and you can select different data loading methods according to different data sources.
 
 | Loading method              | Data source                                                 | Data format                                                  | Parallel or not |
 | -------------------------- | ----------------------------------------------------------- | ------------------------------------------------------------ | -------- |

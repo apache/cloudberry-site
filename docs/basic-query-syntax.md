@@ -2,11 +2,11 @@
 title: Basic Query Syntax
 ---
 
-# Basic Queries of Cloudberry Database
+# Basic Queries of Apache Cloudberry
 
-This document introduce the basic queries of Cloudberry Database.
+This document introduce the basic queries of Apache Cloudberry.
 
-Cloudberry Database is a high-performance, highly parallel data warehouse developed based on PostgreSQL and Greenplum. Here are some examples of the basic query syntax.
+Apache Cloudberry is a high-performance, highly parallel data warehouse developed based on PostgreSQL and Greenplum. Here are some examples of the basic query syntax.
 
 - `SELECT`: Used to retrieve data from databases & tables.
 
@@ -59,7 +59,7 @@ Cloudberry Database is a high-performance, highly parallel data warehouse develo
     WHERE department_id IN (SELECT id FROM departments WHERE location = 'New York');  -- Queries all employees working in New York.
     ```
 
-The above is just a brief overview of the basic query syntax in Cloudberry Database. Cloudberry Database also provides more advanced queries and functions to help developers perform complex data operations and analyses.
+The above is just a brief overview of the basic query syntax in Apache Cloudberry. Apache Cloudberry also provides more advanced queries and functions to help developers perform complex data operations and analyses.
 
 ## See also
 

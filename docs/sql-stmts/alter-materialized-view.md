@@ -85,7 +85,7 @@ ALTER MATERIALIZED VIEW foo RENAME TO bar;
 
 ## Compatibility
 
-`ALTER MATERIALIZED VIEW` is a Cloudberry Database extension of the SQL standard.
+`ALTER MATERIALIZED VIEW` is a Apache Cloudberry extension of the SQL standard.
 
 ## See also
 

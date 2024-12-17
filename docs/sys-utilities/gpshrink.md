@@ -4,7 +4,7 @@ title: gpshrink
 
 # gpshrink
 
-Cloudberry Database scales in clusters using the `gpshrink` system tool. When cluster resources are idle, such as disk space usage consistently below 20% or low CPU and memory usage, `gpshrink` can be used to reduce the size of the cluster, saving server resources. Users can remove segments from redundant servers with the `gpshrink` tool to scale in the cluster.
+Apache Cloudberry scales in clusters using the `gpshrink` system tool. When cluster resources are idle, such as disk space usage consistently below 20% or low CPU and memory usage, `gpshrink` can be used to reduce the size of the cluster, saving server resources. Users can remove segments from redundant servers with the `gpshrink` tool to scale in the cluster.
 
 The gpshrink tool operates in two phases:
 
@@ -44,8 +44,8 @@ The gpshrink tool operates in two phases:
     Example format for deleting one segment:
 
     ```bash
-    i-thd001y0|i-thd001y0|7004|/home/gpadmin/cloudberrydb/gpAux/gpdemo/datadirs/dbfast3/demoDataDir2|4|2|p
-    i-thd001y0|i-thd001y0|7007|/home/gpadmin/cloudberrydb/gpAux/gpdemo/datadirs/dbfast_mirror3/demoDataDir2|7|2|m
+    i-thd001y0|i-thd001y0|7004|/home/gpadmin/cloudberry/gpAux/gpdemo/datadirs/dbfast3/demoDataDir2|4|2|p
+    i-thd001y0|i-thd001y0|7007|/home/gpadmin/cloudberry/gpAux/gpdemo/datadirs/dbfast_mirror3/demoDataDir2|7|2|m
     ```
 
 4. Run the `gpshrink` Command Twice:

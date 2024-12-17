@@ -32,7 +32,7 @@ In a system with mirrors enabled, the `gprecoverseg` utility reactivates a faile
 
 During an incremental recovery (the `-F` option is not specified), if `gprecoverseg` detects a segment instance with mirroring deactivated in a system with mirrors activated, the utility reports that mirroring is deactivated for the segment, does not attempt to recover that segment instance, and continues the recovery process.
 
-A segment instance can fail for several reasons, such as a host failure, network failure, or disk failure. When a segment instance fails, its status is marked as `d` (down) in the Cloudberry Database system catalog, and its mirror is activated in `Not in Sync` mode. In order to bring the failed segment instance back into operation again, you must first correct the problem that made it fail in the first place, and then recover the segment instance in Cloudberry Database using `gprecoverseg`.
+A segment instance can fail for several reasons, such as a host failure, network failure, or disk failure. When a segment instance fails, its status is marked as `d` (down) in the Apache Cloudberry system catalog, and its mirror is activated in `Not in Sync` mode. In order to bring the failed segment instance back into operation again, you must first correct the problem that made it fail in the first place, and then recover the segment instance in Apache Cloudberry using `gprecoverseg`.
 
 Segment recovery using `gprecoverseg` requires that you have an active mirror to recover from. For systems that do not have mirroring enabled, or in the event of a double fault (a primary and mirror pair both down at the same time) — you must take manual steps to recover the failed segment instances and then perform a system restart to bring the segments back online. For example, this command restarts a system.
 
@@ -62,9 +62,9 @@ The `gp_segment_configuration` system catalog table can help you determine your 
    ORDER BY dbid;
 ```
 
-The new recovery segment host must be pre-installed with the Cloudberry Database software and configured exactly the same as the existing segment hosts. A spare data directory location must exist on all currently configured segment hosts and have enough disk space to accommodate the failed segments.
+The new recovery segment host must be pre-installed with the Apache Cloudberry software and configured exactly the same as the existing segment hosts. A spare data directory location must exist on all currently configured segment hosts and have enough disk space to accommodate the failed segments.
 
-The recovery process marks the segment as up again in the Cloudberry Database system catalog, and then initiates the resynchronization process to bring the transactional state of the segment up-to-date with the latest changes. The system is online and available during `Not in Sync` mode.
+The recovery process marks the segment as up again in the Apache Cloudberry system catalog, and then initiates the resynchronization process to bring the transactional state of the segment up-to-date with the latest changes. The system is online and available during `Not in Sync` mode.
 
 ## Options
 
@@ -103,9 +103,9 @@ Optional. Perform a differential copy of the active segment instance in order to
 
 **`--hba-hostnames boolean`**
 
-Optional. Controls whether this utility uses IP addresses or host names in the `pg_hba.conf` file when updating this file with addresses that can connect to Cloudberry Database. When set to 0 -- the default value -- this utility uses IP addresses when updating this file. When set to 1, this utility uses host names when updating this file. For consistency, use the same value that was specified for `HBA_HOSTNAMES` when the Cloudberry Database system was initialized.
+Optional. Controls whether this utility uses IP addresses or host names in the `pg_hba.conf` file when updating this file with addresses that can connect to Apache Cloudberry. When set to 0 -- the default value -- this utility uses IP addresses when updating this file. When set to 1, this utility uses host names when updating this file. For consistency, use the same value that was specified for `HBA_HOSTNAMES` when the Apache Cloudberry system was initialized.
 
-<!-- For information about how Cloudberry Database resolves host names in the `pg_hba.conf` file, see [Configuring Client Authentication](../../admin_guide/client_auth.html). -->
+<!-- For information about how Apache Cloudberry resolves host names in the `pg_hba.conf` file, see [Configuring Client Authentication](../../admin_guide/client_auth.html). -->
 
 **`-i recover_config_file`**
 
@@ -169,9 +169,9 @@ $ gprecoverseg -o /home/gpadmin/recover_config_file
 
 **`-p new_recover_host[,...]`**
 
-Specifies a new host outside of the currently configured Cloudberry Database array on which to recover invalid segments.
+Specifies a new host outside of the currently configured Apache Cloudberry array on which to recover invalid segments.
 
-The new host must have the Cloudberry Database software installed and configured, and have the same hardware and OS configuration as the current segment hosts (same OS version, locales, `gpadmin` user account, data directory locations created, ssh keys exchanged, number of network interfaces, network interface naming convention, and so on). Specifically, the Cloudberry Database binaries must be installed, the new host must be able to connect password-less with all segments including the Cloudberry coordinator, and any other Cloudberry Database specific OS configuration parameters must be applied.
+The new host must have the Apache Cloudberry software installed and configured, and have the same hardware and OS configuration as the current segment hosts (same OS version, locales, `gpadmin` user account, data directory locations created, ssh keys exchanged, number of network interfaces, network interface naming convention, and so on). Specifically, the Apache Cloudberry binaries must be installed, the new host must be able to connect password-less with all segments including the Cloudberry coordinator, and any other Apache Cloudberry specific OS configuration parameters must be applied.
 
 > **Note** In the case of multiple failed segment hosts, you can specify the hosts to recover with a comma-separated list. However, it is strongly recommended to recover one host at a time. If you must recover more than one host at a time, then it is critical to ensure that a double fault scenario does not occur, in which both the segment primary and corresponding mirror are offline.
 

@@ -86,7 +86,7 @@ COMMIT;
 
 ## 兼容性
 
-SQL 标准要求新的保存点建立时，自动销毁同名的旧保存点。在 Cloudberry Database 中，旧保存点会被保留，但只有最新的保存点会在回滚或释放时被使用。释放最新的保存点会使旧的保存点再次可被 [`ROLLBACK TO SAVEPOINT`](/i18n/zh/docusaurus-plugin-content-docs/current/sql-stmts/rollback-to-savepoint.md) 和 [`RELEASE SAVEPOINT`](https://github.com/cloudberrydb/cloudberrydb-site/blob/cbdb-doc-validation/docs/sql-stmts/release-savepoint.md) 访问。除此之外，`SAVEPOINT` 完全符合 SQL 标准。
+SQL 标准要求新的保存点建立时，自动销毁同名的旧保存点。在 Apache Cloudberry 中，旧保存点会被保留，但只有最新的保存点会在回滚或释放时被使用。释放最新的保存点会使旧的保存点再次可被 [`ROLLBACK TO SAVEPOINT`](/i18n/zh/docusaurus-plugin-content-docs/current/sql-stmts/rollback-to-savepoint.md) 和 [`RELEASE SAVEPOINT`](https://github.com/cloudberrydb/cloudberrydb-site/blob/cbdb-doc-validation/docs/sql-stmts/release-savepoint.md) 访问。除此之外，`SAVEPOINT` 完全符合 SQL 标准。
 
 ## 另见
 

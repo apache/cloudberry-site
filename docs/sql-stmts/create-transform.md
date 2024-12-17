@@ -88,7 +88,7 @@ In practice, these commands would be wrapped up in an extension.
 
 ## Compatibility
 
-This form of `CREATE TRANSFORM` is a Cloudberry Database extension. There is a `CREATE TRANSFORM` command in the SQL standard, but it is for adapting data types to client languages. That usage is not supported by Cloudberry Database.
+This form of `CREATE TRANSFORM` is a Apache Cloudberry extension. There is a `CREATE TRANSFORM` command in the SQL standard, but it is for adapting data types to client languages. That usage is not supported by Apache Cloudberry.
 
 ## See also
 

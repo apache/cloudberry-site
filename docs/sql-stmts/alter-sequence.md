@@ -42,13 +42,13 @@ The name (optionally schema-qualified) of a sequence to be altered.
 
 **`IF EXISTS`**
 
-Do not throw an error if the sequence does not exist. Cloudberry Database issues a notice in this case.
+Do not throw an error if the sequence does not exist. Apache Cloudberry issues a notice in this case.
 
 **`data_type`**
 
 The optional clause `AS data_type` changes the data type of the sequence. Valid types are `smallint`, `integer`, and `bigint`.
 
-Changing the data type automatically changes the minimum and maximum values of the sequence if and only if the previous minimum and maximum values were the minimum or maximum value of the old data type (in other words, if the sequence had been created using `NO MINVALUE` or `NO MAXVALUE`, implicitly or explicitly). Otherwise, the minimum and maximum values are preserved, unless new values are given as part of the same command. If the minimum and maximum values do not fit into the new data type, Cloudberry Database generates an error.
+Changing the data type automatically changes the minimum and maximum values of the sequence if and only if the previous minimum and maximum values were the minimum or maximum value of the old data type (in other words, if the sequence had been created using `NO MINVALUE` or `NO MAXVALUE`, implicitly or explicitly). Otherwise, the minimum and maximum values are preserved, unless new values are given as part of the same command. If the minimum and maximum values do not fit into the new data type, Apache Cloudberry generates an error.
 
 **`increment`**
 
@@ -78,7 +78,7 @@ In contrast to a `setval()` call, a `RESTART` operation on a sequence is transac
 
 The clause `CACHE cache` enables sequence numbers to be preallocated and stored in memory for faster access. The minimum value is 1 (only one value can be generated at a time, i.e., no cache). If unspecified, the old cache value will be maintained.
 
-> **Note** When operating with a cache of sequence numbers (`cache > 1`), Cloudberry Database may discard some cached sequence values. If you require consecutive values, you must explicitly set `CACHE 1` when you create or alter the sequence.
+> **Note** When operating with a cache of sequence numbers (`cache > 1`), Apache Cloudberry may discard some cached sequence values. If you require consecutive values, you must explicitly set `CACHE 1` when you create or alter the sequence.
 
 **`CYCLE`**
 
@@ -123,7 +123,7 @@ ALTER SEQUENCE serial RESTART WITH 105;
 
 ## Compatibility
 
-`ALTER SEQUENCE` conforms to the SQL standard, except for the `AS`, `START WITH`, `OWNED BY`, `OWNER TO`, `RENAME TO`, and `SET SCHEMA` clauses, which are Cloudberry Database extensions.
+`ALTER SEQUENCE` conforms to the SQL standard, except for the `AS`, `START WITH`, `OWNED BY`, `OWNER TO`, `RENAME TO`, and `SET SCHEMA` clauses, which are Apache Cloudberry extensions.
 
 ## See also
 

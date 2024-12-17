@@ -70,7 +70,7 @@ SELECT SESSION_USER, CURRENT_USER;
 
 ## Compatibility
 
-Cloudberry Database allows identifier syntax (rolename), while the SQL standard requires the role name to be written as a string literal. SQL does not allow this command during a transaction; Cloudberry Database does not make this restriction. The `SESSION` and `LOCAL` modifiers are a Cloudberry Database extension, as is the `RESET` syntax.
+Apache Cloudberry allows identifier syntax (rolename), while the SQL standard requires the role name to be written as a string literal. SQL does not allow this command during a transaction; Apache Cloudberry does not make this restriction. The `SESSION` and `LOCAL` modifiers are a Apache Cloudberry extension, as is the `RESET` syntax.
 
 ## See also
 

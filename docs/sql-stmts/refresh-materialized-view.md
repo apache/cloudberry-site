@@ -60,7 +60,7 @@ REFRESH MATERIALIZED VIEW annual_statistics_basis WITH NO DATA;
 
 ## Compatibility
 
-`REFRESH MATERIALIZED VIEW` is a Cloudberry Database extension of the SQL standard.
+`REFRESH MATERIALIZED VIEW` is a Apache Cloudberry extension of the SQL standard.
 
 ## See also
 

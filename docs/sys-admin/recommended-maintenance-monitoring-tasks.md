@@ -4,9 +4,9 @@ title: Recommended Monitoring and Maintenance Tasks
 
 # Recommended Monitoring and Maintenance Tasks
 
-This section lists monitoring and maintenance operations recommended to ensure high availability and consistent performance of your Cloudberry Database cluster.
+This section lists monitoring and maintenance operations recommended to ensure high availability and consistent performance of your Apache Cloudberry cluster.
 
-The tables in the following sections suggest operations that a Cloudberry Database system administrator can perform periodically to ensure that all components of the system are operating optimally. Monitoring operations help you to detect and diagnose problems early. Maintenance operations help you to keep the system up-to-date and avoid deteriorating performance, for example, from bloated system tables or diminishing free disk space.
+The tables in the following sections suggest operations that a Apache Cloudberry system administrator can perform periodically to ensure that all components of the system are operating optimally. Monitoring operations help you to detect and diagnose problems early. Maintenance operations help you to keep the system up-to-date and avoid deteriorating performance, for example, from bloated system tables or diminishing free disk space.
 
 It is not necessary to implement all of these suggestions in every cluster; use the frequency and severity recommendations as a guide to implement measures according to your service requirements.
 
@@ -132,7 +132,7 @@ GROUP BY 1;
     </tr>
     <tr>
       <td>
-        Test the state of coordinator mirroring on Cloudberry Database. If the
+        Test the state of coordinator mirroring on Apache Cloudberry. If the
         value is not "STREAMING", an alert or warning will be raised.
         <p>Recommended frequency: run every 5 to 10 minutes</p>
         <p>Severity: IMPORTANT</p>
@@ -197,7 +197,7 @@ psql &lt;dbname&gt; -c<br />
   <tbody>
     <tr>
       <td>
-        Check disk space usage on volumes used for Cloudberry Database data
+        Check disk space usage on volumes used for Apache Cloudberry data
         storage and the OS.
         <p>Recommended frequency: every 5 to 30 minutes</p>
         <p>Severity: CRITICAL</p>
@@ -258,7 +258,7 @@ psql &lt;dbname&gt; -c<br />
         </p>
       </td>
       <td>
-        Run the Cloudberry Database 
+        Run the Apache Cloudberry 
         <code>gpcheckperf</code> utility.
       </td>
       <td>
@@ -302,7 +302,7 @@ psql &lt;dbname&gt; -c<br />
         <p>Severity: IMPORTANT</p>
       </td>
       <td>
-        Run the Cloudberry Database <code>gpcheckcat</code> utility in each database:
+        Run the Apache Cloudberry <code>gpcheckcat</code> utility in each database:
         <pre><code>gpcheckcat -O -p [target_port]</code></pre>
         <div>
           Note: With the 
@@ -318,7 +318,7 @@ psql &lt;dbname&gt; -c<br />
         <p>Severity: IMPORTANT</p>
       </td>
       <td>
-        With no users on the system, run the Cloudberry Database <code>gpcheckcat</code> utility in each database:
+        With no users on the system, run the Apache Cloudberry <code>gpcheckcat</code> utility in each database:
         <pre><code>gpcheckcat -R pgclass -p [target_port]</code></pre>
       </td>
       <td>Run the repair scripts for any issues identified.</td>
@@ -330,7 +330,7 @@ psql &lt;dbname&gt; -c<br />
         <p>Severity: IMPORTANT</p>
       </td>
       <td>
-        During a downtime, with no users on the system, run the Cloudberry Database <code>gpcheckcat</code> utility in each database:
+        During a downtime, with no users on the system, run the Apache Cloudberry <code>gpcheckcat</code> utility in each database:
         <pre><code>gpcheckcat -R namespace -p [target_port]</code></pre>
       </td>
       <td>Run the repair scripts for any issues identified.</td>
@@ -342,7 +342,7 @@ psql &lt;dbname&gt; -c<br />
         <p>Severity: IMPORTANT</p>
       </td>
       <td>
-        With no users on the system, run the Cloudberry Database <code>gpcheckcat</code> utility in each database:
+        With no users on the system, run the Apache Cloudberry <code>gpcheckcat</code> utility in each database:
         <pre><code>gpcheckcat -R distribution_policy -p [target_port]</code></pre>
       </td>
       <td>Run the repair scripts for any issues identified.</td>
@@ -354,7 +354,7 @@ psql &lt;dbname&gt; -c<br />
         <p>Severity: IMPORTANT</p>
       </td>
       <td>
-        During a downtime, with no users on the system, run the Cloudberry Database <code>gpcheckcat</code> utility in each database:
+        During a downtime, with no users on the system, run the Apache Cloudberry <code>gpcheckcat</code> utility in each database:
         <pre><code>gpcheckcat -R dependency -p [target_port]</code></pre>
       </td>
       <td>Run the repair scripts for any issues identified.</td>
@@ -521,17 +521,17 @@ psql &lt;dbname&gt; -c<br />
     </tr>
     <tr>
       <td>
-        Install Cloudberry Database minor releases, for example v1.5.0.<em>x</em>.
+        Install Apache Cloudberry minor releases, for example v1.5.0.<em>x</em>.
         <p>Recommended frequency: quarterly</p>
         <p>Severity: IMPORTANT</p>
       </td>
       <td>
-        Follow upgrade instructions in the Cloudberry Database
+        Follow upgrade instructions in the Apache Cloudberry
         <em>Release Notes</em>. Always upgrade to the latest in the series.
       </td>
       <td>
-        Keep the Cloudberry Database software current to incorporate bug fixes,
-        performance enhancements, and feature enhancements into your Cloudberry Database
+        Keep the Apache Cloudberry software current to incorporate bug fixes,
+        performance enhancements, and feature enhancements into your Apache Cloudberry
         cluster.
       </td>
     </tr>

@@ -4,7 +4,7 @@ title: pg_dumpall
 
 # pg_dumpall
 
-Extracts all databases in a Cloudberry Database system to a single script file or other archive file.
+Extracts all databases in a Apache Cloudberry system to a single script file or other archive file.
 
 ## Synopsis
 
@@ -18,7 +18,7 @@ pg_dumpall -V | --version
 
 ## Description
 
-`pg_dumpall` is a standard PostgreSQL utility for backing up all databases in a Cloudberry Database (or PostgreSQL) instance, and is also supported in Cloudberry Database. It creates a single (non-parallel) dump file. For routine backups of Cloudberry Database it is better to use the Cloudberry Database backup utility, gpbackup, for the best performance.
+`pg_dumpall` is a standard PostgreSQL utility for backing up all databases in a Apache Cloudberry (or PostgreSQL) instance, and is also supported in Apache Cloudberry. It creates a single (non-parallel) dump file. For routine backups of Apache Cloudberry it is better to use the Apache Cloudberry backup utility, gpbackup, for the best performance.
 
 `pg_dumpall` creates a single script file that contains SQL commands that can be used as input to [psql](/docs/sys-utilities/psql.md) to restore the databases. It does this by calling [pg_dump](/docs/sys-utilities/pg-dump.md) for each database. `pg_dumpall` also dumps global objects that are common to all databases. (`pg_dump` does not save these objects.) This currently includes information about database users and groups, and access permissions that apply to databases as a whole.
 
@@ -26,7 +26,7 @@ Since `pg_dumpall` reads tables from all databases you will most likely have to 
 
 The SQL script will be written to the standard output. Use the `[-f | --file]` option or shell operators to redirect it into a file.
 
-`pg_dumpall` needs to connect several times to the Cloudberry Database coordinator server (once per database). If you use password authentication it is likely to ask for a password each time. It is convenient to have a `~/.pgpass` file in such cases.
+`pg_dumpall` needs to connect several times to the Apache Cloudberry coordinator server (once per database). If you use password authentication it is likely to ask for a password each time. It is convenient to have a `~/.pgpass` file in such cases.
 
 ## Options
 
@@ -49,7 +49,7 @@ Dump only global objects (roles and tablespaces), no databases.
 
 **`-o | --oids`**
 
-Dump object identifiers (OIDs) as part of the data for every table. Use of this option is not recommended for files that are intended to be restored into Cloudberry Database.
+Dump object identifiers (OIDs) as part of the data for every table. Use of this option is not recommended for files that are intended to be restored into Apache Cloudberry.
 
 **`-O | --no-owner`**
 
@@ -67,7 +67,7 @@ Dump only the object definitions (schema), not data.
 
 Specify the superuser user name to use when deactivating triggers. This is relevant only if `--disable-triggers` is used. It is better to leave this out, and instead start the resulting script as a superuser.
 
-> **Note** Cloudberry Database does not support user-defined triggers.
+> **Note** Apache Cloudberry does not support user-defined triggers.
 
 **`-t | --tablespaces-only`**
 
@@ -101,7 +101,7 @@ This option deactivates the use of dollar quoting for function bodies, and force
 
 This option is relevant only when creating a data-only dump. It instructs `pg_dumpall` to include commands to temporarily deactivate triggers on the target tables while the data is reloaded. Use this if you have triggers on the tables that you do not want to invoke during data reload. The commands emitted for `--disable-triggers` must be done as superuser. So, you should also specify a superuser name with `-S`, or preferably be careful to start the resulting script as a superuser.
 
-> **Note** Cloudberry Database does not support user-defined triggers.
+> **Note** Apache Cloudberry does not support user-defined triggers.
 
 **`--inserts`**
 
@@ -109,7 +109,7 @@ Dump data as `INSERT` commands (rather than `COPY`). This will make restoration 
 
 **`--lock-wait-timeout=timeout`**
 
-Do not wait forever to acquire shared table locks at the beginning of the dump. Instead, fail if unable to lock a table within the specified timeout. The timeout may be specified in any of the formats accepted by `SET statement_timeout`. Allowed values vary depending on the server version you are dumping from, but an integer number of milliseconds is accepted by all Cloudberry Database versions.
+Do not wait forever to acquire shared table locks at the beginning of the dump. Instead, fail if unable to lock a table within the specified timeout. The timeout may be specified in any of the formats accepted by `SET statement_timeout`. Allowed values vary depending on the server version you are dumping from, but an integer number of milliseconds is accepted by all Apache Cloudberry versions.
 
 **`--no-security-labels`**
 
@@ -141,7 +141,7 @@ Output SQL-standard `SET SESSION AUTHORIZATION` commands instead of `ALTER OWNER
 
 **`--gp-syntax`**
 
-Output Cloudberry Database syntax in the `CREATE TABLE` statements. This allows the distribution policy (`DISTRIBUTED BY` or `DISTRIBUTED RANDOMLY` clauses) of a Cloudberry Database table to be dumped, which is useful for restoring into other Cloudberry Database systems.
+Output Apache Cloudberry syntax in the `CREATE TABLE` statements. This allows the distribution policy (`DISTRIBUTED BY` or `DISTRIBUTED RANDOMLY` clauses) of a Apache Cloudberry table to be dumped, which is useful for restoring into other Apache Cloudberry systems.
 
 **`--no-gp-syntax`**
 

@@ -39,9 +39,9 @@ ALTER DATABASE <name> RESET ALL
 
 第三种形式更改数据库的所有者。要更改所有者，你必须拥有该数据库，并且是新所有者角色的直接或间接成员，你还必须有 `CREATEDB` 权限。注意，超级用户自动拥有所有这些权限。
 
-第四种形式更改数据库的默认表空间。只有数据库所有者或超级用户才能这样操作。你还必须对新表空间具有创建权限。执行该命令，Cloudberry Database 会将旧的默认表空间中所有的表或索引物理移动到新的表空间。新的默认表空间必须为空，且无人可以连接到该数据库。请注意，非默认表空间中的表和索引不受影响。
+第四种形式更改数据库的默认表空间。只有数据库所有者或超级用户才能这样操作。你还必须对新表空间具有创建权限。执行该命令，Apache Cloudberry 会将旧的默认表空间中所有的表或索引物理移动到新的表空间。新的默认表空间必须为空，且无人可以连接到该数据库。请注意，非默认表空间中的表和索引不受影响。
 
-其它的形式更改 Cloudberry Database 配置参数的会话默认值。执行命令后，在该数据库中启动新会话时，指定的值将成为会话的默认值。数据库特定的默认值会覆盖服务器配置文件（`postgresql.conf`）中的设置。只有数据库所有者或超级用户才能更改数据库的会话默认值。某些参数不能以这种方式设置，或者只能由超级用户设置。
+其它的形式更改 Apache Cloudberry 配置参数的会话默认值。执行命令后，在该数据库中启动新会话时，指定的值将成为会话的默认值。数据库特定的默认值会覆盖服务器配置文件（`postgresql.conf`）中的设置。只有数据库所有者或超级用户才能更改数据库的会话默认值。某些参数不能以这种方式设置，或者只能由超级用户设置。
 
 ## 参数
 
@@ -55,7 +55,7 @@ ALTER DATABASE <name> RESET ALL
 
 **`connlimit`**
 
-Coordinator 上允许连接到该数据库的最大并发连接数。默认值为 `-1`，表示无限制。Cloudberry Database 超级用户不受此限制。
+Coordinator 上允许连接到该数据库的最大并发连接数。默认值为 `-1`，表示无限制。Apache Cloudberry 超级用户不受此限制。
 
 **`istemplate`**
 
@@ -101,7 +101,7 @@ ALTER DATABASE mydatabase SET search_path TO myschema, public, pg_catalog;
 
 ## 兼容性
 
-`ALTER DATABASE` 语句是 Cloudberry Database 的扩展。
+`ALTER DATABASE` 语句是 Apache Cloudberry 的扩展。
 
 ## 另见
 

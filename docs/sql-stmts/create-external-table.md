@@ -129,9 +129,9 @@ CREATE WRITABLE EXTERNAL WEB [TEMPORARY | TEMP] TABLE <table_name>
 
 ## Description
 
-`CREATE EXTERNAL TABLE` or `CREATE EXTERNAL WEB TABLE` creates a new readable external table definition in Cloudberry Database. Readable external tables are typically used for fast, parallel data loading. Once an external table is defined, you can query its data directly (and in parallel) using SQL commands. For example, you can select, join, or sort external table data. You can also create views for external tables. DML operations (`UPDATE`, `INSERT`, `DELETE`, or `TRUNCATE`) are not allowed on readable external tables, and you cannot create indexes on readable external tables.
+`CREATE EXTERNAL TABLE` or `CREATE EXTERNAL WEB TABLE` creates a new readable external table definition in Apache Cloudberry. Readable external tables are typically used for fast, parallel data loading. Once an external table is defined, you can query its data directly (and in parallel) using SQL commands. For example, you can select, join, or sort external table data. You can also create views for external tables. DML operations (`UPDATE`, `INSERT`, `DELETE`, or `TRUNCATE`) are not allowed on readable external tables, and you cannot create indexes on readable external tables.
 
-`CREATE WRITABLE EXTERNAL TABLE` or `CREATE WRITABLE EXTERNAL WEB TABLE` creates a new writable external table definition in Cloudberry Database. Writable external tables are typically used for unloading data from the database into a set of files or named pipes. Writable external web tables can also be used to output data to an executable program. Once a writable external table is defined, data can be selected from database tables and inserted into the writable external table. Writable external tables only allow `INSERT` operations – `SELECT`, `UPDATE`, `DELETE` or `TRUNCATE` are not allowed.
+`CREATE WRITABLE EXTERNAL TABLE` or `CREATE WRITABLE EXTERNAL WEB TABLE` creates a new writable external table definition in Apache Cloudberry. Writable external tables are typically used for unloading data from the database into a set of files or named pipes. Writable external web tables can also be used to output data to an executable program. Once a writable external table is defined, data can be selected from database tables and inserted into the writable external table. Writable external tables only allow `INSERT` operations – `SELECT`, `UPDATE`, `DELETE` or `TRUNCATE` are not allowed.
 
 The main difference between regular external tables and external web tables is their data sources. Regular readable external tables access static flat files, whereas external web tables access dynamic data sources – either on a web server or by running OS commands or scripts.
 
@@ -139,17 +139,17 @@ The main difference between regular external tables and external web tables is t
 
 **`READABLE | WRITABLE`**
 
-Specifies the type of external table, readable being the default. Readable external tables are used for loading data into Cloudberry Database. Writable external tables are used for unloading data.
+Specifies the type of external table, readable being the default. Readable external tables are used for loading data into Apache Cloudberry. Writable external tables are used for unloading data.
 
 **`WEB`**
 
-Creates a readable or writable external web table definition in Cloudberry Database. There are two forms of readable external web tables – those that access files via the `http://` protocol or those that access data by running OS commands. Writable external web tables output data to an executable program that can accept an input stream of data. External web tables are not rescannable during query execution.
+Creates a readable or writable external web table definition in Apache Cloudberry. There are two forms of readable external web tables – those that access files via the `http://` protocol or those that access data by running OS commands. Writable external web tables output data to an executable program that can accept an input stream of data. External web tables are not rescannable during query execution.
 
 The `s3` protocol does not support external web tables. You can, however, create an external web table that runs a third-party tool to read data from or write data to S3 directly.
 
 **`TEMPORARY | TEMP`**
 
-If specified, creates a temporary readable or writable external table definition in Cloudberry Database. Temporary external tables exist in a special schema; you cannot specify a schema name when you create the table. Temporary external tables are automatically dropped at the end of a session.
+If specified, creates a temporary readable or writable external table definition in Apache Cloudberry. Temporary external tables exist in a special schema; you cannot specify a schema name when you create the table. Temporary external tables are automatically dropped at the end of a session.
 
 An existing permanent table with the same name is not visible to the current session while the temporary table exists, unless you reference the permanent table with its schema-qualified name.
 
@@ -194,29 +194,29 @@ With the option `#transform=trans_name`, you can specify a transform to apply wh
 
 **`ON COORDINATOR`**
 
-Restricts all table-related operations to the Cloudberry Database coordinator segment. Permitted only on readable and writable external tables created with the `s3` or custom protocols. The `gpfdist`, `gpfdists`, `pxf`, and `file` protocols do not support `ON COORDINATOR`.
+Restricts all table-related operations to the Apache Cloudberry coordinator segment. Permitted only on readable and writable external tables created with the `s3` or custom protocols. The `gpfdist`, `gpfdists`, `pxf`, and `file` protocols do not support `ON COORDINATOR`.
 
-> **Note** Be aware of potential resource impacts when reading from or writing to external tables you create with the `ON COORDINATOR` clause. You may encounter performance issues when you restrict table operations solely to the Cloudberry Database coordinator segment.
+> **Note** Be aware of potential resource impacts when reading from or writing to external tables you create with the `ON COORDINATOR` clause. You may encounter performance issues when you restrict table operations solely to the Apache Cloudberry coordinator segment.
 
 **`EXECUTE 'command' [ON ...]`**
 
 Allowed for readable external web tables or writable external tables only. For readable external web tables, specifies the OS command to be run by the segment instances. The command can be a single OS command or a script. The `ON` clause is used to specify which segment instances will run the given command.
 
-- `ON ALL` is the default. The command will be run by every active (primary) segment instance on all segment hosts in the Cloudberry Database system. If the command runs a script, that script must reside in the same location on all of the segment hosts and be executable by the Cloudberry superuser (`gpadmin`).
+- `ON ALL` is the default. The command will be run by every active (primary) segment instance on all segment hosts in the Apache Cloudberry system. If the command runs a script, that script must reside in the same location on all of the segment hosts and be executable by the Cloudberry superuser (`gpadmin`).
 - `ON COORDINATOR` runs the command on the coordinator host only.
 
     > **Note** Logging is not supported for external web tables when the `ON COORDINATOR` clause is specified.
 
-- `ON number` means the command will be run by the specified number of segments. The particular segments are chosen randomly at runtime by the Cloudberry Database system. If the command runs a script, that script must reside in the same location on all of the segment hosts and be executable by the Cloudberry superuser (`gpadmin`).
+- `ON number` means the command will be run by the specified number of segments. The particular segments are chosen randomly at runtime by the Apache Cloudberry system. If the command runs a script, that script must reside in the same location on all of the segment hosts and be executable by the Cloudberry superuser (`gpadmin`).
 - `HOST` means the command will be run by one segment on each segment host (once per segment host), regardless of the number of active segment instances per host.
 - `HOST segment_hostname` means the command will be run by all active (primary) segment instances on the specified segment host.
-- `SEGMENT segment_id` means the command will be run only once by the specified segment. You can determine a segment instance's ID by looking at the content number in the system catalog table gp_segment_configuration. The content ID of the Cloudberry Database coordinator is always `-1`.
+- `SEGMENT segment_id` means the command will be run only once by the specified segment. You can determine a segment instance's ID by looking at the content number in the system catalog table gp_segment_configuration. The content ID of the Apache Cloudberry coordinator is always `-1`.
 
 For writable external tables, the command specified in the `EXECUTE` clause must be prepared to have data piped into it. Since all segments that have data to send will write their output to the specified command or program, the only available option for the `ON` clause is `ON ALL`.
 
 **`FORMAT 'TEXT | CSV' (options)`**
 
-When the `FORMAT` clause identfies delimited text (`TEXT`) or comma separated values (`CSV`) format, formatting options are similar to those available with the PostgreSQL [COPY](/docs/sql-stmts/copy.md) command. If the data in the file does not use the default column delimiter, escape character, null string and so on, you must specify the additional formatting options so that the data in the external file is read correctly by Cloudberry Database.
+When the `FORMAT` clause identfies delimited text (`TEXT`) or comma separated values (`CSV`) format, formatting options are similar to those available with the PostgreSQL [COPY](/docs/sql-stmts/copy.md) command. If the data in the file does not use the default column delimiter, escape character, null string and so on, you must specify the additional formatting options so that the data in the external file is read correctly by Apache Cloudberry.
 
 If you use the `pxf` protocol to access an external data source, refer to Accessing External Data with PXF for information about using PXF.
 
@@ -248,7 +248,7 @@ Specifies the single character that is used for C escape sequences (such as `\n`
 
 **`NEWLINE`**
 
-Specifies the newline used in your data files – `LF` (Line feed, 0x0A), `CR` (Carriage return, 0x0D), or `CRLF` (Carriage return plus line feed, 0x0D 0x0A). If not specified, a Cloudberry Database segment will detect the newline type by looking at the first row of data it receives and using the first newline type encountered.
+Specifies the newline used in your data files – `LF` (Line feed, 0x0A), `CR` (Carriage return, 0x0D), or `CRLF` (Carriage return plus line feed, 0x0D 0x0A). If not specified, a Apache Cloudberry segment will detect the newline type by looking at the first row of data it receives and using the first newline type encountered.
 
 **`HEADER`**
 
@@ -288,7 +288,7 @@ This is an optional clause that can precede a `SEGMENT REJECT LIMIT` clause to l
 
 The data is deleted when the external table is dropped unless you specify the keyword `PERSISTENTLY`. If the keyword is specified, the log data persists after the external table is dropped.
 
-The error log data is accessed with the Cloudberry Database built-in SQL function `gp_read_error_log()`, or with the SQL function `gp_read_persistent_error_log()` if the `PERSISTENTLY` keyword is specified.
+The error log data is accessed with the Apache Cloudberry built-in SQL function `gp_read_error_log()`, or with the SQL function `gp_read_persistent_error_log()` if the `PERSISTENTLY` keyword is specified.
 
 If you use the `PERSISTENTLY` keyword, you must install the functions that manage the persistent error log information.
 
@@ -298,15 +298,15 @@ See [Notes](#notes) for information about the error log information and built-in
 
 Runs a `COPY FROM` operation in single row error isolation mode. If the input rows have format errors they will be discarded provided that the reject limit count is not reached on any Cloudberry segment instance during the load operation. The reject limit count can be specified as number of rows (the default) or percentage of total rows (1-100). If `PERCENT` is used, each segment starts calculating the bad row percentage only after the number of rows specified by the parameter `gp_reject_percent_threshold` has been processed. The default for `gp_reject_percent_threshold` is 300 rows. Constraint errors such as violation of a `NOT NULL`, `CHECK`, or `UNIQUE` constraint will still be handled in "all-or-nothing" input mode. If the limit is not reached, all good rows will be loaded and any error rows discarded.
 
-> **Note** When reading an external table, Cloudberry Database limits the initial number of rows that can contain formatting errors if the `SEGMENT REJECT LIMIT` is not triggered first or is not specified. If the first 1000 rows are rejected, the `COPY` operation is stopped and rolled back.
+> **Note** When reading an external table, Apache Cloudberry limits the initial number of rows that can contain formatting errors if the `SEGMENT REJECT LIMIT` is not triggered first or is not specified. If the first 1000 rows are rejected, the `COPY` operation is stopped and rolled back.
 
-You can change the limit for the number of initial rejected rows with the Cloudberry Database server configuration parameter `gp_initial_bad_row_limit`.
+You can change the limit for the number of initial rejected rows with the Apache Cloudberry server configuration parameter `gp_initial_bad_row_limit`.
 
 **`DISTRIBUTED BY ({column [opclass]}, [ ... ] )`**
 
 **`DISTRIBUTED RANDOMLY`**
 
-Used to declare the Cloudberry Database distribution policy for a writable external table. By default, writable external tables are distributed randomly. If the source table you are exporting data from has a hash distribution policy, defining the same distribution key column(s) and operator class(es), `oplcass`, for the writable external table will improve unload performance by eliminating the need to move rows over the interconnect. When you issue an unload command such as `INSERT INTO wex_table SELECT * FROM source_table`, the rows that are unloaded can be sent directly from the segments to the output location if the two tables have the same hash distribution policy.
+Used to declare the Apache Cloudberry distribution policy for a writable external table. By default, writable external tables are distributed randomly. If the source table you are exporting data from has a hash distribution policy, defining the same distribution key column(s) and operator class(es), `oplcass`, for the writable external table will improve unload performance by eliminating the need to move rows over the interconnect. When you issue an unload command such as `INSERT INTO wex_table SELECT * FROM source_table`, the rows that are unloaded can be sent directly from the segments to the output location if the two tables have the same hash distribution policy.
 
 ## Examples
 
@@ -385,7 +385,7 @@ INSERT INTO campaign_out SELECT * FROM campaign WHERE customer_id=123;
 
 ## Notes
 
-When you specify the `LOG ERRORS` clause, Cloudberry Database captures errors that occur while reading the external table data.
+When you specify the `LOG ERRORS` clause, Apache Cloudberry captures errors that occur while reading the external table data.
 
 You can view and manage the captured error log data. The functions to manage log data depend on whether the data is persistent (the `PERSISTENTLY` keyword is used with the `LOG ERRORS` clause).
 
@@ -422,11 +422,11 @@ You can view and manage the captured error log data. The functions to manage log
 - The `gp_truncate_*` functions require owner privilege on the table.
 - You can use the `*` wildcard character to delete error log information for existing tables in the current database. Specify the string `*.*` to delete all database error log information, including error log information that was not deleted due to previous database issues. If `*` is specified, database owner privilege is required. If `*.*` is specified, operating system super-user privilege is required. Non-persistent and persistent error log data must be deleted with their respective `gp_truncate_*` functions.
 
-When multiple Cloudberry Database external tables are defined with the `gpfdist`, `gpfdists`, or `file` protocol and access the same named pipe a Linux system, Cloudberry Database restricts access to the named pipe to a single reader. An error is returned if a second reader attempts to access the named pipe.
+When multiple Apache Cloudberry external tables are defined with the `gpfdist`, `gpfdists`, or `file` protocol and access the same named pipe a Linux system, Apache Cloudberry restricts access to the named pipe to a single reader. An error is returned if a second reader attempts to access the named pipe.
 
 ## Compatibility
 
-`CREATE EXTERNAL TABLE` is a Cloudberry Database extension. The SQL standard makes no provisions for external tables.
+`CREATE EXTERNAL TABLE` is a Apache Cloudberry extension. The SQL standard makes no provisions for external tables.
 
 ## See also
 

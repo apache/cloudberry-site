@@ -20,7 +20,7 @@ ALTER FOREIGN DATA WRAPPER <name> RENAME TO <new_name>
 
 ## Description
 
-`ALTER FOREIGN DATA WRAPPER` changes the definition of a foreign-data wrapper. The first form of the command changes the support functions or generic options of the foreign-data wrapper. Cloudberry Database requires at least one clause. The second and third forms of the command change the owner or name of the foreign-data wrapper.
+`ALTER FOREIGN DATA WRAPPER` changes the definition of a foreign-data wrapper. The first form of the command changes the support functions or generic options of the foreign-data wrapper. Apache Cloudberry requires at least one clause. The second and third forms of the command change the owner or name of the foreign-data wrapper.
 
 Only superusers can alter foreign-data wrappers. Additionally, only superusers can own foreign-data wrappers
 
@@ -44,7 +44,7 @@ Specifies that the foreign-data wrapper should no longer have a handler function
 
 Specifies a new validator function for the foreign-data wrapper.
 
-Note that it is possible that pre-existing options of the foreign-data wrapper, or of dependent servers, user mappings, or foreign tables, may become invalid when you change the validator function. Cloudberry Database does not check for this. You must make sure that these options are correct before using the modified foreign-data wrapper. However, Cloudberry Database will check any options specified in this `ALTER FOREIGN DATA WRAPPER` command using the new validator.
+Note that it is possible that pre-existing options of the foreign-data wrapper, or of dependent servers, user mappings, or foreign tables, may become invalid when you change the validator function. Apache Cloudberry does not check for this. You must make sure that these options are correct before using the modified foreign-data wrapper. However, Apache Cloudberry will check any options specified in this `ALTER FOREIGN DATA WRAPPER` command using the new validator.
 
 **`NO VALIDATOR`**
 
@@ -52,7 +52,7 @@ Specifies that the foreign-data wrapper should no longer have a validator functi
 
 **`OPTIONS ( [ ADD | SET | DROP ] option ['value'] [, ... ] )`**
 
-Change the foreign-data wrapper's options. `ADD`, `SET`, and `DROP` specify the action to perform. If no operation is explicitly specified, the default operation is `ADD`. Option names must be unique. Cloudberry Database validates names and values using the foreign-data wrapper's validator function, if any.
+Change the foreign-data wrapper's options. `ADD`, `SET`, and `DROP` specify the action to perform. If no operation is explicitly specified, the default operation is `ADD`. Option names must be unique. Apache Cloudberry validates names and values using the foreign-data wrapper's validator function, if any.
 
 **`OWNER TO new_owner`**
 
@@ -78,7 +78,7 @@ ALTER FOREIGN DATA WRAPPER dbi VALIDATOR bob.myvalidator;
 
 ## Compatibility
 
-`ALTER FOREIGN DATA WRAPPER` conforms to ISO/IEC 9075-9 (SQL/MED), with the exception that the `HANDLER`, `VALIDATOR`, `OWNER TO`, and `RENAME TO` clauses are Cloudberry Database extensions.
+`ALTER FOREIGN DATA WRAPPER` conforms to ISO/IEC 9075-9 (SQL/MED), with the exception that the `HANDLER`, `VALIDATOR`, `OWNER TO`, and `RENAME TO` clauses are Apache Cloudberry extensions.
 
 ## See also
 

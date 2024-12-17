@@ -4,7 +4,7 @@ title: gpactivatestandby
 
 # gpactivatestandby
 
-Activates a standby coordinator host and makes it the active coordinator for the Cloudberry Database system.
+Activates a standby coordinator host and makes it the active coordinator for the Apache Cloudberry system.
 
 ## Synopsis
 
@@ -19,7 +19,7 @@ gpactivatestandby -? | -h | --help
 
 ## Description
 
-The `gpactivatestandby` utility activates a backup, standby coordinator host and brings it into operation as the active coordinator instance for a Cloudberry Database system. The activated standby coordinator effectively becomes the Cloudberry Database coordinator, accepting client connections on the coordinator port.
+The `gpactivatestandby` utility activates a backup, standby coordinator host and brings it into operation as the active coordinator instance for a Apache Cloudberry system. The activated standby coordinator effectively becomes the Apache Cloudberry coordinator, accepting client connections on the coordinator port.
 
 >**NOTE**
 >Before running `gpactivatestandby`, be sure to run `gpstate -f` to confirm that the standby coordinator is synchronized with the current coordinator node. If synchronized, the final line of the `gpstate -f` output will look similar to this: `20230607:06:50:06:004205 gpstate:test1-m:gpadmin-[INFO]:--Sync state: sync`
@@ -33,7 +33,7 @@ The utility will perform the following steps:
 - Stops the synchronization process (`walreceiver`) on the standby coordinator
 - Updates the system catalog tables of the standby coordinator using the logs
 - Activates the standby coordinator to be the new active coordinator for the system
-- Restarts the Cloudberry Database system with the new coordinator host
+- Restarts the Apache Cloudberry system with the new coordinator host
 
 A backup, standby Cloudberry coordinator host serves as a 'warm standby' in the event of the primary Cloudberry coordinator host becoming non-operational. The standby coordinator is kept up to date by transaction log replication processes (the `walsender` and `walreceiver`), which run on the primary coordinator and standby coordinator hosts and keep the data between the primary and standby coordinator hosts synchronized.
 
@@ -47,7 +47,7 @@ After activating a standby coordinator, run `ANALYZE` to update the database que
 psql <dbname> -c 'ANALYZE;'
 ```
 
-After you activate the standby coordinator as the primary coordinator, the Cloudberry Database system no longer has a standby coordinator configured. You might want to specify another host to be the new standby with the [gpinitstandby](/docs/sys-utilities/gpinitstandby.md) utility.
+After you activate the standby coordinator as the primary coordinator, the Apache Cloudberry system no longer has a standby coordinator configured. You might want to specify another host to be the new standby with the [gpinitstandby](/docs/sys-utilities/gpinitstandby.md) utility.
 
 ## Options
 
@@ -85,7 +85,7 @@ Displays the online help.
 
 ## Example
 
-Activate the standby coordinator host and make it the active coordinator instance for a Cloudberry Database system (run from backup coordinator host you are activating):
+Activate the standby coordinator host and make it the active coordinator instance for a Apache Cloudberry system (run from backup coordinator host you are activating):
 
 ```shell
 gpactivatestandby -d /gpdata

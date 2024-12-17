@@ -45,7 +45,7 @@ DROP POLICY p1 ON my_table;
 
 ## Compatibility
 
-`DROP POLICY` is a Cloudberry Database extension to the SQL standard.
+`DROP POLICY` is a Apache Cloudberry extension to the SQL standard.
 
 ## See also
 

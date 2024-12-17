@@ -4,9 +4,9 @@ title: Load Data from Web Services
 
 # Load Data from Web Services
 
-In Cloudberry Database, to load data from web services or from any source accessible by command lines, you can create external web tables. The supported data formats are `TEXT` and `CSV`.
+In Apache Cloudberry, to load data from web services or from any source accessible by command lines, you can create external web tables. The supported data formats are `TEXT` and `CSV`.
 
-External web tables allow Cloudberry Database to treat dynamic data sources like regular database tables. Because web table data can change as a query runs, the data is not rescannable.
+External web tables allow Apache Cloudberry to treat dynamic data sources like regular database tables. Because web table data can change as a query runs, the data is not rescannable.
 
 `CREATE EXTERNAL WEB TABLE` creates a web table definition. You can define command-based or URL-based external web tables. The definition forms are different. Do not mix command-based and URL-based definitions.
 
@@ -39,7 +39,7 @@ The following command defines a web table that runs a script. The script runs on
 
 A URL-based web table accesses data from a web server using the HTTP protocol. Web table data is dynamic; the data is not rescannable.
 
-Specify the `LOCATION` of files on a web server using `http://`. The web data file(s) must reside on a web server that Cloudberry Database segment hosts can access. The number of URLs specified corresponds to the number of segment instances that work in parallel to access the web table. For example, if you specify 2 external files to a Cloudberry Database system with 8 primary segments, 2 of the 8 segments access the web table in parallel at query runtime.
+Specify the `LOCATION` of files on a web server using `http://`. The web data file(s) must reside on a web server that Apache Cloudberry segment hosts can access. The number of URLs specified corresponds to the number of segment instances that work in parallel to access the web table. For example, if you specify 2 external files to a Apache Cloudberry system with 8 primary segments, 2 of the 8 segments access the web table in parallel at query runtime.
 
 The following sample command defines a web table that gets data from several URLs.
 

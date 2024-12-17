@@ -26,7 +26,7 @@ where action is one of:
 `ALTER EXTERNAL TABLE` changes the definition of an existing external table. These are the supported `ALTER EXTERNAL TABLE` actions:
 
 - **ADD COLUMN** — Adds a new column to the external table definition.
-- **DROP COLUMN** — Drops a column from the external table definition. If you drop readable external table columns, it only changes the table definition in Cloudberry Database. The `CASCADE` keyword is required if anything outside the table depends on the column, such as a view that references the column.
+- **DROP COLUMN** — Drops a column from the external table definition. If you drop readable external table columns, it only changes the table definition in Apache Cloudberry. The `CASCADE` keyword is required if anything outside the table depends on the column, such as a view that references the column.
 - **ALTER COLUMN TYPE** — Changes the data type of a table column.
 - **OWNER** — Changes the owner of the external table to the specified user.
 
@@ -95,7 +95,7 @@ ALTER EXTERNAL TABLE ext_leads ALTER COLUMN acct_code TYPE integer;
 
 ## Compatibility
 
-`ALTER EXTERNAL TABLE` is a Cloudberry Database extension. There is no `ALTER EXTERNAL TABLE` statement in the SQL standard or regular PostgreSQL.
+`ALTER EXTERNAL TABLE` is a Apache Cloudberry extension. There is no `ALTER EXTERNAL TABLE` statement in the SQL standard or regular PostgreSQL.
 
 ## See also
 

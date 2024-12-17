@@ -6,7 +6,7 @@ title: CREATE TABLE
 
 Defines a new table.
 
-> **Note** Cloudberry Database accepts, but does not enforce, referential integrity syntax (foreign key constraints).
+> **Note** Apache Cloudberry accepts, but does not enforce, referential integrity syntax (foreign key constraints).
 
 ## Synopsis
 
@@ -199,19 +199,19 @@ and <subpartition_element> is:
 
 To create a table, you must have `USAGE` privilege on all column types or the type in the `OF` clause, respectively.
 
-If you specify a schema name, Cloudberry Database creates the table in the specified schema. Otherwise Cloudberry Database creates the table in the current schema. Temporary tables exist in a special schema, so you cannot specify a schema name when creating a temporary table. The name of the table must be distinct from the name of any other table, external table, sequence, index, view, or foreign table in the same schema.
+If you specify a schema name, Apache Cloudberry creates the table in the specified schema. Otherwise Apache Cloudberry creates the table in the current schema. Temporary tables exist in a special schema, so you cannot specify a schema name when creating a temporary table. The name of the table must be distinct from the name of any other table, external table, sequence, index, view, or foreign table in the same schema.
 
 `CREATE TABLE` also automatically creates a data type that represents the composite type corresponding to one row of the table. Therefore, tables cannot have the same name as any existing data type in the same schema.
 
 The optional constraint clauses specify conditions that new or updated rows must satisfy for an insert or update operation to succeed. A constraint is an SQL object that helps define the set of valid values in the table in various ways.
 
-Cloudberry Database accepts, but does not enforce, referential integrity (foreign key) constraints. The information is retained in the system catalogs but is otherwise ignored.
+Apache Cloudberry accepts, but does not enforce, referential integrity (foreign key) constraints. The information is retained in the system catalogs but is otherwise ignored.
 
 You can define two types of constraints: table constraints and column constraints. A column constraint is defined as part of a column definition. A table constraint definition is not tied to a particular column, and it can encompass more than one column. Every column constraint can also be written as a table constraint; a column constraint is only a notational convenience for use when the constraint only affects one column.
 
-When creating a table, you specify an additional clause to declare the Cloudberry Database distribution policy. If a `DISTRIBUTED BY`, `DISTRIBUTED RANDOMLY`, or `DISTRIBUTED REPLICATED` clause is not supplied, then Cloudberry Database assigns a hash distribution policy to the table using either the `PRIMARY KEY` (if the table has one) or the first column of the table as the distribution key. Columns of geometric or user-defined data types are not eligible to be a Cloudberry Database distribution key column. If a table does not have a column of an eligible data type, the rows are distributed based on a random distribution. To ensure an even distribution of data in your Cloudberry Database system, you want to choose a distribution key that is unique for each record, or if that is not possible, then choose `DISTRIBUTED RANDOMLY`.
+When creating a table, you specify an additional clause to declare the Apache Cloudberry distribution policy. If a `DISTRIBUTED BY`, `DISTRIBUTED RANDOMLY`, or `DISTRIBUTED REPLICATED` clause is not supplied, then Apache Cloudberry assigns a hash distribution policy to the table using either the `PRIMARY KEY` (if the table has one) or the first column of the table as the distribution key. Columns of geometric or user-defined data types are not eligible to be a Apache Cloudberry distribution key column. If a table does not have a column of an eligible data type, the rows are distributed based on a random distribution. To ensure an even distribution of data in your Apache Cloudberry system, you want to choose a distribution key that is unique for each record, or if that is not possible, then choose `DISTRIBUTED RANDOMLY`.
 
-If you supply the `DISTRIBUTED REPLICATED` clause, Cloudberry Database distributes all rows of the table to all segments in the Cloudberry Database system. You can use this option in cases where user-defined functions must run on the segments, and the functions require access to all rows of the table. Replicated functions can also be used to improve query performance by preventing broadcast motions for the table. The `DISTRIBUTED REPLICATED` clause cannot be used with the `PARTITION` clauses or the `INHERITS` clause. A replicated table also cannot be inherited by another table. The hidden system columns (`ctid`, `cmin`, `cmax`, `xmin`, `xmax`, and `gp_segment_id`) cannot be referenced in user queries on replicated tables because they have no single, unambiguous value. Cloudberry Database returns a `column does not exist` error for the query.
+If you supply the `DISTRIBUTED REPLICATED` clause, Apache Cloudberry distributes all rows of the table to all segments in the Apache Cloudberry system. You can use this option in cases where user-defined functions must run on the segments, and the functions require access to all rows of the table. Replicated functions can also be used to improve query performance by preventing broadcast motions for the table. The `DISTRIBUTED REPLICATED` clause cannot be used with the `PARTITION` clauses or the `INHERITS` clause. A replicated table also cannot be inherited by another table. The hidden system columns (`ctid`, `cmin`, `cmax`, `xmin`, `xmax`, and `gp_segment_id`) cannot be referenced in user queries on replicated tables because they have no single, unambiguous value. Apache Cloudberry returns a `column does not exist` error for the query.
 
 The `PARTITION BY` and `PARTITION OF` clauses allow you to divide the table into multiple sub-tables (or parts) that, taken together, make up the parent table and share its schema.
 
@@ -219,7 +219,7 @@ The `PARTITION BY` and `PARTITION OF` clauses allow you to divide the table into
 
 **`GLOBAL | LOCAL`**
 
-These keywords are present for SQL standard compatibility, but have no effect in Cloudberry Database and are deprecated.
+These keywords are present for SQL standard compatibility, but have no effect in Apache Cloudberry and are deprecated.
 
 **`TEMPORARY | TEMP`**
 
@@ -229,11 +229,11 @@ Be sure to perform appropriate vacuum and analyze operations on temporary tables
 
 **`UNLOGGED`**
 
-If specified, the table is created as an unlogged table. Data written to unlogged tables is not written to the write-ahead (WAL) log, which makes them considerably faster than ordinary tables. However, the contents of an unlogged table are not replicated to mirror segment instances. Also an unlogged table is not crash-safe: Cloudberry Database automatically truncates an unlogged table after a crash or unclean shutdown. Any indexes created on an unlogged table are automatically unlogged as well.
+If specified, the table is created as an unlogged table. Data written to unlogged tables is not written to the write-ahead (WAL) log, which makes them considerably faster than ordinary tables. However, the contents of an unlogged table are not replicated to mirror segment instances. Also an unlogged table is not crash-safe: Apache Cloudberry automatically truncates an unlogged table after a crash or unclean shutdown. Any indexes created on an unlogged table are automatically unlogged as well.
 
 **`IF NOT EXISTS`**
 
-Do not throw an error if a relation with the same name already exists. Cloudberry Database issues a notice in this case. Note that there is no guarantee that the existing relation is anything like the one that would have been created.
+Do not throw an error if a relation with the same name already exists. Apache Cloudberry issues a notice in this case. Note that there is no guarantee that the existing relation is anything like the one that would have been created.
 
 **`table_name`**
 
@@ -251,15 +251,15 @@ The name of a column to be created in the new table.
 
 **`data_type`**
 
-The data type of the column. This may include array specifiers. For more information on the data types supported by Cloudberry Database, refer to the Data Types documentation.
+The data type of the column. This may include array specifiers. For more information on the data types supported by Apache Cloudberry, refer to the Data Types documentation.
 
-For table columns that contain textual data, Specify the data type `VARCHAR` or `TEXT`. Specifying the data type `CHAR` is not recommended. In Cloudberry Database, the data types `VARCHAR` or `TEXT` handle padding added to the data (space characters added after the last non-space character) as significant characters, the data type `CHAR` does not. See [Notes](#notes).
+For table columns that contain textual data, Specify the data type `VARCHAR` or `TEXT`. Specifying the data type `CHAR` is not recommended. In Apache Cloudberry, the data types `VARCHAR` or `TEXT` handle padding added to the data (space characters added after the last non-space character) as significant characters, the data type `CHAR` does not. See [Notes](#notes).
 
 **`COLLATE` collation**
 
 The `COLLATE` clause assigns a collation to the column (which must be of a collatable data type). If not specified, the column data type's default collation is used.
 
-> **Note**: The Cloudberry Query Optimizer (GPORCA) supports collation only when all columns in the query use the same collation. If columns in the query use different collations, then Cloudberry Database uses the Postgres Planner.
+> **Note**: The Cloudberry Query Optimizer (GPORCA) supports collation only when all columns in the query use the same collation. If columns in the query use different collations, then Apache Cloudberry uses the Postgres Planner.
 
 **`ENCODING ( storage_directive [, ...] )`**
 
@@ -291,7 +291,7 @@ The optional `INHERITS` clause specifies a list of tables from which the new tab
 
 Use of `INHERITS` creates a persistent relationship between the new child table and its parent table(s). Schema modifications to the parent(s) normally propagate to children as well, and by default the data of the child table is included in scans of the parent(s).
 
-If the same column name exists in more than one parent table, an error is reported unless the data types of the columns match in each of the parent tables. If there is no conflict, then the duplicate columns are merged to form a single column in the new table. If the column name list of the new table contains a column name that is also inherited, the data type must likewise match the inherited column(s), and the column definitions are merged into one. If the new table explicitly specifies a default value for the column, this default overrides any defaults from inherited declarations of the column. Otherwise, any parents that specify default values for the column must all specify the same default, or Cloudberry Database reports an error.
+If the same column name exists in more than one parent table, an error is reported unless the data types of the columns match in each of the parent tables. If there is no conflict, then the duplicate columns are merged to form a single column in the new table. If the column name list of the new table contains a column name that is also inherited, the data type must likewise match the inherited column(s), and the column definitions are merged into one. If the new table explicitly specifies a default value for the column, this default overrides any defaults from inherited declarations of the column. Otherwise, any parents that specify default values for the column must all specify the same default, or Apache Cloudberry reports an error.
 
 `CHECK` constraints are merged in essentially the same way as columns: if multiple parent tables or the new table definition contain identically-named `CHECK` constraints, these constraints must all have the same check expression, or an error will be reported. Constraints having the same name and expression will be merged into one copy. A constraint marked `NO INHERIT` in a parent will not be considered. Notice that an unnamed `CHECK` constraint in the new table will never be merged, since a unique name will always be chosen for it.
 
@@ -303,11 +303,11 @@ If a column in the parent table is an identity column, that property is not inhe
 
 The optional `PARTITION BY` clause of the *modern partitioning syntax* specifies a strategy of partitioning the table. The table thus created is referred to as a partitioned table. The parenthesized list of columns or expressions forms the partition key for the table. When using range or hash partitioning, the partition key can include multiple columns or expressions (up to 32), but for list partitioning, the partition key must consist of a single column or expression.
 
-Range and list partitioning require a btree operator class, while hash partitioning requires a hash operator class. If no operator class is specified explicitly, the default operator class of the appropriate type will be used; if no default operator class exists, Cloudberry Database raises an error. When hash partitioning is used, the operator class used must implement support function 2 (see [Index Method Support Routines](https://www.postgresql.org/docs/12/xindex.html#XINDEX-SUPPORT) in the PostgreSQL documentation for details).
+Range and list partitioning require a btree operator class, while hash partitioning requires a hash operator class. If no operator class is specified explicitly, the default operator class of the appropriate type will be used; if no default operator class exists, Apache Cloudberry raises an error. When hash partitioning is used, the operator class used must implement support function 2 (see [Index Method Support Routines](https://www.postgresql.org/docs/12/xindex.html#XINDEX-SUPPORT) in the PostgreSQL documentation for details).
 
 > **Note** Only the modern partitioning syntax supports hash partitions.
 
-A partitioned table is divided into sub-tables (called partitions), which are typically created using separate `CREATE TABLE` commands. The partitioned table is itself empty. A data row inserted into the table is routed to a partition based on the value of columns or expressions in the partition key. If no existing partition matches the values in the new row, Cloudberry Database reports an error.
+A partitioned table is divided into sub-tables (called partitions), which are typically created using separate `CREATE TABLE` commands. The partitioned table is itself empty. A data row inserted into the table is routed to a partition based on the value of columns or expressions in the partition key. If no existing partition matches the values in the new row, Apache Cloudberry reports an error.
 
 Partitioned tables do not support `EXCLUDE` constraints; however, you can define these constraints on individual partitions.
 
@@ -333,15 +333,15 @@ Note that if `MINVALUE` or `MAXVALUE` is used for one column of a partitioning b
 
 Also note that some element types, such as timestamp, have a notion of "infinity", which is just another value that can be stored. This is different from `MINVALUE` and `MAXVALUE`, which are not real values that can be stored, but rather they are ways of saying that the value is unbounded. `MAXVALUE` can be thought of as being greater than any other value, including "infinity" and `MINVALUE` as being less than any other value, including "minus infinity". Thus the range `FROM ('infinity') TO (MAXVALUE)` is not an empty range; it allows precisely one value to be stored — "infinity".
 
-If `DEFAULT` is specified, the table will be created as the default partition of the parent table. This option is not available for hash-partitioned tables. Cloudberry Database routes a partition key value not fitting into any other partition of the given parent to the default partition.
+If `DEFAULT` is specified, the table will be created as the default partition of the parent table. This option is not available for hash-partitioned tables. Apache Cloudberry routes a partition key value not fitting into any other partition of the given parent to the default partition.
 
-When a table has an existing `DEFAULT` partition and a new partition is added to it, the default partition must be scanned to verify that it does not contain any rows which properly belong in the new partition. If the default partition contains a large number of rows, this may be a slow operation. Cloudberry Database skips the scan if the default partition is a foreign table or if it has a constraint which proves that it cannot contain rows which should be placed in the new partition.
+When a table has an existing `DEFAULT` partition and a new partition is added to it, the default partition must be scanned to verify that it does not contain any rows which properly belong in the new partition. If the default partition contains a large number of rows, this may be a slow operation. Apache Cloudberry skips the scan if the default partition is a foreign table or if it has a constraint which proves that it cannot contain rows which should be placed in the new partition.
 
 When creating a hash partition, you must specify a modulus and a remainder. The modulus must be a positive integer, and the remainder must be a non-negative integer less than the modulus. Typically, when initially setting up a hash-partitioned table, you should choose a modulus equal to the number of partitions and assign every table the same modulus and a different remainder (see examples below). However, it is not required that every partition have the same modulus, only that every modulus which occurs among the partitions of a hash-partitioned table is a factor of the next larger modulus. This allows the number of partitions to be increased incrementally without needing to move all the data at once. For example, suppose you have a hash-partitioned table with 8 partitions, each of which has modulus 8, but find it necessary to increase the number of partitions to 16. You can detach one of the modulus-8 partitions, create two new modulus-16 partitions covering the same portion of the key space (one with a remainder equal to the remainder of the detached partition, and the other with a remainder equal to that value plus 8), and repopulate them with data. You can then repeat this -- perhaps at a later time -- for each modulus-8 partition until none remain. While this may still involve a large amount of data movement at each step, it is still preferable to having to create a whole new table and move all the data at once.
 
 A partition must have the same column names and types as the partitioned table to which it belongs. Modifications to the column names or types of a partitioned table automatically propagate to all partitions. `CHECK` constraints are inherited automatically by every partition, but an individual partition may specify additional `CHECK` constraints; additional constraints with the same name and condition as in the parent will be merged with the parent constraint. Defaults may be specified separately for each partition. But note that a partition's default value is not applied when inserting a tuple through a partitioned table.
 
-Cloudberry Database automatically routes rows inserted into a partitioned table to the correct partition. If no suitable partition exists, Cloudberry Database returns an error.
+Apache Cloudberry automatically routes rows inserted into a partitioned table to the correct partition. If no suitable partition exists, Apache Cloudberry returns an error.
 
 Operations such as `TRUNCATE` which normally affect a table and all of its inheritance children will cascade to all partitions, but may also be performed on an individual partition. Note that dropping a partition with `DROP TABLE` requires taking an `ACCESS EXCLUSIVE` lock on the parent table.
 
@@ -353,7 +353,7 @@ The `LIKE` clause specifies a table from which the new table automatically copie
 
 Unlike `INHERITS`, the new table and original table are completely decoupled after creation is complete. Changes to the original table will not be applied to the new table, and it is not possible to include data of the new table in scans of the original table.
 
-Also unlike `INHERITS`, columns and constraints copied by `LIKE` are not merged with similarly named columns and constraints. If the same name is specified explicitly or in another `LIKE` clause, Cloudberry Database signals an error.
+Also unlike `INHERITS`, columns and constraints copied by `LIKE` are not merged with similarly named columns and constraints. If the same name is specified explicitly or in another `LIKE` clause, Apache Cloudberry signals an error.
 
 The optional like_option clauses specify which additional properties of the original table to copy. Specifying `INCLUDING` copies the property, specifying `EXCLUDING` omits the property. `EXCLUDING` is the default. If multiple specifications are made for the same kind of object, the last one is used. The available options are:
 
@@ -409,7 +409,7 @@ Extended statistics are copied to the new table.
 
 `INCLUDING ALL` is an abbreviated form of all available options (It may be useful to specify  individual `EXCLUDING` clauses after `INCLUDING ALL` to select all but some specific options.)
 
-You can also use the `LIKE` clause to copy column definitions from views, foreign tables, or composite types. Cloudberry Database ignores inapplicable options (for example, `INCLUDING INDEXES` from a view).
+You can also use the `LIKE` clause to copy column definitions from views, foreign tables, or composite types. Apache Cloudberry ignores inapplicable options (for example, `INCLUDING INDEXES` from a view).
 
 **`CONSTRAINT constraint_name`**
 
@@ -429,13 +429,13 @@ This clause is only provided for compatibility with non-standard SQL databases. 
 
 **`CHECK (expression) [ NO INHERIT ]`**
 
-The `CHECK` clause specifies an expression producing a Boolean result which new or updated rows must satisfy for an insert or update operation to succeed. Expressions evaluating to `TRUE` or `UNKNOWN` succeed. Should any row of an insert or update operation produce a `FALSE` result, Cloudberry Database raises an error exception, and the insert or update does not alter the database. A check constraint specified as a column constraint should reference that column's value only, while an expression appearing in a table constraint can reference multiple columns.
+The `CHECK` clause specifies an expression producing a Boolean result which new or updated rows must satisfy for an insert or update operation to succeed. Expressions evaluating to `TRUE` or `UNKNOWN` succeed. Should any row of an insert or update operation produce a `FALSE` result, Apache Cloudberry raises an error exception, and the insert or update does not alter the database. A check constraint specified as a column constraint should reference that column's value only, while an expression appearing in a table constraint can reference multiple columns.
 
 Currently, `CHECK` expressions cannot contain subqueries nor refer to variables other than columns of the current row. You can reference the system column `tableoid`, but not any other system column.
 
 A constraint marked with `NO INHERIT` will not propagate to child tables.
 
-When a table has multiple `CHECK` constraints, they will be tested for each row in alphabetical order by name, after checking `NOT NULL` constraints. (Previous Cloudberry Database versions did not honor any particular firing order for `CHECK` constraints.)
+When a table has multiple `CHECK` constraints, they will be tested for each row in alphabetical order by name, after checking `NOT NULL` constraints. (Previous Apache Cloudberry versions did not honor any particular firing order for `CHECK` constraints.)
 
 **`DEFAULT default_expr`**
 
@@ -451,7 +451,7 @@ The generation expression can refer to other columns in the table, but not other
 
 **`GENERATED { ALWAYS | BY DEFAULT } AS IDENTITY [ ( sequence_options ) ]`**
 
-This clause creates the column as an identity column. Cloudberry Database attaches an implicit sequence to it, and automatically assigns a value from the sequence to the column in new rows. Such a column is implicitly `NOT NULL`.
+This clause creates the column as an identity column. Apache Cloudberry attaches an implicit sequence to it, and automatically assigns a value from the sequence to the column in new rows. Such a column is implicitly `NOT NULL`.
 
 The clauses `ALWAYS` and `BY DEFAULT` determine how the sequence value is given precedence over a user-specified value in an `INSERT` statement. If `ALWAYS` is specified, a user-specified value is only accepted if the `INSERT` statement specifies `OVERRIDING SYSTEM VALUE`. If `BY DEFAULT` is specified, then the user-specified value takes precedence. See [INSERT](/docs/sql-stmts/insert.md) for details. (In the `COPY` command, ueser-specified values are always used regardless of this setting.)
 
@@ -463,9 +463,9 @@ You can use the optional sequence_options clause to override the options of the 
 
 The `UNIQUE` constraint specifies that a group of one or more columns of a table may contain only unique values. The behavior of a unique table constraint is the same as that of a unique column constraint, with the additional capability to span multiple columns. The constraint therefore enforces that any two rows must differ in at least one of these columns.
 
-For the purpose of a unique constraint, null values are not considered equal. The column(s) that are unique must contain all the columns of the Cloudberry Database distribution key. In addition, the `<key>` must contain all the columns in the partition key if the table is partitioned. Note that a `<key>` constraint in a partitioned table is not the same as a simple `UNIQUE INDEX`.
+For the purpose of a unique constraint, null values are not considered equal. The column(s) that are unique must contain all the columns of the Apache Cloudberry distribution key. In addition, the `<key>` must contain all the columns in the partition key if the table is partitioned. Note that a `<key>` constraint in a partitioned table is not the same as a simple `UNIQUE INDEX`.
 
-Each unique constraint should name a set of columns that is different from the set of columns named by any other unique or primary key constraint defined for the table. (Otherwise, Cloudberry Database discards redundant unique constraints.)
+Each unique constraint should name a set of columns that is different from the set of columns named by any other unique or primary key constraint defined for the table. (Otherwise, Apache Cloudberry discards redundant unique constraints.)
 
 When establishing a unique constraint for a multi-level partition hierarchy, all of the columns in the partition key of the target partitioned table, as well as those of all its descendant partitioned tables, must be included in the constraint definition.
 
@@ -492,7 +492,7 @@ The optional `INCLUDE` clause adds to that index one or more columns that are si
 
 The `EXCLUDE` clause defines an exclusion constraint, which guarantees that if any two rows are compared on the specified column(s) or expression(s) using the specified operator(s), not all of these comparisons will return `TRUE`. If all of the specified operators test for equality, this is equivalent to a `UNIQUE` constraint, although an ordinary unique constraint will be faster. However, exclusion constraints can specify constraints that are more general than simple equality. For example, you can specify a constraint that no two rows in the table contain overlapping circles by using the `&&` operator.
 
-Cloudberry Database does not support specifying an exclusion constraint on a randomly-distributed table.
+Apache Cloudberry does not support specifying an exclusion constraint on a randomly-distributed table.
 
 Exclusion constraints are implemented using an index, so each specified operator must be associated with an appropriate operator class for the index access method index_method. The operators are required to be commutative. Each exclude_element can optionally specify an operator class and/or ordering options; these are described fully under [CREATE INDEX](/docs/sql-stmts/create-index.md).
 
@@ -505,7 +505,7 @@ The predicate allows you to specify an exclusion constraint on a subset of the t
 **`FOREIGN KEY (column_name [, ...]) REFERENCES reftable [ ( refcolumn [, ... ] ) ]`**<br />
 **`[ MATCH matchtype ] [ ON DELETE referential_action ] [ ON UPDATE referential_action ] (table constraint)`**
 
-The `REFERENCES` and `FOREIGN KEY` clauses specify referential integrity constraints (foreign key constraints). Cloudberry Database accepts referential integrity constraints but does not enforce them.
+The `REFERENCES` and `FOREIGN KEY` clauses specify referential integrity constraints (foreign key constraints). Apache Cloudberry accepts referential integrity constraints but does not enforce them.
 
 **`DEFERRABLE`**<br />
 **`NOT DEFERRABLE`**
@@ -537,7 +537,7 @@ You can control the behavior of temporary tables at the end of a transaction blo
 
 **PRESERVE ROWS** - No special action is taken at the ends of transactions for temporary tables. This is the default behavior.
 
-**DELETE ROWS** - All rows in the temporary table will be deleted at the end of each transaction block. Essentially, Cloudberry Database performs an automatic [TRUNCATE](/docs/sql-stmts/truncate.md) at each commit. When used on a partitioned table, this operation is not cascaded to its partitions.
+**DELETE ROWS** - All rows in the temporary table will be deleted at the end of each transaction block. Essentially, Apache Cloudberry performs an automatic [TRUNCATE](/docs/sql-stmts/truncate.md) at each commit. When used on a partitioned table, this operation is not cascaded to its partitions.
 
 **DROP** - The temporary table will be dropped at the end of the current transaction block. When used on a partitioned table, this action drops its partitions and when used on tables with inheritance children, it drops the dependent children.
 
@@ -553,22 +553,22 @@ This clause allows selection of the tablespace in which the index associated wit
 **`DISTRIBUTED RANDOMLY`**<br />
 **`DISTRIBUTED REPLICATED`**
 
-Used to declare the Cloudberry Database distribution policy for the table. `DISTRIBUTED BY` uses hash distribution with one or more columns declared as the distribution key. For the most even data distribution, the distribution key should be the primary key of the table or a unique column (or set of columns). If that is not possible, then you may choose `DISTRIBUTED RANDOMLY`, which will send the data randomly to the segment instances. Additionally, an operator class, `opclass`, can be specified, to use a non-default hash function.
+Used to declare the Apache Cloudberry distribution policy for the table. `DISTRIBUTED BY` uses hash distribution with one or more columns declared as the distribution key. For the most even data distribution, the distribution key should be the primary key of the table or a unique column (or set of columns). If that is not possible, then you may choose `DISTRIBUTED RANDOMLY`, which will send the data randomly to the segment instances. Additionally, an operator class, `opclass`, can be specified, to use a non-default hash function.
 
-The Cloudberry Database server configuration parameter `gp_create_table_random_default_distribution` controls the default table distribution policy if the DISTRIBUTED BY clause is not specified when you create a table. Cloudberry Database follows these rules to create a table if a distribution policy is not specified.
+The Apache Cloudberry server configuration parameter `gp_create_table_random_default_distribution` controls the default table distribution policy if the DISTRIBUTED BY clause is not specified when you create a table. Apache Cloudberry follows these rules to create a table if a distribution policy is not specified.
 
-If the value of the parameter is `off` (the default), Cloudberry Database chooses the table distribution key based on the command:
+If the value of the parameter is `off` (the default), Apache Cloudberry chooses the table distribution key based on the command:
 
-- If a `LIKE` or `INHERITS` clause is specified, then Cloudberry Database copies the distribution key from the source or parent table.
-- If `PRIMARY KEY`, `UNIQUE`, or `EXCLUDE` constraints are specified, then Cloudberry Database chooses the largest subset of all the key columns as the distribution key.
-- If no constraints nor a `LIKE` or `INHERITS` clause is specified, then Cloudberry Database chooses the first suitable column as the distribution key. (Columns with geometric or user-defined data types are not eligible as Cloudberry Database distribution key columns.)
+- If a `LIKE` or `INHERITS` clause is specified, then Apache Cloudberry copies the distribution key from the source or parent table.
+- If `PRIMARY KEY`, `UNIQUE`, or `EXCLUDE` constraints are specified, then Apache Cloudberry chooses the largest subset of all the key columns as the distribution key.
+- If no constraints nor a `LIKE` or `INHERITS` clause is specified, then Apache Cloudberry chooses the first suitable column as the distribution key. (Columns with geometric or user-defined data types are not eligible as Apache Cloudberry distribution key columns.)
 
-If the value of the parameter is set to `on`, Cloudberry Database follows these rules:
+If the value of the parameter is set to `on`, Apache Cloudberry follows these rules:
 
 - If `PRIMARY KEY`, `UNIQUE`, or `EXCLUDE` columns are not specified, the distribution of the table is random (`DISTRIBUTED RANDOMLY`). Table distribution is random even if the table creation command contains the `LIKE` or `INHERITS` clause.
 - If `PRIMARY KEY`, `UNIQUE`, or `EXCLUDE` columns are specified, you must also specify a `DISTRIBUTED BY` clause If a `DISTRIBUTED BY` clause is not specified as part of the table creation command, the command fails.
 
-The `DISTRIBUTED REPLICATED` clause replicates the entire table to all Cloudberry Database segment instances. It can be used when it is necessary to run user-defined functions on segments when the functions require access to all rows in the table, or to improve query performance by preventing broadcast motions.
+The `DISTRIBUTED REPLICATED` clause replicates the entire table to all Apache Cloudberry segment instances. It can be used when it is necessary to run user-defined functions on segments when the functions require access to all rows in the table, or to improve query performance by preventing broadcast motions.
 
 ### Classic partitioning syntax parameters
 
@@ -578,7 +578,7 @@ Descriptions of additional parameters that are specific to the *classic partitio
 
 **`CREATE TABLE table_name ... PARTITION BY`**
 
-When creating a partitioned table using the *classic syntax*, Cloudberry Database creates the root partitioned table with the specified table name. Cloudberry Database also creates a hierarchy of tables, child tables, that are the sub-partitions based on the partitioning options that you specify. The pg_partitioned_table system catalog contains information about the sub-partition tables.
+When creating a partitioned table using the *classic syntax*, Apache Cloudberry creates the root partitioned table with the specified table name. Apache Cloudberry also creates a hierarchy of tables, child tables, that are the sub-partitions based on the partitioning options that you specify. The pg_partitioned_table system catalog contains information about the sub-partition tables.
 
 **`classic_partition_spec`**
 
@@ -586,7 +586,7 @@ Declares the individual partitions to create. Each partition can be defined indi
 
 **`DEFAULT PARTITION name`**
 
-Declares a default partition. When data does not match the bouds of an existing partition, Cloudberry Database inserts it into the default partition. Partition designs that do not identify a default partition will reject incoming rows that do not match an existing partition.
+Declares a default partition. When data does not match the bouds of an existing partition, Apache Cloudberry inserts it into the default partition. Partition designs that do not identify a default partition will reject incoming rows that do not match an existing partition.
 
 **`PARTITION name`**
 
@@ -632,7 +632,7 @@ Note that you can also set storage parameters for a particular partition or sub-
 
 You can specify the defaults for some of the table storage options with the server configuration parameter `gp_default_storage_options`. For information about setting default storage options, see [Notes](#notes).
 
-> **Note** Because Cloudberry Database does not permit autovacuuming user tables, it accepts, but does not apply, certain per-table parameter settings as noted below.
+> **Note** Because Apache Cloudberry does not permit autovacuuming user tables, it accepts, but does not apply, certain per-table parameter settings as noted below.
 
 The following table storage parameters are available:
 
@@ -678,15 +678,15 @@ Set to `column` for column-oriented storage, or `row` (the default) for row-orie
 
 **`toast_tuple_target (integer)`**
 
-The `toast_tuple_target` specifies the minimum tuple length required before Cloudberry Database attempts to compress and/or move long column values into TOAST tables, and is also the target length Cloudberry Database tries to reduce the length below once toasting begins. This affects columns marked as External (for move), Main (for compression), or Extended (for both) and applies only to new tuples. There is no effect on existing rows. By default this parameter is set to allow at least 4 tuples per block, which with the default blocksize will be 8184 bytes. Valid values are between 128 bytes and the (blocksize - header), by default 8160 bytes. Changing this value may not be useful for very short or very long rows. Note that the default setting is often close to optimal, and it is possible that setting this parameter could have negative effects in some cases. You can not set this parameter for TOAST tables.
+The `toast_tuple_target` specifies the minimum tuple length required before Apache Cloudberry attempts to compress and/or move long column values into TOAST tables, and is also the target length Apache Cloudberry tries to reduce the length below once toasting begins. This affects columns marked as External (for move), Main (for compression), or Extended (for both) and applies only to new tuples. There is no effect on existing rows. By default this parameter is set to allow at least 4 tuples per block, which with the default blocksize will be 8184 bytes. Valid values are between 128 bytes and the (blocksize - header), by default 8160 bytes. Changing this value may not be useful for very short or very long rows. Note that the default setting is often close to optimal, and it is possible that setting this parameter could have negative effects in some cases. You can not set this parameter for TOAST tables.
 
 **`parallel_workers (integer)`**
 
-Sets the number of workers that should be used to assist a parallel scan of this table. If not set, Cloudberry Database determines a value based on the relation size. The actual number of workers chosen by the planner or by utility statements that use parallel scans may be less, for example due to the setting of `max_worker_processes`.
+Sets the number of workers that should be used to assist a parallel scan of this table. If not set, Apache Cloudberry determines a value based on the relation size. The actual number of workers chosen by the planner or by utility statements that use parallel scans may be less, for example due to the setting of `max_worker_processes`.
 
 **`autovacuum_enabled, toast.autovacuum_enabled (boolean)`**
 
-Enables or disables the autovacuum daemon for a particular table. If `true`, the autovacuum daemon will perform automatic `VACUUM` and/or `ANALYZE` operations on this table following the rules discussed in [The Autovacuum Daemon](https://www.postgresql.org/docs/12/routine-vacuuming.html#AUTOVACUUM) in the PostgreSQL documentation. If `false`, Cloudberry Database does not autovacuum the table, except to prevent transaction ID wraparound. Note that the autovacuum daemon does not run at all (except to prevent transaction ID wraparound) if the `autovacuum` parameter is `false`; setting individual tables' storage parameters does not override that. So there is seldom much point in explicitly setting this storage parameter to `true`, only to `false`.
+Enables or disables the autovacuum daemon for a particular table. If `true`, the autovacuum daemon will perform automatic `VACUUM` and/or `ANALYZE` operations on this table following the rules discussed in [The Autovacuum Daemon](https://www.postgresql.org/docs/12/routine-vacuuming.html#AUTOVACUUM) in the PostgreSQL documentation. If `false`, Apache Cloudberry does not autovacuum the table, except to prevent transaction ID wraparound. Note that the autovacuum daemon does not run at all (except to prevent transaction ID wraparound) if the `autovacuum` parameter is `false`; setting individual tables' storage parameters does not override that. So there is seldom much point in explicitly setting this storage parameter to `true`, only to `false`.
 
 **`vacuum_index_cleanup, toast.vacuum_index_cleanup (boolean)`**
 
@@ -702,13 +702,13 @@ Enables or disables vacuum to attempt to truncate any empty pages at the end of 
 
 Per-table value for the `autovacuum_vacuum_threshold` server configuration parameter.
 
-> **Note** Cloudberry Database accepts, but does not apply, values for these storage parameters.
+> **Note** Apache Cloudberry accepts, but does not apply, values for these storage parameters.
 
 **`autovacuum_vacuum_scale_factor, toast.autovacuum_vacuum_scale_factor (floating point)`**
 
 Per-table value for the `autovacuum_vacuum_scale_factor` server configuration parameter.
 
-> **Note** Cloudberry Database accepts, but does not apply, values for these storage parameters.
+> **Note** Apache Cloudberry accepts, but does not apply, values for these storage parameters.
 
 **`autovacuum_analyze_threshold (integer)`**
 
@@ -722,75 +722,75 @@ Per-table value for the `autovacuum_analyze_scale_factor` server configuration p
 
 Per-table value for the `autovacuum_vacuum_cost_delay` server configuration parameter.
 
-> **Note** Cloudberry Database accepts, but does not apply, values for these storage parameters.
+> **Note** Apache Cloudberry accepts, but does not apply, values for these storage parameters.
 
 **`autovacuum_vacuum_cost_limit, toast.autovacuum_vacuum_cost_limit (integer)`**
 
 Per-table value for the `autovacuum_vacuum_cost_limit` server configuration parameter.
 
-> **Note** Cloudberry Database accepts, but does not apply, values for these storage parameters.
+> **Note** Apache Cloudberry accepts, but does not apply, values for these storage parameters.
 
 **`autovacuum_freeze_min_age, toast.autovacuum_freeze_min_age (integer)`**
 
 Per-table value for the `vacuum_freeze_min_age` parameter. Note that autovacuum will ignore per-table `autovacuum_freeze_min_age` parameters that are larger than half of the system-wide `autovacuum_freeze_max_age` setting.
 
-> **Note** Cloudberry Database accepts, but does not apply, values for these storage parameters.
+> **Note** Apache Cloudberry accepts, but does not apply, values for these storage parameters.
 
 **`autovacuum_freeze_max_age, toast.autovacuum_freeze_max_age (integer)`**
 
 Per-table value for the `autovacuum_freeze_max_age` server configuration parameter. Note that autovacuum will ignore per-table `autovacuum_freeze_max_age` parameters that are larger than the system-wide setting (it can only be set smaller).
 
-> **Note** Cloudberry Database accepts, but does not apply, values for these storage parameters.
+> **Note** Apache Cloudberry accepts, but does not apply, values for these storage parameters.
 
 **`autovacuum_freeze_table_age, toast.autovacuum_freeze_table_age (integer)`**
 
 Per-table value for the `vacuum_freeze_table_age` server configuration parameter.
 
-> **Note** Cloudberry Database accepts, but does not apply, values for these storage parameters.
+> **Note** Apache Cloudberry accepts, but does not apply, values for these storage parameters.
 
 **`autovacuum_multixact_freeze_min_age, toast.autovacuum_multixact_freeze_min_age (integer)`**
 
 Per-table value for the `vacuum_multixact_freeze_min_age` server configuration parameter. Note that autovacuum will ignore per-table `autovacuum_multixact_freeze_min_age` parameters that are larger than half of the system-wide `autovacuum_multixact_freeze_max_age` setting.
 
-> **Note** Cloudberry Database accepts, but does not apply, values for these storage parameters.
+> **Note** Apache Cloudberry accepts, but does not apply, values for these storage parameters.
 
 **`autovacuum_multixact_freeze_max_age, toast.autovacuum_multixact_freeze_max_age (integer)`**
 
 Per-table value for the `autovacuum_multixact_freeze_max_age` server configuration parameter. Note that autovacuum will ignore per-table `autovacuum_multixact_freeze_max_age` parameters that are larger than the system-wide setting (it can only be set smaller).
 
-> **Note** Cloudberry Database accepts, but does not apply, values for these storage parameters.
+> **Note** Apache Cloudberry accepts, but does not apply, values for these storage parameters.
 
 **`autovacuum_multixact_freeze_table_age, toast.autovacuum_multixact_freeze_table_age (integer)`**
 
 Per-table value for the `vacuum_multixact_freeze_table_age` server configuration parameter.
 
-> **Note** Cloudberry Database accepts, but does not apply, values for these storage parameters.
+> **Note** Apache Cloudberry accepts, but does not apply, values for these storage parameters.
 
 **`log_autovacuum_min_duration, toast.log_autovacuum_min_duration (integer)`**
 
 Per-table value for the `log_autovacuum_min_duration` server configuration parameter.
 
-> **Note** Cloudberry Database accepts, but does not apply, values for these storage parameters.
+> **Note** Apache Cloudberry accepts, but does not apply, values for these storage parameters.
 
 ## Notes
 
-Cloudberry Database automatically creates an index for each unique constraint and primary key constraint to enforce uniqueness, so it is not necessary to create an index explicitly for primary key columns. (See [CREATE INDEX](/docs/sql-stmts/create-index.md) for more information.)
+Apache Cloudberry automatically creates an index for each unique constraint and primary key constraint to enforce uniqueness, so it is not necessary to create an index explicitly for primary key columns. (See [CREATE INDEX](/docs/sql-stmts/create-index.md) for more information.)
 
 Unique constraints and primary keys are not inherited.
 
 You cannot define a table with more than 1600 columns. (In practice, the effective limit is usually lower because of tuple-length constraints.)
 
-The Cloudberry Database data types `VARCHAR` or `TEXT` handle padding added to the textual data (space characters added after the last non-space character) as significant characters; the data type `CHAR` does not.
+The Apache Cloudberry data types `VARCHAR` or `TEXT` handle padding added to the textual data (space characters added after the last non-space character) as significant characters; the data type `CHAR` does not.
 
-In Cloudberry Database, values of type `CHAR(<n>)` are padded with trailing spaces to the specified width `<n>`. The values are stored and displayed with the spaces. However, the padding spaces are treated as semantically insignificant. When the values are distributed, the trailing spaces are disregarded. The trailing spaces are also treated as semantically insignificant when comparing two values of data type `CHAR`, and the trailing spaces are removed when converting a character value to one of the other string types.
+In Apache Cloudberry, values of type `CHAR(<n>)` are padded with trailing spaces to the specified width `<n>`. The values are stored and displayed with the spaces. However, the padding spaces are treated as semantically insignificant. When the values are distributed, the trailing spaces are disregarded. The trailing spaces are also treated as semantically insignificant when comparing two values of data type `CHAR`, and the trailing spaces are removed when converting a character value to one of the other string types.
 
-Cloudberry Database requires certain special conditions for primary key and unique constraints with regards to columns that are the *distribution key* in a Cloudberry Database table. For a unique constraint to be enforced in Cloudberry Database, the table must be hash-distributed (not `DISTRIBUTED RANDOMLY`), and the constraint columns must be the same as, or a superset of, the table's distribution key columns.
+Apache Cloudberry requires certain special conditions for primary key and unique constraints with regards to columns that are the *distribution key* in a Apache Cloudberry table. For a unique constraint to be enforced in Apache Cloudberry, the table must be hash-distributed (not `DISTRIBUTED RANDOMLY`), and the constraint columns must be the same as, or a superset of, the table's distribution key columns.
 
 Replicated tables (`DISTRIBUTED REPLICATED`) can have both `PRIMARY KEY` and `UNIQUE` column constraints.
 
 A primary key constraint is simply a combination of a unique constraint and a not-null constraint.
 
-Foreign key constraints are not supported in Cloudberry Database.
+Foreign key constraints are not supported in Apache Cloudberry.
 
 For inherited tables, unique constraints, primary key constraints, indexes and table privileges are *not* inherited in the current implementation.
 
@@ -800,7 +800,7 @@ For append-optimized tables, `UPDATE` and `DELETE` are not allowed in a repeatab
 
 `CLUSTER` on append-optimized tables is only supported over B-tree indexes.
 
-The Cloudberry Database Query Optimizer does not support list partitions with multi-column (composite) partition keys.
+The Apache Cloudberry Query Optimizer does not support list partitions with multi-column (composite) partition keys.
 
 ## Examples
 
@@ -811,7 +811,7 @@ CREATE TABLE baby.rank (id int, rank int, year smallint, count int )
 DISTRIBUTED BY (rank, year);
 ```
 
-Create tables named `films` and `distributors` (the primary key will be used as the Cloudberry Database distribution key by default):
+Create tables named `films` and `distributors` (the primary key will be used as the Apache Cloudberry distribution key by default):
 
 ```sql
 CREATE TABLE films (
@@ -1176,11 +1176,11 @@ PARTITION BY RANGE (year)
 
 ### Temporary tables
 
-In the SQL standard, temporary tables are defined just once and automatically exist (starting with empty contents) in every session that needs them. Cloudberry Database instead requires each session to issue its own `CREATE TEMPORARY TABLE` command for each temporary table to be used. This allows different sessions to use the same temporary table name for different purposes, whereas the standard's approach constrains all instances of a given temporary table name to have the same table structure.
+In the SQL standard, temporary tables are defined just once and automatically exist (starting with empty contents) in every session that needs them. Apache Cloudberry instead requires each session to issue its own `CREATE TEMPORARY TABLE` command for each temporary table to be used. This allows different sessions to use the same temporary table name for different purposes, whereas the standard's approach constrains all instances of a given temporary table name to have the same table structure.
 
-The standard's distinction between global and local temporary tables is not in Cloudberry Database. Cloudberry Database will accept the `GLOBAL` and `LOCAL` keywords in a temporary table declaration, but they have no effect and are deprecated.
+The standard's distinction between global and local temporary tables is not in Apache Cloudberry. Apache Cloudberry will accept the `GLOBAL` and `LOCAL` keywords in a temporary table declaration, but they have no effect and are deprecated.
 
-If the `ON COMMIT` clause is omitted, the SQL standard specifies that the default behavior as `ON COMMIT DELETE ROWS`. However, the default behavior in Cloudberry Database is `ON COMMIT PRESERVE ROWS`. The `ON COMMIT DROP` option does not exist in the SQL standard.
+If the `ON COMMIT` clause is omitted, the SQL standard specifies that the default behavior as `ON COMMIT DELETE ROWS`. However, the default behavior in Apache Cloudberry is `ON COMMIT PRESERVE ROWS`. The `ON COMMIT DROP` option does not exist in the SQL standard.
 
 ### Non-deferred uniqueness constraints
 
@@ -1188,29 +1188,29 @@ When a `UNIQUE` or `PRIMARY KEY` constraint is not deferrable, Greeplum Database
 
 ### Column check constraints
 
-**Column Check Constraints** — The SQL standard states that `CHECK` column constraints may only refer to the column they apply to; only `CHECK` table constraints may refer to multiple columns. Cloudberry Database does not enforce this restriction; it treats column and table check constraints alike.
+**Column Check Constraints** — The SQL standard states that `CHECK` column constraints may only refer to the column they apply to; only `CHECK` table constraints may refer to multiple columns. Apache Cloudberry does not enforce this restriction; it treats column and table check constraints alike.
 
-**Exclude Constraint** — The `EXCLUDE` constraint type is a Cloudberry Database extension.
+**Exclude Constraint** — The `EXCLUDE` constraint type is a Apache Cloudberry extension.
 
-**NULL Constraint** — The `NULL` constraint is a Cloudberry Database extension to the SQL standard that is included for compatibility with some other database systems (and for symmetry with the `NOT NULL` constraint). Since it is the default for any column, its presence is not required.
+**NULL Constraint** — The `NULL` constraint is a Apache Cloudberry extension to the SQL standard that is included for compatibility with some other database systems (and for symmetry with the `NOT NULL` constraint). Since it is the default for any column, its presence is not required.
 
 ### Constraint naming
 
-The SQL standard states that table and domain constraints must have names that are unique across the schema containing the table or domain. Cloudberry Database is laxer: it only requires constraint names to be unique across the constraints attached to a particular table or domain. However, this extra freedom does not exist for index-based constraints (`UNIQUE`, `PRIMARY KEY`, and `EXCLUDE` constraints), because the associated index is named the same as the constraint, and index names must be unique across all relations within the same schema.
+The SQL standard states that table and domain constraints must have names that are unique across the schema containing the table or domain. Apache Cloudberry is laxer: it only requires constraint names to be unique across the constraints attached to a particular table or domain. However, this extra freedom does not exist for index-based constraints (`UNIQUE`, `PRIMARY KEY`, and `EXCLUDE` constraints), because the associated index is named the same as the constraint, and index names must be unique across all relations within the same schema.
 
-Cloudberry Database does not currently record names for `NOT NULL` constraints at all, so they are not subject to the uniqueness restriction.
+Apache Cloudberry does not currently record names for `NOT NULL` constraints at all, so they are not subject to the uniqueness restriction.
 
 ### Inheritance
 
-Multiple inheritance via the `INHERITS` clause is a Cloudberry Database language extension. SQL:1999 and later define single inheritance using a different syntax and different semantics. SQL:1999-style inheritance is not yet supported by Cloudberry Database.
+Multiple inheritance via the `INHERITS` clause is a Apache Cloudberry language extension. SQL:1999 and later define single inheritance using a different syntax and different semantics. SQL:1999-style inheritance is not yet supported by Apache Cloudberry.
 
 ### Zero-column tables
 
-Cloudberry Database allows a table of no columns to be created (for example, `CREATE TABLE foo();`). This is an extension from the SQL standard, which does not allow zero-column tables. Because zero-column tables are not in themselves very useful, disallowing them creates odd special cases for `ALTER TABLE DROP COLUMN`, so Cloudberry Database ignores this spec restriction.
+Apache Cloudberry allows a table of no columns to be created (for example, `CREATE TABLE foo();`). This is an extension from the SQL standard, which does not allow zero-column tables. Because zero-column tables are not in themselves very useful, disallowing them creates odd special cases for `ALTER TABLE DROP COLUMN`, so Apache Cloudberry ignores this spec restriction.
 
 ### Multiple identity columns
 
-Cloudberry Database allows a table to have more than one identity column. The standard specifies that a table can have at most one identity column. Cloudberry Database relaxes this restriction to provide more flexibility for schema changes or migrations. Note that the `INSERT` command supports only one override clause that applies to the entire statement, so having multiple identity columns with different behaviors is not well supported.
+Apache Cloudberry allows a table to have more than one identity column. The standard specifies that a table can have at most one identity column. Apache Cloudberry relaxes this restriction to provide more flexibility for schema changes or migrations. Note that the `INSERT` command supports only one override clause that applies to the entire statement, so having multiple identity columns with different behaviors is not well supported.
 
 ### Generated columns
 
@@ -1218,32 +1218,32 @@ The option `STORED` is not standard but is also used by other SQL implementation
 
 ### Like clause
 
-While a `LIKE` clause exists in the SQL standard, many of the options that Cloudberry Database accepts for it are not in the standard, and some of the standard's options are not implemented by Cloudberry Database.
+While a `LIKE` clause exists in the SQL standard, many of the options that Apache Cloudberry accepts for it are not in the standard, and some of the standard's options are not implemented by Apache Cloudberry.
 
 ### With clause
 
-The `WITH` clause is a Cloudberry Database extension; storage parameters are in the standard.
+The `WITH` clause is a Apache Cloudberry extension; storage parameters are in the standard.
 
 
 ### Tablespaces
 
-The Cloudberry Database concept of tablespaces is not part of the SQL standard. The clauses `TABLESPACE` and `USING INDEX TABLESPACE` are extensions.
+The Apache Cloudberry concept of tablespaces is not part of the SQL standard. The clauses `TABLESPACE` and `USING INDEX TABLESPACE` are extensions.
 
 ### Typed tables
 
-Typed tables implement a subset of the SQL standard. According to the standard, a typed table has columns corresponding to the underlying composite type as well as one other column that is the "self-referencing column". Cloudberry Database does not support self-referencing columns explicitly.
+Typed tables implement a subset of the SQL standard. According to the standard, a typed table has columns corresponding to the underlying composite type as well as one other column that is the "self-referencing column". Apache Cloudberry does not support self-referencing columns explicitly.
 
 ### Partition by clause
 
-Table partitioning via the `PARTITION BY` clause is a Cloudberry Database extension.
+Table partitioning via the `PARTITION BY` clause is a Apache Cloudberry extension.
 
 ### Partition of clause
 
-Table partitioning via the `PARTITION OF` clause is a Cloudberry Database extension.
+Table partitioning via the `PARTITION OF` clause is a Apache Cloudberry extension.
 
 ### Data distribution
 
-The Cloudberry Database concept of a parallel or distributed database is not part of the SQL standard. The `DISTRIBUTED` clauses are extensions.
+The Apache Cloudberry concept of a parallel or distributed database is not part of the SQL standard. The `DISTRIBUTED` clauses are extensions.
 
 
 ## See also

@@ -20,7 +20,7 @@ A parallel retrieve cursor has an associated position, which is used by `RETRIEV
 
 > **Note:**
 >
-> Because Cloudberry Database does not support scrollable cursors, the `RETRIEVE` command moves a parallel retrieve cursor only forward in position.
+> Because Apache Cloudberry does not support scrollable cursors, the `RETRIEVE` command moves a parallel retrieve cursor only forward in position.
 
 When it is created, a parallel retrieve cursor is positioned before the first row. After retrieving some rows, the cursor is positioned on the row most recently retrieved.
 
@@ -101,7 +101,7 @@ COMMIT;
 
 ## Compatibility
 
-`RETRIEVE` is a Cloudberry Database extension. The SQL standard makes no provisions for parallel retrieve cursors.
+`RETRIEVE` is a Apache Cloudberry extension. The SQL standard makes no provisions for parallel retrieve cursors.
 
 ## See also
 

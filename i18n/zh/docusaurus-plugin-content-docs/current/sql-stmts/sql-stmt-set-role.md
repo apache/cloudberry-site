@@ -70,7 +70,7 @@ SELECT SESSION_USER, CURRENT_USER;
 
 ## 兼容性
 
-Cloudberry Database 允许使用标识符语法（rolename），而 SQL 标准要求角色名称必须写成字符串字面量。SQL 标准不允许在事务中执行 `SET ROLE` 命令；Cloudberry Database 不做此限制。`SESSION` 和 `LOCAL` 修饰符是 Cloudberry Database 的扩展，`RESET` 语法也是如此。
+Apache Cloudberry 允许使用标识符语法（rolename），而 SQL 标准要求角色名称必须写成字符串字面量。SQL 标准不允许在事务中执行 `SET ROLE` 命令；Apache Cloudberry 不做此限制。`SESSION` 和 `LOCAL` 修饰符是 Apache Cloudberry 的扩展，`RESET` 语法也是如此。
 
 ## 另见
 

@@ -2,11 +2,11 @@
 title: Advanced Aggregate Functions
 ---
 
-# Advanced Aggregate Functions in Cloudberry Database
+# Advanced Aggregate Functions in Apache Cloudberry
 
 The following built-in advanced analytic functions are Cloudberry extensions of the PostgreSQL database. Analytic functions are *immutable*.
 
-> **Note** The Cloudberry MADlib Extension for Analytics provides additional advanced functions to perform statistical analysis and machine learning with Cloudberry Database data.
+> **Note** The Cloudberry MADlib Extension for Analytics provides additional advanced functions to perform statistical analysis and machine learning with Apache Cloudberry data.
 
 | Function | Return Type | Full Syntax | Description |
 |----------|-------------|-------------|-------------|

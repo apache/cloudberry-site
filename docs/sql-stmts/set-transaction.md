@@ -31,7 +31,7 @@ The `SET TRANSACTION` command sets the characteristics of the current transactio
 The available transaction characteristics are the transaction isolation level, the transaction access mode (read/write or read-only), and the deferrable mode. In addition, a snapshot can be selected, though only for the current transaction, not as a session default.
 
 :::info
-Deferrable transactions require the transaction to be serializable. Cloudberry Database does not support serializable transactions, so including the `DEFERRABLE` clause has no effect.
+Deferrable transactions require the transaction to be serializable. Apache Cloudberry does not support serializable transactions, so including the `DEFERRABLE` clause has no effect.
 :::
 
 The isolation level of a transaction determines what data the transaction can see when other transactions are running concurrently.
@@ -39,13 +39,13 @@ The isolation level of a transaction determines what data the transaction can se
 - **READ COMMITTED** — A statement can only see rows committed before it began. This is the default.
 - **REPEATABLE READ** — All statements in the current transaction can only see rows committed before the first query or data-modification statement run in the transaction.
 
-The SQL standard defines two additional levels, `READ UNCOMMITTED` and `SERIALIZABLE`. In Cloudberry Database, `READ UNCOMMITTED` is treated as `READ COMMITTED`. If you specify `SERIALIZABLE`, Cloudberry Database falls back to `REPEATABLE READ`.
+The SQL standard defines two additional levels, `READ UNCOMMITTED` and `SERIALIZABLE`. In Apache Cloudberry, `READ UNCOMMITTED` is treated as `READ COMMITTED`. If you specify `SERIALIZABLE`, Apache Cloudberry falls back to `REPEATABLE READ`.
 
 The transaction isolation level cannot be changed after the first query or data-modification statement (`SELECT`, `INSERT`, `DELETE`, `UPDATE`, `FETCH`, or `COPY`) of a transaction has been run.
 
 The transaction access mode determines whether the transaction is read/write or read-only. Read/write is the default. When a transaction is read-only, the following SQL commands are disallowed: `INSERT`, `UPDATE`, `DELETE`, and `COPY FROM` if the table they would write to is not a temporary table; all `CREATE`, `ALTER`, and `DROP` commands; `COMMENT`, `GRANT`, `REVOKE`, `TRUNCATE`; and `EXPLAIN ANALYZE` and `EXECUTE` if the command they would run is among those listed. This is a high-level notion of read-only that does not prevent all writes to disk.
 
-The `DEFERRABLE` transaction property has no effect unless the transaction is also `SERIALIZABLE` and `READ ONLY`. When all of these properties are set on a transaction, the transaction may block when first acquiring its snapshot, after which it is able to run without the normal overhead of a `SERIALIZABLE` transaction and without any risk of contributing to or being cancelled by a serialization failure. This mode is well suited for long-running reports or backups. *Because Cloudberry Database does not support serializable transactions, the `DEFERRABLE` transaction property has no effect in Cloudberry Database.*
+The `DEFERRABLE` transaction property has no effect unless the transaction is also `SERIALIZABLE` and `READ ONLY`. When all of these properties are set on a transaction, the transaction may block when first acquiring its snapshot, after which it is able to run without the normal overhead of a `SERIALIZABLE` transaction and without any risk of contributing to or being cancelled by a serialization failure. This mode is well suited for long-running reports or backups. *Because Apache Cloudberry does not support serializable transactions, the `DEFERRABLE` transaction property has no effect in Apache Cloudberry.*
 
 The `SET TRANSACTION SNAPSHOT` command allows a new transaction to run with the same snapshot as an existing transaction. The pre-existing transaction must have exported its snapshot with the `pg_export_snapshot()` function. That function returns a snapshot identifier, which must be given to `SET TRANSACTION SNAPSHOT` to specify which snapshot is to be imported. The identifier must be written as a string literal in this command, for example `'000003A1-1'`. `SET TRANSACTION SNAPSHOT` can only be executed at the start of a transaction, before the first query or data-modification statement (`SELECT`, `INSERT`, `DELETE`, `UPDATE`, `FETCH`, or `COPY`) of the transaction. Furthermore, the transaction must already be set to `SERIALIZABLE` or `REPEATABLE READ` isolation level (otherwise, the snapshot would be discarded immediately, since `READ COMMITTED` mode takes a new snapshot for each command). If the importing transaction uses `SERIALIZABLE` isolation level, then the transaction that exported the snapshot must also use that isolation level. Also, a non-read-only serializable transaction cannot import a snapshot from a read-only transaction.
 
@@ -81,13 +81,13 @@ SET TRANSACTION SNAPSHOT '00000003-0000001B-1';
 
 ## Compatibility
 
-These commands are defined in the SQL standard, except for the `DEFERRABLE` transaction mode and the `SET TRANSACTION SNAPSHOT` form, which are Cloudberry Database extensions.
+These commands are defined in the SQL standard, except for the `DEFERRABLE` transaction mode and the `SET TRANSACTION SNAPSHOT` form, which are Apache Cloudberry extensions.
 
-`SERIALIZABLE` is the default transaction isolation level in the standard. In Cloudberry Database, the default is `READ COMMITTED`. Due to lack of predicate locking, Cloudberry Database does not fully support the `SERIALIZABLE` level, so it falls back to the `REPEATABLE READ` level when `SERIALIZABLE` is specified. Essentially, a predicate-locking system prevents phantom reads by restricting what is written, whereas a multi-version concurrency control model (MVCC) as used in Cloudberry Database prevents them by restricting what is read.
+`SERIALIZABLE` is the default transaction isolation level in the standard. In Apache Cloudberry, the default is `READ COMMITTED`. Due to lack of predicate locking, Apache Cloudberry does not fully support the `SERIALIZABLE` level, so it falls back to the `REPEATABLE READ` level when `SERIALIZABLE` is specified. Essentially, a predicate-locking system prevents phantom reads by restricting what is written, whereas a multi-version concurrency control model (MVCC) as used in Apache Cloudberry prevents them by restricting what is read.
 
-In the SQL standard, there is one other transaction characteristic that can be set with these commands: the size of the diagnostics area. This concept is specific to embedded SQL, and therefore is not implemented in the Cloudberry Database server.
+In the SQL standard, there is one other transaction characteristic that can be set with these commands: the size of the diagnostics area. This concept is specific to embedded SQL, and therefore is not implemented in the Apache Cloudberry server.
 
-The SQL standard requires commas between successive transaction_modes, but for historical reasons Cloudberry Database allows the commas to be omitted.
+The SQL standard requires commas between successive transaction_modes, but for historical reasons Apache Cloudberry allows the commas to be omitted.
 
 ## See also
 

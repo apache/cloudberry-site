@@ -2,9 +2,9 @@
 title: Protect Passwords
 ---
 
-# Protect passwords in Cloudberry Database
+# Protect passwords in Apache Cloudberry
 
-In its default configuration, Cloudberry Database saves MD5 or SCRAM-SHA-256 hashes of login users' passwords in the `pg_authid` system catalog rather than saving clear text passwords. Anyone who is able to view the `pg_authid` table can see hash strings, but no passwords. This also ensures that passwords are obscured when the database is dumped to backup files.
+In its default configuration, Apache Cloudberry saves MD5 or SCRAM-SHA-256 hashes of login users' passwords in the `pg_authid` system catalog rather than saving clear text passwords. Anyone who is able to view the `pg_authid` table can see hash strings, but no passwords. This also ensures that passwords are obscured when the database is dumped to backup files.
 
 The hash function runs when the password is set by using any of the following commands:
 

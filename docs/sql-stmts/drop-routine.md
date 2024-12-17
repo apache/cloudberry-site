@@ -29,7 +29,7 @@ This command will work independent of whether `foo` is an aggregate, function, o
 
 ## Compatibility
 
-This command conforms to the SQL standard, with these Cloudberry Database extensions:
+This command conforms to the SQL standard, with these Apache Cloudberry extensions:
 
 - The standard only allows one routine to be dropped per command.
 

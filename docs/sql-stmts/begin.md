@@ -20,7 +20,7 @@ BEGIN [WORK | TRANSACTION] [<transaction_mode>]
 
 ## Description
 
-`BEGIN` initiates a transaction block, that is, all statements after a `BEGIN` command will be run in a single transaction until an explicit [COMMIT](/docs/sql-stmts/commit.md) or [ROLLBACK](/docs/sql-stmts/rollback.md) is given. By default (without `BEGIN`), Cloudberry Database runs transactions in "autocommit" mode, that is, each statement is run in its own transaction and a commit is implicitly performed at the end of the statement (if execution was successful, otherwise a rollback is done).
+`BEGIN` initiates a transaction block, that is, all statements after a `BEGIN` command will be run in a single transaction until an explicit [COMMIT](/docs/sql-stmts/commit.md) or [ROLLBACK](/docs/sql-stmts/rollback.md) is given. By default (without `BEGIN`), Apache Cloudberry runs transactions in "autocommit" mode, that is, each statement is run in its own transaction and a commit is implicitly performed at the end of the statement (if execution was successful, otherwise a rollback is done).
 
 Statements are run more quickly in a transaction block, because transaction start/commit requires significant CPU and disk activity. Execution of multiple statements inside a transaction is also useful to ensure consistency when making several related changes: other sessions will be unable to see the intermediate states wherein not all the related updates have been done.
 
@@ -55,9 +55,9 @@ BEGIN;
 
 ## Compatibility
 
-`BEGIN` is a Cloudberry Database language extension. It is equivalent to the SQL-standard command [START TRANSACTION](/docs/sql-stmts/start-transaction.md), whose reference page contains additional compatibility information.
+`BEGIN` is a Apache Cloudberry language extension. It is equivalent to the SQL-standard command [START TRANSACTION](/docs/sql-stmts/start-transaction.md), whose reference page contains additional compatibility information.
 
-The `DEFERRABLE` transaction_mode is a Cloudberry Database language extension.
+The `DEFERRABLE` transaction_mode is a Apache Cloudberry language extension.
 
 Incidentally, the `BEGIN` key word is used for a different purpose in embedded SQL. You are advised to be careful about the transaction semantics when porting database applications.
 

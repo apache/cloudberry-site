@@ -44,7 +44,7 @@ DROP COLLATION german;
 
 ## Compatibility
 
-The `DROP COLLATION` command conforms to the SQL standard, apart from the `IF EXISTS` option, which is a Cloudberry Database extension.
+The `DROP COLLATION` command conforms to the SQL standard, apart from the `IF EXISTS` option, which is a Apache Cloudberry extension.
 
 ## See also
 

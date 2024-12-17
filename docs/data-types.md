@@ -2,13 +2,13 @@
 title: Data Types
 ---
 
-# Cloudberry Database Data Types
+# Apache Cloudberry Data Types
 
-Cloudberry Database has a rich set of native data types available to users. This document shows some of the built-in data types. In addition to the types listed here, there are also some internally used data types, such as oid (object identifier), but those are not documented in this document.
+Apache Cloudberry has a rich set of native data types available to users. This document shows some of the built-in data types. In addition to the types listed here, there are also some internally used data types, such as oid (object identifier), but those are not documented in this document.
 
 The following data types are specified by SQL: bit, bit varying, boolean, character varying, varchar, character, char, date, double precision, integer, interval, numeric, decimal, real, smallint, time (with or without time zone), and timestamp (with or without time zone).
 
-Each data type has an external representation determined by its input and output functions. Many of the built-in types have obvious external formats. However, several types are either unique to PostgreSQL (and Cloudberry Database), such as geometric paths, or have several possibilities for formats, such as the date and time types. Some of the input and output functions are not invertible. That is, the result of an output function may lose accuracy when compared to the original input.
+Each data type has an external representation determined by its input and output functions. Many of the built-in types have obvious external formats. However, several types are either unique to PostgreSQL (and Apache Cloudberry), such as geometric paths, or have several possibilities for formats, such as the date and time types. Some of the input and output functions are not invertible. That is, the result of an output function may lose accuracy when compared to the original input.
 
 | Name                     | Alias                | Size            | Range                                       | Description                                              |
 |----------------------------|------------------------|-----------------|---------------------------------------------|----------------------------------------------------------|

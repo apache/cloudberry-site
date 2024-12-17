@@ -75,7 +75,7 @@ You created incremental backups with this command:
 gpbackup --dbname mytest --backup-dir /mybackup --leaf-partition-data --incremental
 ```
 
-When you specify the `--backup-dir` option, the backups are created in the `/mybackup` directory on each Cloudberry Database host.
+When you specify the `--backup-dir` option, the backups are created in the `/mybackup` directory on each Apache Cloudberry host.
 
 In the example, the full backups have the timestamp keys `20230514054532` and `20231114064330`. The other backups are incremental backups. The example consists of two backup sets, the first with two incremental backups, and second with one incremental backup. The backups are listed from earliest to most recent.
 
@@ -191,5 +191,5 @@ The incremental back up set, a full backup and associated incremental backups, m
 If you specify the `gprestore` option `--incremental` to restore data from a specific incremental backup, you must also specify the `--data-only` option. Before performing the restore operation, `gprestore` ensures that the tables being restored exist. If a table does not exist, `gprestore` returns an error and exits.
 
 :::warning
-Changes to the Cloudberry Database segment configuration invalidate incremental backups. After you change the segment configuration (add or remove segment instances), you must create a full backup before you can create an incremental backup.
+Changes to the Apache Cloudberry segment configuration invalidate incremental backups. After you change the segment configuration (add or remove segment instances), you must create a full backup before you can create an incremental backup.
 :::

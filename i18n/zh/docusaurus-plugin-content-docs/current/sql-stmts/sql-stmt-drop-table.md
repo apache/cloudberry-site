@@ -22,7 +22,7 @@ DROP TABLE [IF EXISTS] <name> [, ...] [CASCADE | RESTRICT]
 
 **`IF EXISTS`**
 
-如果表不存在，则不抛出错误。在这种情况下，Cloudberry Database 会发出一个提醒。
+如果表不存在，则不抛出错误。在这种情况下，Apache Cloudberry 会发出一个提醒。
 
 **`name`**
 
@@ -34,7 +34,7 @@ DROP TABLE [IF EXISTS] <name> [, ...] [CASCADE | RESTRICT]
 
 **`RESTRICT`**
 
-如果有对象依赖于表，Cloudberry Database 会拒绝删除表。这是默认行为。
+如果有对象依赖于表，Apache Cloudberry 会拒绝删除表。这是默认行为。
 
 ## 示例
 
@@ -52,7 +52,7 @@ DROP TABLE films, distributors;
 
 ## 兼容性
 
-`DROP TABLE` 符合 SQL 标准，但该标准只允许一次删除一个表。此外，`IF EXISTS` 选项是 Cloudberry Database 的扩展。
+`DROP TABLE` 符合 SQL 标准，但该标准只允许一次删除一个表。此外，`IF EXISTS` 选项是 Apache Cloudberry 的扩展。
 
 ## 另见
 

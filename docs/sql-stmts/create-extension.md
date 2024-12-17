@@ -4,7 +4,7 @@ title: CREATE EXTENSION
 
 # CREATE EXTENSION
 
-Registers an extension in a Cloudberry Database.
+Registers an extension in a Apache Cloudberry.
 
 ## Synopsis
 
@@ -28,13 +28,13 @@ Loading an extension requires the same privileges that would be required to crea
 
 **`IF NOT EXISTS`**
 
-Do not throw an error if an extension with the same name already exists. Cloudberry Database issues a notice in this case. Note that there is no guarantee that the existing extension is anything like the one that would have been created from the currently-available script file.
+Do not throw an error if an extension with the same name already exists. Apache Cloudberry issues a notice in this case. Note that there is no guarantee that the existing extension is anything like the one that would have been created from the currently-available script file.
 
 **`extension_name`**
 
-The name of the extension to be installed. Cloudberry Database will create the extension using details from the file `SHAREDIR/extension/<extension_name>.control`.
+The name of the extension to be installed. Apache Cloudberry will create the extension using details from the file `SHAREDIR/extension/<extension_name>.control`.
 
-`SHAREDIR` is the installation shared-data directory, for example `/usr/local/cloudberry-db/share/postgresql`. The command `pg_config --sharedir` displays the directory.
+`SHAREDIR` is the installation shared-data directory, for example `/usr/local/cloudberry/share/postgresql`. The command `pg_config --sharedir` displays the directory.
 
 **`schema_name`**
 
@@ -59,13 +59,13 @@ Automatically install any extensions that this extension depends on that are not
 
 ## Notes
 
-Before you can use `CREATE EXTENSION` to load an extension into a database, the extension's supporting files must be installed. The supporting files must be installed in the same location on all Cloudberry Database hosts. For information about creating new extensions, see the PostgreSQL [Packaging Related Objects into an Extension](https://www.postgresql.org/docs/12/extend-extensions.html) documentation.
+Before you can use `CREATE EXTENSION` to load an extension into a database, the extension's supporting files must be installed. The supporting files must be installed in the same location on all Apache Cloudberry hosts. For information about creating new extensions, see the PostgreSQL [Packaging Related Objects into an Extension](https://www.postgresql.org/docs/12/extend-extensions.html) documentation.
 
 The extensions currently available for loading can be identified from the pg_available_extensions or pg_available_extension_versions system views.
 
 > **Note:** Installing an extension as superuser requires trusting that the extension's author wrote the extension installation script in a secure fashion. It is not terribly difficult for a malicious user to create trojan-horse objects that will compromise later execution of a carelessly-written extension script, allowing that user to acquire superuser privileges. However, trojan-horse objects are only hazardous if they are in the `search_path` during script execution, meaning that they are in the extension's installation target schema or in the schema of some extension it depends on. Therefore, a good rule of thumb when dealing with extensions whose scripts have not been carefully vetted is to install them only into schemas for which `CREATE` privilege has not been and will not be granted to any untrusted users. Likewise for any extensions they depend on. d
 
-The extensions supplied with Cloudberry Database are believed to be secure against installation-time attacks of this sort, except for a few that depend on other extensions. As stated in the documentation for those extensions, they should be installed into secure schemas, or installed into the same schemas as the extensions they depend on, or both.
+The extensions supplied with Apache Cloudberry are believed to be secure against installation-time attacks of this sort, except for a few that depend on other extensions. As stated in the documentation for those extensions, they should be installed into secure schemas, or installed into the same schemas as the extensions they depend on, or both.
 
 ## Examples
 
@@ -84,7 +84,7 @@ CREATE EXTENSION hstore;
 
 ## Compatibility
 
-`CREATE EXTENSION` is a Cloudberry Database extension.
+`CREATE EXTENSION` is a Apache Cloudberry extension.
 
 ## See also
 

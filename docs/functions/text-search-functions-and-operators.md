@@ -2,7 +2,7 @@
 title: Text Search Functions and Operators
 ---
 
-# Text Search Functions and Operators in Cloudberry Database
+# Text Search Functions and Operators in Apache Cloudberry
 
 The following tables summarize the functions and operators that are provided for full text searching.
 

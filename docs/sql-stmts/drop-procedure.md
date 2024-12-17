@@ -57,7 +57,7 @@ DROP PROCEDURE do_db_maintenance();
 
 ## Compatibility
 
-This command conforms to the SQL standard, with these Cloudberry Database extensions:
+This command conforms to the SQL standard, with these Apache Cloudberry extensions:
 
 - The standard only allows one procedure to be dropped per command.
 

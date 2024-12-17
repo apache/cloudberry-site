@@ -2,11 +2,11 @@
 title: 使用 gpfdist 加载数据
 ---
 
-# 使用 `gpfdist` 将数据加载到 Cloudberry Database 中
+# 使用 `gpfdist` 将数据加载到 Apache Cloudberry 中
 
-要将数据从本地主机文件或通过内部网络访问的文件加载到 Cloudberry Database 中，你可以在 `CREATE EXTERNAL TABLE` 语句中使用 `gpfdist` 协议。`gpfdist` 是一个文件服务器实用程序，运行在 Cloudberry Database Coordinator 或备用 Coordinator 之外的主机上。`gpfdist` 从主机上的一个目录中为 Cloudberry Database Segment 提供文件服务。
+要将数据从本地主机文件或通过内部网络访问的文件加载到 Apache Cloudberry 中，你可以在 `CREATE EXTERNAL TABLE` 语句中使用 `gpfdist` 协议。`gpfdist` 是一个文件服务器实用程序，运行在 Apache Cloudberry Coordinator 或备用 Coordinator 之外的主机上。`gpfdist` 从主机上的一个目录中为 Apache Cloudberry Segment 提供文件服务。
 
-使用 `gpfdist` 服务外部数据时，Cloudberry Database 系统中的所有 Segment 都可以并行读取或写入外部表数据。
+使用 `gpfdist` 服务外部数据时，Apache Cloudberry 系统中的所有 Segment 都可以并行读取或写入外部表数据。
 
 支持加载的数据格式有：
 
@@ -15,7 +15,7 @@ title: 使用 gpfdist 加载数据
 
 以下是使用 `gpfdist` 加载数据的一般步骤：
 
-1. 在 Cloudberry Database 的 Coordinator 或备用 Coordinator 之外的主机上安装 gpfdist。请参见[安装 gpfdist](#第-1-步安装-gpfdist)。
+1. 在 Apache Cloudberry 的 Coordinator 或备用 Coordinator 之外的主机上安装 gpfdist。请参见[安装 gpfdist](#第-1-步安装-gpfdist)。
 2. 在主机上启动 gpfdist。请参见[启动和停止 gpfdist](#第-2-步启动和停止-gpfdist)。
 3. 使用 `gpfdist` 协议创建外部表。请参见[使用 gpfdist 与外部表加载数据的示例](#第-3-步使用-gpfdist-与外部表加载数据)。
 
@@ -28,13 +28,13 @@ title: 使用 gpfdist 加载数据
 
 ### 关于 gpfdist 和外部表
 
-`gpfdist` 文件服务器实用程序位于 Cloudberry Database Coordinator 主机和每个 Segment 主机的 `$GPHOME/bin` 目录中。当你启动 `gpfdist` 实例时，你需要指定一个监听端口和一个包含要读取的文件或要写入的文件的目录。例如，以下命令在后台运行 `gpfdist`，监听端口 `8801`，并在 `/home/gpadmin/external_files` 目录中提供文件服务：
+`gpfdist` 文件服务器实用程序位于 Apache Cloudberry Coordinator 主机和每个 Segment 主机的 `$GPHOME/bin` 目录中。当你启动 `gpfdist` 实例时，你需要指定一个监听端口和一个包含要读取的文件或要写入的文件的目录。例如，以下命令在后台运行 `gpfdist`，监听端口 `8801`，并在 `/home/gpadmin/external_files` 目录中提供文件服务：
 
 ```shell
 $ gpfdist -p 8801 -d /home/gpadmin/external_files &
 ```
 
-`CREATE EXTERNAL TABLE` 命令中的 `LOCATION` 子句将外部表定义与一个或多个 `gpfdist` 实例连接起来。如果外部表是可读的，`gpfdist` 服务器会从指定目录中的文件中读取数据记录，将它们打包成一个块，并将块作为响应发送给 Cloudberry Database Segment。Segment 解压接收到的行，并根据外部表的分布策略分发行。如果外部表是可写表，Segment 会将行块发送给 `gpfdist`，并由 `gpfdist` 将它们写入外部文件。
+`CREATE EXTERNAL TABLE` 命令中的 `LOCATION` 子句将外部表定义与一个或多个 `gpfdist` 实例连接起来。如果外部表是可读的，`gpfdist` 服务器会从指定目录中的文件中读取数据记录，将它们打包成一个块，并将块作为响应发送给 Apache Cloudberry Segment。Segment 解压接收到的行，并根据外部表的分布策略分发行。如果外部表是可写表，Segment 会将行块发送给 `gpfdist`，并由 `gpfdist` 将它们写入外部文件。
 
 外部数据文件可以包含 CSV 格式的行，或者 `CREATE EXTERNAL TABLE` 命令的 `FORMAT` 子句支持的任意分隔文本格式。
 
@@ -42,13 +42,13 @@ $ gpfdist -p 8801 -d /home/gpadmin/external_files &
 
 ### 关于 gpfdist 的设置和性能
 
-你可以在多台主机上运行 `gpfdist` 实例，也可以在每台主机上运行多个 `gpfdist` 实例。这样你可以按需部署 `gpfdist` 服务器，以便利用所有可用的网络带宽和 Cloudberry Database 的并行性，从而获得快速的数据加载和卸载速率。
+你可以在多台主机上运行 `gpfdist` 实例，也可以在每台主机上运行多个 `gpfdist` 实例。这样你可以按需部署 `gpfdist` 服务器，以便利用所有可用的网络带宽和 Apache Cloudberry 的并行性，从而获得快速的数据加载和卸载速率。
 
 - 允许网络流量同时使用 ETL 主机上的所有网络接口。在 ETL 主机上为每个接口运行一个 gpfdist 实例，然后在外部表定义的 `LOCATION` 子句中声明每个 NIC 的主机名（请参见[示例 1 - 在单网卡机器上运行单个 gpfdist 实例](#示例-1---在单网卡机器上运行单个-gpfdist-实例)）。
 - 在 ETL 主机上的多个 gpfdist 实例间均匀分配外部表数据。例如，在具有两个 NIC 的 ETL 系统上，运行两个 gpfdist 实例（每个 NIC 上一个）以优化数据加载性能，并在两个 gpfdist 服务器之间均匀分配外部表数据文件。
 
 :::tip 提示
-当你提交文件给 gpfdist 时，建议使用管道 (`|`) 分隔格式化文本。Cloudberry Database 会用单引号或双引号括起逗号分隔的文本字符串。gpfdist 必须删除引号以解析字符串。使用管道分隔格式化文本可以避免额外的步骤，并提高性能。
+当你提交文件给 gpfdist 时，建议使用管道 (`|`) 分隔格式化文本。Apache Cloudberry 会用单引号或双引号括起逗号分隔的文本字符串。gpfdist 必须删除引号以解析字符串。使用管道分隔格式化文本可以避免额外的步骤，并提高性能。
 :::
 
 ### 控制 Segment 并行性
@@ -59,7 +59,7 @@ $ gpfdist -p 8801 -d /home/gpadmin/external_files &
 
 ## 第 1 步：安装 gpfdist
 
-gpfdist 安装在 Cloudberry Database Coordinator 主机的 `$GPHOME/bin` 目录中。请在 Cloudberry Database Coordinator 或备用 Coordinator 之外的机器上运行 gpfdist，例如专门用于 ETL 处理的机器。在 Coordinator 或备用 Coordinator 上运行 gpfdist 可能会对查询执行产生性能影响。
+gpfdist 安装在 Apache Cloudberry Coordinator 主机的 `$GPHOME/bin` 目录中。请在 Apache Cloudberry Coordinator 或备用 Coordinator 之外的机器上运行 gpfdist，例如专门用于 ETL 处理的机器。在 Coordinator 或备用 Coordinator 上运行 gpfdist 可能会对查询执行产生性能影响。
 
 ## 第 2 步：启动和停止 gpfdist
 
@@ -106,7 +106,7 @@ $ kill 3457
 
 ## 第 3 步：使用 gpfdist 与外部表加载数据
 
-以下示例展示了如何在创建外部表时使用 gpfdist 加载数据到 Cloudberry Database。
+以下示例展示了如何在创建外部表时使用 gpfdist 加载数据到 Apache Cloudberry。
 
 :::tip 注意
 使用 IPv6 时，始终将数字 IP 地址括在方括号中。
@@ -139,7 +139,7 @@ FORMAT 'TEXT' (DELIMITER '|');
 
 使用 gpfdist 协议创建一个可读的外部表 `ext_expenses`，对所有带 txt 扩展名的文件使用 gpfdist 协议。列分隔符是管道 (`|`)，NULL 是空格 (`' '`)。
 
-当我们在 Cloudberry Database 中访问外部表格时，采用了一种称为“单行错误隔离”模式的处理方式。这意味着，如果输入的数据格式出现任何错误，这些错误不会影响整个表格的处理过程，而是会被单独捕获并记录下来，同时还会提供一份详细的错误描述。你可以查看这些错误，修复问题，然后重新加载被拒绝的数据。如果某个 Segment 上的错误计数大于 `5`（`SEGMENT REJECT LIMIT` 值），整个外部表操作将失败，不会处理任何行。
+当我们在 Apache Cloudberry 中访问外部表格时，采用了一种称为“单行错误隔离”模式的处理方式。这意味着，如果输入的数据格式出现任何错误，这些错误不会影响整个表格的处理过程，而是会被单独捕获并记录下来，同时还会提供一份详细的错误描述。你可以查看这些错误，修复问题，然后重新加载被拒绝的数据。如果某个 Segment 上的错误计数大于 `5`（`SEGMENT REJECT LIMIT` 值），整个外部表操作将失败，不会处理任何行。
 
 ```sql
 =# CREATE EXTERNAL TABLE ext_expenses ( name text, 

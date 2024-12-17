@@ -17,13 +17,13 @@ CREATE TABLESPACE <tablespace_name>
 
 ## 描述
 
-`CREATE TABLESPACE` 为你的 Cloudberry Database 系统注册并配置一个新的表空间。表空间的名称必须与系统中任何现有表空间的名称不同。表空间是 Cloudberry Database 系统对象（全局对象），如果你有足够的权限，你可以从任何数据库使用表空间。
+`CREATE TABLESPACE` 为你的 Apache Cloudberry 系统注册并配置一个新的表空间。表空间的名称必须与系统中任何现有表空间的名称不同。表空间是 Apache Cloudberry 系统对象（全局对象），如果你有足够的权限，你可以从任何数据库使用表空间。
 
 超级用户可以定义一个替代的主机文件系统位置，用于存放包含数据库对象（如表和索引）的数据文件。
 
-拥有适当权限的用户可以将 tablespace_name 传递给 [`CREATE DATABASE`](/i18n/zh/docusaurus-plugin-content-docs/current/sql-stmts/create-database.md)、[`CREATE TABLE`](https://github.com/cloudberrydb/cloudberrydb-site/blob/cbdb-doc-validation/docs/sql-stmts/create-table.md) 或 [`CREATE INDEX`](/i18n/zh/docusaurus-plugin-content-docs/current/sql-stmts/create-index.md)，以此指示 Cloudberry Database 将这些对象的数据文件存储在指定的表空间中。
+拥有适当权限的用户可以将 tablespace_name 传递给 [`CREATE DATABASE`](/i18n/zh/docusaurus-plugin-content-docs/current/sql-stmts/create-database.md)、[`CREATE TABLE`](https://github.com/cloudberrydb/cloudberrydb-site/blob/cbdb-doc-validation/docs/sql-stmts/create-table.md) 或 [`CREATE INDEX`](/i18n/zh/docusaurus-plugin-content-docs/current/sql-stmts/create-index.md)，以此指示 Apache Cloudberry 将这些对象的数据文件存储在指定的表空间中。
 
-在 Cloudberry Database 中，文件系统位置必须存在于所有主机上，包括运行 Coordinator、备用镜像、每个主要 Segment 和每个镜像 Segment 的主机。
+在 Apache Cloudberry 中，文件系统位置必须存在于所有主机上，包括运行 Coordinator、备用镜像、每个主要 Segment 和每个镜像 Segment 的主机。
 
 ## 参数
 
@@ -37,15 +37,15 @@ CREATE TABLESPACE <tablespace_name>
 
 **`LOCATION 'directory'`**
 
-将被用作表空间的目录，该目录应为空，并需由 Cloudberry Database 系统用户所拥有。您需要提供目录的绝对路径，且路径名长度不得超过 100 个字符。（这个路径用于在 `pg_tblspc` 目录下创建一个符号链接目标。当使用 `pg_basebackup` 等工具将符号链接目标发送至 tar 时，路径会被截短至 100 个字符。）
+将被用作表空间的目录，该目录应为空，并需由 Apache Cloudberry 系统用户所拥有。您需要提供目录的绝对路径，且路径名长度不得超过 100 个字符。（这个路径用于在 `pg_tblspc` 目录下创建一个符号链接目标。当使用 `pg_basebackup` 等工具将符号链接目标发送至 tar 时，路径会被截短至 100 个字符。）
 
-你可以为 `WITH` 子句中的任何 Cloudberry Database Segment 实例指定不同的表空间目录。
+你可以为 `WITH` 子句中的任何 Apache Cloudberry Segment 实例指定不同的表空间目录。
 
 **`contentID_i='directory_i'`**
 
 `contentID_i='directory_i'` 中的 `ID_i` 是 Segment 实例的 content ID。`directory_i` 是主机系统文件位置的绝对路径，Segment 实例将该路径用作表空间的根目录。你不能指定 Coordinator 实例的 content ID（`-1`）。你可以为多个 Segment 指定相同的目录。
 
-如果一个 Segment 实例没有在 `WITH` 子句中列出，Cloudberry Database 将使用 `LOCATION` 子句中指定的表空间目录。
+如果一个 Segment 实例没有在 `WITH` 子句中列出，Apache Cloudberry 将使用 `LOCATION` 子句中指定的表空间目录。
 
 对于 `LOCATION` 目录的限制也适用于 `directory_i`。
 
@@ -55,14 +55,14 @@ CREATE TABLESPACE <tablespace_name>
 
 ## 注意事项
 
-因为 `CREATE TABLESPACE` 命令会在 Coordinator 和 Segment 实例的数据目录下的 `pg_tblspc` 目录创建到指定目录的符号链接，Cloudberry Database 的表空间功能只支持那些能够使用符号链接的系统。
+因为 `CREATE TABLESPACE` 命令会在 Coordinator 和 Segment 实例的数据目录下的 `pg_tblspc` 目录创建到指定目录的符号链接，Apache Cloudberry 的表空间功能只支持那些能够使用符号链接的系统。
 
 你不能在事务块中执行 `CREATE TABLESPACE`。
 
 在创建表空间时，请确保文件系统位置有足够的 I/O 速度和可用磁盘空间。
 
 :::info 注意
-Cloudberry Database 不支持为具有相同 content ID 的主-镜像对配置不同的表空间位置。只能为不同的 content ID 配置不同的位置。请勿修改 `pg_tblspc` 目录下的符号链接，以此使得主-镜像对指向不同的文件位置；这会导致错误行为。
+Apache Cloudberry 不支持为具有相同 content ID 的主-镜像对配置不同的表空间位置。只能为不同的 content ID 配置不同的位置。请勿修改 `pg_tblspc` 目录下的符号链接，以此使得主-镜像对指向不同的文件位置；这会导致错误行为。
 :::
 
 ## 示例
@@ -89,7 +89,7 @@ CREATE TABLESPACE mytblspace LOCATION '/mydbtspc/mytestspace' WITH (content0='/t
 
 ## 兼容性
 
-`CREATE TABLESPACE` 是 Cloudberry Database 的扩展。
+`CREATE TABLESPACE` 是 Apache Cloudberry 的扩展。
 
 ## See also
 

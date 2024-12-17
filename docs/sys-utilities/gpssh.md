@@ -105,7 +105,7 @@ A decimal number greater than 0 (zero) that is the multiplier for the timeout th
 
 **`sync_retries = attempts`**
 
-A non-negative integer that specifies the maximum number of times that `gpssh` attempts to connect to a remote Cloudberry Database host. The default is 3. If the value is 0, `gpssh` returns an error if the initial connection attempt fails. Increasing the number of attempts also increases the time between retry attempts. This parameter cannot be configured with a command-line option.
+A non-negative integer that specifies the maximum number of times that `gpssh` attempts to connect to a remote Apache Cloudberry host. The default is 3. If the value is 0, `gpssh` returns an error if the initial connection attempt fails. Increasing the number of attempts also increases the time between retry attempts. This parameter cannot be configured with a command-line option.
 
 The `-t` option also affects the time between retry attempts.
 
