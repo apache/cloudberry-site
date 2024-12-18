@@ -33,7 +33,7 @@ where `<forward_direction>` can be empty or one of:
 
 > **Note** You cannot `MOVE` a `PARALLEL RETRIEVE CURSOR`.
 
-> **Note** Because Cloudberry Database does not support scrollable cursors, it is not possible to move a cursor position backwards. You can only move a cursor forward in position using `MOVE`.
+> **Note** Because Apache Cloudberry does not support scrollable cursors, it is not possible to move a cursor position backwards. You can only move a cursor forward in position using `MOVE`.
 
 The parameters for the `MOVE` command are identical to those of the `FETCH` command; refer to [`FETCH`](/docs/sql-stmts/fetch.md) for details on syntax and usage.
 

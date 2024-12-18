@@ -4,13 +4,13 @@ title: Software and Hardware Configuration
 
 # Software and Hardware Configuration
 
-This document introduces the software and hardware configuration required for Cloudberry Database.
+This document introduces the software and hardware configuration required for Apache Cloudberry.
 
 ## Hardware requirements
 
 ### Physical machine
 
-The following section describes the recommended physical machine configuration for Cloudberry Database in test and production environments.
+The following section describes the recommended physical machine configuration for Apache Cloudberry in test and production environments.
 
 #### For development or test environments
 
@@ -96,7 +96,7 @@ mount /dev/data/data2 /data2/
 
 ### Supported OS
 
-Cloudberry Database supports the following operating systems:
+Apache Cloudberry supports the following operating systems:
 
 - Kylin V10 SP1 or SP2
 - NeoKylin V7update6

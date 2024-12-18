@@ -19,7 +19,7 @@ ALTER SERVER <name> RENAME TO <new_name>
 
 ## Description
 
-`ALTER SERVER` changes the definition of a foreign server. The first form of the command changes the version string or the generic options of the server. Cloudberry Database requires at least one clause. The second and third forms of the command change the owner or the name of the server.
+`ALTER SERVER` changes the definition of a foreign server. The first form of the command changes the version string or the generic options of the server. Apache Cloudberry requires at least one clause. The second and third forms of the command change the owner or the name of the server.
 
 To alter the server, you must be the owner of the server. To alter the owner you must:
 
@@ -41,7 +41,7 @@ The new server version.
 
 **`OPTIONS ( [ ADD | SET | DROP ] option ['value'] [, ... ] )`**
 
-Change the server's options. `ADD`, `SET`, and `DROP` specify the action to perform. If no operation is explicitly specified, the default operation is `ADD`. Option names must be unique. Cloudberry Database validates names and values using the server's foreign-data wrapper library.
+Change the server's options. `ADD`, `SET`, and `DROP` specify the action to perform. If no operation is explicitly specified, the default operation is `ADD`. Option names must be unique. Apache Cloudberry validates names and values using the server's foreign-data wrapper library.
 
 **`new_owner`**
 
@@ -67,7 +67,7 @@ ALTER SERVER foo VERSION '9.1' OPTIONS (SET host 'baz');
 
 ## Compatibility
 
-`ALTER SERVER` conforms to ISO/IEC 9075-9 (SQL/MED). The `OWNER TO` and `RENAME` forms are Cloudberry Database extensions.
+`ALTER SERVER` conforms to ISO/IEC 9075-9 (SQL/MED). The `OWNER TO` and `RENAME` forms are Apache Cloudberry extensions.
 
 ## See also
 

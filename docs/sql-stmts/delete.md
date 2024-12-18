@@ -30,7 +30,7 @@ You must have the `DELETE` privilege on the table to delete from it, as well as 
 
 > **Note** The `RETURNING` clause is not supported when deleting from append-optimized tables.
 
-> **Note** As the default, Cloudberry Database acquires an `EXCLUSIVE` lock on tables for `DELETE` operations on heap tables. When the Global Deadlock Detector is enabled, the lock mode for `DELETE` operations on heap tables is `ROW EXCLUSIVE`.
+> **Note** As the default, Apache Cloudberry acquires an `EXCLUSIVE` lock on tables for `DELETE` operations on heap tables. When the Global Deadlock Detector is enabled, the lock mode for `DELETE` operations on heap tables is `ROW EXCLUSIVE`.
 
 ## Parameters
 
@@ -44,7 +44,7 @@ See [SELECT](/docs/sql-stmts/select.md) for details.
 
 **`table_name`**
 
-The name (optionally schema-qualified) of the table to delete rows from. If you specify `ONLY` before the table name, Cloudberry Database deletes matching rows from the named table only. If `ONLY` is not specified, matching rows are also deleted from any tables inheriting from the named table. Optionally, you can specify `*` after the table name to explicitly indicate that descendant tables are included.
+The name (optionally schema-qualified) of the table to delete rows from. If you specify `ONLY` before the table name, Apache Cloudberry deletes matching rows from the named table only. If `ONLY` is not specified, matching rows are also deleted from any tables inheriting from the named table. Optionally, you can specify `*` after the table name to explicitly indicate that descendant tables are included.
 
 **`alias`**
 
@@ -56,7 +56,7 @@ A table expression allowing columns from other tables to appear in the `WHERE` c
 
 **`condition`**
 
-An expression that returns a value of type `boolean`. Cloudberry Database deletes only those rows for which this expression returns `true`.
+An expression that returns a value of type `boolean`. Apache Cloudberry deletes only those rows for which this expression returns `true`.
 
 **`cursor_name`**
 
@@ -90,7 +90,7 @@ The `RETURNING` clause is not supported when deleting from append-optimized tabl
 
 The `WHERE CURRENT OF` clause is not supported with replicated tables.
 
-Cloudberry Database lets you reference columns of other tables in the `WHERE` condition by specifying the other tables in the `USING` clause. For example, to delete all films produced by a given producer, one can run:
+Apache Cloudberry lets you reference columns of other tables in the `WHERE` condition by specifying the other tables in the `USING` clause. For example, to delete all films produced by a given producer, one can run:
 
 ```sql
 DELETE FROM films USING producers
@@ -140,7 +140,7 @@ name = 'Hannah';
 
 ## Compatibility
 
-This command conforms to the SQL standard, except that the `USING` and `RETURNING` clauses are Cloudberry Database extensions, as is the ability to use `WITH` with `DELETE`.
+This command conforms to the SQL standard, except that the `USING` and `RETURNING` clauses are Apache Cloudberry extensions, as is the ability to use `WITH` with `DELETE`.
 
 ## See also
 

@@ -20,7 +20,7 @@ DROP MATERIALIZED VIEW [ IF EXISTS ] <name> [, ...] [ CASCADE | RESTRICT ]
 
 **`IF EXISTS`**
 
-如果物化视图不存在，则不抛出错误。此时 Cloudberry Database 会发出一个提醒。
+如果物化视图不存在，则不抛出错误。此时 Apache Cloudberry 会发出一个提醒。
 
 **`name`**
 
@@ -32,7 +32,7 @@ DROP MATERIALIZED VIEW [ IF EXISTS ] <name> [, ...] [ CASCADE | RESTRICT ]
 
 **`RESTRICT`**
 
-如果有任何对象依赖于物化视图，Cloudberry Database 会拒绝删除物化视图。这是默认行为。
+如果有任何对象依赖于物化视图，Apache Cloudberry 会拒绝删除物化视图。这是默认行为。
 
 ## 示例
 
@@ -44,7 +44,7 @@ DROP MATERIALIZED VIEW order_summary;
 
 ## 兼容性
 
-`DROP MATERIALIZED VIEW` 是 Cloudberry Database 的语言扩展，在 SQL 标准中没有。
+`DROP MATERIALIZED VIEW` 是 Apache Cloudberry 的语言扩展，在 SQL 标准中没有。
 
 ## 另见
 

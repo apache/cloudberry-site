@@ -28,7 +28,7 @@ Creating a server requires the `USAGE` privilege on the foreign-data wrapper spe
 
 **`IF NOT EXISTS`**
 
-Do not throw an error if a server with the same name already exists. Cloudberry Database issues a notice in this case. Note that there is no guarantee that the existing server is anything like the one that would have been created.
+Do not throw an error if a server with the same name already exists. Apache Cloudberry issues a notice in this case. Note that there is no guarantee that the existing server is anything like the one that would have been created.
 
 **`server_name`**
 
@@ -52,13 +52,13 @@ The options for the new foreign server. The options typically define the connect
 
 **`mpp_execute { 'coordinator' | 'any' | 'all segments' }`**
 
-A Cloudberry Database-specific option that identifies the host from which the foreign-data wrapper reads or writes data:
+A Apache Cloudberry-specific option that identifies the host from which the foreign-data wrapper reads or writes data:
 
 - `coordinator` (the default)—Read or write data from the coordinator host.
 - `any`—Read data from either the coordinator host or any one segment, depending on which path costs less.
 - `all segments`—Read or write data from all segments. To support this option value, the foreign-data wrapper should have a policy that matches the segments to data.
 
-> **Note** Cloudberry Database supports parallel writes to foreign tables only when you set `mpp_execute 'all segments'`.
+> **Note** Apache Cloudberry supports parallel writes to foreign tables only when you set `mpp_execute 'all segments'`.
 
 Support for the foreign server `mpp_execute` option, and the specific modes, is foreign-data wrapper-specific.
 
@@ -66,7 +66,7 @@ The `mpp_execute` option can be specified in multiple commands: `CREATE FOREIGN 
 
 **`num_segments 'num'`**
 
-When `mpp_execute` is set to `'all segments'`, the Cloudberry Database-specific `num_segments` option identifies the number of query executors that Cloudberry Database spawns on the source Cloudberry Database cluster. If you do not provide a value, num defaults to the number of segments in the source cluster.
+When `mpp_execute` is set to `'all segments'`, the Apache Cloudberry-specific `num_segments` option identifies the number of query executors that Apache Cloudberry spawns on the source Apache Cloudberry cluster. If you do not provide a value, num defaults to the number of segments in the source cluster.
 
 Support for the foreign server `num_segments` option is foreign-data wrapper-specific.
 

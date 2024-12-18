@@ -4,7 +4,7 @@ title: Use Auto Materialized Views for Query Optimization
 
 # Use Automatic Materialized Views for Query Optimization (New in v1.5.0)
 
-Since v1.5.0, Cloudberry Database supports automatically using materialized views to process some or all queries (called AQUMV) during the query planning phase. This feature is suitable for queries on large tables and can greatly reduce query processing time. AQUMV uses incremental materialized views (IMVs) because IMVs usually keep the latest data when related tables have write operations.
+Since v1.5.0, Apache Cloudberry supports automatically using materialized views to process some or all queries (called AQUMV) during the query planning phase. This feature is suitable for queries on large tables and can greatly reduce query processing time. AQUMV uses incremental materialized views (IMVs) because IMVs usually keep the latest data when related tables have write operations.
 
 ## Usage scenarios
 
@@ -117,7 +117,7 @@ When the same query is executed, the data can be obtained directly from the mate
 
 AQUMV implements query optimization by equivalently transforming the query tree.
 
-Cloudberry Database automatically uses materialized views only when the table query meets the following conditions:
+Apache Cloudberry automatically uses materialized views only when the table query meets the following conditions:
 
 - Materialized views must contain all the rows required by the query expression.
 - If the materialized view contains more rows than the query, you might need to add additional filters.
@@ -146,4 +146,4 @@ When there are multiple valid materialized view candidates, or the cost of query
 ## See also
 
 - [Create AO/AOCO Tables and Refresh Materialized Views in Parallel](./parallel-create-ao-refresh-mv.md)
-- [Incremental Materialized View in Cloudberry Database](./use-incremental-materialized-view.md)
+- [Incremental Materialized View in Apache Cloudberry](./use-incremental-materialized-view.md)

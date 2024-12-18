@@ -76,7 +76,7 @@ CREATE [ OR REPLACE ] AGGREGATE <name> ( [ <argmode> ] [ <argname> ] <arg_data_t
 
 ## Description
 
-`CREATE AGGREGATE` defines a new aggregate function. `CREATE OR REPLACE AGGREGATE` will either define a new aggregate function or replace an existing definition. Some basic and commonly-used aggregate functions such as `count()`, `min()`, `max()`, `sum()`, `avg()` and so on are already provided in Cloudberry Database. If you define new types or need an aggregate function not already provided, you can use `CREATE AGGREGATE` to provide the desired features.
+`CREATE AGGREGATE` defines a new aggregate function. `CREATE OR REPLACE AGGREGATE` will either define a new aggregate function or replace an existing definition. Some basic and commonly-used aggregate functions such as `count()`, `min()`, `max()`, `sum()`, `avg()` and so on are already provided in Apache Cloudberry. If you define new types or need an aggregate function not already provided, you can use `CREATE AGGREGATE` to provide the desired features.
 
 When replacing an existing definition, the argument types, result type, and number of direct arguments may not be changed. Also, the new definition must be of the same kind (ordinary aggregate, ordered-set aggregate, or hypothetical-set aggregate) as the old one.
 
@@ -93,7 +93,7 @@ sfunc( internal-state, next-data-values ) ---> next-internal-state
 ffunc( internal-state ) ---> aggregate-value
 ```
 
-Cloudberry Database creates a temporary variable of data type state_data_type to hold the current internal state of the aggregate function. At each input row, the aggregate argument value(s) are calculated and the state transition function is invoked with the current state value and the new argument value(s) to calculate a new internal state value. After all the rows have been processed, the final function is invoked once to calculate the aggregate's return value. If there is no final function then the ending state value is returned as-is.
+Apache Cloudberry creates a temporary variable of data type state_data_type to hold the current internal state of the aggregate function. At each input row, the aggregate argument value(s) are calculated and the state transition function is invoked with the current state value and the new argument value(s) to calculate a new internal state value. After all the rows have been processed, the final function is invoked once to calculate the aggregate's return value. If there is no final function then the ending state value is returned as-is.
 
 An aggregate function can provide an initial condition, that is, an initial value for the internal state value. This is specified and stored in the database as a value of type `text`, but it must be a valid external representation of a constant of the state value data type. If it is not supplied then the state value starts out null.
 
@@ -187,7 +187,7 @@ The combinefunc must be declared as taking two arguments of the state_data_type 
 
 For aggregate functions whose state_data_type is `internal`, the combinefunc must not be strict. In this case the combinefunc must ensure that null states are handled correctly and that the state being returned is properly stored in the aggregate memory context.
 
-In Cloudberry Database, if the result of the aggregate function is computed in a segmented fashion, the combine function is invoked on the individual internal states in order to combine them into an ending internal state.
+In Apache Cloudberry, if the result of the aggregate function is computed in a segmented fashion, the combine function is invoked on the individual internal states in order to combine them into an ending internal state.
 
 Note that this function is also called in hash aggregate mode within a segment. Therefore, if you call this aggregate function without a combine function, hash aggregate is never chosen. Since hash aggregate is efficient, consider defining a combine function whenever possible.
 
@@ -257,12 +257,12 @@ The parameters of `CREATE AGGREGATE` can be written in any order, not just the o
 
 The ordinary functions used to define a new aggregate function must be defined first.
 
-If the value of the Cloudberry Database server configuration parameter `gp_enable_multiphase_agg` is `off`, only single-level aggregation is performed by the Postgres Planner. There is no equivalent parameter for the Pivotal Query Optimizer.
+If the value of the Apache Cloudberry server configuration parameter `gp_enable_multiphase_agg` is `off`, only single-level aggregation is performed by the Postgres Planner. There is no equivalent parameter for the Pivotal Query Optimizer.
 
-Any compiled code (shared library files) for custom functions must be placed in the same location on every host in your Cloudberry Database array (coordinator and all segments). This location must also be in the `LD_LIBRARY_PATH` so that the server can locate the files.
+Any compiled code (shared library files) for custom functions must be placed in the same location on every host in your Apache Cloudberry array (coordinator and all segments). This location must also be in the `LD_LIBRARY_PATH` so that the server can locate the files.
 
 
-In previous versions of Cloudberry Database, there was a concept of ordered aggregates. Since version 6, any aggregate can be called as an ordered aggregate, using the syntax:
+In previous versions of Apache Cloudberry, there was a concept of ordered aggregates. Since version 6, any aggregate can be called as an ordered aggregate, using the syntax:
 
 ```sql
 name ( arg [ , ... ] [ORDER BY sortspec [ , ...]] )
@@ -270,7 +270,7 @@ name ( arg [ , ... ] [ORDER BY sortspec [ , ...]] )
 
 The `ORDERED` keyword is accepted for backwards compatibility, but is ignored.
 
-In previous versions of Cloudberry Database, the `COMBINEFUNC` option was called `PREFUNC`. It is still accepted for backwards compatibility, as a synonym for `COMBINEFUNC`.
+In previous versions of Apache Cloudberry, the `COMBINEFUNC` option was called `PREFUNC`. It is still accepted for backwards compatibility, as a synonym for `COMBINEFUNC`.
 
 ## Example
 
@@ -323,7 +323,7 @@ Refer to [User-Defined Aggregates](https://www.postgresql.org/docs/12/xaggr.html
 
 ## Compatibility
 
-`CREATE AGGREGATE` is a Cloudberry Database language extension. The SQL standard does not provide for user-defined aggregate functions.
+`CREATE AGGREGATE` is a Apache Cloudberry language extension. The SQL standard does not provide for user-defined aggregate functions.
 
 ## See also
 

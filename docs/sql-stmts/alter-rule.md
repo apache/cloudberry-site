@@ -42,7 +42,7 @@ ALTER RULE notify_all ON emp RENAME TO notify_me;
 
 ## Compatibility
 
-`ALTER RULE` is a Cloudberry Database extension, as is the entire query rewrite system.
+`ALTER RULE` is a Apache Cloudberry extension, as is the entire query rewrite system.
 
 ## See also
 

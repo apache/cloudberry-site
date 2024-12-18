@@ -24,7 +24,7 @@ You must be a superuser or the protocol owner to drop a protocol.
 
 **`IF EXISTS`**
 
-Do not throw an error if the protocol does not exist. Cloudberry Database issues a notice in this case.
+Do not throw an error if the protocol does not exist. Apache Cloudberry issues a notice in this case.
 
 **`name`**
 
@@ -34,11 +34,11 @@ The name of an existing data access protocol.
 
 Dropping a data access protocol, does not drop the protocol's call handlers. You must drop these functions manually.
 
-Be sure to remove any shared libraries that were used by the protocol from the Cloudberry Database hosts.
+Be sure to remove any shared libraries that were used by the protocol from the Apache Cloudberry hosts.
 
 ## Compatibility
 
-`DROP PROTOCOL` is a Cloudberry Database extension.
+`DROP PROTOCOL` is a Apache Cloudberry extension.
 
 ## See also
 

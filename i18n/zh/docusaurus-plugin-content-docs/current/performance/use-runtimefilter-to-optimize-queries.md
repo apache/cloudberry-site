@@ -6,16 +6,16 @@ title: 使用 RuntimeFilter 优化 Join 查询
 
 在执行大表连接查询的时候，SQL 优化器常选用 HashJoin 算子来进行运算。HashJoin 基于连接键构建哈希表来进行连接键的匹配，这可能存在内存访问和磁盘瓶颈。RuntimeFilter 是在执行 HashJoin 运算时，实时产生过滤器 (Filter) 的优化技术，可以在执行 HashJoin 前预先对数据进行筛选，更快地执行 HashJoin。在某些场景下，通过 RuntimeFilter 优化能够使执行效率翻倍。
 
-HashJoin 常用于小表和大表的连接。Cloudberry Database 在执行 HashJoin 运算时，通常基于待连接的两表中较小的表来构建哈希表，然后循环地根据较大表中的元祖，在哈希表中查找连接键匹配的元祖来实现连接。用来构建哈希表的小表被称为内表 (Inner Table)，另一个用来循环匹配的表被称为外表 (Outer Table)。
+HashJoin 常用于小表和大表的连接。Apache Cloudberry 在执行 HashJoin 运算时，通常基于待连接的两表中较小的表来构建哈希表，然后循环地根据较大表中的元祖，在哈希表中查找连接键匹配的元祖来实现连接。用来构建哈希表的小表被称为内表 (Inner Table)，另一个用来循环匹配的表被称为外表 (Outer Table)。
 
 HashJoin 算子在执行上主要存在以下瓶颈：
 
 - 内存访问：对于外表的每个元组，需要在哈希表中查找匹配的内表元组，涉及一次或多次内存访问。
 - 磁盘 I/O：若内表不适合全部放到内存中，需要借助磁盘来分批次进行处理，因此产生大量磁盘 I/O。
 
-针对以上瓶颈开启 RuntimeFilter 优化后，Cloudberry Database 在构建哈希表的同时，也会构建对应的 RuntimeFilter，即在执行 HashJoin 之前对大表的元组进行过滤。在执行过程中，通过布隆过滤器 (Bloom Filter) 来实现 RuntimeFilter，该数据结构所占内存空间远小于哈希表。在能够完全存放在 L3 缓存中的情况下，布隆过滤器的过滤效率为 HashJoin 的两倍，使得内存访问开销大大降低。
+针对以上瓶颈开启 RuntimeFilter 优化后，Apache Cloudberry 在构建哈希表的同时，也会构建对应的 RuntimeFilter，即在执行 HashJoin 之前对大表的元组进行过滤。在执行过程中，通过布隆过滤器 (Bloom Filter) 来实现 RuntimeFilter，该数据结构所占内存空间远小于哈希表。在能够完全存放在 L3 缓存中的情况下，布隆过滤器的过滤效率为 HashJoin 的两倍，使得内存访问开销大大降低。
 
-该优化会根据 HashJoin 的连接条件的筛选率以及内表的大小来决定是否生成 RuntimeFilter 算子，在实际执行的过程中如果发现数据量与估算结果偏离太大，Cloudberry Database 也会及时停止使用 RuntimeFilter。
+该优化会根据 HashJoin 的连接条件的筛选率以及内表的大小来决定是否生成 RuntimeFilter 算子，在实际执行的过程中如果发现数据量与估算结果偏离太大，Apache Cloudberry 也会及时停止使用 RuntimeFilter。
 
 ## 适用场景
 
@@ -24,7 +24,7 @@ HashJoin 算子在执行上主要存在以下瓶颈：
 - 单个 Segment 中 HashJoin 的内表大小在 1600 万行以内。
 - 原本的 HashJoin 连接键对数据的选择率低于 60%，即满足 Hash 连接条件的结果集大小不到外表的 60%，也可以理解为筛选率大于 40%。
 
-上述场景下，Cloudberry Database 通过 RuntimeFilter 构建的布隆过滤器大小在 2 MB 以内，能够完全存放在 L3 缓存中，进而能以较小的开销筛选掉 40% 的外表元组，因此产生正向收益。在某些场景下，如果该 HashJoin 连接键的选择率低于 10%，通过 RuntimeFilter 优化能够使执行效率翻倍。
+上述场景下，Apache Cloudberry 通过 RuntimeFilter 构建的布隆过滤器大小在 2 MB 以内，能够完全存放在 L3 缓存中，进而能以较小的开销筛选掉 40% 的外表元组，因此产生正向收益。在某些场景下，如果该 HashJoin 连接键的选择率低于 10%，通过 RuntimeFilter 优化能够使执行效率翻倍。
 
 ## 使用限制
 

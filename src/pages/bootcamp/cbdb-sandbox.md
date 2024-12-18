@@ -87,5 +87,5 @@ In addition to using the `docker exec` command, you can also use the `ssh` comma
 ssh gpadmin@localhost # Password: cbdb@123
 ```
 
-Now you have a Apache Cloudberry and can continue with [101 Apache Cloudberry Tutorials](./#2-101-cloudberry-tourials)! Enjoy!
+Now you have a Apache Cloudberry and can continue with [101 Apache Cloudberry Tutorials](./102-cbdb-crash-course.md)! Enjoy!
 

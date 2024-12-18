@@ -43,7 +43,7 @@ ABORT;
 
 ## Compatibility
 
-This command is a Cloudberry Database extension present for historical reasons. `ROLLBACK` is the equivalent standard SQL command.
+This command is a Apache Cloudberry extension present for historical reasons. `ROLLBACK` is the equivalent standard SQL command.
 
 ## See also
 

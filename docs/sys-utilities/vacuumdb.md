@@ -25,7 +25,7 @@ vacuumdb -V | --version
 
 ## Description
 
-`vacuumdb` is a utility for cleaning a Cloudberry Database database. `vacuumdb` will also generate internal statistics used by the Cloudberry Database query optimizer.
+`vacuumdb` is a utility for cleaning a Apache Cloudberry database. `vacuumdb` will also generate internal statistics used by the Apache Cloudberry query optimizer.
 
 `vacuumdb` is a wrapper around the SQL command `VACUUM`. There is no effective difference between vacuuming databases via this utility and via other methods for accessing the server.
 
@@ -47,7 +47,7 @@ Echo the commands that `reindexdb` generates and sends to the server.
 
 Selects a full vacuum, which may reclaim more space, but takes much longer and exclusively locks the table.
 
-> **Caution** A `VACUUM FULL` is not recommended in Cloudberry Database.
+> **Caution** A `VACUUM FULL` is not recommended in Apache Cloudberry.
 
 **`-F | --freeze`**
 

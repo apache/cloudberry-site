@@ -20,7 +20,7 @@ DROP TYPE [IF EXISTS] <name> [, ...] [CASCADE | RESTRICT]
 
 **`IF EXISTS`**
 
-Do not throw an error if the type does not exist. Cloudberry Database issues a notice in this case.
+Do not throw an error if the type does not exist. Apache Cloudberry issues a notice in this case.
 
 **`name`**
 
@@ -44,7 +44,7 @@ DROP TYPE box;
 
 ## Compatibility
 
-This command is similar to the corresponding command in the SQL standard, apart from the `IF EXISTS` option, which is a Cloudberry Database extension. But note that much of the `CREATE TYPE` command and the data type extension mechanisms in Cloudberry Database differ from the SQL standard.
+This command is similar to the corresponding command in the SQL standard, apart from the `IF EXISTS` option, which is a Apache Cloudberry extension. But note that much of the `CREATE TYPE` command and the data type extension mechanisms in Apache Cloudberry differ from the SQL standard.
 
 ## See also
 
