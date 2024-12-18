@@ -22,7 +22,7 @@ Read the [Prepare to Deploy Apache Cloudberry on Physical Machine](/docs/cbdb-op
 
 ## Step 2. Install the RPM package
 
-After the preparation, it is time to install Apache Cloudberry. You need to download the corresponding RPM package from [Apache Cloudberry Releases](https://github.com/cloudberrydb/cloudberrydb/releases), and then install the database on each node using the installation package.
+After the preparation, it is time to install Apache Cloudberry. You need to download the corresponding RPM package from [Apache Cloudberry Releases](https://github.com/apache/cloudberry/releases), and then install the database on each node using the installation package.
 
 1. Download the RPM package to the home directory of `gpadmin`.
 

@@ -8,7 +8,7 @@ import TabItem from '@theme/TabItem';
 # Compile and Install Apache Cloudberry on Linux
 
 :::info
-The source of this document is from the GitHub repository [`cloudberrydb/cloudberrydb`](https://github.com/cloudberrydb/cloudberrydb/blob/main/deploy/build/README.Linux.md).
+The source of this document is from the GitHub repository [`cloudberrydb/cloudberrydb`](https://github.com/apache/cloudberry/blob/main/deploy/build/README.Linux.md).
 :::
 
 This document shares how to compile and install Apache Cloudberry on Linux systems (CentOS 7, RHEL, and Ubuntu). Note that this document is for developers to try out Apache Cloudberry in a single-node environments. DO NOT use this document for production environments.
@@ -26,7 +26,7 @@ Take the following steps to compile and install Apache Cloudberry:
 Clone the GitHub repository `cloudberrydb/cloudberrydb` to the target machine:
 
 ```shell
-git clone https://github.com/cloudberrydb/cloudberrydb.git
+git clone https://github.com/apache/cloudberry.git
 ```
 
 ## Step 2. Install dependencies

@@ -5,7 +5,7 @@ title: 在 macOS 上
 # 在 macOS 上编译和安装 Apache Cloudberry
 
 :::info 提示
-本文档来自 GitHub 仓库 [`cloudberrydb/cloudberrydb`](https://github.com/cloudberrydb/cloudberrydb/blob/main/deploy/build/README.macOS.md)。
+本文档来自 GitHub 仓库 [`cloudberrydb/cloudberrydb`](https://github.com/apache/cloudberry/blob/main/deploy/build/README.macOS.md)。
 :::
 
 本文档分享了如何在 macOS 上（单节点）构建、编译和安装 Apache Cloudberry 以供开发测试使用。请按照以下步骤操作。

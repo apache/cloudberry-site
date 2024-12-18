@@ -5,7 +5,7 @@ title: On macOS
 # Compile and Install Apache Cloudberry on macOS
 
 :::info
-The source of this document is from the GitHub repository [`cloudberrydb/cloudberrydb`](https://github.com/cloudberrydb/cloudberrydb/blob/main/deploy/build/README.macOS.md).
+The source of this document is from the GitHub repository [`cloudberrydb/cloudberrydb`](https://github.com/apache/cloudberry/blob/main/deploy/build/README.macOS.md).
 :::
 
 This document shares how to build, compile, and install Apache Cloudberry on macOS (single node) for development and trial purposes. Follow the steps below.

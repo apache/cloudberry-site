@@ -8,7 +8,7 @@ import TabItem from '@theme/TabItem';
 # 在 Linux 系统上编译和安装 Apache Cloudberry
 
 :::info
-本文档来自 GitHub 仓库 [`cloudberrydb/cloudberrydb`](https://github.com/cloudberrydb/cloudberrydb/blob/main/deploy/build/README.Linux.md).
+本文档来自 GitHub 仓库 [`cloudberrydb/cloudberrydb`](https://github.com/apache/cloudberry/blob/main/deploy/build/README.Linux.md).
 :::
 
 本文档分享如何在 Linux 系统（CentOS 7、RHEL 和 Ubuntu）上编译和安装 Apache Cloudberry。请注意，本文档仅供开发人员在单节点环境中尝试 Apache Cloudberry。**请勿将本文档用于生产环境**。
@@ -26,7 +26,7 @@ import TabItem from '@theme/TabItem';
 将 GitHub 仓库 `cloudberrydb/cloudberrydb` 克隆到目标机器：
 
 ```shell
-git clone https://github.com/cloudberrydb/cloudberrydb.git
+git clone https://github.com/apache/cloudberry.git
 ```
 
 ## 第 2 步：安装依赖项
