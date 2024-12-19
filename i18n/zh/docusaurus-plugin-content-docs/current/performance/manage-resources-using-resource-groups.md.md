@@ -600,7 +600,7 @@ pg_resgroup_move_query( pid int4, group_name text );
 
 Apache Cloudberry 在运行事务之前会考虑内存可用性，如果没有足够的内存可供服务，则会将事务排队。如使用 `ALTER RESOURCE GROUP` 增加资源组的 `CONCURRENCY` 限制，但没有同时调整内存限制，当前正在运行的事务可能会消耗掉该组的所有分配内存资源。在这种状态下，Apache Cloudberry 会将后续事务排队在资源组中。
 
-**为什么资源组中的正在运行事务数量高于配置的 \`\`CONCURRENCY\`\` 限制？**
+**为什么资源组中的正在运行事务数量高于配置的 `CONCURRENCY` 限制？**
 
 这种行为是预期的。可能出现这种情况的原因有几个：
 

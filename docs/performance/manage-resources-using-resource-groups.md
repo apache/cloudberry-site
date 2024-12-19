@@ -593,7 +593,7 @@ After Apache Cloudberry moves the query, there is no way to guarantee that a que
 
 ## Frequently asked questions
 
-**Why is CPU usage lower than the \`\`CPU_MAX_PERCENT\`\` configured for the resource group?**
+**Why is CPU usage lower than the `CPU_MAX_PERCENT` configured for the resource group?**
 
 You might run into this situation when a low number of queries and slices are running in the resource group, and these processes are not utilizing all of the cores on the system.
 
@@ -601,11 +601,11 @@ My resource group has a `CPU_WEIGHT` equivalent to 40%. Why is the CPU usage nev
 
 The value of `CPU_MAX_PERCENT` might be lower than 40, hence it might be limiting the CPU usage even with idle resources.
 
-**Why is the number of running transactions lower than the \`\`CONCURRENCY\`\` limit configured for the resource group?**
+**Why is the number of running transactions lower than the `CONCURRENCY` limit configured for the resource group?**
 
 Apache Cloudberry considers memory availability before running a transaction, and will queue the transaction if there is not enough memory available to serve it. If you use `ALTER RESOURCE GROUP` to increase the `CONCURRENCY` limit for a resource group but do not also adjust memory limits, currently running transactions might be consuming all allotted memory resources for the group. When in this state, Apache Cloudberry queues subsequent transactions in the resource group.
 
-**Why is the number of running transactions in the resource group higher than the configured \`\`CONCURRENCY\`\` limit?**
+**Why is the number of running transactions in the resource group higher than the configured `CONCURRENCY` limit?**
 
 This behaviour is expected. There are several reasons why this might happen:
 
