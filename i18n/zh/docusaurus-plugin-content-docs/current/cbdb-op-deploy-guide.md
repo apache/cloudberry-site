@@ -13,7 +13,7 @@ title: 通过 RPM 包手动部署
 1. [准备节点服务器](#第-1-步准备节点服务器)。
 2. [安装 RPM 包](#第-2-步安装-rpm-包)。
 3. [配置节点间互信](#第-3-步配置节点间互信)。
-4. [初始化数据库](#第-4-步初始化-cloudberry-database)。
+4. [初始化数据库](#第-4-步初始化-apache-cloudberry)。
 5. [登录数据库](#第-5-步登录数据库)。
 
 ## 第 1 步：准备节点服务器
@@ -22,7 +22,7 @@ title: 通过 RPM 包手动部署
 
 ## 第 2 步：安装 RPM 包
 
-在完成准备工作后，就可以安装 Apache Cloudberry 了。你需要从 [Apache Cloudberry 发布页面](https://github.com/cloudberrydb/cloudberrydb/releases)下载对应的 RPM 安装包，然后在每个节点上通过安装包进行安装。
+在完成准备工作后，就可以安装 Apache Cloudberry 了。你需要从 [Apache Cloudberry 发布页面](https://github.com/apache/cloudberry/releases)下载对应的 RPM 安装包，然后在每个节点上通过安装包进行安装。
 
 1. 下载 Apache Cloudberry 的 RPM 安装包至 `gpadmin` 主目录 `/home/gpadmin/`：
 

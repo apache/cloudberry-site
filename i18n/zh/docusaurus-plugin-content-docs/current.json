@@ -17,7 +17,7 @@
   },
   "sidebar.docsbars.category.Build from Source Code": {
     "message": "从源码编译安装",
-    "description": "The label for category building CloudberryDB from source code in sidebar docs"
+    "description": "The label for category building Cloudberry from source code in sidebar docs"
   },
   "sidebar.docsbars.category.References": {
     "message": "参考指南",

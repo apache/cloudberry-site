@@ -4,11 +4,11 @@ title: 部署前准备
 
 # 物理机/虚拟机部署前准备工作
 
-在物理机/虚拟机上部署 Cloudberry Database 前，你需要做一些准备工作。在开始部署之前，请阅读本文档以及[软硬件配置要求](/i18n/zh/docusaurus-plugin-content-docs/current/cbdb-op-software-hardware.md)。
+在物理机/虚拟机上部署 Apache Cloudberry 前，你需要做一些准备工作。在开始部署之前，请阅读本文档以及[软硬件配置要求](/i18n/zh/docusaurus-plugin-content-docs/current/cbdb-op-software-hardware.md)。
 
 ## 规划部署架构
 
-根据 [Cloudberry Database 架构](/i18n/zh/docusaurus-plugin-content-docs/current/cbdb-architecture.md)和[软硬件配置要求](/i18n/zh/docusaurus-plugin-content-docs/current/cbdb-op-software-hardware.md)规划部署架构，确定所需的服务器数量。确保所有的服务器都在一个安全组内，并且配置了互信。
+根据 [Apache Cloudberry 架构](/i18n/zh/docusaurus-plugin-content-docs/current/cbdb-architecture.md)和[软硬件配置要求](/i18n/zh/docusaurus-plugin-content-docs/current/cbdb-op-software-hardware.md)规划部署架构，确定所需的服务器数量。确保所有的服务器都在一个安全组内，并且配置了互信。
 
 本文示例的部署规划为 1 Coordinator + 1 Standby + 3 Segment (Primary + Mirror)，共 5 台服务器。
 
@@ -61,7 +61,7 @@ systemctl disable firewalld.service
 
 ### 修改网络映射
 
-检查 `/etc/hosts` 文件，确保该文件包含 Cloudberry Database 所有主机别名与其网络 IP 地址的映射。示例如下：
+检查 `/etc/hosts` 文件，确保该文件包含 Apache Cloudberry 所有主机别名与其网络 IP 地址的映射。示例如下：
 
 ```
 192.168.1.101  cbdb-coordinator
@@ -163,9 +163,9 @@ $ echo $(expr $(getconf _PHYS_PAGES) / 2 \* $(getconf PAGE_SIZE))
 
 #### 端口设置
 
-在 `/etc/sysctl.conf` 配置文件中，`net.ipv4.ip_local_port_range` 用于指定端口范围。为了避免 Cloudberry Database 与其他应用程序之间出现端口冲突，需要通过操作系统参数指定端口范围。在后续设置 Cloudberry Database 初始化参数时候，请勿使用这个范围的端口。
+在 `/etc/sysctl.conf` 配置文件中，`net.ipv4.ip_local_port_range` 用于指定端口范围。为了避免 Apache Cloudberry 与其他应用程序之间出现端口冲突，需要通过操作系统参数指定端口范围。在后续设置 Apache Cloudberry 初始化参数时候，请勿使用这个范围的端口。
 
-假设 `net.ipv4.ip_local_port_range = 10000 65535`，那么 Cloudberry Database 相关的端口应避免设置在区间 `[10000,65535]` 内，可以设置为 `6000` 和 `7000`，示例如下：
+假设 `net.ipv4.ip_local_port_range = 10000 65535`，那么 Apache Cloudberry 相关的端口应避免设置在区间 `[10000,65535]` 内，可以设置为 `6000` 和 `7000`，示例如下：
 
 ```
 PORT_BASE = 6000 
@@ -174,7 +174,7 @@ MIRROR_PORT_BASE = 7000
 
 #### IP 分段设置
 
-当 Cloudberry Database 内部连接使用 UDP 协议，网卡会控制 IP 数据包的分段和重组。如果 UDP 消息的大小大于网络最大传输单元 (MTU) 的大小，IP 层会对消息进行分段。
+当 Apache Cloudberry 内部连接使用 UDP 协议，网卡会控制 IP 数据包的分段和重组。如果 UDP 消息的大小大于网络最大传输单元 (MTU) 的大小，IP 层会对消息进行分段。
 
 - `net.ipv4.ipfrag_high_thresh`：当 IP 分片的总大小超过该阈值时，内核将尝试对 IP 分片进行重组。如果分片超过了这个阈值，但全部片段在规定的时间内仍未到达，内核则不会重组这些分片。该阈值通常用于控制是否对较大的分片进行重组。默认值为 `4194304` 字节（即 4 MB）。
 - `net.ipv4.ipfrag_low_thresh`：表示当 IP 分片的总大小低于该阈值时，内核将尽可能地等待更多分片到达，以便进行更大的重组。这个阈值的目的是尽量减少未完成的重组操作，以提高系统性能。默认值为 `3145728` 字节（3 MB）。
@@ -247,7 +247,7 @@ net.ipv4.ipfrag_time = 60
 
 #### 为 XFS 文件系统设置挂载选项
 
-XFS 是 Cloudberry Database 数据目录的文件系统，XFS 使用以下选项进行挂载：
+XFS 是 Apache Cloudberry 数据目录的文件系统，XFS 使用以下选项进行挂载：
 
 ```
 rw,nodev,noatime,inode64
@@ -297,7 +297,7 @@ sudo /sbin/blockdev --setra 16384 /dev/vdc
 
 #### 磁盘的 I/O 调度策略设置
 
-Cloudberry Database 的磁盘类型、操作系统以及调度策略如下：
+Apache Cloudberry 的磁盘类型、操作系统以及调度策略如下：
 
 <table>
     <tr>
@@ -374,7 +374,7 @@ grubby --info=ALL
 
 #### 禁用透明大页面 (THP)
 
-你需要禁用透明大页面 (THP)，因为它会降低 Cloudberry Database 的性能。禁用的命令如下所：
+你需要禁用透明大页面 (THP)，因为它会降低 Apache Cloudberry 的性能。禁用的命令如下所：
 
 ```bash
 grubby --update-kernel=ALL --args="transparent_hugepage=never"
@@ -388,7 +388,7 @@ cat /sys/kernel/mm/*transparent_hugepage/enabled
 
 #### 禁用 IPC 对象删除
 
-禁用 IPC 对象删除，即把 `RemoveIPC` 的值设为 `no`。你可以在 Cloudberry Database 的 `/etc/systemd/logind.conf` 文件中设置该参数。
+禁用 IPC 对象删除，即把 `RemoveIPC` 的值设为 `no`。你可以在 Apache Cloudberry 的 `/etc/systemd/logind.conf` 文件中设置该参数。
 
 ```
 RemoveIPC=no
@@ -422,7 +422,7 @@ service sshd restart
 
 #### 时钟同步设置
 
-Cloudberry Database 要求为所有主机配置时钟需要同步，时钟同步服务应当随主机启动而启动。有两种同步方式：
+Apache Cloudberry 要求为所有主机配置时钟需要同步，时钟同步服务应当随主机启动而启动。有两种同步方式：
 
 - 使用 Coordinator 节点的时间作为来源，其他主机同步 Coordinator 节点主机的时钟。
 - 使用外部时钟来源同步。

@@ -2,27 +2,27 @@
 title: Deploy Manually Using RPM Package
 ---
 
-# Deploy Cloudberry Database Manually Using RPM Package
+# Deploy Apache Cloudberry Manually Using RPM Package
 
-This document introduces how to manually deploy Cloudberry Database on physical/virtual machines using RPM package. Before reading this document, it is recommended to first read the [Software and Hardware Configuration Requirements](/docs/cbdb-op-software-hardware.md) and [Prepare to Deploy Cloudberry Database](/docs/cbdb-op-prepare-to-deploy.md).
+This document introduces how to manually deploy Apache Cloudberry on physical/virtual machines using RPM package. Before reading this document, it is recommended to first read the [Software and Hardware Configuration Requirements](/docs/cbdb-op-software-hardware.md) and [Prepare to Deploy Apache Cloudberry](/docs/cbdb-op-prepare-to-deploy.md).
 
 The deployment method in this document is for production environments.
 
-The example in this document uses CentOS 7.6 and deploys Cloudberry Database v1.0.0. The main steps are as follows:
+The example in this document uses CentOS 7.6 and deploys Apache Cloudberry v1.0.0. The main steps are as follows:
 
 1. [Prepare node servers](#step-1-prepare-server-nodes).
 2. [Install the RPM package](#step-2-install-the-rpm-package).
 3. [Configure mutual trust between nodes](#step-3-configure-mutual-trust-between-nodes).
-4. [Initialize the database](#step-4-initialize-cloudberry-database).
-5. [Log into the database](#step-5-log-into-cloudberry-database).
+4. [Initialize the database](#step-4-initialize-apache-cloudberry).
+5. [Log into the database](#step-5-log-into-apache-cloudberry).
 
 ## Step 1: Prepare server nodes
 
-Read the [Prepare to Deploy Cloudberry Database](/docs/cbdb-op-prepare-to-deploy.md) document to prepare the server nodes.
+Read the [Prepare to Deploy Apache Cloudberry](/docs/cbdb-op-prepare-to-deploy.md) document to prepare the server nodes.
 
 ## Step 2. Install the RPM package
 
-After the preparation, it is time to install Cloudberry Database. You need to download the corresponding RPM package from [Cloudberry Database Releases](https://github.com/cloudberrydb/cloudberrydb/releases), and then install the database on each node using the installation package.
+After the preparation, it is time to install Apache Cloudberry. You need to download the corresponding RPM package from [Apache Cloudberry Releases](https://github.com/apache/cloudberry/releases), and then install the database on each node using the installation package.
 
 1. Download the RPM package to the home directory of `gpadmin`.
 
@@ -123,7 +123,7 @@ After the preparation, it is time to install Cloudberry Database. You need to do
 
         If you fail to run `gpssh`, you can first run `source /usr/local/cloudberry-db/greenplum_path.sh` on the coordinator node.
 
-## Step 4. Initialize Cloudberry Database
+## Step 4. Initialize Apache Cloudberry
 
 Before performing the following operations, run `su - gpadmin` to switch to the `gpadmin` user.
 
@@ -254,7 +254,7 @@ Before performing the following operations, run `su - gpadmin` to switch to the 
             DATABASE_NAME=warehouse
             ```
 
-9. Use `gpinitsystem` to initialize Cloudberry Database. For example:
+9. Use `gpinitsystem` to initialize Apache Cloudberry. For example:
 
     ```bash
     gpinitsystem -c  gpinitsystem_config -h /home/gpadmin/seg_hosts
@@ -268,9 +268,9 @@ Before performing the following operations, run `su - gpadmin` to switch to the 
     gpinitstandby -s cbdb-standbycoordinator
     ```
 
-## Step 5. Log into Cloudberry Database
+## Step 5. Log into Apache Cloudberry
 
-Now you have successfully deployed Cloudberry Database. To log into the database, refer to the following command:
+Now you have successfully deployed Apache Cloudberry. To log into the database, refer to the following command:
 
 ```bash
 psql -h <hostname> -p <port> -U <username> -d <database>
@@ -278,12 +278,12 @@ psql -h <hostname> -p <port> -U <username> -d <database>
 
 In the command above:
 
-- `<hostname>` is the IP address of the coordinator node of the Cloudberry Database server.
-- `<port>` is the default port number of Cloudberry Database, which is `5432` by default.
+- `<hostname>` is the IP address of the coordinator node of the Apache Cloudberry server.
+- `<port>` is the default port number of Apache Cloudberry, which is `5432` by default.
 - `<username>` is the user name of the database.
 - `<database>` is the name of the database to connect.
 
-After you run the `psql` command, the system will prompt you to enter the database password. After you enter the correct password, you will successfully log into the Cloudberry Database and can perform SQL queries and operations. Make sure that you have the correct permissions to access the target database.
+After you run the `psql` command, the system will prompt you to enter the database password. After you enter the correct password, you will successfully log into Apache Cloudberry and can perform SQL queries and operations. Make sure that you have the correct permissions to access the target database.
 
 ```sql
 [gpadmin@cddb-coordinator ~]$ psql warehouse
