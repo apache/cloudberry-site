@@ -32,14 +32,14 @@ After the preparation, it is time to install Apache Cloudberry. You need to down
 
 2. Install the RPM package in the `/home/gpadmin` directory.
 
-    When running the following command, you need to replace `<RPM package path>` with the actual RPM package path, as the `root` user. During the installation, the directory `/usr/local/cloudberry-db/` is automatically created.
+    When running the following command, you need to replace `<RPM package path>` with the actual RPM package path, as the `root` user. During the installation, the directory `/usr/local/cloudberry/` is automatically created.
 
     ```bash
     cd /home/gpadmin
     yum install <RPM package path>
     ```
 
-3. Grant the `gpadmin` user the permission to access the `/usr/local/cloudberry-db/` directory.
+3. Grant the `gpadmin` user the permission to access the `/usr/local/cloudberry/` directory.
 
     ```bash
     chown -R gpadmin:gpadmin /usr/local
@@ -74,14 +74,14 @@ After the preparation, it is time to install Apache Cloudberry. You need to down
     1. Run `ssh-keygen` on each host to generate SSH key. For example:
 
         ```bash
-        [gpadmin@cbbd-coordinator cloudberry-db-1.0.0]$ ssh-keygen
+        [gpadmin@cbbd-coordinator cloudberry-1.0.0]$ ssh-keygen
 
         Generating public/private rsa key pair.
-        Enter file in which to save the key (/usr/local/cloudberry-db/.ssh/id_rsa):
+        Enter file in which to save the key (/usr/local/cloudberry/.ssh/id_rsa):
         Enter passphrase (empty for no passphrase):
         Enter same passphrase again:
-        Your identification has been saved in /usr/local/cloudberry-db/.ssh/id_rsa.
-        Your public key has been saved in /usr/local/cloudberry-db/.ssh/id_rsa.pub.
+        Your identification has been saved in /usr/local/cloudberry/.ssh/id_rsa.
+        Your public key has been saved in /usr/local/cloudberry/.ssh/id_rsa.pub.
         The key fingerprint is:
         SHA256:cvcYS87egYCyh/v6UtdqrejVU5qqF7OvpcHg/T9lRrg gpadmin@cbbd-coordinator
         The key's randomart image is:
@@ -113,15 +113,15 @@ After the preparation, it is time to install Apache Cloudberry. You need to down
         ```bash
         [gpadmin@cbdb-coordinator ~]$ gpssh -f all_hosts
         => pwd
-        [ cbdb-datanode03] b'/usr/local/cloudberry-db\r'
-        [ cbdb-coordinator] b'/usr/local/cloudberry-db\r'
-        [ cbdb-datanode02] b'/usr/local/cloudberry-db\r'
-        [cbdb-standbycoordinator] b'/usr/local/cloudberry-db\r'
-        [ cbdb-datanode01] b'/usr/local/cloudberry-db\r'
+        [ cbdb-datanode03] b'/usr/local/cloudberry\r'
+        [ cbdb-coordinator] b'/usr/local/cloudberry\r'
+        [ cbdb-datanode02] b'/usr/local/cloudberry\r'
+        [cbdb-standbycoordinator] b'/usr/local/cloudberry\r'
+        [ cbdb-datanode01] b'/usr/local/cloudberry\r'
         =>
         ```
 
-        If you fail to run `gpssh`, you can first run `source /usr/local/cloudberry-db/greenplum_path.sh` on the coordinator node.
+        If you fail to run `gpssh`, you can first run `source /usr/local/cloudberry/greenplum_path.sh` on the coordinator node.
 
 ## Step 4. Initialize Apache Cloudberry
 
@@ -130,7 +130,7 @@ Before performing the following operations, run `su - gpadmin` to switch to the 
 1. Add a new line of `source` command to the `~/.bashrc` files of all nodes (coordinator/standby coordinator/segment). The example is as follows:
 
     ```bash
-    source /usr/local/cloudberry-db/greenplum_path.sh
+    source /usr/local/cloudberry/greenplum_path.sh
     ```
 
 2. Run the `source` command to make the newly added content effective:

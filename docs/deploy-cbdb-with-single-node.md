@@ -2,11 +2,11 @@
 title: Deploy with a Single Computing Node
 ---
 
-# Deploy Cloudberry Database with a Single Computing Node (New in v1.5.0)
+# Deploy Apache Cloudberry with a Single Computing Node (New in v1.5.0)
 
-Cloudberry Database is not fully compatible with PostgreSQL, and some features and syntax are Cloudberry Database-specific. If your business already relies on Cloudberry Database and you want to use the Cloudberry Database-specific syntax and features on a single node to avoid compatibility issues with PostgreSQL, you can consider deploying Cloudberry Database free of segments.
+Apache Cloudberry is not fully compatible with PostgreSQL, and some features and syntax are Apache Cloudberry-specific. If your business already relies on Apache Cloudberry and you want to use the Apache Cloudberry-specific syntax and features on a single node to avoid compatibility issues with PostgreSQL, you can consider deploying Apache Cloudberry free of segments.
 
-Starting from v1.5.0, Cloudberry Database provides the single-computing-node deployment mode. This mode runs under the `utility` gp_role, with only one coordinator (QD) node and one coordinator standby node, without a segment node or data distribution. You can directly connect to the coordinator and run queries as if you were connecting to a regular multi-node cluster. Note that some SQL statements are not effective in this mode because data distribution does not exist, and some SQL statements are not supported. See [user behavior changes](#user-behavior-changes) for details.
+Starting from v1.5.0, Apache Cloudberry provides the single-computing-node deployment mode. This mode runs under the `utility` gp_role, with only one coordinator (QD) node and one coordinator standby node, without a segment node or data distribution. You can directly connect to the coordinator and run queries as if you were connecting to a regular multi-node cluster. Note that some SQL statements are not effective in this mode because data distribution does not exist, and some SQL statements are not supported. See [user behavior changes](#user-behavior-changes) for details.
 
 ## How to deploy
 
@@ -127,7 +127,7 @@ $echo $(expr $(getconf _PHYS_PAGES)/2 \*$(getconf PAGE_SIZE))
 
 ##### IP segmentation settings
 
-When the Cloudberry Database uses the UDP protocol for internal connection, the network card controls the fragmentation and reassembly of IP packets. If the size of a UDP message is larger than the maximum size of network transmission unit (MTU), the IP layer fragments the message.
+When the Apache Cloudberry uses the UDP protocol for internal connection, the network card controls the fragmentation and reassembly of IP packets. If the size of a UDP message is larger than the maximum size of network transmission unit (MTU), the IP layer fragments the message.
 
 - `net.ipv4.ipfrag_high_thresh`: When the total size of IP fragments exceeds this threshold, the kernel will attempt to reorganize IP fragments. If the fragments exceed this threshold but all fragments have not arrived within the specified time, the kernel will not reorganize the fragments. This threshold is typically used to control whether larger shards are reorganized. The default value is `4194304` bytes (4 MB).
 - `net.ipv4.ipfrag_low_thresh`: Indicates that when the total size of IP fragments is below this threshold, the kernel will wait as long as possible for more fragments to arrive, to allow for larger reorganizations. This threshold is used to minimize unfinished reorganization operations and improve system performance. The default value is `3145728` bytes (3 MB).
@@ -200,7 +200,7 @@ Edit the `/etc/security/limits.conf` file and add the following content, which w
 
 ##### Set mount options for the XFS file system
 
-XFS is the file system for the data directory of Cloudberry Database. XFS has the following mount options:
+XFS is the file system for the data directory of Apache Cloudberry. XFS has the following mount options:
 
 ```
 rw,nodev,noatime,inode64
@@ -250,7 +250,7 @@ sudo/sbin/blockdev --setra16384/dev/vdc
 
 ##### I/O scheduling policy settings for disks
 
-The disk type, operating system, and scheduling policies of Cloudberry Database are as follows:
+The disk type, operating system, and scheduling policies of Apache Cloudberry are as follows:
 
 <table>
 <thead>
@@ -343,7 +343,7 @@ cat /sys/kernel/mm/*transparent_hugepage/enabled
 
 ##### Disable IPC object deletion
 
-Disable IPC object deletion by setting the value of `RemoveIPC` to `no`. You can set this parameter in the `/etc/systemd/logind.conf` file of Cloudberry Database.
+Disable IPC object deletion by setting the value of `RemoveIPC` to `no`. You can set this parameter in the `/etc/systemd/logind.conf` file of Apache Cloudberry.
 
 ```
 RemoveIPC=no
@@ -377,7 +377,7 @@ service sshd restart
 
 ##### Clock synchronization
 
-Cloudberry Database requires the clock synchronization to be configured for all hosts, and the clock synchronization service should be started when the host starts. You can choose one of the following synchronization methods:
+Apache Cloudberry requires the clock synchronization to be configured for all hosts, and the clock synchronization service should be started when the host starts. You can choose one of the following synchronization methods:
 
 - Use the coordinator node's time as the source, and other hosts synchronize the clock of the coordinator node host.
 - Synchronize clocks using an external clock source.
@@ -396,7 +396,7 @@ After setting, you can run the following command to check the clock synchronizat
 systemctl status chronyd
 ```
 
-### Step 2. Install Cloudberry Database
+### Step 2. Install Apache Cloudberry
 
 1. Download the RPM package to the home directory of `gpadmin`.
 
@@ -406,14 +406,14 @@ systemctl status chronyd
 
 2. Install the RPM package in the `/home/gpadmin` directory.
 
-    When running the following command, you need to replace `<RPM package path>` with the actual RPM package path, as the `root` user. During the installation, the directory `/usr/local/cloudberry-db/` is automatically created.
+    When running the following command, you need to replace `<RPM package path>` with the actual RPM package path, as the `root` user. During the installation, the directory `/usr/local/cloudberry/` is automatically created.
 
     ```bash
     cd /home/gpadmin
     yum install <RPM package path>
     ```
 
-3. Grant the `gpadmin` user the permission to access the `/usr/local/cloudberry-db/` directory.
+3. Grant the `gpadmin` user the permission to access the `/usr/local/cloudberry/` directory.
 
     ```bash
     chown -R gpadmin:gpadmin /usr/local
@@ -428,9 +428,9 @@ systemctl status chronyd
     ssh `hostname` # Makes sure that the local SSH connection works well.
     ```
 
-### Step 3. Deploy Cloudberry Database with a single computing node
+### Step 3. Deploy Apache Cloudberry with a single computing node
 
-Use the scripting tool [`gpdemo`](/docs/sys-utilities/gpdemo.md) to quickly deploy Cloudberry Database. `gpdemo` is included in the RPM package and will be installed in the `GPHOME/bin` directory along with the configuration scripts (gpinitsystem, gpstart, and gpstop). `gpdemo` supports quickly deploying Cloudberry Database with a single computing node.
+Use the scripting tool [`gpdemo`](/docs/sys-utilities/gpdemo.md) to quickly deploy Apache Cloudberry. `gpdemo` is included in the RPM package and will be installed in the `GPHOME/bin` directory along with the configuration scripts (gpinitsystem, gpstart, and gpstop). `gpdemo` supports quickly deploying Apache Cloudberry with a single computing node.
 
 In the above [setting mount options for the XFS file system](#set-mount-options-for-the-xfs-file-system), the XFS  file system's data directory is mounted on `/data0`. The following commands deploy a single-computing-node cluster in this data directory:
 
@@ -439,13 +439,13 @@ cd /data0
 NUM_PRIMARY_MIRROR_PAIRS=0 gpdemo  # Uses gpdemo
 ```
 
-When `gpdemo` is running, a warning will be output `[WARNING]: -SinglenodeMode has been enabled, no segment will be created.`, which indicates that Cloudberry Database is currently being deployed in the single-computing-node mode.
+When `gpdemo` is running, a warning will be output `[WARNING]: -SinglenodeMode has been enabled, no segment will be created.`, which indicates that Apache Cloudberry is currently being deployed in the single-computing-node mode.
 
 ## Common issues
 
 ### How to check the deployment mode of a cluster
 
-Perform the following steps to confirm the deployment mode of the current Cloudberry Database cluster:
+Perform the following steps to confirm the deployment mode of the current Apache Cloudberry cluster:
 
 1. Connect to the coordinator node.
 2. Execute `SHOW gp_role;` to view the operating mode of the cluster.
@@ -468,11 +468,11 @@ Perform the following steps to confirm the deployment mode of the current Cloudb
 
 ## How it works
 
-When you are deploying Cloudberry Database in the single-computing-node mode, the deployment script `gpdemo` writes `gp_internal_is_singlenode = true` to the configuration file `postgresql.conf` and starts a coordinator and a coordinator standby node with the `gp_role = utility` parameter setting. All data is written locally without a segment or data distribution.
+When you are deploying Apache Cloudberry in the single-computing-node mode, the deployment script `gpdemo` writes `gp_internal_is_singlenode = true` to the configuration file `postgresql.conf` and starts a coordinator and a coordinator standby node with the `gp_role = utility` parameter setting. All data is written locally without a segment or data distribution.
 
 ## User-behavior changes
 
-In the single-computing-node mode, the product behavior of Cloudberry Database has the following changes. You should pay attention to these changes before performing related operations:
+In the single-computing-node mode, the product behavior of Apache Cloudberry has the following changes. You should pay attention to these changes before performing related operations:
 
 - When you execute `CREATE TABLE` to create a table, the `DISTRIBUTED BY` clause no longer takes effect. A warning is output: `WARNING: DISTRIBUTED BY clause has no effect in singlenode mode`.
 - The `SCATTER BY` clause of the `SELECT` statement is no longer effective. A warning is output: `WARNING: SCATTER BY clause has no effect in singlenode mode`.

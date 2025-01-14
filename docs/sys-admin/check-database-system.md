@@ -3,14 +3,14 @@ title: Check Database System
 toc_max_heading_level: 5
 ---
 
-# Check Cloudberry Database System
+# Check Apache Cloudberry System
 
-You can check a Cloudberry Database system using a variety of tools included with the system or available as plugins.
+You can check a Apache Cloudberry system using a variety of tools included with the system or available as plugins.
 
-Observing the Cloudberry Database system day-to-day performance helps administrators understand the system behavior, plan workflow, and troubleshoot problems. This document introduces scenarios for diagnosing database performance and activity.
+Observing the Apache Cloudberry system day-to-day performance helps administrators understand the system behavior, plan workflow, and troubleshoot problems. This document introduces scenarios for diagnosing database performance and activity.
 
 <!-- Also, be sure to review [Recommended Monitoring and Maintenance Tasks](../monitoring/monitoring.html) for monitoring activities you can script to quickly detect problems in the system. -->
-As a Cloudberry Database administrator, you need to check the system for problem events such as a segment going down or running out of disk space on a segment host. The following topics describe how to check the health of a Cloudberry Database system and examine certain state information for a Cloudberry Database system.
+As a Apache Cloudberry administrator, you need to check the system for problem events such as a segment going down or running out of disk space on a segment host. The following topics describe how to check the health of a Apache Cloudberry system and examine certain state information for a Apache Cloudberry system.
 
 - [Check system state](#check-system-state)
 - [Check disk space usage](#check-disk-space-usage)
@@ -23,17 +23,17 @@ As a Cloudberry Database administrator, you need to check the system for problem
 
 ## Check system state
 
-A Cloudberry Database system is comprised of multiple PostgreSQL instances (the coordinator and segments) spanning multiple machines. To check a Cloudberry Database system, you need to know information about the system as a whole, as well as status information of the individual instances. The `gpstate` utility provides status information about a Cloudberry Database system.
+A Apache Cloudberry system is comprised of multiple PostgreSQL instances (the coordinator and segments) spanning multiple machines. To check a Apache Cloudberry system, you need to know information about the system as a whole, as well as status information of the individual instances. The `gpstate` utility provides status information about a Apache Cloudberry system.
 
 ### View coordinator and segment status and configuration
 
-The default `gpstate` action is to check segment instances and show a brief status of the valid and failed segments. For example, to see a quick status of your Cloudberry Database system:
+The default `gpstate` action is to check segment instances and show a brief status of the valid and failed segments. For example, to see a quick status of your Apache Cloudberry system:
 
 ```shell
 gpstate
 ```
 
-To see more detailed information about your Cloudberry Database array configuration, use `gpstate` with the `-s` option:
+To see more detailed information about your Apache Cloudberry array configuration, use `gpstate` with the `-s` option:
 
 ```shell
 gpstate -s
@@ -71,7 +71,7 @@ SELECT * FROM gp_toolkit.gp_disk_free ORDER BY dfsegment;
 
 ### Check the sizing of distributed databases and tables
 
-The `gp_toolkit` administrative schema contains several views that you can use to determine the disk space usage for a distributed Cloudberry Database database, schema, table, or index.
+The `gp_toolkit` administrative schema contains several views that you can use to determine the disk space usage for a distributed Apache Cloudberry database, schema, table, or index.
 
 #### View disk space usage for a database
 
@@ -125,7 +125,7 @@ AND pg_class.relname = 'test_index';
 
 ## Check for data distribution skew
 
-All tables in Cloudberry Database are distributed, meaning their data is divided across all of the segments in the system. Unevenly distributed data might diminish query processing performance. A table's distribution policy, set at table creation time, determines how the table's rows are distributed. For information about choosing the table distribution policy, see the following topics:
+All tables in Apache Cloudberry are distributed, meaning their data is divided across all of the segments in the system. Unevenly distributed data might diminish query processing performance. A table's distribution policy, set at table creation time, determines how the table's rows are distributed. For information about choosing the table distribution policy, see the following topics:
 
 - [View a table's distribution key](#view-a-tables-distribution-key)
 - [View data distribution](#view-data-distribution)
@@ -150,7 +150,7 @@ Has OIDs: no
 Distributed by: (sale_id)
 ```
 
-When you create a replicated table, Cloudberry Database stores all rows in the table on every segment. Replicated tables have no distribution key. Where the `\d+` meta-command reports the distribution key for a normally distributed table, it shows `Distributed Replicated` for a replicated table.
+When you create a replicated table, Apache Cloudberry stores all rows in the table on every segment. Replicated tables have no distribution key. Where the `\d+` meta-command reports the distribution key for a normally distributed table, it shows `Distributed Replicated` for a replicated table.
 
 ### View data distribution
 
@@ -164,7 +164,7 @@ FROM <table_name> GROUP BY gp_segment_id;
 A table is considered to have a balanced distribution if all segments have roughly the same number of rows.
 
 :::tip
-If you run this query on a replicated table, it fails because Cloudberry Database does not permit user queries to reference the system column `gp_segment_id` (or the system columns `ctid`, `cmin`, `cmax`, `xmin`, and `xmax`) in replicated tables. Because every segment has all of the tables' rows, replicated tables are evenly distributed by definition.
+If you run this query on a replicated table, it fails because Apache Cloudberry does not permit user queries to reference the system column `gp_segment_id` (or the system columns `ctid`, `cmin`, `cmax`, `xmin`, and `xmax`) in replicated tables. Because every segment has all of the tables' rows, replicated tables are evenly distributed by definition.
 :::
 
 ### Check for query processing skew
@@ -202,9 +202,9 @@ This occurs when the input to a hash join operator is skewed. It does not preven
 
 <!-- ## Check for and terminate overflowed backends
 
-Sub-transaction overflow occurs when a Cloudberry Database backend creates more than 64 sub-transactions, resulting in a high lookup cost for visibility checks. This slows query performance, but even more so when it occurs in combination with long-running transactions, which result in still more lookups. Terminating sub-overflowed backends and/or backends with long-running transactions can help prevent and alleviate performance problems.
+Sub-transaction overflow occurs when a Apache Cloudberry backend creates more than 64 sub-transactions, resulting in a high lookup cost for visibility checks. This slows query performance, but even more so when it occurs in combination with long-running transactions, which result in still more lookups. Terminating sub-overflowed backends and/or backends with long-running transactions can help prevent and alleviate performance problems.
 
-Cloudberry Database includes a view (`gp_suboverflowed_backend`) that is run over a user-defined function to help users query for sub-overflowed backends. Users can use segment id and process id information reported in the view to terminate the offending backends, thereby preventing degradation of performance.
+Apache Cloudberry includes a view (`gp_suboverflowed_backend`) that is run over a user-defined function to help users query for sub-overflowed backends. Users can use segment id and process id information reported in the view to terminate the offending backends, thereby preventing degradation of performance.
 
 ### Steps for identifying and terminating overflowed backends
 
@@ -265,7 +265,7 @@ Follow these steps below to identify and terminate overflowed backends.
 
 ## View metadata information about database objects
 
-Cloudberry Database tracks various metadata information in its system catalogs about the objects stored in a database, such as tables, views, indexes and so on, as well as global objects such as roles and tablespaces.
+Apache Cloudberry tracks various metadata information in its system catalogs about the objects stored in a database, such as tables, views, indexes and so on, as well as global objects such as roles and tablespaces.
 
 ### View the last operation performed
 
@@ -296,14 +296,14 @@ To see the definition of an object, such as a table or view, you can use the `\d
 
 ## View session memory usage information
 
-You can create and use the `session_level_memory_consumption` view that provides information about the current memory utilization for sessions that are running queries on Cloudberry Database. The view contains session information and information such as the database that the session is connected to, the query that the session is currently running, and memory consumed by the session processes.
+You can create and use the `session_level_memory_consumption` view that provides information about the current memory utilization for sessions that are running queries on Apache Cloudberry. The view contains session information and information such as the database that the session is connected to, the query that the session is currently running, and memory consumed by the session processes.
 
 - [Create the `session_level_memory_consumption` view](#create-the-session_level_memory_consumption-view)
 - [About the `session_level_memory_consumption` view](#about-the-session_level_memory_consumption-view)
 
 ### Create the `session_level_memory_consumption` view
 
-To create the `session_state.session_level_memory_consumption` view in a Cloudberry Database, run the command `CREATE EXTENSION gp_internal_tools;` once for each database. For example, to install the view in the database `testdb`, use this command:
+To create the `session_state.session_level_memory_consumption` view in a Apache Cloudberry, run the command `CREATE EXTENSION gp_internal_tools;` once for each database. For example, to install the view in the database `testdb`, use this command:
 
 ```shell
 psql -d testdb -c "CREATE EXTENSION gp_internal_tools;"
@@ -313,7 +313,7 @@ psql -d testdb -c "CREATE EXTENSION gp_internal_tools;"
 
 The `session_state.session_level_memory_consumption` view provides information about memory consumption and idle time for sessions that are running SQL queries.
 
-When resource queue-based resource management is active, the column `is_runaway` indicates whether Cloudberry Database considers the session a runaway session based on the` vmem` memory consumption of the session's queries. Under the resource queue-based resource management scheme, Cloudberry Database considers the session a runaway when the queries consume an excessive amount of memory. The Cloudberry Database server configuration parameter `runaway_detector_activation_percent` controls the conditions under which Cloudberry Database considers a session a runaway session.
+When resource queue-based resource management is active, the column `is_runaway` indicates whether Apache Cloudberry considers the session a runaway session based on the` vmem` memory consumption of the session's queries. Under the resource queue-based resource management scheme, Apache Cloudberry considers the session a runaway when the queries consume an excessive amount of memory. The Apache Cloudberry server configuration parameter `runaway_detector_activation_percent` controls the conditions under which Apache Cloudberry considers a session a runaway session.
 
 The `is_runaway`, `runaway_vmem_mb`, and `runaway_command_cnt` columns are not applicable when resource group-based resource management is active.
 
@@ -335,9 +335,9 @@ The `is_runaway`, `runaway_vmem_mb`, and `runaway_command_cnt` columns are not a
 
 ## View and log per-process memory usage information
 
-Cloudberry Database allocates all memory within memory contexts. Memory contexts are a convenient way to manage memory that needs to live for differing amounts of time. Destroying a context releases all of the memory that was allocated in it.
+Apache Cloudberry allocates all memory within memory contexts. Memory contexts are a convenient way to manage memory that needs to live for differing amounts of time. Destroying a context releases all of the memory that was allocated in it.
 
-Tracking the amount of memory used by a server process or a long-running query can help detect the source of a potential out-of-memory condition. Cloudberry Database provides a system view and administration functions that you can use for this purpose.
+Tracking the amount of memory used by a server process or a long-running query can help detect the source of a potential out-of-memory condition. Apache Cloudberry provides a system view and administration functions that you can use for this purpose.
 
 ### About the `pg_backend_memory_contexts` view
 
@@ -349,7 +349,7 @@ SELECT * FROM pg_backend_memory_contexts;
 
 ### About the memory context admin functions
 
-You can use the system administration function `pg_log_backend_memory_contexts()` to instruct Cloudberry Database to dump the memory usage of other sessions running on the coordinator host into the server log. Execution of this function is restricted to superusers only, and cannot be granted to other roles.
+You can use the system administration function `pg_log_backend_memory_contexts()` to instruct Apache Cloudberry to dump the memory usage of other sessions running on the coordinator host into the server log. Execution of this function is restricted to superusers only, and cannot be granted to other roles.
 
 The signature of `pg_log_backend_memory_contexts()` function follows:
 
@@ -359,7 +359,7 @@ pg_log_backend_memory_contexts( pid integer )
 
 where `pid` identifies the process whose memory contexts you want dumped.
 
-`pg_log_backend_memory_contexts()` returns `t` when memory context logging is successfully activated for the process on the local host. When logging is activated, Cloudberry Database writes one message to the log for each memory context at the `LOG` message level. The log messages appear in the server log based on the log configuration set; refer to [Error Reporting and Logging](https://www.postgresql.org/docs/14/runtime-config-logging.html) in the PostgreSQL documentation for more information. *The memory context log messages are not sent to the client*.
+`pg_log_backend_memory_contexts()` returns `t` when memory context logging is successfully activated for the process on the local host. When logging is activated, Apache Cloudberry writes one message to the log for each memory context at the `LOG` message level. The log messages appear in the server log based on the log configuration set; refer to [Error Reporting and Logging](https://www.postgresql.org/docs/14/runtime-config-logging.html) in the PostgreSQL documentation for more information. *The memory context log messages are not sent to the client*.
 
 <!-- Memory context logging functions that dump memory usage across all Cloudberry segments, or dump usage for a specific segment are named `gp_log_backend_memory_contexts()`.
 
@@ -370,9 +370,9 @@ gp_log_backend_memory_contexts( sess_id integer )
 gp_log_backend_memory_contexts( sess_id integer, contentId integer )
 ```
 
-where `sess_id` is the Cloudberry Database identifier assigned to the session (typically obtained from the `pg_stat_activity` view), and `contentID` in the second signature identifies the segment instance of interest.
+where `sess_id` is the Apache Cloudberry identifier assigned to the session (typically obtained from the `pg_stat_activity` view), and `contentID` in the second signature identifies the segment instance of interest.
 
-When you invoke `gp_log_backend_memory_contexts()` on the Cloudberry Database coordinator host, it invokes `pg_log_backend_memory_contexts()` on the individual segments, which in turn triggers a memory usage dump to each segment log. The functions return an integer identifying the number of segments on which memory context logging was successfully activated. -->
+When you invoke `gp_log_backend_memory_contexts()` on the Apache Cloudberry coordinator host, it invokes `pg_log_backend_memory_contexts()` on the individual segments, which in turn triggers a memory usage dump to each segment log. The functions return an integer identifying the number of segments on which memory context logging was successfully activated. -->
 
 ### Sample log messages
 
@@ -394,7 +394,7 @@ triggered the dumping of the following (subset of) memory context messages to th
 
 ## View query workfile usage information
 
-The Cloudberry Database administrative schema `gp_toolkit` contains views that display information about Cloudberry Database workfiles. Cloudberry Database creates workfiles on disk if it does not have sufficient memory to run the query in memory. This information can be used for troubleshooting and tuning queries. The information in the views can also be used to specify the values for the Cloudberry Database configuration parameters `gp_workfile_limit_per_query` and `gp_workfile_limit_per_segment`.
+The Apache Cloudberry administrative schema `gp_toolkit` contains views that display information about Apache Cloudberry workfiles. Apache Cloudberry creates workfiles on disk if it does not have sufficient memory to run the query in memory. This information can be used for troubleshooting and tuning queries. The information in the views can also be used to specify the values for the Apache Cloudberry configuration parameters `gp_workfile_limit_per_query` and `gp_workfile_limit_per_segment`.
 
 These are the views in the schema `gp_toolkit`:
 
@@ -406,7 +406,7 @@ For information about using `gp_toolkit`, see [Using `gp_toolkit`](#use-gp_toolk
 
 ## View the database server log files
 
-Every database instance in Cloudberry Database (coordinator and segments) runs a PostgreSQL database server with its own server log file. Log files are created in the `log` directory of the coordinator and each segment data directory.
+Every database instance in Apache Cloudberry (coordinator and segments) runs a PostgreSQL database server with its own server log file. Log files are created in the `log` directory of the coordinator and each segment data directory.
 
 ### Log file format
 
@@ -447,9 +447,9 @@ The following fields are written to the log:
 |29|file\_line|int|The line of the code file where the message originated|
 |30|stack\_trace|text|Stack trace text associated with this message|
 
-### Search the Cloudberry Database server log files
+### Search the Apache Cloudberry server log files
 
-Cloudberry Database provides a utility called `gplogfilter` can search through a Cloudberry Database log file for entries matching the specified criteria. By default, this utility searches through the Cloudberry Database coordinator log file in the default logging location. For example, to display the last three lines of each of the log files under the coordinator directory:
+Apache Cloudberry provides a utility called `gplogfilter` can search through a Apache Cloudberry log file for entries matching the specified criteria. By default, this utility searches through the Apache Cloudberry coordinator log file in the default logging location. For example, to display the last three lines of each of the log files under the coordinator directory:
 
 ```shell
 gplogfilter -n 3
@@ -462,13 +462,13 @@ gpssh -f <seg_host_file>
 ```
 
 ```shell
-=> source /usr/local/cloudberry-db/greenplum_path.sh
+=> source /usr/local/cloudberry/greenplum_path.sh
 => gplogfilter -n 3 <seg_host_file>
 ``` -->
 
 ## Use `gp_toolkit`
 
-Use the Cloudberry Database administrative schema `gp_toolkit` to query the system catalogs, log files, and operating environment for system status information. The `gp_toolkit` schema contains several views you can access using SQL commands. The `gp_toolkit` schema is accessible to all database users. Some objects require superuser permissions. Use a command similar to the following to add the `gp_toolkit` schema to your schema search path:
+Use the Apache Cloudberry administrative schema `gp_toolkit` to query the system catalogs, log files, and operating environment for system status information. The `gp_toolkit` schema contains several views you can access using SQL commands. The `gp_toolkit` schema is accessible to all database users. Some objects require superuser permissions. Use a command similar to the following to add the `gp_toolkit` schema to your schema search path:
 
 ```sql
 => ALTER ROLE myrole SET search_path TO myschema,gp_toolkit;
@@ -483,7 +483,7 @@ The PL/pgSQL condition name for each error code is the same as the phrase shown 
 :::tip
 **How to view error codes**
 
-When you execute SQL queries or perform other database operations in Cloudberry Database, and an error occurs, the system returns an error message. However, this standard error message may not directly display the SQLSTATE error code. Here are some methods to view these error codes:
+When you execute SQL queries or perform other database operations in Apache Cloudberry, and an error occurs, the system returns an error message. However, this standard error message may not directly display the SQLSTATE error code. Here are some methods to view these error codes:
 
 - Use PL/pgSQL exception handling. For example:
 
@@ -498,7 +498,7 @@ When you execute SQL queries or perform other database operations in Cloudberry 
     $$;
     ```
 
-- Check the database log. Cloudberry Database records detailed error information, including error codes, in its log files. Depending on your system setup, you can check the log files on the database server for this information.
+- Check the database log. Apache Cloudberry records detailed error information, including error codes, in its log files. Depending on your system setup, you can check the log files on the database server for this information.
 
 - Use advanced database client tools. Some advanced database client or management tools may offer more detailed error reporting features that can directly display SQLSTATE error codes.
 
@@ -722,7 +722,7 @@ PL/pgSQL does not recognize warning, as opposed to error, condition names; those
 |57P01|ADMIN SHUTDOWN|admin\_shutdown|
 |57P02|CRASH SHUTDOWN|crash\_shutdown|
 |57P03|CANNOT CONNECT NOW|cannot\_connect\_now|
-|**Class 58** — System Error (errors external to Cloudberry Database )|
+|**Class 58** — System Error (errors external to Apache Cloudberry )|
 |58030|IO ERROR|io\_error|
 |58P01|UNDEFINED FILE|undefined\_file|
 |58P02|DUPLICATE FILE|duplicate\_file|

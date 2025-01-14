@@ -2,9 +2,9 @@
 title: 事务操作
 ---
 
-# 在 Cloudberry Database 中使用事务
+# 在 Apache Cloudberry 中使用事务
 
-SQL 事务允许你将多个 SQL 语句捆绑在一起，形成一个全部成功或全部失败的操作。对于 Cloudberry Database，其 SQL 事务命令包括：
+SQL 事务允许你将多个 SQL 语句捆绑在一起，形成一个全部成功或全部失败的操作。对于 Apache Cloudberry，其 SQL 事务命令包括：
 
 - `BEGIN` 或 `START TRANSACTION`：开始一个事务块。
 - `END` 或 `COMMIT`：提交事务的结果。
@@ -15,16 +15,16 @@ SQL 事务允许你将多个 SQL 语句捆绑在一起，形成一个全部成�
 
 ## 事务隔离级别
 
-Cloudberry Database 支持以下标准 SQL 事务隔离级别：
+Apache Cloudberry 支持以下标准 SQL 事务隔离级别：
 
 - `READ UNCOMMITTED`（读未提交）和 `READ COMMITTED`（读已提交）的行为与标准的 `READ COMMITTED` 相同。
 - `REPEATABLE READ`（可重复读）和 `SERIALIZABLE`（可序列化）的行为与 `REPEATABLE READ` 相同。
 
-以下内容描述了 Cloudberry Database 事务隔离级别的行为。
+以下内容描述了 Apache Cloudberry 事务隔离级别的行为。
 
 ### 未提交读与已提交读
 
-在 Cloudberry Database 中，任何执行中的命令都无法查看其他并行事务中的未提交更新，因此 `READ UNCOMMITTED` 模式与 `READ COMMITTED` 模式的效果是相同的。`READ COMMITTED` 模式提供了一种快速且简易的方式，能够实现事务的部分隔离效果。在这种模式下，`SELECT`、`UPDATE` 和 `DELETE` 语句都是在查询开始时基于数据库当前的快照来执行的。
+在 Apache Cloudberry 中，任何执行中的命令都无法查看其他并行事务中的未提交更新，因此 `READ UNCOMMITTED` 模式与 `READ COMMITTED` 模式的效果是相同的。`READ COMMITTED` 模式提供了一种快速且简易的方式，能够实现事务的部分隔离效果。在这种模式下，`SELECT`、`UPDATE` 和 `DELETE` 语句都是在查询开始时基于数据库当前的快照来执行的。
 
 具体来说，一个 `SELECT` 查询会：
 
@@ -39,7 +39,7 @@ Cloudberry Database 支持以下标准 SQL 事务隔离级别：
 
 #### 可重复读与序列化隔离级别
 
-在 SQL 标准中，`SERIALIZABLE` 事务隔离级别旨在确保，即便事务是并发运行的，其产生的结果也应当与事务依次运行时的结果相同。在 Cloudberry Database 中，当指定 `SERIALIZABLE` 隔离级别时，实际上会使用 `REPEATABLE READ` 隔离级别。`REPEATABLE READ` 隔离级别可以在无需使用复杂锁定机制的情况下，防止脏读、不可重复读和幻读现象，但这种模式并不能检测到所有在并发事务执行期间可能出现的序列化冲突。因此，你需要仔细检查并发事务，以识别哪些冲突是仅靠禁止对同一数据并发更新所无法预防的。为避免这类冲突，可以采用显式表锁或者更新某个特设的代表冲突的虚拟行。
+在 SQL 标准中，`SERIALIZABLE` 事务隔离级别旨在确保，即便事务是并发运行的，其产生的结果也应当与事务依次运行时的结果相同。在 Apache Cloudberry 中，当指定 `SERIALIZABLE` 隔离级别时，实际上会使用 `REPEATABLE READ` 隔离级别。`REPEATABLE READ` 隔离级别可以在无需使用复杂锁定机制的情况下，防止脏读、不可重复读和幻读现象，但这种模式并不能检测到所有在并发事务执行期间可能出现的序列化冲突。因此，你需要仔细检查并发事务，以识别哪些冲突是仅靠禁止对同一数据并发更新所无法预防的。为避免这类冲突，可以采用显式表锁或者更新某个特设的代表冲突的虚拟行。
 
 在 `REPEATABLE READ` 隔离级别下，`SELECT` 查询将：
 
@@ -51,7 +51,7 @@ Cloudberry Database 支持以下标准 SQL 事务隔离级别：
 - 在同一事务中连续执行的 `SELECT` 命令总是看到一致的数据。
 - `UPDATE`、`DELETE`、`SELECT FOR UPDATE` 和 `SELECT FOR SHARE` 命令仅能找到在命令开始前已经提交的行。如果有并发事务对目标行进行了更新、删除或加锁，`REPEATABLE READ` 事务将等待该并发事务提交或撤销更改。若并发事务提交了更改，`REPEATABLE READ` 事务将选择回滚；若并发事务撤销了更改，`REPEATABLE READ` 事务则可以提交自己的更改。
 
-在 Cloudberry Database 中，默认的事务隔离级别为 `READ COMMITTED`。若需更改事务的隔离级别，可在开始事务时声明隔离级别，或在事务已开始后使用 `SET TRANSACTION` 命令进行设置。
+在 Apache Cloudberry 中，默认的事务隔离级别为 `READ COMMITTED`。若需更改事务的隔离级别，可在开始事务时声明隔离级别，或在事务已开始后使用 `SET TRANSACTION` 命令进行设置。
 
 ## 另请参阅
 

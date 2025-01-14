@@ -2,11 +2,11 @@
 title: Work with Transactions
 ---
 
-# Work with Transactions in Cloudberry Database
+# Work with Transactions in Apache Cloudberry
 
 Transactions allow you to bundle multiple SQL statements in one all-or-nothing operation.
 
-The following are the Cloudberry Database SQL transaction commands:
+The following are the Apache Cloudberry SQL transaction commands:
 
 - `BEGIN` or `START TRANSACTION` starts a transaction block.
 - `END` or `COMMIT` commits the results of a transaction.
@@ -17,16 +17,16 @@ The following are the Cloudberry Database SQL transaction commands:
 
 ## Transaction isolation levels
 
-Cloudberry Database accepts the standard SQL transaction levels as follows:
+Apache Cloudberry accepts the standard SQL transaction levels as follows:
 
 - `READ UNCOMMITTED` and `READ COMMITTED` behave like the standard `READ COMMITTED`.
 - `REPEATABLE READ` and `SERIALIZABLE` behave like `REPEATABLE READ`.
 
-The following information describes the behavior of the Cloudberry Database transaction levels.
+The following information describes the behavior of the Apache Cloudberry transaction levels.
 
 ### Read uncommitted and read committed
 
-Cloudberry Database does not allow any command to see an uncommitted update in another concurrent transaction, so `READ UNCOMMITTED` behaves the same as `READ COMMITTED`. `READ COMMITTED` provides fast, simple, partial transaction isolation. `SELECT`, `UPDATE`, and `DELETE` commands operate on a snapshot of the database taken when the query started.
+Apache Cloudberry does not allow any command to see an uncommitted update in another concurrent transaction, so `READ UNCOMMITTED` behaves the same as `READ COMMITTED`. `READ COMMITTED` provides fast, simple, partial transaction isolation. `SELECT`, `UPDATE`, and `DELETE` commands operate on a snapshot of the database taken when the query started.
 
 A `SELECT` query:
 
@@ -41,7 +41,7 @@ Successive `SELECT` queries in the same transaction can see different data if ot
 
 ### Repeatable read and serializable
 
-`SERIALIZABLE` transaction isolation, as defined by the SQL standard, ensures that transactions that run concurrently produce the same results as if they were run one after another. If you specify `SERIALIZABLE` Cloudberry Database falls back to `REPEATABLE READ`. `REPEATABLE READ` transactions prevent dirty reads, non-repeatable reads, and phantom reads without expensive locking, but Cloudberry Database does not detect all serializability interactions that can occur during concurrent transaction execution. Concurrent transactions should be examined to identify interactions that are not prevented by disallowing concurrent updates of the same data. You can prevent these interactions by using explicit table locks or by requiring the conflicting transactions to update a dummy row introduced to represent the conflict.
+`SERIALIZABLE` transaction isolation, as defined by the SQL standard, ensures that transactions that run concurrently produce the same results as if they were run one after another. If you specify `SERIALIZABLE` Apache Cloudberry falls back to `REPEATABLE READ`. `REPEATABLE READ` transactions prevent dirty reads, non-repeatable reads, and phantom reads without expensive locking, but Apache Cloudberry does not detect all serializability interactions that can occur during concurrent transaction execution. Concurrent transactions should be examined to identify interactions that are not prevented by disallowing concurrent updates of the same data. You can prevent these interactions by using explicit table locks or by requiring the conflicting transactions to update a dummy row introduced to represent the conflict.
 
 With `REPEATABLE READ` transactions, a `SELECT` query:
 
@@ -53,7 +53,7 @@ With `REPEATABLE READ` transactions, a `SELECT` query:
 - Successive `SELECT` commands within a single transaction always see the same data.
 - `UPDATE`, `DELETE`, `SELECT FOR UPDATE`, and `SELECT FOR SHARE` commands find only rows committed before the command started. If a concurrent transaction has updated, deleted, or locked a target row, the `REPEATABLE READ` transaction waits for the concurrent transaction to commit or roll back the change. If the concurrent transaction commits the change, the `REPEATABLE READ` transaction rolls back. If the concurrent transaction rolls back its change, the `REPEATABLE READ` transaction can commit its changes.
 
-The default transaction isolation level in Cloudberry Database is `READ COMMITTED`. To change the isolation level for a transaction, declare the isolation level when you `BEGIN` the transaction or use the `SET TRANSACTION` command after the transaction starts.
+The default transaction isolation level in Apache Cloudberry is `READ COMMITTED`. To change the isolation level for a transaction, declare the isolation level when you `BEGIN` the transaction or use the `SET TRANSACTION` command after the transaction starts.
 
 ## See also
 

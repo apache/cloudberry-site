@@ -30,10 +30,10 @@ The firing of triggers that are declared as "constraint triggers" is also contro
 
 ## Notes
 
-Because Cloudberry Database does not require constraint names to be unique within a schema (but only per-table), it is possible that there is more than one match for a specified constraint name. In this case `SET CONSTRAINTS` will act on all matches. For a non-schema-qualified name, once a match or matches have been found in some schema in the search path, schemas appearing later in the path are not searched.
+Because Apache Cloudberry does not require constraint names to be unique within a schema (but only per-table), it is possible that there is more than one match for a specified constraint name. In this case `SET CONSTRAINTS` will act on all matches. For a non-schema-qualified name, once a match or matches have been found in some schema in the search path, schemas appearing later in the path are not searched.
 
 This command only alters the behavior of constraints within the current transaction. Issuing this outside of a transaction block emits a warning and otherwise has no effect.
 
 ## Compatibility
 
-This command complies with the behavior defined in the SQL standard, except for the limitation that, in Cloudberry Database, it does not apply to `NOT NULL` and `CHECK` constraints. Also, Cloudberry Database checks non-deferrable uniqueness constraints immediately, not at end of statement as the standard would suggest.
+This command complies with the behavior defined in the SQL standard, except for the limitation that, in Apache Cloudberry, it does not apply to `NOT NULL` and `CHECK` constraints. Also, Apache Cloudberry checks non-deferrable uniqueness constraints immediately, not at end of statement as the standard would suggest.

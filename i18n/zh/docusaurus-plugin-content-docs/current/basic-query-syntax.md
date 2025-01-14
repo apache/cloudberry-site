@@ -4,9 +4,9 @@ title: 基本查询语法
 
 # 基本查询语法
 
-本文档介绍了 Cloudberry Database 的基本查询。
+本文档介绍了 Apache Cloudberry 的基本查询。
 
-Cloudberry Database 是基于 PostgreSQL 和 Greenplum 开发的高性能、高并行的数据仓库。以下是一些基本查询语法的示例。
+Apache Cloudberry 是基于 PostgreSQL 和 Greenplum 开发的高性能、高并行的数据仓库。以下是一些基本查询语法的示例。
 
 - `SELECT`：用于从数据库和表中检索数据。
 
@@ -59,4 +59,4 @@ Cloudberry Database 是基于 PostgreSQL 和 Greenplum 开发的高性能、高�
     WHERE department_id IN (SELECT id FROM departments WHERE location = 'New York');  -- 查询所有在纽约工作的员工。
     ```
 
-以上只是 Cloudberry Database 基本查询语法的简要概述。Cloudberry Database 还提供更高级的查询和功能，帮助开发者执行复杂的数据操作和分析。
+以上只是 Apache Cloudberry 基本查询语法的简要概述。Apache Cloudberry 还提供更高级的查询和功能，帮助开发者执行复杂的数据操作和分析。

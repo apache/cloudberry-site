@@ -7,7 +7,7 @@ title: TRUNCATE
 清空一张表或一组表中的所有行。
 
 :::info 注意
-Cloudberry Database 并不严格执行参照完整性语法（外键约束）。即使没有指定 `CASCADE` 选项，`TRUNCATE` 也会清空被外键约束引用的表。
+Apache Cloudberry 并不严格执行参照完整性语法（外键约束）。即使没有指定 `CASCADE` 选项，`TRUNCATE` 也会清空被外键约束引用的表。
 :::
 
 ## 语法概要
@@ -39,11 +39,11 @@ TRUNCATE [TABLE] [ONLY] <name> [ * ] [, ...]
 
 **`CASCADE`**
 
-因为这个关键字适用于外键引用（Cloudberry Database 不支持外键约束），所以它没有任何效果。
+因为这个关键字适用于外键引用（Apache Cloudberry 不支持外键约束），所以它没有任何效果。
 
 **`RESTRICT`**
 
-因为这个关键字适用于外键引用（Cloudberry Database 不支持外键约束），所以它没有任何效果。
+因为这个关键字适用于外键引用（Apache Cloudberry 不支持外键约束），所以它没有任何效果。
 
 ## 注意事项
 

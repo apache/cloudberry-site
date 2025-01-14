@@ -4,7 +4,7 @@ title: DROP EXTENSION
 
 # DROP EXTENSION
 
-Removes an extension from a Cloudberry Database.
+Removes an extension from a Apache Cloudberry.
 
 ## Synopsis
 
@@ -17,7 +17,7 @@ DROP EXTENSION [ IF EXISTS ] <name> [, ...] [ CASCADE | RESTRICT ]
 `DROP EXTENSION` removes extensions from the database. Dropping an extension causes its component objects to be dropped as well.
 
 :::info
-The supporting extension files that were installed to create the extension (for example, the library and `.control` files) are not deleted. The files must be manually removed from the Cloudberry Database hosts.
+The supporting extension files that were installed to create the extension (for example, the library and `.control` files) are not deleted. The files must be manually removed from the Apache Cloudberry hosts.
 :::
 
 You must own the extension to use `DROP EXTENSION`.
@@ -26,7 +26,7 @@ You must own the extension to use `DROP EXTENSION`.
 
 **`IF EXISTS`**
 
-Do not throw an error if the extension does not exist. Cloudberry Database issues a notice in this case.
+Do not throw an error if the extension does not exist. Apache Cloudberry issues a notice in this case.
 
 **`name`**
 
@@ -56,7 +56,7 @@ This command fails if any of the extension objects are in use in the database. F
 
 ## Compatibility
 
-`DROP EXTENSION` is a Cloudberry Database extension.
+`DROP EXTENSION` is a Apache Cloudberry extension.
 
 ## See also
 

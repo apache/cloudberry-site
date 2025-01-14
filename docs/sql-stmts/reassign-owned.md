@@ -47,7 +47,7 @@ REASSIGN OWNED BY sally, bob TO admin;
 
 ## Compatibility
 
-The `REASSIGN OWNED` command is a Cloudberry Database extension.
+The `REASSIGN OWNED` command is a Apache Cloudberry extension.
 
 ## See also
 

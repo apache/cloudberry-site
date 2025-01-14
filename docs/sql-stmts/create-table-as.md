@@ -70,11 +70,11 @@ The `WITH` clause specifies optional storage parameters for the new table. Refer
 
 The behavior of temporary tables at the end of a transaction block can be controlled using `ON COMMIT`. The three options are:
 
-PRESERVE ROWS — Cloudberry Database takes no special action at the ends of transactions for temporary tables. This is the default behavior.
+PRESERVE ROWS — Apache Cloudberry takes no special action at the ends of transactions for temporary tables. This is the default behavior.
 
-DELETE ROWS — Cloudberry Database deletes all rows in the temporary table at the end of each transaction block. Essentially, an automatic [TRUNCATE](/docs/sql-stmts/truncate.md) is done at each commit.
+DELETE ROWS — Apache Cloudberry deletes all rows in the temporary table at the end of each transaction block. Essentially, an automatic [TRUNCATE](/docs/sql-stmts/truncate.md) is done at each commit.
 
-DROP — Cloudberry Database drops the temporary table at the end of the current transaction block.
+DROP — Apache Cloudberry drops the temporary table at the end of the current transaction block.
 
 **`TABLESPACE tablespace_name`**
 
@@ -88,7 +88,7 @@ A [SELECT](/docs/sql-stmts/select.md), [TABLE](/docs/sql-stmts/select.md#the-tab
 **`DISTRIBUTED RANDOMLY`**<br />
 **`DISTRIBUTED REPLICATED`**
 
-Used to declare the Cloudberry Database distribution policy for the table. Refer to [CREATE TABLE](/docs/sql-stmts/create-table.md) for details.
+Used to declare the Apache Cloudberry distribution policy for the table. Refer to [CREATE TABLE](/docs/sql-stmts/create-table.md) for details.
 
 ## Notes
 
@@ -125,11 +125,11 @@ CREATE TEMP TABLE films_recent ON COMMIT DROP AS
 
 `CREATE TABLE AS` conforms to the SQL standard, with the following exceptions:
 
-- The standard requires parentheses around the subquery clause; in Cloudberry Database, these parentheses are optional.
-- In the standard, the `WITH [NO] DATA` clause is required, in Cloudberry Database it is optional.
-- Cloudberry Database handles temporary tables differently from the standard; see [CREATE TABLE](/docs/sql-stmts/create-table.md) for details.
-- The `WITH` clause is a Cloudberry Database extension; storage parameters are not part of the standard.
-- The Cloudberry Database concept of tablespaces is not part of the standard. The `TABLESPACE` clause is an extension.
+- The standard requires parentheses around the subquery clause; in Apache Cloudberry, these parentheses are optional.
+- In the standard, the `WITH [NO] DATA` clause is required, in Apache Cloudberry it is optional.
+- Apache Cloudberry handles temporary tables differently from the standard; see [CREATE TABLE](/docs/sql-stmts/create-table.md) for details.
+- The `WITH` clause is a Apache Cloudberry extension; storage parameters are not part of the standard.
+- The Apache Cloudberry concept of tablespaces is not part of the standard. The `TABLESPACE` clause is an extension.
 
 ## See also
 

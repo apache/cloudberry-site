@@ -2,12 +2,12 @@
 title: 配置密码策略
 ---
 
-# 在 Cloudberry Database 中配置密码策略（引入自 v1.5.0 版本）
+# 在 Apache Cloudberry 中配置密码策略（引入自 v1.5.0 版本）
 
-Profile，即密码策略配置，用于控制 Cloudberry Database 中用户的密码安全策略。你可以将 Profile 绑定到一个或多个用户中，从而控制数据库用户的密码安全策略。Profile 定义了用户管理和重复使用密码的规则。通过配置 Profile，数据库管理员可以使用 SQL 语句强制添加一些约束，例如在一定次数的登录失败后锁定账户，或者控制密码重复使用次数。
+Profile，即密码策略配置，用于控制 Apache Cloudberry 中用户的密码安全策略。你可以将 Profile 绑定到一个或多个用户中，从而控制数据库用户的密码安全策略。Profile 定义了用户管理和重复使用密码的规则。通过配置 Profile，数据库管理员可以使用 SQL 语句强制添加一些约束，例如在一定次数的登录失败后锁定账户，或者控制密码重复使用次数。
 
 :::info 注意
-- 通常来说，Profile（即配置文件）分为密码策略及用户资源使用限制两部分。Cloudberry Database 中的 Profile 目前只支持密码策略，在本文档中提到的 Profile，除非另有说明，均代指 Password Profile（密码策略配置）。
+- 通常来说，Profile（即配置文件）分为密码策略及用户资源使用限制两部分。Apache Cloudberry 中的 Profile 目前只支持密码策略，在本文档中提到的 Profile，除非另有说明，均代指 Password Profile（密码策略配置）。
 
 - 只有超级用户可以创建或修改 Profile 的策略，超级用户不受任何 Profile 策略的控制。普通用户只有在允许使用 Profile 时，Profile 的策略才会生效。
 :::
@@ -23,7 +23,7 @@ gpstop -ra
 
 ## 实现原理
 
-类似于 Autovacuum 机制，Profile 引入了 Login Monitor Launcher 和 Login Monitor Worker 进程。当用户登录验证失败时，Cloudberry Database 会向 postmaster 发送信号量。postmaster 收到信号后会向 launcher 进程发送信号。launcher 进程在收到信号后，会通知 postmaster 拉起一个 worker 进程，worker 进程中进行元数据回写操作，并在完成后，通知用户进程和 launcher 进程。
+类似于 Autovacuum 机制，Profile 引入了 Login Monitor Launcher 和 Login Monitor Worker 进程。当用户登录验证失败时，Apache Cloudberry 会向 postmaster 发送信号量。postmaster 收到信号后会向 launcher 进程发送信号。launcher 进程在收到信号后，会通知 postmaster 拉起一个 worker 进程，worker 进程中进行元数据回写操作，并在完成后，通知用户进程和 launcher 进程。
 
 ## 使用 SQL 语法设置密码策略
 
@@ -125,7 +125,7 @@ ALTER USER user ACCOUNT
 
 ## 在系统表中查看密码策略信息
 
-应用密码配置策略 Profile 后，Cloudberry Database 会在数据库元信息中做一些变更，即新增 `pg_profile` 和 `pg_password_history` 两张系统表，并在系统表/视图 `pg_authid` 和 `pg_roles` 添加了部分字段。示例如下：
+应用密码配置策略 Profile 后，Apache Cloudberry 会在数据库元信息中做一些变更，即新增 `pg_profile` 和 `pg_password_history` 两张系统表，并在系统表/视图 `pg_authid` 和 `pg_roles` 添加了部分字段。示例如下：
 
 - **pg_catalog.pg_roles**：在 `pg_roles` 下，新增了 `rolprofile`、`rolaccountstatus`、`rolfailedlogins` 字段，分别记录应用 Profile 的数据库用户、账户状态、登录失败的次数。
 
@@ -260,7 +260,7 @@ ALTER USER user ACCOUNT
 
 ## 默认密码策略
 
-创建新用户时，如果没有指定具体的密码策略，Cloudberry Database 默认为该用户应用 Default Profile，即系统初始化时生成的默认密码策略。Cloudberry Database 中的 Default Profile 为 `pg_profile` 表中的  `pg_default` 行。`pg_default` 定义了 Profile 参数的默认值，只有超级用户可以对这些限制进行更新。
+创建新用户时，如果没有指定具体的密码策略，Apache Cloudberry 默认为该用户应用 Default Profile，即系统初始化时生成的默认密码策略。Apache Cloudberry 中的 Default Profile 为 `pg_profile` 表中的  `pg_default` 行。`pg_default` 定义了 Profile 参数的默认值，只有超级用户可以对这些限制进行更新。
 
 如果用户设置的 Profile 中，有值为 `-1`（即使用默认值）的参数，这些参数会从 `pg_default` 中得到具体的值。`pg_default` 的默认值如下所示。如何使用 Default Profile 可以参考[使用场景三](#场景三使用-default-profile-的设置)。
 
@@ -441,7 +441,7 @@ ALTER USER myuser PASSWORD 'mypassword';
 
 ## 场景三：使用 DEFAULT PROFILE 的设置
 
-创建一个新的 Profile 时，如果不显式指定参数值，那么该 Profile 在 `pg_profile` 表中对应的参数值为 `-1`，表示 Cloudberry Database 会从 `pg_default` 中获取该参数的实际值。
+创建一个新的 Profile 时，如果不显式指定参数值，那么该 Profile 在 `pg_profile` 表中对应的参数值为 `-1`，表示 Apache Cloudberry 会从 `pg_default` 中获取该参数的实际值。
 
 以下以 `FAILED_LOGIN_ATTEMPTS` 为例：
 

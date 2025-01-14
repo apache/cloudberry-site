@@ -1,3 +1,3 @@
 ---
-title: 查看 Cloudberry Database 系统
+title: 查看 Apache Cloudberry 系统
 ---

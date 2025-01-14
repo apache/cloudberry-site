@@ -38,7 +38,7 @@ The name (optionally schema-qualified) of an existing view.
 
 **`IF EXISTS`**
 
-Do not throw an error if the view does not exist. Cloudberry Database issues a notice in this case.
+Do not throw an error if the view does not exist. Apache Cloudberry issues a notice in this case.
 
 **`SET/DROP DEFAULT`**
 
@@ -93,7 +93,7 @@ INSERT INTO a_view(id) VALUES(2);  -- ts will receive the current time
 
 ## Compatibility
 
-`ALTER VIEW` is a Cloudberry Database extension of the SQL standard.
+`ALTER VIEW` is a Apache Cloudberry extension of the SQL standard.
 
 ## See also
 

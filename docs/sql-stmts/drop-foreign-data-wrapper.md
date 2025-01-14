@@ -20,7 +20,7 @@ DROP FOREIGN DATA WRAPPER [ IF EXISTS ] <name> [ CASCADE | RESTRICT ]
 
 **`IF EXISTS`**
 
-Do not throw an error if the foreign-data wrapper does not exist. Cloudberry Database issues a notice in this case.
+Do not throw an error if the foreign-data wrapper does not exist. Apache Cloudberry issues a notice in this case.
 
 **`name`**
 
@@ -44,7 +44,7 @@ DROP FOREIGN DATA WRAPPER dbi;
 
 ## Compatibility
 
-`DROP FOREIGN DATA WRAPPER` conforms to ISO/IEC 9075-9 (SQL/MED). The `IF EXISTS` clause is a Cloudberry Database extension.
+`DROP FOREIGN DATA WRAPPER` conforms to ISO/IEC 9075-9 (SQL/MED). The `IF EXISTS` clause is a Apache Cloudberry extension.
 
 ## See also
 

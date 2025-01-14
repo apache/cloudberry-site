@@ -24,4 +24,4 @@ Only superusers may call `CHECKPOINT`.
 
 ## Compatibility
 
-The `CHECKPOINT` command is a Cloudberry Database extension.
+The `CHECKPOINT` command is a Apache Cloudberry extension.

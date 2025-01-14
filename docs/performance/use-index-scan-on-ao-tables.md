@@ -4,22 +4,22 @@ title: Use IndexScan on AO Tables
 
 # Use IndexScan on AO Tables
 
-Cloudberry Database supports IndexScan when querying on App-Optimized (AO) tables to improve query efficiency in certain scenarios, such as the following query:
+Apache Cloudberry supports IndexScan when querying on App-Optimized (AO) tables to improve query efficiency in certain scenarios, such as the following query:
 
 ```sql
 SELECT * FROM tbl WHERE val > 100 ORDER BY val LIMIT 10;
 ```
 
 :::tip
-Append-Optimized (AO) tables are an optimized storage method for scenarios that focus on batch insertion, such as big data analysis and data warehouse scenarios. When new data is inserted into an AO table, Cloudberry Database appends the new data to the end of the table, instead of seeking free space for insertion like in regular tables. This means that inserting data into AO tables only requires append operations to the file, thus achieving higher insertion efficiency.
+Append-Optimized (AO) tables are an optimized storage method for scenarios that focus on batch insertion, such as big data analysis and data warehouse scenarios. When new data is inserted into an AO table, Apache Cloudberry appends the new data to the end of the table, instead of seeking free space for insertion like in regular tables. This means that inserting data into AO tables only requires append operations to the file, thus achieving higher insertion efficiency.
 :::
 
 For the above query statement:
 
-- If you use heap table storage, Cloudberry Database executes this query by finding 10 tuples with `val` greater than `100` through IndexScan. It only needs to read about 10 tuples from the index and the table.
+- If you use heap table storage, Apache Cloudberry executes this query by finding 10 tuples with `val` greater than `100` through IndexScan. It only needs to read about 10 tuples from the index and the table.
 - If you use the AO table storage method, and assume that the `tbl` table has 1 billion rows of tuples, we specify through the `LIMIT` clause that only 10 tuples are to be returned:
 
-    - Cloudberry Database supports using IndexScan operations to scan AO tables, which can greatly reduce the amount of data to be scanned and greatly improve the efficiency of scanning. It is a better scanning method than SeqScan and BitmapScan. SeqScan or BitmapScan scans 100 million times more data than IndexScan.
+    - Apache Cloudberry supports using IndexScan operations to scan AO tables, which can greatly reduce the amount of data to be scanned and greatly improve the efficiency of scanning. It is a better scanning method than SeqScan and BitmapScan. SeqScan or BitmapScan scans 100 million times more data than IndexScan.
 
 ## Applicable scenarios
 
