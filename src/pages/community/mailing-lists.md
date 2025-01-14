@@ -14,6 +14,13 @@ its community. Whether you're interested in development, issue tracking, or
 keeping up with updates, our mailing lists provide a way for you to stay
 involved.
 
+# Overview
+
+| List                 | Subscribe                                                   | Unsubscribe                                                     | Archive                                                                     |
+|----------------------|-------------------------------------------------------------|-----------------------------------------------------------------|-----------------------------------------------------------------------------|
+| Dev Mailing List     | [Subscribe](mailto:dev-subscribe@cloudberry.apache.org)     | [Unsubscribe](mailto:dev-unsubscribe@cloudberry.apache.org)     | [Archive](https://lists.apache.org/list.html?dev@cloudberry.apache.org)     |
+| Commits Mailing List | [Subscribe](mailto:commits-subscribe@cloudberry.apache.org) | [Unsubscribe](mailto:commits-unsubscribe@cloudberry.apache.org) | [Archive](https://lists.apache.org/list.html?commits@cloudberry.apache.org) |
+
 ## Dev Mailing List
 
 The `dev@cloudberry.apache.org` mailing list is the primary channel for
