@@ -4,7 +4,7 @@ title: Use pgvector for Vector Similarity Search
 
 # Use pgvector for Vector Similarity Search
 
-pgvector is an open-source plugin for vector similarity search. It supports both exact and approximate nearest neighbor searches, as well as L2 distance, inner product, and cosine distance. For more details, see [pgvector/pgvector: Open-source vector similarity search for Postgres](https://github.com/pgvector/pgvector). Apache Cloudberry allows you to use pgvector for data storage, querying, indexing, hybrid searches, and more through SQL statements.
+pgvector is an open-source plugin for vector similarity search. It supports both exact and approximate nearest neighbor searches, as well as L2 distance, inner product, and cosine distance. For more details, see [pgvector/pgvector: Open-source vector similarity search for Postgres](https://github.com/pgvector/pgvector). Apache Cloudberry allows you to use pgvector for data storage, querying, indexing, hybrid searches, and more through SQL statements. While the pgvector extension is maintained by the dedicated pgvector community, Cloudberry is committed to ensuring its compatibility and ease of use within our platform.
 
 This document explains how to use pgvector in Apache Cloudberry.
 
