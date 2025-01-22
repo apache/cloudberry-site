@@ -8,7 +8,7 @@ pgvector is an open-source plugin for vector similarity search. It supports both
 
 Apache Cloudberry allows you to use pgvector for data storage, querying, indexing, hybrid searches, and more through SQL statements. This document explains how to use pgvector in Apache Cloudberry.
 
-::: note
+:::note
 While the pgvector extension is maintained by the dedicated pgvector community, Cloudberry is committed to ensuring its compatibility and ease of use within our platform. Here is one [forked pgvector version](https://github.com/cloudberry-contrib/pgvector), which is contributed by the community members and customized for Cloudberry, but please note that it is not maintained as one official Cloudberry project.
 :::
 
