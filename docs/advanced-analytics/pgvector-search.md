@@ -146,10 +146,7 @@ pgvector supports the following index types:
 
 ### HNSW index
 
-<div class="topic">
-
 **About HNSW**
-
 HNSW (Hierarchical Navigable Small World) is an efficient algorithm for approximate nearest neighbor search, designed for processing large-scale and high-dimensional datasets.
 
 The basic principles of HNSW are as follows:
@@ -161,8 +158,6 @@ HNSW is particularly useful in the following scenarios:
 
 > -   High-dimensional data: HNSW index is very effective for high-dimensional datasets, because it is good at handling complex proximity relationships in high-dimensional space.
 > -   Large datasets: HNSW index is suitable for large datasets because it balances query speed and recall rate better than many other types of indexes.
-
-</div>
 
 Creating an HNSW index takes longer and uses more memory, but it offers better query performance (speed-recall tradeoff). Unlike IVFFlat, HNSW does not require a training step, so you can create the index even when the table has no data.
 
@@ -264,10 +259,7 @@ The HNSW index build process includes the following phases:
 
 ### IVFFlat index
 
-<div class="topic">
-
 **About IVFFlat**
-
 The IVFFlat index is a method for efficient vector search in large datasets, particularly useful for the Approximate Nearest Neighbor (ANN) search.
 
 The basic principles of IVFFlat index are as follows:
@@ -285,8 +277,6 @@ To achieve good recall with IVFFlat, follow these best practices:
 > -   Create the index after some data has been inserted into the table.
 > -   Choose an appropriate number of lists. For tables with up to 1 million rows, it is recommended to use the number of rows divided by 1000 as the number of lists. For tables with more than 1 million rows, use the square root of the number of rows as the number of lists.
 > -   Specify an appropriate number of probes during queries (the higher the number of probes, the higher the recall, but the slower the query). It is recommended to start by trying the square root of the number of lists. Add an index for each distance function you plan to use.
-
-</div>
 
 #### Create an IVFFlat index
 
@@ -411,8 +401,7 @@ To speed up queries without an index, you can increase the value of the `max_par
 SET max_parallel_workers_per_gather = 4;
 ```
 
-If vectors are already normalized to a length of `1` (for example, the [OpenAI
-embeddings](https://platform.openai.com/docs/guides/embeddings/which-distance-function-should-i-use)), using inner product can provide the best performance.
+If vectors are already normalized to a length of `1` (for example, the [OpenAI embeddings](https://platform.openai.com/docs/guides/embeddings/which-distance-function-should-i-use)), using inner product can provide the best performance.
 
 ``` sql
 SELECT * FROM items ORDER BY embedding <#> '[3,1,2]' LIMIT 5;
