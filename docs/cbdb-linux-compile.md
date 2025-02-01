@@ -216,6 +216,7 @@ After you have installed all the dependencies and performed the prerequisite pla
     <TabItem value="ubuntu-rocky-rhel" label="For Ubuntu, Rocky Linux, and RHEL" default>
 
     ```bash
+    source /usr/local/cloudberry/greenplum_path.sh
     make create-demo-cluster
     ```
 
