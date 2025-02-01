@@ -5,7 +5,7 @@ title: 在 macOS 上
 # 在 macOS 上编译和安装 Cloudberry Database
 
 :::info 提示
-本文档来自 GitHub 仓库 [`cloudberrydb/cloudberrydb`](https://github.com/cloudberrydb/cloudberrydb/blob/main/deploy/build/README.macOS.md)。
+本文档来自 GitHub 仓库 [`apache/cloudberry`](https://github.com/apache/cloudberry/blob/main/deploy/build/README.macOS.md)。
 :::
 
 本文档分享了如何在 macOS 上（单节点）构建、编译和安装 Cloudberry Database 以供开发测试使用。请按照以下步骤操作。
@@ -21,7 +21,7 @@ title: 在 macOS 上
 1. 将 Cloudberry Database 的源代码从 GitHub 克隆到本地 Mac。
 
     ```bash
-    git clone git@github.com:cloudberrydb/cloudberrydb.git
+    git clone git@github.com:apache/cloudberry.git
     ```
 
 2. 进入 `cloudberrydb/` 目录。

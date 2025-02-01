@@ -48,4 +48,4 @@ DROP MATERIALIZED VIEW order_summary;
 
 ## 另见
 
-[`ALTER MATERIALIZED VIEW`](https://github.com/cloudberrydb/cloudberrydb-site/blob/cbdb-doc-validation/docs/sql-stmts/alter-materialized-view.md)、[`CREATE MATERIALIZED VIEW`](https://github.com/cloudberrydb/cloudberrydb-site/blob/cbdb-doc-validation/docs/sql-stmts/create-materialized-view.md)、[`REFRESH MATERIALIZED VIEW`](https://github.com/cloudberrydb/cloudberrydb-site/blob/cbdb-doc-validation/docs/sql-stmts/refresh-materialized-view.md)
+[`ALTER MATERIALIZED VIEW`](https://github.com/apache/cloudberry-site/blob/cbdb-doc-validation/docs/sql-stmts/alter-materialized-view.md)、[`CREATE MATERIALIZED VIEW`](https://github.com/apache/cloudberry-site/blob/cbdb-doc-validation/docs/sql-stmts/create-materialized-view.md)、[`REFRESH MATERIALIZED VIEW`](https://github.com/apache/cloudberry-site/blob/cbdb-doc-validation/docs/sql-stmts/refresh-materialized-view.md)
