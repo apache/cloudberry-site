@@ -49,7 +49,7 @@ const sidebars: SidebarsConfig = {
         label: 'Load Data from Local Files',
         items: ['data-loading/load-data-using-copy', 'data-loading/load-data-using-gpfdist', 'data-loading/load-data-using-file-protocol','data-loading/load-data-using-gpload']
       },
-      'data-loading/load-data-from-web-services']
+      'data-loading/load-data-from-web-services', 'data-loading/load-data-from-kafka-using-fdw']
     },
 
     {
