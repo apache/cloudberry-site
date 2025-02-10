@@ -16,15 +16,13 @@ Apache Cloudberry 支持使用 Kafka FDW 来创建外部表以及导入数据。
     CREATE EXTENSION kafka_fdw;
     ```
 
-- 创建外部服务器，指定 Kafka 的集群地址。
+- 创建外部服务器，指定 Kafka 的集群地址。你需要将 `localhost:9092` 替换为你的 Kafka 集群地址。
 
     ``` sql
     CREATE SERVER kafka_server
     FOREIGN DATA WRAPPER kafka_fdw
     OPTIONS (mpp_execute 'all segments', brokers 'localhost:9092');
     ```
-
-    注意：你需要在语句中指定 `mpp_execute 'all segments'` 参数。
 
 - 创建 user mapping。
 

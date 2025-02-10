@@ -17,7 +17,7 @@ Apache Cloudberry supports using Kafka FDW to create external tables and import 
     CREATE EXTENSION
     ```
 
-- Create an external server and specify Kafka's cluster address:
+- Create an external server and specify Kafka's cluster address. You need to replace `localhost:9092` with your Kafka cluster address.
 
     ``` sql
     CREATE SERVER kafka_server
