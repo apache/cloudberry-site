@@ -8,6 +8,8 @@ Kafka Foreign Data Wrapper (FDW) 提供了 Apache Cloudberry 与 Apache Kafka �
 
 Apache Cloudberry 支持使用 Kafka FDW 来创建外部表以及导入数据。
 
+更多信息，参考 Kafka FDW 仓库：<https://github.com/cloudberry-contrib/kafka_fdw>。
+
 ## 基本使用
 
 - 创建插件。
