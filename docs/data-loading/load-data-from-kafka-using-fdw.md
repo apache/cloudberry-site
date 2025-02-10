@@ -8,7 +8,7 @@ Kafka Foreign Data Wrapper (FDW) allows Apache Cloudberry to connect directly to
 
 Apache Cloudberry supports using Kafka FDW to create external tables and import data.
 
-See the Kafka FDW repository for more information: <https://github.com/cloudberry-contrib/kafka_fdw>.
+See the Kafka FDW repository for more information: [https://github.com/cloudberry-contrib/kafka_fdw](https://github.com/cloudberry-contrib/kafka_fdw). Note that this repo is contributed by the community members, but it is not maintained by the PPMC as an official community project.
 
 ## Basic usage
 
