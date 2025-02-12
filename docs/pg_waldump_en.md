@@ -16,3 +16,14 @@ Apache Cloudberry offers a robust mechanism for inspecting Write-Ahead Log (WAL)
 2. **Run the Command**: Execute the `pg_waldump` command with the appropriate options to start analyzing the WAL logs. A basic example is:
    ```bash
    pg_waldump --nodes=node1,node2 --format=human --level=high
+
+## Options
+
+Here are some common options for `pg_waldump`:
+
+- `-f, --format`: Output format (e.g., plain text, JSON).
+- `-p, --pagesize`: Set the WAL page size.
+- `-c, --cluster`: Analyze a specific PostgreSQL cluster.
+- `-l, --list`: List available WAL segments.
+- `-s, --start`: Start point of WAL decoding.
+- `-e, --end`: End point of WAL decoding.
