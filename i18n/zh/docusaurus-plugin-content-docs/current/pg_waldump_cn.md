@@ -20,3 +20,14 @@ Apache Cloudberry提供了一种强大的机制，用于检查预写日志（WAL
 2. **运行命令**：执行`pg_waldump`命令，并使用适当的选项开始分析WAL日志。基本示例如下：
    ```bash
    pg_waldump --nodes=node1,node2 --format=human --level=high
+
+## 选项
+
+以下是`pg_waldump`的常用选项：
+
+- `-f, --format`: 输出格式（如纯文本、JSON）。
+- `-p, --pagesize`: 设置WAL的页面大小。
+- `-c, --cluster`: 分析特定的PostgreSQL集群。
+- `-l, --list`: 列出可用的WAL段。
+- `-s, --start`: WAL解码的起始点。
+- `-e, --end`: WAL解码的结束点。
