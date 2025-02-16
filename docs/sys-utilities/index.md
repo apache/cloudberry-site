@@ -33,6 +33,8 @@ For more information about a utility, see the corresponding topic listed in the 
 
 - [pg_checksums](./pg-checksums.md) — enable, disable or check data checksums in a database cluster
 
+- [pg_verifybackup](./pg-verifybackup.md) — verify the integrity and consistency of a database backup
+
 ## Reference for Administrator
 
 - [analyzedb](./analyzedb.md) - performs `ANALYZE` operations on tables incrementally and concurrently
