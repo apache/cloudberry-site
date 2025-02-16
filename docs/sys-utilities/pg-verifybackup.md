@@ -24,35 +24,23 @@ pg_verifybackup [options...] backup_directory
 The following options control the verification process:
 
 ### Basic Options
-	•	-e, –exit-on-error
-	•	Exit immediately upon detecting an issue.
-	•	By default, the tool continues checking and reports all issues found.
-	•	-i path, –ignore=path
-	•	Ignore the specified file or directory (using a relative path).
-	•	If a directory is specified, all files under that directory are affected.
-	•	This option can be used multiple times.
-	•	-m path, –manifest-path=path
-	•	Use the manifest file located at the specified path.
-	•	By default, the tool looks for the manifest file in the root of the backup directory.
-	•	-n, –no-parse-wal
-	•	Do not parse write-ahead log (WAL) data.
-	•	Suitable for scenarios where only data file verification is needed.
-	•	-q, –quiet
-	•	Suppress output when verification is successful.
-	•	Ideal for integration into automated scripts.
-	•	-s, –skip-checksums
-	•	Skip checksum verification of data files.
-	•	File existence and size will still be checked.
-	•	This option significantly speeds up the verification process.
-	•	-w path, –wal-directory=path
-	•	Look for WAL files in the specified directory.
-	•	Useful when WAL archiving is stored separately from the backup.
+
+| Option                                | Description                                                                                                                                                                          |
+|---------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `-e`, `--exit-on-error`                | Exit immediately upon detecting an issue. By default, the tool continues checking and reports all issues found.                                                                      |
+| `-i path`, `--ignore=path`             | Ignore the specified file or directory (using a relative path). If a directory is specified, all files under that directory are affected. Can be used multiple times.           |
+| `-m path`, `--manifest-path=path`      | Use the manifest file located at the specified path. By default, the tool looks for the manifest file in the root of the backup directory.                                           |
+| `-n`, `--no-parse-wal`                 | Do not parse write-ahead log (WAL) data. Suitable for scenarios where only data file verification is needed.                                                                         |
+| `-q`, `--quiet`                        | Suppress output when verification is successful. Ideal for integration into automated scripts.                                                                                       |
+| `-s`, `--skip-checksums`               | Skip checksum verification of data files. File existence and size will still be checked. This option significantly speeds up the verification process.                              |
+| `-w path`, `--wal-directory=path`      | Look for WAL files in the specified directory. Useful when WAL archiving is stored separately from the backup.                                                                        |
 
 ### Other Options
-	•	-V, –version
-	•	Display version information and exit.
-	•	-?, –help
-	•	Display help information and exit.
+
+| Option                        | Description                                          |
+|-------------------------------|------------------------------------------------------|
+| `-V`, `--version`               | Display version information and exit.              |
+| `-?`, `--help`                  | Display help information and exit.                 |
 
 ## Usage Examples
 
@@ -79,8 +67,11 @@ pg_verifybackup -m /secure/manifest.node1 /backup/cloudberry/node1
 
 ### Fast Verification Mode
 
-# Skip checksum verification and only check file integrity
+Skip checksum verification and only check file integrity:
+
+```bash
 pg_verifybackup --skip-checksums /backup/cloudberry/node1
+```
 
 ### Ignoring Specific Files
 
@@ -97,60 +88,62 @@ pg_verifybackup \
 The tool performs verification in four stages:
 
 **1. Manifest File Verification**
-	•	Read and validate the backup_manifest file.
-	•	Check the file format and its internal checksums.
-	•	Verify the overall integrity of the manifest file.
+• Read and validate the backup_manifest file.
+• Check the file format and its internal checksums.
+• Verify the overall integrity of the manifest file.
 
 **2. File Set Verification**
-	•	Check for the existence of all required files.
-	•	Validate file sizes.
-	•	Identify extra or missing files.
-	•	Automatically ignore changes to the following files:
-	•	postgresql.auto.conf
-	•	standby.signal
-	•	recovery.signal
-	•	backup_manifest
-	•	Contents of the pg_wal directory
+• Check for the existence of all required files.
+• Validate file sizes.
+• Identify extra or missing files.
 
 **3. Data Integrity Verification**
-	•	Calculate checksums for all data files.
-	•	Compare the calculated checksums with those recorded in the manifest.
-	•	Confirm that the files have not been modified.
+• Calculate checksums for all data files.
+• Compare the calculated checksums with those recorded in the manifest.
+• Confirm that the files have not been modified.
 
 **4. WAL Verification**
-	•	Check for the presence of WAL files required for recovery.
-	•	Verify that the WAL files can be parsed.
-	•	Ensure that point-in-time recovery is possible.
+• Check for the presence of WAL files required for recovery.
+• Verify that the WAL files can be parsed.
+• Ensure that point-in-time recovery is possible.
 
 ## FAQ
 
 ### What if the manifest file is missing?
-	•	Symptom: The backup_manifest file cannot be found.
-	•	Cause: The manifest was not generated during the backup or has been moved.
-	•	Solutions:
-	1.	Ensure that you are using the correct backup directory.
-	2.	Use the -m option to specify the location of the manifest file.
-	3.	Re-run the backup with manifest generation enabled.
+
+• Symptom: The backup_manifest file cannot be found.
+• Cause: The manifest was not generated during the backup or has been moved.
+
+Solutions:
+
+1.Ensure that you are using the correct backup directory.
+2.Use the -m option to specify the location of the manifest file.
+3.Re-run the backup with manifest generation enabled.
 
 ### How to resolve checksum mismatches?
-	•	Symptom: File checksum verification fails.
-	•	Cause: The file was modified during transfer or storage.
-	•	Solutions:
-	1.	Check the integrity of your storage system.
-	2.	Verify that the data transfer process is reliable.
-	3.	Consider re-running the backup.
+
+Symptom: File checksum verification fails.
+
+Cause: The file was modified during transfer or storage.
+
+Solutions:
+
+1.Check the integrity of your storage system.
+2.Verify that the data transfer process is reliable.
+3.Consider re-running the backup.
 
 ### How to handle issues with WAL files?
-	•	Symptom: Required WAL files are missing.
-	•	Cause: Incomplete WAL archiving or incorrect WAL file location.
-	•	Solutions:
-	1.	Check your WAL archiving configuration.
-	2.	Use the -w option to specify the correct WAL directory.
-	3.	Ensure that your WAL retention policy is adequate.
+Symptom: Required WAL files are missing.
+Cause: Incomplete WAL archiving or incorrect WAL file location.
+
+Solutions:
+1.Check your WAL archiving configuration.
+2.Use the -w option to specify the correct WAL directory.
+3.Ensure that your WAL retention policy is adequate.
 
 ## Related Commands
-	•	pg_basebackup
-	•	pg_waldump
-	•	pg_controldata
+•pg_basebackup
+•pg_waldump
+•pg_controldata
 
-By using pg_verifybackup, Cloudberry Database users can ensure the integrity and availability of their backups. It is recommended to integrate this tool into your regular backup processes to maintain data security.
+By using `pg_verifybackup`, Cloudberry Database users can ensure the integrity and availability of their backups. It is recommended to integrate this tool into your regular backup processes to maintain data security.
