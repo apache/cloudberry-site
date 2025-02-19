@@ -249,8 +249,6 @@ SELECT * FROM points WHERE box(location,location) && '(0,0),(1,1)'::box;
 
 `CREATE INDEX` is a Cloudberry Database extension to the SQL standard. There are no provisions for indexes in the SQL standard.
 
-Cloudberry Database does not support the concurrent creation of indexes (`CONCURRENTLY` keyword is not supported).
-
 ## See also
 
 [`ALTER INDEX`](/docs/sql-stmts/alter-index.md), [`DROP INDEX`](/docs/sql-stmts/drop-index.md)

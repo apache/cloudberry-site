@@ -249,8 +249,6 @@ SELECT * FROM points WHERE box(location,location) && '(0,0),(1,1)'::box;
 
 `CREATE INDEX` 是 Cloudberry Database 对 SQL 标准的扩展。SQL 标准中没有索引的规定。
 
-Cloudberry Database 不支持并发创建索引（不支持 `CONCURRENTLY` 关键字）。
-
 ## 另见
 
 [`ALTER INDEX`](https://github.com/cloudberrydb/cloudberrydb-site/blob/cbdb-doc-validation/docs/sql-stmts/alter-index.md)、[`DROP INDEX`](/i18n/zh/docusaurus-plugin-content-docs/current/sql-stmts/drop-index.md)
