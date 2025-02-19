@@ -1,0 +1,46 @@
+.meetTheCommunity {
+  position: relative;
+  height: 309px;
+  padding-top: 70px;
+  margin-bottom: -62px;
+  background-color: rgb(17, 15, 15);
+  .title {
+    position: absolute;
+    top: 150px;
+    left: 50%;
+    text-align: center;
+    transform: translateX(-50%);
+    font-size: 64px;
+    font-weight: 700;
+    line-height: 81px;
+    p {
+      color: #fff;
+      margin-bottom: 0;
+    }
+  }
+
+  @media screen and (max-width: 1440px) {
+    padding-inline: var(--mobile-padding-width);
+    height: 910px;
+    .contributorList {
+      gap: 15px;
+      width: auto;
+    }
+    .bgImg {
+      height: 900px;
+    }
+  }
+  @media screen and (max-width: 1024px) {
+    height: auto;
+    .bgImg {
+      height: 1000px;
+      width: 100%;
+      background-size: contain;
+    }
+    .contributorList {
+      width: auto;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 15px;
+    }
+  }
+}

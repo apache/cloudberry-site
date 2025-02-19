@@ -2,13 +2,13 @@
 title: Prepare to Deploy
 ---
 
-# Prepare to Deploy on Physical Machine
+# Prepare to Deploy on Physical or Virtual Machine
 
-Before deploying Cloudberry Database on physical machines, you need to do some preparations. Read this document and [Software and Hardware Configuration Requirements](/docs/cbdb-op-software-hardware.md) before you start to deploy Cloudberry Database.
+Before deploying Apache Cloudberry on physical or virtual machines, you need to do some preparations. Read this document and [Software and Hardware Configuration Requirements](/docs/cbdb-op-software-hardware.md) before you start to deploy Apache Cloudberry.
 
 ## Plan the deployment architecture
 
-Plan your deployment architecture based on the [Cloudberry Database Architecture](/docs/cbdb-architecture.md) and [Software and Hardware Configuration Requirements](/docs/cbdb-op-software-hardware.md), and determine the number of servers needed. Ensure that all servers are within a single security group and have mutual trust configured.
+Plan your deployment architecture based on the [Apache Cloudberry Architecture](/docs/cbdb-architecture.md) and [Software and Hardware Configuration Requirements](/docs/cbdb-op-software-hardware.md), and determine the number of servers needed. Ensure that all servers are within a single security group and have mutual trust configured.
 
 The deployment plan for the example of this document includes 1 coordinator + 1 standby + 3 segments (primary + mirror), totaling 5 servers.
 
@@ -134,7 +134,14 @@ $ echo $(expr $(getconf _PHYS_PAGES) / 2 \* $(getconf PAGE_SIZE))
 
 In the `/etc/sysctl.conf` configuration file,
 
-- `vm.overcommit_memory` is a Linux kernel parameter that indicates the amount of memory that the system can allocate to a process. Setting `vm.overcommit_memory` to `2` means that when the system allocates more than 2 GB of memory, the operation will be rejected.
+- `vm.overcommit_memory` indicates the overcommit handling modes for memory. Available options are: 
+    
+    - `0`: Heuristic overcommit handling
+    - `1`: Always overcommit
+    - `2`: Don't overcommit
+        
+    Set the value of this parameter to `2` to refuse overcommit.
+    
 - `vm.overcommit_ratio` is a kernel parameter and is the percentage of RAM occupied by the application process. The default value on CentOS is `50`. `vm.overcommit_ratio` is calculated as follows:
 
     ```
@@ -156,9 +163,9 @@ In the `/etc/sysctl.conf` configuration file,
 
 #### Port
 
-In the `/etc/sysctl.conf` configuration file, `net.ipv4.ip_local_port_range` is used to specify the port range. To avoid port conflicts between Cloudberry Database and other applications, you need to specify the port range via operating system parameters. When you later set Cloudberry Database initialization parameters, avoid setting Cloudberry Database related ports in this range.
+In the `/etc/sysctl.conf` configuration file, `net.ipv4.ip_local_port_range` is used to specify the port range. To avoid port conflicts between Apache Cloudberry and other applications, you need to specify the port range via operating system parameters. When you later set Apache Cloudberry initialization parameters, avoid setting Apache Cloudberry related ports in this range.
 
-For example, for `net.ipv4.ip_local_port_range = 10000 65535`, you need to avoid setting the Cloudberry Database related ports in the interval `[10000,65535]`. You can set them to `6000` and `7000`:
+For example, for `net.ipv4.ip_local_port_range = 10000 65535`, you need to avoid setting the Apache Cloudberry related ports in the interval `[10000,65535]`. You can set them to `6000` and `7000`:
 
 ```
 PORT_BASE = 6000 
@@ -167,7 +174,7 @@ MIRROR_PORT_BASE = 7000
 
 #### IP segmentation
 
-When the Cloudberry Database uses the UDP protocol for internal connection, the network card controls the fragmentation and reassembly of IP packets. If the size of a UDP message is larger than the maximum size of network transmission unit (MTU), the IP layer fragments the message.
+When the Apache Cloudberry uses the UDP protocol for internal connection, the network card controls the fragmentation and reassembly of IP packets. If the size of a UDP message is larger than the maximum size of network transmission unit (MTU), the IP layer fragments the message.
 
 - `net.ipv4.ipfrag_high_thresh`: When the total size of IP fragments exceeds this threshold, the kernel will attempt to reorganize IP fragments. If the fragments exceed this threshold but all fragments have not arrived within the specified time, the kernel will not reorganize the fragments. This threshold is typically used to control whether larger shards are reorganized. The default value is `4194304` bytes (4 MB).
 - `net.ipv4.ipfrag_low_thresh`: Indicates that when the total size of IP fragments is below this threshold, the kernel will wait as long as possible for more fragments to arrive, to allow for larger reorganizations. This threshold is used to minimize unfinished reorganization operations and improve system performance. The default value is `3145728` bytes (3 MB).
@@ -240,7 +247,7 @@ Edit the `/etc/security/limits.conf` file and add the following content, which l
 
 #### Set mount options for the XFS file system
 
-XFS is the file system for the data directory of Cloudberry Database. XFS has the following mount options:
+XFS is the file system for the data directory of Apache Cloudberry. XFS has the following mount options:
 
 ```
 rw,nodev,noatime,inode64
@@ -290,7 +297,7 @@ sudo /sbin/blockdev --setra 16384 /dev/vdc
 
 #### I/O scheduling policy settings for disks
 
-The disk type, operating system and scheduling policies of Cloudberry Database are as follows:
+The disk type, operating system and scheduling policies of Apache Cloudberry are as follows:
 
 <table>
     <tr>
@@ -381,7 +388,7 @@ cat /sys/kernel/mm/*transparent_hugepage/enabled
 
 #### Disable IPC object deletion
 
-Disable IPC object deletion by setting the value of `RemoveIPC` to `no`. You can set this parameter in the `/etc/systemd/logind.conf` file of Cloudberry Database.
+Disable IPC object deletion by setting the value of `RemoveIPC` to `no`. You can set this parameter in the `/etc/systemd/logind.conf` file of Apache Cloudberry.
 
 ```
 RemoveIPC=no
@@ -415,7 +422,7 @@ service sshd restart
 
 #### Clock synchronization
 
-Cloudberry Database requires the clock synchronization to be configured for all hosts, and the clock synchronization service should be started when the host starts. You can choose one of the following synchronization methods:
+Apache Cloudberry requires the clock synchronization to be configured for all hosts, and the clock synchronization service should be started when the host starts. You can choose one of the following synchronization methods:
 
 - Use the coordinator node's time as the source, and other hosts synchronize the clock of the coordinator node host.
 - Synchronize clocks using an external clock source.

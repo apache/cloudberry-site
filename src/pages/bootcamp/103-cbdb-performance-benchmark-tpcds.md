@@ -1,9 +1,9 @@
 ---
-title: "[103-2] TPC-DS: Decision Support Benchmark for Cloudberry Database"
-description: Run the TPC-DS benchmark automatically on an existing Cloudberry Database cluster.
+title: "[103-2] TPC-DS: Decision Support Benchmark for Apache Cloudberry"
+description: Run the TPC-DS benchmark automatically on an existing Apache Cloudberry cluster.
 ---
 
-This tool is based on the benchmark tool [Pivotal TPC-DS](https://github.com/pivotal/TPC-DS). This repo contains automation of running the DS benchmark on an existing CloudberryDB cluster.
+This tool is based on the benchmark tool [Pivotal TPC-DS](https://github.com/pivotal/TPC-DS). This repo contains automation of running the DS benchmark on an existing Apache Cloudberry cluster.
 
 :::note
 
@@ -29,9 +29,9 @@ As of version 1.2 of this tool TPC-DS 3.2.0 is used.
 
 ### Prerequisites
 
-This is a follow-up tutorial for previous bootcamp steps. Please make sure to have the environment ready for Cloudberry Database Sandbox up and running.
+This is a follow-up tutorial for previous bootcamp steps. Please make sure to have the environment ready for Apache Cloudberry Sandbox up and running.
 
-All the following examples use the standard hostname convention of CloudberryDB using `mdw` for master node, and `sdw1..n` for the segment nodes.
+All the following examples use the standard hostname convention of Cloudberry using `mdw` for master node, and `sdw1..n` for the segment nodes.
 
 ### TPC-DS Tools Dependencies
 
@@ -56,7 +56,7 @@ TPC-H and TPC-DS packages are already under "mdw:/tmp/" folder.
 
 ### Execution
 
-To run the benchmark, login as `gpadmin` on `mdw` in the CloudberryDB Sandbox, and execute the following command::
+To run the benchmark, login as `gpadmin` on `mdw` in the Cloudberry Sandbox, and execute the following command::
 
 ```bash
 su - gpadmin

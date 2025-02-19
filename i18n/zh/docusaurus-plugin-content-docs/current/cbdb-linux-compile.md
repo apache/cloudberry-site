@@ -8,7 +8,7 @@ import TabItem from '@theme/TabItem';
 # 在 Linux 系统上编译和安装 Cloudberry Database
 
 :::info
-本文档来自 GitHub 仓库 [`cloudberrydb/cloudberrydb`](https://github.com/cloudberrydb/cloudberrydb/blob/main/readmes/README.Linux.md).
+本文档来自 GitHub 仓库 [`cloudberrydb/cloudberrydb`](https://github.com/cloudberrydb/cloudberrydb/blob/main/deploy/build/README.Linux.md).
 :::
 
 本文档分享如何在 Linux 系统（CentOS 7、RHEL 和 Ubuntu）上编译和安装 Cloudberry Database。请注意，本文档仅供开发人员在单节点环境中尝试 Cloudberry Database。**请勿将本文档用于生产环境**。
@@ -38,10 +38,10 @@ git clone https://github.com/cloudberrydb/cloudberrydb.git
 
 以下步骤在 CentOS 7 上测试通过。对于其他版本的 CentOS，这些步骤可能有效，但不能保证有效。
 
-1. 执行 `cloudberrydb/cloudberrydb` 仓库下 `readmes` 目录中的 `README.CentOS.bash` 脚本。执行此脚本需要输入密码。然后，系统会自动下载一些必要的依赖项。
+1. 执行 `cloudberrydb/cloudberrydb` 仓库下 `deploy/build` 目录中的 `README.CentOS.bash` 脚本。执行此脚本需要输入密码。然后，系统会自动下载一些必要的依赖项。
 
     ```bash
-    cd cloudberrydb/readmes
+    cd cloudberrydb/deploy/build
     ./README.CentOS.bash
     ```
 
@@ -90,17 +90,18 @@ git clone https://github.com/cloudberrydb/cloudberrydb.git
 3. 执行 `README.Rhel-Rocky.bash` 脚本安装更多依赖项。
 
     ```bash
-    ~/cloudberrydb/readmes/README.Rhel-Rocky.bash
+    cd ~/cloudberrydb/deploy/build/
+    ./README.Rhel-Rocky.bash
     ```
 
 </TabItem>
 <TabItem value="ubuntu-18.04" label="Ubuntu 18.04 或更新版本" default>
 
-1. 执行 `readmes` 目录下的 `README.Ubuntu.bash` 脚本，以安装依赖项。
+1. 执行 `deploy/build` 目录下的 `README.Ubuntu.bash` 脚本，以安装依赖项。
 
     ```shell
     # 执行该脚本需要输入密码。
-    sudo ~/cloudberrydb/readmes/README.Ubuntu.bash
+    sudo ~/cloudberrydb/deploy/build/README.Ubuntu.bash
     ```
 
     :::info 提示

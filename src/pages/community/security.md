@@ -3,67 +3,45 @@ title: Security Policy
 description: Learn how to report security issues to us.
 ---
 
-## Reporting Security Issues
+# Apache Cloudberry Security
 
-To report a security issue, please email
-[security@cloudberrydb.org](mailto:security@cloudberrydb.org). This
-project follows a 90-day disclosure timeline. We will publish the
-[security
-advisories](https://github.com/cloudberrydb/cloudberrydb/security/advisories)
-via GitHub.
-
-You should receive a response within 2 weeks. If for some reason you
-do not, please follow up via email to ensure we received your original
-message.
-
-Please include the requested information listed below (as much as you
-can provide) to help us better understand the nature and scope of the
-possible issue:
-
-* Type of issue (e.g. buffer overflow, SQL injection, cross-site
-  scripting, etc.)
-* Full paths of source file(s) related to the manifestation of the
-  issue
-* The location of the affected source code (tag/branch/commit or
-  direct URL)
-* Any special configuration required to reproduce the issue
-* Step-by-step instructions to reproduce the issue
-* Proof-of-concept or exploit code (if possible)
-* Impact of the issue, including how an attacker might exploit the
-  issue
-
-This information will help us triage your report more quickly.
+The Apache Security Team handles all security issues across Apache projects and
+coordinates the response to vulnerabilities. For details on the vulnerability
+handling process, supported versions, and what is considered a security issue,
+visit: https://www.apache.org/security/.
 
 ## Do not
 
 For better collaboration, we hope you:
 
-- Do not file public issues on GitHub for security vulnerabilities.
-- Do not report non-security-impacting bugs through this channel. If
-  you have any questions on using, development, please use [GitHub
-  Issues, Discussions or
-  Slack](https://github.com/cloudberrydb/cloudberrydb/issues/new/choose)
-  instead.
+- DO NOT report non-security-impacting bugs through this channel. If you have
+  any questions on using, development, please use [GitHub
+  Issues](https://github.com/apache/cloudberry/issues),
+  [Discussions](https://github.com/apache/cloudberry/discussions), [Dev mailing
+  list](/community/mailing-lists) or
+  [Slack](https://inviter.co/apache-cloudberry) instead.
+- DO NOT report security issues on public GitHub Issues, Jira tickets, mailing
+  lists, or other public forums.
 
-## Handling Process
+## Reporting Security Issues
 
-Here's an overview of the security issues handling process:
+Send your report to: [security@apache.org](mailto:security@apache.org).
 
-* The reporter reports the security issues to the Cloudberry Database
-  team.
-* The Cloudberry Database team investigates the report and decides to
-  accept or reject the report. If our team rejects the report, the
-  team will explain why to the reporter. If we accept the report, our
-  team will work privately with the reporter to fix the security
-  issues.
-* Release the new version of the Cloudberry Database that includes the
-  fix.
-* Public the security issues.
+Please send one plain-text email per vulnerability with the following and
+additional information as necessary (as much as you can provide):
+
+- Description of the vulnerability
+- Steps to reproduce
+- Affected versions
+- Potential impact
+- Any known mitigations
+- (Optional) Suggested fix
+
+## Public Discussion
+
+For general security questions or discussions, please use the development
+mailing list: [dev@cloudberry.apache.org](mailto:dev@cloudberry.apache.org)
 
 ## Preferred Languages
 
 We prefer all communications to be in English.
-
----
-
-Thanks for helping make Cloudberry Database safe!

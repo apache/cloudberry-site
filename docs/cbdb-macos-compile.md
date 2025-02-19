@@ -5,7 +5,7 @@ title: On macOS
 # Compile and Install Cloudberry Database on macOS
 
 :::info
-The source of this document is from the GitHub repository [`cloudberrydb/cloudberrydb`](https://github.com/cloudberrydb/cloudberrydb/blob/main/readmes/README.macOS.md).
+The source of this document is from the GitHub repository [`cloudberrydb/cloudberrydb`](https://github.com/cloudberrydb/cloudberrydb/blob/main/deploy/build/README.macOS.md).
 :::
 
 This document shares how to build, compile, and install Cloudberry Database on macOS (single node) for development and trial purposes. Follow the steps below.
@@ -33,7 +33,7 @@ DO NOT use this guide for production deployment.
 3. Run the following command to install the needed dependencies. You will be asked to enter the `sudo` password of your macOS system.
 
     ```bash
-    source readmes/README.macOS.bash
+    source deploy/build/README.macOS.bash
     ```
 
     :::info
@@ -93,7 +93,7 @@ source $(cd ~; pwd)/install/cbdb/greenplum_path.sh
 
 # 4. Install the Python dependencies.
 
-pip3 install --user -r readmes/python-dependencies.txt
+pip3 install --user -r python-dependencies.txt
 
 # 5. Start a demo cluster.
 

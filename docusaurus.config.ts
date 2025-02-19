@@ -1,20 +1,27 @@
-import { themes as prismThemes } from "prism-react-renderer";
-import type { Config } from "@docusaurus/types";
 import type * as Preset from "@docusaurus/preset-classic";
+import type { Config } from "@docusaurus/types";
+import { themes as prismThemes } from "prism-react-renderer";
 const config: Config = {
-  title: "Cloudberry Database",
-  tagline: "Next Generation Unified Database for Analytics and AI",
+  title: "Apache Cloudberry (Incubating)",
+  tagline: "One advanced and mature open-source MPP (Massively Parallel Processing) database. Open source alternative to Greenplum Database.",
   favicon: "/img/favicon.ico",
-  url: "https://cloudberrydb.org",
+  url: "https://cloudberry.apache.org",
   baseUrl: "/",
-  organizationName: "cloudberrydb", // Usually your GitHub org/user name.
-  projectName: "cloudberrydb-site", // Usually your repo name.
+  organizationName: "apache", // Usually your GitHub org/user name.
+  projectName: "cloudberry-site", // Usually your repo name.
 
   // onBrokenLinks: "throw",
   onBrokenLinks: "ignore",
   onBrokenMarkdownLinks: "warn",
-
-  plugins: ["docusaurus-plugin-sass"],
+  
+  plugins: [
+    "docusaurus-plugin-sass",
+    'docusaurus-plugin-matomo',
+    [
+      "@easyops-cn/docusaurus-search-local",
+      { hashed: true, indexPages: true, language: ["en", "zh"] },
+    ],
+  ],
   // Even if you don't use internationalization, you can use this field to set
   // useful metadata like html lang. For example, if your site is Chinese, you
   // may want to replace "en" with "zh-Hans".
@@ -33,8 +40,11 @@ const config: Config = {
         docs: {
           sidebarPath: "./sidebars.ts",
           editUrl:
-            "https://github.com/cloudberrydb/cloudberrydb-site/edit/main/",
+            "https://github.com/apache/cloudberry-site/edit/main/",
           editLocalizedFiles: true,
+          showLastUpdateAuthor: true,
+          showLastUpdateTime: true,
+          breadcrumbs: true,
         },
         blog: {
           postsPerPage: "ALL",
@@ -45,7 +55,7 @@ const config: Config = {
           feedOptions: {
             type: "all",
             title:
-              "Cloudberry Database: Next Generation Unified Database for Analytics and AI",
+              "Apache Cloudberry (Incubating) is one advanced and mature open-source MPP (Massively Parallel Processing) databases available.",
           },
         },
         theme: {
@@ -55,32 +65,29 @@ const config: Config = {
             "./src/css/design-class.scss",
           ],
         },
-        gtag: {
-          trackingID: "G-5RF5B25JHD",
-          anonymizeIP: true,
-        },
       } satisfies Preset.Options,
     ],
   ],
 
   themeConfig: {
-    title: "Cloudberry Database",
-    tagline: "Next Generation Unified Database for Analytics and AI",
+    title: "Apache Cloudberry (Incubating)",
+    tagline: "one advanced and mature open-source MPP (Massively Parallel Processing) databases available.",
     favicon: "/img/favicon.ico",
-    url: "https://cloudberrydb.org",
+    url: "https://cloudberry.apache.org",
     baseUrl: "/",
-    organizationName: "cloudberrydb", // Usually your GitHub org/user name.
-    projectName: "cloudberrydb-site", // Usually your repo name.
+    organizationName: "apache", // Usually your GitHub org/user name.
+    projectName: "cloudberry-site", // Usually your repo name.
     colorMode: {
       defaultMode: "dark",
-      disableSwitch: true,
+      disableSwitch: false,
+      respectPrefersColorScheme: true,
     },
     navbar: {
       logo: {
         href: "/",
-        alt: "Cloudberry Database",
-        src: "/img/cloudberrydb_color_black.svg",
-        srcDark: "/img/cloudberrydb_color_white.svg",
+        alt: "Apache Cloudberry (Incubating)",
+        src: "/img/apache_cloudberry_color_black.svg",
+        srcDark: "/img/apache_cloudberry_color_white.svg",
       },
       items: [
         {
@@ -100,41 +107,118 @@ const config: Config = {
           to: "/contribute",
         },
         { to: "/blog", label: "Blog", position: "right" },
-        { to: "/download", label: "Download", position: "right" },
-        { to: "/support", label: "Support", position: "right" },
-        { to: "/bootcamp", label: "Bootcamp", position: "right" },
+        {
+          to: "/docs/releases",
+          label: "Download",
+          position: "right",
+        },
+        {
+          to: "/support",
+          label: "Support",
+          position: "right",
+        },
+        {
+          label: "Resources",
+          position: "right",
+          items: [
+            {
+              label: "Roadmap",
+              to: "https://github.com/apache/cloudberry/discussions/369",
+            },
+            {
+              label: "Forum",
+              to: "https://github.com/apache/cloudberry/discussions",
+            },
+            {
+              label: "Bootcamp",
+              to: "/bootcamp",
+            },
+            {
+              label: "Team",
+              to: "/team",
+            },
+          ],
+        },
+ 	      {
+          label: 'ASF',
+          position: 'right',
+          items: [
+            {
+              label: 'Foundation',
+              to: 'https://www.apache.org/'
+            },
+            {
+              label: 'License',
+              to: 'https://www.apache.org/licenses/'
+            },
+            {
+              label: 'Events',
+              to: 'https://www.apache.org/events/current-event.html'
+            },
+            {
+              label: 'Privacy',
+              to: 'https://privacy.apache.org/policies/privacy-policy-public.html'
+            },
+            {
+              label: 'Security',
+              to: 'https://www.apache.org/security/'
+            },
+            {
+              label: 'Sponsorship',
+              to: 'https://www.apache.org/foundation/sponsorship.html'
+            },
+            {
+              label: 'Thanks',
+              to: 'https://www.apache.org/foundation/thanks.html'
+            },
+            {
+              label: 'Code of Conduct',
+              to: 'https://www.apache.org/foundation/policies/conduct'
+            },
+          ]
+        },
       ],
     },
     footer: {
-      style: "light",
       logo: {
-        alt: "Cloudberry Database Logo",
-        src: "/img/cloudberrydb_color_white.svg",
+        src: "/img/apache-incubator.svg",
+        srcDark: "/img/apache-incubator.svg",
+        href: "https://incubator.apache.org/",
+        alt: "Apache Incubator logo",
       },
-      copyright: `Copyright © ${new Date().getFullYear()} HashData Technology Limited.`,
+      copyright: `
+      <p>
+        Apache Cloudberry is an effort undergoing incubation at The Apache Software Foundation (ASF), sponsored by the Apache Incubator. Incubation is required of all newly accepted projects until a further review indicates that the infrastructure, communications, and decision making process have stabilized in a manner consistent with other successful ASF projects. While incubation status is not necessarily a reflection of the completeness or stability of the code, it does indicate that the project has yet to be fully endorsed by the ASF.
+      </p>
+      <p>
+        Copyright © ${new Date().getFullYear()} The Apache Software Foundation, Licensed under the Apache License, Version 2.0.</p>
+      <p>
+        Apache®, the names of Apache projects, and the feather logo are either registered trademarks or trademarks of the Apache Software Foundation in the United States and/or other countries.
+      </p>
+      `,
       links: [
         {
           title: "Support",
           items: [
             {
               label: "GitHub Issues",
-              href: "https://github.com/cloudberrydb/cloudberrydb/issues",
+              href: "https://github.com/apache/cloudberry/issues",
             },
             {
               label: "GitHub Discussions",
-              href: "https://github.com/orgs/cloudberrydb/discussions",
+              href: "https://github.com/apache/cloudberry/discussions",
             },
             {
               label: "Slack",
-              href: "https://communityinviter.com/apps/cloudberrydb/welcome",
+              href: "https://inviter.co/apache-cloudberry",
             },
             {
               label: "Twitter",
-              href: "https://twitter.com/cloudberrydb",
+              href: "https://x.com/ASFCloudberry",
             },
             {
               label: "Youtube",
-              href: "https://youtube.com/@cloudberrydb",
+              href: "https://youtube.com/@ApacheCloudberry",
             },
             {
               label: "Security",
@@ -147,7 +231,7 @@ const config: Config = {
           items: [
             {
               label: "Download",
-              to: "/download",
+              href: "https://github.com/apache/cloudberry/releases",
             },
             {
               label: "Documentation",
@@ -156,10 +240,6 @@ const config: Config = {
             {
               label: "Events",
               to: "/community/events",
-            },
-            {
-              label: "Code of Conduct",
-              href: "/community/coc",
             },
             {
               label: "Brand Guidelines",
@@ -193,6 +273,13 @@ const config: Config = {
     prism: {
       theme: prismThemes.github,
       darkTheme: prismThemes.dracula,
+    },
+    // Change website analytics from Google Analytics to Matomo
+    matomo: {
+      matomoUrl: 'https://analytics.apache.org/',
+      siteId: '66',
+      phpLoader: 'matomo.php',
+      jsLoader: 'matomo.js',
     },
   } satisfies Preset.ThemeConfig,
 };

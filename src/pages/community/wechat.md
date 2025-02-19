@@ -12,15 +12,16 @@ friend by scanning the QR code below and asking to join.
 
 Once you have joined, we encourage you to introduce yourself and share what
 you want to learn, so the community members can get to know you better. If you
-have any questions about CloudberryDB, feel free to ask in the WeChat groups.
+have any questions about Cloudberry, feel free to ask in the WeChat groups.
 However, we kindly request that you search for your questions beforehand to
 avoid repetition.
 
 ## Group rules
 
 **Be kind!** We lead by our community [Code of
-Conduct](https://cloudberrydb.org/community/coc), please be kind and keep
-open. We want to make a friendly space for all members.
+Conduct](https://www.apache.org/foundation/policies/conduct), please
+be kind and keep open. We want to make a friendly space for all
+members.
 
 **Be patient!** We adopt the asynchronous communication way. Please be patient
 to wait for other community members's replies to your questions. If no one
