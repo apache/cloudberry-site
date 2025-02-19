@@ -15,10 +15,10 @@ The system catalog table `pg_class` catalogs tables and most everything else tha
 |`reloftype`|oid| `pg_type.oid` |For typed tables, the object identifier of the underlying composite type, zero for all other relations|
 |`relowner`|oid|`pg_authid.oid`|Owner of the relation|
 |`relam`|oid|`pg_am.oid`|If this is a table or an index, the access method used (heap, B-tree, hash.)|
-|`relfilenode`|oid| |Name of the on-disk file of this relation; zero means this is a "mapped" relation whose disk file name is determined by low-level state|
+|`relfilenode`|bigint| |Name of the on-disk file of this relation; zero means this is a "mapped" relation whose disk file name is determined by low-level state|
 |`reltablespace`|oid|`pg_tablespace.oid`|The tablespace in which this relation is stored. If zero, the database's default tablespace is implied. (Not meaningful if the relation has no on-disk file.)|
 |`relpages`|int4| |Size of the on-disk representation of this table in pages (of size `BLCKSZ`). This is only an estimate used by the planner. It is updated by `VACUUM`, `ANALYZE`, and a few DDL commands such as `CREATE INDEX`.|
-|`reltuples`|float4| |Number of rows in the table. This is only an estimate used by the planner. It is updated by `VACUUM`, `ANALYZE`, and a few DDL commands such as `CREATE INDEX`.|
+|`reltuples`|real| |Number of rows in the table. This is only an estimate used by the planner. It is updated by `VACUUM`, `ANALYZE`, and a few DDL commands such as `CREATE INDEX`.|
 |`relallvisible`|int4| |Number of pages that are marked all-visible in the table's visibility map. This is only an estimate used by the planner. It is updated by `VACUUM`, `ANALYZE`, and a few DDL commands such as `CREATE INDEX`.|
 |`reltoastrelid`|oid| `pg_class.oid` |The object identifier of the TOAST table associated with this table, `0` if none. The TOAST table stores large attributes "out of line" in a secondary table.|
 |`relhasindex`|boolean| |True if this is a table and it has (or recently had) any indexes. |

@@ -10,6 +10,7 @@ The `pg_attribute_encoding` system catalog table in the `pg_catalog` schema cont
 |------|----|--------|-------|-----------|
 |`attrelid`|oid|not null|plain|Foreign key to `pg_attribute.attrelid`|
 |`attnum`|smallint|not null|plain|Foreign key to `pg_attribute.attnum`|
+| `filenum` | smallint | not null | plain | The column file number |
 |`attoptions`|text [ ]| |extended|The options|
 
 For a column with `filenum = f`, the column files on disk use the suffix `(f - 1)*128 to f*128 - 1`. For example:

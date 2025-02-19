@@ -18,3 +18,4 @@ The `gp_segment_configuration` table in the `pg_catalog` schema contains informa
 |`hostname`|text| |The hostname of a segment host.|
 |`address`|text| |The hostname used to access a particular segment instance on a segment host. This value may be the same as `hostname` on systems that do not have per-interface hostnames configured.|
 |`datadir`|text| |Segment instance data directory.|
+| `warehouseid` | oid | The ID of the warehouse that the segment belongs to. |

@@ -13,4 +13,3 @@ The `gp_distribution_policy` table in the `pg_catalog` schema contains informati
 |`numsegments`|integer| |The number of segment instances on which the table data is distributed.|
 |`distkey`|int2vector| `pg_attribute.attnum` |The column number(s) of the distribution column(s).|
 |`distclass`|oidvector|`pg_opclass.oid`|The operator class identifier(s) of the distribution column(s).|
-

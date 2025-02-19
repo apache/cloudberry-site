@@ -36,5 +36,3 @@
 [`pg_cast`](/docs/sys-catalogs/sys-tables/pg-cast.md)
 
 [`pg_class`](/docs/sys-catalogs/sys-tables/pg-class.md)
-
-[`pg_constraint`](/docs/sys-catalogs/sys-tables/pg-constraint.md)

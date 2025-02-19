@@ -30,3 +30,4 @@ The `pg_aggregate` table in the `pg_catalog` schema stores information about agg
 |`aggmtransspace`|integer| |Approximate average size (in bytes) of the transition state data for moving-aggregate mode, or zero to use a default estimate|
 |`agginitval`|text| |The initial value of the transition state. This is a text field containing the initial value in its external string representation. If this field is NULL, the transition state value starts out NULL.|
 |`aggminitval`|text| |The initial value of the transition state for moving- aggregate mode. This is a text field containing the initial value in its external string representation. If this field is NULL, the transition state value starts out NULL.|
+| `aggrepsafeexec` | bool | | True if the aggregate is safe to execute in parallel. |

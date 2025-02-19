@@ -22,8 +22,15 @@ Because user identities are system-wide, `pg_authid` is shared across all databa
 |`rolreplication`|boolean| |Role is a replication role. That is, this role can initiate streaming replication and set/unset the system backup mode using `pg_start_backup` and `pg_stop_backup`.|
 |`rolbypassrls`|boolean| |Roles bypasses every row-level security policy.|
 |`rolconnlimit`|int4| |For roles that can log in, this sets maximum number of concurrent connections this role can make. `-1` means no limit|
+| `rolenableprofile` | `boolean` |  | Role has a profile. |
 |`rolpassword`|text| |Password (possibly encrypted); NULL if none. If the password is encrypted, this column will begin with the string `md5` followed by a 32-character hexadecimal MD5 hash. The MD5 hash will be the user's password concatenated to their user name. For example, if user `joe` has password `xyzzy`, Cloudberry Database will store the md5 hash of `xyzzyjoe`. Cloudberry Database assumes that a password that does not follow that format is unencrypted.|
 |`rolvaliduntil`|timestamptz| |Password expiry time (only used for password authentication); NULL if no expiration|
+| `rolprofile` | `oid` |  | Object ID of the associated profile ID in `pg_profile` |
+| `rolaccountstatus` | smallint |  | Account status of the role. |
+| `rolfailedlogins` | integer | | Number of failed login attempts. |
+| `rolpasswordsetat` | timestamptz | | Time when the password was last set. |
+| `rollockdate`  | timestamptz | | Time when the role was locked. |
+| `rolpasswordexpire` | timestamptz | | Time when the password will expire. |
 |`rolresqueue`|oid| |Object ID of the associated resource queue ID in `pg_resqueue` |
 |`rolcreaterextgpfd`|boolean| |Privilege to create read external tables with the `gpfdist` or `gpfdists` protocol|
 |`rolcreaterexhttp`|boolean| |Privilege to create read external tables with the `http` protocol|
