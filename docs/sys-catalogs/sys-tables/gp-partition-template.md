@@ -7,7 +7,7 @@ title: gp_partition_template
 The `gp_partition_template` system catalog table in the `pg_catalog` schema describes the relationship between a partitioned table and the sub-partition template defined at each level in the partition hierarchy.
 
 :::info
-Cloudberry Database supports sub-partition templates only for partitioned tables that you create with the classic syntax.
+Apache Cloudberry supports sub-partition templates only for partitioned tables that you create with the classic syntax.
 :::
 
 Each sub-partition template has a dependency on the existence of a template at the next lower level of the hierarchy.

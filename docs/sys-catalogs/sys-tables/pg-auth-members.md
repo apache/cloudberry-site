@@ -4,7 +4,7 @@ title: pg_auth_members
 
 # pg_auth_members
 
-The `pg_auth_members` system catalog table in the `pg_catalog` schema shows the membership relations between roles. Any non-circular set of relationships is allowed. Because roles are system-wide, `pg_auth_members` is shared across all databases of a Cloudberry Database system.
+The `pg_auth_members` system catalog table in the `pg_catalog` schema shows the membership relations between roles. Any non-circular set of relationships is allowed. Because roles are system-wide, `pg_auth_members` is shared across all databases of a Apache Cloudberry system.
 
 |column|type|references|description|
 |------|----|----------|-----------|
