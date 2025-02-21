@@ -16,9 +16,6 @@ DBeaver is a powerful database management tool and SQL client software that supp
 1. Launch DBeaver and start creating a new database connection using either of these methods:
 
     - Select **Database** > **New Database Connection** from the menu bar.
-
-        ![](/docs/media/dbeaver1.png)
-
     - Click the plus (+) icon in the top-left corner.
 
         ![](/docs/media/dbeaver2.png)

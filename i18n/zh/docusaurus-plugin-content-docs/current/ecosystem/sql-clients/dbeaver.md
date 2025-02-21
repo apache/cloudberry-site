@@ -16,9 +16,6 @@ DBeaver 是一款功能丰富的数据库管理工具和 SQL 客户端软件，�
 1. 启动 DBeaver，通过以下两种方式之一开始创建新的数据库连接：
 
     - 在菜单栏选择 **Database** > **New Database Connection**
-
-        ![](/i18n/zh/docusaurus-plugin-content-docs/current/media/dbeaver1.png)
-
     - 点击界面左上角的加号 (+) 图标
 
         ![](/i18n/zh/docusaurus-plugin-content-docs/current/media/dbeaver2.png)
