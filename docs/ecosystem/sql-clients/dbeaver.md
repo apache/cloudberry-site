@@ -16,13 +16,16 @@ DBeaver is a powerful database management tool and SQL client software that supp
 1. Launch DBeaver and start creating a new database connection using either of these methods:
 
     - Select **Database** > **New Database Connection** from the menu bar.
+
+        ![](../../media/dbeaver1.png)
+
     - Click the plus (+) icon in the top-left corner.
 
-        ![](/docs/media/dbeaver2.png)
+        ![](../../media/dbeaver2.png)
 
 2. In the **Select your database** dialog, find and select **Cloudberry**, then click **Next**.
 
-    ![](/docs/media/dbeaver3.png)
+    ![](../../media/dbeaver3.png)
 
 3. In the **Connection Settings** dialog's **Main** tab, fill in these connection parameters:
 
@@ -32,16 +35,16 @@ DBeaver is a powerful database management tool and SQL client software that supp
     - **Username**: Enter a database username with access privileges.
     - **Password**: Enter the corresponding password.
 
-    ![](/docs/media/dbeaver4.png)
+    ![](../../media/dbeaver4.png)
 
     Switch to the **Driver properties** tab to view and modify Cloudberry driver properties by clicking the Value column.
 
-    ![](/docs/media/dbeaver5.png)
+    ![](../../media/dbeaver5.png)
 
 4. Verify and complete the configuration: Click **Test Connection** to test the connection. A confirmation dialog indicates a successful test. Click **OK** to confirm, then click **Finish** to complete the setup.
 
-    ![](/docs/media/dbeaver6.png)
+    ![](../../media/dbeaver6.png)
 
 5. After establishing the connection, you can see the created database connection in the left navigation pane and manage your database through DBeaver.
 
-    ![](/docs/media/dbeaver7.png)
+    ![](../../media/dbeaver7.png)

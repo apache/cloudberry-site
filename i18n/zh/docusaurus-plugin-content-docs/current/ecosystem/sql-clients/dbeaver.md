@@ -16,14 +16,16 @@ DBeaver 是一款功能丰富的数据库管理工具和 SQL 客户端软件，�
 1. 启动 DBeaver，通过以下两种方式之一开始创建新的数据库连接：
 
     - 在菜单栏选择 **Database** > **New Database Connection**
+
+        ![](../../media/dbeaver1.png)
+
     - 点击界面左上角的加号 (+) 图标
 
-        ![](/i18n/zh/docusaurus-plugin-content-docs/current/media/dbeaver2.png)
+        ![](../../media/dbeaver2.png)
 
 2. 在弹出的 **Select your database** 对话框中，找到并选择 **Cloudberry**，继续点击 **Next**。
 
-    ![](/i18n/zh/docusaurus-plugin-content-docs/current/media/dbeaver3.png)
-    ![alt text](image.png)
+    ![](../../media/dbeaver3.png)
 
 3. 在 **Connection Settings** 对话框的 **Main** 标签页中，填写以下连接参数：
 
@@ -33,16 +35,16 @@ DBeaver 是一款功能丰富的数据库管理工具和 SQL 客户端软件，�
      - **Username**: 输入具有访问权限的数据库用户名。
      - **Password**: 输入对应用户的登录密码。
 
-    ![](/i18n/zh/docusaurus-plugin-content-docs/current/media/dbeaver4.png)
+    ![](../../media/dbeaver4.png)
 
     切换到 **Driver properties** 标签页，你可以查看并修改 Cloudberry 驱动程序的相关属性，只需点击属性对应的 Value 列即可进行编辑。
 
-    ![](/i18n/zh/docusaurus-plugin-content-docs/current/media/dbeaver5.png)
+    ![](../../media/dbeaver5.png)
 
 4. 验证并完成配置：点击左下角的 **Test Connection** 按钮测试连接是否可用。如果出现确认对话框，表示连接测试成功。点击 OK 确认后，最后点击 Finish 按钮完成整个连接设置。
 
-    ![](/i18n/zh/docusaurus-plugin-content-docs/current/media/dbeaver6.png)
+    ![](../../media/dbeaver6.png)
 
 5. 数据库连接建立以后，你可以在左侧的数据库连接导航看到已创建的数据源连接，并且可以通过 DBeaver 连接并管理数据库。
 
-    ![](/i18n/zh/docusaurus-plugin-content-docs/current/media/dbeaver7.png)
+    ![](../../media/dbeaver7.png)
