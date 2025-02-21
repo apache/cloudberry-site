@@ -4,21 +4,21 @@ title: pg_cast
 
 # pg_cast
 
-The `pg_cast` table in the `pg_catalog` schema stores data type conversion paths, both built-in paths and those defined with `CREATE CAST`.
+`pg_catalog` 模式中的 `pg_cast` 表记录了数据类型转换路径，包括系统内置的转换路径以及通过 `CREATE CAST` 定义的路径。
 
-Note that `pg_cast` does not represent every type conversion known to the system, only those that cannot be deduced from some generic rule. For example, casting between a domain and its base type is not explicitly represented in `pg_cast`. Another important exception is that "automatic I/O conversion casts", those performed using a data type's own I/O functions to convert to or from `text` or other string types, are not explicitly represented in `pg_cast`.
+需要注意的是，`pg_cast` 并不涵盖系统中所有已知的类型转换，仅包含那些无法从通用规则推导出来的转换。例如，域类型与其基础类型之间的转换不会在 `pg_cast` 中明确表示。另一个重要例外是“自动 I/O 转换”，即使用数据类型自身的 I/O 函数将数据转换为 `text` 或其他字符串类型的转换，也不会在 `pg_cast` 中明确表示。
 
-The cast functions listed in `pg_cast` must always take the cast source type as their first argument type, and return the cast destination type as their result type. A cast function can have up to three arguments. The second argument, if present, must be type `integer`; it receives the type modifier associated with the destination type, or `-1` if there is none. The third argument, if present, must be type `boolean`; it receives `true` if the cast is an explicit cast, `false` otherwise.
+`pg_cast` 中列出的转换函数必须始终将转换源类型作为第一个参数类型，并将转换目标类型作为返回结果类型。转换函数最多可以有三个参数。如果存在第二个参数，其类型必须为 `integer`，它接收与目标类型关联的类型修饰符，如果没有类型修饰符则为 `-1`。如果存在第三个参数，其类型必须为 `boolean`，它在转换是显式转换时接收 `true`，否则接收 `false`。
 
-It is legitimate to create a `pg_cast` entry in which the source and target types are the same, if the associated function takes more than one argument. Such entries represent 'length coercion functions' that coerce values of the type to be legal for a particular type modifier value.
+如果相关函数有多个参数，那么在 `pg_cast` 中创建一个源类型和目标类型相同的条目是合法的。这样的条目表示“长度强制函数”，用于将类型的值强制为特定类型修饰符值所允许的值。
 
-When a `pg_cast` entry has different source and target types and a function that takes more than one argument, the entry converts from one type to another and applies a length coercion in a single step. When no such entry is available, coercion to a type that uses a type modifier involves two steps, one to convert between data types and a second to apply the modifier.
+当一个 `pg_cast` 条目的源类型和目标类型不同，并且相关函数有多个参数时，该条目可以在一个步骤中将一种类型转换为另一种类型，并应用长度强制。如果没有这样的条目可用，那么将值强制转换为使用类型修饰符的类型需要两个步骤：第一步是转换数据类型，第二步是应用修饰符。
 
-|column|type|references|description|
-|------|----|----------|-----------|
-|`oid`|oid||The object ID.|
-|`castsource`|oid|`pg_type.oid`|OID of the source data type.|
-|`casttarget`|oid|`pg_type.oid`|OID of the target data type.|
-|`castfunc`|oid|`pg_proc.oid`|The OID of the function to use to perform this cast. Zero is stored if the cast method does not require a function.|
-|`castcontext`|char| |Indicates what contexts the cast may be invoked in. `e` means only as an explicit cast (using `CAST` or `::` syntax). `a` means implicitly in assignment to a target column, as well as explicitly. `i` means implicitly in expressions, as well as the other cases*.*|
-|`castmethod`|char| |Indicates how the cast is performed:<br/><br/>`f` - The function identified in the `castfunc` field is used.<br/><br/>`i` - The input/output functions are used.<br/><br/>`b` - The types are binary-coercible, and no conversion is required.|
+| 列名       | 类型   | 引用                  | 描述                     |
+|------------|--------|-----------------------|--------------------------|
+| `oid`      | oid    |                       | 对象 ID                  |
+| `castsource` | oid   | `pg_type.oid`         | 源数据类型的 OID         |
+| `casttarget` | oid   | `pg_type.oid`         | 目标数据类型的 OID       |
+| `castfunc` | oid    | `pg_proc.oid`         | 执行此转换所使用的函数的 OID。如果转换方法不需要函数，则存储为零 |
+| `castcontext` | char  |                       | 指示此转换可以在哪些上下文中被调用：<br/><br/>`e` - 仅作为显式转换（使用 `CAST` 或 `::` 语法）<br/><br/>`a` - 在赋值给目标列时隐式调用，以及显式调用<br/><br/>`i` - 在表达式中隐式调用，以及其他情况 |
+| `castmethod` | char  |                       | 指示转换的执行方式：<br/><br/>`f` - 使用 `castfunc` 字段中标识的函数<br/><br/>`i` - 使用输入/输出函数<br/><br/>`b` - 类型是二进制可强制转换的，无需转换 |

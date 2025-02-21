@@ -4,11 +4,11 @@ title: pg_am
 
 # pg_am
 
-The `pg_am` table in the `pg_catalog` schema stores information about index access methods. There is one row for each index access method supported by the system.
+`pg_catalog` 模式中的 `pg_am` 表用于存储索引访问方法的相关信息。系统支持的每种索引访问方法都对应表中的一行记录。
 
-|column|type|references|description|
-|------|----|----------|-----------|
-|`oid`|oid| |Row identifier (hidden attribute; must be explicitly selected)|
-|`amname`|name| |Name of the access method|
-|`amhandler`|regproc| | OID of a handler function responsible for supplying information about the access method|
-|`amtype`|char| |`t` for table (including materialized views), `i` for index|
+| 列名      | 类型   | 引用 | 描述 |
+|-----------|--------|------|------|
+| `oid`     | oid    |      | 行标识符（隐藏属性；需显式选择） |
+| `amname`  | name   |      | 访问方法的名称 |
+| `amhandler` | regproc |      | 负责提供访问方法信息的处理函数的 OID |
+| `amtype`  | char   |      | `t` 表示表（包括物化视图），`i` 表示索引 |

@@ -4,11 +4,11 @@ title: pg_attrdef
 
 # pg_attrdef
 
-The `pg_attrdef` table in the `pg_catalog` schema stores column default values. The main information about columns is stored in `pg_attribute`. Only columns that explicitly specify a default value (when the table is created or the column is added) will have an entry here.
+`pg_catalog` 模式中的 `pg_attrdef` 表用于存储列的默认值。关于列的主要信息存储在 `pg_attribute` 表中。只有在创建表或添加列时明确指定了默认值的列，才会在此表中有记录。
 
-|column|type|references|description|
-|------|----|----------|-----------|
-|`oid`|oid| |The object ID|
-|`adrelid`|oid| `pg_class.oid` |The table this column belongs to|
-|`adnum`|smallint| `pg_attribute.attnum` |The number of the column|
-|`adbin`|pg_node_tree| |The internal representation of the column default value|
+| 列名   | 类型          | 引用                  | 描述                     |
+|--------|---------------|-----------------------|--------------------------|
+| `oid`  | oid           |                       | 对象 ID                  |
+| `adrelid` | oid         | `pg_class.oid`        | 该列所属的表             |
+| `adnum`| smallint      | `pg_attribute.attnum` | 列的编号                 |
+| `adbin`| pg_node_tree  |                       | 列默认值的内部表示       |
