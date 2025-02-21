@@ -115,7 +115,7 @@ const sidebars: SidebarsConfig = {
 
      {
       type: 'category',
-      label: 'Eco-Integration',
+      label: 'Ecosystem',
       items: [
         {
         type: 'category',
