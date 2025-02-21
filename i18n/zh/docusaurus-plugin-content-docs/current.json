@@ -62,5 +62,9 @@
   "sidebar.docsbars.category.Advanced Analytics": {
     "message": "高级数据分析",
     "description": "The label for category advanced analytics in sidebar docs"
+  },
+  "sidebar.docsbars.category.Ecosystem": {
+    "message": "生态系统",
+    "description": "The label for category ecosystem in sidebar docs"
   }
 }
