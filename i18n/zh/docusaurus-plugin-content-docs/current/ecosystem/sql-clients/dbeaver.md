@@ -26,6 +26,7 @@ DBeaver 是一款功能丰富的数据库管理工具和 SQL 客户端软件，�
 2. 在弹出的 **Select your database** 对话框中，找到并选择 **Cloudberry**，继续点击 **Next**。
 
     ![](/i18n/zh/docusaurus-plugin-content-docs/current/media/dbeaver3.png)
+    ![alt text](image.png)
 
 3. 在 **Connection Settings** 对话框的 **Main** 标签页中，填写以下连接参数：
 

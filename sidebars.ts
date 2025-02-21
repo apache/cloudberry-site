@@ -120,7 +120,7 @@ const sidebars: SidebarsConfig = {
         {
         type: 'category',
         label: 'SQL Clients',
-        items: ['eco-integration/sql-clients/dbeaver']
+        items: ['ecosystem/sql-clients/dbeaver']
        },
         ]
      },
