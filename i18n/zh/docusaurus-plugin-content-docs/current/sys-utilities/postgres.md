@@ -2,7 +2,7 @@
 title: postgres
 ---
 
-# Postgre 命令使用说明文档
+# postgres 命令使用说明
 
 `postgres` 是 PostgreSQL 数据库服务器的核心可执行文件，用于启动和管理数据库实例。本文将详细介绍 `postgres` 命令的常用选项及其使用方法。
 

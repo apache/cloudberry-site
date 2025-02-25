@@ -2,7 +2,7 @@
 title: postgres
 ---
 
-# PostgreSQL Command Usage Documentation
+# postgres 
 
 `postgres` is the core executable file of the PostgreSQL database server, used to start and manage database instances. This document provides a detailed introduction to the commonly used options and usage of the `postgres` command.
 
