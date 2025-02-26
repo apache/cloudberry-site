@@ -5,28 +5,30 @@ title: 在 Linux 上
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# 在 Linux 系统上编译和安装 Cloudberry Database
+# 在 Linux 系统上编译和安装 Apache Cloudberry
 
 :::info
-本文档来自 GitHub 仓库 [`cloudberrydb/cloudberrydb`](https://github.com/cloudberrydb/cloudberrydb/blob/main/deploy/build/README.Linux.md).
+本文档来自 GitHub 仓库 [`apache/cloudberry`](https://github.com/apache/cloudberry/blob/main/deploy/build/README.Linux.md)。
 :::
 
-本文档分享如何在 Linux 系统（CentOS 7、RHEL 和 Ubuntu）上编译和安装 Cloudberry Database。请注意，本文档仅供开发人员在单节点环境中尝试 Cloudberry Database。**请勿将本文档用于生产环境**。
+本文档分享如何在 Linux 系统（RHEL 8 和 Ubuntu）上编译和安装 Apache Cloudberry。请注意，本文档仅供开发人员在单节点环境中尝试 Apache Cloudberry。**请勿将本文档用于生产环境**。
+
+如果希望了解如何在 Rocky Linux 9 上编译和安装 Apache Cloudberry，请参见 [在 Rocky Linux 9 上编译和安装 Apache Cloudberry](https://github.com/edespino/cloudberry/blob/rocky9-dev-readme/deploy/build/README-rockylinux9.md)。
 
 按照以下步骤设置开发环境：
 
 1. [克隆 GitHub 仓库](#第-1-步克隆-github-仓库)。
 2. [安装依赖项](#第-2-步安装依赖项)。
 3. [执行平台准备工作](#第-3-步执行平台准备工作)。
-4. [构建 Cloudberry Database](#第-4-步构建-cloudberry-database)。
+4. [构建 Apache Cloudberry](#第-4-步构建-apache-cloudberry)。
 5. [验证集群](#第-5-步验证集群)。
 
 ## 第 1 步：克隆 GitHub 仓库
 
-将 GitHub 仓库 `cloudberrydb/cloudberrydb` 克隆到目标机器：
+将 GitHub 仓库 `apache/cloudberry` 克隆到目标机器：
 
 ```shell
-git clone https://github.com/cloudberrydb/cloudberrydb.git
+git clone https://github.com/apache/cloudberry.git
 ```
 
 ## 第 2 步：安装依赖项
@@ -34,43 +36,6 @@ git clone https://github.com/cloudberrydb/cloudberrydb.git
 进入仓库目录，根据你的操作系统安装依赖项：
 
 <Tabs>
-<TabItem value="centos-7" label="CentOS 7" default>
-
-以下步骤在 CentOS 7 上测试通过。对于其他版本的 CentOS，这些步骤可能有效，但不能保证有效。
-
-1. 执行 `cloudberrydb/cloudberrydb` 仓库下 `deploy/build` 目录中的 `README.CentOS.bash` 脚本。执行此脚本需要输入密码。然后，系统会自动下载一些必要的依赖项。
-
-    ```bash
-    cd cloudberrydb/deploy/build
-    ./README.CentOS.bash
-    ```
-
-2. 安装配置所需的其他包。
-
-    ```bash
-    yum -y install R apr apr-devel apr-util automake autoconf bash bison bison-devel bzip2 bzip2-devel centos-release-scl curl flex flex-devel gcc gcc-c++ git gdb iproute krb5-devel less libcurl libcurl-devel libevent libevent-devel libxml2 libxml2-devel libyaml libzstd-devel libzstd make openldap openssh openssh-clients openssh-server openssl openssl-devel openssl-libs perl python3-devel readline readline-devel rsync sed sudo tar vim wget which xerces-c-devel zip zlib && \
-    yum -y install epel-release
-    ```
-
-3. 将 GNU Compiler Collection (GCC) 更新到 `devtoolset-10` 版本，以支持 C++ 14。
-
-    ```bash
-    yum install centos-release-scl 
-    yum -y install devtoolset-10-gcc devtoolset-10-gcc-c++ devtoolset-10-binutils 
-    scl enable devtoolset-10 bash 
-    source /opt/rh/devtoolset-10/enable 
-    echo "source /opt/rh/devtoolset-10/enable" >> /etc/bashrc
-    source /etc/bashrc
-    gcc -v
-    ```
-
-4. 将 cmake3 链接到 cmake：
-
-    ```bash
-    sudo ln -sf /usr/bin/cmake3 /usr/local/bin/cmake
-    ```
-
-</TabItem>
 <TabItem value="rockey-rhel-8" label="RHEL 8 和 Rocky Linux 8" default>
 
 1. 安装开发工具 Development Tools。
@@ -124,7 +89,7 @@ git clone https://github.com/cloudberrydb/cloudberrydb.git
 
 ## 第 3 步：执行平台准备工作
 
-在操作系统上安装所有依赖项后，在构建 Cloudberry Database 之前你还需要执行一些平台准备工作。这些操作包括在平台上手动运行 `ldconfig`、创建 `gpadmin` 用户以及设置密码以启动 Cloudberry Database 并进行测试。
+在操作系统上安装所有依赖项后，在构建 Apache Cloudberry 之前你还需要执行一些平台准备工作。这些操作包括在平台上手动运行 `ldconfig`、创建 `gpadmin` 用户以及设置密码以启动 Apache Cloudberry 并进行测试。
 
 1. 确保将 `/usr/local/lib` 和 `/usr/local/lib64` 添加到 `/etc/ld.so.conf` 文件中。
 
@@ -136,7 +101,7 @@ git clone https://github.com/cloudberrydb/cloudberrydb.git
 2. 创建 `gpadmin` 用户并设置 SSH 密钥。根据不同的操作系统手动创建 SSH 密钥，这样你就可以在不输入密码的情况下运行 `ssh localhost`。
 
     <Tabs>
-    <TabItem value="centos-rhel-rockey" label="CentOS、Rocky Linux 和 RHEL" default>
+    <TabItem value="rhel-rockey" label="Rocky Linux 和 RHEL 8" default>
 
     ```bash
     useradd gpadmin  # 创建 gpadmin 用户
@@ -162,24 +127,24 @@ git clone https://github.com/cloudberrydb/cloudberrydb.git
     </TabItem>
     </Tabs>
 
-## 第 4 步：构建 Cloudberry Database
+## 第 4 步：构建 Apache Cloudberry
 
-安装完所有依赖项并执行了平台准备工作后，你就可以开始构建 Cloudberry Database 了。按顺序执行以下命令。
+安装完所有依赖项并执行了平台准备工作后，你就可以开始构建 Apache Cloudberry 了。按顺序执行以下命令。
 
 1. 进入 `cloudberrydb` 目录，执行 `configure` 脚本。
 
     ```bash
-    cd cloudberrydb
+    cd ../..
     ./configure --with-perl --with-python --with-libxml --with-gssapi --prefix=/usr/local/cloudberrydb
     ```
 
     :::info 提示
-    Cloudberry Database 默认使用 GPORCA 构建。如果你希望构建出不使用 GPORCA 的 Cloudberry Database，请在 `./configure` 命令中添加 `--disable-orca` 参数。
+    Apache Cloudberry 默认使用 GPORCA 构建。如果你希望构建出不使用 GPORCA 的 Apache Cloudberry，请在 `./configure` 命令中添加 `--disable-orca` 参数。
 
     ```bash
     ./configure --disable-orca --with-perl --with-python --with-libxml --prefix=/usr/local/cloudberrydb
     ```
-    
+
     :::
 
 2. 编译源码并安装数据库。
@@ -189,7 +154,7 @@ git clone https://github.com/cloudberrydb/cloudberrydb.git
     make -j8 install
     ```
 
-3. 将 Greenplum 环境引入运行中的 shell。
+3. 将 Greenplum 的环境变量引入运行中的 shell。
 
     ```bash
     cd ..
@@ -204,15 +169,6 @@ git clone https://github.com/cloudberrydb/cloudberrydb.git
 4. 启动示例集群。
 
     <Tabs>
-    <TabItem value="centos" label="CentOS 7" default>
-
-    ```bash
-    scl enable devtoolset-10 bash 
-    source /opt/rh/devtoolset-10/enable 
-    make create-demo-cluster
-    ```
-
-    </TabItem>
     <TabItem value="ubuntu-rocky-rhel" label="Ubuntu、Rocky Linux 和 RHEL" default>
 
     ```bash
@@ -238,20 +194,29 @@ git clone https://github.com/cloudberrydb/cloudberrydb.git
     ps -ef | grep postgres
     ```
 
-2. 连接至 Cloudberry Database，通过查询系统表 `gp_segement_configuration` 查看活跃 segment 的信息。有关此系统表的详细描述，参见 [Greenplum 文档](https://docs.vmware.com/en/VMware-Greenplum/7/greenplum-database/ref_guide-system_catalogs-gp_segment_configuration.html)。
+2. 连接至 Apache Cloudberry，通过查询系统表 `gp_segement_configuration` 查看活跃 segment 的信息。有关此系统表的详细描述，参见 [Greenplum 文档](https://docs.vmware.com/en/VMware-Greenplum/7/greenplum-database/ref_guide-system_catalogs-gp_segment_configuration.html)。
 
     ```sql
-    $ psql -p 7000 postgres
+    psql -p 7000 postgres
+
     psql (14.4, server 14.4)
     Type "help" for help.
-    
-    postgres=# select version();
-                                                                                            version                                                                                         
-    -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    PostgreSQL 14.4 (Cloudberry Database 1.0.0+1c0d6e2224 build dev) on x86_64( GCC 13.2.0) 13.2.0, 64-bit compiled on Sep 22 2023 10:56:01
+    ```
+
+    ```sql
+    SELECT VERSION();
+
+               version                                                          
+    -------------------------------------------------------------------------------------
+    PostgreSQL 14.4 (Apache Cloudberry 1.6.0+dev.1383.g5cdbab19af build dev) on x86_64-pc-li
+    nux-gnu, compiled by gcc (GCC) 8.5.0 20210514 (Red Hat 8.5.0-23), 64-bit compiled on Feb 
+    26 2025 18:20:10
     (1 row)
-    
-    postgres=# select * from gp_segment_configuration;
+    ```
+
+    ```sql
+    SELECT * FROM gp_segment_configuration;
+
      dbid | content | role | preferred_role | mode | status | port |  hostname  |  address   |                                   datadir                                    | warehouseid 
     ------+---------+------+----------------+------+--------+------+------------+------------+------------------------------------------------------------------------------+-------------
         1 |      -1 | p    | p              | n    | u      | 7000 | i-6wvpa9wt | i-6wvpa9wt | /home/gpadmin/cloudberrydb/gpAux/gpdemo/datadirs/qddir/demoDataDir-1         |           0
