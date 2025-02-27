@@ -44,9 +44,9 @@ Specifies the data directory of the database cluster, which contains all data fi
 
 ---
 
-### Block Size (`-B`)
+### Number of Shared Buffers (`-B`)
 
-Sets the data block size, with a default of 8192.
+The option specifies the number of shared buffers.
 
 **Example:**
 
@@ -63,14 +63,6 @@ Sets the data block size, with a default of 8192.
 2025-02-25 23:10:59.716 CST [10063] LOG:  redo done at 0/1748360 system usage: CPU: user: 0.00 s, system: 0.00 s, elapsed: 0.00 s
 2025-02-25 23:10:59.720 CST [10062] LOG:  database system is ready to accept connections
 ```
-
----
-
-### Configuration File Location (`-C`)
-
-Specifies the location of the configuration file.
-
-**Example:**
 
 ---
 

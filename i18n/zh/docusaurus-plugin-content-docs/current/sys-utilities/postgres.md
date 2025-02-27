@@ -44,9 +44,9 @@ postgres [OPTION]...
 
 ---
 
-### 块大小 (`-B`)
+### 共享缓冲区的数量 (`-B`)
 
-设置数据块大小，默认为 8192。
+-B 选项指定了 共享缓冲区的数量
 
 **示例：**
 
@@ -62,28 +62,6 @@ postgres [OPTION]...
 2025-02-25 23:10:59.716 CST [10063] LOG:  invalid record length at 0/1748398: wanted 24, got 0
 2025-02-25 23:10:59.716 CST [10063] LOG:  redo done at 0/1748360 system usage: CPU: user: 0.00 s, system: 0.00 s, elapsed: 0.00 s
 2025-02-25 23:10:59.720 CST [10062] LOG:  database system is ready to accept connections
-```
-
----
-
-### 配置文件位置 (`-C`)
-
-指定配置文件的位置。
-
-**示例：**
-
-```bash
-(base) admin@admindeMBP ~ % postgres -D /Users/admin/postgres --config-file=/Users/admin/postgres/postgresql.conf
-2025-02-25 23:11:23.687 CST [10807] LOG:  starting PostgreSQL 14.15 (Homebrew) on aarch64-apple-darwin23.6.0, compiled by Apple clang version 16.0.0 (clang-1600.0.26.4), 64-bit
-2025-02-25 23:11:23.688 CST [10807] LOG:  listening on IPv6 address "::1", port 5432
-2025-02-25 23:11:23.688 CST [10807] LOG:  listening on IPv4 address "127.0.0.1", port 5432
-2025-02-25 23:11:23.689 CST [10807] LOG:  listening on Unix socket "/tmp/.s.PGSQL.5432"
-2025-02-25 23:11:23.691 CST [10809] LOG:  database system was interrupted; last known up at 2025-02-25 23:10:59 CST
-2025-02-25 23:11:23.731 CST [10809] LOG:  database system was not properly shut down; automatic recovery in progress
-2025-02-25 23:11:23.732 CST [10809] LOG:  redo starts at 0/1748410
-2025-02-25 23:11:23.732 CST [10809] LOG:  invalid record length at 0/1748448: wanted 24, got 0
-2025-02-25 23:11:23.732 CST [10809] LOG:  redo done at 0/1748410 system usage: CPU: user: 0.00 s, system: 0.00 s, elapsed: 0.00 s
-2025-02-25 23:11:23.736 CST [10807] LOG:  database system is ready to accept connections
 ```
 
 ---
@@ -193,29 +171,6 @@ postgres [OPTION]...
 
 ---
 
-### 启用 TCP/IP 连接 (`-i`)
-
-允许通过 TCP/IP 连接数据库。默认情况下，PostgreSQL 只允许本地连接。
-
-**示例：**
-
-启用 TCP/IP 连接：
-
-```bash
-(base) admin@admindeMBP ~ % postgres -D /Users/admin/postgres -i
-2025-02-25 23:15:29.319 CST [18294] LOG:  starting PostgreSQL 14.15 (Homebrew) on aarch64-apple-darwin23.6.0, compiled by Apple clang version 16.0.0 (clang-1600.0.26.4), 64-bit
-2025-02-25 23:15:29.319 CST [18294] LOG:  listening on IPv6 address "::", port 5432
-2025-02-25 23:15:29.319 CST [18294] LOG:  listening on IPv4 address "0.0.0.0", port 5432
-2025-02-25 23:15:29.320 CST [18294] LOG:  listening on Unix socket "/tmp/.s.PGSQL.5432"
-2025-02-25 23:15:29.324 CST [18295] LOG:  database system was interrupted; last known up at 2025-02-25 23:15:05 CST
-2025-02-25 23:15:29.378 CST [18295] LOG:  database system was not properly shut down; automatic recovery in progress
-2025-02-25 23:15:29.379 CST [18295] LOG:  redo starts at 0/17488A8
-2025-02-25 23:15:29.379 CST [18295] LOG:  invalid record length at 0/17488E0: wanted 24, got 0
-2025-02-25 23:15:29.379 CST [18295] LOG:  redo done at 0/17488A8 system usage: CPU: user: 0.00 s, system: 0.00 s, elapsed: 0.00 s
-2025-02-25 23:15:29.383 CST [18294] LOG:  database system is ready to accept connections
-```
-
----
 
 ### Unix 域套接字目录 (`-k`)
 
