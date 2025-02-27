@@ -115,7 +115,7 @@ let TRY_IT_OUT = {
             2. Build on your machine, check the{" "}
             <LinkWithBaseUrl
               className="active-color"
-              href="https://cloudberry.apache.org/docs/cbdb-linux-compile/"
+              href="https://cloudberry.apache.org/docs/cbdb-rockylinux8-ubuntu-compile/"
             >
               doc
             </LinkWithBaseUrl>

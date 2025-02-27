@@ -12,7 +12,7 @@ Cloudberry Database v1.5.3 是一个小版本更新，包含了一些提升改�
 
 :::note
 
-如使用源码部署 1.5.3 版本的 Cloudberry Database，请在执行[构建 Cloudberry Database](/i18n/zh/docusaurus-plugin-content-docs/current/cbdb-linux-compile.md#第-4-步构建-cloudberry-database)中的 `./configure` 文件前运行以下命令，以安装所需的依赖。
+如使用源码部署 1.5.3 版本的 Cloudberry Database，请在执行[构建 Cloudberry Database](/i18n/zh/docusaurus-plugin-content-docs/current/cbdb-rockylinux8-ubuntu-compile.md#第-4-步构建-cloudberry-database)中的 `./configure` 文件前运行以下命令，以安装所需的依赖。
 
 ```
 yum install -y go

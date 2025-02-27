@@ -1,32 +1,34 @@
 ---
-title: On Linux
+title: On Rocky Linux 8 and Ubuntu
 ---
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Compile and Install Cloudberry Database on Linux
+# Compile and Install Apache Cloudberry on Rocky Linux 8 and Ubuntu
 
 :::info
-The source of this document is from the GitHub repository [`cloudberrydb/cloudberrydb`](https://github.com/cloudberrydb/cloudberrydb/blob/main/deploy/build/README.Linux.md).
+The source of this document is from the GitHub repository [`apache/cloudberry`](https://github.com/apache/cloudberry/blob/main/deploy/build/README.Linux.md).
 :::
 
-This document shares how to compile and install Cloudberry Database on Linux systems (CentOS 7, RHEL, and Ubuntu). Note that this document is for developers to try out Cloudberry Database in a single-node environments. DO NOT use this document for production environments.
+This document shares how to compile and install Apache Cloudberry on Rocky Linux 8, RHEL 8, and Ubuntu. Note that this document is for developers to try out Apache Cloudberry in a single-node environments. **DO NOT use this document for production environments**.
 
-Take the following steps to compile and install Cloudberry Database:
+To learn how to compile and install Apache Cloudberry on Rocky Linux 9, see [](https://github.com/edespino/cloudberry/blob/rocky9-dev-readme/deploy/build/README-rockylinux9.md)
+
+Take the following steps to compile and install Apache Cloudberry:
 
 1. [Clone GitHub repo](#step-1-clone-github-repo).
 2. [Install dependencies](#step-2-install-dependencies).
 3. [Perform prerequisite platform tasks](#step-3-perform-prerequisite-platform-tasks).
-4. [Build Cloudberry Database](#step-4-build-cloudberry-database).
+4. [Build Apache Cloudberry](#step-4-build-apache-cloudberry).
 5. [Verify the cluster](#step-5-verify-the-cluster).
 
 ## Step 1. Clone GitHub repo
 
-Clone the GitHub repository `cloudberrydb/cloudberrydb` to the target machine:
+Clone the GitHub repository `apache/cloudberry` to the target machine:
 
 ```shell
-git clone https://github.com/cloudberrydb/cloudberrydb.git
+git clone https://github.com/apache/cloudberry.git
 ```
 
 ## Step 2. Install dependencies
@@ -34,43 +36,6 @@ git clone https://github.com/cloudberrydb/cloudberrydb.git
 Enter the repository and install dependencies according to your operating systems:
 
 <Tabs>
-<TabItem value="centos-7" label="For CentOS 7" default>
-
-The following steps work on CentOS 7. For other CentOS versions, these steps might work but are not guaranteed to work.
-
-1. Run the Bash script `README.CentOS.bash` in the `deploy/build` directory of the `cloudberrydb/cloudberrydb` repository. To run this script, password is required. Then, some required dependencies will be automatically downloaded.
-
-    ```bash
-    cd cloudberrydb/deploy/build
-    ./README.CentOS.bash
-    ```
-
-2. Install additional packages required for configurations.
-
-    ```bash
-    yum -y install R apr apr-devel apr-util automake autoconf bash bison bison-devel bzip2 bzip2-devel centos-release-scl curl flex flex-devel gcc gcc-c++ git gdb iproute krb5-devel less libcurl libcurl-devel libevent libevent-devel libxml2 libxml2-devel libyaml libzstd-devel libzstd make openldap openssh openssh-clients openssh-server openssl openssl-devel openssl-libs perl python3-devel readline readline-devel rsync sed sudo tar vim wget which xerces-c-devel zip zlib && \
-    yum -y install epel-release
-    ```
-
-3. Update the GNU Compiler Collection (GCC) to version `devtoolset-10` to support C++ 14.
-
-    ```bash
-    yum install centos-release-scl 
-    yum -y install devtoolset-10-gcc devtoolset-10-gcc-c++ devtoolset-10-binutils 
-    scl enable devtoolset-10 bash 
-    source /opt/rh/devtoolset-10/enable 
-    echo "source /opt/rh/devtoolset-10/enable" >> /etc/bashrc
-    source /etc/bashrc
-    gcc -v
-    ```
-
-4. Link cmake3 to cmake:
-
-    ```bash
-    sudo ln -sf /usr/bin/cmake3 /usr/local/bin/cmake
-    ```
-
-</TabItem>
 <TabItem value="rockey-rhel-8" label="For RHEL 8 and Rocky Linux 8" default>
 
 1. Install Development Tools.
@@ -124,7 +89,7 @@ The following steps work on CentOS 7. For other CentOS versions, these steps mig
 
 ## Step 3. Perform prerequisite platform tasks
 
-After you have installed all the dependencies for your operating system, it is time to do some prerequisite platform tasks before you go on building Cloudberry Database. These operation include manually running `ldconfig` on all platforms, creating the `gpadmin` user, and setting up a password to start the Cloudberry Database and test.
+After you have installed all the dependencies for your operating system, it is time to do some prerequisite platform tasks before you go on building Apache Cloudberry. These operation include manually running `ldconfig` on all platforms, creating the `gpadmin` user, and setting up a password to start the Apache Cloudberry and test.
 
 1. Make sure that you add `/usr/local/lib` and `/usr/local/lib64` to the `/etc/ld.so.conf` file.
 
@@ -136,7 +101,7 @@ After you have installed all the dependencies for your operating system, it is t
 2. Create the `gpadmin` user and set up the SSH key. Manually create SSH keys based on different operating systems, so that you can run `ssh localhost` without a password.
 
     <Tabs>
-    <TabItem value="centos-rhel-rockey" label="For CentOS, Rocky Linux, and RHEL" default>
+    <TabItem value="rhel-rockey" label="For Rocky Linux 8 and RHEL 8" default>
 
     ```bash
     useradd gpadmin  # Creates gpadmin user
@@ -162,19 +127,19 @@ After you have installed all the dependencies for your operating system, it is t
     </TabItem>
     </Tabs>
 
-## Step 4. Build Cloudberry Database
+## Step 4. Build Apache Cloudberry
 
-After you have installed all the dependencies and performed the prerequisite platform tasks, you can start to build Cloudberry Database. Run the following commands in sequence.
+After you have installed all the dependencies and performed the prerequisite platform tasks, you can start to build Apache Cloudberry. Run the following commands in sequence.
 
 1. Configure the build environment. Enter the `cloudberrydb` directory and run the `configure` script.
 
     ```bash
-    cd cloudberrydb
+    cd ../..
     ./configure --with-perl --with-python --with-libxml --with-gssapi --prefix=/usr/local/cloudberrydb
     ```
 
     :::info
-    Cloudberry Database is built with GPORCA by default. If you want to build CBDB without GPORCA, add the `--disable-orca` flag in the `./configure` command.
+    Apache Cloudberry is built with GPORCA by default. If you want to build CBDB without GPORCA, add the `--disable-orca` flag in the `./configure` command.
     
     ```bash
     ./configure --disable-orca --with-perl --with-python --with-libxml --prefix=/usr/local/cloudberrydb
@@ -189,7 +154,7 @@ After you have installed all the dependencies and performed the prerequisite pla
     make -j8 install
     ```
 
-3. Bring in the Greenplum environment for your running shell.
+3. Bring in the Greenplum environment variables for your running shell.
 
     ```bash
     cd ..
@@ -204,16 +169,7 @@ After you have installed all the dependencies and performed the prerequisite pla
 4. Start the demo cluster.
 
     <Tabs>
-    <TabItem value="centos" label="For CentOS 7" default>
-
-    ```bash
-    scl enable devtoolset-10 bash 
-    source /opt/rh/devtoolset-10/enable 
-    make create-demo-cluster
-    ```
-
-    </TabItem>
-    <TabItem value="ubuntu-rocky-rhel" label="For Ubuntu, Rocky Linux, and RHEL" default>
+    <TabItem value="ubuntu-rocky-rhel" label="For Ubuntu, Rocky Linux 8, and RHEL 8" default>
 
     ```bash
     make create-demo-cluster
@@ -238,20 +194,27 @@ After you have installed all the dependencies and performed the prerequisite pla
     ps -ef | grep postgres
     ```
     
-2. Connect to the Cloudberry Database and see the active segment information by querying the system table `gp_segement_configuration`. For detailed description of this table, see the Greenplum document [here](https://docs.vmware.com/en/VMware-Greenplum/6/greenplum-database/ref_guide-system_catalogs-gp_segment_configuration.html).
+2. Connect to the Apache Cloudberry and see the active segment information by querying the system table `gp_segement_configuration`. For detailed description of this table, see the Greenplum document [here](https://docs.vmware.com/en/VMware-Greenplum/6/greenplum-database/ref_guide-system_catalogs-gp_segment_configuration.html).
 
     ```sql
-    $ psql -p 7000 postgres
+    psql -p 7000 postgres
     psql (14.4, server 14.4)
     Type "help" for help.
-    
-    postgres=# select version();
-                                                                                            version                                                                                         
-    -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    PostgreSQL 14.4 (Cloudberry Database 1.0.0+1c0d6e2224 build dev) on x86_64( GCC 13.2.0) 13.2.0, 64-bit compiled on Sep 22 2023 10:56:01
+    ```
+
+    ```sql
+    SELECT VERSION();
+               version                                                          
+    -------------------------------------------------------------------------------------
+    PostgreSQL 14.4 (Apache Cloudberry 1.6.0+dev.1383.g5cdbab19af build dev) on x86_64-pc-li
+    nux-gnu, compiled by gcc (GCC) 8.5.0 20210514 (Red Hat 8.5.0-23), 64-bit compiled on Feb 
+    26 2025 18:20:10
     (1 row)
-    
-    postgres=# select * from gp_segment_configuration;
+    ```
+
+    ```sql
+    SELECT * FROM gp_segment_configuration;
+
      dbid | content | role | preferred_role | mode | status | port |  hostname  |  address   |                                   datadir                                    | warehouseid 
     ------+---------+------+----------------+------+--------+------+------------+------------+------------------------------------------------------------------------------+-------------
         1 |      -1 | p    | p              | n    | u      | 7000 | i-6wvpa9wt | i-6wvpa9wt | /home/gpadmin/cloudberrydb/gpAux/gpdemo/datadirs/qddir/demoDataDir-1         |           0

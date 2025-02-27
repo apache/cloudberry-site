@@ -1,19 +1,19 @@
 ---
-title: 在 Linux 上
+title: 在 Rocky Linux 8 和 Ubuntu 上
 ---
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# 在 Linux 系统上编译和安装 Apache Cloudberry
+# 在 Rocky Linux 8 和 Ubuntu 系统上编译和安装 Apache Cloudberry
 
 :::info
 本文档来自 GitHub 仓库 [`apache/cloudberry`](https://github.com/apache/cloudberry/blob/main/deploy/build/README.Linux.md)。
 :::
 
-本文档分享如何在 Linux 系统（RHEL 8 和 Ubuntu）上编译和安装 Apache Cloudberry。请注意，本文档仅供开发人员在单节点环境中尝试 Apache Cloudberry。**请勿将本文档用于生产环境**。
+本文档分享如何在 Rocky Linux 8 和 Ubuntu 上编译和安装 Apache Cloudberry。请注意，本文档仅供开发人员在单节点环境中尝试 Apache Cloudberry。**请勿将本文档用于生产环境**。
 
-如果希望了解如何在 Rocky Linux 9 上编译和安装 Apache Cloudberry，请参见 [在 Rocky Linux 9 上编译和安装 Apache Cloudberry](https://github.com/edespino/cloudberry/blob/rocky9-dev-readme/deploy/build/README-rockylinux9.md)。
+如果希望了解如何在 Rocky Linux 9 上编译和安装 Apache Cloudberry，请参见[在 Rocky Linux 9 上编译和安装 Apache Cloudberry](https://github.com/edespino/cloudberry/blob/rocky9-dev-readme/deploy/build/README-rockylinux9.md)。
 
 按照以下步骤设置开发环境：
 

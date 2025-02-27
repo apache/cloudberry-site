@@ -26,7 +26,7 @@ const sidebars: SidebarsConfig = {
       {
         type: 'category',
         label: 'Build from Source Code',
-        items: ['cbdb-macos-compile','cbdb-linux-compile']
+        items: ['cbdb-macos-compile','cbdb-rockylinux8-ubuntu-compile','cbdb-rockylinux9-compile']
       },
       {
         type: 'category',
