@@ -59,7 +59,7 @@ This form sets the per-column statistics-gathering target for subsequent `ANALYZ
 
 **`IF EXISTS`**
 
-Do not throw an error if the index does not exist. Cloudberry Database issues a notice in this case.
+Do not throw an error if the index does not exist. Apache Cloudberry issues a notice in this case.
 
 **`column_number`**
 
@@ -123,7 +123,7 @@ ALTER INDEX coord_idx ALTER COLUMN 3 SET STATISTICS 1000;
 
 ## Compatibility
 
-`ALTER INDEX` is a Cloudberry Database extension to the SQL standard.
+`ALTER INDEX` is a Apache Cloudberry extension to the SQL standard.
 
 ## See also
 

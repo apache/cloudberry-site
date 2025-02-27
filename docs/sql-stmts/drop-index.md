@@ -50,7 +50,7 @@ DROP INDEX title_idx;
 
 ## Compatibility
 
-`DROP INDEX` is a Cloudberry Database language extension. There are no provisions for indexes in the SQL standard.
+`DROP INDEX` is a Apache Cloudberry language extension. There are no provisions for indexes in the SQL standard.
 
 ## See also
 

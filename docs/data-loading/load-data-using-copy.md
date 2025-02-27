@@ -2,13 +2,13 @@
 title: Load Data Using COPY
 ---
 
-# Load Data into Cloudberry Database Using `COPY`
+# Load Data into Apache Cloudberry Using `COPY`
 
-`COPY FROM` copies data from a file or standard input in a local file system into a table and appends the data to the table contents. `COPY` is non-parallel: data is loaded in a single process using the Cloudberry Database coordinator instance. Using `COPY` is only recommended for very small data files.
+`COPY FROM` copies data from a file or standard input in a local file system into a table and appends the data to the table contents. `COPY` is non-parallel: data is loaded in a single process using the Apache Cloudberry coordinator instance. Using `COPY` is only recommended for very small data files.
 
 The `COPY` source file must be accessible to the `postgres` process on the coordinator host. Specify the `COPY` source file name relative to the data directory on the coordinator host, or specify an absolute path.
 
-Cloudberry Database copies data from `STDIN` or `STDOUT` using the connection between the client and the coordinator server.
+Apache Cloudberry copies data from `STDIN` or `STDOUT` using the connection between the client and the coordinator server.
 
 ## Load from a file 
 

@@ -4,11 +4,11 @@ title: 在 AO 表上使用唯一索引
 
 # 在 AO 表上使用唯一索引（引入自 v1.5.0 版本）
 
-自 v1.5.0 版本起，你可以在 Cloudberry Database 的 Append-Optimized (AO) 或 AOCS 表上添加唯一索引。有了唯一索引，Cloudberry Database 会在将数据插入到 AO 表时，强制检查唯一性约束，从而保证数据的唯一性，同时能够与优化器一起优化特定的查询，从而提高数据库的查询性能。但这也带来的一定的开销用于维护唯一索引，尤其是在插入数据时。
+自 v1.5.0 版本起，你可以在 Apache Cloudberry 的 Append-Optimized (AO) 或 AOCS 表上添加唯一索引。有了唯一索引，Apache Cloudberry 会在将数据插入到 AO 表时，强制检查唯一性约束，从而保证数据的唯一性，同时能够与优化器一起优化特定的查询，从而提高数据库的查询性能。但这也带来的一定的开销用于维护唯一索引，尤其是在插入数据时。
 
 ## 实现原理
 
-针对存在唯一索引的场景，在向 AO 表插入数据时，Cloudberry Database 会在 AO 表的辅助索引结构 BlockDirectory 中插入 placeholder，以阻塞相同 key 的插入，从而实现唯一索引。
+针对存在唯一索引的场景，在向 AO 表插入数据时，Apache Cloudberry 会在 AO 表的辅助索引结构 BlockDirectory 中插入 placeholder，以阻塞相同 key 的插入，从而实现唯一索引。
 
 ## 如何在 AO 表上添加唯一索引
 

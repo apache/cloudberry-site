@@ -54,7 +54,7 @@ where `<role_specification>` can be:
 
 ## Description
 
-`ALTER ROLE` changes the attributes of a Cloudberry Database role. There are several variants of this command.
+`ALTER ROLE` changes the attributes of a Apache Cloudberry role. There are several variants of this command.
 
 **`WITH option`**
 
@@ -228,7 +228,7 @@ ALTER ROLE parttime_user RESOURCE GROUP rg_light;
 
 ## Compatibility
 
-The `ALTER ROLE` statement is a Cloudberry Database extension.
+The `ALTER ROLE` statement is a Apache Cloudberry extension.
 
 ## See also
 

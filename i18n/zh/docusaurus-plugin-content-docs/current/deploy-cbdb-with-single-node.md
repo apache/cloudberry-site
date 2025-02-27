@@ -2,11 +2,11 @@
 title: 单计算节点模式部署
 ---
 
-# 单计算节点模式部署 Cloudberry Database（引入自 v1.5.0 版本）
+# 单计算节点模式部署 Apache Cloudberry（引入自 v1.5.0 版本）
 
-Cloudberry Database 与 PostgreSQL 并不完全兼容，部分功能和语法都是专有的。如果用户业务已经依赖 Cloudberry Database，想在单节点上使用 Cloudberry Database 特有的语法和功能，规避与 PostgreSQL 的兼容性问题，那么可以使用这种单计算节点的部署方式。
+Apache Cloudberry 与 PostgreSQL 并不完全兼容，部分功能和语法都是专有的。如果用户业务已经依赖 Apache Cloudberry，想在单节点上使用 Apache Cloudberry 特有的语法和功能，规避与 PostgreSQL 的兼容性问题，那么可以使用这种单计算节点的部署方式。
 
-自 v1.5.0 起，Cloudberry Database 提供这一单计算节点的部署模式。该模式在 `utility` gp_role 下运行，仅有一个 coordinator (QD) 和一个 coordinator standby 节点，没有 segment 节点和数据分布。用户可以直接连接到 coordinator 并执行查询，就像连接的是一个正常的多节点集群一样。注意，由于没有数据分布，一些 SQL 语句在单计算节点部署下没有效果，还有一些 SQL 语句不受支持。具体可见最后一节[用户行为变更](#用户行为变更)。
+自 v1.5.0 起，Apache Cloudberry 提供这一单计算节点的部署模式。该模式在 `utility` gp_role 下运行，仅有一个 coordinator (QD) 和一个 coordinator standby 节点，没有 segment 节点和数据分布。用户可以直接连接到 coordinator 并执行查询，就像连接的是一个正常的多节点集群一样。注意，由于没有数据分布，一些 SQL 语句在单计算节点部署下没有效果，还有一些 SQL 语句不受支持。具体可见最后一节[用户行为变更](#用户行为变更)。
 
 ## 部署方法
 
@@ -128,7 +128,7 @@ vm.dirty_bytes = 4294967296
 
 ##### IP 分段设置
 
-当 Cloudberry Database 内部连接使用 UDP 协议，网卡会控制 IP 数据包的分段和重组。如果 UDP 消息的大小大于网络最大传输单元 (MTU) 的大小，IP 层会对消息进行分段。
+当 Apache Cloudberry 内部连接使用 UDP 协议，网卡会控制 IP 数据包的分段和重组。如果 UDP 消息的大小大于网络最大传输单元 (MTU) 的大小，IP 层会对消息进行分段。
 
 - `net.ipv4.ipfrag_high_thresh`：当 IP 分片的总大小超过该阈值时，内核将尝试对 IP 分片进行重组。如果分片超过了这个阈值，但全部片段在规定的时间内仍未到达，内核则不会重组这些分片。该阈值通常用于控制是否对较大的分片进行重组。默认值为 `4194304` 字节（即 4 MB）。
 - `net.ipv4.ipfrag_low_thresh`：表示当 IP 分片的总大小低于该阈值时，内核将尽可能地等待更多分片到达，以便进行更大的重组。这个阈值的目的是尽量减少未完成的重组操作，以提高系统性能。默认值为 `3145728` 字节（3 MB）。
@@ -201,7 +201,7 @@ net.ipv4.ipfrag_time = 60
 
 ##### 为 XFS 文件系统设置挂载选项
 
-XFS 是 Cloudberry Database 数据目录的文件系统，XFS 使用以下选项进行挂载：
+XFS 是 Apache Cloudberry 数据目录的文件系统，XFS 使用以下选项进行挂载：
 
 ```
 rw,nodev,noatime,inode64
@@ -251,7 +251,7 @@ sudo /sbin/blockdev --setra 16384 /dev/vdc
 
 ##### 磁盘的 I/O 调度策略设置
 
-Cloudberry Database 的磁盘类型、操作系统以及调度策略如下：
+Apache Cloudberry 的磁盘类型、操作系统以及调度策略如下：
 
 <table>
 <thead>
@@ -330,7 +330,7 @@ grubby --info=ALL
 
 ##### 禁用透明大页面 (THP)
 
-你需要禁用透明大页面 (THP)，因为它会降低 Cloudberry Database 的性能。禁用的命令如下所示：
+你需要禁用透明大页面 (THP)，因为它会降低 Apache Cloudberry 的性能。禁用的命令如下所示：
 
 ```bash
 grubby --update-kernel=ALL --args="transparent_hugepage=never"
@@ -344,7 +344,7 @@ cat /sys/kernel/mm/*transparent_hugepage/enabled
 
 ##### 禁用 IPC 对象删除
 
-禁用 IPC 对象删除，即把 `RemoveIPC` 的值设为 `no`。你可以在 Cloudberry Database 的 `/etc/systemd/logind.conf` 文件中设置该参数。
+禁用 IPC 对象删除，即把 `RemoveIPC` 的值设为 `no`。你可以在 Apache Cloudberry 的 `/etc/systemd/logind.conf` 文件中设置该参数。
 
 ```
 RemoveIPC=no
@@ -378,7 +378,7 @@ service sshd restart
 
 ##### 时钟同步设置
 
-Cloudberry Database 要求为所有主机配置时钟需要同步，时钟同步服务应当随主机启动而启动。有两种同步方式：
+Apache Cloudberry 要求为所有主机配置时钟需要同步，时钟同步服务应当随主机启动而启动。有两种同步方式：
 
 - 使用 Coordinator 节点的时间作为来源，其他主机同步 Coordinator 节点主机的时钟。
 - 使用外部时钟来源同步。
@@ -397,9 +397,9 @@ server 0.centos.pool.ntp.org iburst
 systemctl status chronyd
 ```
 
-## 第 2 步：通过 RPM 包安装 Cloudberry Database
+## 第 2 步：通过 RPM 包安装 Apache Cloudberry
 
-1. 下载 Cloudberry Database 的 RPM 安装包至 `gpadmin` 主目录 `/home/gpadmin/`：
+1. 下载 Apache Cloudberry 的 RPM 安装包至 `gpadmin` 主目录 `/home/gpadmin/`：
 
     ```bash
     wget -P /home/gpadmin <下载地址>
@@ -407,7 +407,7 @@ systemctl status chronyd
 
 2. 在 `/home/gpadmin` 目录下安装 RPM 包。
 
-    执行以下命令时，你需要将 `<RPM 安装包路径>` 替换为实际的安装包路径，并使用 `root` 用户执行。安装时，会自动创建默认安装目录 `/usr/local/cloudberry-db/`。
+    执行以下命令时，你需要将 `<RPM 安装包路径>` 替换为实际的安装包路径，并使用 `root` 用户执行。安装时，会自动创建默认安装目录 `/usr/local/cloudberry/`。
 
     ```bash
     cd /home/gpadmin
@@ -429,9 +429,9 @@ systemctl status chronyd
     ssh `hostname` # 确认本地 SSH 登录能正常工作
     ```
 
-## 第 3 步：部署单计算节点的 Cloudberry Database
+## 第 3 步：部署单计算节点的 Apache Cloudberry
 
-使用脚本工具 [`gpdemo`](/i18n/zh/docusaurus-plugin-content-docs/current/sys-utilities/gpdemo.md) 快速部署 Cloudberry Database。`gpdemo` 包含在 RPM 包中，将随配置脚本（gpinitsystem、gpstart、gpstop 等）一并安装到 `GPHOME/bin` 目录下，支持快捷部署无 Segment 节点的 Cloudberry Database。
+使用脚本工具 [`gpdemo`](/i18n/zh/docusaurus-plugin-content-docs/current/sys-utilities/gpdemo.md) 快速部署 Apache Cloudberry。`gpdemo` 包含在 RPM 包中，将随配置脚本（gpinitsystem、gpstart、gpstop 等）一并安装到 `GPHOME/bin` 目录下，支持快捷部署无 Segment 节点的 Apache Cloudberry。
 
 在上面[为 XFS 文件系统设置挂载选项](#为-xfs-文件系统设置挂载选项)中，XFS 文件系统的数据目录挂载在了 `/data0` 上。以下指令在该数据目录下部署一个单计算节点集群：
 
@@ -440,13 +440,13 @@ cd /data0
 NUM_PRIMARY_MIRROR_PAIRS=0 gpdemo  # 使用 gpdemo 工具
 ```
 
-在 `gpdemo` 的执行过程中，会输出一条新的警告 `[WARNING]:-SinglenodeMode has been enabled, no segment will be created.`，这表示当前正以单计算节点模式部署 Cloudberry Database。
+在 `gpdemo` 的执行过程中，会输出一条新的警告 `[WARNING]:-SinglenodeMode has been enabled, no segment will be created.`，这表示当前正以单计算节点模式部署 Apache Cloudberry。
 
 ## 常见问题
 
 ### 如何确认集群的部署模式
 
-执行以下步骤确认当前 Cloudberry Database 的部署模式：
+执行以下步骤确认当前 Apache Cloudberry 的部署模式：
 
 1. 连接到 Coordinator 节点。
 2. 执行 `SHOW ``gp_role``;` 查看当前集群的运行模式。
@@ -473,7 +473,7 @@ NUM_PRIMARY_MIRROR_PAIRS=0 gpdemo  # 使用 gpdemo 工具
 
 ## 用户行为变更
 
-在单计算节点模式下， Cloudberry Database 的产品行为有如下变更，用户在执行相关操作前需注意：
+在单计算节点模式下， Apache Cloudberry 的产品行为有如下变更，用户在执行相关操作前需注意：
 
 - 在使用 `CREATE TABLE` 语句建表时，`DISTRIBUTED BY` 子句不再生效。执行此类语句时，该子句的效果将被忽略，并输出一条新的警告 `WARNING: DISTRIBUTED BY clause has no effect in singlenode mode`。
 - `SELECT` 语句的 `SCATTER BY` 子句不再有效。执行此类语句时，该子句的效果将被忽略，并输出一条新的警告 `WARNING: SCATTER BY clause has no effect in singlenode mode`。
