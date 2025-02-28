@@ -32,6 +32,7 @@ For more information about a utility, see the corresponding topic listed in the 
 ## Reference for Server Applications
 
 - [pg_checksums](./pg-checksums.md) — enable, disable or check data checksums in a database cluster
+- [postgres](./postgres.md) — is used to start the PostgreSQL server and manage database cluster configurations.
 
 ## Reference for Administrator
 
