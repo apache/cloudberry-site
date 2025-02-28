@@ -2,9 +2,9 @@
 title: postgres
 ---
 
-# postgres 命令使用说明
+# postgres
 
-`postgres` 是 PostgreSQL 数据库服务器的核心可执行文件，用于启动和管理数据库实例。本文将详细介绍 `postgres` 命令的常用选项及其使用方法。
+`postgres` 是 Cloudberry Database 数据库服务器的核心可执行文件，用于启动和管理数据库实例。本文将详细介绍 `postgres` 命令的常用选项及其使用方法。
 
 ---
 
@@ -170,7 +170,6 @@ postgres [OPTION]...
 ```
 
 ---
-
 
 ### Unix 域套接字目录 (`-k`)
 
