@@ -29,7 +29,7 @@ ABORT [WORK | TRANSACTION] [AND [NO] CHAIN]
 
 ## 注意事项
 
-使用 [`COMMIT`](https://github.com/cloudberrydb/cloudberrydb-site/blob/cbdb-doc-validation/docs/sql-stmts/commit.md) 成功终止事务。
+使用 [`COMMIT`](https://github.com/apache/cloudberry-site/blob/cbdb-doc-validation/docs/sql-stmts/commit.md) 成功终止事务。
 
 在事务块之外执行 `ABORT` 会报错，而且不会生效。
 
@@ -47,4 +47,4 @@ ABORT;
 
 ## 另见
 
-[`BEGIN`](https://github.com/cloudberrydb/cloudberrydb-site/blob/cbdb-doc-validation/docs/sql-stmts/begin.md)、[`COMMIT`](https://github.com/cloudberrydb/cloudberrydb-site/blob/cbdb-doc-validation/docs/sql-stmts/commit.md)、[`ROLLBACK`](/i18n/zh/docusaurus-plugin-content-docs/current/sql-stmts/rollback.md)
+[`BEGIN`](https://github.com/apache/cloudberry-site/blob/cbdb-doc-validation/docs/sql-stmts/begin.md)、[`COMMIT`](https://github.com/apache/cloudberry-site/blob/cbdb-doc-validation/docs/sql-stmts/commit.md)、[`ROLLBACK`](/i18n/zh/docusaurus-plugin-content-docs/current/sql-stmts/rollback.md)

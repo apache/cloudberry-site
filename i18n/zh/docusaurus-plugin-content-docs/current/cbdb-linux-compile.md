@@ -8,7 +8,7 @@ import TabItem from '@theme/TabItem';
 # 在 Linux 系统上编译和安装 Cloudberry Database
 
 :::info
-本文档来自 GitHub 仓库 [`cloudberrydb/cloudberrydb`](https://github.com/cloudberrydb/cloudberrydb/blob/main/deploy/build/README.Linux.md).
+本文档来自 GitHub 仓库 [`apache/cloudberry`](https://github.com/apache/cloudberry/blob/main/deploy/build/README.Linux.md).
 :::
 
 本文档分享如何在 Linux 系统（CentOS 7、RHEL 和 Ubuntu）上编译和安装 Cloudberry Database。请注意，本文档仅供开发人员在单节点环境中尝试 Cloudberry Database。**请勿将本文档用于生产环境**。
@@ -23,10 +23,10 @@ import TabItem from '@theme/TabItem';
 
 ## 第 1 步：克隆 GitHub 仓库
 
-将 GitHub 仓库 `cloudberrydb/cloudberrydb` 克隆到目标机器：
+将 GitHub 仓库 `apache/cloudberry` 克隆到目标机器：
 
 ```shell
-git clone https://github.com/cloudberrydb/cloudberrydb.git
+git clone https://github.com/apache/cloudberry.git
 ```
 
 ## 第 2 步：安装依赖项
@@ -38,7 +38,7 @@ git clone https://github.com/cloudberrydb/cloudberrydb.git
 
 以下步骤在 CentOS 7 上测试通过。对于其他版本的 CentOS，这些步骤可能有效，但不能保证有效。
 
-1. 执行 `cloudberrydb/cloudberrydb` 仓库下 `deploy/build` 目录中的 `README.CentOS.bash` 脚本。执行此脚本需要输入密码。然后，系统会自动下载一些必要的依赖项。
+1. 执行 `apache/cloudberry` 仓库下 `deploy/build` 目录中的 `README.CentOS.bash` 脚本。执行此脚本需要输入密码。然后，系统会自动下载一些必要的依赖项。
 
     ```bash
     cd cloudberrydb/deploy/build

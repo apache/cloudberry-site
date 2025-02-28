@@ -8,7 +8,7 @@ import TabItem from '@theme/TabItem';
 # Compile and Install Cloudberry Database on Linux
 
 :::info
-The source of this document is from the GitHub repository [`cloudberrydb/cloudberrydb`](https://github.com/cloudberrydb/cloudberrydb/blob/main/deploy/build/README.Linux.md).
+The source of this document is from the GitHub repository [`apache/cloudberry`](https://github.com/apache/cloudberry/blob/main/deploy/build/README.Linux.md).
 :::
 
 This document shares how to compile and install Cloudberry Database on Linux systems (CentOS 7, RHEL, and Ubuntu). Note that this document is for developers to try out Cloudberry Database in a single-node environments. DO NOT use this document for production environments.
@@ -23,10 +23,10 @@ Take the following steps to compile and install Cloudberry Database:
 
 ## Step 1. Clone GitHub repo
 
-Clone the GitHub repository `cloudberrydb/cloudberrydb` to the target machine:
+Clone the GitHub repository `apache/cloudberry` to the target machine:
 
 ```shell
-git clone https://github.com/cloudberrydb/cloudberrydb.git
+git clone https://github.com/apache/cloudberry.git
 ```
 
 ## Step 2. Install dependencies
@@ -38,10 +38,10 @@ Enter the repository and install dependencies according to your operating system
 
 The following steps work on CentOS 7. For other CentOS versions, these steps might work but are not guaranteed to work.
 
-1. Run the Bash script `README.CentOS.bash` in the `deploy/build` directory of the `cloudberrydb/cloudberrydb` repository. To run this script, password is required. Then, some required dependencies will be automatically downloaded.
+1. Run the Bash script `README.CentOS.bash` in the `deploy/build` directory of the `apache/cloudberry` repository. To run this script, password is required. Then, some required dependencies will be automatically downloaded.
 
     ```bash
-    cd cloudberrydb/deploy/build
+    cd cloudberry/deploy/build
     ./README.CentOS.bash
     ```
 
@@ -90,7 +90,7 @@ The following steps work on CentOS 7. For other CentOS versions, these steps mig
 3. Install more dependencies by running the `README.Rhel-Rocky.bash` script.
 
     ```bash
-    cd ~/cloudberrydb/deploy/build/
+    cd cloudberry/deploy/build/
     ./README.Rhel-Rocky.bash
     ```
 
@@ -101,7 +101,7 @@ The following steps work on CentOS 7. For other CentOS versions, these steps mig
 
     ```shell
     ## You need to enter your password to run.
-    sudo ~/cloudberrydb/deploy/build/README.Ubuntu.bash
+    sudo cloudberry/deploy/build/README.Ubuntu.bash
     ```
 
     :::info
@@ -166,18 +166,18 @@ After you have installed all the dependencies for your operating system, it is t
 
 After you have installed all the dependencies and performed the prerequisite platform tasks, you can start to build Cloudberry Database. Run the following commands in sequence.
 
-1. Configure the build environment. Enter the `cloudberrydb` directory and run the `configure` script.
+1. Configure the build environment. Enter the `cloudberry` directory and run the `configure` script.
 
     ```bash
-    cd cloudberrydb
-    ./configure --with-perl --with-python --with-libxml --with-gssapi --prefix=/usr/local/cloudberrydb
+    cd cloudberry
+    ./configure --with-perl --with-python --with-libxml --with-gssapi --prefix=/usr/local/cloudberry
     ```
 
     :::info
     Cloudberry Database is built with GPORCA by default. If you want to build CBDB without GPORCA, add the `--disable-orca` flag in the `./configure` command.
     
     ```bash
-    ./configure --disable-orca --with-perl --with-python --with-libxml --prefix=/usr/local/cloudberrydb
+    ./configure --disable-orca --with-perl --with-python --with-libxml --prefix=/usr/local/cloudberry
     ```
 
     :::
@@ -193,12 +193,12 @@ After you have installed all the dependencies and performed the prerequisite pla
 
     ```bash
     cd ..
-    cp -r cloudberrydb/ /home/gpadmin/
+    cp -r cloudberry/ /home/gpadmin/
     cd /home/gpadmin/
-    chown -R gpadmin:gpadmin cloudberrydb/
+    chown -R gpadmin:gpadmin cloudberry/
     su - gpadmin
-    cd cloudberrydb/
-    source /usr/local/cloudberrydb/greenplum_path.sh
+    cd cloudberry/
+    source /usr/local/cloudberry/greenplum_path.sh
     ```
 
 4. Start the demo cluster.
@@ -254,13 +254,13 @@ After you have installed all the dependencies and performed the prerequisite pla
     postgres=# select * from gp_segment_configuration;
      dbid | content | role | preferred_role | mode | status | port |  hostname  |  address   |                                   datadir                                    | warehouseid 
     ------+---------+------+----------------+------+--------+------+------------+------------+------------------------------------------------------------------------------+-------------
-        1 |      -1 | p    | p              | n    | u      | 7000 | i-6wvpa9wt | i-6wvpa9wt | /home/gpadmin/cloudberrydb/gpAux/gpdemo/datadirs/qddir/demoDataDir-1         |           0
-        8 |      -1 | m    | m              | s    | u      | 7001 | i-6wvpa9wt | i-6wvpa9wt | /home/gpadmin/cloudberrydb/gpAux/gpdemo/datadirs/standby                     |           0
-        3 |       1 | p    | p              | s    | u      | 7003 | i-6wvpa9wt | i-6wvpa9wt | /home/gpadmin/cloudberrydb/gpAux/gpdemo/datadirs/dbfast2/demoDataDir1        |           0
-        6 |       1 | m    | m              | s    | u      | 7006 | i-6wvpa9wt | i-6wvpa9wt | /home/gpadmin/cloudberrydb/gpAux/gpdemo/datadirs/dbfast_mirror2/demoDataDir1 |           0
-        2 |       0 | p    | p              | s    | u      | 7002 | i-6wvpa9wt | i-6wvpa9wt | /home/gpadmin/cloudberrydb/gpAux/gpdemo/datadirs/dbfast1/demoDataDir0        |           0
-        5 |       0 | m    | m              | s    | u      | 7005 | i-6wvpa9wt | i-6wvpa9wt | /home/gpadmin/cloudberrydb/gpAux/gpdemo/datadirs/dbfast_mirror1/demoDataDir0 |           0
-        4 |       2 | p    | p              | s    | u      | 7004 | i-6wvpa9wt | i-6wvpa9wt | /home/gpadmin/cloudberrydb/gpAux/gpdemo/datadirs/dbfast3/demoDataDir2        |           0
-        7 |       2 | m    | m              | s    | u      | 7007 | i-6wvpa9wt | i-6wvpa9wt | /home/gpadmin/cloudberrydb/gpAux/gpdemo/datadirs/dbfast_mirror3/demoDataDir2 |           0
+        1 |      -1 | p    | p              | n    | u      | 7000 | i-6wvpa9wt | i-6wvpa9wt | /home/gpadmin/cloudberry/gpAux/gpdemo/datadirs/qddir/demoDataDir-1         |           0
+        8 |      -1 | m    | m              | s    | u      | 7001 | i-6wvpa9wt | i-6wvpa9wt | /home/gpadmin/cloudberry/gpAux/gpdemo/datadirs/standby                     |           0
+        3 |       1 | p    | p              | s    | u      | 7003 | i-6wvpa9wt | i-6wvpa9wt | /home/gpadmin/cloudberry/gpAux/gpdemo/datadirs/dbfast2/demoDataDir1        |           0
+        6 |       1 | m    | m              | s    | u      | 7006 | i-6wvpa9wt | i-6wvpa9wt | /home/gpadmin/cloudberry/gpAux/gpdemo/datadirs/dbfast_mirror2/demoDataDir1 |           0
+        2 |       0 | p    | p              | s    | u      | 7002 | i-6wvpa9wt | i-6wvpa9wt | /home/gpadmin/cloudberry/gpAux/gpdemo/datadirs/dbfast1/demoDataDir0        |           0
+        5 |       0 | m    | m              | s    | u      | 7005 | i-6wvpa9wt | i-6wvpa9wt | /home/gpadmin/cloudberry/gpAux/gpdemo/datadirs/dbfast_mirror1/demoDataDir0 |           0
+        4 |       2 | p    | p              | s    | u      | 7004 | i-6wvpa9wt | i-6wvpa9wt | /home/gpadmin/cloudberry/gpAux/gpdemo/datadirs/dbfast3/demoDataDir2        |           0
+        7 |       2 | m    | m              | s    | u      | 7007 | i-6wvpa9wt | i-6wvpa9wt | /home/gpadmin/cloudberry/gpAux/gpdemo/datadirs/dbfast_mirror3/demoDataDir2 |           0
     (8 rows)
     ```

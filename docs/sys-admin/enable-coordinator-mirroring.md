@@ -33,7 +33,7 @@ Make sure that you have already configured a standby coordinator on a different 
 
 :::note
 
-If you follow the steps described in the [Prepare to Deploy](https://cloudberrydb.org/docs/cbdb-op-prepare-to-deploy) and [Deploy Cloudberry Database Manually Using RPM Package](https://cloudberrydb.org/docs/cbdb-op-deploy-guide) topics to deploy the cluster, a host for the standby coordinator ( `cbdb-standbycoordinator`) is already configured in the cluster.
+If you follow the steps described in the [Prepare to Deploy](https://cloudberry.apache.org/docs/cbdb-op-prepare-to-deploy) and [Deploy Cloudberry Database Manually Using RPM Package](https://cloudberry.apache.org/docs/cbdb-op-deploy-guide) topics to deploy the cluster, a host for the standby coordinator ( `cbdb-standbycoordinator`) is already configured in the cluster.
 
 :::
 

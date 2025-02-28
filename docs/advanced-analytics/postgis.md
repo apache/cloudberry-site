@@ -14,7 +14,7 @@ You can access the Cloudberry Database PostGIS project repo at [`cloudberrydb/po
 
 Before installing PostGIS for Cloudberry Database, install the required dependencies and compile several components. This process is currently supported only on CentOS, with plans to support Rocky Linux in the future.
 
-Before you get started, ensure that the Cloudberry Database is correctly installed on your machine. If it is not installed, see the [documentation](https://cloudberrydb.org/docs/) for installation instructions.
+Before you get started, ensure that the Cloudberry Database is correctly installed on your machine. If it is not installed, see the [documentation](https://cloudberry.apache.org/docs/) for installation instructions.
 
 1. Install the pre-requested dependencies.
 

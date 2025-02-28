@@ -18,15 +18,15 @@ variable](https://go.dev/doc/install).
 1. Pull the `cloudberrydb/gpbackup` GitHub repository to the target machine.
 
     ```bash
-    go install github.com/cloudberrydb/gpbackup@latest
+    go install github.com/apache/cloudberry-gpbackup@latest
     ```
 
-    The repository is placed in `$GOPATH/pkg/mod/github.com/cloudberrydb/gpbackup`.
+    The repository is placed in `$GOPATH/pkg/mod/github.com/apache/cloudberry-gpbackup`.
 
 2. Enter the `cloudberrydb/gpbackup` directory. Then, build and install the source code:
 
     ```bash
-    cd <$GOPATH/pkg/mod/github.com/cloudberrydb/gpbackup>
+    cd <$GOPATH/pkg/mod/github.com/apache/cloudberry-gpbackup>
     make depend
     make build
     ```
