@@ -24,7 +24,7 @@ DROP DATABASE [IF EXISTS] <name>
 
 **`IF EXISTS`**
 
-如果数据库不存在，则不抛出错误。在这种情况下，Cloudberry Database 会发出一个提醒。
+如果数据库不存在，则不抛出错误。在这种情况下，Apache Cloudberry 会发出一个提醒。
 
 **`name`**
 

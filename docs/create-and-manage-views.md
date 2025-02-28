@@ -2,9 +2,9 @@
 title: Create and Manage Views
 ---
 
-# Create and Manage Views in Cloudberry Database
+# Create and Manage Views in Apache Cloudberry
 
-In Cloudberry Database, views enable you to save frequently used or complex queries, then access them in a `SELECT` statement as if they were a table. A view is not physically materialized on disk: the query runs as a subquery when you access the view.
+In Apache Cloudberry, views enable you to save frequently used or complex queries, then access them in a `SELECT` statement as if they were a table. A view is not physically materialized on disk: the query runs as a subquery when you access the view.
 
 ## Creating views
 

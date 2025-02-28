@@ -4,11 +4,11 @@ title: Directory Table
 
 # Directory Table
 
-自 v1.5.3 版本起，Cloudberry Database 引入了 Directory Table，用于统一纳管对象存储上的非结构化数据。
+自 v1.5.3 版本起，Apache Cloudberry 引入了 Directory Table，用于统一纳管对象存储上的非结构化数据。
 
 在大模型 AI 快速发展的背景下，AI 应用催生出了管理非结构化多模态语料数据的需求。需要持续准备大量非结构化的高质量精选语料、数据迭代训练大模型，以及归纳丰富的知识库。因此，在结构化语料数据管理与语料加工方面，面临技术挑战。
 
-面对这些技术挑战，Cloudberry Database 定义了一种 Directory Table 表，用于纳管多种类型的非结构化数据。开发者用户只需使用简单的 SQL 语句就能调用各种计算引擎的能力，实现一站式数据加工和应用开发。
+面对这些技术挑战，Apache Cloudberry 定义了一种 Directory Table 表，用于纳管多种类型的非结构化数据。开发者用户只需使用简单的 SQL 语句就能调用各种计算引擎的能力，实现一站式数据加工和应用开发。
 
 Directory Table 定位于存储、管理和分析非结构化数据对象。Directory Table 位于表空间中，将非结构化数据文件导入 Directory Table 后，会在 Directory Table 上创建一条记录，即该文件的元数据信息，而文件本身则加载进对象存储中。表上的元数据与对象存储上的对应文件相关联。
 
@@ -38,7 +38,7 @@ CREATE DIRECTORY TABLE <table_name>
 
 要在外部存储中创建 Directory Table，你需要先在外部存储中创建表空间。你需要提供访问外部存储服务器所需要的连接信息，包括服务器的 IP 地址、协议、访问密钥等。以下示例展示如何在青云对象存储和 HDFS 上创建 Directory Table。
 
-1. 创建服务器对象，并定义外部数据源的连接方式。Cloudberry Database 支持多种存储的协议，包括 S3 对象存储 和 HDFS。以下示例分别在青云和 HDFS 上创建了名为 `oss_server` 和 `hdfs_server` 的服务器对象。
+1. 创建服务器对象，并定义外部数据源的连接方式。Apache Cloudberry 支持多种存储的协议，包括 S3 对象存储 和 HDFS。以下示例分别在青云和 HDFS 上创建了名为 `oss_server` 和 `hdfs_server` 的服务器对象。
 
     - 青云：
 
@@ -56,7 +56,7 @@ CREATE DIRECTORY TABLE <table_name>
 
     - `protocol`：用于连接外部数据源的协议。在上面示例中，`'qingstor'` 表示使用青云对象存储服务的协议，`'hdfs'` 表示使用 HDFS 存储服务协议。
     - `prefix`：设置访问对象存储时的路径前缀。设置了该前缀，表明所有操作都将限定在这个特定的路径下，例如 `prefix '/rose-oss-test4/usf1'`。这通常用于组织和隔离存储在同一存储桶中的数据。
-    - `endpoint`：指定外部对象存储服务的网络地址。例如，`'pek3b.qingstor.com'` 是青云服务的一个特定区域节点。通过这个端点，Cloudberry Database 可以访问外部数据。
+    - `endpoint`：指定外部对象存储服务的网络地址。例如，`'pek3b.qingstor.com'` 是青云服务的一个特定区域节点。通过这个端点，Apache Cloudberry 可以访问外部数据。
     - `https`：指定是否通过 HTTPS 协议连接到对象存储服务。在此命令中，`'false'` 表示使用非加密的 HTTP 连接。这个设置可能受到数据传输安全要求的影响，通常推荐使用 HTTPS 来确保数据安全。
     - `virtual_host`：确定是否使用虚拟主机方式访问存储桶。`'false'` 意味着不使用虚拟主机样式的桶访问（即，URL 中不包括存储桶名称）。这个选项通常取决于存储服务提供商的 URL 格式支持。
     - `namenode`：表示 HDFS 节点的 IP。你需要将 `<HDFS 节点 IP:端口>` 替换为实际的 IP 地址和端口号，例如 `'192.168.51.106:8020'`。
@@ -128,7 +128,7 @@ CREATE DIRECTORY TABLE <table_name>
 
 ### 加载文件至 Directory Table
 
-将文件上传至 Directory Table 后，该文件被上传至 Cloudberry Database 管理的本地存储或对象存储中，而 Directory Table 则纳管该文件的元数据。Cloudberry Database v1.5.3 暂不支持用户自行管理对象存储目录文件。
+将文件上传至 Directory Table 后，该文件被上传至 Apache Cloudberry 管理的本地存储或对象存储中，而 Directory Table 则纳管该文件的元数据。Apache Cloudberry v1.5.3 暂不支持用户自行管理对象存储目录文件。
 
 从本地上传文件至数据库对象存储语法如下：
 

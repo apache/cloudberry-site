@@ -20,7 +20,7 @@ DROP RULE [IF EXISTS] <name> ON <table_name> [CASCADE | RESTRICT]
 
 **`IF EXISTS`**
 
-Do not throw an error if the rule does not exist. Cloudberry Database issues a notice in this case.
+Do not throw an error if the rule does not exist. Apache Cloudberry issues a notice in this case.
 
 **`name`**
 
@@ -48,7 +48,7 @@ DROP RULE sales_2006 ON sales;
 
 ## Compatibility
 
-`DROP RULE` is a Cloudberry Database extension, as is the entire query rewrite system.
+`DROP RULE` is a Apache Cloudberry extension, as is the entire query rewrite system.
 
 ## See also
 

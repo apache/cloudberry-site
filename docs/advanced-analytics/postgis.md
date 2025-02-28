@@ -4,17 +4,17 @@ title: Geospatial Analytics
 
 # Geospatial Analytics
 
-[PostGIS](https://postgis.net/) extends the capabilities of the PostgreSQL by adding support for storing, indexing, and querying geospatial data. Cloudberry Database supports PostGIS for geospatial analytics.
+[PostGIS](https://postgis.net/) extends the capabilities of the PostgreSQL by adding support for storing, indexing, and querying geospatial data. Apache Cloudberry supports PostGIS for geospatial analytics.
 
-This document introduces how to compile and build PostGIS for your Cloudberry Database cluster.
+This document introduces how to compile and build PostGIS for your Apache Cloudberry cluster.
 
-You can access the Cloudberry Database PostGIS project repo at [`cloudberrydb/postgis`](https://github.com/cloudberrydb/postgis). The PostGIS code in this repo is dedicated to Cloudberry Database. The compilation and building method introduced in this document is based on the code of this repo.
+You can access the PostGIS for Apache Cloudberry project repo at [`cloudberry-contrib/postgis`](https://github.com/cloudberry-contrib/postgis). The PostGIS code in this repo is dedicated to Apache Cloudberry. The compilation and building method introduced in this document is based on the code of this repo.
 
-## Compile PostGIS for Cloudberry Database
+## Compile PostGIS for Apache Cloudberry
 
-Before installing PostGIS for Cloudberry Database, install the required dependencies and compile several components. This process is currently supported only on CentOS, with plans to support Rocky Linux in the future.
+Before installing PostGIS for Apache Cloudberry, install the required dependencies and compile several components. This process is currently supported only on CentOS, with plans to support Rocky Linux in the future.
 
-Before you get started, ensure that the Cloudberry Database is correctly installed on your machine. If it is not installed, see the [documentation](https://cloudberrydb.org/docs/) for installation instructions.
+Before you get started, ensure that the Apache Cloudberry is correctly installed on your machine. If it is not installed, see the [documentation](https://cloudberry.apache.org/docs/) for installation instructions.
 
 1. Install the pre-requested dependencies.
 
@@ -93,10 +93,10 @@ Before you get started, ensure that the Cloudberry Database is correctly install
 
 3. Build and install PostGIS.
 
-    1. Download the `cloudberrydb/postgis` repo to your `/home/gpadmin` directory:
+    1. Download the `cloudberry-contrib/postgis` repo to your `/home/gpadmin` directory:
 
         ```bash
-        git clone https://github.com/cloudberrydb/postgis.git /home/gpadmin/postgis
+        git clone https://github.com/cloudberry-contrib/postgis.git /home/gpadmin/postgis
         chown -R gpadmin:gpadmin /home/gpadmin/postgis
         ```
 
@@ -105,8 +105,8 @@ Before you get started, ensure that the Cloudberry Database is correctly install
         Before starting the compilation process, run the following commands to make sure the environment variables are set ready:
 
         ```bash
-        source /usr/local/cloudberrydb/greenplum_path.sh
-        source /home/gpadmin/cloudberrydb/gpAux/gpdemo/gpdemo-env.sh
+        source /usr/local/cloudberry/greenplum_path.sh
+        source /home/gpadmin/cloudberry/gpAux/gpdemo/gpdemo-env.sh
         scl enable devtoolset-10 bash
         source /opt/rh/devtoolset-10/enable
         ```
@@ -120,9 +120,9 @@ Before you get started, ensure that the Cloudberry Database is correctly install
         make && make install
         ```
 
-## Use PostGIS in Cloudberry Database
+## Use PostGIS in Apache Cloudberry
 
-After you have compiled and built PostGIS and the supporting extensions successfully on your Cloudberry Database cluster and have started the demo cluster, you can run the following commands to enable PostGIS and the supporting extensions:
+After you have compiled and built PostGIS and the supporting extensions successfully on your Apache Cloudberry cluster and have started the demo cluster, you can run the following commands to enable PostGIS and the supporting extensions:
 
 ```sql
 $ psql -p 7000 postgres

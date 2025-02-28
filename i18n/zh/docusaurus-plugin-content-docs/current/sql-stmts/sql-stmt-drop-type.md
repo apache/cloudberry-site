@@ -20,7 +20,7 @@ DROP TYPE [IF EXISTS] <name> [, ...] [CASCADE | RESTRICT]
 
 **`IF EXISTS`**
 
-如果要删除的数据类型不存在，则不抛出错误。在这种情况下，Cloudberry Database 会发出一个提醒。
+如果要删除的数据类型不存在，则不抛出错误。在这种情况下，Apache Cloudberry 会发出一个提醒。
 
 **`name`**
 
@@ -32,7 +32,7 @@ DROP TYPE [IF EXISTS] <name> [, ...] [CASCADE | RESTRICT]
 
 **`RESTRICT`**
 
-如果有对象依赖于要删除的数据类型，Cloudberry Database 会拒绝删除该数据类型。这是默认行为。
+如果有对象依赖于要删除的数据类型，Apache Cloudberry 会拒绝删除该数据类型。这是默认行为。
 
 ## 示例
 
@@ -44,7 +44,7 @@ DROP TYPE box;
 
 ## 兼容性
 
-除了 `IF EXISTS` 选项是 Cloudberry Database 的扩展之外，Cloudberry Database 中的 `DROP TYPE` 命令与 SQL 标准中的 `DROP TYPE` 命令类似。但请注意，Cloudberry Database 中的 `CREATE TYPE` 命令和数据类型扩展机制与 SQL 标准有很大不同。
+除了 `IF EXISTS` 选项是 Apache Cloudberry 的扩展之外，Apache Cloudberry 中的 `DROP TYPE` 命令与 SQL 标准中的 `DROP TYPE` 命令类似。但请注意，Apache Cloudberry 中的 `CREATE TYPE` 命令和数据类型扩展机制与 SQL 标准有很大不同。
 
 ## 另见
 

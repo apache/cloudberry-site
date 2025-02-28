@@ -2,7 +2,7 @@
 title: Update Statistics
 ---
 
-# Update Statistics in Cloudberry Database
+# Update Statistics in Apache Cloudberry
 
 The most important prerequisite for good query performance is to begin with accurate statistics for the tables. Updating statistics with the `ANALYZE` statement enables the query planner to generate optimal query plans. When a table is analyzed, information about the data is stored in the system catalog tables. If the stored information is out of date, the planner can generate inefficient plans.
 
@@ -20,11 +20,11 @@ WHERE relname = 'test_analyze';
 
 ## Generate statistics selectively
 
-Running [`ANALYZE`](https://github.com/cloudberrydb/cloudberrydb-site/blob/cbdb-doc-validation/docs/sql-stmts/analyze.md) with no arguments updates statistics for all tables in the database. This can be a very long-running process and it is not recommended. You should `ANALYZE` tables selectively when data has changed or use the [analyzedb](https://github.com/cloudberrydb/cloudberrydb-site/blob/cbdb-doc-validation/docs/sys-utilities/analyzedb.md) utility.
+Running [`ANALYZE`](https://github.com/apache/cloudberry-site/blob/cbdb-doc-validation/docs/sql-stmts/analyze.md) with no arguments updates statistics for all tables in the database. This can be a very long-running process and it is not recommended. You should `ANALYZE` tables selectively when data has changed or use the [analyzedb](https://github.com/apache/cloudberry-site/blob/cbdb-doc-validation/docs/sys-utilities/analyzedb.md) utility.
 
 Running `ANALYZE` on a large table can take a long time. If it is not feasible to run `ANALYZE` on all columns of a very large table, you can generate statistics for selected columns only using `ANALYZE table(column, ...)`. Be sure to include columns used in joins, `WHERE` clauses, `SORT` clauses, `GROUP BY` clauses, or `HAVING` clauses.
 
-For a partitioned table, you can run `ANALYZE` just on partitions that have changed, for example, if you add a new partition. Note that for partitioned tables, you can run `ANALYZE` on the root partitioned table, or on the leaf partitions (files where data and statistics are actually stored). In Cloudberry Database, running `ANALYZE` on a single partition of a partitioned table also updates the statistical information of the root table, indicating that statistics gathering for one partition might affect the entire partitioned table's optimizer statistics. You can find the names of the leaf partitions using the `pg_partition_tree()` function:
+For a partitioned table, you can run `ANALYZE` just on partitions that have changed, for example, if you add a new partition. Note that for partitioned tables, you can run `ANALYZE` on the root partitioned table, or on the leaf partitions (files where data and statistics are actually stored). In Apache Cloudberry, running `ANALYZE` on a single partition of a partitioned table also updates the statistical information of the root table, indicating that statistics gathering for one partition might affect the entire partitioned table's optimizer statistics. You can find the names of the leaf partitions using the `pg_partition_tree()` function:
 
 ```sql
 SELECT * FROM pg_partition_tree( 'parent_table' );
@@ -58,7 +58,7 @@ By default, the value of `gp_autostats_mode` is `none`. Setting this parameter t
 
 Setting `gp_autostats_mode` to `on_change` triggers statistics collection only when the number of rows affected exceeds the threshold defined by `gp_autostats_on_change_threshold`, which has a default value of `2147483647`. The these operations invoked on a table by its owner can trigger automatic statistics collection with `on_change`: `CREATE TABLE AS SELECT`, `UPDATE`, `DELETE`, `INSERT`, and `COPY`.
 
-Setting the `gp_autostats_allow_nonowner` server configuration parameter to `true` also instructs Cloudberry Database to trigger automatic statistics collection on a table when:
+Setting the `gp_autostats_allow_nonowner` server configuration parameter to `true` also instructs Apache Cloudberry to trigger automatic statistics collection on a table when:
 
 - `gp_autostats_mode=on_no_stats` and the first user to `INSERT` or `COPY` into the table is a non-owner.
 

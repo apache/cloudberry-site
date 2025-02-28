@@ -24,7 +24,7 @@ Optional keyword for dropping external web tables.
 
 **`IF EXISTS`**
 
-Do not throw an error if the external table does not exist. Cloudberry Database issues a notice in this case.
+Do not throw an error if the external table does not exist. Apache Cloudberry issues a notice in this case.
 
 **`name`**
 

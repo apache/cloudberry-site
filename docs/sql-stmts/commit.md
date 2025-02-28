@@ -43,7 +43,7 @@ COMMIT;
 
 ## Compatibility
 
-The command `COMMIT` conforms to the SQL standard. The form `COMMIT TRANSACTION` is a Cloudberry Database extension.
+The command `COMMIT` conforms to the SQL standard. The form `COMMIT TRANSACTION` is a Apache Cloudberry extension.
 
 ## See also
 

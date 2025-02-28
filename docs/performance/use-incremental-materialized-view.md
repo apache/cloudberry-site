@@ -2,11 +2,11 @@
 title: Incremental Materialized View
 ---
 
-# Incremental Materialized View in Cloudberry Database (New in v1.5.0)
+# Incremental Materialized View in Apache Cloudberry (New in v1.5.0)
 
-This document introduces the usage scenarios of the incremental materialized view in Cloudberry Database, how to use it, the restrictions, and the things to note.
+This document introduces the usage scenarios of the incremental materialized view in Apache Cloudberry, how to use it, the restrictions, and the things to note.
 
-The incremental materialized view is a special form of materialized view. When data changes in a base table in Cloudberry Database (such as insertion, update, and deletion), the incremental materialized view does not need to recalculate all the data in the entire view. Instead, it only updates the parts that have changed since the last refresh. This can save a lot of computing resources and time, and significantly improve performance, especially when dealing with large datasets.
+The incremental materialized view is a special form of materialized view. When data changes in a base table in Apache Cloudberry (such as insertion, update, and deletion), the incremental materialized view does not need to recalculate all the data in the entire view. Instead, it only updates the parts that have changed since the last refresh. This can save a lot of computing resources and time, and significantly improve performance, especially when dealing with large datasets.
 
 :::tip
 Comparison between incremental materialized view and regular view:
@@ -23,7 +23,7 @@ Comparison between incremental materialized view and regular view:
 # Usage example
 
 :::info
-Before using incremental materialized views, make sure that you are using Cloudberry Database v1.5.0 or a later version. Cloudberry Database v1.4.0 and earlier versions do not support incremental materialized views.
+Before using incremental materialized views, make sure that you are using Apache Cloudberry v1.5.0 or a later version. Apache Cloudberry v1.4.0 and earlier versions do not support incremental materialized views.
 :::
 
 To create an incremental materialized view, you can use the SQL command `CREATE INCREMENTAL MATERIALIZED VIEW`. The complete syntax support is as follows:
@@ -38,7 +38,7 @@ CREATE [INCREMENTAL] MATERIALIZED VIEW [ IF NOT EXISTS ] table_name
     [ WITH [ NO ] DATA ]
 ```
 
-The following example shows how to create incremental materialized views for tables in Cloudberry Database.
+The following example shows how to create incremental materialized views for tables in Apache Cloudberry.
 
 1. Create tables `t0` and `t1`.
 
@@ -102,7 +102,7 @@ To debug the statement executions related to incremental materialized views, you
 
 # Query performance comparison with regular view
 
-The following example compares the query performance of a regular view and that of an incremental materialized view when processing large datasets in Cloudberry Database. The following example uses the Query 15 test dataset of TPC-H.
+The following example compares the query performance of a regular view and that of an incremental materialized view when processing large datasets in Apache Cloudberry. The following example uses the Query 15 test dataset of TPC-H.
 
 ## With regular view
 
@@ -221,7 +221,7 @@ From the above table, you can see:
 
 # Restrictions and notes
 
-Currently, the incremental materialized views on Cloudberry Database have the following usage restrictions:
+Currently, the incremental materialized views on Apache Cloudberry have the following usage restrictions:
 
 - Creating incremental materialized views for Append-Optimized (AO) tables is not supported.
 - Creating incremental materialized views for partitioned tables is not supported.
@@ -237,7 +237,7 @@ Currently, the incremental materialized views on Cloudberry Database have the fo
 
 - Creating incremental materialized views on materialized views is not supported.
 
-In addition, when using incremental materialized views on Cloudberry Database, you need to pay attention to the following issues:
+In addition, when using incremental materialized views on Apache Cloudberry, you need to pay attention to the following issues:
 
 - Using incremental materialized views will slow down data insertion, deletion, and updates. In addition, a base table might have multiple incremental materialized views, and the performance degradation is proportional to the number of incremental materialized views.
 - Using incremental materialized views will generate temporary files to store calculation delta views, which might take up some storage space.

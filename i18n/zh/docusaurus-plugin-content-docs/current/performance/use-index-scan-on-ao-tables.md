@@ -4,7 +4,7 @@ title: 在 AO 表上使用 IndexScan
 
 # 在 AO 表上使用 IndexScan
 
-Cloudberry Database 支持对 Append-Optimized 表（简称 AO 表）进行 IndexScan，以此来提升某些场景下的查询效率，例如以下查询：
+Apache Cloudberry 支持对 Append-Optimized 表（简称 AO 表）进行 IndexScan，以此来提升某些场景下的查询效率，例如以下查询：
 
 ```sql
 SELECT * FROM tbl WHERE val > 100 ORDER BY val LIMIT 10;
@@ -13,15 +13,15 @@ SELECT * FROM tbl WHERE val > 100 ORDER BY val LIMIT 10;
 :::tip 提示
 Append-Optimized (AO) 表是一种优化存储方式，面向以批量插入为主的场景，例如大数据分析和数据仓库场景。
 
-当向 AO 表中插入新数据时，Cloudberry Database 会将新数据插入到表的末尾，而不是像普通的表那样寻找空闲空间插入。这意味着在向 AO 表插入数据时，只需要对文件进行追加写入，因此可以获得更高的插入效率。
+当向 AO 表中插入新数据时，Apache Cloudberry 会将新数据插入到表的末尾，而不是像普通的表那样寻找空闲空间插入。这意味着在向 AO 表插入数据时，只需要对文件进行追加写入，因此可以获得更高的插入效率。
 :::
 
 对于以上查询语句：
 
-- 如果使用 heap 表存储方式，Cloudberry Database 执行该查询可以通过 IndexScan 找到 10 个 `val` 大于 `100` 的元祖，仅需通过索引和数据表读取大约 10 个元祖即可。
+- 如果使用 heap 表存储方式，Apache Cloudberry 执行该查询可以通过 IndexScan 找到 10 个 `val` 大于 `100` 的元祖，仅需通过索引和数据表读取大约 10 个元祖即可。
 - 如果使用 AO 表的存储方式，且假设 `tbl` 表有 10 亿行元组，而我们通过 `LIMIT` 子句指定只需要返回 10 条元组：
 
-    - Cloudberry Database 支持使用 IndexScan 运算来扫描 AO 表，可大幅降低扫描的数据量，大大提升扫描的效率，是比 SeqScan 以及 BitmapScan 更好的扫描方式。SeqScan 或者 BitmapScan 比 IndexScan 多扫描 1 亿倍的数据量。
+    - Apache Cloudberry 支持使用 IndexScan 运算来扫描 AO 表，可大幅降低扫描的数据量，大大提升扫描的效率，是比 SeqScan 以及 BitmapScan 更好的扫描方式。SeqScan 或者 BitmapScan 比 IndexScan 多扫描 1 亿倍的数据量。
 
 ## 适用场景
 

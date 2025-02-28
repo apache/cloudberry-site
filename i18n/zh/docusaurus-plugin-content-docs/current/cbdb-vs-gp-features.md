@@ -4,9 +4,9 @@ title: 与 Greenplum 的特性对比
 
 # 与 Greenplum 的特性对比
 
-Cloudberry Database 100% 兼容 Greenplum，能提供所有你需要的 Greenplum 特性。
+Apache Cloudberry 100% 兼容 Greenplum，能提供所有你需要的 Greenplum 特性。
 
-除此之外，Cloudberry Database 还拥有一些 Greenplum 当前不具备或不支持的特性，详见下文。
+除此之外，Apache Cloudberry 还拥有一些 Greenplum 当前不具备或不支持的特性，详见下文。
 
 ## 一般特性对比
 
@@ -17,7 +17,7 @@ Cloudberry Database 100% 兼容 Greenplum，能提供所有你需要的 Greenplu
 
 :::
 
-| 功能名                                   | Cloudberry Database | Greenplum   |
+| 功能名                                   | Apache Cloudberry | Greenplum   |
 | ---------------------------------------- | ------------------- | ----------- |
 | 在 `EXPLAIN` 的结果中查看 WAL 的使用信息 | ✅                   | ❌           |
 | Multiranges 类型                     | ✅                   | ❌           |
@@ -45,7 +45,7 @@ Cloudberry Database 100% 兼容 Greenplum，能提供所有你需要的 Greenplu
 
 ## 性能特性对比
 
-| 功能名                                      | Cloudberry Database | Greenplum |
+| 功能名                                      | Apache Cloudberry | Greenplum |
 | ------------------------------------------- | ------------------- | --------- |
 | 并发重建索引 `REINDEX CONCURRENTLY`         | ✅                   | ❌         |
 | 聚合运算下推                                | ✅                   | ❌         |
@@ -64,7 +64,7 @@ Cloudberry Database 100% 兼容 Greenplum，能提供所有你需要的 Greenplu
 
 ## 安全特性对比
 
-| 功能名                      | Cloudberry Database | Greenplum |
+| 功能名                      | Apache Cloudberry | Greenplum |
 | --------------------------- | ------------------- | --------- |
 | 透明数据加密 (TDE)          | ✅                   | ❌         |
 | 可信扩展                    | ✅                   | ❌         |

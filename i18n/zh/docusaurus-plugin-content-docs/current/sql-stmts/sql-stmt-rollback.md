@@ -43,7 +43,7 @@ ROLLBACK;
 
 ## 兼容性
 
-`ROLLBACK` 命令符合 SQL 标准。`ROLLBACK TRANSACTION` 是 Cloudberry Database 的扩展。
+`ROLLBACK` 命令符合 SQL 标准。`ROLLBACK TRANSACTION` 是 Apache Cloudberry 的扩展。
 
 ## 另见
 

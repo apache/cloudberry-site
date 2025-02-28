@@ -62,7 +62,7 @@ These exercises will walk through how to create a full backup of your database a
     20230727:10:28:28 gpbackup:gpadmin:mdw:020061-[INFO]:-Data backup complete
     20230727:10:28:28 gpbackup:gpadmin:mdw:020061-[INFO]:-Skipped data backup of 3 external/foreign table(s).
     20230727:10:28:28 gpbackup:gpadmin:mdw:020061-[INFO]:-See /home/gpadmin/gpAdminLogs/gpbackup_20230727.log for a complete list of skipped tables.
-    20230727:10:28:29 gpbackup:gpadmin:mdw:020061-[INFO]:-Found neither /usr/local/cloudberry-db/bin/gp_email_contacts.yaml nor /home/gpadmin/gp_email_contacts.yaml
+    20230727:10:28:29 gpbackup:gpadmin:mdw:020061-[INFO]:-Found neither /usr/local/cloudberry/bin/gp_email_contacts.yaml nor /home/gpadmin/gp_email_contacts.yaml
     20230727:10:28:29 gpbackup:gpadmin:mdw:020061-[INFO]:-Email containing gpbackup report /tmp/gpseg-1/backups/20230727/20230727102819/gpbackup_20230727102819_report will not be sent
     20230727:10:28:29 gpbackup:gpadmin:mdw:020061-[INFO]:-Backup completed successfully
     ```
@@ -123,7 +123,7 @@ These exercises will walk through how to create a full backup of your database a
     20230727:10:38:30 gprestore:gpadmin:mdw:020373-[INFO]:-Sequence values restore complete
     Tables restored:  1 / 1 [===============================================================] 100.00% 5s
     20230727:10:38:35 gprestore:gpadmin:mdw:020373-[INFO]:-Data restore complete
-    20230727:10:38:35 gprestore:gpadmin:mdw:020373-[INFO]:-Found neither /usr/local/cloudberry-db/bin/gp_email_contacts.yaml nor /home/gpadmin/gp_email_contacts.yaml
+    20230727:10:38:35 gprestore:gpadmin:mdw:020373-[INFO]:-Found neither /usr/local/cloudberry/bin/gp_email_contacts.yaml nor /home/gpadmin/gp_email_contacts.yaml
     20230727:10:38:35 gprestore:gpadmin:mdw:020373-[INFO]:-Email containing gprestore report /tmp/gpseg-1/backups/20230727/20230727102819/gprestore_20230727102819_20230727103829_report will not be sent
     20230727:10:38:35 gprestore:gpadmin:mdw:020373-[INFO]:-Restore completed successfully
     ```

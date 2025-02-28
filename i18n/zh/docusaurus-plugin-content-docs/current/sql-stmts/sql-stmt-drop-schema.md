@@ -22,7 +22,7 @@ Schema 只能由其所有者或超级用户删除。请注意，即使所有者�
 
 **`IF EXISTS`**
 
-如果 schema 不存在，则不抛出错误。在这种情况下，Cloudberry Database 会发出一个提醒。
+如果 schema 不存在，则不抛出错误。在这种情况下，Apache Cloudberry 会发出一个提醒。
 
 **`name`**
 
@@ -34,7 +34,7 @@ Schema 只能由其所有者或超级用户删除。请注意，即使所有者�
 
 **`RESTRICT`**
 
-如果 schema 包含任何对象，Cloudberry Database 会拒绝删除 schema。这是默认行为。
+如果 schema 包含任何对象，Apache Cloudberry 会拒绝删除 schema。这是默认行为。
 
 ## 注意事项
 
@@ -50,7 +50,7 @@ DROP SCHEMA mystuff CASCADE;
 
 ## 兼容性
 
-`DROP SCHEMA` 是完全符合 SQL 标准的，但该标准只允许一次删除一个 schema。此外，`IF EXISTS` 选项是 Cloudberry Database 的扩展。
+`DROP SCHEMA` 是完全符合 SQL 标准的，但该标准只允许一次删除一个 schema。此外，`IF EXISTS` 选项是 Apache Cloudberry 的扩展。
 
 ## 另见
 

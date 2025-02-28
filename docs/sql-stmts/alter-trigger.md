@@ -34,7 +34,7 @@ The new name for the trigger.
 
 The ability to temporarily activate or deactivate a trigger is provided by [ALTER TABLE](/docs/sql-stmts/alter-table.md), not by `ALTER TRIGGER`, because `ALTER TRIGGER` has no convenient way to express the option of activating or deactivating all of a table's triggers at once.
 
-Note that Cloudberry Database has limited support of triggers in this release. See [CREATE TRIGGER](/docs/sql-stmts/create-trigger.md) for more information.
+Note that Apache Cloudberry has limited support of triggers in this release. See [CREATE TRIGGER](/docs/sql-stmts/create-trigger.md) for more information.
 
 ## Examples
 
@@ -46,7 +46,7 @@ ALTER TRIGGER emp_stamp ON emp RENAME TO emp_track_chgs;
 
 ## Compatibility
 
-`ALTER TRIGGER` is a Cloudberry Database extension of the SQL standard.
+`ALTER TRIGGER` is a Apache Cloudberry extension of the SQL standard.
 
 ## See also
 

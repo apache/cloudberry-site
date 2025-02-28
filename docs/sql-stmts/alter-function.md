@@ -113,13 +113,13 @@ Change whether the function is considered leakproof or not. See [CREATE FUNCTION
 
 The `EXECUTE ON` attributes specify where (coordinator or segment instance) a function runs when it is invoked during the query execution process.
 
-`EXECUTE ON ANY` (the default) indicates that the function can be run on the coordinator, or any segment instance, and it returns the same result regardless of where it is run. Cloudberry Database determines where the function runs.
+`EXECUTE ON ANY` (the default) indicates that the function can be run on the coordinator, or any segment instance, and it returns the same result regardless of where it is run. Apache Cloudberry determines where the function runs.
 
 `EXECUTE ON COORDINATOR` indicates that the function must run only on the coordinator instance.
 
 `EXECUTE ON ALL SEGMENTS` indicates that the function must run on all primary segment instances, but not the coordinator, for each invocation. The overall result of the function is the `UNION ALL` of the results from all segment instances.
 
-`EXECUTE ON INITPLAN` indicates that the function contains an SQL command that dispatches queries to the segment instances and requires special processing on the coordinator instance by Cloudberry Database when possible.
+`EXECUTE ON INITPLAN` indicates that the function contains an SQL command that dispatches queries to the segment instances and requires special processing on the coordinator instance by Apache Cloudberry when possible.
 
 For more information about the `EXECUTE ON` attributes, see [CREATE FUNCTION](/docs/sql-stmts/create-function.md).
 
@@ -149,7 +149,7 @@ Ignored for conformance with the SQL standard.
 
 ## Notes
 
-Cloudberry Database has limitations on the use of functions defined as `STABLE` or `VOLATILE`. See [CREATE FUNCTION](/docs/sql-stmts/create-function.md) for more information.
+Apache Cloudberry has limitations on the use of functions defined as `STABLE` or `VOLATILE`. See [CREATE FUNCTION](/docs/sql-stmts/create-function.md) for more information.
 
 ## Examples
 
@@ -193,7 +193,7 @@ The function will now execute with whatever search path is used by its caller.
 
 ## Compatibility
 
-This statement is partially compatible with the `ALTER FUNCTION` statement in the SQL standard. The standard allows more properties of a function to be modified, but does not provide the ability to rename a function, make a function a security definer, attach configuration parameter values to a function, or change the owner, schema, or volatility of a function. The standard also requires the `RESTRICT` key word, which is optional in Cloudberry Database.
+This statement is partially compatible with the `ALTER FUNCTION` statement in the SQL standard. The standard allows more properties of a function to be modified, but does not provide the ability to rename a function, make a function a security definer, attach configuration parameter values to a function, or change the owner, schema, or volatility of a function. The standard also requires the `RESTRICT` key word, which is optional in Apache Cloudberry.
 
 ## See also
 
