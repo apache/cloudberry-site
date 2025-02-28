@@ -13,7 +13,7 @@ import TabItem from '@theme/TabItem';
 
 本文档分享如何在 Rocky Linux 8 和 Ubuntu 上编译和安装 Apache Cloudberry。请注意，本文档仅供开发人员在单节点环境中尝试 Apache Cloudberry。**请勿将本文档用于生产环境**。
 
-如果希望了解如何在 Rocky Linux 9 上编译和安装 Apache Cloudberry，请参见[在 Rocky Linux 9 上编译和安装 Apache Cloudberry](https://github.com/edespino/cloudberry/blob/rocky9-dev-readme/deploy/build/README-rockylinux9.md)。
+若想了解如何在 Rocky Linux 9 上编译和安装 Apache Cloudberry，请参考 [在 Rocky Linux 9 上编译](/i18n/zh/docusaurus-plugin-content-docs/current/cbdb-rockylinux9-compile.md)。
 
 按照以下步骤设置开发环境：
 

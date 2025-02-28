@@ -6,7 +6,9 @@ title: On Rocky Linux 9
 
 This document is intended for developers interested in exploring and potentially contributing to Apache Cloudberry. The build environment described here is optimized for development and testing purposes only.
 
-## Target audience
+To learn how to compile and install Apache Cloudberry on Rocky Linux 8 and Ubuntu, see [Compile on Rocky Linux 8 and Ubuntu](/docs/cbdb-rockylinux8-ubuntu-compile.md).
+
+## 1. Target audience
 
 - Developers interested in contributing to Apache Cloudberry.
 - PostgreSQL developers wanting to explore Cloudberry's extensions.
@@ -29,13 +31,13 @@ If you are new to Apache Cloudberry or PostgreSQL development:
 - Be prepared for longer build times and iterative testing as you explore the codebase
 :::
 
-## Process of building Apache Cloudberry
+## 2. Process of building Apache Cloudberry
 
 The build process for Apache Cloudberry (Incubating) closely resembles that of PostgreSQL. If you have previously set up development environments for PostgreSQL, you'll find the steps for Cloudberry very familiar. 
 
 For those new to Cloudberry or PostgreSQL, I recommend starting with a PostgreSQL build first. The PostgreSQL development community has established excellent documentation and tooling to guide you through the process. Familiarizing yourself with PostgreSQL's build process will make transitioning to Cloudberry significantly easier.
 
-## Key differences between Cloudberry and PostgreSQL
+## 3. Key differences between Cloudberry and PostgreSQL
 
 While the overall process is similar, there are a few additional considerations when working with Cloudberry due to its distributed architecture:
 
@@ -44,9 +46,9 @@ While the overall process is similar, there are a few additional considerations 
 
 Once you are familiar with PostgreSQL, setting up Cloudberry will be straightforward. The following sections will guide you through the build and runtime setup process for Cloudberry.
 
-## Prerequisites
+## 4. Prerequisites
 
-### Provision a Rocky Linux 9 VM
+### 4.1 Provision a Rocky Linux 9 VM
 
 - Use any platform to create a virtual machine or container:
 
@@ -73,7 +75,7 @@ Once you are familiar with PostgreSQL, setting up Cloudberry will be straightfor
 Specific steps to provision the environment are not covered in this guide because they vary by platforms. This guide assumes you have successfully created a VM or container and can log in as the default user (for example, `rocky` for Rocky Linux on AWS).
 :::
 
-### System requirements
+### 4.2 System requirements
 
 Minimum requirements for development environment:
 
@@ -82,7 +84,7 @@ Minimum requirements for development environment:
 - Storage: 20GB free space recommended
 - Network: Broadband internet connection for package downloads
 
-### Install `sudo` (if missing)
+### 4.3 Install `sudo` (if missing)
 
 If `sudo` is not already installed, run the following command to install it:
 
@@ -94,11 +96,11 @@ dnf install -y sudo
 In environments like Docker, the `root` user will be able to use `sudo` without a password prompt once it is installed.
 :::
 
-### Step 1: Install required packages
+### 4.4 Install required packages
 
 This step installs essential development tools, libraries, and dependencies required for building Apache Cloudberry.
 
-#### Install basic system packages
+#### 4.4.1 Install basic system packages
 
 The following command installs the primary packages required for Cloudberry development:
 
@@ -106,7 +108,7 @@ The following command installs the primary packages required for Cloudberry deve
 sudo dnf install -y apr-devel autoconf bison bzip2 bzip2-devel cmake3 createrepo_c ed flex gcc gcc-c++ git glibc-langpack-en initscripts iproute java-11-openjdk java-11-openjdk-devel krb5-devel less libcurl-devel libevent-devel libuuid-devel libxml2-devel libzstd-devel lz4 lz4-devel m4 nc net-tools openldap-devel openssh-clients openssh-server openssl-devel pam-devel passwd perl perl-Env perl-ExtUtils-Embed perl-Test-Simple perl-core pinentry python3-devel python3-lxml python3-psutil python3-pytest python3-pyyaml readline-devel rpm-build rpm-sign rpmdevtools rsync tar unzip util-linux-ng wget which zlib-devel
 ```
 
-#### Install CodeReady Builder (CRB) packages
+#### 4.4.2 Install CodeReady Builder (CRB) packages
 
 The CRB repository provides additional development tools and libraries. On Rocky Linux, this repository is disabled by default and must be explicitly enabled.
 
@@ -118,7 +120,7 @@ sudo dnf install -y --enablerepo=crb libuv-devel libyaml-devel perl-IPC-Run
 In Red Hat Enterprise Linux (RHEL), this repository is called "PowerTools."
 :::
 
-### Step 2: Create and configure the 'gpadmin' user
+### 4.5 Create and configure the 'gpadmin' user
 
 To prepare the environment for Apache Cloudberry (Incubating) development, we need to create and configure a dedicated `gpadmin` user.
 
@@ -142,7 +144,7 @@ To prepare the environment for Apache Cloudberry (Incubating) development, we ne
 
     If the output is `root`, the configuration is correct.
 
-#### Set up the gpadmin user environment
+#### 4.5.1 Set up the gpadmin user environment
 
 Optional steps to enhance gpadmin's development environment with Vim, Tmux, and Oh My Bash configurations
 
@@ -161,7 +163,7 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/mast
 EOF
 ```
 
-#### Required configuration
+#### 4.5.2 Required configuration
 
 This script performs three main tasks as the `gpadmin` user:
 
@@ -197,13 +199,11 @@ chmod 644 /home/gpadmin/.ssh/id_rsa.pub
 EOF
 ```
 
-### Step 3: Configure system settings
-
-#### Set resource limits
+### 4.6 Configure system settings
 
 Database systems like Apache Cloudberry require specific system resource limits to operate efficiently. These limits should be configured for the `gpadmin` user who runs the database processes.
 
-- Create resource limits configuration
+1. Create resource limits configuration
 
     Create user limits configuration file:
 
@@ -221,7 +221,7 @@ Database systems like Apache Cloudberry require specific system resource limits 
     EOF
     ```
 
-- Understand the limits.
+2. Understand the limits.
 
     The configuration sets the following types of resource limits:
 
@@ -243,14 +243,14 @@ Database systems like Apache Cloudberry require specific system resource limits 
         - Enables parallel query execution
         - Supports Cloudberry's distributed architecture
 
-##### Verify resource limits
+3. Verify resource limits.
 
-```bash
-# Check current limits
-sudo -u gpadmin ulimit -a
-```
+    ```bash
+    # Check current limits
+    sudo -u gpadmin ulimit -a
+    ```
 
-## Retrieve and compile software
+## 5. Retrieve and compile software
 
 From here on out we execute commands as the `gpadmin` user
 
@@ -258,11 +258,11 @@ From here on out we execute commands as the `gpadmin` user
 sudo su - gpadmin
 ```
 
-### Step 1: Download, build, and install Apache Xerces-C
+### 5.1 Download, build, and install Apache Xerces-C
 
 Apache Xerces-C is a required dependency for enabling the Orca query optimizer in Cloudberry. The following steps download the source code, verify its integrity, build the library, and install it.
 
-#### Set variables (helper)
+#### 5.1.1 Set variables (helper)
 
 To streamline the commands and make them reusable, define the following helper variables:
 
@@ -274,7 +274,7 @@ XERCES_INSTALL_PREFIX="/usr/local/xerces-c"
 These variables are used throughout the build process to specify the version of Apache Xerces-C being installed (XERCES_LATEST_RELEASE) and its installation directory (XERCES_INSTALL_PREFIX). This ensures consistency and simplifies the commands.
 :::
 
-#### Download and verify the source package
+#### 5.1.2 Download and verify the source package
 
 ```bash
 wget -nv "https://dlcdn.apache.org//xerces/c/3/sources/xerces-c-${XERCES_LATEST_RELEASE}.tar.gz"
@@ -285,7 +285,7 @@ echo "$(curl -sL https://dlcdn.apache.org//xerces/c/3/sources/xerces-c-${XERCES_
 Ensure the SHA-256 checksum validation passes (output: `xerces-c-3.3.0.tar.gz: OK`). If it fails, do not proceed and verify the source package's integrity.
 :::
 
-#### Extract, configure, build, test, and install
+#### 5.1.3 Extract, configure, build, test, and install
 
 ```bash
 tar xf "xerces-c-${XERCES_LATEST_RELEASE}.tar.gz"
@@ -305,7 +305,7 @@ sudo ln -s ${XERCES_INSTALL_PREFIX}-${XERCES_LATEST_RELEASE} ${XERCES_INSTALL_PR
 - The output of the commands are saved to timestamped log files for future reference or troubleshooting.
 :::
 
-### Step 2: Clone the Apache Cloudberry repository
+### 5.2 Clone the Apache Cloudberry repository
 
 Clone the source code for Apache Cloudberry into the `gpadmin` user's home directory:
 
@@ -314,9 +314,9 @@ git clone https://github.com/apache/cloudberry.git ~/cloudberry
 cd ~/cloudberry
 ```
 
-### Step 3: Configure the build process
+### 5.3 Configure the build process
 
-#### Prepare environment
+#### 5.3.1 Prepare environment
 
 The build process requires the necessary libraries (e.g., Xerces-C) to be available at the expected locations for configuration and runtime. Prepare the environment using the following commands:
 
@@ -330,7 +330,7 @@ sudo cp -v /usr/local/xerces-c/lib/libxerces-c.so \
 sudo chown -R gpadmin.gpadmin /usr/local/cloudberry-db
 ```
 
-#### Run `configure`
+#### 5.3.2 Run `configure`
 
 The `configure` command sets up the build environment for Apache Cloudberry. This configuration includes several development features and extensions.
 
@@ -370,9 +370,9 @@ export LD_LIBRARY_PATH=/usr/local/cloudberry-db/lib:LD_LIBRARY_PATH
 The output of the `configure` command is saved to a timestamped log file for future reference or troubleshooting.
 :::
 
-### Step 3: Build and install Apache Cloudberry and contrib extensions
+### 5.4 Build and install Apache Cloudberry and contrib extensions
 
-#### Compile the code
+#### 5.4.1 Compile the code
 
 ```bash
 # Uses the following command to compile the core components of Apache Cloudberry:
@@ -382,7 +382,7 @@ make -j$(nproc) --directory=~/cloudberry | tee ~/cloudberry/make-$(date "+%Y.%m.
 make -j$(nproc) --directory=~/cloudberry/contrib | tee ~/cloudberry/make-contrib-$(date "+%Y.%m.%d-%H.%M.%S").log
 ```
 
-#### Install the compiled binaries
+#### 5.4.2 Install the compiled binaries
 
 ```bash
 # Installs the core components to the specified installation directory:
@@ -392,39 +392,37 @@ make install --directory=~/cloudberry | tee ~/cloudberry/make-install-$(date "+%
 make install --directory=~/cloudberry/contrib | tee ~/cloudberry/make-contrib-install-$(date "+%Y.%m.%d-%H.%M.%S").log
 ```
 
-### Step 4: Verify installation
+### 5.5 Verify installation
 
 After installation, verify the setup with these steps:
 
-#### Check Cloudberry version
+#### 5.5.1 Check Cloudberry version
 
 ```bash
 /usr/local/cloudberry-db/bin/postgres --gp-version
 /usr/local/cloudberry-db/bin/postgres --version
 ```
 
-#### Verify library dependencies
+#### 5.5.2 Verify library dependencies
 
 ```bash
 ldd /usr/local/cloudberry-db/bin/postgres
 ```
 
-#### Check library extensions
+#### 5.5.3 Check library extensions
 
 ```bash
 ls -al /usr/local/cloudberry-db/share/postgresql/extension
 ```
 
-#### Check core utilities
+#### 5.5.4 Check core utilities
 
 ```bash
 ls -l /usr/local/cloudberry-db/bin/
 ```
 Expected output should show critical binaries like postgres, initdb, etc.
 
-## Troubleshooting
-
-### Common issues
+### 5.6 Common issues
 
 - Configure fails with missing dependencies:
 
@@ -447,11 +445,11 @@ For detailed error messages, review the timestamped log files created during the
 
 You have successfully built and installed Apache Cloudberry on Rocky Linux 9. The installation directory is `/usr/local/cloudberry-db`.
 
-## Set up a Cloudberry development cluster
+## 6. Set up a Cloudberry development cluster
 
 This guide walks through setting up a Cloudberry demo cluster, and testing basic functionality. The demo cluster includes a coordinator, standby coordinator, and multiple primary/mirror segments all running on a single development host.
 
-### Set up initial container (not required for all environments)
+### 6.1 Set up initial container (not required for all environments)
 
 Container environments typically don't start the SSH daemon process by default. Since Cloudberry relies heavily on SSH for inter-process communication, we need to initialize and start the SSH server:
 
@@ -466,7 +464,7 @@ else
 fi
 ```
 
-### Configure SSH for Cloudberry
+### 6.2 Configure SSH for Cloudberry
 
 Cloudberry uses SSH for coordinator-segment communication. The following commands ensure SSH is properly configured for the gpadmin user by adding the host to known_hosts and verifying SSH connectivity:
 
@@ -475,7 +473,7 @@ ssh-keyscan $(hostname) >> ~/.ssh/known_hosts
 ssh $(hostname) date
 ```
 
-### Set up Cloudberry environment variables
+### 6.3 Set up Cloudberry environment variables
 
 Load Cloudberry environment variables that set up paths for binaries, libraries, and other essential components:
 
@@ -483,7 +481,7 @@ Load Cloudberry environment variables that set up paths for binaries, libraries,
 source /usr/local/cloudberry-db/greenplum_path.sh
 ```
 
-### Create development cluster
+### 6.4 Create development cluster
 
 Create a demo cluster that simulates a full Cloudberry deployment on a single machine. This includes 1 coordinator, 1 standby coordinator, 3 primary segments, and 3 mirror segments:
 
@@ -491,7 +489,7 @@ Create a demo cluster that simulates a full Cloudberry deployment on a single ma
 make create-demo-cluster --directory=~/cloudberry | tee ~/cloudberry/make-create-demo-cluster-$(date "+%Y.%m.%d-%H.%M.%S").log
 ```
 
-### Configure cluster environment
+### 6.5 Configure cluster environment
 
 After cluster creation, verify and load cluster-specific variables that point to the coordinator port and data directory:
 
@@ -499,7 +497,7 @@ After cluster creation, verify and load cluster-specific variables that point to
 source ~/cloudberry/gpAux/gpdemo/gpdemo-env.sh
 ```
 
-### Validate cluster deployment
+### 6.6 Validate cluster deployment
 
 Verify the cluster is running correctly with these essential commands:
 
@@ -521,7 +519,7 @@ psql template1 -c 'SELECT * from gp_segment_configuration'
 psql template1 -c 'SELECT * FROM pg_available_extensions'
 ```
 
-### Extension Testing Example: pg_stat_statements
+### 6.7 Extension Testing Example: pg_stat_statements
 
 This example demonstrates how to enable and test the `pg_stat_statements` extension, which provides statistics about SQL query execution:
 
@@ -573,7 +571,7 @@ LIMIT 5;
 EOF
 ```
 
-### Destroy development cluster
+### 6.8 Destroy development cluster
 
 To clean up and start fresh, you can destroy the demo cluster:
 
@@ -583,9 +581,7 @@ make destroy-demo-cluster --directory=~/cloudberry | tee ~/cloudberry/make-creat
 
 This command removes all cluster data and configuration, allowing you to create a new clean cluster if needed.
 
-## Troubleshooting
-
-### SSH connection issues
+### 6.9 Troubleshoot SSH connection issues
 
 When running `create-demo-cluster`, the process may hang if SSH host verification hasn't been completed. This typically manifests as a stalled process waiting for user input to verify the host identity. 
 
@@ -602,7 +598,7 @@ If you still encounter SSH issues:
 2. Check that the known_hosts file exists and has the correct permissions
 3. Test SSH connectivity with `ssh $(hostname) date` before proceeding with cluster creation
 
-## Validate basic functionalities
+## 7. Validate basic functionalities
 
 Run the installcheck test suite to verify basic functionality. It is recommended to test with both Orca (the query optimizer) enabled and disabled:
 
@@ -618,7 +614,7 @@ PGOPTIONS='-c optimizer=off' make --directory=~/cloudberry installcheck
 Even though Orca is the default Cloudberry optimizer, you must explicitly set `optimizer=on` when running installcheck. Without this setting, the `explain` test will fail due to missing the explicit configuration option.
 :::
 
-### Test results
+### 7.1 Test results
 
 The installcheck target provides a basic test of functionality. During execution, you'll see output like this:
 
@@ -649,7 +645,7 @@ The files will be located in `/home/gpadmin/cloudberry/src/test/regress/`.
 installcheck is just one of several test schedules available. This guide focuses on basic development environment setup and validation.
 :::
 
-### Troubleshoot test failures
+### 7.2 Troubleshoot test failures
 
 If a test fails, you might need to examine the log files from various cluster components. You can locate the data directories containing these logs by querying the segment configuration:
 
