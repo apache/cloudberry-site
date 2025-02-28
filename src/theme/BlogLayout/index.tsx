@@ -32,8 +32,7 @@ export default function BlogLayout(props: Props & { items: any }): JSX.Element {
   return (
     <Layout {...layoutProps}>
       <div className="blog-container" style={{ marginBottom: 62 }}>
-        <div className="flex" style={{ padding: "0 var(--mobile-padding-width)" }}>
-          {props.items && <BlogSidebar sidebar={sidebar} items={props.items} />}
+        <div className={styles.contentLayout}>
           <main
             className={clsx(styles.main, {
               [styles.blogList]: !!props.items,
@@ -43,6 +42,9 @@ export default function BlogLayout(props: Props & { items: any }): JSX.Element {
             itemType="https://schema.org/Blog"
           >
             <BreadCrumbs className={styles.breadcrumbs} path={path} />
+            {props.items && (
+              <BlogSidebar sidebar={sidebar} items={props.items} />
+            )}
             <div className={styles.listWrap}>{children}</div>
           </main>
           {/* {toc && <div className="col col--2">{toc}</div>} */}

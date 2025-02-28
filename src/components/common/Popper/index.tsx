@@ -20,7 +20,7 @@ export default function Popper(props: IProps) {
   };
   useEffect(() => {
     createPopper(targetRef.current, contentRef.current, {
-      placement: "bottom",
+      placement: "top",
       modifiers: [],
     });
   }, []);

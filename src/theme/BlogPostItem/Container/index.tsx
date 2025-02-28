@@ -1,16 +1,11 @@
-import { useBlogPost } from "@docusaurus/theme-common/internal";
 import type { Props } from "@theme/BlogPostItem/Container";
 export default function BlogPostItemContainer({
   children,
   className,
 }: Props): JSX.Element {
-  const { isBlogPostPage } = useBlogPost();
+  // const { isBlogPostPage } = useBlogPost();
   return (
     <article
-      style={{
-        width: isBlogPostPage ? "auto" : 440,
-        height: isBlogPostPage ? "auto" : "auto",
-      }}
       className={className}
       itemProp="blogPost"
       itemScope
