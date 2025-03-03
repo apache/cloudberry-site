@@ -35,16 +35,39 @@ Each Podling Project Management Committee (PPMC) helps its Podling learn how to 
 | Xin (Alwin) Tang | xtang.code@gmail.com | xtangcode | HashData |
 | Zhang Mingli | avamingli@gmail.com | avamingli | HashData |
 
-Our journey began in 2022, and we have built our foundation on PostgreSQL and Greenplum Database. We would not be where we are today without the invaluable contributions of the two project contributors. We extend our heartfelt thanks to them.
+## Committers
+
+Committers are contributors who have shown sustained commitment to the project through ongoing contributions of high quality and have been granted write access to the project repositories.
+
+Committers in Apache Cloudberry (Incubating):
+- Have write access to the project's repositories
+- Review and merge pull requests from contributors
+- Participate in discussions about the project's development
+- Help maintain code quality and project standards
+- Mentor new contributors and help grow the community
+
+The path to becoming a committer typically involves:
+
+1. **Consistent Contribution**: Make regular, high-quality contributions to the project over time.
+2. **Community Involvement**: Participate in discussions, help other users, and engage with the community.
+3. **Code Quality**: Demonstrate technical skill and an understanding of the project's architecture.
+4. **Review Process**: Help review pull requests from other contributors.
+5. **Nomination**: Current committers or PPMC members may nominate you based on your contributions.
+6. **Vote**: The PPMC will vote on your nomination. If approved, you'll be invited to become a committer.
+
+Committer status recognizes your contributions and grants you additional responsibilities in shaping the project's future. We encourage all contributors to aim for this role by consistently participating in the project's development.
 
 import Contributors from '@site/src/components/contributors';
 import SlackUsers from '@site/src/components/slack_users';
 
-# Contributors wall
-## GitHub Committers and PPMC members
+## Contributors wall
+
+Our journey began in 2022, and we have built our foundation on PostgreSQL and Greenplum Database. We would not be where we are today without the invaluable contributions of the two project contributors. We extend our heartfelt thanks to them.
+
+### GitHub Committers and PPMC members
 
 <Contributors />
 
-## Slack Community
+### Slack Community
 
 <SlackUsers />
