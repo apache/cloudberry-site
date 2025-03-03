@@ -15,8 +15,7 @@ See the Kafka FDW repository for more information: [https://github.com/cloudberr
 - Create the `kafka_fdw` extension:
 
     ``` sql
-    postgres=# CREATE EXTENSION kafka_fdw;
-    CREATE EXTENSION
+    CREATE EXTENSION kafka_fdw;
     ```
 
 - Create an external server and specify Kafka's cluster address. You need to replace `localhost:9092` with your Kafka cluster address.

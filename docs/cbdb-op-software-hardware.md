@@ -18,8 +18,6 @@ Apache Cloudberry supports deployment on both physical machines and virtual mach
 | ------- | ---- | ---- | -------- | -------------------- | -------- |
 | Coordinator  | 4 cores | 8 GB | SSD      | 10 Gbps NIC (2 preferred) | 1+       |
 | Segment | 4 cores | 8 GB | SSD      | 10 Gbps NIC (2 preferred) | 1+       |
-| ETCD    | 2 cores | 4 GB | SSD      | 10 Gbps NIC (2 preferred) | 2+       |
-| FTS     | 2 cores | 4 GB | SSD      | 10 Gbps NIC (2 preferred) | 1+       |
 
 #### For production environments
 
@@ -27,8 +25,6 @@ Apache Cloudberry supports deployment on both physical machines and virtual mach
 | ------- | ------ | ------ | -------- | -------------------- | -------- |
 | Coordinator  | 16+ cores | 32+ GB | SSD      | 10 Gbps NIC (2 preferred) | 2+       |
 | Segment | 8+ cores  | 32+ GB | SSD      | 10 Gbps NIC (2 preferred) | 2+       |
-| ETCD    | 16+ cores | 64+ GB | SSD      | 10 Gbps NIC (2 preferred) | 3+       |
-| FTS     | 4+ cores  | 8+ GB   | SSD      | 10 Gbps NIC (2 preferred) | 3+       |
 
 Apache Cloudberry can also be deployed on public cloud platforms such as AWS, Azure, and GCP. The hardware requirements for cloud-based deployments might vary based on the instance types selected on these platforms. Refer to the specific cloud provider’s documentation for instance configurations that meet or exceed the recommended hardware specifications.
 

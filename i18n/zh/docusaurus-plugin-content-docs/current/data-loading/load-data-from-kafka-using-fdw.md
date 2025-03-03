@@ -12,7 +12,7 @@ Apache Cloudberry 支持使用 Kafka FDW 来创建外部表以及导入数据。
 
 ## 基本使用
 
-- 创建插件。
+- 创建 `kafka_fdw` 扩展。
 
     ``` sql
     CREATE EXTENSION kafka_fdw;

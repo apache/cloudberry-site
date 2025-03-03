@@ -113,6 +113,18 @@ const sidebars: SidebarsConfig = {
         'sys-admin/configure-database-system', 'sys-admin/check-database-system', 'sys-admin/enable-coordinator-mirroring', 'sys-admin/recommended-maintenance-monitoring-tasks']
      },
 
+     {
+      type: 'category',
+      label: 'Ecosystem',
+      items: [
+        {
+        type: 'category',
+        label: 'SQL Clients',
+        items: ['ecosystem/sql-clients/dbeaver']
+       },
+        ]
+     },
+
     {
       type: 'category',
       label: 'References',
