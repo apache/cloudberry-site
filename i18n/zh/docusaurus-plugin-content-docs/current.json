@@ -63,6 +63,14 @@
     "message": "高级数据分析",
     "description": "The label for category advanced analytics in sidebar docs"
   },
+  "sidebar.docsbars.category.System Catalogs": {
+    "message": "系统目录",
+    "description": "The label for category system catalogs in sidebar docs"
+  },
+  "sidebar.docsbars.category.System Tables": {
+    "message": "系统表",
+    "description": "The label for category system tables in sidebar docs"
+  },
   "sidebar.docsbars.category.Ecosystem": {
     "message": "生态系统",
     "description": "The label for category ecosystem in sidebar docs"
