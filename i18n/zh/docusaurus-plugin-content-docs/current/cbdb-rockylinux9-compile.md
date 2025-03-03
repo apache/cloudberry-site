@@ -4,6 +4,10 @@ title: 在 Rocky Linux 9 上
 
 # 在 Rocky Linux 9 上编译和安装 Apache Cloudberry
 
+:::info 提示
+本文档来自 [Building Apache Cloudberry (Incubating): A Development Environment Guide](https://github.com/edespino/cloudberry/blob/rocky9-dev-readme/deploy/build/README-rockylinux9.md)。
+:::
+
 本文适用于希望探索并可能为 Apache Cloudberry 做出贡献的开发人员。文中描述的构建环境仅适用于开发和测试。
 
 若想了解如何在 Rocky Linux 8 和 Ubuntu 上编译和安装 Apache Cloudberry，请参考 [在 Rocky Linux 8 和 Ubuntu 上编译](/i18n/zh/docusaurus-plugin-content-docs/current/cbdb-rockylinux8-ubuntu-compile.md)。
@@ -116,7 +120,7 @@ CRB 仓库提供了额外的开发工具和库。在 Rocky Linux 上，该仓库
 sudo dnf install -y --enablerepo=crb libuv-devel libyaml-devel perl-IPC-Run
 ```
 
-:::说明
+:::note 说明
 在红帽企业版 Linux (RHEL) 中，此仓库被称为 "PowerTools"。
 :::
 
@@ -270,7 +274,7 @@ XERCES_LATEST_RELEASE=3.3.0
 XERCES_INSTALL_PREFIX="/usr/local/xerces-c"
 ```
 
-:::说明
+:::note 说明
 这些变量用于指定要安装的 Apache Xerces-C 的版本（`XERCES_LATEST_RELEASE`）及其安装路径（`XERCES_INSTALL_PREFIX`），确保整个构建过程的一致性并简化命令。
 :::
 
@@ -281,7 +285,7 @@ wget -nv "https://dlcdn.apache.org//xerces/c/3/sources/xerces-c-${XERCES_LATEST_
 echo "$(curl -sL https://dlcdn.apache.org//xerces/c/3/sources/xerces-c-${XERCES_LATEST_RELEASE}.tar.gz.sha256)" | sha256sum -c -
 ```
 
-:::说明
+:::note 说明
 请确保 SHA-256 校验通过（输出应为：`xerces-c-3.3.0.tar.gz: OK`）。如果校验失败，请不要继续，需验证源代码包的完整性。
 :::
 
@@ -299,7 +303,7 @@ sudo make install | tee make-install-$(date "+%Y.%m.%d-%H.%M.%S").log
 sudo ln -s ${XERCES_INSTALL_PREFIX}-${XERCES_LATEST_RELEASE} ${XERCES_INSTALL_PREFIX}
 ```
 
-:::说明
+:::note 说明
 - `make` 命令以并行方式运行（`-j$(nproc)`），利用所有可用的 CPU 核心加速构建过程。`nproc` 命令动态获取核心数量。
 - 在 `make check` 阶段，标记为 **XFAIL**（预期失败）的测试结果是可以接受的，不代表构建存在问题。
 - 命令的输出被保存到带时间戳的日志文件中，方便日后参考或故障排查。
@@ -611,7 +615,7 @@ PGOPTIONS='-c optimizer=on' make --directory=~/cloudberry installcheck
 PGOPTIONS='-c optimizer=off' make --directory=~/cloudberry installcheck
 ```
 
-:::提示
+:::tip 提示
 尽管 Orca 是 Cloudberry 的默认优化器，但在运行 installcheck 时，需明确设置 `optimizer=on`，否则 `explain` 测试会因缺少显式配置选项而失败。
 :::
 
@@ -642,7 +646,7 @@ parallel group (20 tests):  pg_lsn oid txid name char varchar int2 regproc text 
 
 这些文件位于 `/home/gpadmin/cloudberry/src/test/regress/` 目录中。
 
-:::说明
+:::note 说明
 installcheck 只是众多可用测试计划中的一个。本指南主要关注基本开发环境的搭建和验证。
 :::
 

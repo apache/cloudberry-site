@@ -13,7 +13,7 @@ The source of this document is from the GitHub repository [`apache/cloudberry`](
 
 This document shares how to compile and install Apache Cloudberry on Rocky Linux 8, RHEL 8, and Ubuntu. Note that this document is for developers to try out Apache Cloudberry in a single-node environments. **DO NOT use this document for production environments**.
 
-To learn how to compile and install Apache Cloudberry on Rocky Linux 9, see [Compile on Rocky Linux 9](/docs/cbdb-rockylinux9-compile.md)
+To learn how to compile and install Apache Cloudberry on Rocky Linux 9, see [Compile on Rocky Linux 9](/docs/cbdb-rockylinux9-compile.md).
 
 Take the following steps to compile and install Apache Cloudberry:
 

@@ -4,6 +4,10 @@ title: On Rocky Linux 9
 
 # Compile and Install Apache Cloudberry on Rocky Linux 9
 
+:::info
+The source of this document is from [Building Apache Cloudberry (Incubating): A Development Environment Guide](https://github.com/edespino/cloudberry/blob/rocky9-dev-readme/deploy/build/README-rockylinux9.md).
+:::
+
 This document is intended for developers interested in exploring and potentially contributing to Apache Cloudberry. The build environment described here is optimized for development and testing purposes only.
 
 To learn how to compile and install Apache Cloudberry on Rocky Linux 8 and Ubuntu, see [Compile on Rocky Linux 8 and Ubuntu](/docs/cbdb-rockylinux8-ubuntu-compile.md).
