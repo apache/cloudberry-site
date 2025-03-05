@@ -78,7 +78,7 @@ const sidebars: SidebarsConfig = {
         type: "doc",
         id: 'performance/index',
       },
-       items: ['performance/update-stats-using-analyze', 'performance/use-unique-index-on-ao-tables', 'performance/use-auto-materialized-view-to-answer-queries', 'performance/use-incremental-materialized-view', 'performance/parallel-create-ao-refresh-mv', 'performance/parallel-query-execution', 'performance/use-aggre-pushdown-to-speed-up-queries', 'performance/use-index-scan-on-ao-tables', 'performance/use-runtimefilter-to-optimize-queries','performance/use-columnar-compression', 'performance/manage-resources-using-resource-groups']
+       items: ['performance/update-stats-using-analyze', 'performance/use-unique-index-on-ao-tables', 'performance/use-auto-materialized-view-to-answer-queries', 'performance/use-incremental-materialized-view', 'performance/parallel-create-ao-refresh-mv', 'performance/parallel-query-execution', 'performance/use-aggre-pushdown-to-speed-up-queries', 'performance/use-index-scan-on-ao-tables', 'performance/use-runtimefilter-to-optimize-queries','performance/use-columnar-compression', 'performance/manage-resources-using-resource-groups', 'performance/use-dynamic-tables']
      },
 
      {
