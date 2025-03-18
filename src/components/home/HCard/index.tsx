@@ -3,91 +3,57 @@ import { LINKS } from "@site/src/consts/homeContent";
 import useGetNewBlogList from "@site/src/hooks/useGetNewBlogList";
 import { useIsMobile } from "@site/src/hooks/useIsMobile";
 import clsx from "clsx";
-import { useEffect, useRef } from "react";
-import Typed from "typed.js";
 import LinkWithBaseUrl from "../../common/LinkWithBaseUrl";
 import styles from "./styles.module.scss";
 
 export default function HCard() {
-  const el = useRef(null);
-  const m = translate({ message: "Analytics  AI  Analytics and AI" });
   const blogs = useGetNewBlogList();
   const newBlog = blogs[0];
 
-  useEffect(() => {
-    const typed = new Typed(el.current, {
-      strings: m.split("  "),
-      typeSpeed: 100,
-      backSpeed: 80,
-      loop: true,
-    });
-    return () => {
-      typed.destroy();
-    };
-  }, []);
-
-  const headerDesc = useIsMobile() ? (
-    <>
-      <div>
-        <Translate>Next Generation</Translate>{" "}
-        <Translate>Unified Database for</Translate>
-      </div>
-    </>
-  ) : (
-    <>
-      <div>
-        <Translate>Next Generation</Translate>
-      </div>
-      <div>
-        <Translate>Unified Database for</Translate>
-      </div>
-    </>
+  const headerDesc = (
+    <div className={styles.textWrap}>
+      <h1 className={styles.highText}>
+        Welcome to Apache Cloudberry™ (Incubating)
+      </h1>
+      <p className={styles.description}>
+        Apache Cloudberry is an advanced and mature open-source Massively Parallel Processing (MPP) database, 
+        derived from the open-source version of the Pivotal Greenplum Database® but built on a more modern 
+        PostgreSQL kernel and with more advanced enterprise capabilities. Cloudberry can serve as a data 
+        warehouse and can also be used for large-scale analytics and AI/ML workloads.
+      </p>
+    </div>
   );
 
   return (
     <div className={clsx(styles.bannerContainer)}>
       <div className={styles.content}>
         <div className={styles.left}>
-          <div className={styles.highText}>
-            <div className={styles.textWrap}>
-              {headerDesc}
-              <div>
-                {/* <span style={{ color: "#fff" }}>for </span> */}
-                <span className={styles.typewriterText}>
-                  <span ref={el}></span>
-                </span>
-              </div>
-            </div>
-          </div>
+          {headerDesc}
           <div className={clsx(styles.btnWrap, "link-wrap")}>
-            <LinkWithBaseUrl to={LINKS.discoverMore}>
+            <LinkWithBaseUrl to="/community">
               <span className={styles.more}>
-                <Translate>Discover More</Translate>
+                <Translate>Community</Translate>
+              </span>
+            </LinkWithBaseUrl>
+            <a href="https://inviter.co/apache-cloudberry" target="_blank" rel="noopener noreferrer">
+              <span className={styles.more}>
+                <Translate>Slack</Translate>
+              </span>
+            </a>
+            <LinkWithBaseUrl to="/docs">
+              <span className={styles.more}>
+                <Translate>Docs</Translate>
               </span>
             </LinkWithBaseUrl>
             <LinkWithBaseUrl to={LINKS.github}>
               <span className={styles.hub}>
-                <Translate>View on Github</Translate>
+                <Translate>GitHub</Translate>
               </span>
             </LinkWithBaseUrl>
           </div>
         </div>
         {!useIsMobile() && (
           <div className={styles.right}>
-            <div className={styles.loopRun}>
-              <img
-                className={styles.centerCircle}
-                src="/img/home/hcard/big-circle.svg"
-                alt=""
-              />
-              <div className={clsx(styles.circle, styles.circle1)}>
-                Advanced
-              </div>
-              <div className={clsx(styles.circle, styles.circle3)}>
-                Friendly
-              </div>
-              <div className={clsx(styles.circle, styles.circle5)}>Open</div>
-            </div>
           </div>
         )}
         <div className={styles.bline}></div>

@@ -1,155 +1,17 @@
 import LinkWithBaseUrl from "../components/common/LinkWithBaseUrl";
 import { isZhLangrage } from "../utils";
-import DockerSvg from "/img/home/try-it-out/docker.svg";
-import SystemSvg from "/img/home/try-it-out/system.svg";
 
 let TIPS_CONTENT = (
   <LinkWithBaseUrl href="https://github.com/apache/cloudberry">
-    <span>If you like Apache Cloudberry (Incubating), give it a star on GitHub! </span>
+    <span>If you like Apache Cloudberry (Incubating), give it a star on GitHub! </span>
     <img src="/img/home/hcard/star.svg" alt="" />
   </LinkWithBaseUrl>
 );
 
-let MMP_ARCHITECTURE = {
-  title: "MPP Architecture",
-  list: [
-    {
-      pic: "/img/home/os.png",
-      title: "Petabyte-Scale Data",
-      content:
-        "Apache Cloudberry offers excellent performance for handling large-scale data workloads with high throughput.",
-    },
-    {
-      pic: "/img/home/pr.png",
-      title: "Mature Technology",
-      content:
-        "Apache Cloudberry integrates solid PostgreSQL and Greenplum Database upstream technology, which both have wide adoption, active ecosystems, and tons of real-world use cases.",
-    },
-    {
-      pic: "/img/home/pc.png",
-      title: "Security Reinforcement",
-      content:
-        "Apache Cloudberry supports more encryption methods and algorithms including AES 128, AES 192, AES 256, DES and SCRAM-SHA-256, MD5, LDAP, and RADIUS.",
-    },
-  ],
-};
-
-let OUR_ROADMAP = {
-  title: "Our Roadmap",
-  subTitle: (
-    <>
-      <div>
-        Welcome to join us in shaping the future of Apache Cloudberry,
-      </div>
-      <a
-        className="active-color"
-        href="https://github.com/apache/cloudberry/discussions/369"
-        target="_blank"
-      >
-        check the roadmap details{" "}
-        <img src="/img/home/our-roadmap/dot-arrow.svg" alt="" />
-      </a>
-    </>
-  ),
-  list: [
-    {
-      icon: "/img/home/feature/hesc.png",
-      lightIcon: "/img/home/feature/hesc-light.png",
-      title: "Streaming Support",
-      content:
-        "Apache Cloudberry is compatible with Greenplum Database, but with a newer PostgreSQL 14.4 kernel and more advanced features Greenplum doesn't support.",
-    },
-    {
-      icon: "/img/home/feature/sac.png",
-      lightIcon: "/img/home/feature/sac-light.png",
-      title: "AI/ML ",
-      content:
-        "Inheriting the rich analytical features from PostgreSQL and Greenplum Database, Apache Cloudberry leverages them to the data platform, and seamlessly integrates the mainstream ETL and BI tools.",
-    },
-    {
-      icon: "/img/home/feature/cuwmt.png",
-      lightIcon: "/img/home/feature/cuwmt-light.png",
-      title: "Strong Analytical Capability",
-      content:
-        "Apache Cloudberry has done a lot of work to speed up the query performance, including supporting parallel query execution, aggregation pushdown and supporting RuntimeFilter, and more.",
-    },
-    {
-      icon: "/img/home/feature/p14i.png",
-      lightIcon: "/img/home/feature/p14i-light.png",
-      title: "Features and Enhancements",
-      content:
-        "Apache Cloudberry has a newer PostgreSQL 14.4 kernel inside to let users enjoy more with the backend global community.",
-    },
-    {
-      icon: "/img/home/feature/mef.png",
-      lightIcon: "/img/home/feature/mef-light.png",
-      title: "Kernel Upgrade",
-      content:
-        "Apache Cloudberry supports password security policy, transparent data encryption (TDE) and more encryption algorithms besides the AES algorithm.",
-    },
-    {
-      icon: "/img/home/feature/muc.png",
-      lightIcon: "/img/home/feature/muc-light.png",
-      title: "Utilities and Ecosystem",
-      content:
-        "Apache Cloudberry can be used in different scenarios, including batch processing data warehouse offline, building data warehouse in real-time, and more.",
-    },
-  ],
-};
-
-let TRY_IT_OUT = {
-  title: "Try it out",
-  list: [
-    {
-      title: "Build from source code.",
-      content: (
-        <>
-          <div>
-            <div>1. Clone the latest source code.</div>
-            <span className="code-block">
-              git clone https://github.com/apache/cloudberry.git
-            </span>
-          </div>
-          <div>
-            {" "}
-            2. Build on your machine, check the{" "}
-            <LinkWithBaseUrl
-              className="active-color"
-              href="https://cloudberry.apache.org/docs/cbdb-rockylinux8-ubuntu-compile/"
-            >
-              doc
-            </LinkWithBaseUrl>
-            .
-          </div>
-        </>
-      ),
-      img: <SystemSvg />,
-    },
-    {
-      title: "Create your sandbox.",
-      content: (
-        <>
-          You can also create one sandbox based on the Docker container. Follow
-          the
-          <LinkWithBaseUrl
-            className="active-color"
-            href="https://cloudberry.apache.org/bootcamp/#cloudberry-sandbox"
-          >
-            {" "}
-            bootcamp{" "}
-          </LinkWithBaseUrl>
-          to set up.
-        </>
-      ),
-      img: <DockerSvg />,
-    },
-  ],
-};
-
 let MEET_THE_COMMUNITY = {
   title: (
     <>
-      <p>Meet the community</p>
+      <div>Meet the community</div>
     </>
   ),
 };
@@ -195,11 +57,11 @@ let WANT_TO_CONTRIBUTE = {
       title: "Want to Contribute?",
       content: (
         <span>
-          There are many ways to contribute to Apache Cloudberry (Incubating), and you can easily find the ones that suit your skills and interests to 
+          There are many ways to contribute to Apache Cloudberry (Incubating), and you can easily find the ones that suit your skills and interests to 
           <LinkWithBaseUrl className={"light-active-color"} href="/contribute">
             begin your contribution
           </LinkWithBaseUrl>
-           journey.
+           journey.
         </span>
       ),
     },
@@ -248,7 +110,7 @@ let FREQUENTLY_ASKED_QUESTIONS = {
         "What's the difference between Apache Cloudberry (Incubating) and Greenplum Database?",
       content: (
         <>
-          Though Apache Cloudberry (Incubating) takes the Greenplum Database 7 as its codebase, Cloudberry has a newer solid PostgreSQL kernel built-in and has more features. You can check the 
+          Though Apache Cloudberry (Incubating) takes the Greenplum Database 7 as its codebase, Cloudberry has a newer solid PostgreSQL kernel built-in and has more features. You can check the 
           <LinkWithBaseUrl
             className="active-color"
             href="https://cloudberry.apache.org/docs/cbdb-vs-gp-features"
@@ -256,7 +118,7 @@ let FREQUENTLY_ASKED_QUESTIONS = {
             {" "}
             docs{" "}
           </LinkWithBaseUrl>
-           for details.
+           for details.
         </>
       ),
     },
@@ -279,7 +141,7 @@ let FREQUENTLY_ASKED_QUESTIONS = {
             {" "}
             contribution guide{" "}
           </LinkWithBaseUrl>
-           to learn more.
+           to learn more.
         </>
       ),
     },
@@ -301,10 +163,7 @@ export {
   FREQUENTLY_ASKED_QUESTIONS,
   LINKS,
   MEET_THE_COMMUNITY,
-  MMP_ARCHITECTURE,
-  OUR_ROADMAP,
   SLACK_TWITTER_TWITTER_WECHAT,
   TIPS_CONTENT,
-  TRY_IT_OUT,
   WANT_TO_CONTRIBUTE,
 };

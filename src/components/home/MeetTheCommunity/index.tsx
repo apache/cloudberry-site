@@ -4,7 +4,7 @@ import styles from "./index.module.scss";
 export default function MeetTheCommunity() {
   return (
     <div className={styles.meetTheCommunity}>
-      <div className={styles.title}>{MEET_THE_COMMUNITY.title}</div>
+      <div className={styles.highTitle}>{MEET_THE_COMMUNITY.title}</div>
     </div>
   );
 }
