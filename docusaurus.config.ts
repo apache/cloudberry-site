@@ -99,12 +99,66 @@ const config: Config = {
         {
           label: "Community",
           position: "right",
-          to: "/community",
+          items: [
+            {
+              label: "Overview",
+              to: "/community",
+            },
+            {
+              label: "Slack Guide",
+              to: "/community/slack",
+            },
+            {
+              label: "WeChat Guide",
+              to: "/community/wechat",
+            },
+            {
+              label: "Community Events",
+              to: "/community/events",
+            },
+            {
+              label: "Mailing Lists",
+              to: "/community/mailing-lists",
+            },
+            {
+              label: "Brand Guidelines",
+              to: "/community/brand",
+            },
+            {
+              label: "Security Policy",
+              to: "/community/security",
+            },
+           ],
         },
         {
           label: "Contribute",
           position: "right",
-          to: "/contribute",
+          items: [
+            {
+              label: "Overview",
+              to: "/contribute",
+            },
+            {
+              label: "How to Contribute",
+              to: "/contribute/how-to-contribute",
+            },
+            {
+              label: "Working with Git & GitHub",
+              to: "/contribute/git",
+            },
+            {
+              label: "Code Contribution Guide",
+              to: "/contribute/code",
+            },
+            {
+              label: "Proposal Guide",
+              to: "/contribute/proposal",
+            },
+            {
+              label: "Doc Contribution Guide",
+              to: "/contribute/doc",
+            },
+           ],
         },
         { to: "/blog", label: "Blog", position: "right" },
         {
@@ -113,9 +167,26 @@ const config: Config = {
           position: "right",
         },
         {
-          to: "/support",
-          label: "Support",
+          label: "Team",
           position: "right",
+          items: [
+            {
+              label: "Who we are",
+              to: "/team",
+            },
+            {
+              label: "Inviting New Committers",
+              to: "/team/new-committers",
+            },
+            {
+              label: "Sign ICLA",
+              to: "/team/sign-icla",
+            },
+            {
+              label: "Setup the Apache account",
+              to: "/team/setup-apache-email-account",
+            },
+           ],
         },
         {
           label: "Resources",
@@ -134,9 +205,9 @@ const config: Config = {
               to: "/bootcamp",
             },
             {
-              label: "Team",
-              to: "/team",
-            },
+              label: "Support",
+              to: "/support",
+             },
           ],
         },
  	      {

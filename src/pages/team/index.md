@@ -57,17 +57,16 @@ The path to becoming a committer typically involves:
 
 Committer status recognizes your contributions and grants you additional responsibilities in shaping the project's future. We encourage all contributors to aim for this role by consistently participating in the project's development.
 
-import Contributors from '@site/src/components/contributors';
-import SlackUsers from '@site/src/components/slack_users';
+### New Committers
+
+- [Inviting New Committers](./team/new-committers)
+- [Sign the ICLA](./team/sign-icla)
+- [Setup the Apache email account](./team/setup-apache-email-account)
 
 ## Contributors wall
 
 Our journey began in 2022, and we have built our foundation on PostgreSQL and Greenplum Database. We would not be where we are today without the invaluable contributions of the two project contributors. We extend our heartfelt thanks to them.
 
-### GitHub Committers and PPMC members
+import Contributors from '@site/src/components/contributors';
 
 <Contributors />
-
-### Slack Community
-
-<SlackUsers />
