@@ -16,10 +16,10 @@ involved.
 
 # Overview
 
-| List                 | Subscribe                                                   | Unsubscribe                                                     | Archive                                                                     |
-|----------------------|-------------------------------------------------------------|-----------------------------------------------------------------|-----------------------------------------------------------------------------|
-| Dev Mailing List     | [Subscribe](mailto:dev-subscribe@cloudberry.apache.org)     | [Unsubscribe](mailto:dev-unsubscribe@cloudberry.apache.org)     | [Archive](https://lists.apache.org/list.html?dev@cloudberry.apache.org)     |
-| Commits Mailing List | [Subscribe](mailto:commits-subscribe@cloudberry.apache.org) | [Unsubscribe](mailto:commits-unsubscribe@cloudberry.apache.org) | [Archive](https://lists.apache.org/list.html?commits@cloudberry.apache.org) |
+| List                 | Address                       | Subscribe                                                   | Unsubscribe                                                     | Archive                                                                     |
+|----------------------|-------------------------------|-------------------------------------------------------------|-----------------------------------------------------------------|-----------------------------------------------------------------------------|
+| Dev Mailing List     | dev@cloudberry.apache.org     | [Subscribe](mailto:dev-subscribe@cloudberry.apache.org)     | [Unsubscribe](mailto:dev-unsubscribe@cloudberry.apache.org)     | [Archive](https://lists.apache.org/list.html?dev@cloudberry.apache.org)     |
+| Commits Mailing List | commits@cloudberry.apache.org | [Subscribe](mailto:commits-subscribe@cloudberry.apache.org) | [Unsubscribe](mailto:commits-unsubscribe@cloudberry.apache.org) | [Archive](https://lists.apache.org/list.html?commits@cloudberry.apache.org) |
 
 ## Dev Mailing List
 
