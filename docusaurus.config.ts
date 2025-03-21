@@ -342,8 +342,8 @@ const config: Config = {
       ],
     },
     prism: {
-      theme: prismThemes.github,
-      darkTheme: prismThemes.dracula,
+      theme: prismThemes.nightOwl,
+      darkTheme: prismThemes.okaidia,
     },
     // Change website analytics from Google Analytics to Matomo
     matomo: {

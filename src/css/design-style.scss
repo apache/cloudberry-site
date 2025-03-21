@@ -67,6 +67,7 @@ a {
 article {
   code {
     border: 1px solid var(--code-border-color);
+    font-size: 14px;
   }
   .anchor {
     color: var(--active-color);
@@ -93,6 +94,30 @@ article {
       font-size: 12px;
     }
   }
+
+  // ul, ol style
+.markdown ul {
+  list-style-type: square; /* Options: circle, square */
+}
+
+.markdown ul, .markdown ol {
+  font-size: 15px;
+}
+
+.markdown blockquote {
+  border-left: 4px solid rgba(255, 168, 0, 1);
+  background-color: rgba(255, 168, 0, 0.1);
+  font-style: italic;
+}
+
+.markdown img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+  display: block;
+  margin: 16px auto;
+}
 
   // 1,2,3
   ol {
@@ -136,11 +161,13 @@ article {
       text-decoration-color: var(--active-color);
     }
     &.alert--warning {
+      font-size: 14px;
       span::before {
         content: "";
         display: inline-block;
         width: 23px;
         height: 23px;
+        font-size: 14px;
         background-image: url("/img/docs/warning.svg");
         background-size: contain;
       }
@@ -149,6 +176,7 @@ article {
       }
     }
     &.alert--danger {
+      font-size: 14px;
       span::before {
         content: "";
         display: inline-block;
@@ -161,7 +189,17 @@ article {
         display: none;
       }
     }
+    &.alert--success {
+      font-size: 14px;
+    }
+    &.alert--secondary {
+      font-size: 14px;
+    }
   }
+}
+
+pre code .token {
+  font-size: 14px;
 }
 
 .main-wrapper {
@@ -185,9 +223,13 @@ article {
     margin: 0 auto;
   }
   h1:first-child {
-    font-size: 32px;
+    font-size: 30px;
   }
-  > h2 {
+  h2 {
+    font-size: 24px;
+  }
+
+  h3 {
     font-size: 20px;
   }
   p,
@@ -200,6 +242,7 @@ article {
 
   .alert--info {
     border: none;
+    font-size: 14px;
     background-color: var(--docs-detail-bg);
     &[open] summary {
       &::after {

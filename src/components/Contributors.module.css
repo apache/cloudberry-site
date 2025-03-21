@@ -20,12 +20,12 @@
     margin-bottom: 10px;
 }
 
-p {
+text {
     margin: 0;
     font-size: 14px;
     color: #333;
 }
 
-p strong {
+text.strong {
     font-weight: bold;
 }
