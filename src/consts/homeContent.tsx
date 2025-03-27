@@ -97,9 +97,9 @@ let FREQUENTLY_ASKED_QUESTIONS = {
           You can check our{" "}
           <LinkWithBaseUrl
             className="active-color"
-            href="https://github.com/apache/cloudberry/discussions/369"
+            href="https://github.com/apache/cloudberry/discussions/868"
           >
-            Roadmap 2024
+            Roadmap
           </LinkWithBaseUrl>{" "}
           document to see all the details.
         </>

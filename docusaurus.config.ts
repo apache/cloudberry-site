@@ -194,7 +194,7 @@ const config: Config = {
           items: [
             {
               label: "Roadmap",
-              to: "https://github.com/apache/cloudberry/discussions/369",
+              to: "https://github.com/apache/cloudberry/discussions/868",
             },
             {
               label: "Forum",
