@@ -44,6 +44,7 @@
   --sub-text-color-3: rgba(0, 0, 0, 0.6);
   --sub-text-color-4: rgba(0, 194, 255, 1);
   --sub-text-color-5: rgba(242, 242, 242);
+  --sub-text-color-6: #212529;
   --blog-border-color: rgba(48, 54, 61, 1);
   --back-home-logo-color: rgba(76, 76, 76);
   --title-text-color: rgb(255, 255, 255);
@@ -68,7 +69,7 @@
   --doc-sidebar-width: 301px;
   --home-btn-bg: rgba(255, 168, 0, 1);
   --home-btn-color: rgb(0, 0, 0);
-  --footer-bg-color: #000;
+  --footer-bg-color: #212529;
   --mobile-padding-width: 70px;
   --docs-nav-margin: 60px;
   --ifm-tabs-padding-vertical: 5px;
@@ -95,7 +96,7 @@
   --ifm-color-primary-light: #29d5b0;
   --ifm-color-primary-lighter: #32d8b4;
   --ifm-color-primary-lightest: #4fddbf;
-  --ifm-background-color: #000 !important;
+  --ifm-background-color: #212529 !important;
   --ifm-breadcrumb-color-active: rgba(255, 168, 0, 1);
   --ifm-hover-overlay: rgba(255, 168, 0, 0.3) !important;
   --ifm-menu-color-active: rgba(255, 168, 0, 1) !important;
@@ -118,37 +119,38 @@
 }
 
 [data-theme="light"] {
-  --ifm-font-color-base: #000;
+  --ifm-font-color-base: #212529;
   --normal-bg-1: #fff;
-  --title-text-color: #000;
+  --title-text-color: #212529;
   --sub-text-color-2: #546e7a;
   --sub-text-color: #525665;
   --sub-text-color-1: #525665;
+  --sub-text-color-6: #fff;
 
-  --home-btn-bg: #000;
-  --home-btn-color: #000;
+  --home-btn-bg: #212529;
+  --home-btn-color: #212529;
 
   --box-border-color: #e0e0e0;
   --box-hover-border-color: #e0e0e0;
 
   --right-sidebar-circle-bg-color: #f2f2f2;
-  --sub-text-color-5: #000;
+  --sub-text-color-5: #212529;
   --blog-border-color: #e0e0e0;
   --docs-detail-bg: #eef9fd;
   --ordered-list-bg-color: #ffeecc;
-  --ordered-list-text-color: #000;
+  --ordered-list-text-color: #212529;
   --ifm-menu-color-background-active: #ffe5b3;
-  --right-sidebar-active-color: #000;
+  --right-sidebar-active-color: #212529;
 
-  --ifm-menu-color-active: #000;
-  --ifm-menu-color: #000;
+  --ifm-menu-color-active: #212529;
+  --ifm-menu-color: #212529;
   --ifm-breadcrumb-color-active: var(--active-color);
   --ifm-pagination-nav-color-hover: #e0e0e0;
   --portrait-border-color: #eef9fd;
   --ifm-navbar-link-hover-color: var(--active-color);
-  --popper-bg-color: #000;
+  --popper-bg-color: #212529;
   --popper-text-color: #ffffff;
-  --ifm-color-primary: #000;
+  --ifm-color-primary: #212529;
   --navbar-bg-color: rgb(255, 255, 255);
   .navbar-home-lighting {
     --ifm-navbar-background-color: rgba(15, 15, 15, 0.4) !important;
