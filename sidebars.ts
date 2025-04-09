@@ -115,6 +115,12 @@ const sidebars: SidebarsConfig = {
 
      {
       type: 'category',
+      label: 'Developer',
+      items: ['developer/develop-extensions-using-rust']
+     },
+
+     {
+      type: 'category',
       label: 'Ecosystem',
       items: [
         {
