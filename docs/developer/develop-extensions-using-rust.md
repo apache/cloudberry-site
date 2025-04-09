@@ -1,13 +1,13 @@
 # Develop Database Extensions Using PGRX
 
-This document explains how to develop database extensions using Rust and the PGRX framework. PGRX is a Rust framework for developing extensions for HashData Lightning, offering a safe and efficient development experience.
+This document explains how to develop database extensions using Rust and the PGRX framework. PGRX is a Rust framework for developing extensions for Apache Cloudberry, offering a safe and efficient development experience.
 
 For the core features of PGRX, see [PGRX Core Features](#pgrx-core-features). For notes of PGRX, see [Considerations and Best Practices for PGRX](#considerations-and-best-practices-for-pgrx).
 
 ## Requirements for Development Environment
 
 - Make sure that your OS is one of Debian/Ubuntu and RHEL/CentOS.
-- Make sure that your HashData Lightning cluster is compiled from source code, not installed using RPM package.
+- Make sure that your Apache Cloudberry cluster is compiled from source code, not installed using RPM package.
 
 ### Basic Software Environment
 
@@ -48,7 +48,7 @@ This section introduces the process of quickly developing extensions using PGRX,
 
 ### Set up and Install PGRX
 
-1. Set the environment variable for HashData Lightning's `pg_config` path, where `<pg_config_path>` is the path in your HashData Lightning cluster (for example, `/usr/local/cloudberry-db/bin/pg_config`):
+1. Set the environment variable for Apache Cloudberry's `pg_config` path, where `<pg_config_path>` is the path in your Apache Cloudberry cluster (for example, `/usr/local/cloudberry-db/bin/pg_config`):
 
    ```bash
    export PGRX_PG_CONFIG_PATH=<pg_config_path>
@@ -56,7 +56,7 @@ This section introduces the process of quickly developing extensions using PGRX,
 
 2. Build the PGRX framework:
 
-   1. Clone the HashData Lightning-compatible `pgrx` repository:
+   1. Clone the Apache Cloudberry-compatible `pgrx` repository:
 
       ```bash
       git clone https://github.com/cloudberry-contrib/pgrx
@@ -69,7 +69,7 @@ This section introduces the process of quickly developing extensions using PGRX,
       cargo build --features "pg14, cbdb"
       ```
 
-3. Install the HashData Lightning-compatible `cargo-pgrx` tool:
+3. Install the Apache Cloudberry-compatible `cargo-pgrx` tool:
 
    ```bash
    cargo install --path cargo-pgrx/
@@ -148,7 +148,7 @@ This section introduces the process of quickly developing extensions using PGRX,
    ]
    ```
 
-4. Grant the current system user the permissions to the HashData Lightning directory. For example, if the current user is `gpadmin` and HashData Lightning directory is `/usr/local/cloudberrydb`:
+4. Grant the current system user the permissions to the Apache Cloudberry directory. For example, if the current user is `gpadmin` and Apache Cloudberry directory is `/usr/local/cloudberrydb`:
 
    ```bash
    sudo chown -R gpadmin:gpadmin /usr/local/cloudberrydb
@@ -173,7 +173,7 @@ This section introduces the process of quickly developing extensions using PGRX,
 
 ## PGRX Type Mapping
 
-The table below lists the complete mapping of HashData Lightning (PostgreSQL) data types to Rust types:
+The table below lists the complete mapping of Apache Cloudberry (PostgreSQL) data types to Rust types:
 
 | Database data type | Rust type (`Option<T>`) |
 |-------------------|------------------------|
@@ -225,7 +225,7 @@ You can implement additional type conversions in the following ways:
 
 PGRX converts `text` and `varchar` to `&str` or `String`, and verifies whether the encoding is UTF-8. If an encoding other than UTF-8 is detected, PGRX triggers a panic to alert the developer. Because UTF-8 validation might affect performance, it is not recommended to rely on UTF-8 validation.
 
-The default encoding for PostgreSQL servers is `SQL_ASCII`, which guarantees neither ASCII nor UTF-8 (HashData Lightning will accept but ignore non-ASCII bytes). For best results, always use UTF-8 encoding with PGRX and explicitly set the database encoding when creating the database.
+The default encoding for PostgreSQL servers is `SQL_ASCII`, which guarantees neither ASCII nor UTF-8 (Apache Cloudberry will accept but ignore non-ASCII bytes). For best results, always use UTF-8 encoding with PGRX and explicitly set the database encoding when creating the database.
 
 ## PGRX Core Features
 
@@ -234,38 +234,38 @@ The default encoding for PostgreSQL servers is `SQL_ASCII`, which guarantees nei
 cargo-pgrx provides a complete set of command-line tools:
 
 - `cargo pgrx new`: Quickly creates a new extension.
-- `cargo pgrx init`: Installs or registers a HashData Lightning (PostgreSQL) instance.
+- `cargo pgrx init`: Installs or registers an Apache Cloudberry (PostgreSQL) instance.
 - `cargo pgrx run`: Interactively tests the extension in psql (or pgcli).
-- `cargo pgrx test`: Performs unit tests across multiple HashData Lightning (PostgreSQL) versions.
+- `cargo pgrx test`: Performs unit tests across multiple Apache Cloudberry (PostgreSQL) versions.
 - `cargo pgrx package`: Creates an extension installation package.
 
 ### Automatic Mode Generation
 
 - Fully implements the extension using Rust.
-- Automatically maps various Rust types to HashData Lightning (PostgreSQL) types.
+- Automatically maps various Rust types to Apache Cloudberry (PostgreSQL) types.
 - Automatically generates SQL schema (can also be manually generated using `cargo pgrx schema`).
 - Uses `extension_sql!` and `extension_sql_file!` to include custom SQL.
 
 ### Security First
 
-- Converts Rust's `panic!` to HashData Lightning/PostgreSQL's `ERROR` (abort the transaction, not the process).
+- Converts Rust's `panic!` to Apache Cloudberry/PostgreSQL's `ERROR` (abort the transaction, not the process).
 - Memory management follows Rust's `DROP` semantics, including handling `panic!` and `elog(ERROR)` cases.
 - Uses `#[pg_guard]` procedural macro to ensure safety.
-- HashData Lightning's `Datum` is represented as `Option<T> where T: FromDatum`, with NULL values safely represented as `Option::<T>::None`.
+- Apache Cloudberry's `Datum` is represented as `Option<T> where T: FromDatum`, with NULL values safely represented as `Option::<T>::None`.
 
 ### UDF Supports
 
-- Uses `#[pg_extern]` annotation to expose functions to HashData Lightning.
+- Uses `#[pg_extern]` annotation to expose functions to Apache Cloudberry.
 - Returns `pgrx::iter::SetOfIterator<'a, T>` to implement `RETURNS SETOF`.
 - Returns `pgrx::iter::TableIterator<'a, T>` to implement `RETURNS TABLE (...)`.
 - Uses `#[pg_trigger]` to create trigger functions.
 
 ### Simple Custom Types
 
-- Uses `#[derive(PostgresType)]` to treat Rust structs as HashData Lightning types.
+- Uses `#[derive(PostgresType)]` to treat Rust structs as Apache Cloudberry types.
   - By default, CBOR encoding is used for storage, and JSON is used as a human-readable format.
   - Supports custom memory/disk/readable formats.
-- Uses `#[derive(PostgresEnum)]` to treat Rust enums as HashData Lightning (PostgreSQL) enums.
+- Uses `#[derive(PostgresEnum)]` to treat Rust enums as Apache Cloudberry (PostgreSQL) enums.
 - Supports composite types via `pgrx::composite_type!("Sample")` macro.
 
 ### Server Programming Interface (SPI)
@@ -275,18 +275,18 @@ cargo-pgrx provides a complete set of command-line tools:
 
 ### Advanced Features
 
-- Securely accesses HashData Lightning's memory context system via `pgrx::PgMemoryContexts`.
+- Securely accesses Apache Cloudberry's memory context system via `pgrx::PgMemoryContexts`.
 - Supports executor/planner/transaction/subtransaction hooks.
-- Securely handles HashData Lightning pointers using `pgrx::PgBox<T>` (similar to `alloc::boxed::Box<T>`).
-- Protects Rust functions passed to HashData Lightning's `extern "C"` using `#[pg_guard]` procedural macro.
-- Accesses HashData Lightning's logging system via the `eprintln!` macro.
-- Directly (unsafe) accesses HashData Lightning internals via the `pgrx::pg_sys` module.
+- Securely handles Apache Cloudberry pointers using `pgrx::PgBox<T>` (similar to `alloc::boxed::Box<T>`).
+- Protects Rust functions passed to Apache Cloudberry's `extern "C"` using `#[pg_guard]` procedural macro.
+- Accesses Apache Cloudberry's logging system via the `eprintln!` macro.
+- Directly (unsafe) accesses Apache Cloudberry internals via the `pgrx::pg_sys` module.
 
 ## Considerations and Best Practices for PGRX
 
 Thread supports:
 
-- HashData Lightning strictly follows a single-threaded model.
+- Apache Cloudberry strictly follows a single-threaded model.
 - Custom threads cannot call internal database functions.
 - The interaction method for asynchronous contexts is still under exploration.
 

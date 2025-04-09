@@ -1,13 +1,13 @@
 # 使用 PGRX 框架开发数据库扩展
 
-本文档介绍如何使用 Rust 和 PGRX 框架开发数据库扩展。PGRX 是一个高效、安全的 Rust 框架，适用于开发 HashData Lightning 和 Apache Cloudberry 的数据库扩展。
+本文档介绍如何使用 Rust 和 PGRX 框架开发数据库扩展。PGRX 是一个高效、安全的 Rust 框架，适用于开发 Apache Cloudberry 的数据库扩展。
 
 PGRX 的功能说明，参考 [PGRX 核心功能](#pgrx-核心功能)。PGRX 的注意事项，参考 [PGRX 注意事项](#pgrx-注意事项)。
 
 ## 开发环境要求
 
 - 确保您的操作系统为 Debian/Ubuntu 或 RHEL/CentOS 系统。
-- 确保您的 HashData Lightning 或者 Apache Cloudberry 集群是通过源码编译的，非通过 RPM 包安装的。
+- 确保您的 Apache Cloudberry 集群是通过源码编译的，非通过 RPM 包安装的。
 
 ### 基础软件环境
 
@@ -48,7 +48,7 @@ sudo yum groupinstall -y 'Development Tools'
 
 ### 配置 PGRX 环境与安装
 
-1. 为 HashData Lightning 的 `pg_config` 路径设置环境变量，其中 `<pg_config_path>` 是 HashData Lightning 集群中的 `pg_config` 路径，例如 `/usr/local/cloudberry-db/bin/pg_config`：
+1. 为 Apache Cloudberry 的 `pg_config` 路径设置环境变量，其中 `<pg_config_path>` 是 Apache Cloudberry 集群中的 `pg_config` 路径，例如 `/usr/local/cloudberry-db/bin/pg_config`：
 
    ```bash
    export PGRX_PG_CONFIG_PATH=<pg_config_path>
@@ -56,7 +56,7 @@ sudo yum groupinstall -y 'Development Tools'
 
 2. 编译 PGRX 框架：
 
-   1. 克隆适配 HashData Lightning 的 `pgrx` 代码仓库：
+   1. 克隆适配 Apache Cloudberry 的 `pgrx` 代码仓库：
 
       ```bash
       git clone https://github.com/cloudberry-contrib/pgrx
@@ -69,7 +69,7 @@ sudo yum groupinstall -y 'Development Tools'
       cargo build --features "pg14, cbdb"
       ```
 
-3. 安装已适配 HashData Lightning 的 `cargo-pgrx` 工具：
+3. 安装已适配 Apache Cloudberry 的 `cargo-pgrx` 工具：
 
    ```bash
    cargo install --path cargo-pgrx/
@@ -145,7 +145,7 @@ sudo yum groupinstall -y 'Development Tools'
    ]
    ```
 
-4. 为当前系统用户授予 HashData Lightning 目录的权限。例如当前系统用户为 `gpadmin`，HashData Lightning 目录为 `/usr/local/cloudberrydb`：
+4. 为当前系统用户授予 Apache Cloudberry 目录的权限。例如当前系统用户为 `gpadmin`，Apache Cloudberry 目录为 `/usr/local/cloudberrydb`：
 
    ```bash
    sudo chown -R gpadmin:gpadmin /usr/local/cloudberrydb
@@ -170,7 +170,7 @@ sudo yum groupinstall -y 'Development Tools'
 
 ## 类型映射
 
-下表列出了 HashData Lightning (PostgreSQL) 数据类型到 Rust 类型的完整映射关系：
+下表列出了 Apache Cloudberry (PostgreSQL) 数据类型到 Rust 类型的完整映射关系：
 
 | 数据库数据类型 | Rust 类型 (`Option<T>`) |
 |--------------|------------------------|
@@ -222,7 +222,7 @@ sudo yum groupinstall -y 'Development Tools'
 
 PGRX 将 `text` 和 `varchar` 转换为 `&str` 或 `String`，并且会验证编码是否为 UTF-8。如果检测到非 UTF-8 编码，PGRX 将会触发 panic 以警告开发者。由于 UTF-8 验证可能影响性能，不建议依赖 UTF-8 验证。
 
-PostgreSQL 服务器的默认编码是 `SQL_ASCII`，它既不保证 ASCII 也不保证 UTF-8（HashData Lightning 会接受但忽略非 ASCII 字节）。为获得最佳结果，请始终使用 UTF-8 编码的 PGRX，并在创建数据库时显式设置数据库编码。
+PostgreSQL 服务器的默认编码是 `SQL_ASCII`，它既不保证 ASCII 也不保证 UTF-8（Apache Cloudberry 会接受但忽略非 ASCII 字节）。为获得最佳结果，请始终使用 UTF-8 编码的 PGRX，并在创建数据库时显式设置数据库编码。
 
 ## PGRX 核心功能
 
@@ -231,38 +231,38 @@ PostgreSQL 服务器的默认编码是 `SQL_ASCII`，它既不保证 ASCII 也�
 PGRX 提供了一套完整的命令行工具：
 
 - `cargo pgrx new`：快速创建新扩展。
-- `cargo pgrx init`：安装或注册 HashData Lightning (PostgreSQL) 实例。
+- `cargo pgrx init`：安装或注册 Apache Cloudberry (PostgreSQL) 实例。
 - `cargo pgrx run`：在 psql（或 pgcli）中交互式测试扩展。
-- `cargo pgrx test`：跨多个 HashData Lightning (PostgreSQL) 版本进行单元测试。
+- `cargo pgrx test`：跨多个 Apache Cloudberry (PostgreSQL) 版本进行单元测试。
 - `cargo pgrx package`：创建扩展安装包。
 
 ### 自动模式生成
 
 - 完全使用 Rust 实现扩展。
-- 自动映射多种 Rust 类型到 HashData Lightning (PostgreSQL) 类型。
+- 自动映射多种 Rust 类型到 Apache Cloudberry (PostgreSQL) 类型。
 - 自动生成 SQL 模式（也可通过 `cargo pgrx schema` 手动生成）。
 - 使用 `extension_sql!` 和 `extension_sql_file!` 包含自定义 SQL。
 
 ### 安全优先
 
-- 将 Rust 的 `panic!` 转换为 HashData Lightning/PostgreSQL 的 `ERROR`（中止事务而非进程）。
+- 将 Rust 的 `panic!` 转换为 Apache Cloudberry/PostgreSQL 的 `ERROR`（中止事务而非进程）。
 - 内存管理遵循 Rust 的 `DROP` 语义，包括处理 `panic!` 和 `elog(ERROR)` 的情况。
 - 使用 `#[pg_guard]` 过程宏确保安全性。
-- HashData Lightning `Datum` 表示为 `Option<T> where T: FromDatum`，NULL 值安全地表示为 `Option::<T>::None`。
+- Apache Cloudberry `Datum` 表示为 `Option<T> where T: FromDatum`，NULL 值安全地表示为 `Option::<T>::None`。
 
 ### UDF 支持
 
-- 使用 `#[pg_extern]` 注解将函数暴露给 HashData Lightning。
+- 使用 `#[pg_extern]` 注解将函数暴露给 Apache Cloudberry。
 - 返回 `pgrx::iter::SetOfIterator<'a, T>` 实现 `RETURNS SETOF`。
 - 返回 `pgrx::iter::TableIterator<'a, T>` 实现 `RETURNS TABLE (...)`。
 - 使用 `#[pg_trigger]` 创建触发器函数。
 
 ### 简单的自定义类型
 
-- 使用 `#[derive(PostgresType)]` 将 Rust 结构体作为 HashData Lightning 类型。
+- 使用 `#[derive(PostgresType)]` 将 Rust 结构体作为 Apache Cloudberry 类型。
   - 默认使用 CBOR 编码存储，JSON 作为人类可读格式。
   - 支持自定义内存/磁盘/可读格式。
-- 使用 `#[derive(PostgresEnum)]` 将 Rust 枚举作为 HashData Lightning 枚举。
+- 使用 `#[derive(PostgresEnum)]` 将 Rust 枚举作为 Apache Cloudberry 枚举。
 - 通过 `pgrx::composite_type!("Sample")` 宏支持复合类型。
 
 ### 服务器编程接口 (SPI)
@@ -272,18 +272,18 @@ PGRX 提供了一套完整的命令行工具：
 
 ### 高级功能
 
-- 通过 `pgrx::PgMemoryContexts` 安全访问 HashData Lightning 内存上下文系统。
+- 通过 `pgrx::PgMemoryContexts` 安全访问 Apache Cloudberry 内存上下文系统。
 - 支持执行器/规划器/事务/子事务钩子。
-- 使用 `pgrx::PgBox<T>` 安全处理 HashData Lightning（类似于 `alloc::boxed::Box<T>`）。
-- 使用 `#[pg_guard]` 过程宏保护需要传递给 HashData Lightning 的 `extern "C"` Rust 函数。
-- 通过类 `eprintln!` 宏访问 HashData Lightning 日志系统。
-- 通过 `pgrx::pg_sys` 模块直接（unsafe）访问 HashData Lightning 内部功能。
+- 使用 `pgrx::PgBox<T>` 安全处理 Apache Cloudberry（类似于 `alloc::boxed::Box<T>`）。
+- 使用 `#[pg_guard]` 过程宏保护需要传递给 Apache Cloudberry 的 `extern "C"` Rust 函数。
+- 通过类 `eprintln!` 宏访问 Apache Cloudberry 日志系统。
+- 通过 `pgrx::pg_sys` 模块直接（unsafe）访问 Apache Cloudberry 内部功能。
 
 ## PGRX 注意事项
 
 线程支持：
 
-- HashData Lightning 严格遵循单线程模型。
+- Apache Cloudberry 严格遵循单线程模型。
 - 自定义线程不能调用内部数据库函数。
 
 编码要求：
