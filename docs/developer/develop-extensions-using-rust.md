@@ -47,7 +47,9 @@ This section introduces the process of quickly developing extensions using PGRX,
 - Installing and using extension
 
 ### Set up and Install PGRX
-
+:::note
+PGRX is maintained by PgCentral Foundation, Inc., while we used here is one [forked PGRX version](https://github.com/cloudberry-contrib/pgrx) with better compatibility within Cloudberry. It's contributed by the community members and customized for Cloudberry, but please note that it is not maintained as one official Cloudberry project.
+:::
 1. Set the environment variable for Apache Cloudberry's `pg_config` path, where `<pg_config_path>` is the path in your Apache Cloudberry cluster (for example, `/usr/local/cloudberry-db/bin/pg_config`):
 
    ```bash
