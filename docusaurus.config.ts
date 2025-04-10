@@ -193,6 +193,10 @@ const config: Config = {
           position: "right",
           items: [
             {
+               label: "Wiki",
+               to: "https://github.com/apache/cloudberry/wiki",
+             },
+            {
               label: "Roadmap",
               to: "https://github.com/apache/cloudberry/discussions/868",
             },
