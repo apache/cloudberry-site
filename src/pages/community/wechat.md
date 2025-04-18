@@ -5,7 +5,7 @@ description: If you'd like to chat or discuss in real-time using WeChat (in Mand
 
 WeChat, also known as Weixin in Pinyin, is a popular instant messaging and
 social media application. If you prefer using WeChat over Slack for real-time
-chatting or community discussions, you can add `cbdb-bot` as your WeChat
+chatting or community discussions, you can add `Cloudberry_Bot` as your WeChat
 friend by scanning the QR code below and asking to join.
 
 ![WeChat](../../../static/img/wechat-cbdb-bot.jpg)
