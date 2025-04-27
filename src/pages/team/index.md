@@ -13,7 +13,7 @@ Each Podling Project Management Committee (PPMC) helps its Podling learn how to 
 | Andrey Borodin | amborodin@acm.org | x4m |  Yandex Cloud |
 | Antonio Petrole | antoniopetrole@gmail.com | antoniopetrole | Individual |
 | Dianjin Wang | wangdianjin@gmail.com | tuhaihe | HashData |
-| Ed Espino | espino@apache.org | edespino | Synx Data Labs |
+| Ed Espino | espino@apache.org | edespino | Apache Member, Synx Data Labs |
 | Greg Spiegelberg | gspiegelberg@gmail.com | gspiegelberg | MNTN |
 | Hao Wu | gfphoenix78@gmail.com | gfphoenix78 | HashData |
 | Hope Gao | gaoxueyu_hope@163.com | gaoxueyu | HighGo |
