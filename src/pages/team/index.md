@@ -13,8 +13,8 @@ Each Podling Project Management Committee (PPMC) helps its Podling learn how to 
 | Andrey Borodin | amborodin@acm.org | x4m |  Yandex Cloud |
 | Antonio Petrole | antoniopetrole@gmail.com | antoniopetrole | Individual |
 | Dianjin Wang | wangdianjin@gmail.com | tuhaihe | HashData |
-| Ed Espino | espino@apache.org | edespino | Individual |
-| Greg Spiegelberg | gspiegelberg@gmail.com | gspiegelberg | Individual |
+| Ed Espino | espino@apache.org | edespino | Synx Data Labs |
+| Greg Spiegelberg | gspiegelberg@gmail.com | gspiegelberg | MNTN |
 | Hao Wu | gfphoenix78@gmail.com | gfphoenix78 | HashData |
 | Hope Gao | gaoxueyu_hope@163.com | gaoxueyu | HighGo |
 | Jianghua Yang | yjhjstz@gmail.com | yjhjstz | HashData |
@@ -27,8 +27,8 @@ Each Podling Project Management Committee (PPMC) helps its Podling learn how to 
 | Maxim Smyatkin | smyatkinmaxim@gmail.com | Smyatkin-Maxim | Yandex Cloud |
 | Roman Shaposhnik *(Mentor)* | rvs@apache.org | rvs | Ainekko |
 | Sen Hu | husen.xjtu@gmail.com | HuSen8891 | HashData |
-| Shine Zhang | xinzweb@hotmail.com | xinzweb | Individual |
-| Tushar Pednekar | tushar.pednekar@gmail.com | 2shar-p | Individual |
+| Shine Zhang | xinzweb@hotmail.com | xinzweb | Synx Data Labs |
+| Tushar Pednekar | tushar.pednekar@gmail.com | 2shar-p | Synx Data Labs |
 | Weinan WANG | wang.wn827@gmail.com | weinan003 | HashData |
 | Willem Jiang *(Mentor)*|ningjiang@apache.org | WillemJiang | Apache Member, ByteDance |
 | Xiaoran Wang | fanfuxiaoran@gmail.com | fanfuxiaoran | HashData |
@@ -62,6 +62,12 @@ Committer status recognizes your contributions and grants you additional respons
 - [Inviting New Committers](./team/new-committers)
 - [Sign the ICLA](./team/sign-icla)
 - [Setup the Apache email account](./team/setup-apache-email-account)
+
+The listing includes new committers, excluding PPMC members above:
+
+|Name| Email | GitHub ID | Organization|
+|--|--|--|--|
+| Xiong Tong | tomshawn@apache.org | TomShawn | HashData |
 
 ## Contributors wall
 
