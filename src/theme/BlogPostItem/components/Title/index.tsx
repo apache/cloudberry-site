@@ -15,7 +15,7 @@ export default function BlogPostItemHeaderTitle({
       {isBlogPostPage ? (
         <span className={clsx(styles.detailTitle)}>{title}</span>
       ) : (
-        <div className="two-lines-ellipsis">{title}</div>
+        <div className="h2">{title}</div>
       )}
     </div>
   );

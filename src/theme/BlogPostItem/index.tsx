@@ -22,14 +22,14 @@ const BlogListItem = () => {
   }
   return (
     <BlogPostItemContainer className={styles["blogList"]}>
-      <header style={{ padding: "7px 6px" }} className="link-wrap">
+      <header className="link-wrap">
         <LinkWithBaseUrl to={permalink}>
           <BlogItemCover />
-          <div style={{ padding: "0 11px 10px" }}>
+          <div style={{ padding: "0 16px 10px" }}>
             <div style={{ cursor: "pointer" }}>
-              <BlogItemTags style={{ marginTop: 6, marginBottom: 17 }} />
+              <BlogItemTags style={{ marginTop: 6, marginBottom: 10 }} />
               <BlogItemTitle />
-              <BlogItemDesc style={{ marginTop: 17 }} />
+              <BlogItemDesc style={{ marginTop: 10 }} />
             </div>
             <BlogPostItemAuthors />
           </div>
@@ -47,10 +47,6 @@ const BlogDetailItem = ({ children }) => {
       </header>
       {/* only show blog detail */}
       <BlogPostItemContent>{children}</BlogPostItemContent>
-      <div className={styles.tags}>
-        <span className={styles.text}>Tags:</span>
-        <BlogItemTags />
-      </div>
     </BlogPostItemContainer>
   );
 };

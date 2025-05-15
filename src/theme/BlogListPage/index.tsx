@@ -32,18 +32,35 @@ function BlogListPageContent(props: Props): JSX.Element {
   const { items, sidebar } = props;
   const [renderItems, setRenderItem] = useState(items);
   const location = useLocation();
+  let rItem = items;
   useEffect(() => {
     const tagQuery = new URLSearchParams(location.search).get("tag");
-    if (tagQuery === "All") {
-      setRenderItem(items);
+    const searchKey = new URLSearchParams(location.search).get("key");
+
+    if (tagQuery === "All" && searchKey === null) {
+      setRenderItem(rItem);
+      return;
     } else if (tagQuery) {
-      const rItem = items.filter((item) => {
+      rItem = items.filter((item) => {
         return item.content.metadata.tags.find(
           (item) => item.label === tagQuery
         );
       });
       setRenderItem(rItem);
     }
+    if (searchKey) {
+      rItem = items.filter((item) => {
+        return (
+          item.content.metadata.title
+            .toLowerCase()
+            .includes(searchKey.toLowerCase()) ||
+          item.content.metadata.description
+            .toLowerCase()
+            .includes(searchKey.toLowerCase())
+        );
+      });
+    }
+    setRenderItem(rItem);
   }, [location]);
 
   return (

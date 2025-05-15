@@ -11,10 +11,11 @@ export default function Tags({ style }: { style?: React.CSSProperties }) {
         style={{
           marginRight: 14,
           borderRadius: 24,
-          fontSize: 12,
-          background: "var(--tags-bg-color)",
-          color: "var(--active-color)",
+          fontSize: 16,
+          // background: "var(--tags-bg-color)",
+          color: "#ff5900",
           padding: "5px 9px",
+          marginLeft: "-9px",
         }}
       >
         {text.toString()}

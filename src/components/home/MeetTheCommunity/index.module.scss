@@ -4,7 +4,7 @@
   padding-top: 70px;
   margin-bottom: -62px;
   background-color: rgb(17, 15, 15);
-  .title {
+  .highTitle {
     position: absolute;
     top: 150px;
     left: 50%;
@@ -12,11 +12,15 @@
     transform: translateX(-50%);
     font-size: 64px;
     font-weight: 700;
-    line-height: 81px;
-    p {
-      color: #fff;
-      margin-bottom: 0;
-    }
+    line-height: 66px;
+    background-image: linear-gradient(
+      to left,
+      #9ee8ee 1%,
+      #f78013 55%,
+      #9f8ced 97%
+    );
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 
   @media screen and (max-width: 1440px) {

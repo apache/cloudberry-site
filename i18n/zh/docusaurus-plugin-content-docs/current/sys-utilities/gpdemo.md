@@ -4,7 +4,7 @@ title: gpdemo
 
 # gpdemo（引入自 v1.5.0 版本）
 
-在 v1.5.0 以前，如果用户想在单节点上部署带有 Segment 的 Cloudberry Database 小型集群用于演示，需要花费时间编写配置文件和参数。自 v1.5.0 起，用户只需要通过内置的 `gpdemo` 脚本，使用一条命令就能快速部署指定 Segment 数的 Cloudberry Database 集群。
+在 v1.5.0 以前，如果用户想在单节点上部署带有 Segment 的 Apache Cloudberry 小型集群用于演示，需要花费时间编写配置文件和参数。自 v1.5.0 起，用户只需要通过内置的 `gpdemo` 脚本，使用一条命令就能快速部署指定 Segment 数的 Apache Cloudberry 集群。
 
 `gpdemo` 将随其他系统工具（例如 `gpinitsystem`、`gpstart`、`gpstop` 等）一并安装到 `GPHOME/bin` 目录下。
 
@@ -52,7 +52,7 @@ NUM_PRIMARY_MIRROR_PAIRS=3 gpdemo
 
 :::info 提示
 - 每个 Segment 由一个 Primary 和一个 Mirror 组成，所以该参数值每增加一，将多创建两个节点。建议设置为奇数以更好地捕捉数据分布问题。
-- 当设置为 0 时，将部署一个单计算节点集群，详见[部署单计算节点的 Cloudberry Database 集群](/i18n/zh/docusaurus-plugin-content-docs/current/deploy-cbdb-with-single-node.md)。
+- 当设置为 0 时，将部署一个单计算节点集群，详见[部署单计算节点的 Apache Cloudberry 集群](/i18n/zh/docusaurus-plugin-content-docs/current/deploy-cbdb-with-single-node.md)。
 :::
 
 #### 指定节点的数据目录

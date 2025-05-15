@@ -101,35 +101,54 @@
     .left {
       position: relative;
       z-index: 2;
-      width: 50%;
-      .highText {
-        margin-left: 21%;
-        margin-top: 253px;
-        .textWrap {
-          font-weight: 700;
-          font-size: 60px;
-          line-height: 80px;
+      width: 100%;
+      
+      .centerContent {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-top: 400px;
+      }
 
-          .typewriterText {
-            line-height: 100px;
-            width: 690px;
-            background: linear-gradient(
-              269.74deg,
-              #f3861f 12.97%,
-              #b588b7 62.82%,
-              #9f8ced 98.79%
-            );
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
+      .textWrap {
+        text-align: center;
+        padding-top: 240px;
+        h1 {
+          font-size: 55px;
+          font-weight: bold;
+          color: #fff;
+          margin: 0;
+          line-height: 1.2;
+
+          @media screen and (max-width: 768px) {
+            font-size: 32px;
+          }
+        }
+
+        .description {
+          max-width: 900px;
+          margin: 20px auto 0;
+          font-size: 16px;
+          line-height: 1.6;
+          color: #fff;
+          opacity: 0.9;
+          
+          @media screen and (max-width: 768px) {
+            font-size: 14px;
+            padding: 0 20px;
+            margin-top: 15px;
           }
         }
       }
 
       .btnWrap {
         margin-top: 31px;
-        margin-left: 21%;
         font-size: 14px;
         color: #fff;
+        display: flex;
+        justify-content: center;
+        gap: 20px;
         span {
           border-radius: 36px;
           padding: 10px;
@@ -139,14 +158,8 @@
           color: #fff;
           cursor: pointer;
 
-          &.more {
-            margin-right: 20px;
+          &.more, &.hub {
             background-color: var(--home-btn-bg);
-          }
-          &.hub {
-            color: var(--home-btn-bg);
-            border: 1px solid var(--home-btn-bg);
-            box-sizing: border-box;
           }
         }
         a {
@@ -292,15 +305,10 @@
     min-width: 100vw;
     height: auto;
     padding-bottom: 170px;
-
     .content {
       .left {
-        width: 100%;
-        .highText {
-          margin-left: 10%;
-        }
-        .btnWrap {
-          margin-left: 10%;
+        .highText, .btnWrap {
+          margin-left: 0;
         }
       }
     }
@@ -311,12 +319,8 @@
   .bannerContainer {
     .content {
       .left {
-        width: 100%;
-        .highText {
-          margin-left: 5%;
-        }
-        .btnWrap {
-          margin-left: 5%;
+        .highText, .btnWrap {
+          margin-left: 0;
         }
       }
     }

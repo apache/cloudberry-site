@@ -1,6 +1,4 @@
 import { useBlogPost } from "@docusaurus/theme-common/internal";
-import useBaseUrl from "@docusaurus/useBaseUrl";
-import Popper from "@site/src/components/common/Popper";
 export default function BlogPostItemHeaderAuthors({
   styles,
 }: {
@@ -14,32 +12,32 @@ export default function BlogPostItemHeaderAuthors({
   if (authorsCount === 0) {
     return null;
   }
-
-  const authorsDom = authors.map((author) => {
-    return (
-      <span
-        key={author.name}
-        style={{
-          width: 20,
-          height: 20,
-          borderRadius: "50%",
-          display: "inline-block",
-          overflow: "hidden",
-          boxSizing: "border-box",
-          border: "1px solid var(--portrait-border-color)",
-        }}
-      >
-        <Popper content={author.name}>
-          <img
-            style={{ width: 18, height: 18 }}
-            src={useBaseUrl(author.imageURL)}
-            srcSet={author.imageURL}
-            alt=""
-          />
-        </Popper>
-      </span>
-    );
-  });
+  // const authorsDom = authors.map((author) => {
+  //   return (
+  //     <span
+  //       key={author.name}
+  //       style={{
+  //         width: 20,
+  //         height: 20,
+  //         borderRadius: "50%",
+  //         display: "inline-block",
+  //         overflow: "hidden",
+  //         boxSizing: "border-box",
+  //         // border: "1px solid var(--portrait-border-color)",
+  //       }}
+  //     >
+  //       {/* <Popper content={author.name}>
+  //         <img
+  //           style={{ width: 18, height: 18 }}
+  //           src={useBaseUrl(author.imageURL)}
+  //           srcSet={author.imageURL}
+  //           alt=""
+  //         />
+  //       </Popper> */}
+  //       {author.name}
+  //     </span>
+  //   );
+  // });
   return (
     <div
       style={{
@@ -47,19 +45,24 @@ export default function BlogPostItemHeaderAuthors({
         fontSize: 12,
         display: "flex",
         alignItems: "center",
-        marginTop: 17,
+        marginTop: 10,
         ...styles,
       }}
     >
-      <span>By </span>
       <span
         style={{
-          marginRight: 23,
-          marginLeft: 10,
-          height: 22,
+          width: 110,
+          whiteSpace: "nowrap",
+          overflow: "hidden",
+          textOverflow: "ellipsis",
+          marginRight: 18,
+          display: "inline-block",
+          verticalAlign: "middle",
         }}
       >
-        {authorsDom}
+        {authors.map((author, index) => {
+          return <span key={index}>{author.name}</span>;
+        })}
       </span>
       <span>{formattedDate}</span>
     </div>

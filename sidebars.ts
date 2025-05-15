@@ -26,7 +26,7 @@ const sidebars: SidebarsConfig = {
       {
         type: 'category',
         label: 'Build from Source Code',
-        items: ['cbdb-macos-compile','cbdb-linux-compile']
+        items: ['cbdb-macos-compile','cbdb-rockylinux8-ubuntu-compile','cbdb-rockylinux9-compile']
       },
       {
         type: 'category',
@@ -78,7 +78,7 @@ const sidebars: SidebarsConfig = {
         type: "doc",
         id: 'performance/index',
       },
-       items: ['performance/update-stats-using-analyze', 'performance/use-unique-index-on-ao-tables', 'performance/use-auto-materialized-view-to-answer-queries', 'performance/use-incremental-materialized-view', 'performance/parallel-create-ao-refresh-mv', 'performance/parallel-query-execution', 'performance/use-aggre-pushdown-to-speed-up-queries', 'performance/use-index-scan-on-ao-tables', 'performance/use-runtimefilter-to-optimize-queries','performance/use-columnar-compression', 'performance/manage-resources-using-resource-groups']
+       items: ['performance/update-stats-using-analyze', 'performance/use-unique-index-on-ao-tables', 'performance/use-auto-materialized-view-to-answer-queries', 'performance/use-incremental-materialized-view', 'performance/parallel-create-ao-refresh-mv', 'performance/parallel-query-execution', 'performance/use-aggre-pushdown-to-speed-up-queries', 'performance/use-index-scan-on-ao-tables', 'performance/use-runtimefilter-to-optimize-queries','performance/use-columnar-compression', 'performance/manage-resources-using-resource-groups', 'performance/use-dynamic-tables']
      },
 
      {
@@ -111,6 +111,12 @@ const sidebars: SidebarsConfig = {
         items: ['sys-admin/backup-and-restore/perform-full-backup-and-restore', 'sys-admin/backup-and-restore/perform-incremental-backup-and-restore']
        },
         'sys-admin/configure-database-system', 'sys-admin/check-database-system', 'sys-admin/enable-coordinator-mirroring', 'sys-admin/recommended-maintenance-monitoring-tasks']
+     },
+
+     {
+      type: 'category',
+      label: 'Developer',
+      items: ['developer/develop-extensions-using-rust']
      },
 
      {
@@ -427,11 +433,9 @@ const sidebars: SidebarsConfig = {
     {
       type: "category",
       label: "Releases",
-      link: {
-        type: "doc",
-        id: "releases/index",
-      },
-      items: ['releases/release-1.6.0','releases/release-1.5.4','releases/release-1.5.3','releases/release-1.5.2','releases/release-1.5.1', 'releases/release-1.5.0'],
+      items: [
+        "releases/index"
+      ]
     },
   ]
 }
