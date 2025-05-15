@@ -422,7 +422,17 @@ const sidebars: SidebarsConfig = {
               'sys-catalogs/sys-tables/pg-auth-members',
               'sys-catalogs/sys-tables/pg-authid',
               'sys-catalogs/sys-tables/pg-cast',
-              'sys-catalogs/sys-tables/pg-class'
+              'sys-catalogs/sys-tables/pg-class',
+              'sys-catalogs/sys-tables/pg-partitioned-table',
+              'sys-catalogs/sys-tables/pg-policy',
+              'sys-catalogs/sys-tables/pg-proc',
+              'sys-catalogs/sys-tables/pg-resgroup',
+              'sys-catalogs/sys-tables/pg-resgroupcapability',
+              'sys-catalogs/sys-tables/pg-resourcetype',
+              'sys-catalogs/sys-tables/pg-resqueue',
+              'sys-catalogs/sys-tables/pg-resqueuecapability',
+              'sys-catalogs/sys-tables/pg-rewrite',
+              'sys-catalogs/sys-tables/pg-sequence'
             ]
           }
     ]
