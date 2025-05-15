@@ -432,6 +432,32 @@
             "sys-utilities/dropuser",
             "sys-utilities/gpactivatestandby"
           ]
+        },
+
+        {
+          "type": "category",
+          "label": "System Catalogs",
+          "items": [
+              "sys-catalogs/sys-tables/gp-configuration-history",
+              "sys-catalogs/sys-tables/gp-distribution-policy",
+              "sys-catalogs/sys-tables/gp-fastsequence",
+              "sys-catalogs/sys-tables/gp-id",
+              "sys-catalogs/sys-tables/gp-partition-template",
+              "sys-catalogs/sys-tables/gp-segment-configuration",
+              "sys-catalogs/sys-tables/gp-version-at-initdb",
+              "sys-catalogs/sys-tables/pg-aggregate",
+              "sys-catalogs/sys-tables/pg-am",
+              "sys-catalogs/sys-tables/pg-amop",
+              "sys-catalogs/sys-tables/pg-amproc",
+              "sys-catalogs/sys-tables/pg-appendonly",
+              "sys-catalogs/sys-tables/pg-attribute",
+              "sys-catalogs/sys-tables/pg-attribute-encoding",
+              "sys-catalogs/sys-tables/pg-attridef",
+              "sys-catalogs/sys-tables/pg-auth-members",
+              "sys-catalogs/sys-tables/pg-authid",
+              "sys-catalogs/sys-tables/pg-cast",
+              "sys-catalogs/sys-tables/pg-class"
+          ]
         }
       ]
     },
