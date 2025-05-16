@@ -5,15 +5,15 @@ title: pg_resqueuecapability
 # pg_resqueuecapability
 
 :::note
-The `pg_resqueuecapability` system catalog table is valid only when resource queue-based resource management is active.
+只有在启用了基于资源队列的资源管理功能时，`pg_resqueuecapability` 系统目录表才有效。
 :::
 
-The `pg_resqueuecapability` system catalog table contains information about the extended attributes, or capabilities, of existing Apache Cloudberry resource queues. Only resource queues that have been assigned an extended capability, such as a priority setting, are recorded in this table. This table is joined to the [pg_resqueue](./pg-resqueue.md) table by resource queue object ID, and to the [pg_resourcetype](./pg-resourcetype.md) table by resource type ID (`restypid`).
+`pg_resqueuecapability` 系统目录表包含已存在的 Apache Cloudberry 资源队列的扩展属性（即能力）信息。只有那些被赋予了扩展能力（例如优先级设置）的资源队列才会记录在此表中。该表通过资源队列的对象 ID 与 [pg_resqueue](./pg-resqueue.md) 表关联，通过资源类型 ID（`restypid`）与 [pg_resourcetype](./pg-resourcetype.md) 表关联。
 
-This table is populated only on the coordinator. This table is defined in the `pg_global` tablespace, meaning it is globally shared across all databases in the system.
+该表仅在协调节点上填充，定义在 `pg_global` 表空间中，整个系统的所有数据库共享此表。
 
-|column|type|references|description|
-|------|----|----------|-----------|
-|`rsqueueid`|oid|`pg_resqueue.oid`|The object ID of the associated resource queue.|
-|`restypid`|smallint|`pg_resourcetype. restypid`|The resource type, derived from the [pg_resqueuecapability](./pg-resourcetype.md) system table.|
-|`resetting`|text| |The specific value set for the capability referenced in this record. Depending on the actual resource type, this value may have different data types.|
+| 列名          | 类型         | 引用                          | 说明                                                                 |
+|---------------|--------------|-------------------------------|----------------------------------------------------------------------|
+| `rsqueueid`   | oid          | `pg_resqueue.oid`             | 关联资源队列的对象标识符。                                           |
+| `restypid`    | smallint     | `pg_resourcetype.restypid`    | 资源类型，来源于 [pg_resourcetype](./pg-resourcetype.md) 系统表。     |
+| `resetting`   | text         |                               | 为该记录所对应的能力设置的具体值。根据实际的资源类型，该值的数据类型可能不同。 |

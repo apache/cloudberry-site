@@ -5,16 +5,16 @@ title: pg_resqueue
 # pg_resqueue
 
 :::note
-The `pg_resqueue` system catalog table is valid only when resource queue-based resource management is active.
+只有在启用了基于资源队列的资源管理功能时，`pg_resqueue` 系统目录表才有效。
 :::
 
-The `pg_resqueue` system catalog table contains information about Apache Cloudberry resource queues, which are used for the resource management feature. This table is populated only on the coordinator. This table is defined in the `pg_global` tablespace, meaning it is globally shared across all databases in the system.
+`pg_resqueue` 系统目录表包含 Apache Cloudberry 中资源队列的信息，资源队列用于管理资源分配。该表仅在协调节点上填充，定义在 `pg_global` 表空间中，整个系统的所有数据库共享此表。
 
-|column|type|references|description|
-|------|----|----------|-----------|
-|`oid`|oid| |The object id|
-|`rsqname`|name| |The name of the resource queue|
-|`rsqcountlimit`|real| |The active query threshold of the resource queue|
-|`rsqcostlimit`|real| |The query cost threshold of the resource queue|
-|`rsqovercommit`|boolean| |Allows queries that exceed the cost threshold to run when the system is idle|
-|`rsqignorecostlimit`|real| |The query cost limit of what is considered a 'small query'. Queries with a cost under this limit will not be queued and run immediately.|
+| 列名               | 类型       | 引用 | 说明                                                                 |
+|--------------------|------------|------|----------------------------------------------------------------------|
+| `oid`              | oid        |      | 对象标识符（Object ID）。                                            |
+| `rsqname`          | name       |      | 资源队列名称。                                                       |
+| `rsqcountlimit`    | real       |      | 该资源队列的活动查询数阈值。                                         |
+| `rsqcostlimit`     | real       |      | 该资源队列的查询开销阈值。                                           |
+| `rsqovercommit`    | boolean    |      | 当系统空闲时，是否允许超出开销阈值的查询继续执行。                     |
+| `rsqignorecostlimit` | real    |      | 用于判断“小查询”的开销上限。小于该值的查询不会进入队列，而是立即执行。 |
