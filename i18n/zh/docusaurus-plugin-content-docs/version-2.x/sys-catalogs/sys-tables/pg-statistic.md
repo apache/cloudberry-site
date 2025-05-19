@@ -25,7 +25,7 @@ title: pg_statistic
 | `stainherit`    | boolean    |                               | 若为 true，则统计信息包括继承子表的列数据；否则仅统计当前表的列数据。   |
 | `stanullfrac`   | real       |                               | 该列中 NULL 值所占的比例。                                           |
 | `stawidth`      | integer    |                               | 非 NULL 值的平均存储宽度（以字节为单位）。                             |
-| `stadistinct`   | real       |                               | 列中不同非 NULL 值的数量：<br> - 若大于 0，表示精确的去重计数；<br> - 若小于 0，表示为总行数的乘数（如 -0.4 表示唯一值大约是表行数的 40%）；<br> - 若为 0，表示未知。 |
+| `stadistinct`   | real       |                               | 列中不同非 NULL 值的数量：<br /> - 若大于 0，表示精确的去重计数；<br /> - 若小于 0，表示为总行数的乘数（如 -0.4 表示唯一值大约是表行数的 40%）；<br /> - 若为 0，表示未知。 |
 | `stakindN`      | smallint   |                               | 第 N 个槽位中的统计类型标识码。                                       |
 | `staopN`        | oid        | [pg_operator](./pg-operator.md).oid | 用于派生第 N 个槽位统计信息的操作符。例如直方图使用 `<` 运算符来定义排序顺序。 |
 | `stacollN`      | oid        | pg_collation.oid              | 用于派生第 N 个槽位统计信息的排序规则。对于可排序数据类型会显示相应排序规则；不可排序类型为 0。 |
