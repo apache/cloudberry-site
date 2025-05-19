@@ -1,3 +1,7 @@
+---
+title: GPORCA Overview
+---
+
 # GPORCA overview
 
 GPORCA is an enhanced query optimizer built on top of the PostgreSQL planner, designed to improve query planning and optimization. It offers high scalability and delivers more efficient optimization, especially on multi-core architectures. Apache Cloudberry uses GPORCA by default to generate query execution plans when supported.

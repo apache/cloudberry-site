@@ -1,3 +1,7 @@
+---
+title: GPORCA Optimizer Update Notes
+---
+
 # GPORCA Optimizer Update Notes
 
 This document describes feature enhancements and behavioral changes to the GPORCA optimizer in each version of Apache Cloudberry.

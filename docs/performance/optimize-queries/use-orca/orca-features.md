@@ -1,3 +1,7 @@
+---
+title: GPORCA Features and Enhancements
+---
+
 # GPORCA Features and Enhancements
 
 GPORCA provides enhanced support for certain types of queries and operations:
