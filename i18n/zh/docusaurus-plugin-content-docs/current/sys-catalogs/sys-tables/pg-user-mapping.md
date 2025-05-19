@@ -4,11 +4,11 @@ title: pg_user_mapping
 
 # pg_user_mapping
 
-The system catalog table `pg_user_mapping` stores the mappings from local user to remote user. You must have administrator privileges to view this catalog. Access to this catalog is restricted from normal users, use the `pg_user_mappings` view instead.
+系统目录表 `pg_user_mapping` 用于存储本地用户到远程用户的映射关系。只有具备管理员权限的用户才能查看该目录。普通用户无法直接访问此目录，建议使用 `pg_user_mappings` 视图来查询相关信息。
 
-|column|type|references|description|
-|------|----|----------|-----------|
-|`oid`|oid| |The object ID|
-|`umuser`|oid|pg_authid.oid|OID of the local role being mapped, 0 if the user mapping is public.|
-|`umserver`|oid|pg_foreign_server.oid|OID of the foreign server that contains this mapping|
-|`umoptions`|ARRAY| |User mapping-specific options, as "keyword=value" strings.|
+| 列名       | 类型       | 引用                          | 说明                                                                 |
+|------------|------------|-------------------------------|----------------------------------------------------------------------|
+| `oid`      | oid        |                               | 对象标识符（Object ID）。                                             |
+| `umuser`   | oid        | pg_authid.oid                  | 被映射的本地角色的 OID；如果是公共映射，则为 0。                       |
+| `umserver` | oid        | pg_foreign_server.oid         | 包含此映射的外部服务器的 OID。                                        |
+| `umoptions`| ARRAY      |                               | 用户映射的专用选项，以 `"关键字=值"` 字符串形式存储。                  |

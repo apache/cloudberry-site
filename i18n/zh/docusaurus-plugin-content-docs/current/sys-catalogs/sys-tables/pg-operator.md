@@ -4,22 +4,22 @@ title: pg_operator
 
 # pg_operator
 
-The `pg_operator` system catalog table stores information about operators, both built-in and those defined by `CREATE OPERATOR`. Unused column contain zeroes. For example, `oprleft` is zero for a prefix operator.
+`pg_operator` 系统目录表用于存储操作符的信息，包括内置操作符和通过 `CREATE OPERATOR` 定义的操作符。未使用的列值为 0，例如：前缀操作符的 `oprleft` 值为 0。
 
-|column|type|references|description|
-|------|----|----------|-----------|
-|`oid`|oid| |Row identifier (hidden attribute, must be explicitly selected)|
-|`oprname`|name| |Name of the operator|
-|`oprnamespace`|oid|pg_namespace.oid|The OID of the namespace that contains this operator|
-|`oprowner`|oid|pg_authid.oid|Owner of the operator|
-|`oprkind`|char| |`b` = infix (both), `l` = prefix (left), `r` = postfix (right)|
-|`oprcanmerge`|boolean| |This operator supports merge joins|
-|`oprcanhash`|boolean| |This operator supports hash joins|
-|`oprleft`|oid|pg_type.oid|Type of the left operand|
-|`oprright`|oid|pg_type.oid|Type of the right operand|
-|`oprresult`|oid|pg_type.oid|Type of the result|
-|`oprcom`|oid|pg_operator.oid|Commutator of this operator, if any|
-|`oprnegate`|oid|pg_operator.oid|Negator of this operator, if any|
-|`oprcode`|regproc|pg_proc.oid|Function that implements this operator|
-|`oprrest`|regproc|pg_proc.oid|Restriction selectivity estimation function for this operator|
-|`oprjoin`|regproc|pg_proc.oid|Join selectivity estimation function for this operator|
+| 列名          | 类型       | 引用                          | 说明                                                                 |
+|---------------|------------|-------------------------------|----------------------------------------------------------------------|
+| `oid`         | oid        |                               | 行标识符（隐藏属性，需显式选择）。                                    |
+| `oprname`     | name       |                               | 操作符名称。                                                          |
+| `oprnamespace`| oid        | pg_namespace.oid              | 包含该操作符的命名空间的 OID。                                        |
+| `oprowner`    | oid        | pg_authid.oid                 | 操作符的所有者。                                                      |
+| `oprkind`     | char       |                               | 操作符的形式：`b` = 中缀（二元），`l` = 前缀（一元左侧），`r` = 后缀（一元右侧）。 |
+| `oprcanmerge` | boolean    |                               | 该操作符是否支持合并连接（merge join）。                              |
+| `oprcanhash`  | boolean    |                               | 该操作符是否支持哈希连接（hash join）。                               |
+| `oprleft`     | oid        | pg_type.oid                   | 左操作数的数据类型。                                                  |
+| `oprright`    | oid        | pg_type.oid                   | 右操作数的数据类型。                                                  |
+| `oprresult`   | oid        | pg_type.oid                   | 结果的数据类型。                                                      |
+| `oprcom`      | oid        | pg_operator.oid               | 该操作符的对换操作符（若有）。                                        |
+| `oprnegate`   | oid        | pg_operator.oid               | 该操作符的取反操作符（若有）。                                        |
+| `oprcode`     | regproc    | pg_proc.oid                   | 实现该操作符的函数。                                                  |
+| `oprrest`     | regproc    | pg_proc.oid                   | 用于限制条件选择率估算的函数。                                        |
+| `oprjoin`     | regproc    | pg_proc.oid                   | 用于连接条件选择率估算的函数。                                        |

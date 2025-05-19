@@ -4,26 +4,32 @@ title: pg_depend
 
 # pg_depend
 
-The `pg_depend` system catalog table records the dependency relationships between database objects. This information allows `DROP` commands to find which other objects must be dropped by `DROP CASCADE` or prevent dropping in the `DROP RESTRICT` case. See also [pg_shdepend](./pg-shdepend.md), which performs a similar function for dependencies involving objects that are shared across a Cloudberry system.
+`pg_depend` 系统目录表记录了数据库对象之间的依赖关系。这些信息帮助 `DROP` 命令判断是否需要通过 `DROP CASCADE` 一并删除其他对象，或者在使用 `DROP RESTRICT` 时阻止删除操作。关于处理跨 Cloudberry 系统共享对象的依赖关系，请参见 [pg_shdepend](./pg-shdepend.md)。
 
-In all cases, a `pg_depend` entry indicates that the referenced object may not be dropped without also dropping the dependent object. However, there are several subtypes identified by `deptype`:
+在所有情况下，`pg_depend` 表中的一条记录都表示：在不删除依赖对象的情况下，不允许删除被引用对象。不过，具体的依赖关系语义由 `deptype` 字段指定，具体类型包括：
 
-- **DEPENDENCY_NORMAL (n)** — A normal relationship between separately-created objects. The dependent object may be dropped without affecting the referenced object. The referenced object may only be dropped by specifying `CASCADE`, in which case the dependent object is dropped, too. Example: a table column has a normal dependency on its data type.
-- **DEPENDENCY_AUTO (a)** — The dependent object can be dropped separately from the referenced object, and should be automatically dropped (regardless of `RESTRICT` or `CASCADE` mode) if the referenced object is dropped. Example: a named constraint on a table is made auto-dependent on the table, so that it will go away if the table is dropped.
-- **DEPENDENCY_INTERNAL (i)** — The dependent object was created as part of creation of the referenced object, and is really just a part of its internal implementation. A direct `DROP` of the dependent object will be disallowed outright (issue a `DROP` against the referenced object instead). A `DROP` of the referenced object will be propagated through to drop the dependent object whether `CASCADE` is specified or not. If the dependent object has to be dropped due to a dependency on some other object being removed, its drop is converted to a drop of the referenced object, so that `NORMAL` and `AUTO` dependencies of the dependent object behave much like they were dependencies of the referenced object. Example: a view's `ON SELECT` rule is made internally dependent on the view, preventing it from being dropped while the view remains. Dependencies of the rule (such as tables it refers to) act as if they were dependencies of the view.
-- **DEPENDENCY_PARTITION_PRI (P)**, **DEPENDENCY_PARTITION_SEC (S)** - The dependent object was created as part of creation of the referenced object, and is really just a part of its internal implementation; however, unlike `INTERNAL`, there is more than one such referenced object. The dependent object must not be dropped unless at least one of these referenced objects is dropped; if any one is, the dependent object should be dropped whether or not `CASCADE` is specified. Also unlike `INTERNAL`, a drop of some other object that the dependent object depends on does not result in automatic deletion of any partition-referenced object. Hence, if the drop does not cascade to at least one of these objects via some other path, it will be refused. (In most cases, the dependent object shares all its non-partition dependencies with at least one partition-referenced object, so that this restriction does not result in blocking any cascaded delete.) Primary and secondary partition dependencies behave identically except that the primary dependency is preferred for use in error messages; hence, a partition-dependent object should have one primary partition dependency and one or more secondary partition dependencies. Note that partition dependencies are made in addition to, not instead of, any dependencies the object would normally have. This simplifies `ATTACH/DETACH PARTITION` operations: the partition dependencies need only be added or removed. Example: a child partitioned index is made partition-dependent on both the partition table it is on and the parent partitioned index, so that it goes away if either of those is dropped, but not otherwise. The dependency on the parent index is primary, so that if the user tries to drop the child partitioned index, the error message will suggest dropping the parent index instead (not the table).
-- **DEPENDENCY_EXTENSION (e)** - The dependent object is a member of the extension that is the referenced object (see `pg_extension`). The dependent object can be dropped only via `DROP EXTENSION` on the referenced object. Functionally, this dependency type acts the same as an `INTERNAL` dependency, but it's kept separate for clarity and to simplify pg_dump.
-- **DEPENDENCY_AUTO_EXTENSION (x)** - The dependent object is not a member of the extension that is the referenced object (and so it should not be ignored by pg_dump), but it cannot function without the extension and should be auto-dropped if the extension is. The dependent object may be dropped on its own as well. Functionally this dependency type acts the same as an `AUTO` dependency, but it's kept separate for clarity and to simplify pg_dump.
-- **DEPENDENCY_PIN (p)** — There is no dependent object; this type of entry is a signal that the system itself depends on the referenced object, and so that object must never be deleted. Entries of this type are created only by system initialization. The columns for the dependent object contain zeroes.
+- **DEPENDENCY_NORMAL (n)** — 表示两个独立创建对象之间的常规依赖。依赖对象可以单独删除，但删除被引用对象时必须使用 `CASCADE`，依赖对象才会一并删除。例如：表的某列对其数据类型存在常规依赖关系。
 
-Note that it's quite possible for two objects to be linked by more than one `pg_depend` entry. For example, a child partitioned index would have both a partition-type dependency on its associated partition table, and an auto dependency on each column of that table that it indexes. This sort of situation expresses the union of multiple dependency semantics. A dependent object can be dropped without `CASCADE` if any of its dependencies satisfies its condition for automatic dropping. Conversely, all the dependencies' restrictions about which objects must be dropped together must be satisfied.
+- **DEPENDENCY_AUTO (a)** — 依赖对象可以独立于被引用对象删除；但当被引用对象被删除时，依赖对象会自动删除（无论是否使用 `RESTRICT` 或 `CASCADE`）。例如：表上的命名约束自动依赖于该表，因此在删除表时，约束也会自动删除。
 
-|column|type|references|description|
-|------|----|----------|-----------|
-|`classid`|oid|[pg_class](./pg-class.md).oid|The object identifier of the system catalog the dependent object is in.|
-|`objid`|oid|any OID column|The object identifier of the specific dependent object.|
-|`objsubid`|integer| |For a table column, this is the column number (the `objid` and `classid` refer to the table itself). For all other object types, this column is zero.|
-|`refclassid`|oid|[pg_class](./pg-class.md).oid|The object identifier of the system catalog the referenced object is in.|
-|`refobjid`|oid|any OID column|The object identifier of the specific referenced object.|
-|`refobjsubid`|integer| |For a table column, this is the referenced column number (the `refobjid` and `refclassid` refer to the table itself). For all other object types, this column is zero.|
-|`deptype`|char| |The code defining the specific semantics of this dependency relationship.|
+- **DEPENDENCY_INTERNAL (i)** — 依赖对象是作为被引用对象内部实现的一部分而自动创建的。禁止直接删除依赖对象，只能通过删除被引用对象来实现。无论是否指定 `CASCADE`，删除被引用对象都会删除该依赖对象。如果该依赖对象因依赖的其他对象被删除而必须被删除，则会将该操作转换为删除被引用对象，确保其 `NORMAL` 和 `AUTO` 类型的依赖行为类似于直接依赖被引用对象。例如：视图的 `ON SELECT` 规则内部依赖于该视图，在视图存在时无法删除规则；该规则引用的其他对象（如表）也会被视为视图的依赖对象。
+
+- **DEPENDENCY_PARTITION_PRI (P)** 与 **DEPENDENCY_PARTITION_SEC (S)** — 依赖对象由多个被引用对象共同创建，属于内部实现的一部分。与 `INTERNAL` 不同，此类依赖涉及多个被引用对象。依赖对象只有在其中至少一个被引用对象被删除时才允许被删除（无论是否指定 `CASCADE`）。如果仅删除依赖对象依赖的其他对象，不会导致任何分区相关对象自动删除。如果依赖路径不能传播至任一被引用对象，系统将拒绝删除。主分区依赖和次分区依赖行为相同，但主依赖在错误信息中优先显示。因此，一个分区相关对象应同时拥有一个主分区依赖和一个或多个次分区依赖。这种依赖类型不会替代对象本身应有的其他依赖，而是作为补充，以简化 `ATTACH/DETACH PARTITION` 操作。例如：一个子分区索引同时依赖于其所在的分区表和父索引，删除任一对象会导致该子索引被删除。主依赖用于父索引，因此若用户尝试删除子索引，错误信息将提示删除父索引而非分区表。
+
+- **DEPENDENCY_EXTENSION (e)** — 依赖对象是某个扩展（参见 `pg_extension`）的成员，仅可通过对该扩展执行 `DROP EXTENSION` 来删除。此依赖类型在功能上等同于 `INTERNAL`，但为便于理解和简化 `pg_dump` 处理而独立管理。
+
+- **DEPENDENCY_AUTO_EXTENSION (x)** — 依赖对象不是扩展的成员（因此 `pg_dump` 不应忽略），但其功能依赖于该扩展，若扩展被删除则应自动删除该对象。该对象也可以被单独删除。其行为类似 `AUTO` 依赖，但出于清晰和简化 `pg_dump` 考虑而独立管理。
+
+- **DEPENDENCY_PIN (p)** — 表示系统本身依赖被引用对象，不存在具体的依赖对象。这类记录仅在系统初始化时创建，被依赖对象永远不能被删除。依赖对象相关字段均为零。
+
+**注意：** 两个对象之间可能存在多条 `pg_depend` 记录。例如：一个子分区索引既依赖其所在的分区表（分区依赖），又自动依赖于该表中被索引的列。这种情况表示该依赖对象具备多个依赖语义的联合特性。只要其中任一依赖满足自动删除的条件，即可在不使用 `CASCADE` 的情况下删除依赖对象。相反，删除被引用对象时，必须同时满足所有依赖类型的删除条件。
+
+| 列名          | 类型       | 引用                          | 说明                                                                 |
+|---------------|------------|-------------------------------|----------------------------------------------------------------------|
+| `classid`     | oid        | [pg_class](./pg-class.md).oid | 依赖对象所在系统目录的 OID。                                         |
+| `objid`       | oid        | 任意 OID 类型列               | 具体依赖对象的 OID。                                                 |
+| `objsubid`    | integer    |                               | 如果依赖对象为表的某一列，则为列号（`objid` 和 `classid` 指向整个表）；其他对象类型该字段为 0。 |
+| `refclassid`  | oid        | [pg_class](./pg-class.md).oid | 被引用对象所在系统目录的 OID。                                       |
+| `refobjid`    | oid        | 任意 OID 类型列               | 具体被引用对象的 OID。                                               |
+| `refobjsubid` | integer    |                               | 如果被引用对象为表的某一列，则为列号（`refobjid` 和 `refclassid` 指向整个表）；其他对象类型该字段为 0。 |
+| `deptype`     | char       |                               | 依赖关系的语义类型编码。                                             |

@@ -4,28 +4,28 @@ title: pg_stat_last_operation
 
 # pg_stat_last_operation
 
-The pg_stat_last_operation table contains metadata tracking information about database objects (such as tables, views).
+`pg_stat_last_operation` 表用于记录数据库对象（如表、视图）的操作元数据跟踪信息。
 
-|column|type|references|description|
-|------|----|----------|-----------|
-|`classid`|oid|pg_class.oid|OID of the system catalog containing the object.|
-|`objid`|oid|any OID column|OID of the object within its system catalog.|
-|`staactionname`|name| |The action that was taken on the object.|
-|`stasysid`|oid|pg_authid.oid|A foreign key to pg_authid.oid.|
-|`stausename`|name| |The name of the role that performed the operation on this object.|
-|`stasubtype`|text| |The type of object operated on or the subclass of operation performed.|
-|`statime`|timestamp with timezone| |The timestamp of the operation. This is the same timestamp that is written to the Apache Cloudberry server log files in case you need to look up more detailed information about the operation in the logs.|
+| 列名          | 类型                     | 引用                  | 说明                                                                 |
+|---------------|--------------------------|-----------------------|----------------------------------------------------------------------|
+| `classid`     | oid                      | pg_class.oid          | 包含该对象的系统目录表的 OID。                                        |
+| `objid`       | oid                      | 任意 OID 类型列       | 该对象在其系统目录中的 OID。                                         |
+| `staactionname` | name                   |                       | 对该对象执行的操作名称。                                             |
+| `stasysid`    | oid                      | pg_authid.oid         | 指向 `pg_authid.oid` 的外键。                                        |
+| `stausename`  | name                     |                       | 执行该操作的角色名称。                                               |
+| `stasubtype`  | text                     |                       | 被操作对象的类型，或所执行操作的子类型。                             |
+| `statime`     | timestamp with timezone |                       | 操作的时间戳。如果需要在 Apache Cloudberry 的日志文件中查找该操作的详细信息，可以使用此时间戳进行比对。 |
 
-The `pg_stat_last_operation` table contains metadata tracking information about operations on database objects. This information includes the object id, DDL action, user, type of object, and operation timestamp. Apache Cloudberry updates this table when a database object is created, altered, truncated, vacuumed, analyzed, or partitioned, and when privileges are granted to an object.
+`pg_stat_last_operation` 表记录了数据库对象的操作跟踪信息，包括对象 ID、DDL 操作类型、执行用户、对象类型以及操作时间戳。每当数据库对象被创建、修改、截断（TRUNCATE）、清理（VACUUM）、分析（ANALYZE）、分区，或授予权限时，Apache Cloudberry 会更新该表。
 
-If you want to track the operations performed on a specific object, use the `objid` value. Because the `stasubtype` value can identify either the type of object operated on or the subclass of operation performed, it is not a suitable parameter when querying the `pg_stat_last_operation` table.
+如果你希望跟踪某个特定对象上的操作，可以使用该对象的 `objid` 值进行查询。由于 `stasubtype` 既可能表示被操作对象的类型，也可能表示操作的子类型，因此不建议将其作为查询条件。
 
-The following example creates and replaces a view, and then shows how to use `objid` as a query parameter on the `pg_stat_last_operation` table.
+以下示例展示了如何在创建和替换视图后，使用 `objid` 作为查询条件在 `pg_stat_last_operation` 表中查看相关操作记录：
 
 ```sql
 testdb=# CREATE VIEW trial AS SELECT * FROM gp_segment_configuration;
 
-REATE VIEW
+CREATE VIEW
 
 testdb=# CREATE OR REPLACE VIEW trial AS SELECT * FROM gp_segment_configuration;
 
@@ -35,9 +35,9 @@ testdb=# SELECT * FROM pg_stat_last_operation WHERE objid='trial'::regclass::oid
 
  classid | objid | staactionname | stasysid | stausename | stasubtype |            statime            
 ---------+-------+---------------+----------+------------+------------+-------------------------------
-  1259  | 24735 | CREATE         |       10 | gpadmin    | VIEW       | 2020-04-07 16:44:28.808811+00
-  1259  | 24735 | ALTER          |       10 | gpadmin    | SET        | 2020-04-07 16:44:38.110615+00
+  1259   | 24735 | CREATE         |       10 | gpadmin    | VIEW       | 2020-04-07 16:44:28.808811+00
+  1259   | 24735 | ALTER          |       10 | gpadmin    | SET        | 2020-04-07 16:44:38.110615+00
 (2 rows)
 ```
 
-Notice that the `pg_stat_last_operation` table entry for the view `REPLACE` operation specifies the `ALTER` action (`staactionname`) and the `SET` subtype (`stasubtype`).
+注意：对于视图的 `REPLAC`E 操作，`pg_stat_last_operation` 表中记录的操作类型为 `ALTER` (`staactionname`)，操作子类型为 `SET` (`stasubtype`)。

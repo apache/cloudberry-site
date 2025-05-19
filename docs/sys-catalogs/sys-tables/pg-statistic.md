@@ -4,7 +4,7 @@ title: pg_statistic
 
 # pg_statistic
 
-The `pg_statistic` system catalog table stores statistical data about the contents of the database. Entries are created by [`ANALYZE`](/docs/sql-stmts/analyze.md) and subsequently used by the query planner. Note that all the statistical data is inherently approximate, even assuming that it is up-to-date.
+The `pg_statistic` system catalog table stores statistical data about the contents of the database. Entries are created by [`ANALYZE`](../../sql-stmts/analyze.md) and subsequently used by the query planner. Note that all the statistical data is inherently approximate, even assuming that it is up-to-date.
 
 Normally, there is one entry, with `stainherit = false`, for each table column that has been analyzed. If the table has inheritance children, Apache Cloudberry creates a second entry with `stainherit = true`. This row represents the column's statistics over the inheritance tree, for example, statistics for the data you would see with `SELECT column FROM table*`, whereas the `stainherit = false` row represents the results of `SELECT column FROM ONLY table`.
 

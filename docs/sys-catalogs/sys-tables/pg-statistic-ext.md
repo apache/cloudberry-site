@@ -4,7 +4,7 @@ title: pg_statistic_ext
 
 # pg_statistic_ext
 
-The `pg_statistic_ext` system catalog table holds definitions of extended planner statistics. Each row in this catalog corresponds to a *statistics object* created with [`CREATE STATISTICS`](/docs/sql-stmts/create-statistics.md).
+The `pg_statistic_ext` system catalog table holds definitions of extended planner statistics. Each row in this catalog corresponds to a *statistics object* created with [`CREATE STATISTICS`](../../sql-stmts/create-statistics.md).
 
 |column|type|references|description|
 |------|----|----------|-----------|

@@ -4,9 +4,9 @@ title: pg_type_encoding
 
 # pg_type_encoding
 
-The `pg_type_encoding` system catalog table contains the column storage type information.
+`pg_type_encoding` 系统目录表用于存储列的存储类型信息。
 
-|column|type|modifers|storage|description|
+|列名|类型|约束|存储方式|说明|
 |------|----|--------|-------|-----------|
-|`typeid`|oid|not null|plain|Foreign key to [pg_attribute](./pg-attribute.md)|
-|`typoptions`|ARRAY| |extended|The actual options|
+|`typeid`|oid|not null|plain|引用 [pg_attribute](./pg-attribute.md) 的外键。|
+|`typoptions`|ARRAY| |extended|实际的存储选项。|

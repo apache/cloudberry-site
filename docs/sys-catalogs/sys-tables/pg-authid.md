@@ -4,7 +4,7 @@ title: pg_authid
 
 # pg_authid
 
-The `pg_authid` table in the `pg_catalog` schema contains information about database authorization identifiers (roles). A role subsumes the concepts of users and groups. A user is a role with the `rolcanlogin` flag set. Any role (with or without `rolcanlogin`) might have other roles as members. See [`pg_auth_members`](/docs/sys-catalogs/sys-tables/sys-tbl-pg-auth-members.md).
+The `pg_authid` table in the `pg_catalog` schema contains information about database authorization identifiers (roles). A role subsumes the concepts of users and groups. A user is a role with the `rolcanlogin` flag set. Any role (with or without `rolcanlogin`) might have other roles as members. See [`pg_auth_members`](./pg-auth-members.md).
 
 Because this catalog contains passwords, it must not be publicly readable. `pg_roles` is a publicly readable view on `pg_authid` that blanks out the password field.
 

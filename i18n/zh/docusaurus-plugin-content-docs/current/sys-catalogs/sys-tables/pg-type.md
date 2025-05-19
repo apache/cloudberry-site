@@ -4,59 +4,59 @@ title: pg_type
 
 # pg_type
 
-The `pg_type` system catalog table stores information about data types. Base types (scalar types) are created with `CREATE TYPE`, and domains with `CREATE DOMAIN`. A composite type is automatically created for each table in the database, to represent the row structure of the table. It is also possible to create composite types with `CREATE TYPE AS`.
+`pg_type` 系统目录表用于存储数据类型的信息。基础类型（标量类型）通过 `CREATE TYPE` 创建，域类型通过 `CREATE DOMAIN` 创建。每个表在数据库中都会自动生成一个复合类型，用于表示表的行结构。也可以使用 `CREATE TYPE AS` 明确创建复合类型。
 
-|column|type|references|description|
-|------|----|----------|-----------|
-|`oid`|oid| |Row identifier (hidden attribute; must be explicitly selected)|
-|`typname`|name| |Data type name|
-|`typnamespace`|oid|pg_namespace.oid|The OID of the namespace that contains this type|
-|`typowner`|oid|pg_authid.oid|Owner of the type|
-|`typlen`|smallint| |For a fixed-size type, `typlen` is the number of bytes in the internal representation of the type. But for a variable-length type, `typlen` is negative. `-1` indicates a 'varlena' type (one that has a length word), `-2` indicates a null-terminated C string.|
-|`typbyval`|boolean| |Determines whether internal routines pass a value of this type by value or by reference. `typbyval`had better be false if `typlen` is not 1, 2, or 4 (or 8 on machines where Datum is 8 bytes). Variable-length types are always passed by reference. Note that `typbyval` can be false even if the length would allow pass-by-value.|
-|`typtype`|char| |`b` for a base type, `c` for a composite type, `d` for a domain, `e` for an enum type, `p` for a pseudo-type, or `r` for a range type. See also `typrelid` and `typbasetype`.|
-|`typcategory`|char| |Arbitrary classification of data types that is used by the parser to determine which implicit casts should be preferred. |
-|`typispreferred`|boolean| |True if the type is a preferred cast target within its `typcategory`|
-|`typisdefined`|boolean| |True if the type is defined, false if this is a placeholder entry for a not-yet-defined type. When false, nothing except the type name, namespace, and OID can be relied on.|
-|`typdelim`|char| |Character that separates two values of this type when parsing array input. Note that the delimiter is associated with the array element data type, not the array data type.|
-|`typrelid`|oid|pg_class.oid|If this is a composite type (see `typtype`), then this column points to the `pg_class` entry that defines the corresponding table. (For a free-standing composite type, the `pg_class` entry does not really represent a table, but it is needed anyway for the type's `pg_attribute` entries to link to.) Zero for non-composite types.|
-| `typsubscript` | regproc | pg_proc.oid | OID of the subscripting handler function for this type, or zero if subscripting is not supported. |
-|`typelem`|oid|pg_type.oid|If not `0` then it identifies another row in `pg_type`. The current type can then be subscripted like an array yielding values of type `typelem`. A "true" array type is variable length (`typlen` = `-1`), but some fixed-length (`typlen` > `0`) types also have nonzero `typelem`, for example `name` and `point`. If a fixed-length type has a `typelem` then its internal representation must be some number of values of the `typelem` data type with no other data. Variable-length array types have a header defined by the array subroutines.|
-|`typarray`|oid|pg_type.oid|If not 0, identifies another row in `pg_type`, which is the "true" array type having this type as its element. Use `pg_type.typarray` to locate the array type associated with a specific type.|
-|`typinput`|regproc|pg_proc.oid|Input conversion function (text format)|
-|`typoutput`|regproc|pg_proc.oid|Output conversion function (text format)|
-|`typreceive`|regproc|pg_proc.oid|Input conversion function (binary format), or 0 if none|
-|`typsend`|regproc|pg_proc.oid|Output conversion function (binary format), or 0 if none|
-|`typmodin`|regproc|pg_proc.oid|Type modifier input function, or 0 if the type does not support modifiers|
-|`typmodout`|regproc|pg_proc.oid|Type modifier output function, or 0 to use the standard format|
-|`typanalyze`|regproc|pg_proc.oid|Custom `ANALYZE` function, or 0 to use the standard function|
-|`typalign`|char| |The alignment required when storing a value of this type. It applies to storage on disk as well as most representations of the value inside Apache Cloudberry. When multiple values are stored consecutively, such as in the representation of a complete row on disk, padding is inserted before a datum of this type so that it begins on the specified boundary. The alignment reference is the beginning of the first datum in the sequence. Possible values are: <br/><br/>`c` = char alignment (no alignment needed).<br/><br/>`s` = short alignment (2 bytes on most machines).<br/><br/>`i` = int alignment (4 bytes on most machines).<br/><br/>`d` = double alignment (8 bytes on many machines, but not all).|
-|`typstorage`|char| |For varlena types (those with `typlen` = -1) tells if the type is prepared for toasting and what the default strategy for attributes of this type should be. Possible values are:<br/><br/>`p`: Value must always be stored plain.<br/><br/>`e`: Value can be stored in a secondary relation (if relation has one, see `pg_class.reltoastrelid`).<br/><br/>`m`: Value can be stored compressed inline.<br/><br/>`x`: Value can be stored compressed inline or stored in secondary storage.<br/><br/>Note that `m` columns can also be moved out to secondary storage, but only as a last resort (`e` and `x` columns are moved first).|
-|`typnotnull`|boolean| |Represents a not-null constraint on a type. Used for domains only.|
-|`typbasetype`|oid|pg_type.oid|Identifies the type that a domain is based on. Zero if this type is not a domain.|
-|`typtypmod`|integer| |Domains use `typtypmod` to record the `typmod` to be applied to their base type (-1 if base type does not use a `typmod`). -1 if this type is not a domain.|
-|`typndims`|integer| |The number of array dimensions for a domain over an array (if `typbasetype` is an array type). Zero for types other than domains over array types.|
-|`typcollation`|oid|pg_collation.oid|Specifies the collation of the type. Zero if the type does not support collations. The value is `DEFAULT_COLLATION_OID` for a base type that supports collations. A domain over a collatable type can have some other collation OID if one was specified for the domain.|
-|`typdefaultbin`|pg_node_tree| |If not null, it is the `nodeToString()` representation of a default expression for the type. This is only used for domains.|
-|`typdefault`|text| |Null if the type has no associated default value. If `typdefaultbin` is not null, `typdefault` must contain a human-readable version of the default expression represented by `typdefaultbin`. If `typdefaultbin` is null and `typdefault` is not, then `typdefault` is the external representation of the type's default value, which may be fed to the type's input converter to produce a constant.|
-|`typacl`|ARRAY| |Access privileges; see [GRANT](/docs/sql-stmts/grant.md) and [REVOKE](/docs/sql-stmts/revoke.md) for details.|
+| 列名          | 类型       | 引用                          | 说明                                                                 |
+|---------------|------------|-------------------------------|----------------------------------------------------------------------|
+| `oid`         | oid        |                               | 行标识符（隐藏属性，需显式选择）。                                    |
+| `typname`     | name       |                               | 数据类型名称。                                                        |
+| `typnamespace`| oid        | pg_namespace.oid              | 包含该类型的命名空间的 OID。                                          |
+| `typowner`    | oid        | pg_authid.oid                 | 该类型的所有者。                                                      |
+| `typlen`      | smallint   |                               | 如果为固定长度类型，表示其内部表示所占的字节数。可变长度类型为负值：<br/>`-1` 表示 `varlena` 类型（有长度前缀），<br/>`-2` 表示以 NULL 结尾的 C 字符串。 |
+| `typbyval`    | boolean    |                               | 表示内部调用时该类型的值是按值传递还是按引用传递。如果 `typlen` 不是 1、2、4（或在某些平台上为 8），`typbyval` 应为 false。可变长度类型始终按引用传递。 |
+| `typtype`     | char       |                               | 类型类别：<br/>`b` = 基础类型，<br/>`c` = 复合类型，<br/>`d` = 域，<br/>`e` = 枚举类型，<br/>`p` = 伪类型，<br/>`r` = 范围类型。详见 `typrelid` 和 `typbasetype`。 |
+| `typcategory` | char       |                               | 类型分类，用于解析器确定优先使用哪种隐式类型转换。                     |
+| `typispreferred` | boolean  |                               | 如果该类型在其类别中是优选的隐式转换目标，则为 true。                  |
+| `typisdefined`| boolean    |                               | 如果该类型已定义则为 true，否则为占位符条目（例如引用了尚未定义的类型）。未定义类型只能信任其名称、命名空间和 OID。 |
+| `typdelim`    | char       |                               | 当解析数组输入时，用于分隔值的字符。该分隔符与数组元素类型相关，而非数组类型。 |
+| `typrelid`    | oid        | pg_class.oid                  | 若为复合类型，则指向定义该类型结构的表的 `pg_class` 条目；独立复合类型也需要这个表项，以供其 `pg_attribute` 关联。非复合类型该值为 0。 |
+| `typsubscript`| regproc    | pg_proc.oid                   | 该类型的下标访问函数 OID；不支持下标访问则为 0。                       |
+| `typelem`     | oid        | pg_type.oid                   | 如不为 0，则表示该类型的元素类型（支持数组下标访问）。例如 `name` 和 `point` 是固定长度但具有 `typelem` 的类型。 |
+| `typarray`    | oid        | pg_type.oid                   | 如不为 0，则指向该类型的数组类型的 OID。用于查找某个类型的数组类型。   |
+| `typinput`    | regproc    | pg_proc.oid                   | 文本格式的输入转换函数。                                              |
+| `typoutput`   | regproc    | pg_proc.oid                   | 文本格式的输出转换函数。                                              |
+| `typreceive`  | regproc    | pg_proc.oid                   | 二进制格式的输入转换函数；若无则为 0。                                 |
+| `typsend`     | regproc    | pg_proc.oid                   | 二进制格式的输出转换函数；若无则为 0。                                 |
+| `typmodin`    | regproc    | pg_proc.oid                   | 类型修饰符输入函数；若不支持则为 0。                                   |
+| `typmodout`   | regproc    | pg_proc.oid                   | 类型修饰符输出函数；若使用默认格式则为 0。                             |
+| `typanalyze`  | regproc    | pg_proc.oid                   | 自定义 `ANALYZE` 函数；若使用默认函数则为 0。                           |
+| `typalign`    | char       |                               | 存储该类型值时所需的对齐方式，适用于磁盘和内存表示。多个值连续存储时，会插入填充字节使其按指定边界对齐。<br/>可能值：<br/>`c` = 字节对齐（无对齐需求）<br/>`s` = 2 字节对齐<br/>`i` = 4 字节对齐<br/>`d` = 8 字节对齐 |
+| `typstorage`  | char       |                               | 对 `typlen = -1` 的 varlena 类型，表示是否支持 TOAST 及其默认存储策略：<br/>`p` = 始终明文存储<br/>`e` = 可存储至 TOAST 辅助表中<br/>`m` = 支持压缩后内联存储<br/>`x` = 支持压缩或 TOAST 存储。 |
+| `typnotnull`  | boolean    |                               | 表示类型上的非空约束，仅适用于域类型。                                 |
+| `typbasetype` | oid        | pg_type.oid                   | 该域所基于的基础类型；如果不是域类型则为 0。                           |
+| `typtypmod`   | integer    |                               | 域所使用的 `typmod`；若基础类型不使用修饰符，则为 -1。非域类型此字段为 -1。 |
+| `typndims`    | integer    |                               | 对于基于数组的域，表示数组维度数。其他类型为 0。                       |
+| `typcollation`| oid        | pg_collation.oid              | 类型的排序规则 OID；若不支持排序规则则为 0。支持排序的基础类型通常为 `DEFAULT_COLLATION_OID`。 |
+| `typdefaultbin` | pg_node_tree |                               | 若不为 null，表示该类型的默认表达式的 `nodeToString()` 形式，仅用于域类型。 |
+| `typdefault`  | text       |                               | 若无默认值则为 null。若 `typdefaultbin` 存在，则本字段为其可读形式；否则本字段为默认值的外部表示，可作为输入传递给类型的转换函数。 |
+| `typacl`      | ARRAY      |                               | 访问权限，详见 [GRANT](/docs/sql-stmts/grant.md) 和 [REVOKE](/docs/sql-stmts/revoke.md)。 |
 
-The following table lists the system-defined values of `typcategory`. Any future additions to this list will also be upper-case ASCII letters. All other ASCII characters are reserved for user-defined categories.
+下表列出了系统定义的 `typcategory` 分类码。未来的系统类别也将使用大写 ASCII 字母，其他字符保留给用户自定义类别。
 
-|Code|Category|
-|----|--------|
-|A|Array types|
-|B|Boolean types|
-|C|Composite types|
-|D|Date/time types|
-|E|Enum types|
-|G|Geometric types|
-|I|Network address types|
-|N|Numeric types|
-|P|Pseudo-types|
-|R|Range types|
-|S|String types|
-|T|Timespan types|
-|U|User-defined types|
-|V|Bit-string types|
-|X|`unknown` type|
+| 代码 | 类别说明         |
+|------|------------------|
+| A    | 数组类型         |
+| B    | 布尔类型         |
+| C    | 复合类型         |
+| D    | 日期/时间类型     |
+| E    | 枚举类型         |
+| G    | 几何类型         |
+| I    | 网络地址类型     |
+| N    | 数值类型         |
+| P    | 伪类型           |
+| R    | 范围类型         |
+| S    | 字符串类型       |
+| T    | 时间间隔类型     |
+| U    | 用户定义类型     |
+| V    | 位串类型         |
+| X    | `unknown` 类型   |

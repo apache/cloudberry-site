@@ -4,11 +4,11 @@ title: pg_namespace
 
 # pg_namespace
 
-The `pg_namespace` system catalog table stores namespaces. A namespace is the structure underlying SQL schemas: each namespace can have a separate collection of relations, types, etc. without name conflicts.
+`pg_namespace` 系统目录表用于存储命名空间信息。命名空间是 SQL 模式（schema）的底层实现，每个命名空间可以包含一组独立的关系、类型等对象，从而避免命名冲突。
 
-|column|type|references|description|
-|------|----|----------|-----------|
-|`oid`|oid| |Row identifier (hidden attribute; must be explicitly selected)|
-|`nspname`|name| |Name of the namespace|
-|`nspowner`|oid|pg_authid.oid|Owner of the namespace|
-|`nspacl`|ARRAY| |Access privileges as given by `GRANT` and `REVOKE`|
+| 列名       | 类型       | 引用                  | 说明                                                                 |
+|------------|------------|-----------------------|----------------------------------------------------------------------|
+| `oid`      | oid        |                       | 行标识符（隐藏属性，需显式选择）。                                    |
+| `nspname`  | name       |                       | 命名空间名称。                                                       |
+| `nspowner` | oid        | pg_authid.oid         | 命名空间的所有者。                                                   |
+| `nspacl`   | ARRAY      |                       | 通过 `GRANT` 和 `REVOKE` 设置的访问权限。                            |
