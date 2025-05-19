@@ -48,6 +48,9 @@ SET optimizer TO off; -- To enable AO IndexScan, first disable the GPORCA optimi
 CREATE TABLE tbl (id int, val int) WITH (orientation='column', appendonly=true);
 INSERT INTO tbl SELECT i, i FROM generate_series(1, 100000000) s(i);
 
+-- Creates an index on the val column.
+CREATE INDEX idx_val ON tbl(val);
+
 -- Directly runs a query.
 EXPLAIN ANALYZE SELECT * FROM tbl WHERE val > 100 ORDER BY val LIMIT 10;
 

@@ -50,6 +50,9 @@ SET optimizer TO off; -- 要启用 AO IndexScan，需要先关闭 ORCA 优化器
 CREATE TABLE tbl (id int, val int) WITH (orientation='column', appendonly=true);
 INSERT INTO tbl SELECT i, i FROM generate_series(1, 100000000) s(i);
 
+-- 创建 val 列的索引
+CREATE INDEX idx_val ON tbl(val);
+
 -- 直接进行查询
 EXPLAIN ANALYZE SELECT * FROM tbl WHERE val > 100 ORDER BY val LIMIT 10;
 
