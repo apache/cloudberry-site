@@ -70,49 +70,46 @@
       "type": "category",
       "label": "Operate with Data",
       "items": [
-        "basic-query-syntax",
-        "create-and-manage-tablespaces",
-        "create-and-manage-tables",
-        "create-and-manage-schemas",
-        "create-and-manage-views",
-        "create-and-manage-materialized-views",
-        "insert-update-delete-rows",
-        "work-with-transactions",
-        "transactional-concurrency-control",
-        "table-storage-models",
         {
-          "type": "category",
-          "label": "Advanced Analytics",
-          "items": [
-            "advanced-analytics/postgis",
-            "advanced-analytics/directory-tables",
-            "advanced-analytics/pgvector-search"
-          ]
-        }
+        "type": "category",
+        "label": "Operate with Database Objects",
+        "items": ["basic-query-syntax", "create-and-manage-tablespaces", "create-and-manage-tables","create-and-manage-schemas","create-and-manage-views","create-and-manage-materialized-views","create-and-manage-indexes","brin-indexes","insert-update-delete-rows","work-with-transactions","transactional-concurrency-control"]
+        },
+        {
+        "type": "category",
+        "label": "SQL Queries",
+        "items": ["join-queries"]
+        },
+        "table-storage-models",
+
+      {
+        "type": "category",
+        "label": "Advanced Analytics",
+        "items": ["advanced-analytics/postgis","advanced-analytics/directory-tables", "advanced-analytics/pgvector-search"]
+      }
       ]
-    },
-    {
-      "type": "category",
-      "label": "Optimize Query Performance",
-      "link": {
+     },
+     {
+       "type": "category",
+       "label": "Optimize Performance",
+       "link": {
         "type": "doc",
         "id": "performance/index"
       },
-      "items": [
-        "performance/update-stats-using-analyze",
-        "performance/use-unique-index-on-ao-tables",
-        "performance/use-auto-materialized-view-to-answer-queries",
-        "performance/use-incremental-materialized-view",
-        "performance/parallel-create-ao-refresh-mv",
-        "performance/parallel-query-execution",
-        "performance/use-aggre-pushdown-to-speed-up-queries",
-        "performance/use-index-scan-on-ao-tables",
-        "performance/use-runtimefilter-to-optimize-queries",
-        "performance/use-columnar-compression",
-        "performance/manage-resources-using-resource-groups",
-        "performance/use-dynamic-tables"
-      ]
-    },
+       "items": [
+        {
+        "type": "category",
+        "label": "Optimize Query Performance",
+        "items":[
+          {
+            "type": "category",
+            "label": "GPORCA Query Optimizer",
+            "items": ["performance/optimize-queries/use-orca/use-orca-overview", "performance/optimize-queries/use-orca/orca-features","performance/optimize-queries/use-orca/whats-new-in-orca"]
+          },
+         "performance/optimize-queries/use-unique-index-on-ao-tables", "performance/optimize-queries/use-auto-materialized-view-to-answer-queries", "performance/optimize-queries/use-incremental-materialized-view", "performance/optimize-queries/parallel-create-ao-refresh-mv", "performance/optimize-queries/parallel-query-execution", "performance/optimize-queries/use-aggre-pushdown-to-speed-up-queries", "performance/optimize-queries/use-index-scan-on-ao-tables", "performance/optimize-queries/use-runtimefilter-to-optimize-queries","performance/optimize-queries/query-hints"]
+        },
+        "performance/update-stats-using-analyze", "performance/use-columnar-compression", "performance/manage-resources-using-resource-groups", "performance/use-dynamic-tables"]
+     },
     {
       "type": "category",
       "label": "Security and Permission",
