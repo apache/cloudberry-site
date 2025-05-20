@@ -199,7 +199,7 @@ However, if you prefer to switch from cgroup v1 to v2, run the following command
 
 :::note
 - If you are using an older version of CentOS, such as Centos 7.x or earlier, you will only be able to use the default `cgroup v1` control groups; if you are using Centos 8.x, you can follow the steps below to switch the control group from v1 to v2.
-- Starting from v2.0.0, for `cpu.pressure`, even when `gp_resource_manager` is set to `group-v2`, HashData Lightning no longer checks the permissions or existence of the `/proc/pressure/cpu` interface. Therefore, the `group-v2` mode can still function properly as long as the kernel version is compatible, even if PSI (Pressure Stall Information) is not enabled.
+- Starting from v2.0.0, for `cpu.pressure`, even when `gp_resource_manager` is set to `group-v2`, Apache Cloudberry no longer checks the permissions or existence of the `/proc/pressure/cpu` interface. Therefore, the `group-v2` mode can still function properly as long as the kernel version is compatible, even if PSI (Pressure Stall Information) is not enabled.
 :::
 
 - Red Hat 8/Rocky 8/Oracle 8 systems:

@@ -51,7 +51,7 @@ Run `ANALYZE`:
 `ANALYZE` requires only a read lock on the table, so it might be run in parallel with other database activity. But for performance reasons, it is not recommended to run `ANALYZE` while performing loads, `INSERT`, `UPDATE`, `DELETE`, and `CREATE INDEX` operations.
 
 :::info
-HashData Lightning improves the behavior of `ANALYZE` on partitioned tables. When you explicitly run statistics collection on a leaf partition (for example, `ANALYZE sales_1_prt_p2023`), the system no longer updates statistics for the root or other partitions. Only when `ANALYZE` is run on the root table (for example, `ANALYZE sales`), will statistics for the entire table, including all child partitions, be refreshed.
+Apache Cloudberry improves the behavior of `ANALYZE` on partitioned tables. When you explicitly run statistics collection on a leaf partition (for example, `ANALYZE sales_1_prt_p2023`), the system no longer updates statistics for the root or other partitions. Only when `ANALYZE` is run on the root table (for example, `ANALYZE sales`), will statistics for the entire table, including all child partitions, be refreshed.
 
 This change gives you finer control over statistics maintenance and avoids unnecessary updates. In practice, it's recommended to selectively analyze specific partitions or the entire table based on data change patterns.
 :::
