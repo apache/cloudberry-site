@@ -434,10 +434,14 @@
           ]
         },
 
-        {
-          "type": "category",
-          "label": "System Catalogs",
-          "items": [
+       {
+        "type": "category",
+        "label": "System Catalogs",
+        "items": [
+          {
+            "type": "category",
+            "label": "System Tables",
+            "items": [
               "sys-catalogs/sys-tables/gp-configuration-history",
               "sys-catalogs/sys-tables/gp-distribution-policy",
               "sys-catalogs/sys-tables/gp-fastsequence",
@@ -483,9 +487,12 @@
               "sys-catalogs/sys-tables/pg-type",
               "sys-catalogs/sys-tables/pg-type-encoding",
               "sys-catalogs/sys-tables/pg-user-mapping"
-          ]
-        }
-      ]
+            ]
+          },
+          "sys-catalogs/gp_toolkit"
+    ]
+       }
+     ]
     },
     {
       "type": "category",

@@ -29,10 +29,10 @@ Apache Cloudberry 支持两种类型的资源组：用于管理角色资源的�
 | `CPU_WEIGHT`      | 资源组的调度优先级。                                                               | \[1,500\]                 | 100                                                       |
 | `CPUSET`          | 为该资源组保留的特定 CPU 逻辑核（或超线程中的逻辑线程）。                          | 取决于系统核配置          | -1                                                        |
 | `IO_LIMIT`        | 读取/写入磁盘 I/O 吞吐量的最大限制，以及每秒的最大读/写 I/O 操作。按表空间设置值。 | \[2,4294967295 或 `max`\] | -1                                                        |
-| `MEMORY_LIMIT`    | 为资源组指定的内存限制值。                                                         | `Integar`（MB）           | -1（未设置，使用 `statement_mem` 作为单个查询的内存限制） |
+| `MEMORY_QUOTA`    | 为资源组指定的内存限制值。                                                         | `Integar`（MB）           | -1（未设置，使用 `statement_mem` 作为单个查询的内存限制） |
 | `MIN_COST`        | 查询计划被包含在资源组中的最小成本。                                               | `Integar`                 | 0                                                         |
 
-:::note
+:::note 注意
 对于 `SET` 、 `RESET` 和 `SHOW` 命令，不强制执行资源限制。
 :::
 
@@ -130,15 +130,15 @@ Apache Cloudberry 使用服务器配置参数 `gp_resource_group_cpu_limit` 来�
 
 分配给查询的内存量由以下参数确定：
 
-资源组的 `MEMORY_LIMIT` 参数设置此资源组在段上的最大内存量。这决定了查询执行期间该段主机上所有工作进程可消耗的内存总量。分配给查询的内存量是组内存限制除以组并发限制： `MEMORY_LIMIT` / `CONCURRENCY`。
+资源组的 `MEMORY_QUOTA` 参数设置此资源组在段上的最大内存量。这决定了查询执行期间该段主机上所有工作进程可消耗的内存总量。分配给查询的内存量是组内存限制除以组并发限制： `MEMORY_QUOTA` / `CONCURRENCY`。
 
 如果查询需要大量内存，您可以使用服务器配置参数 `gp_resgroup_memory_query_fixed_mem` 在会话级别为查询设置固定的内存量。该参数会覆盖并可以超出资源组的分配内存。
 
-Apache Cloudberry 在处理传入查询时使用 `gp_resgroup_memory_query_fixed_mem` 的值（如果设置），以绕过资源组设置。否则，它使用 `MEMORY_LIMIT` / `CONCURRENCY` 作为查询的分配内存。如果 `MEMORY_LIMIT` 未设置，则查询内存分配的默认值为 `statement_mem`。
+Apache Cloudberry 在处理传入查询时使用 `gp_resgroup_memory_query_fixed_mem` 的值（如果设置），以绕过资源组设置。否则，它使用 `MEMORY_QUOTA` / `CONCURRENCY` 作为查询的分配内存。如果 `MEMORY_QUOTA` 未设置，则查询内存分配的默认值为 `statement_mem`。
 
 对于所有查询，如果系统内存不足，它们会溢出到磁盘。当达到限制 `gp_workfile_limit_files_per_query` 时，Apache Cloudberry 数据库会生成内存不足 (OOM) 错误。
 
-例如，考虑一个名为 `adhoc` 的资源组，其 `MEMORY_LIMIT` 设置为 1.5 GB，`CONCURRENCY` 设置为 3。默认情况下，提交给该组的每个语句分配 500 MB 的内存。现在考虑以下一系列事件：
+例如，考虑一个名为 `adhoc` 的资源组，其 `MEMORY_QUOTA` 设置为 1.5 GB，`CONCURRENCY` 设置为 3。默认情况下，提交给该组的每个语句分配 500 MB 的内存。现在考虑以下一系列事件：
 
 1. 用户 `ADHOC_1` 提交查询 `Q1`， 将 `gp_resgroup_memory_query_fixed_mem` 重写为 800MB。 `Q1` 语句被接纳到系统中。
 
@@ -154,10 +154,10 @@ Apache Cloudberry 在处理传入查询时使用 `gp_resgroup_memory_query_fixed
 
 有关内存限制的一些特殊使用注意事项：
 
-- 如果设置配置参数 `gp_resource_group_bypass` 或 `gp_resource_group_bypass_catalog_query` 以绕过资源组限制，则查询的内存限制取 `statement_mem` 的值。
-- 当 (`MEMORY_LIMIT` / `CONCURRENCY`) \< `statement_mem` 时，Apache Cloudberry 使用 `statement_mem` 作为分配给查询的固定内存量。
-- `statement_mem` 的最大值被限制为 `max_statement_mem`。
-- 计划成本低于限制 `MIN_COST` 的查询使用 `statement_mem` 的内存限制。
+- 如果设置了配置参数 `gp_resource_group_bypass` 或 `gp_resource_group_bypass_catalog_query` 来绕过资源组限制，则查询的内存限制将取决于 `statement_mem` 的值。
+- 当 (`MEMORY_QUOTA` / `CONCURRENCY`) 小于 `statement_mem` 时，系统会直接使用 `statement_mem` 作为该查询的固定内存分配值。
+- `statement_mem` 的最大取值受 `max_statement_mem` 限制。
+- 查询的计划成本如果低于设定的 `MIN_COST`，则该查询也将使用 `statement_mem` 所指定的内存作为限制。
 
 ### 磁盘 I/O 限制
 
@@ -190,11 +190,12 @@ stat -fc %T /sys/fs/cgroup/
 
 对于 cgroup v1，输出为 `tmpfs`。对于 cgroup v2，输出为 `cgroup2fs`。
 
-:::note
-Linux 控制组可被更改，但如果你使用较旧版本的操作系统，例如 Centos 7.x 或更早，将只能使用默认的 `cgroup v1` 控制组；如果你使用的是 Centos 8.x，可按照下方步骤，将控制组从 v1 切换到 v2。
+:::note 注意
+- Linux 控制组可被更改，但如果您使用较旧版本的操作系统，例如 Centos 7.x 或更早，将只能使用默认的 `cgroup v1` 控制组；如果你使用的是 Centos 8.x，可按照下方步骤，将控制组从 v1 切换到 v2。
+- 从 v2.0.0 起，对于 `cpu.pressure`，即使 `gp_resource_manager` 设置为 `group-v2`，Apache Cloudberry 也不再检查 `/proc/pressure/cpu` 接口的权限或是否存在。因此，即使未启用 PSI（Pressure Stall Information），只要内核版本兼容，仍可正常使用 `group-v2` 模式。
 :::
 
-如无需更改 cgroup 版本，可以直接跳到 `optimize-performance/manage-resources-using-resource-groups:配置 cgroup v1` 或 `optimize-performance/manage-resources-using-resource-groups:配置 cgroup v2` 完成配置先决条件。
+如无需更改 cgroup 版本，可以直接跳到[配置 cgroup v1](#配置-cgroup-v1) 或[配置 cgroup v2](#配置-cgroup-v2) 完成配置先决条件。
 
 如希望从 cgroup v1 切换到 v2，可以以 root 身份运行以下命令：
 
@@ -405,12 +406,12 @@ SELECT * FROM gp_toolkit.gp_resgroup_config;
 
 当为角色创建资源组时，需要提供名称和 CPU 资源分配模式（核或百分比）。还可以选择性地提供并发事务限制、内存限制、CPU 软优先级、磁盘 I/O 限制和最低成本。使用 `CREATE RESOURCE GROUP` 命令创建新的资源组。
 
-为角色创建资源组时，必须提供 `CPU_MAX_PERCENT` 或 `CPUSET` 限制值。这些限制确定分配给该资源组的 Apache Cloudberry CPU 资源的百分比。可指定 `MEMORY_LIMIT` 来为资源组保留固定数量的内存。
+为角色创建资源组时，必须提供 `CPU_MAX_PERCENT` 或 `CPUSET` 限制值。这些限制确定分配给该资源组的 Apache Cloudberry CPU 资源的百分比。可指定 `MEMORY_QUOTA` 来为资源组保留固定数量的内存。
 
 例如，要创建一个名为 *rgroup1* 的资源组，其 CPU 限制为 20，内存限制为 25，CPU 软优先级为 500，最低成本为 50，以及 `pg_default` 表空间的磁盘 I/O 限制：
 
 ``` sql
-CREATE RESOURCE GROUP rgroup1 WITH (CONCURRENCY=20, CPU_MAX_PERCENT=20, MEMORY_LIMIT=250, CPU_WEIGHT=500, MIN_COST=50, IO_LIMIT='pg_default: wbps=1000, rbps=1000, wiops=100, riops=100');
+CREATE RESOURCE GROUP rgroup1 WITH (CONCURRENCY=20, CPU_MAX_PERCENT=20, MEMORY_QUOTA=250, CPU_WEIGHT=500, MIN_COST=50, IO_LIMIT='pg_default: wbps=1000, rbps=1000, wiops=100, riops=100');
 ```
 
 :::note
@@ -423,7 +424,7 @@ CPU 限制 20 被分配给每个分配到 `rgroup1` 的角色。同样，内存�
 
 ``` sql
 ALTER RESOURCE GROUP rg_role_light SET CONCURRENCY 7;
-ALTER RESOURCE GROUP exec SET MEMORY_LIMIT 30;
+ALTER RESOURCE GROUP exec SET MEMORY_QUOTA 30;
 ALTER RESOURCE GROUP rgroup1 SET CPUSET '1;2,4';
 ALTER RESOURCE GROUP sales SET IO_LIMIT 'tablespace1:wbps=2000,wiops=2000;tablespace2:rbps=2024,riops=2024'; 
 ```
@@ -471,7 +472,7 @@ ALTER ROLE mary RESOURCE GROUP NONE;
 
 ### 浏览资源组限制
 
-`gp_resgroup_config`. `gp_toolkit` 系统视图显示资源组的当前限制。要查看所有资源组的限制：
+`gp_toolkit.gp_resgroup_config` 系统视图显示资源组的当前限制。要查看所有资源组的限制：
 
 ``` sql
 SELECT * FROM gp_toolkit.gp_resgroup_config;
@@ -479,7 +480,7 @@ SELECT * FROM gp_toolkit.gp_resgroup_config;
 
 ### 浏览资源组查询状态
 
-`gp_resgroup_status`.`gp_toolkit` 系统视图能够查看资源组的状态和活动。该视图显示正在运行和排队的事务数量。要查看此信息：
+`gp_toolkit.gp_resgroup_status` 系统视图能够查看资源组的状态和活动。该视图显示正在运行和排队的事务数量。要查看此信息：
 
 ``` sql
 SELECT * FROM gp_toolkit.gp_resgroup_status;
@@ -487,7 +488,7 @@ SELECT * FROM gp_toolkit.gp_resgroup_status;
 
 ### 按主机浏览资源组内存使用
 
-`gp_resgroup_status_per_host` `gp_toolkit` 系统视图能按主机查看资源组的实时内存使用情况。要查看此信息：
+`gp_toolkit.gp_resgroup_status_per_host` 系统视图能按主机查看资源组的实时内存使用情况。要查看此信息：
 
 ``` sql
 SELECT * FROM gp_toolkit.gp_resgroup_status_per_host;
@@ -504,7 +505,7 @@ WHERE pg_roles.rolresgroup=pg_resgroup.oid;
 
 ### 浏览资源组磁盘 I/O 使用情况
 
-`gp_resgroup_iostats_per_host` `gp_toolkit` 系统视图能按主机查看资源组的实时磁盘 I/O 使用情况。要查看此信息：
+`gp_toolkit.gp_resgroup_iostats_per_host` 系统视图能按主机查看资源组的实时磁盘 I/O 使用情况。要查看此信息：
 
 ```sql
 SELECT * FROM gp_toolkit.gp_resgroup_iostats_per_host;
@@ -615,7 +616,7 @@ Apache Cloudberry 在运行事务之前会考虑内存可用性，如果没有�
 
 **我的查询由于内存不足而无法运行，导致内存泄漏（OOM）。**
 
-首先，确保资源组分配的内存足够满足查询的需求，通过调整资源组参数，如 `CONCURRENCY` 和 `MEMORY_LIMIT`。分析查询的类型，是否会产生大量的中间结果占用内存。如果确实存在，可设置合理的 `gp_resgroup_memory_query_fixed_mem`，以便在会话级别为该特定查询分配更多内存。
+首先，确保资源组分配的内存足够满足查询的需求，通过调整资源组参数，如 `CONCURRENCY` 和 `MEMORY_QUOTA`。分析查询的类型，是否会产生大量的中间结果占用内存。如果确实存在，可设置合理的 `gp_resgroup_memory_query_fixed_mem`，以便在会话级别为该特定查询分配更多内存。
 
 **在内存泄漏（OOM）后，系统的并发负载很高。**
 
