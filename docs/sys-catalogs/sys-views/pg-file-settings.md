@@ -8,7 +8,6 @@ The `pg_file_settings` view provides a summary of the server's configuration fil
 
 |name|type|references|description|
 |----|----|----------|-----------|
-|`gp_segment_id`|integer| |Unique identifier of a segment (or coordinator) instance.|
 |`sourcefile`|text| |Full path name of the configuration file.|
 |`sourceline`|integer| |Line number within the configuration file where the entry appears.|
 |`seqno`|integer| |Order in which the entries are processed (1..n).|
