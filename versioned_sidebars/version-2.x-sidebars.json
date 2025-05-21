@@ -381,63 +381,14 @@
             "functions/range-functions-and-operators"
           ]
         },
-        {
-          "type": "category",
-          "label": "System Utilities",
-          "link": {
-            "type": "doc",
-            "id": "sys-utilities/index"
-          },
-          "items": [
-            "sys-utilities/analyzedb",
-            "sys-utilities/clusterdb",
-            "sys-utilities/createuser",
-            "sys-utilities/createdb",
-            "sys-utilities/gpaddmirrors",
-            "sys-utilities/gpbackup",
-            "sys-utilities/gpcheckcat",
-            "sys-utilities/gpcheckperf",
-            "sys-utilities/gpconfig",
-            "sys-utilities/gpdeletesystem",
-            "sys-utilities/gpdemo",
-            "sys-utilities/gpexpand",
-            "sys-utilities/gpfdist",
-            "sys-utilities/gpinitstandby",
-            "sys-utilities/gpinitsystem",
-            "sys-utilities/gpload",
-            "sys-utilities/gplogfilter",
-            "sys-utilities/gpmemreport",
-            "sys-utilities/gpmemwatcher",
-            "sys-utilities/gpmovemirrors",
-            "sys-utilities/gppkg",
-            "sys-utilities/gprestore",
-            "sys-utilities/gpreload",
-            "sys-utilities/gprecoverseg",
-            "sys-utilities/gpshrink",
-            "sys-utilities/gpssh-exkeys",
-            "sys-utilities/gpssh",
-            "sys-utilities/gpstart",
-            "sys-utilities/gpstate",
-            "sys-utilities/gpstop",
-            "sys-utilities/gpsync",
-            "sys-utilities/pg-checksums",
-            "sys-utilities/pg-config",
-            "sys-utilities/pg-dump",
-            "sys-utilities/pg-dumpall",
-            "sys-utilities/pg-filedump",
-            "sys-utilities/psql",
-            "sys-utilities/reindexdb",
-            "sys-utilities/vacuumdb",
-            "sys-utilities/dropdb",
-            "sys-utilities/dropuser",
-            "sys-utilities/gpactivatestandby"
-          ]
-        },
-
-        {
-          "type": "category",
-          "label": "System Catalogs",
-          "items": [
+       {
+        "type": "category",
+        "label": "System Catalogs",
+        "items": [
+          {
+            "type": "category",
+            "label": "System Tables",
+            "items": [
               "sys-catalogs/sys-tables/gp-configuration-history",
               "sys-catalogs/sys-tables/gp-distribution-policy",
               "sys-catalogs/sys-tables/gp-fastsequence",
@@ -483,8 +434,36 @@
               "sys-catalogs/sys-tables/pg-type",
               "sys-catalogs/sys-tables/pg-type-encoding",
               "sys-catalogs/sys-tables/pg-user-mapping"
-          ]
-        }
+            ]
+          },
+
+          {
+            "type": "category",
+            "label": "System Views",
+            "items": [
+              "sys-catalogs/sys-views/gp-distributed-log",
+              "sys-catalogs/sys-views/gp-distributed-xacts",
+              "sys-catalogs/sys-views/gp-endpoints",
+              "sys-catalogs/sys-views/gp-pgdatabase",
+              "sys-catalogs/sys-views/gp-resgroup-iostats-per-host",
+              "sys-catalogs/sys-views/gp-segment-endpoints",
+              "sys-catalogs/sys-views/gp-session-endpoints",
+              "sys-catalogs/sys-views/gp-settings",
+              "sys-catalogs/sys-views/gp-stat-activity",
+              "sys-catalogs/sys-views/gp-stat-all-indexes",
+              "sys-catalogs/sys-views/gp-stat-archiver",
+              "sys-catalogs/sys-views/gp-suboverflowed-backend",
+              "sys-catalogs/sys-views/pg-backend-memory-contexts",
+              "sys-catalogs/sys-views/pg-config",
+              "sys-catalogs/sys-views/pg-cursors",
+              "sys-catalogs/sys-views/pg-file-settings",
+              "sys-catalogs/sys-views/pg-replication-origin-status",
+              "sys-catalogs/sys-views/pg-replication-slots",
+              "sys-catalogs/sys-views/pg-stat-all-tables"
+            ]
+          }
+    ]
+       }
       ]
     },
     {

@@ -478,7 +478,7 @@ const sidebars: SidebarsConfig = {
             ]
           }
     ]
-       },
+       }
      ]
     },
 
