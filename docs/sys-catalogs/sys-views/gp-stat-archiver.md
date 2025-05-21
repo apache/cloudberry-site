@@ -4,7 +4,7 @@ title: gp_stat_archiver
 
 # gp_stat_archiver
 
-The `gp_stat_archiver` view provides information about the WAL archiver process for each segment in the Greenplum cluster. It includes metrics such as the number of successfully archived WAL files, the name and time of the last archived WAL file, the number of failed archival attempts, and details of the last failure. This view is useful for monitoring and diagnosing WAL archiving across the cluster.
+The `gp_stat_archiver` view provides information about the WAL archiver process for each segment in the Apache Cloudberry cluster. It includes metrics such as the number of successfully archived WAL files, the name and time of the last archived WAL file, the number of failed archival attempts, and details of the last failure. This view is useful for monitoring and diagnosing WAL archiving across the cluster.
 
 |column|type|references|description|
 |------|----|----------|-----------|
