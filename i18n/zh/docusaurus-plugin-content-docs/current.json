@@ -71,6 +71,10 @@
     "message": "系统表",
     "description": "The label for category system tables in sidebar docs"
   },
+  "sidebar.docsbars.category.System Views": {
+    "message": "系统视图",
+    "description": "The label for category system views in sidebar docs"
+  },
   "sidebar.docsbars.category.Ecosystem": {
     "message": "生态系统",
     "description": "The label for category ecosystem in sidebar docs"
