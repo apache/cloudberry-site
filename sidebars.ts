@@ -467,14 +467,25 @@ const sidebars: SidebarsConfig = {
               'sys-catalogs/sys-views/gp-stat-activity',
               'sys-catalogs/sys-views/gp-stat-all-indexes',
               'sys-catalogs/sys-views/gp-stat-archiver',
+              'sys-catalogs/sys-views/gp-stat-progress-dtx-recovery',
               'sys-catalogs/sys-views/gp-suboverflowed-backend',
+              'sys-catalogs/sys-views/pg-stat-database-conflicts',
+              'sys-catalogs/sys-views/pg_stat_gssapi',
+              'sys-catalogs/sys-views/pg_stat_operations',
+              'sys-catalogs/sys-views/pg_stat_progress_analyze',
+              'sys-catalogs/sys-views/pg_stat_progress_basebackup',
+              'sys-catalogs/sys-views/pg_stat_progress_cluster',
+              'sys-catalogs/sys-views/pg_stat_progress_copy',
+              'sys-catalogs/sys-views/pg_stat_progress_create_index',
               'sys-catalogs/sys-views/pg-backend-memory-contexts',
               'sys-catalogs/sys-views/pg-config',
               'sys-catalogs/sys-views/pg-cursors',
               'sys-catalogs/sys-views/pg-file-settings',
               'sys-catalogs/sys-views/pg-replication-origin-status',
               'sys-catalogs/sys-views/pg-replication-slots',
-              'sys-catalogs/sys-views/pg-stat-all-tables'
+              'sys-catalogs/sys-views/pg-stat-all-tables',
+              'sys-catalogs/sys-views/pg-stat-bgwriter',
+              'sys-catalogs/sys-views/pg-stat-database',
             ]
           }
     ]

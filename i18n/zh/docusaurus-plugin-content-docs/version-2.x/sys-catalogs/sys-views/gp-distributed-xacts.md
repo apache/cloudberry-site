@@ -4,7 +4,7 @@ title: gp_distributed_xacts
 
 # gp_distributed_xacts
 
-`gp_distributed_xacts` 视图包含 Apache Cloudberry 分布式事务的相关信息。分布式事务是指涉及在多个 Segment 实例上修改数据的事务。Apache Cloudberry 的分布式事务管理器会确保各 Segment 保持同步。通过此视图，您可以查看当前活动的会话及其关联的分布式事务。
+`gp_distributed_xacts` 视图包含 Apache Cloudberry 分布式事务的相关信息。分布式事务是指涉及在多个 Segment 实例上修改数据的事务。Apache Cloudberry 的分布式事务管理器会确保各 Segment 保持同步。通过此视图，你可以查看当前活动的会话及其关联的分布式事务。
 
 | 列名                     | 类型   | 引用 | 描述                                                                 |
 |--------------------------|--------|------|----------------------------------------------------------------------|
