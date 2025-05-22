@@ -68,6 +68,7 @@ The listing includes new committers, excluding PPMC members above:
 |Name| Email | GitHub ID | Organization|
 |--|--|--|--|
 | Xiong Tong | tomshawn@apache.org | TomShawn | HashData |
+| Wenchao Zhang | zhangwenchao@apache.org | zhangwenchao-123 | HashData |
 
 ## Contributors wall
 
