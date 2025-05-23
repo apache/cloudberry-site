@@ -36,7 +36,7 @@ These are the categories for views in the `gp_toolkit` schema.
 
 ## About the extension
 
-`gp_toolkit` is implemented as an extension in Apache Cloudberry v1.7.0. Because this extension is registered in the `template1` database, it is both registered an immediately available to use in every Apache Cloudberry database that you create.
+`gp_toolkit` is implemented as an extension in Apache Cloudberry v2.0.0. Because this extension is registered in the `template1` database, it is both registered an immediately available to use in every Apache Cloudberry database that you create.
 
 ## Upgrade the extension
 
