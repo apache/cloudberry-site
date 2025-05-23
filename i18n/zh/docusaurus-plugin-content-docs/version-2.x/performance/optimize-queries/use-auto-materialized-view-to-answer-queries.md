@@ -133,6 +133,6 @@ AQUMV 是通过对查询树进行等效转换来实现查询优化的。
 
 ## 相关其他功能
 
-[并行创建 AO 表与刷新物化视图](/i18n/zh/docusaurus-plugin-content-docs/current/performance/parallel-create-ao-refresh-mv.md)
+[并行创建 AO 表与刷新物化视图](./parallel-create-ao-refresh-mv.md)
 
-[增量物化视图说明文档](/i18n/zh/docusaurus-plugin-content-docs/current/performance/use-incremental-materialized-view.md)
+[增量物化视图说明文档](./use-incremental-materialized-view.md)

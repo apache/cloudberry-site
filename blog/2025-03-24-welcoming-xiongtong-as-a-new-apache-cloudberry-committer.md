@@ -4,7 +4,7 @@ title: "Welcoming Xiong Tong as a New Apache Cloudberry Committer"
 description: "Becoming a committer is a strong commitment to the community."
 authors: [asfcloudberry]
 tags: [Announcement]
-image: /img/blog/202503-welcome-new-committer-xiongtong-banner.png
+image: /img/blog/welcome-new-committer-blog-banner.png
 ---
 
 ![Welcoming Xiong Tong as a New Committer](/img/blog/202503-welcome-new-committer-xiongtong-banner-large.png)

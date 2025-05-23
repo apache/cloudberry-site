@@ -74,5 +74,21 @@
   "sidebar.docsbars.category.Ecosystem": {
     "message": "生态系统",
     "description": "The label for category ecosystem in sidebar docs"
+  },
+  "sidebar.docsbars.category.Operate with Database Objects": {
+    "message": "操作数据库对象",
+    "description": "The label for category operate with database objects in sidebar docs"
+  },
+  "sidebar.docsbars.category.SQL Queries": {
+    "message": "SQL 查询",
+    "description": "The label for category SQL queries in sidebar docs"
+  },
+  "sidebar.docsbars.category.Optimize Performance": {
+    "message": "优化性能",
+    "description": "The label for category optimize performance in sidebar docs"
+  },
+  "sidebar.docsbars.category.GPORCA Query Optimizer": {
+    "message": "GPORCA 查询优化器",
+    "description": "The label for category GPORCA query optimizer in sidebar docs"
   }
 }
