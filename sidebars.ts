@@ -350,6 +350,7 @@ const sidebars: SidebarsConfig = {
       },
 
         'data-types',
+        'config-params-guc-list',
 
       {
         type: 'category',

@@ -363,6 +363,7 @@
           ]
         },
         "data-types",
+        "config-params-guc-list",
         {
           "type": "category",
           "label": "Built-in Functions",
