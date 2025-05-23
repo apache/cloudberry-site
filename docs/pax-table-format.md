@@ -20,6 +20,48 @@ Compared to traditional storage formats, PAX has the following features:
 
 The hybrid storage capability of PAX makes it suitable for complex OLAP applications that need to handle large amounts of data writes and frequent queries. Whether you are looking for a high-performance data analysis solution in a cloud infrastructure or dealing with large datasets in a traditional data center environment, PAX can provide strong support.
 
+## Enable PAX when building Cloudberry from source code
+
+To enable PAX when building Apache Cloudberry from source code, you need to:
+
+1. Make sure that these dependency requirements are met:
+
+    - C/C++ Compiler: GCC/GCC-C++ 11 or later
+    - CMake: 3.11 or later
+    - Protobuf: 3.5.0 or later
+    - ZSTD (libzstd): 1.4.0 or later
+
+2. Run the following command at the top level of the Cloudberry source code directory to download the submodules:
+
+   ```bash
+   git submodule update --init --recursive
+   ```
+
+   The following submodules will be downloaded for building and tesing PAX:
+
+    - yyjson (`dependency/yyjson`)
+    - cpp-stub (`contrib/pax_storage/src/cpp/cotnrib`)
+    - googlebench (`contrib/pax_storage/src/cpp/cotnrib`)
+    - googletest (`contrib/pax_storage/src/cpp/cotnrib`)
+    - tabulate (`contrib/pax_storage/src/cpp/cotnrib`)
+
+3. When running the `configure` command, add the `--enable-pax` option. For example:
+
+    ```bash
+    ./configure --enable-pax --with-perl --with-python --with-libxml --with-gssapi --prefix=/usr/local/cloudberrydb
+    ```
+
+    In addition, to enable PAX in `DEBUG` mode, add the `--enable-cassert` option (along with `--enable-pax`) in the `configure` command, and the `GTEST` in PAX will be built. Run `GTEST` as follows:
+
+    ```bash
+    cd contrib/pax_storage/build
+    ./src/cpp/test_main
+    ```
+
+:::tip
+If you are interested in the implementation details of PAX, you can refer to the [design documents in GitHub repo](https://github.com/apache/cloudberry/tree/main/contrib/pax_storage/doc).
+:::
+
 ## Usage
 
 ### Create a PAX table

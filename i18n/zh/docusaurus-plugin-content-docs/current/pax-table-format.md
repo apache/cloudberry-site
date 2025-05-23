@@ -20,6 +20,48 @@ PAX 是一种数据库存储格式，它结合了行式存储 (NSM，N-ary Stora
 
 PAX 的混合存储能力使其适合于需要处理大量数据写入和频繁查询的复杂 OLAP 应用。无论是在云基础设施中寻求高性能数据分析解决方案，还是在传统数据中心环境中处理大规模数据集，PAX 都能提供强大支持。
 
+## 从源码编译 Cloudberry 时启用 PAX
+
+要在从源码编译 Apache Cloudberry 时启用 PAX，你需要：
+
+1. 确保满足以下依赖要求：
+
+    - C/C++ 编译器：GCC/GCC-C++ 11 或更高版本
+    - CMake：3.11 或更高版本
+    - Protobuf：3.5.0 或更高版本
+    - ZSTD (libzstd)：1.4.0 或更高版本
+
+2. 在 Cloudberry 源码目录的顶层运行以下命令以下载子模块：
+
+   ```bash
+   git submodule update --init --recursive
+   ```
+
+   执行该命令会下载这些子模块，用来构建和测试 PAX：
+
+    - yyjson (`dependency/yyjson`)
+    - cpp-stub (`contrib/pax_storage/src/cpp/cotnrib`)
+    - googlebench (`contrib/pax_storage/src/cpp/cotnrib`)
+    - googletest (`contrib/pax_storage/src/cpp/cotnrib`)
+    - tabulate (`contrib/pax_storage/src/cpp/cotnrib`)
+
+3. 在运行 `configure` 命令时，添加 `--enable-pax` 选项。例如：
+
+    ```bash
+    ./configure --enable-pax --with-perl --with-python --with-libxml --with-gssapi --prefix=/usr/local/cloudberrydb
+    ```
+
+    另外，如果要在 `DEBUG` 模式下启用 PAX，请在 `configure` 命令中添加 `--enable-cassert` 选项（与 `--enable-pax` 一起），PAX 中的 `GTEST` 将会被编译。运行 `GTEST` 如下：
+
+    ```bash
+    cd contrib/pax_storage/build
+    ./src/cpp/test_main
+    ```
+
+:::tip 提示
+如果你对 PAX 的实现细节感兴趣，可以参考 [GitHub 仓库中的设计文档](https://github.com/apache/cloudberry/tree/main/contrib/pax_storage/doc)。
+:::
+
 ## 使用方法
 
 ### 创建 PAX 的表
