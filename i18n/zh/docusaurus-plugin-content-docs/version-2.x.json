@@ -90,5 +90,9 @@
   "sidebar.docsbars.category.GPORCA Query Optimizer": {
     "message": "GPORCA 查询优化器",
     "description": "The label for category GPORCA query optimizer in sidebar docs"
+  },
+  "sidebar.docsbars.category.System Views": {
+    "message": "系统视图",
+    "description": "The label for category system views in sidebar docs"
   }
 }

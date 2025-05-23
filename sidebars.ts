@@ -350,6 +350,7 @@ const sidebars: SidebarsConfig = {
       },
 
         'data-types',
+        'config-params-guc-list',
 
       {
         type: 'category',
@@ -472,6 +473,13 @@ const sidebars: SidebarsConfig = {
               'sys-catalogs/sys-tables/pg-type',
               'sys-catalogs/sys-tables/pg-type-encoding',
               'sys-catalogs/sys-tables/pg-user-mapping',
+            ]
+          },
+          {
+            type: 'category',
+            label: 'System Views',
+            items: [
+              'sys-catalogs/sys-views/pg-stat-progress-create-index'
             ]
           },
           'sys-catalogs/gp_toolkit'
