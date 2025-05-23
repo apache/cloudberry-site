@@ -39,7 +39,7 @@ WHERE relid = 'ao_test'::regclass;
 | `relid`               | OID of the table being indexed, corresponding to `pg_class.oid`. |
 | `index_relid`         | OID of the index being built. |
 | `command`             | Command being executed: `CREATE INDEX` or `REINDEX`. |
-| `phase`               | Current phase of execution, for example:<br />`initializing`: Initialization phase<br />`scanning heap`: Scanning table data<br />`sorting`: Sorting phase<br />`building index: loading tuples in tree`: Building index structure<br />`waiting for locks`: Waiting for table or metadata locks |
+| `phase`               | Current phase of execution, for example: <br /> `initializing`: Initialization phase <br /> `scanning heap`: Scanning table data <br /> `sorting`: Sorting phase <br /> `building index: loading tuples in tree`: Building index structure <br /> `waiting for locks`: Waiting for table or metadata locks |
 | `lockers_total`       | Total number of sessions holding conflicting locks (if any). |
 | `lockers_done`        | Number of sessions that have released their locks. |
 | `current_locker_pid`  | Process ID of the session currently holding the lock (if waiting). |

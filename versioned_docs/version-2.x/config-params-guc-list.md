@@ -134,7 +134,7 @@ This document lists the configuration parameters (GUC) of Apache Cloudberry data
 ## krb_server_keyfile
 
 - Variable Type: string
-- Default Value: <FILE:/workspace/dist/database/etc/postgresql/krb5.keytab>
+- Default Value: `<FILE:/workspace/dist/database/etc/postgresql/krb5.keytab>`
 - Setting Category: sighup
 - Description: Sets the location of the Kerberos server key file.
 

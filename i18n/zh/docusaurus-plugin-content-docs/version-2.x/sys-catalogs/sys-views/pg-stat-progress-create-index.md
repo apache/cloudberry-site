@@ -39,7 +39,7 @@ WHERE relid = 'ao_test'::regclass;
 | `relid`              | 正在被索引的表的 OID，对应 `pg_class.oid`。 |
 | `index_relid`        | 正在构建的索引对象的 OID。 |
 | `command`            | 当前执行的命令类型：`CREATE INDEX` 或 `REINDEX`。 |
-| `phase`              | 当前执行阶段，例如：<br />`initializing`：初始化阶段<br />`scanning heap`：扫描表数据<br />`sorting`：排序阶段<br />`building index: loading tuples in tree`：构建索引结构<br />`waiting for locks`：等待表锁或元数据锁 |
+| `phase`              | 当前执行阶段，例如： <br /> `initializing`：初始化阶段 <br /> `scanning heap`：扫描表数据 <br /> `sorting`：排序阶段 <br /> `building index: loading tuples in tree`：构建索引结构 <br /> `waiting for locks`：等待表锁或元数据锁 |
 | `lockers_total`      | 等待释放锁的会话总数（如有）。 |
 | `lockers_done`       | 已完成锁释放的会话数量。 |
 | `current_locker_pid` | 当前持有锁的进程号（如果正在等待）。 |

@@ -133,7 +133,7 @@ title: 配置参数
 ## krb_server_keyfile
 
 - 变量类型：string
-- 默认值：FILE:/workspace/dist/database/etc/postgresql/krb5.keytab
+- 默认值：`FILE:/workspace/dist/database/etc/postgresql/krb5.keytab`
 - 设置分类：sighup
 - 描述：设置 Kerberos 服务器密钥文件的位置。
 
