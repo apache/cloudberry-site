@@ -479,7 +479,7 @@ const sidebars: SidebarsConfig = {
             type: 'category',
             label: 'System Views',
             items: [
-              'sys-catalogs/sys-views/pg_stat_progress_create_index'
+              'sys-catalogs/sys-views/pg-stat-progress-create-index'
             ]
           },
           'sys-catalogs/gp_toolkit'
