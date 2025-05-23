@@ -4,11 +4,11 @@ title: Heap 存储和 AO 存储模型
 
 # Heap 存储和 AO 存储模型
 
-HashData Lightning 支持 Heap 存储和 Appended-Optimized (AO) 存储两种模型。选择存储模型需要根据数据类型和查询类型来决定。本文档介绍这两种存储模型，并提供选择最优模型的参考建议。
+Apache Cloudberry 支持 Heap 存储和 Appended-Optimized (AO) 存储两种模型。选择存储模型需要根据数据类型和查询类型来决定。本文档介绍这两种存储模型，并提供选择最优模型的参考建议。
 
 ## Heap 存储
 
-HashData Lightning 默认使用与 PostgreSQL 相同的 Heap 存储模型。Heap 表适用于 OLTP 类型的工作负载，这类工作负载通常在数据加载后会频繁修改。`UPDATE` 和 `DELETE` 操作需要存储行级版本信息，以确保数据库事务处理的可靠性。Heap 表更适合较小的表，例如加载后经常更新的维度表。
+Apache Cloudberry 默认使用与 PostgreSQL 相同的 Heap 存储模型。Heap 表适用于 OLTP 类型的工作负载，这类工作负载通常在数据加载后会频繁修改。`UPDATE` 和 `DELETE` 操作需要存储行级版本信息，以确保数据库事务处理的可靠性。Heap 表更适合较小的表，例如加载后经常更新的维度表。
 
 ## AO 存储
 
@@ -31,14 +31,14 @@ CREATE TABLE bar (a int, b text)
 ```
 
 :::note 注意
-使用 `appendoptimized=value` 语法指定 AO 表的存储类型。`appendoptimized` 是 `appendonly` 旧存储选项的简化别名。HashData Lightning 会在目录中存储为 `appendonly`，并在列出 AO 表存储选项时显示相同信息。
+使用 `appendoptimized=value` 语法指定 AO 表的存储类型。`appendoptimized` 是 `appendonly` 旧存储选项的简化别名。Apache Cloudberry 会在目录中存储为 `appendonly`，并在列出 AO 表存储选项时显示相同信息。
 :::
 
 在可重复读或可串行化事务中，`UPDATE` 和 `DELETE` 操作不支持 AO 表，否则会导致事务中断。
 
 ## 选择行存储或列存储
 
-HashData Lightning 支持行存储、列存储或两者结合的存储模型。本节提供选择表存储方向的一般指导原则。建议根据实际数据和查询工作负载进行性能评估。
+Apache Cloudberry 支持行存储、列存储或两者结合的存储模型。本节提供选择表存储方向的一般指导原则。建议根据实际数据和查询工作负载进行性能评估。
 
 - **行存储：** 适合具有大量迭代事务的 OLTP 工作负载，尤其是在需要同时访问单行的多列时，检索效率更高。
 - **列存储：** 适合数据仓库工作负载，尤其是对少量列进行聚合计算，或仅更新单列而无需修改其他列时。
