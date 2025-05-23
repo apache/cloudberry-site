@@ -474,6 +474,13 @@ const sidebars: SidebarsConfig = {
               'sys-catalogs/sys-tables/pg-user-mapping',
             ]
           },
+          {
+            type: 'category',
+            label: 'System Views',
+            items: [
+              'sys-catalogs/sys-views/pg_stat_progress_create_index'
+            ]
+          },
           'sys-catalogs/gp_toolkit'
     ]
        },
