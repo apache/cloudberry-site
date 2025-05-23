@@ -50,6 +50,12 @@ SELECT * FROM pg_partition_tree( 'parent_table' );
 
 `ANALYZE` 只需要对表进行读取锁定，因此可以与其他数据库操作并行执行。但出于性能原因，不建议在执行加载、`INSERT`、`UPDATE`、`DELETE` 和 `CREATE INDEX` 操作时执行 `ANALYZE`。
 
+:::info 提示
+Apache Cloudberry 优化了分区表执行 `ANALYZE` 时的行为。当对某个叶分区（例如 `ANALYZE sales_1_prt_p2023`）显式执行统计信息收集时，系统不会再自动更新根表或其他分区的统计信息。只有显式对根表（例如 `ANALYZE sales`）执行 `ANALYZE` 时，才会更新整张表的统计信息，包括所有子分区。
+
+这种行为的改进提高了统计信息管理的控制力，避免了不必要的统计刷新。在实际使用中，推荐根据数据变化情况选择性地分析具体分区或整表。
+:::
+
 ## 配置自动统计信息收集
 
 配置参数 `gp_autostats_mode` 与 `gp_autostats_on_change_threshold` 一起确定何时触发自动分析操作。当触发自动统计信息收集时，优化器会在查询中加入 `ANALYZE` 步骤。

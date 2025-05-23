@@ -20,7 +20,7 @@ WHERE relname = 'test_analyze';
 
 ## Generate statistics selectively
 
-Running [`ANALYZE`](https://github.com/apache/cloudberry-site/blob/cbdb-doc-validation/docs/sql-stmts/analyze.md) with no arguments updates statistics for all tables in the database. This can be a very long-running process and it is not recommended. You should `ANALYZE` tables selectively when data has changed or use the [analyzedb](https://github.com/apache/cloudberry-site/blob/cbdb-doc-validation/docs/sys-utilities/analyzedb.md) utility.
+Running [`ANALYZE`](../sql-stmts/analyze.md) with no arguments updates statistics for all tables in the database. This can be a very long-running process and it is not recommended. You should `ANALYZE` tables selectively when data has changed or use the [analyzedb](../sys-utilities/analyzedb.md) utility.
 
 Running `ANALYZE` on a large table can take a long time. If it is not feasible to run `ANALYZE` on all columns of a very large table, you can generate statistics for selected columns only using `ANALYZE table(column, ...)`. Be sure to include columns used in joins, `WHERE` clauses, `SORT` clauses, `GROUP BY` clauses, or `HAVING` clauses.
 
@@ -49,6 +49,12 @@ Run `ANALYZE`:
 - and after `INSERT`, `UPDATE`, and `DELETE` operations that significantly change the underlying data.
 
 `ANALYZE` requires only a read lock on the table, so it might be run in parallel with other database activity. But for performance reasons, it is not recommended to run `ANALYZE` while performing loads, `INSERT`, `UPDATE`, `DELETE`, and `CREATE INDEX` operations.
+
+:::info
+Apache Cloudberry improves the behavior of `ANALYZE` on partitioned tables. When you explicitly run statistics collection on a leaf partition (for example, `ANALYZE sales_1_prt_p2023`), the system no longer updates statistics for the root or other partitions. Only when `ANALYZE` is run on the root table (for example, `ANALYZE sales`), will statistics for the entire table, including all child partitions, be refreshed.
+
+This change gives you finer control over statistics maintenance and avoids unnecessary updates. In practice, it's recommended to selectively analyze specific partitions or the entire table based on data change patterns.
+:::
 
 ## Configure automatic statistics collection
 

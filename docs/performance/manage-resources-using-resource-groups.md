@@ -26,14 +26,14 @@ You can also use resource groups to manage the CPU and memory resources of exter
 
 When you create a resource group, you provide a set of limits that determine the amount of CPU and memory resources available to the group. The following table lists the available limits for resource groups:
 
-| Limit Type        | Description                                                                                                                                          | Value Range                             | Default                                                                  |
+| Limit type        | Description                                                                                                                                          | Value range                             | Default                                                                  |
 |-------------------|------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------|--------------------------------------------------------------------------|
 | `CONCURRENCY`     | The maximum number of concurrent transactions, including active and idle transactions, that are permitted in the resource group.                     | [0, max_connections]               | 20                                                                       |
 | `CPU_MAX_PERCENT` | The maximum percentage of CPU resources the group can use.                                                                                           | [1, 100]                             | -1 (not set)                                                             |
 | `CPU_WEIGHT`      | The scheduling priority of the resource group.                                                                                                       | [1, 500]                             | 100                                                                      |
 | `CPUSET`          | The specific CPU logical core (or logical thread in hyperthreading) reserved for this resource group.                                                | It depends on system core configuration | -1                                                                       |
 | `IO_LIMIT`        | The limit for the maximum read/write disk I/O throughput, and maximum read/write I/O operations per second. Set the value on a per-tablespace basis. | [2, 4294967295 or max]             | -1                                                                       |
-| `MEMORY_LIMIT`    | The memory limit value specified for the resource group.                                                                                             | Integer (MB)                            | -1 (not set, use `statement_mem` as the memory limit for a single query) |
+| `MEMORY_QUOTA`    | The memory limit value specified for the resource group.                                                                                             | Integer (MB)                            | -1 (not set, use `statement_mem` as the memory limit for a single query) |
 | `MIN_COST`        | The minimum cost of a query plan to be included in the resource group.                                                                               | Integer                                 | 0                                                                        |
 
 :::note
@@ -134,15 +134,15 @@ When you enable resource groups, memory usage is managed at the Apache Cloudberr
 
 The amount of memory allocated to a query is determined by the following parameters:
 
-The parameter `MEMORY_LIMIT` of a resource group sets the maximum amount of memory reserved for this resource group on a segment. This determines the total amount of memory that all worker processes for a query can consume on the segment host during query execution. The amount of memory allotted to a query is the group memory limit divided by the group concurrency limit: `MEMORY_LIMIT` / `CONCURRENCY`.
+The parameter `MEMORY_QUOTA` of a resource group sets the maximum amount of memory reserved for this resource group on a segment. This determines the total amount of memory that all worker processes for a query can consume on the segment host during query execution. The amount of memory allotted to a query is the group memory limit divided by the group concurrency limit: `MEMORY_QUOTA` / `CONCURRENCY`.
 
 If a query requires a large amount of memory, you might use the server configuration parameter `gp_resgroup_memory_query_fixed_mem` to set a fixed memory amount for the query at the session level. This parameter overrides and can surpass the allocated memory of the resource group.
 
-Apache Cloudberry allocates memory for an incoming query using the `gp_resgroup_memory_query_fixed_mem` value, if set, to bypass the resource group settings. Otherwise, it uses `MEMORY_LIMIT` / `CONCURRENCY` as the memory allocated for the query. If `MEMORY_LIMIT` is not set, the value for the query memory allocation defaults to `statement_mem`.
+Apache Cloudberry allocates memory for an incoming query using the `gp_resgroup_memory_query_fixed_mem` value, if set, to bypass the resource group settings. Otherwise, it uses `MEMORY_QUOTA` / `CONCURRENCY` as the memory allocated for the query. If `MEMORY_QUOTA` is not set, the value for the query memory allocation defaults to `statement_mem`.
 
 For all queries, if there is not enough memory in the system, they spill to disk. When the limit `gp_workfile_limit_files_per_query` is reached, Apache Cloudberry generates an out of memory (OOM) error.
 
-For example, consider a resource group named `adhoc` with `MEMORY_LIMIT` set to 1.5 GB and `CONCURRENCY` set to `3`. By default, each statement submitted to the group is allocated 500 MB of memory. Now consider the following series of events:
+For example, consider a resource group named `adhoc` with `MEMORY_QUOTA` set to 1.5 GB and `CONCURRENCY` set to `3`. By default, each statement submitted to the group is allocated 500 MB of memory. Now consider the following series of events:
 
 1. User `ADHOC_1` submits query `Q1`, overriding `gp_resgroup_memory_query_fixed_mem` to 800MB. The `Q1` statement is admitted into the system.
 
@@ -158,10 +158,10 @@ For example, consider a resource group named `adhoc` with `MEMORY_LIMIT` set to 
 
 There are some special usage considerations regarding memory limits:
 
-- If you set the configuration parameters `gp_resource_group_bypass` or `gp_resource_group_bypass_catalog_query` to bypass the resource group limits, the memory limit for the query takes the value of `statement_mem`.
-- When (`MEMORY_LIMIT` / `CONCURRENCY`) \< `statement_mem`, Apache Cloudberry uses `statement_mem` as the fixed amount of memory allocated by query.
-- The maximum value of `statement_mem` is capped at `max_statement_mem`.
-- Queries whose plan cost is less than the limit `MIN_COST` use a memory limit of `statement_mem`.
+- If the configuration parameters `gp_resource_group_bypass` or `gp_resource_group_bypass_catalog_query` are enabled to bypass resource group limits, the query's memory allocation will be determined by the value of `statement_mem`.
+- When (`MEMORY_QUOTA` / `CONCURRENCY`) is less than `statement_mem`, the system uses `statement_mem` as the fixed memory allocation for the query.
+- The maximum value of `statement_mem` is limited by `max_statement_mem`.
+- If a query's planned cost is lower than the configured `MIN_COST`, it will also be assigned memory based on `statement_mem`.
 
 ### Disk I/O limits
 
@@ -198,7 +198,8 @@ You do not need to change your version of cgroup, you can simply skip to `optimi
 However, if you prefer to switch from cgroup v1 to v2, run the following commands as root:
 
 :::note
-If you are using an older version of CentOS, such as Centos 7.x or earlier, you will only be able to use the default `cgroup v1` control groups; if you are using Centos 8.x, you can follow the steps below to switch the control group from v1 to v2.
+- If you are using an older version of CentOS, such as Centos 7.x or earlier, you will only be able to use the default `cgroup v1` control groups; if you are using Centos 8.x, you can follow the steps below to switch the control group from v1 to v2.
+- Starting from v2.0.0, for `cpu.pressure`, even when `gp_resource_manager` is set to `group-v2`, Apache Cloudberry no longer checks the permissions or existence of the `/proc/pressure/cpu` interface. Therefore, the `group-v2` mode can still function properly as long as the kernel version is compatible, even if PSI (Pressure Stall Information) is not enabled.
 :::
 
 - Red Hat 8/Rocky 8/Oracle 8 systems:
@@ -408,12 +409,12 @@ SELECT * FROM gp_toolkit.gp_resgroup_config;
 
 When you create a resource group for a role, you provide a name and a CPU resource allocation mode (core or percentage). You can optionally provide a concurrent transaction limit, a memory limit, a CPU soft priority, disk I/O limits, and a minimum cost. Use the `CREATE RESOURCE GROUP` command to create a new resource group.
 
-When you create a resource group for a role, you must provide a `CPU_MAX_PERCENT` or `CPUSET` limit value. These limits identify the percentage of Apache Cloudberry CPU resources to allocate to this resource group. You might specify a `MEMORY_LIMIT` to reserve a fixed amount of memory for the resource group.
+When you create a resource group for a role, you must provide a `CPU_MAX_PERCENT` or `CPUSET` limit value. These limits identify the percentage of Apache Cloudberry CPU resources to allocate to this resource group. You might specify a `MEMORY_QUOTA` to reserve a fixed amount of memory for the resource group.
 
 For example, to create a resource group named *rgroup1* with a CPU limit of 20, a memory limit of 25, a CPU soft priority of 500, a minimum cost of 50, and disk I/O limits for the `pg_default` tablespace:
 
 ```sql
-CREATE RESOURCE GROUP rgroup1 WITH (CONCURRENCY=20, CPU_MAX_PERCENT=20, MEMORY_LIMIT=250, CPU_WEIGHT=500, MIN_COST=50, 
+CREATE RESOURCE GROUP rgroup1 WITH (CONCURRENCY=20, CPU_MAX_PERCENT=20, MEMORY_QUOTA=250, CPU_WEIGHT=500, MIN_COST=50, 
 IO_LIMIT='pg_default: wbps=1000, rbps=1000, wiops=100, riops=100');
 ```
 
@@ -427,7 +428,7 @@ The `ALTER RESOURCE GROUP` command updates the limits of a resource group. To ch
 
 ```sql
 ALTER RESOURCE GROUP rg_role_light SET CONCURRENCY 7;
-ALTER RESOURCE GROUP exec SET MEMORY_LIMIT 30;
+ALTER RESOURCE GROUP exec SET MEMORY_QUOTA 30;
 ALTER RESOURCE GROUP rgroup1 SET CPUSET '1;2,4';
 ALTER RESOURCE GROUP sales SET IO_LIMIT 'tablespace1:wbps=2000,wiops=2000;tablespace2:rbps=2024,riops=2024'; 
 ```
@@ -476,7 +477,7 @@ Monitoring the status of your resource groups and queries might involve the foll
 
 ### View resource group limits
 
-The `gp_resgroup_config` `gp_toolkit` system view displays the current limits for a resource group. To view the limits of all resource groups:
+The `gp_toolkit.gp_resgroup_config` system view displays the current limits for a resource group. To view the limits of all resource groups:
 
 ```sql
 SELECT * FROM gp_toolkit.gp_resgroup_config;
@@ -484,7 +485,7 @@ SELECT * FROM gp_toolkit.gp_resgroup_config;
 
 ### View resource group query status
 
-The `gp_resgroup_status` `gp_toolkit` system view enables you to view the status and activity of a resource group. The view displays the number of running and queued transactions. To view this information:
+The `gp_toolkit.gp_resgroup_status` system view enables you to view the status and activity of a resource group. The view displays the number of running and queued transactions. To view this information:
 
 ```sql
 SELECT * FROM gp_toolkit.gp_resgroup_status;
@@ -492,7 +493,7 @@ SELECT * FROM gp_toolkit.gp_resgroup_status;
 
 ### View resource group memory usage per host
 
-The `gp_resgroup_status_per_host` `gp_toolkit` system view enables you to view the real-time memory usage of a resource group on a per-host basis. To view this information:
+The `gp_toolkit.gp_resgroup_status_per_host` system view enables you to view the real-time memory usage of a resource group on a per-host basis. To view this information:
 
 ```sql
 SELECT * FROM gp_toolkit.gp_resgroup_status_per_host;
@@ -509,7 +510,7 @@ WHERE pg_roles.rolresgroup=pg_resgroup.oid;
 
 ### View resource group disk I/O usage per host
 
-The `gp_resgroup_iostats_per_host` `gp_toolkit` system view enables you to view the real-time disk I/O usage of a resource group on a per-host basis. To view this information:
+The `gp_toolkit.gp_resgroup_iostats_per_host` system view enables you to view the real-time disk I/O usage of a resource group on a per-host basis. To view this information:
 
 ```sql
 SELECT * FROM gp_toolkit.gp_resgroup_iostats_per_host;
@@ -620,7 +621,7 @@ Apache Cloudberry automatically adjusts transaction and group memory to the new 
 
 **My query cannot run due to insufficient memory, resulting in memory leak Out of Memory (OOM).**
 
-First, ensure that the resource group is allocating enough memory required by the query by tuning resource group parameters such as `CONCURRENCY` and `MEMORY_LIMIT`. Analyze the type of query, whether there will be a lot of intermediate results using memory. If it does exist, you can set a reasonable `gp_resgroup_memory_query_fixed_mem` to allocate more memory at the session level for this specific query.
+First, ensure that the resource group is allocating enough memory required by the query by tuning resource group parameters such as `CONCURRENCY` and `MEMORY_QUOTA`. Analyze the type of query, whether there will be a lot of intermediate results using memory. If it does exist, you can set a reasonable `gp_resgroup_memory_query_fixed_mem` to allocate more memory at the session level for this specific query.
 
 **After a memory leak OOM the system has a high concurrent load**.
 

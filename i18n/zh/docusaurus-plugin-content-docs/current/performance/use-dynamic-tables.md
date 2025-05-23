@@ -18,7 +18,7 @@ title: 使用动态表
 
 ## 与物化视图的对比
 
-动态表与[自动使用物化视图回答查询（AQUMV）](/i18n/zh/docusaurus-plugin-content-docs/current/performance/use-auto-materialized-view-to-answer-queries.md)的区别如下：
+动态表与[自动使用物化视图回答查询（AQUMV）](../performance/optimize-queries/use-auto-materialized-view-to-answer-queries.md)的区别如下：
 
 | **特性**         | 动态表                                     | AQUMV                                  |
 |------------------|--------------------------------------------|----------------------------------------|

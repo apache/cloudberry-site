@@ -18,7 +18,7 @@ Dynamic tables are suitable for these scenarios:
 
 ## Comparison with materialized views
 
-Dynamic tables and [Answer Query Using Materialized Views](/docs/performance/use-auto-materialized-view-to-answer-queries.md) have these differences:
+Dynamic tables and [Answer Query Using Materialized Views](../performance/optimize-queries/use-auto-materialized-view-to-answer-queries.md) have these differences:
 
 | **Feature**                | Dynamic table                                                                               | AQUMV                                                                                  |
 |----------------------------|---------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------|

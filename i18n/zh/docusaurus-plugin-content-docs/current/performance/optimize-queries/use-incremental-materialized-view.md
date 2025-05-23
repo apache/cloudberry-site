@@ -245,6 +245,6 @@ CREATE [INCREMENTAL] MATERIALIZED VIEW [ IF NOT EXISTS ] table_name
 
 # 其他相关功能
 
-[并行创建 AO 表与刷新物化视图](/i18n/zh/docusaurus-plugin-content-docs/current/performance/parallel-create-ao-refresh-mv.md)
+[并行创建 AO 表与刷新物化视图](./parallel-create-ao-refresh-mv.md)
 
-[自动使用物化视图进行查询优化](/i18n/zh/docusaurus-plugin-content-docs/current/performance/use-auto-materialized-view-to-answer-queries.md)
+[自动使用物化视图进行查询优化](./use-auto-materialized-view-to-answer-queries.md)
