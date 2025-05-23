@@ -474,9 +474,46 @@ const sidebars: SidebarsConfig = {
               'sys-catalogs/sys-tables/pg-user-mapping',
             ]
           },
+
+          {
+            type: 'category',
+            label: 'System Views',
+            items: [
+              'sys-catalogs/sys-views/gp-distributed-log',
+              'sys-catalogs/sys-views/gp-distributed-xacts',
+              'sys-catalogs/sys-views/gp-endpoints',
+              'sys-catalogs/sys-views/gp-pgdatabase',
+              'sys-catalogs/sys-views/gp-resgroup-iostats-per-host',
+              'sys-catalogs/sys-views/gp-segment-endpoints',
+              'sys-catalogs/sys-views/gp-session-endpoints',
+              'sys-catalogs/sys-views/gp-settings',
+              'sys-catalogs/sys-views/gp-stat-activity',
+              'sys-catalogs/sys-views/gp-stat-all-indexes',
+              'sys-catalogs/sys-views/gp-stat-archiver',
+              'sys-catalogs/sys-views/gp-stat-progress-dtx-recovery',
+              'sys-catalogs/sys-views/gp-suboverflowed-backend',
+              'sys-catalogs/sys-views/pg-backend-memory-contexts',
+              'sys-catalogs/sys-views/pg-config',
+              'sys-catalogs/sys-views/pg-cursors',
+              'sys-catalogs/sys-views/pg-file-settings',
+              'sys-catalogs/sys-views/pg-replication-origin-status',
+              'sys-catalogs/sys-views/pg-replication-slots',
+              'sys-catalogs/sys-views/pg-stat-all-tables',
+              'sys-catalogs/sys-views/pg-stat-bgwriter',
+              'sys-catalogs/sys-views/pg-stat-database-conflicts',
+              'sys-catalogs/sys-views/pg-stat-database',
+              'sys-catalogs/sys-views/pg-stat-gssapi',
+              'sys-catalogs/sys-views/pg-stat-operations',
+              'sys-catalogs/sys-views/pg-stat-progress-analyze',
+              'sys-catalogs/sys-views/pg-stat-progress-basebackup',
+              'sys-catalogs/sys-views/pg-stat-progress-cluster',
+              'sys-catalogs/sys-views/pg-stat-progress-copy',
+              'sys-catalogs/sys-views/pg-stat-progress-create-index'
+            ]
+          },
           'sys-catalogs/gp_toolkit'
     ]
-       },
+       }
      ]
     },
 

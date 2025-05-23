@@ -24,7 +24,7 @@ title: pg_class
 | `relhasindex`     | boolean    |                       | 如果这是表且有（或曾有）索引，则为 `true` |
 | `relisshared`     | boolean    |                       | 如果该表在系统的所有数据库中共享，则为 `true`。只有某些系统目录表（如 `pg_database`）是共享的 |
 | `relpersistence`  | char       |                       | 对象持久化类型：<br/>`p` = 永久表（堆或追加优化）<br/>`u` = 未记录的临时表<br/>`t` = 临时表 |
-| `relkind`         | char       |                       | 对象类型：<br/>`r` = 普通表（堆或追加优化）<br/>`i` = 索引<br/>`S` = 序列<br/>`t` = TOAST 表<br/>`v` = 视图<br/>`m` = 物化视图<br/>`c` = 复合类型<br/>`f` = 外部表<br/>`p` = 分区表<br/>`I` = 分区索引<br/>`u` = 未编目临时堆表<br/>`o` = 内部追加优化段文件和 EOF<br/>`b` = 追加仅块目录<br/>`M` = 追加仅可见性映射 |
+| `relkind`         | char       |                       | 对象类型：<br/>`r` = 普通表（堆或追加优化）<br/>`i` = 索引<br/>`S` = 序列<br/>`t` = TOAST 表<br/>`v` = 视图<br/>`m` = 物化视图<br/>`c` = 复合类型<br/>`f` = 外部表<br/>`p` = 分区表<br/>`I` = 分区索引<br/>`u` = 未编目临时堆表<br/>`o` = 内部追加优化 Segment 文件和 EOF<br/>`b` = 追加仅块目录<br/>`M` = 追加仅可见性映射 |
 | `relnatts`        | int2       |                       | 关系中的用户列数（不包括系统列）。必须有这么多对应的条目在 `pg_attribute` 中。请参阅 `pg_attribute.attnum` |
 | `relchecks`       | int2       |                       | 表上的 `CHECK` 约束数量；请参阅 `pg_constraint` 目录表 |
 | `relhasrules`     | boolean    |                       | 如果表有（或曾有）规则，则为 `true`；请参阅 `pg_rewrite` 目录表 |
