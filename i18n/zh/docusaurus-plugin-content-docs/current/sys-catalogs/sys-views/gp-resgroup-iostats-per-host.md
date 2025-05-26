@@ -26,11 +26,12 @@ title: gp_resgroup_iostats_per_host
 
 ```sql
 SELECT * from gp_toolkit.gp_resgroup_iostats_per_host;
- rsgname        | hostname | tablespace       | rbps | wbps | riops | wiops  
+
+rsgname        | hostname | tablespace       | rbps | wbps | riops | wiops  
 ----------------+----------+------------------+------------------+------------------+-------------+-------------
- rg_test_group1 | mtspc    | pg_default       | 21356347                | 29369067                | 162           | 36           
- rg_test_group2 | mtspc    | pg_default       | 0                | 0                | 0           | 0           
- rg_test_group3 | mtspc    | pg_default       | 0                | 0                | 0           | 0           
- rg_test_group4 | mtspc    | * | 0                | 0                | 0           | 0           
- rg_test_group5 | mtspc    | rg_io_limit_ts_1 | 0                | 0                | 0           | 0           
+rg_test_group1 | mtspc    | pg_default       | 21356347                | 29369067                | 162           | 36           
+rg_test_group2 | mtspc    | pg_default       | 0                | 0                | 0           | 0           
+rg_test_group3 | mtspc    | pg_default       | 0                | 0                | 0           | 0           
+rg_test_group4 | mtspc    | * | 0                | 0                | 0           | 0           
+rg_test_group5 | mtspc    | rg_io_limit_ts_1 | 0                | 0                | 0           | 0           
 (5 rows)
