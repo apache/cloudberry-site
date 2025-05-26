@@ -42,11 +42,8 @@ This document lists the configuration parameters (GUC) of Apache Cloudberry data
 ## checkpoint_timeout
 
 - Value Range: 30 - 86400 (integer, in seconds)
-
 - Default Value: 300 (5 minutes)
-
 - Setting Category: local, system, reload
-
 - Description: Specifies the maximum time interval between automatic WAL checkpoints.
 
   If no unit is specified when setting this parameter, the system defaults to seconds. The allowed range is 30 seconds to 1 day. The default value is 5 minutes (300 seconds or 5min). Increasing this parameter's value will increase the time required for crash recovery.
@@ -148,11 +145,8 @@ This document lists the configuration parameters (GUC) of Apache Cloudberry data
 ## max_connections
 
 - Value Range: 10 - 262143
-
 - Default Value: 250 on Coordinator, 750 on Segment
-
 - Setting Category: local, system, restart
-
 - Description: The maximum number of concurrent connections allowed by the database server.
 
     In the Apache Cloudberry system, client connections enter only through the Coordinator instance. Segment instances should allow 3 to 10 times the number of connections as the Coordinator. When increasing this parameter's value, the value of `max_prepared_transactions` must be increased accordingly.
@@ -177,11 +171,8 @@ This document lists the configuration parameters (GUC) of Apache Cloudberry data
 ## optimizer_array_expansion_threshold
 
 - Value Range: Integer greater than `0`
-
 - Default Value: 20
-
 - Setting Category: coordinator, session, reload
-
 - Description: When GPORCA is enabled (default) and executing queries containing constant array predicates, the `optimizer_array_expansion_threshold` parameter limits the optimization process based on the number of constants in the array.
 
     If the number of array elements in the query predicate exceeds the value specified by this parameter, GPORCA will not convert the predicate to disjunctive normal form during query optimization, thereby reducing optimization time and memory consumption. For example, when GPORCA processes a query with an `IN` clause containing more than 20 elements, it will not convert the clause to disjunctive normal form for optimization performance. This behavioral difference can be observed in the execution plan from how the `IN` condition is filtered.
@@ -259,11 +250,8 @@ This document lists the configuration parameters (GUC) of Apache Cloudberry data
 ## optimizer_enable_dynamicbitmapscan
 
 - Value Range: Boolean
-
 - Default Value: on
-
 - Setting Category: user
-
 - Description: When enabled, the optimizer uses dynamic bitmap scan plans.
 
     If this parameter is set to `off`, GPORCA will not generate dynamic bitmap scan plans and will fall back to using dynamic sequential scan as an alternative.
@@ -271,11 +259,8 @@ This document lists the configuration parameters (GUC) of Apache Cloudberry data
 ## optimizer_enable_dynamicindexonlyscan
 
 - Parameter Type: Boolean
-
 - Default Value: on
-
 - Setting Category: coordinator, session, reload
-
 - Description: When GPORCA is enabled (default), the `optimizer_enable_dynamicindexonlyscan` parameter controls whether to generate dynamic index-only scan plans.
 
     The default value is `on`. When planning queries on partitioned tables, if the query does not contain single-row volatile (SIRV) functions, GPORCA may generate dynamic index-only scans as an alternative. If set to `off`, GPORCA will not generate dynamic index-only scan plans. This parameter can be set at the database system level, individual database level, or session and query level.
@@ -283,11 +268,8 @@ This document lists the configuration parameters (GUC) of Apache Cloudberry data
 ## optimizer_enable_dynamicindexscan
 
 - Value Range: Boolean
-
 - Default Value: on
-
 - Setting Category: user
-
 - Description: This parameter controls whether to enable dynamic index scan in query plans.
 
     When enabled, the optimizer uses dynamic index scan plans. If this parameter is set to `off`, GPORCA will not generate dynamic index scan plans and will fall back to using dynamic sequential scan as an alternative.
@@ -295,11 +277,8 @@ This document lists the configuration parameters (GUC) of Apache Cloudberry data
 ## optimizer_enable_foreign_table
 
 - Parameter Type: Boolean
-
 - Default Value: true
-
 - Setting Category: coordinator, session, reload
-
 - Description: When GPORCA is enabled (default) and this parameter is set to `true` (default), GPORCA generates execution plans for queries involving foreign tables.
 
     If set to `false`, queries containing foreign tables will fall back to being planned by the PostgreSQL-based optimizer.
@@ -307,11 +286,8 @@ This document lists the configuration parameters (GUC) of Apache Cloudberry data
 ## optimizer_enable_indexonlyscan
 
 - Parameter Type: Boolean
-
 - Default Value: true
-
 - Setting Category: coordinator, session, reload
-
 - Description: When GPORCA is enabled (default) and this parameter is set to `true` (default), GPORCA can generate index-only scan plans for B-tree indexes and any type of index that contains all columns in the query. (GiST indexes only support index-only scans for certain operator classes.)
 
     GPORCA only accesses values in the index and not the actual data blocks of the table. This can improve query execution performance, especially when the table has been vacuumed, contains wide columns, and all visible columns are already in the index, eliminating the need to read any data blocks. If this parameter is set to `false`, GPORCA will not generate index-only scan plans. This parameter can be set at the database system level, individual database level, or session and query level.
@@ -319,11 +295,8 @@ This document lists the configuration parameters (GUC) of Apache Cloudberry data
 ## optimizer_enable_orderedagg
 
 - Parameter Type: Boolean
-
 - Default Value: on
-
 - Setting Category: coordinator, session, reload
-
 - Description: When GPORCA is enabled (default), this parameter controls whether to generate query plans for ordered aggregates.
 
     When set to `on` (default), GPORCA generates execution plans for queries containing ordered aggregates. When set to `off`, such queries will fall back to being planned by the PostgreSQL-based optimizer.
@@ -333,11 +306,8 @@ This document lists the configuration parameters (GUC) of Apache Cloudberry data
 ## optimizer_enable_push_join_below_union_all
 
 - Parameter Type: Boolean
-
 - Default Value: off
-
 - Setting Category: coordinator, session, reload
-
 - Description: When GPORCA is enabled (default), the `optimizer_enable_push_join_below_union_all` parameter controls GPORCA's behavior when encountering queries containing `JOIN UNION ALL`.
 
     The default value is `off`. GPORCA will not perform any transformation when the query contains `JOIN UNION ALL`.
@@ -358,11 +328,8 @@ This document lists the configuration parameters (GUC) of Apache Cloudberry data
 ## optimizer_enable_right_outer_join
 
 - Parameter Type: Boolean
-
 - Default Value: on
-
 - Setting Category: coordinator, session, reload
-
 - Description: When GPORCA is enabled (default), this parameter controls whether GPORCA generates right outer joins.
 
     If set to the default value `on`, GPORCA can either directly generate right outer joins or convert left outer joins to right outer joins (when the optimizer deems it appropriate). If set to `off`, GPORCA will convert incoming right outer joins to equivalent left outer joins and completely avoid generating any right outer joins.
@@ -389,13 +356,9 @@ This document lists the configuration parameters (GUC) of Apache Cloudberry data
 ## optimizer_penalize_broadcast_threshold
 
 - Parameter Type: Integer
-
 - Value Range: `[0,2147483647]`
-
 - Default Value: 100000
-
 - Setting Category: user
-
 - Description: Specifies the maximum number of relation rows that can be broadcast without penalty.
 
     If the number of broadcast rows exceeds this threshold, the optimizer will increase its execution cost to reduce the likelihood of selecting that plan.
@@ -487,11 +450,8 @@ This document lists the configuration parameters (GUC) of Apache Cloudberry data
 ## work_mem
 
 - Value Range: Integer in kilobytes
-
 - Default Value: 32MB
-
 - Setting Category: coordinator, session, reload
-
 - Description: Specifies the maximum amount of memory that can be used by each query operation (such as sort or hash table) before writing to temporary disk files. If no unit is specified for this parameter, it defaults to kilobytes. The default value is 32MB.
 
     In complex queries, multiple sort or hash operations may be executed in parallel, each of which can use the amount of memory specified by `work_mem` before writing to temporary files. Additionally, multiple sessions may perform these operations simultaneously, so the total memory consumption may be much higher than the value of `work_mem` itself. This should be taken into special consideration when choosing the value for this parameter.
