@@ -72,7 +72,7 @@ const sidebars: SidebarsConfig = {
         label: 'SQL Queries',
         items: ['join-queries']
         },
-        'table-storage-models',
+        'heap-and-ao-table-formats', 'pax-table-format',
 
       {
         type: 'category',
