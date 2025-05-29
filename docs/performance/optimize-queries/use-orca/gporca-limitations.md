@@ -41,7 +41,7 @@ These features are unsupported when GPORCA is enabled (the default):
     - ROWCOMPARE
     - FIELDSELECT
 - Aggregate functions that take set operators as input arguments.
-- Multiple Distinct Qualified Aggregates, such as `SELECT count(DISTINCT a), sum(DISTINCT b) FROM foo`, are not supported by default. They can be enabled with the `optimizer_enable_multiple_distinct_aggs` [Configuration Parameter](../../../ref_guide/config_params/guc-list.html).
+- Multiple Distinct Qualified Aggregates, such as `SELECT count(DISTINCT a), sum(DISTINCT b) FROM foo`, are not supported by default. They can be enabled with the `optimizer_enable_multiple_distinct_aggs` configuration parameter.
 - `percentile_*` window functions (ordered-set aggregate functions).
 - Inverse distribution functions.
 - Queries that run functions that are defined with the `ON COORDINATOR` or `ON ALL SEGMENTS` attribute.
