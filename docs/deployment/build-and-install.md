@@ -2,28 +2,6 @@
 title: Build and Install Apache Cloudberry and contrib extensions
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-
-
-Common Build Targets
-The build system provides standard targets for building, installing, and testing:
-
-Target	Description
-all	Build all executables and libraries
-install	Install everything
-clean	Remove object files and executables
-distclean	Remove everything that can be rebuilt
-check	Run regression tests
-installcheck	Run tests on installed binaries
-temp-install	Create a temporary installation for testing
-For testing, additional targets are available:
-
-check - Builds a temporary installation and runs regression tests
-installcheck - Tests an already-installed version
-prove - Run TAP-based tests (if enabled)
-
-
 ## Compile the code
 
 ```bash

@@ -2,9 +2,6 @@
 title: Set up a Cloudberry demo cluster
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-
 This step walks through setting up a Cloudberry demo cluster, and testing basic functionality. The demo cluster includes a coordinator, standby coordinator, and multiple primary/mirror segments all running on a single development host.
 
 ## Set up initial container (not required for all environments)
