@@ -6,7 +6,9 @@ title: Create and Manage Views
 
 In Apache Cloudberry, views enable you to save frequently used or complex queries, then access them in a `SELECT` statement as if they were a table. A view is not physically materialized on disk: the query runs as a subquery when you access the view.
 
-## Creating views
+For more about views, see [About View Storage](./view-storage.md) and [Work with View Dependencies](./work-with-view-dependencies.md).
+
+## Create views
 
 The `CREATE VIEW`command defines a view of a query. For example:
 
@@ -16,7 +18,7 @@ CREATE VIEW comedies AS SELECT * FROM films WHERE kind = 'comedy';
 
 <!-- Views ignore `ORDER BY` and `SORT` operations stored in the view. -->
 
-## Dropping views
+## Drop views
 
 The `DROP VIEW` command removes a view. For example:
 
