@@ -8,7 +8,7 @@ title: gp_resgroup_iostats_per_host
 
 内存量以 MB 为单位指定。
 
-:::note
+:::note 注意
 `gp_resgroup_iostats_per_host` 视图仅在基于资源组的资源管理处于活动状态时有效。
 :::
 

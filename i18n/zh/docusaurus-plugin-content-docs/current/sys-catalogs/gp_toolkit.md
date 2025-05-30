@@ -873,7 +873,7 @@ Apache Cloudberry 提供以下视图，以帮助识别当前数据库中是否�
 - `filename`：孤立数据文件的文件名。
 - `filepath`：孤立数据文件的文件系统路径，相对于 Coordinator 或 Segment 的数据目录。
 
-:::caution 注意
+:::caution 小心
 将该视图作为识别孤立数据文件的众多数据点之一，请勿仅根据查询该视图的结果删除文件。
 :::
 

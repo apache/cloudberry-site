@@ -65,20 +65,20 @@ const sidebars: SidebarsConfig = {
         {
         type: 'category',
         label: 'Operate with Database Objects',
-        items: ['basic-query-syntax', 'create-and-manage-tablespaces', 'create-and-manage-tables','create-and-manage-schemas','create-and-manage-views','create-and-manage-materialized-views','create-and-manage-indexes','brin-indexes','insert-update-delete-rows','work-with-transactions','transactional-concurrency-control']
+        items: ['operate-with-data/operate-with-db-objects/create-and-manage-database', 'operate-with-data/operate-with-db-objects/create-and-manage-tablespaces', 'operate-with-data/operate-with-db-objects/create-and-manage-tables', 'operate-with-data/operate-with-db-objects/table-definition-basics', 'operate-with-data/operate-with-db-objects/create-and-manage-schemas','operate-with-data/operate-with-db-objects/create-and-manage-views', 'operate-with-data/operate-with-db-objects/view-storage', 'operate-with-data/operate-with-db-objects/work-with-view-dependencies','operate-with-data/operate-with-db-objects/create-and-manage-materialized-views','operate-with-data/operate-with-db-objects/create-and-manage-indexes','operate-with-data/operate-with-db-objects/brin-indexes', 'operate-with-data/operate-with-db-objects/create-and-manage-partitioned-tables', 'operate-with-data/operate-with-db-objects/about-table-partitioning', 'operate-with-data/operate-with-db-objects/create-and-manage-sequences','operate-with-data/operate-with-db-objects/insert-update-delete-rows']
         },
         {
         type: 'category',
         label: 'SQL Queries',
-        items: ['join-queries']
+        items: ['operate-with-data/sql-queries/basic-query-syntax', 'operate-with-data/sql-queries/define-queries', 'operate-with-data/sql-queries/sql-language', 'operate-with-data/sql-queries/where-clauses', 'operate-with-data/sql-queries/group-by-and-having-clauses', 'operate-with-data/sql-queries/join-queries', 'operate-with-data/sql-queries/table-and-column-aliases', 'operate-with-data/sql-queries/evaluation-order', 'operate-with-data/sql-queries/operate-with-data/sql-queries/value-expressions', 'operate-with-data/sql-queries/aggregation-expressions', 'operate-with-data/sql-queries/subqueries', 'operate-with-data/sql-queries/cte-queries', 'operate-with-data/sql-queries/table-functions', 'operate-with-data/sql-queries/window-functions']
         },
-        'table-storage-models',
-
+        
       {
         type: 'category',
         label: 'Advanced Analytics',
         items: ['advanced-analytics/postgis','advanced-analytics/directory-tables', 'advanced-analytics/pgvector-search']
-      }
+      },
+      'operate-with-data/table-storage-models', 'work-with-transactions', 'transactional-concurrency-control'
       ]
      },
 
@@ -94,10 +94,11 @@ const sidebars: SidebarsConfig = {
         type: 'category',
         label: 'Optimize Query Performance',
         items:[
+          'performance/optimize-queries/query-process-overview', 'performance/optimize-queries/analyze-query-performance',
           {
             type: 'category',
             label: 'GPORCA Query Optimizer',
-            items: ['performance/optimize-queries/use-orca/use-orca-overview', 'performance/optimize-queries/use-orca/orca-features','performance/optimize-queries/use-orca/whats-new-in-orca']
+            items: ['performance/optimize-queries/use-orca/use-orca-overview', 'performance/optimize-queries/use-orca/orca-features','performance/optimize-queries/use-orca/whats-new-in-orca', 'performance/optimize-queries/gporca-collect-root-partition-stats', 'performance/optimize-queries/gporca-limitations', 'performance/optimize-queries/gporca-usage-considerations']
           },
          'performance/optimize-queries/use-unique-index-on-ao-tables', 'performance/optimize-queries/use-auto-materialized-view-to-answer-queries', 'performance/optimize-queries/use-incremental-materialized-view', 'performance/optimize-queries/parallel-create-ao-refresh-mv', 'performance/optimize-queries/parallel-query-execution', 'performance/optimize-queries/use-aggre-pushdown-to-speed-up-queries', 'performance/optimize-queries/use-index-scan-on-ao-tables', 'performance/optimize-queries/use-runtimefilter-to-optimize-queries','performance/optimize-queries/query-hints']
         },

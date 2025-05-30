@@ -17,6 +17,6 @@ title: pg_policy
 | `polqual`    | pg_node_tree |                   | 将添加到使用该表的查询中的安全屏障限定条件的表达式树                  |
 | `polwithcheck` | pg_node_tree |                   | 将添加到插入新记录时的 `WITH CHECK` 限定条件的表达式树                |
 
-:::note
+:::note 注意
 只有当表的 `pg_class.relrowsecurity` 设置为启用时，Apache Cloudberry 才会应用 `pg_policy` 中存储的策略。
 :::

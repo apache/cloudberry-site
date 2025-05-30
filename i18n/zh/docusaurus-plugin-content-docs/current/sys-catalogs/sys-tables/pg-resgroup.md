@@ -4,7 +4,7 @@ title: pg_resgroup
 
 # pg_resgroup
 
-:::note
+:::note 注意
 只有在启用了基于资源组的资源管理时，`pg_resgroup` 系统目录表才有效。
 :::
 

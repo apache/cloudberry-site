@@ -14,7 +14,7 @@ title: pg_cursors
 
 游标仅在定义它们的事务期间存在，除非它们被声明为 `WITH HOLD`。非可持有游标只在视图中存在，直到创建它们的事务结束。
 
-:::info
+:::info 信息
 Apache Cloudberry 不支持可持有的并行检索游标。
 :::
 

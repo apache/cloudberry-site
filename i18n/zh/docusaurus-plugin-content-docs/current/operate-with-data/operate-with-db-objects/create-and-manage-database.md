@@ -38,7 +38,7 @@ $ createdb -h coordinator_host -p 5432 mydatabase
 
 某些数据库对象（例如角色）由 Apache Cloudberry 系统中的所有数据库共享。其他对象（例如创建的表）仅在创建它们的数据库中才是可见的。
 
-:::caution
+:::caution 警告
 `CREATE DATABASE` 命令不是事务性的。
 :::
 
@@ -91,7 +91,7 @@ Apache Cloudberry 默认通过克隆标准系统数据库模板 `template1` 来�
 $ dropdb -h coordinator_host -p 5432 mydatabase
 ```
 
-:::caution
+:::caution 警告
 数据库被删除后无法撤消。
 :::
 

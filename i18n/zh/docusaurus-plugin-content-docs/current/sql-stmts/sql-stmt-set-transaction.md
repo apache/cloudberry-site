@@ -30,7 +30,7 @@ SET SESSION CHARACTERISTICS AS TRANSACTION <transaction_mode> [, ...]
 
 事务的可设置属性包括事务的隔离等级、访问模式（读/写或仅读）以及是否可延迟。另外，虽然可以为当前事务选择一个快照，但这不可作为会话的默认设置。
 
-:::info
+:::info 信息
 需要事务可序列化时，才能将其设定为可延迟。由于 Apache Cloudberry 不支持可序列化的事务，因此使用 `DEFERRABLE` 选项并不会产生任何效果。
 :::
 
