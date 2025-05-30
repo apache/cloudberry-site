@@ -1,3 +1,7 @@
+---
+title: 使用 gp_toolkit Schema 查看系统信息
+---
+
 # 使用 gp_toolkit Schema 查看系统信息
 
 Apache Cloudberry 提供了一个名为 `gp_toolkit` 的管理 Schema，你可以用它查询系统目录、日志文件和操作环境中的系统状态信息。`gp_toolkit` Schema 包含多个视图，可以通过 SQL 命令访问这些视图。所有数据库用户都能访问 `gp_toolkit` Schema，虽然某些对象可能需要超级用户权限。为了方便使用，你可以将 `gp_toolkit` Schema 添加到你的 Schema 搜索路径中。例如：
@@ -869,7 +873,7 @@ Apache Cloudberry 提供以下视图，以帮助识别当前数据库中是否�
 - `filename`：孤立数据文件的文件名。
 - `filepath`：孤立数据文件的文件系统路径，相对于 Coordinator 或 Segment 的数据目录。
 
-:::caution 注意
+:::caution 小心
 将该视图作为识别孤立数据文件的众多数据点之一，请勿仅根据查询该视图的结果删除文件。
 :::
 

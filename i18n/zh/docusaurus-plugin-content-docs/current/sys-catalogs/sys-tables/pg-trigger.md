@@ -6,7 +6,7 @@ title: pg_trigger
 
 `pg_trigger` 系统目录表用于存储表上的触发器信息。
 
-:::note
+:::note 注意
 Apache Cloudberry 不支持触发器。
 :::
 

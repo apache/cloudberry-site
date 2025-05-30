@@ -6,7 +6,7 @@ title: gp_partition_template
 
 `gp_partition_template` 系统目录表位于 `pg_catalog` 模式中，用于描述分区表与分区层次结构中每一级定义的子分区模板之间的关系。
 
-:::info
+:::info 信息
 Apache Cloudberry 仅支持通过经典语法创建的分区表使用子分区模板。
 :::
 

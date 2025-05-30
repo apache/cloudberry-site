@@ -47,7 +47,8 @@ sudo yum groupinstall -y 'Development Tools'
 - 安装和使用扩展
 
 ### 配置 PGRX 环境与安装
-:::note
+
+:::note 注意
 PGRX 由 PgCentral Foundation, Inc. 维护，但此处我们使用的版本是一个 [PGRX 衍生版本](https://github.com/cloudberry-contrib/pgrx)，与 Cloudberry 保持了良好的兼容性。该版本是由社区成员贡献，而非 Cloudberry 官方项目。
 :::
 1. 为 Apache Cloudberry 的 `pg_config` 路径设置环境变量，其中 `<pg_config_path>` 是 Apache Cloudberry 集群中的 `pg_config` 路径，例如 `/usr/local/cloudberry-db/bin/pg_config`：

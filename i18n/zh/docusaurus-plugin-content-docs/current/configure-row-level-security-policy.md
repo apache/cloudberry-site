@@ -15,7 +15,7 @@ toc_max_heading_level: 5
 
 - 用户可使用 `ALTER TABLE ... ENABLE ROW LEVEL SECURITY`命令对表启用行级安全策略。在启用该策略后，除表所有者外，其他用户将无法访问和修改表格。必须先设置相应的安全策略，其他用户才可访问和操作表里的行。
 
-    :::note
+    :::note 注意
 
     应用于整个表的操作（例如 `TRUNCATE` 和 `REFERENCES`）不受行安全的限制。
 
@@ -74,7 +74,7 @@ toc_max_heading_level: 5
 
 - `check_expression`：任意 SQL 条件表达式（返回布尔值）。条件表达式不能包含任何聚合函数或窗口函数。如果启用了行级安全性，则该表达式将用于针对表的 `INSERT` 和 `UPDATE` 操作。仅允许表达式计算结果为 `true` 的行。如果插入的任何记录或更新产生的任何记录的表达式计算结果为 `false` 或 `null`，则会提示错误。
 
-    :::note
+    :::note 注意
 
     注意：`check_expression` 根据命令建议的新内容，而非原始内容进行评估。
 
