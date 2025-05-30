@@ -98,7 +98,7 @@ The estimated startup cost for this plan is `00.00` (no cost) and a total cost o
     workfile I/O affecting 2 workers.
     ```
 
-- The time (in milliseconds) in which the segment that produced the most rows retrieved the first row, and the time taken for that segment to retrieve all rows. The result might omit `<time>` to first row if it is the same as the `<time>` to end.
+- The time (in milliseconds) in which the segment that produced the most rows retrieved the first row, and the time taken for that segment to retrieve all rows. The result might omit `time` to first row if it is the same as the `time` to end.
 
 ### EXPLAIN ANALYZE examples
 

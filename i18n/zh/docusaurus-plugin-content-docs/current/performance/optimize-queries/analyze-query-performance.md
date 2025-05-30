@@ -86,7 +86,7 @@ Gather Motion 2:1 (slice1) (cost=0.00..20.88 rows=1 width=13)
 - 查询执行的总耗时（单位为毫秒）。
 - 查询计划中每个 slice 的内存使用情况，以及整条查询语句所保留的内存。
 - 每个计划节点实际参与执行的 *worker*（segment）数量，仅统计返回数据的 segment。
-- 某个操作中返回数据最多的 segment 所返回的最大行数。如果多个 segment 返回的行数相同，将显示耗时最长的那一个 segment（根据 *<time> to end*）。
+- 某个操作中返回数据最多的 segment 所返回的最大行数。如果多个 segment 返回的行数相同，将显示耗时最长的那一个 segment（根据 `time to end`）。
 - 返回数据最多的 segment 的 ID。
 - 对于相关操作，会显示该操作使用的 `work_mem` 内存大小。如果 `work_mem` 不足，无法在内存中完成操作，计划中还会显示性能最差的 segment 溢写到磁盘的数据量。例如：
 
@@ -96,7 +96,7 @@ Gather Motion 2:1 (slice1) (cost=0.00..20.88 rows=1 width=13)
     workfile I/O affecting 2 workers.
     ```
 
-- 对于返回数据最多的 segment，显示其获取第一行所花时间（毫秒），以及获取全部数据的耗时。如果这两个时间相同，可能省略 `<time>` to first row。
+- 对于返回数据最多的 segment，显示其获取第一行所花时间（毫秒），以及获取全部数据的耗时。如果这两个时间相同，可能省略 `time` to first row。
 
 ### EXPLAIN ANALYZE 示例
 
