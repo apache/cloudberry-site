@@ -95,7 +95,7 @@
               "operate-with-data/sql-queries/full-text-search/test-and-debug-text-search",
               "operate-with-data/sql-queries/full-text-search/preferred-indexes-for-full-text-search",
               "operate-with-data/sql-queries/full-text-search/text-search-psql-support",
-              "operate-with-data/sql-queries/full-text-search/full-text-search-limitations",
+              "operate-with-data/sql-queries/full-text-search/full-text-search-limitations"
             ]
           }
       
