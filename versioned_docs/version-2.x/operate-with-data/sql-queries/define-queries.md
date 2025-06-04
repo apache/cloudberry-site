@@ -22,4 +22,5 @@ The subtopics linked from this page offer detailed explanations and examples to 
 - [Window Functions](./window-functions.md)
 - [Subqueries](./subqueries.md)
 - [Common Table Expressions](./cte-queries.md)
+- [Table and Column Aliases](./table-and-column-aliases.md)
 - [Full Text Search](./full-text-search/full-text-search-index.md)
