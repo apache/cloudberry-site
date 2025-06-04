@@ -283,7 +283,6 @@ When constructing `WITH` queries, keep the following in mind:
 - Apache Cloudberry does not inline when the CTE includes a volatile function.
 - An `ORDER BY` in the subquery or CTE does not force an ordering for the whole query.
 - Apache Cloudberry always materializes a CTE term in a query. Due to these reasons:
-
     - A query that should touch a small amount of data might instead read a whole table, and possibly spill to a temporary file.
     - `UPDATE` or `DELETE FROM` statements are not permitted in a CTE term, as it acts more like a read-only temporary table than a dynamic view. 
 - While inlining is generally a huge win, there are certain boundary cases where it is not; for example, when a non-trivial expression will be inlined in multiple places.

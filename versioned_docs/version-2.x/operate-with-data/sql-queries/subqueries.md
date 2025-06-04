@@ -83,4 +83,4 @@ SELECT * FROM t1
 WHERE x < (SELECT count(*) FROM t3 WHERE t1.y = t3.y)
 ```
 
-To view the query plan, use `EXPLAIN SELECT` or `EXPLAIN ANALYZE SELECT`. Subplan nodes in the query plan indicate that the query will run on every row of the outer query, and the query is a candidate for rewriting. For more information about these statements, see [Query Profiling](query-profiling.html).
+To view the query plan, use `EXPLAIN SELECT` or `EXPLAIN ANALYZE SELECT`. Subplan nodes in the query plan indicate that the query will run on every row of the outer query, and the query is a candidate for rewriting. For more information about these statements, see [Analyze Query Performance](../../performance/optimize-queries/analyze-query-performance.md).

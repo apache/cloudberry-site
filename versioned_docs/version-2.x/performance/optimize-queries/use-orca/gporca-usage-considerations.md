@@ -1,45 +1,49 @@
 ---
-title: Considerations when Using GPORCA
+title: Considerations when using GPORCA
 ---
 
-# Considerations when Using GPORCA
+# Considerations when using GPORCA
 
-To run queries optimally with GPORCA, consider the query criteria closely.
+To ensure optimal query performance with GPORCA, it is important to carefully review query conditions.
 
-Ensure the following criteria are met:
+Make sure the following conditions are met:
 
-- The table does not contain multi-column partition keys.
-- The server configuration parameter `optimizer_enable_coordinator_only_queries` is set to `on` when running against coordinator only tables such as the system table *pg_attribute*. For information about the parameter, see the *Apache Cloudberry Reference Guide*.
+- The table does not use multi-column partitioning keys.
+- When querying tables that reside only on the coordinator (such as system tables like *pg_attribute*), the server parameter `optimizer_enable_coordinator_only_queries` should be set to `on`.
 
     :::note
-    Enabling this parameter decreases performance of short running catalog queries. To avoid this issue, set this parameter only for a session or a query.
+    Enabling this parameter may reduce the performance of short-running system table queries. To avoid this, it's recommended to enable it only for the current session or a specific query.
     :::
 
-- Statistics have been collected on the root partitioned table.
+- Statistics for the root partition of partitioned tables have been collected.
 
-If the partitioned table contains more than 20,000 partitions, consider a redesign of the table schema.
+If a partitioned table contains more than 20,000 partitions, consider redesigning the table structure.
 
-These server configuration parameters affect GPORCA query processing.
+The following server configuration parameters affect GPORCA’s query planning behavior:
 
-- `optimizer_cte_inlining_bound` controls the amount of inlining performed for common table expression (CTE) queries (queries that contain a `WITH` clause).
-- `optimizer_force_comprehensive_join_implementation` affects GPORCA's consideration of nested loop join and hash join alternatives. When the value is `false` (the default), GPORCA does not consider nested loop join alternatives when a hash join is available.
-- `optimizer_force_multistage_agg` forces GPORCA to choose a multi-stage aggregate plan for a scalar distinct qualified aggregate. When the value is `off` (the default), GPORCA chooses between a one-stage and two-stage aggregate plan based on cost.
-- `optimizer_force_three_stage_scalar_dqa` forces GPORCA to choose a plan with multistage aggregates when such a plan alternative is generated.
-- `optimizer_join_order` sets the query optimization level for join ordering by specifying which types of join ordering alternatives to evaluate.
-- `optimizer_join_order_threshold` specifies the maximum number of join children for which GPORCA uses the dynamic programming-based join ordering algorithm.
-- `optimizer_nestloop_factor` controls nested loop join cost factor to apply to during query optimization.
-- `optimizer_parallel_union` controls the amount of parallelization that occurs for queries that contain a `UNION` or `UNION ALL` clause. When the value is `on`, GPORCA can generate a query plan of the child operations of a `UNION` or `UNION ALL` operation run in parallel on segment instances.
-- `optimizer_sort_factor` controls the cost factor that GPORCA applies to sorting operations during query optimization. The cost factor can be adjusted for queries when data skew is present.
-- `gp_enable_relsize_collection` controls how GPORCA (and the Postgres-based planner) handle a table without statistics. By default, GPORCA uses a default value to estimate the number of rows if statistics are not available. When this value is `on`, GPORCA uses the estimated size of a table if there are no statistics for the table.
+- `optimizer_cte_inlining_bound` controls how aggressively GPORCA inlines Common Table Expressions (CTEs), i.e., queries with `WITH` clauses.
+- `optimizer_force_comprehensive_join_implementation` controls whether GPORCA evaluates both nested loop and hash join plans. The default is `false`, meaning nested loop joins are not considered when hash joins are available.
+- `optimizer_force_multistage_agg` forces GPORCA to choose a multi-stage aggregation plan for scalar aggregates with `DISTINCT`. The default is `off`, meaning it chooses between single-stage and multi-stage plans based on cost.
+- `optimizer_force_three_stage_scalar_dqa` forces GPORCA to select a three-stage plan when such an option is available for distinct qualified aggregates (DQA).
+- `optimizer_join_order` sets the level of join order optimization, controlling which types of join sequences GPORCA will evaluate.
+- `optimizer_join_order_threshold` defines the maximum number of join relations for which GPORCA will use a dynamic programming join order algorithm.
+- `optimizer_nestloop_factor` adjusts the cost multiplier GPORCA uses when estimating nested loop joins.
+- `optimizer_parallel_union` controls the degree of parallelism for queries that use `UNION` or `UNION ALL`. When set to `on`, GPORCA may generate plans that execute union operations in parallel across segments.
+- `optimizer_sort_factor` adjusts the cost estimation factor for sort operations. You can tune this value to better reflect performance under data skew conditions.
+- `gp_enable_relsize_collection` controls how GPORCA (and the Postgres planner) estimates table size in the absence of statistics. By default, GPORCA assumes a default row count when statistics are missing. When this parameter is set to `on`, estimated table size will be used instead.
 
-    This parameter is ignored for a root partitioned table. If the root partition does not have statistics, GPORCA always uses the default value. You can use `ANALZYE ROOTPARTITION` to collect statistics on the root partition. See [ANALYZE](../../../ref_guide/sql_commands/ANALYZE.html).
+    This parameter does not apply to root partitions. If the root partition lacks statistics, GPORCA will always use default estimates. You can collect statistics on the root partition using:
 
-These server configuration parameters control the display and logging of information.
+    ```sql
+    ANALYZE ROOTPARTITION;
+    ```
 
-- `optimizer_print_missing_stats` controls the display of column information about columns with missing statistics for a query (default is `true`)
-- `optimizer_print_optimization_stats` controls the logging of GPORCA query optimization metrics for a query (default is `off`)
+The following server parameters control logging and display behavior:
 
-When the `EXPLAIN ANALYZE` command uses GPORCA, the `EXPLAIN` plan shows only the number of partitions that are being eliminated. The scanned partitions are not shown. To show the name of the scanned partitions in the segment logs set the server configuration parameter `gp_log_dynamic_partition_pruning` to `on`. This example `SET` command enables the parameter.
+- `optimizer_print_missing_stats` controls whether the plan output includes information about columns missing statistics (default: `true`).
+- `optimizer_print_optimization_stats` controls whether GPORCA logs internal optimization metrics (default: `off`).
+
+When executing a GPORCA-generated plan with `EXPLAIN ANALYZE`, only the number of pruned partitions is shown — the list of scanned partitions is not included. To log the names of scanned partitions in the segment logs, set the server parameter `gp_log_dynamic_partition_pruning` to `on`. You can enable this with the following command:
 
 ```sql
 SET gp_log_dynamic_partition_pruning = on;

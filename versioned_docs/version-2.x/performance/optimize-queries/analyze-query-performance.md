@@ -33,7 +33,8 @@ When the `EXPLAIN ANALYZE` command uses GPORCA, the `EXPLAIN` plan shows only th
 SET gp_log_dynamic_partition_pruning = on;
 ```
 
-For information about GPORCA, see [Querying Data](query.html).
+For information about GPORCA, see [GPORCA Overview](./use-orca/use-orca-overview.md).
+:::
 
 ## Read EXPLAIN output
 

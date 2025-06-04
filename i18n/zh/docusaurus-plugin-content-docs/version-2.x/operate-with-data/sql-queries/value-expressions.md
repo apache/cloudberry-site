@@ -117,7 +117,7 @@ $1.somecolumn
 OPERATOR(<schema>.<operatorname>)
 ```
 
-系统或用户定义的运算符决定了具体有哪些可用运算符，以及它们是单目还是双目。关于内置运算符的更多信息，请参阅 [内置函数和运算符](functions-operators.html)。
+系统或用户定义的运算符决定了具体有哪些可用运算符，以及它们是单目还是双目。
 
 ## 函数调用（Function calls）
 

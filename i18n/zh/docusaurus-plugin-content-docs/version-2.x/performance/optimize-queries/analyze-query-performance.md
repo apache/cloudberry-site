@@ -33,6 +33,8 @@ EXPLAIN ANALYZE SELECT * FROM names WHERE id=22;
 SET gp_log_dynamic_partition_pruning = on;
 ```
 
+:::
+
 ## 解读 EXPLAIN 输出
 
 一个查询计划是一棵由多个节点组成的树。计划中的每个节点代表一个单独的操作，例如表扫描、连接、聚合或排序。

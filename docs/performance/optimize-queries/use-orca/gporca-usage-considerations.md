@@ -1,45 +1,49 @@
 ---
-title: 使用 GPORCA 的注意事项
+title: Considerations when using GPORCA
 ---
 
-# 使用 GPORCA 的注意事项
+# Considerations when using GPORCA
 
-若要使用 GPORCA 以最佳方式执行查询，应仔细检查查询条件。
+To ensure optimal query performance with GPORCA, it is important to carefully review query conditions.
 
-请确保满足以下条件：
+Make sure the following conditions are met:
 
-- 表不包含多列分区键。
-- 在查询仅针对协调器上的表（如系统表 *pg_attribute*）时，服务器参数 `optimizer_enable_coordinator_only_queries` 已设置为 `on`。
+- The table does not use multi-column partitioning keys.
+- When querying tables that reside only on the coordinator (such as system tables like *pg_attribute*), the server parameter `optimizer_enable_coordinator_only_queries` should be set to `on`.
 
-    :::note 注意
-    启用该参数可能会降低执行时间较短的系统表查询的性能。为避免这一问题，建议只在当前会话或某个特定查询中设置该参数。
+    :::note
+    Enabling this parameter may reduce the performance of short-running system table queries. To avoid this, it's recommended to enable it only for the current session or a specific query.
     :::
 
-- 已收集分区表的根分区统计信息。
+- Statistics for the root partition of partitioned tables have been collected.
 
-如果某个分区表的分区数量超过 20,000 个，建议重新设计表结构。
+If a partitioned table contains more than 20,000 partitions, consider redesigning the table structure.
 
-以下服务器配置参数会影响 GPORCA 的查询处理行为：
+The following server configuration parameters affect GPORCA’s query planning behavior:
 
-- `optimizer_cte_inlining_bound` 控制公共表表达式（CTE，即包含 `WITH` 子句的查询）的内联优化程度。
-- `optimizer_force_comprehensive_join_implementation` 控制 GPORCA 是否同时考虑嵌套循环连接和哈希连接方案。默认值为 `false`，表示在可用哈希连接的情况下不考虑嵌套循环连接。
-- `optimizer_force_multistage_agg` 强制 GPORCA 对带 `DISTINCT` 的标量聚合函数选择多阶段聚合执行计划。默认值为 `off`，表示根据成本在单阶段与双阶段计划中进行选择。
-- `optimizer_force_three_stage_scalar_dqa` 若存在多阶段聚合的可选执行计划，则强制 GPORCA 选择该计划。
-- `optimizer_join_order` 设置连接顺序优化的级别，用于指定需要评估哪些类型的连接顺序方案。
-- `optimizer_join_order_threshold` 指定当连接子项数量不超过该阈值时，GPORCA 使用基于动态规划的连接顺序算法。
-- `optimizer_nestloop_factor` 控制优化器对嵌套循环连接的成本估算系数。
-- `optimizer_parallel_union` 控制查询中包含 `UNION` 或 `UNION ALL` 子句时的并行度。当设为 `on` 时，GPORCA 可生成这些子操作在各 segment 上并行执行的查询计划。
-- `optimizer_sort_factor` 控制 GPORCA 在进行排序操作时应用的成本系数。当存在数据倾斜时，可通过此参数调整排序成本估算。
-- `gp_enable_relsize_collection` 控制 GPORCA（以及 Postgres 优化器）在无统计信息时如何估算表大小。默认情况下，如果缺少统计信息，GPORCA 使用默认行数进行估算。若设置为 `on`，则在无统计信息时改为使用估算的表大小。
+- `optimizer_cte_inlining_bound` controls how aggressively GPORCA inlines Common Table Expressions (CTEs), i.e., queries with `WITH` clauses.
+- `optimizer_force_comprehensive_join_implementation` controls whether GPORCA evaluates both nested loop and hash join plans. The default is `false`, meaning nested loop joins are not considered when hash joins are available.
+- `optimizer_force_multistage_agg` forces GPORCA to choose a multi-stage aggregation plan for scalar aggregates with `DISTINCT`. The default is `off`, meaning it chooses between single-stage and multi-stage plans based on cost.
+- `optimizer_force_three_stage_scalar_dqa` forces GPORCA to select a three-stage plan when such an option is available for distinct qualified aggregates (DQA).
+- `optimizer_join_order` sets the level of join order optimization, controlling which types of join sequences GPORCA will evaluate.
+- `optimizer_join_order_threshold` defines the maximum number of join relations for which GPORCA will use a dynamic programming join order algorithm.
+- `optimizer_nestloop_factor` adjusts the cost multiplier GPORCA uses when estimating nested loop joins.
+- `optimizer_parallel_union` controls the degree of parallelism for queries that use `UNION` or `UNION ALL`. When set to `on`, GPORCA may generate plans that execute union operations in parallel across segments.
+- `optimizer_sort_factor` adjusts the cost estimation factor for sort operations. You can tune this value to better reflect performance under data skew conditions.
+- `gp_enable_relsize_collection` controls how GPORCA (and the Postgres planner) estimates table size in the absence of statistics. By default, GPORCA assumes a default row count when statistics are missing. When this parameter is set to `on`, estimated table size will be used instead.
 
-    对于根分区表，该参数不生效。如果根分区没有统计信息，GPORCA 始终使用默认估值。你可以使用 `ANALYZE ROOTPARTITION` 收集根分区统计信息。
+    This parameter does not apply to root partitions. If the root partition lacks statistics, GPORCA will always use default estimates. You can collect statistics on the root partition using:
 
-以下服务器参数控制信息的显示和日志记录行为：
+    ```sql
+    ANALYZE ROOTPARTITION;
+    ```
 
-- `optimizer_print_missing_stats` 控制是否在查询执行计划中显示缺少统计信息的列信息（默认值为 `true`）。
-- `optimizer_print_optimization_stats` 控制是否记录 GPORCA 查询优化的相关指标信息（默认值为 `off`）。
+The following server parameters control logging and display behavior:
 
-当使用 `EXPLAIN ANALYZE` 执行由 GPORCA 生成的查询计划时，输出中仅显示被裁剪掉的分区数量，并不会列出实际扫描的分区。如果希望在 segment 日志中记录被扫描的分区名称，可以将服务器参数 `gp_log_dynamic_partition_pruning` 设为 `on`。可以使用如下命令启用该参数：
+- `optimizer_print_missing_stats` controls whether the plan output includes information about columns missing statistics (default: `true`).
+- `optimizer_print_optimization_stats` controls whether GPORCA logs internal optimization metrics (default: `off`).
+
+When executing a GPORCA-generated plan with `EXPLAIN ANALYZE`, only the number of pruned partitions is shown — the list of scanned partitions is not included. To log the names of scanned partitions in the segment logs, set the server parameter `gp_log_dynamic_partition_pruning` to `on`. You can enable this with the following command:
 
 ```sql
 SET gp_log_dynamic_partition_pruning = on;

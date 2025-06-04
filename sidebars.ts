@@ -98,7 +98,7 @@ const sidebars: SidebarsConfig = {
         label: 'Advanced Analytics',
         items: ['advanced-analytics/postgis','advanced-analytics/directory-tables', 'advanced-analytics/pgvector-search']
       },
-      'operate-with-data/table-storage-models', 'operate-with-data/work-with-transactions', 'operate-with-data/transactional-concurrency-control'
+      'operate-with-data/table-storage-models', 'operate-with-data/work-with-transactions', 'operate-with-data/transactional-concurrency-control', 'operate-with-data/manage-spill-files'
       ]
      },
 

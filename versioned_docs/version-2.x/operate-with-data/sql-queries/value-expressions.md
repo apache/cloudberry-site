@@ -118,7 +118,7 @@ Where `operator` is an operator token, one of the key words `AND`, `OR`, or `NOT
 OPERATOR(<schema>.<operatorname>)
 ```
 
-Available operators and whether they are unary or binary depends on the operators that the system or user defines. For more information about built-in operators, see [Built-in Functions and Operators](functions-operators.html).
+Available operators and whether they are unary or binary depends on the operators that the system or user defines.
 
 ## Function calls
 
@@ -149,7 +149,7 @@ Apache Cloudberry supports three types of casts applied to a value expression:
 
     The `CAST` syntax conforms to SQL; the syntax using `::` is historical PostgreSQL usage.
 
-- *Assignment cast* - Apache Cloudberry implicitly invokes a cast in assignment contexts, when assigning a value to a column of the target data type. For example, a [`CREATE CAST`](../../sql-stmt/create-cast.md) command with the `AS ASSIGNMENT` clause creates a cast that is applied implicitly in the assignment context. This example assignment cast assumes that `tbl1.f1` is a column of type `text`. The `INSERT` command is allowed because the value is implicitly cast from the `integer` to `text` type.
+- *Assignment cast* - Apache Cloudberry implicitly invokes a cast in assignment contexts, when assigning a value to a column of the target data type. For example, a [`CREATE CAST`](../../sql-stmts/create-cast.md) command with the `AS ASSIGNMENT` clause creates a cast that is applied implicitly in the assignment context. This example assignment cast assumes that `tbl1.f1` is a column of type `text`. The `INSERT` command is allowed because the value is implicitly cast from the `integer` to `text` type.
 
     ```sql
     INSERT INTO tbl1 (f1) VALUES (42);

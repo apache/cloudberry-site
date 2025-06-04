@@ -287,9 +287,7 @@ SELECT * FROM products;
 - 如果 CTE 中包含不稳定函数（volatile function），也不会进行内联。
 - 在子查询或 CTE 中指定 `ORDER BY` 并不会强制整个查询结果按照该顺序输出。
 - Apache Cloudberry 始终会将 CTE 子句物化。这种行为带来以下影响：
-
     - 原本只需要访问少量数据的查询，可能会读取整张表，甚至产生临时文件。
     - CTE 更像是一个只读的临时表而不是动态视图，因此不允许在其中使用 `UPDATE` 或 `DELETE FROM` 语句。
-
 - 尽管内联通常能显著提升性能，但在某些边界场景下反而可能导致效率下降，例如：一个复杂表达式被内联到多个位置时。
 - GPORCA 查询优化器不支持 `[NOT] MATERIALIZED` 语法。
