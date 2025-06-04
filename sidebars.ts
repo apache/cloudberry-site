@@ -70,7 +70,11 @@ const sidebars: SidebarsConfig = {
         {
         type: 'category',
         label: 'SQL Queries',
-        items: ['operate-with-data/sql-queries/basic-query-syntax', 'operate-with-data/sql-queries/define-queries', 'operate-with-data/sql-queries/sql-language', 'operate-with-data/sql-queries/where-clauses', 'operate-with-data/sql-queries/group-by-and-having-clauses', 'operate-with-data/sql-queries/join-queries', 'operate-with-data/sql-queries/table-and-column-aliases', 'operate-with-data/sql-queries/evaluation-order', 'operate-with-data/sql-queries/value-expressions', 'operate-with-data/sql-queries/aggregates-expressions', 'operate-with-data/sql-queries/subqueries', 'operate-with-data/sql-queries/cte-queries', 'operate-with-data/sql-queries/table-functions', 'operate-with-data/sql-queries/window-functions',
+        link: {
+          type: "doc",
+          id: 'operate-with-data/sql-queries/index',
+        },
+        items: ['operate-with-data/sql-queries/basic-query-syntax', 'operate-with-data/sql-queries/sql-language', 'operate-with-data/sql-queries/where-clauses', 'operate-with-data/sql-queries/group-by-and-having-clauses', 'operate-with-data/sql-queries/join-queries', 'operate-with-data/sql-queries/table-and-column-aliases', 'operate-with-data/sql-queries/evaluation-order', 'operate-with-data/sql-queries/value-expressions', 'operate-with-data/sql-queries/aggregates-expressions', 'operate-with-data/sql-queries/subqueries', 'operate-with-data/sql-queries/cte-queries', 'operate-with-data/sql-queries/table-functions', 'operate-with-data/sql-queries/window-functions',
 
           {
             type: 'category',

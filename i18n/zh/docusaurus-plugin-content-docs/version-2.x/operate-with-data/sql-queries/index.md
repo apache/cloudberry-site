@@ -1,8 +1,8 @@
 ---
-title: 定义查询
+title: SQL 查询
 ---
 
-# 定义查询
+# SQL 查询
 
 Apache Cloudberry 构建于 PostgreSQL 之上，遵循 SQL 标准来进行数据定义、操作和分析。要有效地编写查询语句，需要了解决定 SQL 语法和语义的一些基本规则。
 
