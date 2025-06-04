@@ -79,8 +79,11 @@ const sidebars: SidebarsConfig = {
           {
             type: 'category',
             label: 'Full Text Search',
+            link: {
+              type: "doc",
+              id: 'operate-with-data/sql-queries/full-text-search/index',
+            },
             items: [
-              'operate-with-data/sql-queries/full-text-search/full-text-search-index',
               'operate-with-data/sql-queries/full-text-search/full-text-search-intro',
               'operate-with-data/sql-queries/full-text-search/search-text-in-db',
               'operate-with-data/sql-queries/full-text-search/control-text-search',

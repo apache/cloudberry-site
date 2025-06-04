@@ -23,4 +23,4 @@ Apache Cloudberry 构建于 PostgreSQL 之上，遵循 SQL 标准来进行数据
 - [子查询](./subqueries.md)
 - [公共表表达式](./cte-queries.md)
 - [表和列别名](./table-and-column-aliases.md)
-- [全文搜索](./full-text-search/full-text-search-index.md)
+- [全文搜索](./full-text-search/index.md)

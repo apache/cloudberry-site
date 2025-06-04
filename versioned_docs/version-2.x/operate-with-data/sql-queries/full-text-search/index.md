@@ -1,8 +1,8 @@
 ---
-title: Full Text Search Summary
+title: Full Text Search
 ---
 
-# Full Text Search Summary
+# Full Text Search
 
 Apache Cloudberry provides data types, functions, operators, index types, and configurations for querying natural language documents.
 
