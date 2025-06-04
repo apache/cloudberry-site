@@ -95,8 +95,20 @@
     "message": "GPORCA 查询优化器",
     "description": "The label for category GPORCA query optimizer in sidebar docs"
   },
-  "sidebar.docsbars.category.System Views": {
-    "message": "系统视图",
-    "description": "The label for category system views in sidebar docs"
+  "sidebar.docsbars.category.Manage System": {
+    "message": "管理数据库集群",
+    "description": "The label for category manage system in sidebar docs"
+  },
+  "sidebar.docsbars.category.Backup and Restore": {
+    "message": "备份和恢复",
+    "description": "The label for category backup and restore in sidebar docs"
+  },
+  "sidebar.docsbars.category.Developer": {
+    "message": "开发者指南",
+    "description": "The label for category developer in sidebar docs"
+  },
+  "sidebar.docsbars.category.Built-in Functions": {
+    "message": "内置函数",
+    "description": "The label for category built-in functions in sidebar docs"
   }
 }
