@@ -110,7 +110,7 @@ const sidebars: SidebarsConfig = {
         label: 'Advanced Analytics',
         items: ['advanced-analytics/postgis','advanced-analytics/directory-tables', 'advanced-analytics/pgvector-search']
       },
-      'operate-with-data/operate-with-data/heap-and-ao-table-formats', 'operate-with-data/pax-table-formats', 'operate-with-data/work-with-transactions', 'operate-with-data/transactional-concurrency-control', 'operate-with-data/manage-spill-files'
+      'operate-with-data/heap-and-ao-table-formats', 'operate-with-data/pax-table-format', 'operate-with-data/work-with-transactions', 'operate-with-data/transactional-concurrency-control', 'operate-with-data/manage-spill-files'
       ]
      },
 
