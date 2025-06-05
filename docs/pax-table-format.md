@@ -45,6 +45,10 @@ To enable PAX when building Apache Cloudberry from source code, you need to:
     - googletest (`contrib/pax_storage/src/cpp/cotnrib`)
     - tabulate (`contrib/pax_storage/src/cpp/cotnrib`)
 
+    :::note
+    The submodules above are already included in the latest release source code archive, so you do not need to download the submodules manually after extracting the archive.
+    :::
+
 3. When running the `configure` command, add the `--enable-pax` option. For example:
 
     ```bash

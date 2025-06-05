@@ -45,6 +45,10 @@ PAX 的混合存储能力使其适合于需要处理大量数据写入和频繁�
     - googletest (`contrib/pax_storage/src/cpp/cotnrib`)
     - tabulate (`contrib/pax_storage/src/cpp/cotnrib`)
 
+    :::note 注意
+    上述子模块已经包含在最新发布的源代码压缩包中，因此解压后无需手动下载这些子模块。
+    :::
+
 3. 在运行 `configure` 命令时，添加 `--enable-pax` 选项。例如：
 
     ```bash
