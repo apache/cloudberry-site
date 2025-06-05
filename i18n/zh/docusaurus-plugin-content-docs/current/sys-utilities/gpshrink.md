@@ -62,7 +62,7 @@ gpshrink 在执行时分为两阶段：
     | `-a`         | 收集重分布后表的统计信息。  |
     | `-d`         | 设置最长执行持续时间，超时将终止，用于重分布阶段。  |
 
-    :::tip
+    :::tip 提示
 
     gpshrink 主要分两阶段实现：
 
@@ -71,7 +71,7 @@ gpshrink 在执行时分为两阶段：
 
     :::
 
-    :::tip
+    :::tip 提示
 
     - 若第一条 `gpshrink -i shrinktest` 执行失败，可能的原因是 `shrinktest` 文件错误导致执行中断，此时只需通过 `gpshrink -c` 清除其中收集的数据，再重新执行 `gpshrink -i shrinktest`。
     - 若第二条 `gpshrink -i shrinktest` 发生错误，用户需要登陆数据库，检查数据库中表的状态，并进行进一步的数据重分布或者回滚。

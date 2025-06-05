@@ -69,11 +69,11 @@ Apache Cloudberry 利用 Linux 控制组实现 CPU 资源管理。Apache Cloudbe
 
 Apache Cloudberry 使用服务器配置参数 `gp_resource_group_cpu_limit` 来识别要分配给每个 Apache Cloudberry 分段节点的资源组的最大系统 CPU 资源百分比。剩余未保留的 CPU 资源用于操作系统内核和 Apache Cloudberry 守护进程。每个主机上可用于 Apache Cloudberry 查询的 CPU 量随后平均分配给 Apache Cloudberry 节点上的每个分段。
 
-:::note
+:::note 注意
 默认的 `gp_resource_group_cpu_limit` 值可能无法在 Apache Cloudberry 集群节点上留下足够的 CPU 资源，因此请确保相应地调整此服务器配置参数。
 :::
 
-:::warning
+:::warning 警告
 应避免将 `gp_resource_group_cpu_limit` 设置为高于 0.9 的值。这样做可能导致高负载查询占用几乎所有 CPU 资源，导致数据库辅助进程的资源紧张。
 :::
 
@@ -93,7 +93,7 @@ Apache Cloudberry 使用服务器配置参数 `gp_resource_group_cpu_limit` 来�
 
 使用 `CPUSET` 配置的资源组在 CPU 资源上具有更高的优先级。在 Segment 主机上为所有配置了 `CPUSET` 的资源组设置的最大 CPU 资源使用百分比为保留的 CPU 核数除以所有 CPU 核数，再乘以 100。
 
-:::note
+:::note 注意
 在为 Apache Cloudberry 数据库集群启用基于资源组的资源管理后，必须为资源组配置 `CPUSET`，该参数是 `gp_resource_manager` 服务器配置参数。
 :::
 
@@ -164,7 +164,7 @@ Apache Cloudberry 在处理传入查询时使用 `gp_resgroup_memory_query_fixed
 Apache Cloudberry 利用 Linux 控制组实现磁盘 I/O 限制。参数 `IO_LIMIT` 限制分配给特定资源组的查询的最大读/写磁盘 I/O 吞吐量，以及最大读/写 I/O 操作数。它分配带宽，确保高优先级资源组的使用，避免过度使用磁盘带宽。该参数的值按表空间基础设置。
 
 
-:::note
+:::note 注意
 仅在使用 Linux cgroup v2 时，磁盘 I/O 限制才可用。
 :::
 
@@ -414,7 +414,7 @@ SELECT * FROM gp_toolkit.gp_resgroup_config;
 CREATE RESOURCE GROUP rgroup1 WITH (CONCURRENCY=20, CPU_MAX_PERCENT=20, MEMORY_QUOTA=250, CPU_WEIGHT=500, MIN_COST=50, IO_LIMIT='pg_default: wbps=1000, rbps=1000, wiops=100, riops=100');
 ```
 
-:::note
+:::note 注意
 使用 `cgroup v1` 并指定了 IO_LIMIT，仍可创建资源组。但会提示 IO_LIMIT 仅支持 v2 资源组。
 
 CPU 限制 20 被分配给每个分配到 `rgroup1` 的角色。同样，内存限制 25 也被分配给每个分配到 `rgroup1` 的角色。/ `rgroup1` 使用默认的 `CONCURRENCY` 设置 20。
@@ -428,7 +428,7 @@ ALTER RESOURCE GROUP exec SET MEMORY_QUOTA 30;
 ALTER RESOURCE GROUP rgroup1 SET CPUSET '1;2,4';
 ALTER RESOURCE GROUP sales SET IO_LIMIT 'tablespace1:wbps=2000,wiops=2000;tablespace2:rbps=2024,riops=2024'; 
 ```
-:::note
+:::note 注意
 不能将 `admin_group` 的 `CONCURRENCY` 值设置或更改为零 (0)。
 :::
 
@@ -556,7 +556,7 @@ SELECT pg_cancel_backend(31905);
 
 可在 `pg_cancel_backend()` 的第二个参数中提供可选消息，以向用户指示为何取消该进程。
 
-:::note
+:::note 注意
 请勿使用操作系统的 `KILL` 命令来取消任何 Apache Cloudberry 进程。
 :::
 
@@ -564,7 +564,7 @@ SELECT pg_cancel_backend(31905);
 
 具有 Apache Cloudberry 超级用户权限的用户可以运行 `gp_toolkit.pg_resgroup_move_query()` 函数，将正在运行的查询从一个资源组移动到另一个资源组，而无需停止查询。使用此函数可以通过将查询移动到资源分配或可用性更高的资源组来加速长时间运行的查询。
 
-:::note
+:::note 注意
 只能将活动或正在运行的查询移动到新的资源组。不能移动由于并发或内存限制而处于空闲状态的排队或待处理查询。
 :::
 

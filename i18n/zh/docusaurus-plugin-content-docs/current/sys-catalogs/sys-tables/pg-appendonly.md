@@ -14,8 +14,8 @@ title: pg_appendonly
 | `checksum`    | boolean    |      | 用于校验数据块在压缩和扫描时的状态，以确保数据完整性。 |
 | `compresstype` | name      |      | 追加优化表所用的压缩类型。有效值包括：<br /> - `none`（无压缩）<br /> - `rle_type`（游程编码压缩）<br /> - `zlib`（gzip 压缩）<br /> - `zstd`（Zstandard 压缩）<br /> - `quicklz` |
 | `columnstore` | boolean    |      | `1` 表示列存储，`0` 表示行存储。 |
-| `segrelid`    | oid        |      | 表的磁盘段文件 ID。 |
-| `segfilecount`| smallint   |      | 段文件数量。 |
+| `segrelid`    | oid        |      | 表的磁盘 Segment 文件 ID。 |
+| `segfilecount`| smallint   |      |  Segment 文件数量。 |
 | `version`     | smallint   |      | 追加优化表的版本号。 |
 | `blkdirrelid` | oid        |      | 用于磁盘列存储表文件的块。 |
 | `blkdiridxid` | oid        |      | 用于磁盘列存储索引文件的块。 |

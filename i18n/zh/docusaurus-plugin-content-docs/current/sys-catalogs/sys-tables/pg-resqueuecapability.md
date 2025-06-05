@@ -4,7 +4,7 @@ title: pg_resqueuecapability
 
 # pg_resqueuecapability
 
-:::note
+:::note 注意
 只有在启用了基于资源队列的资源管理功能时，`pg_resqueuecapability` 系统目录表才有效。
 :::
 
