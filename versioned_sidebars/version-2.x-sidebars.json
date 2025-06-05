@@ -147,14 +147,19 @@
         "type": "doc",
         "id": "security/index"
       },
-      "items": [
-        "security/manage-roles-and-privileges",
+       "items": [
+        "security/ports-and-protocols",
+        "security/manage-roles-and-privileges", 
         "security/client-auth",
+        "security/configure-db-auth",
+        "security/encrypt-data-and-db-connections",
+        "security/transparent-data-encryption",
+        "security/log-auditing",
         "security/configure-row-level-security-policy",
         "security/protect-passwords",
         "security/set-password-profile",
-        "security/transparent-data-encryption"
-      ]
+        "security/security-best-practices"
+]
     },
     {
       "type": "category",
