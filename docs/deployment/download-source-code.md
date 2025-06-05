@@ -44,12 +44,16 @@ export GNUTLS_CPUID_OVERRIDE=0x1
 Alternatively, you can download the source code archive from the [Apache Cloudberry releases page](https://github.com/apache/cloudberry/releases).
 
 ```bash
-tar xvzf cloudberry-<version>.tar.gz
-cd cloudberry-<version>
+tar xvzf apache-cloudberry-<version>-incubating.tar.gz
+cd apache-cloudberry-<version>-incubating
 ```
 
 :::note
-You cannot use `git submodule update --init --recursive` to initialize submodules for building with PAX support when you download the source code archive. After unarchiving the source code archive,  you need to download the submodules manually at the root directory of the source code:
+The submodules are already included in the latest release source code archive, so you don't need to download the submodules manually after extracting the archive.
+:::
+
+:::caution
+If you download the [main branch source code archive](https://github.com/apache/cloudberry/archive/refs/heads/main.zip) from the GitHub, there is no submodules included in the archive. Also, you cannot use `git submodule update --init --recursive` to initialize submodules for building with PAX support in this case. After unarchiving the main branch source code archive, you need to download the submodules manually at the root directory of the source code:
 
 ```bash
 git clone https://github.com/google/googletest.git contrib/pax_storage/src/cpp/contrib/googletest
