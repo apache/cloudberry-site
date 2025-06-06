@@ -8,7 +8,7 @@ This topic explains how to configure client connections and authentication for A
 
 When a Apache Cloudberry system is first initialized, the system contains one predefined *superuser* role. This role will have the same name as the operating system user who initialized the Apache Cloudberry system. This role is referred to as `gpadmin`. By default, the system is configured to only allow local connections to the database from the `gpadmin` role. If you want to allow any other roles to connect, or if you want to allow connections from remote hosts, you have to configure Apache Cloudberry to allow such connections. This section explains how to configure client connections and authentication to Apache Cloudberry.
 
-## Allowing Connections to Apache Cloudberry 
+## Allow connections to Apache Cloudberry
 
 Client access and authentication is controlled by a configuration file named `pg_hba.conf` (the standard PostgreSQL host-based authentication file). For detailed information about this file, see [The pg_hba.conf File](https://www.postgresql.org/docs/14/auth-pg-hba-conf.html) in the PostgreSQL documentation.
 
@@ -18,7 +18,7 @@ The general format of the `pg_hba.conf` file is a set of records, one per line. 
 
 A record can have one of seven formats:
 
-```
+```shell
 local      <database>  <user>  <auth-method>  [<auth-options>]
 host       <database>  <user>  <address>  <auth-method>  [<auth-options>]
 hostssl    <database>  <user>  <address>  <auth-method>  [<auth-options>]
@@ -40,7 +40,7 @@ Matches connection attempts made using TCP/IP. Remote TCP/IP connections will no
 
 **`hostssl`**
 
-Matches connection attempts made using TCP/IP, but only when the connection is made with SSL encryption. SSL must be enabled at server start time by setting the `ssl` configuration parameter to on. Requires SSL authentication be configured in `postgresql.conf`. See [Configuring postgresql.conf for SSL Authentication](#configuring-postgresqlconf-for-ssl-authentication).
+Matches connection attempts made using TCP/IP, but only when the connection is made with SSL encryption. SSL must be enabled at server start time by setting the `ssl` configuration parameter to on. Requires SSL authentication be configured in `postgresql.conf`. See [Configuring postgresql.conf for SSL Authentication](#configure-postgresqlconf-for-ssl-authentication).
 
 **`hostnossl`**
 
@@ -105,7 +105,7 @@ $ gpstop -u
 For a more secure system, remove records for remote connections that use `trust` authentication from the `pg_hba.conf` file. `trust` authentication grants any user who can connect to the server access to the database using any role they specify. You can safely replace `trust` authentication with `ident` authentication for local UNIX-socket connections. You can also use `ident` authentication for local and remote TCP clients, but the client host must be running an ident service and you must `trust` the integrity of that machine.
 :::
 
-## Editing the pg_hba.conf File 
+## Edit the pg_hba.conf File 
 
 Initially, the `pg_hba.conf` file is set up with generous permissions for the gpadmin user and no database access for other Apache Cloudberry roles. You will need to edit the `pg_hba.conf` file to enable users' access to databases and to secure the gpadmin user. Consider removing entries that have `trust` authentication, since they allow anyone with access to the server to connect with any role they choose. For local (UNIX socket) connections, use `ident` authentication, which requires the operating system user to match the role specified. For local and remote TCP connections, `ident` authentication requires the client's host to run an indent service. You could install an ident service on the coordinator host and then use `ident` authentication for local TCP connections, for example `127.0.0.1/28`. Using `ident` authentication for remote TCP connections is less secure because it requires you to trust the integrity of the ident service on the client's host.
 
@@ -135,12 +135,12 @@ To edit `pg_hba.conf`:
     ```
 
 
-## Authentication Methods 
+## Authentication methods
 
-- [Basic Authentication](#basic-authentication)
-- [SSL Client Authentication](#ssl-client-authentication)
+- [Basic authentication](#basic-authentication)
+- [SSL client authentication](#ssl-client-authentication)
 
-### Basic Authentication 
+### Basic authentication
 
 **`Trust`**
 Allows the connection unconditionally, without the need for a password or any other authentication. This entry is required for the `gpadmin` role, and for Cloudberry utilities (for example `gpinitsystem`, `gpstop`, or `gpstart` amongst others) that need to connect between nodes without prompting for input or a password.
@@ -171,7 +171,7 @@ If you are at all concerned about password "sniffing" attacks then `md5` is pref
 
 Following are some sample `pg_hba.conf` basic authentication entries:
 
-```
+```shell
 hostnossl    all   all        0.0.0.0   reject
 hostssl      all   testuser   0.0.0.0/0 md5
 local        all   gpuser               ident
@@ -179,7 +179,7 @@ local        all   gpuser               ident
 
 Or:
 
-```
+```shell
 local    all           gpadmin         ident 
 host     all           gpadmin         localhost      trust 
 host     all           gpadmin         cdw            trust 
@@ -188,11 +188,11 @@ host     replication   gpadmin         samenet       trust
 host     all           all             0.0.0.0/0     md5
 ```
 
-## SSL Client Authentication 
+## SSL client authentication
 
 SSL authentication compares the Common Name (cn) attribute of an SSL certificate provided by the connecting client during the SSL handshake to the requested database user name. The database user should exist in the database. A map file can be used for mapping between system and database user names.
 
-### SSL Authentication Parameters 
+### SSL authentication parameters
 
 Authentication method:
 
@@ -212,16 +212,16 @@ Authentication method:
 
     Following are sample `pg_hba.conf` entries for SSL client authentication:
 
-    ```
+    ```shell
     Hostssl testdb certuser 192.168.0.0/16 cert
     Hostssl testdb all 192.168.0.0/16 cert map=gpuser
     ```
 
-### OpenSSL Configuration 
+### OpenSSL configuration
 
 You can make changes to the OpenSSL configuration by updating the `openssl.cnf` file under your OpenSSL installation directory, or the file referenced by `$OPENSSL_CONF`, if present, and then restarting the Apache Cloudberry server.
 
-### Creating a Self-Signed Certificate 
+### Create a self-signed certificate 
 
 A self-signed certificate can be used for testing, but a certificate signed by a certificate authority (CA) (either one of the global CAs or a local one) should be used in production so that clients can verify the server's identity. If all the clients are local to the organization, using a local CA is recommended.
 
@@ -260,7 +260,7 @@ To create a self-signed certificate for the server:
 
 For more details on how to create your server private key and certificate, refer to the OpenSSL documentation.
 
-### Configuring postgresql.conf for SSL Authentication 
+### Configure postgresql.conf for SSL authentication 
 
 The following Server settings need to be specified in the `postgresql.conf` configuration file:
 
@@ -285,7 +285,7 @@ If Apache Cloudberry coordinator mirroring is enabled with SSL client authentica
 
 You can specify a different directory for the location of the SSL server files with the `postgresql.conf` parameters `sslcert`, `sslkey`, `sslrootcert`, and `sslcrl`.
 
-### Configuring the SSL Client Connection 
+### Configure the SSL client connection
 
 SSL options:
 
@@ -335,7 +335,7 @@ For example, run the following command to connect to the `postgres` database fro
 psql "sslmode=verify-ca host=localhost dbname=postgres"
 ```
 
-## Limiting Concurrent Connections 
+## Limit concurrent connections
 
 Apache Cloudberry allocates some resources on a per-connection basis, so setting the maximum number of connections allowed is recommended.
 
@@ -347,22 +347,21 @@ For example:
 
 - In `$COORDINATOR_DATA_DIRECTORY/postgresql.conf` (including standby coordinator):
 
-    ```
+    ```shell
     max_connections=100
     max_prepared_transactions=100
     ```
 
 - In `SEGMENT_DATA_DIRECTORY/postgresql.conf` for all segment instances:
 
-    ```
+    ```shell
     max_connections=500
     max_prepared_transactions=100
     ```
 
-
 The following steps set the parameter values with the Apache Cloudberry utility `gpconfig`.
 
-### To change the number of allowed connections 
+### Change the number of allowed connections
 
 1. Log into the Apache Cloudberry coordinator host as the Apache Cloudberry administrator and source the file `$GPHOME/greenplum_path.sh`.
 2. Set the value of the `max_connections` parameter. This `gpconfig` command sets the value on the segments to 1000 and the value on the coordinator to 200.
@@ -397,7 +396,7 @@ The following steps set the parameter values with the Apache Cloudberry utility 
 Raising the values of these parameters may cause Apache Cloudberry to request more shared memory. To mitigate this effect, consider decreasing other memory-related parameters such as `gp_cached_segworkers_threshold`.
 :::
 
-## Encrypting Client/Server Connections 
+## Encrypt client/server connections
 
 Enable SSL for client connections to Apache Cloudberry to encrypt the data passed over the network between the client and the database.
 
@@ -427,7 +426,7 @@ gpconfig -c ssl -m on -v off
 
 Setting the parameter requires a server restart. This command restarts the system: `gpstop -ra`.
 
-### Creating a Self-signed Certificate without a Passphrase for Testing Only 
+### Create a self-signed certificate without a passphrase for testing only
 
 To create a quick self-signed certificate for the server for testing, use the following OpenSSL command:
 
