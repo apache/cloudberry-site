@@ -137,7 +137,7 @@ mkdir -p /usr/local/cloudberry-db/lib
 sudo cp -v /usr/local/xerces-c/lib/libxerces-c.so \
            /usr/local/xerces-c/lib/libxerces-c-3.*.so \
            /usr/local/cloudberry-db/lib
-sudo chown -R gpadmin.gpadmin /usr/local/cloudberry-db
+sudo chown -R gpadmin:gpadmin /usr/local/cloudberry-db
 
 # Run configure
 cd ~/cloudberry
@@ -253,7 +253,7 @@ git submodule update --init --recursive
 sudo rm -rf /usr/local/cloudberry-db
 sudo chmod a+w /usr/local
 mkdir -p /usr/local/cloudberry-db
-sudo chown -R gpadmin.gpadmin /usr/local/cloudberry-db
+sudo chown -R gpadmin:gpadmin /usr/local/cloudberry-db
 
 # Run configure
 cd ~/cloudberry
