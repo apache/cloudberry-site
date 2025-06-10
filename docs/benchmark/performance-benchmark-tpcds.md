@@ -31,11 +31,11 @@ As of version 1.2 of this tool TPC-DS 3.2.0 is used.
 
 This is a follow-up tutorial for previous bootcamp steps. Please make sure to have the environment ready for Apache Cloudberry Sandbox up and running.
 
-All the following examples use the standard hostname convention of Cloudberry using `mdw` for master node, and `sdw1..n` for the segment nodes.
+All the following examples use the standard hostname convention of Cloudberry using `cdw` for coordinator node, and `sdw1..n` for the segment nodes.
 
 ### TPC-DS Tools Dependencies
 
-Install the dependencies on `mdw` for compiling the `dsdgen` (data generation) and `dsqgen` (query generation).
+Install the dependencies on `cdw` for compiling the `dsdgen` (data generation) and `dsqgen` (query generation).
 
 ```bash
 docker exec -it $(docker ps -q) /bin/bash
@@ -46,17 +46,17 @@ The source code is from http://tpc.org/tpc_documents_current_versions/current_sp
 
 ### Packages
 
-TPC-H and TPC-DS packages are already under "mdw:/tmp/" folder.
+TPC-H and TPC-DS packages are already under "cdw:/tmp/" folder.
 
 ```bash
-[gpadmin@mdw tmp]$ ls -rlt
+[gpadmin@cdw tmp]$ ls -rlt
 -rw-rw-r--  1 root    root    24520013 Jul 27 14:18 TPC-H-CBDB.tar.gz
 -rw-rw-r--  1 root    root     7096941 Jul 27 14:18 TPC-DS-CBDB.tar.gz
 ```
 
 ### Execution
 
-To run the benchmark, login as `gpadmin` on `mdw` in the Cloudberry Sandbox, and execute the following command::
+To run the benchmark, login as `gpadmin` on `cdw` in the Cloudberry Sandbox, and execute the following command::
 
 ```bash
 su - gpadmin

@@ -1,5 +1,5 @@
 ---
-title: "[101-2] Lesson 2: Create and Prepare Database"
+title: "Lesson 2: Create and Prepare Database"
 description: Let's create one new database in the Apache Cloudberry.
 ---
 
@@ -9,14 +9,14 @@ To create a new database in Apache Cloudberry, you can either use the `CREATE DA
 
 In the following operations, you will be guided to create a new database using the `createdb` utility, to create a schema, and to set search path for schemas. You will also learn how to create a user and grant privileges to the user.
 
-Before moving on to the operations, make sure that you have completed the previous tutorial [Lesson 1: Create Users and Roles](./101-1-create-users-and-roles). You will connect to the tutorial database as the user `lily` with password set up in the previous tutorial.
+Before moving on to the operations, make sure that you have completed the previous tutorial `Lesson 1: Create Users and Roles`. You will connect to the tutorial database as the user `lily` with password set up in the previous tutorial.
 
 ### Create database
 
 1. Log into Apache Cloudberry in Docker. Before creating the `tutorial` database, make sure that this database does not exist.
 
     ```shell
-    [gpadmin@mdw ~]$ dropdb tutorial
+    [gpadmin@cdw ~]$ dropdb tutorial
     ```
 
     Output:
@@ -28,11 +28,11 @@ Before moving on to the operations, make sure that you have completed the previo
 2. Create the `tutorial` database using the `createdb` utility.
 
     ```shell
-    [gpadmin@mdw ~]$ createdb tutorial
+    [gpadmin@cdw ~]$ createdb tutorial
     ```
 
     ```shell
-    [gpadmin@mdw ~]$ psql -l  # Verifies that this database has been created.
+    [gpadmin@cdw ~]$ psql -l  # Verifies that this database has been created.
                                     List of databases
        Name    |  Owner  | Encoding |   Collate   |    Ctype    |  Access privileges
     -----------+---------+----------+-------------+-------------+---------------------
@@ -50,10 +50,10 @@ Before moving on to the operations, make sure that you have completed the previo
     >
     > Unless you specify a different database, the newly created database is a copy of the `template1` database.
 
-3. Create an entry in the `pg_hba.conf` configuration file by appending `local tutorial lily md5` to `/data0/database/master/gpseg-1/pg_hba.conf`.
+3. Create an entry in the `pg_hba.conf` configuration file by appending `local tutorial lily md5` to `/data0/database/coordinator/gpseg-1/pg_hba.conf`.
 
     ```shell
-    [gpadmin@mdw ~]$ echo "local tutorial lily md5" >> /data0/database/master/gpseg-1/pg_hba.conf
+    [gpadmin@cdw ~]$ echo "local tutorial lily md5" >> /data0/database/coordinator/gpseg-1/pg_hba.conf
     ```
 
     > **Info:**
@@ -65,22 +65,22 @@ Before moving on to the operations, make sure that you have completed the previo
 4. Reload the configuration file to populate the change.
 
     ```shell
-    [gpadmin@mdw ~]$ gpstop -u
+    [gpadmin@cdw ~]$ gpstop -u
     ```
 
     ```shell
-    20230818:14:18:45:003733 gpstop:mdw:gpadmin-[INFO]:-Starting gpstop with args: -u
-    20230818:14:18:45:003733 gpstop:mdw:gpadmin-[INFO]:-Gathering information and validating the environment...
-    20230818:14:18:45:003733 gpstop:mdw:gpadmin-[INFO]:-Obtaining Cloudberry Coordinator catalog information
-    20230818:14:18:45:003733 gpstop:mdw:gpadmin-[INFO]:-Obtaining Segment details from coordinator...
-    20230818:14:18:45:003733 gpstop:mdw:gpadmin-[INFO]:-Cloudberry Version: 'postgres (Apache Cloudberry) 1.0.0 build dev'
-    20230818:14:18:45:003733 gpstop:mdw:gpadmin-[INFO]:-Signalling all postmaster processes to reload
+    20230818:14:18:45:003733 gpstop:cdw:gpadmin-[INFO]:-Starting gpstop with args: -u
+    20230818:14:18:45:003733 gpstop:cdw:gpadmin-[INFO]:-Gathering information and validating the environment...
+    20230818:14:18:45:003733 gpstop:cdw:gpadmin-[INFO]:-Obtaining Cloudberry Coordinator catalog information
+    20230818:14:18:45:003733 gpstop:cdw:gpadmin-[INFO]:-Obtaining Segment details from coordinator...
+    20230818:14:18:45:003733 gpstop:cdw:gpadmin-[INFO]:-Cloudberry Version: 'postgres (Apache Cloudberry) 1.0.0 build dev'
+    20230818:14:18:45:003733 gpstop:cdw:gpadmin-[INFO]:-Signalling all postmaster processes to reload
     ```
 
-5. Connect to the `tutorial` database as the user `lily`. You need to enter the password set up in the [previous tutorial](./101-1-create-users-and-roles#create-a-user-using-the-create-user-command).
+5. Connect to the `tutorial` database as the user `lily`. You need to enter the password set up in the [previous tutorial](./create-users-and-roles#create-a-user-using-the-create-user-command).
 
     ```shell
-    [gpadmin@mdw ~]$ psql -U lily tutorial
+    [gpadmin@cdw ~]$ psql -U lily tutorial
 
     Password for user lily:  # changeme
     psql (14.4, server 14.4)
@@ -100,9 +100,9 @@ In the following operations, the database user `lily` will require permissions t
 1. Connect to the `tutorial` database as `gpadmin`.
 
     ```shell
-    [gpadmin@mdw ~]$ psql -U gpadmin tutorial
+    [gpadmin@cdw ~]$ psql -U gpadmin tutorial
     ```
-    
+ 
     Output:
 
     ```shell
@@ -141,7 +141,7 @@ In this section, you will be guided to create a `faa` schema and set the search 
 1. Connect to the `tutorial` database as the user `lily`.
 
     ```shell
-    [gpadmin@mdw ~]$ psql -U lily tutorial
+    [gpadmin@cdw ~]$ psql -U lily tutorial
     ```
 
     ```shell
@@ -198,14 +198,3 @@ In this section, you will be guided to create a `faa` schema and set the search 
     ```sql
     ALTER ROLE
     ```
-
-## What's next
-
-After creating and preparing the database, you can start to create tables in the database. See [Lesson 3: Create Tables](./101-3-create-tables) for more information.
-
-Other tutorials:
-
-- [Lesson 1: Create Users and Roles](./101-1-create-users-and-roles)
-- [Lesson 4: Data Loading](./101-4-data-loading)
-- [Lesson 5: Queries and Performance Tuning](./101-5-queries-and-performance-tuning)
-- [Lesson 6: Backup and Restore Operations](./101-6-backup-and-recovery-operations)

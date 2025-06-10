@@ -1,5 +1,5 @@
 ---
-title: "[101-0] Lesson 0: Introduction to Database and Apache Cloudberry Architecture"
+title: "Lesson 0: Introduction to Database and Apache Cloudberry Architecture"
 description: This page provides an introduction to the basic concepts of databases and explains the architecture of Apache Cloudberry.
 ---
 
@@ -37,29 +37,23 @@ Apache Cloudberry also includes features designed to optimize PostgreSQL for bus
 
 _Figure 1. High-Level Apache Cloudberry Architecture_
 
-![High-Level Apache Cloudberry Architecture](./images/highlevel_arch.jpg)  
+![High-Level Apache Cloudberry Architecture](/img/bootcamp/highlevel_arch.jpg) 
 
 The following topics describe the components that make up a Apache Cloudberry system and how they work together.
 
-### Apache Cloudberry Master (Coordinator)
+### Apache Cloudberry Coordinator
 
-:::note
+The Apache Cloudberry coordinator is the entry to the Apache Cloudberry system. It accepts client connections, handles SQL queries, and then distributes workload to the segment instances.
 
-In the latest build of Apache Cloudberry, the name "Master" has been deprecated, and "Coordinator" has been used instead. You are expected to see "coordinator" in the database output.
+Apache Cloudberry end-users only interact with Apache Cloudberry through coordinator node as a typical PostgreSQL database. They connect to database using client such as `psql` or drivers like `JDBC` or `ODBC`.
 
-:::
-
-The Apache Cloudberry master is the entry to the Apache Cloudberry system. It accepts client connections, handles SQL queries, and then distributes workload to the segment instances.
-
-Apache Cloudberry end-users only interact with Apache Cloudberry through master node as a typical PostgreSQL database. They connect to database using client such as psql or drivers like JDBC or ODBC.
-
-The master stores global system catalog. Global system catalog is set of system tables that contain metadata for Apache Cloudberry itself. Master node does not contain any user table data; user table data resides only on segments. Master node would authenticate client connections, processe incoming SQL commands, distribute workloads among segments, collect the results returned by each segment and return the final results to the client.
+The coordinator stores global system catalog. Global system catalog is set of system tables that contain metadata for Apache Cloudberry itself. Coordinator node does not contain any user table data; user table data resides only on segments. Coordinator node would authenticate client connections, processe incoming SQL commands, distribute workloads among segments, collect the results returned by each segment and return the final results to the client.
 
 ### Apache Cloudberry Segments
 
 Apache Cloudberry segment instances are independent PostgreSQL databases that each of them stores a portion of the data and performs the majority of query execution work.
 
-When a user connects to the database via the Cloudberry master and issues queries, accordingly execution plan would be distributed to each segment instance.
+When a user connects to the database via the Cloudberry coordinator and issues queries, accordingly execution plan would be distributed to each segment instance.
 
 The server that has segments running on it is called segment host. A segment host usually has two to eight Cloudberry segments running on it, the number depending on serveral factors: CPU cores, memory, disk, network interfaces or workloads. To get better performance in Apache Cloudberry, it is suggested to distribute data and workloads evenly across segments so that execution plan can be finished across all segments and with no bottleneck.
 
@@ -68,12 +62,3 @@ The server that has segments running on it is called segment host. A segment hos
 The interconnect is the networking layer of the Apache Cloudberry architecture.
 
 The interconnect refers to the inter-process communication mechanism in-between segments. By default, interconnect uses User Datagram Protocol (UDP) to send/receive messages over the network. Interconnect provide datagram verification and retransmission mechanism. Reliability is equivalent to Transmission Control Protocol (TCP), performance and scalability exceeds TCP. If a user chooses TCP in interconnect, Cloudberry would have limit around 1000 segment instances. With UDP and interconncet, the limit does not exit.
-
-Now you can start the following lessons by clicking on the links:
-
-- [Lesson 1: Create Users and Roles](./101-1-create-users-and-roles)
-- [Lesson 2: Create and Prepare Database](./101-2-create-and-prepare-database)
-- [Lesson 3: Create Tables](./101-3-create-tables)
-- [Lesson 4: Data Loading](./101-4-data-loading)
-- [Lesson 5: Queries and Performance Tuning](./101-5-queries-and-performance-tuning)
-- [Lesson 6: Backup and Resotre Operations](./101-6-backup-and-recovery-operations)

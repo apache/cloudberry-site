@@ -31,9 +31,9 @@ This is a follow-up tutorial for previous bootcamp steps. Please make sure to ha
 
 ### TPC-H Tools Dependencies
 
-Make sure that `gcc` and `make` are installed on `mdw` for compiling the `dbgen` (data generation) and `qgen` (query generation).
+Make sure that `gcc` and `make` are installed on `cdw` for compiling the `dbgen` (data generation) and `qgen` (query generation).
 
-You can install the dependencies on `mdw`:
+You can install the dependencies on `cdw`:
 
 ```bash
 docker exec -it $(docker ps -q) /bin/bash
@@ -44,17 +44,17 @@ The source code is from http://tpc.org/tpc_documents_current_versions/current_sp
 
 ### Packages
 
-TPC-H and TPC-DS packages are already placed under "mdw:/tmp/" folder.
+TPC-H and TPC-DS packages are already placed under "cdw:/tmp/" folder.
 
 ```bash
-[gpadmin@mdw tmp]$ ls -rlt
+[gpadmin@cdw tmp]$ ls -rlt
 -rw-rw-r--  1 root    root    24520013 Jul 27 14:18 TPC-H-CBDB.tar.gz
 -rw-rw-r--  1 root    root     7096941 Jul 27 14:18 TPC-DS-CBDB.tar.gz
 ```
 
 ### Execution
 
-To run the benchmark, login as `gpadmin` on `mdw` in the Apache Cloudberry Sandbox, and execute the following command:
+To run the benchmark, login as `gpadmin` on `cdw` in the Apache Cloudberry Sandbox, and execute the following command:
 
 ```bash
 su - gpadmin

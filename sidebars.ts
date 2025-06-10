@@ -37,7 +37,8 @@ const sidebars: SidebarsConfig = {
         type: 'category',
         label: 'Deploy on Physical or Virtual Machine',
         items: ['cbdb-op-software-hardware', 'cbdb-op-prepare-to-deploy', 'cbdb-op-deploy-guide','deploy-cbdb-with-single-node']
-      }
+      },
+      'deployment/sandbox'
      ]
     },
 
@@ -562,6 +563,33 @@ const sidebars: SidebarsConfig = {
         "releases/index"
       ]
     },
+
+    {
+      type: 'category',
+      label: 'Tutorials',
+      link: {
+        type: "doc",
+        id: 'tutorial/index',
+      },
+      items: [
+      'tutorial/introduction-to-database-and-cloudberry-architecture',
+      'tutorial/create-users-and-roles',
+      'tutorial/create-and-prepare-database',
+      'tutorial/create-tables',
+      'tutorial/data-loading',
+      'tutorial/queries-and-performance-tuning',
+      'tutorial/backup-and-recovery-operations'
+      ]
+    },
+
+    {
+      type: "category",
+      label: "Crash Course",
+      items: [
+        "tutorial/crash-course",
+      ]
+    },
+
   ]
 }
 

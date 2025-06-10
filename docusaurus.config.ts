@@ -209,10 +209,6 @@ const config: Config = {
               to: "https://github.com/apache/cloudberry/discussions",
             },
             {
-              label: "Bootcamp",
-              to: "/bootcamp",
-            },
-            {
               label: "Support",
               to: "/support",
              },
