@@ -177,7 +177,6 @@
         "sys-admin/configure-database-system",
         "sys-admin/check-database-system",
         "sys-admin/enable-coordinator-mirroring",
-        "sys-admin/migration-and-upgrade",
         "sys-admin/recommended-maintenance-monitoring-tasks"
       ]
     },
