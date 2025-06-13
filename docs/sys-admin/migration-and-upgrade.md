@@ -6,8 +6,8 @@ toc_max_heading_level: 5
 # Migration and Upgrade
 
 This guide provides detailed instructions for two scenarios:
-1. Migrating from Greenplum Database 6.x/7.x to Cloudberry Database
-2. Upgrading from Cloudberry Database 1.x to Cloudberry Database 2.x
+1. Migrating from Greenplum Database 6.x/7.x to Cloudberry
+2. Upgrading from Cloudberry 1.x to Cloudberry 2.x
 
 Both scenarios utilize the `cbcopy` tool, a powerful data migration utility designed for efficient database migration and upgrade operations.
 
@@ -41,13 +41,13 @@ make install
 
 ## Version Compatibility
 
-### Cloudberry Database Upgrade (1.x to 2.x)
-- Source: Cloudberry Database 1.6
-- Target: Cloudberry Database 2.0
+### Cloudberry Upgrade (1.x to 2.x)
+- Source: Cloudberry 1.6
+- Target: Cloudberry 2.0
 
 ### Greenplum to Cloudberry Migration
 - Source: Greenplum Database 6.x or 7.x
-- Target: Cloudberry Database 1.x or 2.x
+- Target: Cloudberry 1.x or 2.x
 
 ## Migration Process
 
