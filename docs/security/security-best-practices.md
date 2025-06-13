@@ -79,7 +79,6 @@ Ensure the following line exists within the file `/etc/libuser.conf` under the `
 
 ```
 login_defs = /etc/login.defs
-
 ```
 
 Ensure no lines in the `[userdefaults]` section begin with the following text, as these words override settings from `/etc/login.defs`:
