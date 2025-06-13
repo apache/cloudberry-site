@@ -173,7 +173,7 @@ const sidebars: SidebarsConfig = {
       },
         items: ['sys-admin/backup-and-restore/perform-full-backup-and-restore', 'sys-admin/backup-and-restore/perform-incremental-backup-and-restore']
        },
-        'sys-admin/configure-database-system', 'sys-admin/check-database-system', 'sys-admin/enable-coordinator-mirroring', 'sys-admin/recommended-maintenance-monitoring-tasks']
+        'sys-admin/configure-database-system', 'sys-admin/check-database-system', 'sys-admin/enable-coordinator-mirroring', 'sys-admin/recommended-maintenance-monitoring-tasks', 'sys-admin/migration-and-upgrade']
      },
 
      {
