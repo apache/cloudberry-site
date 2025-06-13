@@ -2,7 +2,7 @@
 title: Incremental Materialized View
 ---
 
-# Incremental Materialized View in Apache Cloudberry (New in v1.5.0)
+# Incremental Materialized View in Apache Cloudberry
 
 This document introduces the usage scenarios of the incremental materialized view in Apache Cloudberry, how to use it, the restrictions, and the things to note.
 
@@ -21,10 +21,6 @@ Comparison between incremental materialized view and regular view:
 - Where there are many read operations but few write operations.
 
 # Usage example
-
-:::info
-Before using incremental materialized views, make sure that you are using Apache Cloudberry v1.5.0 or a later version. Apache Cloudberry v1.4.0 and earlier versions do not support incremental materialized views.
-:::
 
 To create an incremental materialized view, you can use the SQL command `CREATE INCREMENTAL MATERIALIZED VIEW`. The complete syntax support is as follows:
 

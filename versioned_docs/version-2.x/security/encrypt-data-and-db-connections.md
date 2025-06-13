@@ -87,7 +87,7 @@ Pgcrypto has various levels of encryption ranging from basic to advanced built-i
 |MD5|yes|yes|
 |SHA1|yes|yes|
 |SHA224/256/384/512|yes|yes |
-|Other digest algorithms|no|yes |
+|Other digest algorithms|no|yes|
 |Blowfish|yes|yes|
 |AES|yes|yes|
 |DES/3DES/CAST5|no|yes|

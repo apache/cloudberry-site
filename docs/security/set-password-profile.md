@@ -2,7 +2,7 @@
 title: Set Password Profile
 ---
 
-# Set password policy in Apache Cloudberry (New in v1.5.0)
+# Set password policy in Apache Cloudberry
 
 Profile refers to the password policy configuration, which is used to control the password security policy of users in Apache Cloudberry. You can bind a profile to one or more users to control the password security policy of database users. Profile defines the rules for user management and password reuse. With Profile, the database administrator can use SQL to force some constraints, such as locking accounts after login failures or controlling the number of password reuses.
 

@@ -2,7 +2,7 @@
 title: 配置密码策略
 ---
 
-# 在 Apache Cloudberry 中配置密码策略（引入自 v1.5.0 版本）
+# 在 Apache Cloudberry 中配置密码策略
 
 Profile，即密码策略配置，用于控制 Apache Cloudberry 中用户的密码安全策略。你可以将 Profile 绑定到一个或多个用户中，从而控制数据库用户的密码安全策略。Profile 定义了用户管理和重复使用密码的规则。通过配置 Profile，数据库管理员可以使用 SQL 语句强制添加一些约束，例如在一定次数的登录失败后锁定账户，或者控制密码重复使用次数。
 

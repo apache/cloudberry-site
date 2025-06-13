@@ -4,7 +4,7 @@ title: Directory Table
 
 # Directory Table
 
-Apache Cloudberry has introduced *directory tables* in v1.5.3 for unified management of unstructured data on local or object storage.
+Apache Cloudberry has introduced *directory tables* for unified management of unstructured data on local or object storage.
 
 In the context of large-scale AI, AI applications have generated the need to manage unstructured multi-modal corpora. There is a need to continuously prepare a large amount of high-quality curated unstructured corpora, train large models through data iteration, and summarize rich knowledge bases. Therefore, there are technical challenges in the management and processing of structured corpora.
 
@@ -134,7 +134,7 @@ In general, the fields of a directory table are as follows:
 
 ### Upload file into directory table
 
-After uploading a file to a directory table, Apache Cloudberry manages the file's upload to local storage or object storage and stores the file's metadata in the directory table. In Apache Cloudberry v1.5.3, users cannot directly manage object storage directory files.
+After uploading a file to a directory table, Apache Cloudberry manages the file's upload to local storage or object storage and stores the file's metadata in the directory table. In Apache Cloudberry, users cannot directly manage object storage directory files.
 
 Upload files from local storage to database object storage:
 
