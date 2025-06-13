@@ -37,7 +37,8 @@ const sidebars: SidebarsConfig = {
         type: 'category',
         label: 'Deploy on Physical or Virtual Machine',
         items: ['cbdb-op-software-hardware', 'cbdb-op-prepare-to-deploy', 'cbdb-op-deploy-guide','deploy-cbdb-with-single-node']
-      }
+      },
+      'deployment/sandbox'
      ]
     },
 
@@ -110,7 +111,7 @@ const sidebars: SidebarsConfig = {
         label: 'Advanced Analytics',
         items: ['advanced-analytics/postgis','advanced-analytics/directory-tables', 'advanced-analytics/pgvector-search']
       },
-      'operate-with-data/table-storage-models', 'operate-with-data/work-with-transactions', 'operate-with-data/transactional-concurrency-control', 'operate-with-data/manage-spill-files'
+      'operate-with-data/heap-and-ao-table-formats', 'operate-with-data/pax-table-format', 'operate-with-data/work-with-transactions', 'operate-with-data/transactional-concurrency-control', 'operate-with-data/manage-spill-files'
       ]
      },
 
@@ -189,7 +190,12 @@ const sidebars: SidebarsConfig = {
         type: 'category',
         label: 'SQL Clients',
         items: ['ecosystem/sql-clients/dbeaver']
-       },
+        },
+        {
+         type:'category',
+         label: 'Data Integration',
+         items: ['ecosystem/data-integration/seatunnel']
+        }
         ]
      },
 
@@ -563,6 +569,33 @@ const sidebars: SidebarsConfig = {
         "releases/index"
       ]
     },
+
+    {
+      type: 'category',
+      label: 'Tutorials',
+      link: {
+        type: "doc",
+        id: 'tutorial/index',
+      },
+      items: [
+      'tutorial/introduction-to-database-and-cloudberry-architecture',
+      'tutorial/create-users-and-roles',
+      'tutorial/create-and-prepare-database',
+      'tutorial/create-tables',
+      'tutorial/data-loading',
+      'tutorial/queries-and-performance-tuning',
+      'tutorial/backup-and-recovery-operations'
+      ]
+    },
+
+    {
+      type: "category",
+      label: "Crash Course",
+      items: [
+        "tutorial/crash-course",
+      ]
+    },
+
   ]
 }
 

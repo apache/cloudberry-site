@@ -20,7 +20,7 @@ In this lesson, you will use [Apache Zeppelin](https://zeppelin.apache.org/) to 
 
 1. Open a browser on your desktop and browse to `http://X.X.X.X:8080` using the same IP address that you used for the ssh step. You will see the Apache Zepplin Welcome page.
 
-    ![Apache Zeppelin welcome page](./images/zepp.jpg)
+    ![Apache Zeppelin welcome page](/img/bootcamp/zepp.jpg)
 
 2. Click Interpreter at the top of the Screen and scroll down to the psql section and press edit.
 
@@ -28,7 +28,7 @@ In this lesson, you will use [Apache Zeppelin](https://zeppelin.apache.org/) to 
 4. Click Save and then Hit OK to restart the Interpreter
 5. Click on Create new note underneath the Notebook heading and type: `tutorial`
 
-    ![Apache Zeppelin create page](./images/zep-create.jpg)
+    ![Apache Zeppelin create page](/img/bootcamp/zep-create.jpg)
 
 6. Click "tutorial" to open the newly created notebook.
 
@@ -40,15 +40,15 @@ In this lesson, you will use [Apache Zeppelin](https://zeppelin.apache.org/) to 
 
     Then press the play button:
 
-    ![Apache Zeppelin icons](./images/play.jpg)
+    ![Apache Zeppelin icons](/img/bootcamp/play.jpg)
 
     The result should look like the graphic below:
 
-    ![Apache Zeppelin output](./images/count.jpg)
+    ![Apache Zeppelin output](/img/bootcamp/count.jpg)
 
 ## Run PostgreSQL built-in aggregates
 
-PostgreSQL has built-in aggregate functions to get standard statistics on database columns—minimum, maximum, average, and standard deviation, for example. The functions take advantage of the Apache Cloudberry MPP architecture, aggregating data on the segments and then assembling results on the master.
+PostgreSQL has built-in aggregate functions to get standard statistics on database columns—minimum, maximum, average, and standard deviation, for example. The functions take advantage of the Apache Cloudberry MPP architecture, aggregating data on the segments and then assembling results on the coordinator.
 
 First, gather simple descriptive statistics on some of the data you will analyze with MADlib. The commands in this exercise are in the stats.sql script in the sample data directory.
 

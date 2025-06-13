@@ -1,5 +1,5 @@
 ---
-title: "[101-5] Lesson 5: Queries and Performance Tuning"
+title: "Lesson 5: Queries and Performance Tuning"
 description: Understand the queries in the Apache Cloudberry.
 ---
 
@@ -7,17 +7,17 @@ This lesson provides an overview of how Apache Cloudberry processes queries. Und
 
 ## Concepts
 
-Users submit queries to Apache Cloudberry as they would to any database management system. They connect to the database instance on the Apache Cloudberry master host using a client application such as psql and submit SQL statements.
+Users submit queries to Apache Cloudberry as they would to any database management system. They connect to the database instance on the Apache Cloudberry coordinator host using a client application such as psql and submit SQL statements.
 
 ### Understand query planning and dispatch
 
-The master host receives, parses, and optimizes the query. The resulting query plan is either parallel or targeted. The master dispatches parallel query plans to all segments, as shown in Figure 1. Each segment is responsible for executing local database operations on its own set of data query plans.
+The coordinator host receives, parses, and optimizes the query. The resulting query plan is either parallel or targeted. The coordinator dispatches parallel query plans to all segments, as shown in Figure 1. Each segment is responsible for executing local database operations on its own set of data query plans.
 
 Most database operations such as table scan, join, aggregation and sort will be executed across all segments in parallel. Each operation is performed on one segment database independent of the data stored on other segment databases.
 
 _Figure 1. Dispatch the parallel query plan_
 
-![Dispatching the Parallel Query Plan](./images/dispatch.jpg)
+![Dispatching the Parallel Query Plan](/img/bootcamp/dispatch.jpg)
 
 ### Understand query plans
 
@@ -29,7 +29,7 @@ To achieve maximum parallelism during query execution, Apache Cloudberry divides
 
 ### Understand parallel query execution
 
-Apache Cloudberry creates a number of database processes to handle the work of a query. On the master, the query worker process is called "query dispatcher"  or "QD". QD is responsible for creating and dispatching query plan. It also accumulates and presents the final results. On segments, a query worker process is called "query executor" or "QE". QE is responsible for completing its portion of work and communicating its intermediate results to other worker processes.
+Apache Cloudberry creates a number of database processes to handle the work of a query. On the coordinator, the query worker process is called "query dispatcher"  or "QD". QD is responsible for creating and dispatching query plan. It also accumulates and presents the final results. On segments, a query worker process is called "query executor" or "QE". QE is responsible for completing its portion of work and communicating its intermediate results to other worker processes.
 
 There is at least one worker process assigned to each slice of the query plan. A worker process works on its assigned portion of the query plan independently. During query execution, each segment will have a number of processes working on the query in parallel.
 
@@ -192,26 +192,26 @@ By default, the sandbox instance disables the Pivotal Query Optimizer and you mi
 2. Disable the Pivotal Query Optimizer.
 
     ```shell
-    $ gpconfig -c optimizer -v off --masteronly
+    $ gpconfig -c optimizer -v off --coordinatoronly
     ```
 
     ```shell
-    20230726:14:42:31:031343 gpconfig:mdw:gpadmin-[INFO]:-completed successfully with parameters '-c optimizer -v on --masteronly'
+    20230726:14:42:31:031343 gpconfig:cdw:gpadmin-[INFO]:-completed successfully with parameters '-c optimizer -v on --coordinatoronly'
     ```
 
-3. Reload the configuration on master and segment instances.
+3. Reload the configuration on coordinator and segment instances.
 
     ```shell
     $ gpstop -u
     ```
 
     ```shell
-    20230726:14:42:49:031465 gpstop:mdw:gpadmin-[INFO]:-Starting gpstop with args: -u
-    20230726:14:42:49:031465 gpstop:mdw:gpadmin-[INFO]:-Gathering information and validating the environment...
-    20230726:14:42:49:031465 gpstop:mdw:gpadmin-[INFO]:-Obtaining Cloudberry Coordinator catalog information
-    20230726:14:42:49:031465 gpstop:mdw:gpadmin-[INFO]:-Obtaining Segment details from coordinator...
-    20230726:14:42:49:031465 gpstop:mdw:gpadmin-[INFO]:-Cloudberry Version: 'postgres (Apache Cloudberry) 1.0.0 build dev'
-    20230726:14:42:49:031465 gpstop:mdw:gpadmin-[INFO]:-Signalling all postmaster processes to reload
+    20230726:14:42:49:031465 gpstop:cdw:gpadmin-[INFO]:-Starting gpstop with args: -u
+    20230726:14:42:49:031465 gpstop:cdw:gpadmin-[INFO]:-Gathering information and validating the environment...
+    20230726:14:42:49:031465 gpstop:cdw:gpadmin-[INFO]:-Obtaining Cloudberry Coordinator catalog information
+    20230726:14:42:49:031465 gpstop:cdw:gpadmin-[INFO]:-Obtaining Segment details from coordinator...
+    20230726:14:42:49:031465 gpstop:cdw:gpadmin-[INFO]:-Cloudberry Version: 'postgres (Apache Cloudberry) 1.0.0 build dev'
+    20230726:14:42:49:031465 gpstop:cdw:gpadmin-[INFO]:-Signalling all postmaster processes to reload
     ```
 
 ### Indexes and performance
@@ -583,7 +583,7 @@ Apache Cloudberry supports:
 - List partitioning: division of data based on a list of values, such as sales territory or product line.
 - A combination of both types.
 
-![Apache Cloudberry partitioning](./images/part.jpg)
+![Apache Cloudberry partitioning](/img/bootcamp/part.jpg)
 
 The following exercise compares `SELECT` statements with `WHERE` clauses that do and do not use a partitioned column.
 
