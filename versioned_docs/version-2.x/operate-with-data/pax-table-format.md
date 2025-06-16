@@ -468,7 +468,6 @@ By following the steps above, you can track and analyze WAL logs related to PAX 
 - Currently, if a field is too long, it will be stored in a TOAST file. This TOAST is different from PostgreSQL's TOAST tables, and they only share the same name.
 - Unlike traditional heap tables, PAX format does not support `TOAST` fields. Currently, all column data is stored in the same data file.
 - The PAX format does not support data backup and restore using `pg_dump` or `pg_restore`. PAX tables are ignored during these operations.
-- PAX format does not support Write-Ahead Logging (WAL), so there is no data backup between the primary and mirror servers.
 
 ## PAX-related SQL options
 
