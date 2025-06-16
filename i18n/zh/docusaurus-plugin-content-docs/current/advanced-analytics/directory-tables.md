@@ -14,6 +14,10 @@ Directory Table 定位于存储、管理和分析非结构化数据对象。Dire
 
 ## 使用说明
 
+:::note 注意
+当前 Directory Table 不支持扩缩容 expand/shrink。
+:::
+
 ### 创建 Directory Table
 
 你可以在本地存储的表空间中创建 Directory Table，也可以在外部存储（如对象存储服务或 HDFS 等分布式文件系统）的表空间中创建 Directory Table。

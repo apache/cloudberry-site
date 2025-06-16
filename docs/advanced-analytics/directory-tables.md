@@ -14,6 +14,10 @@ Directory tables store, manage, and analyze unstructured data objects. They resi
 
 ## Usage
 
+:::note
+Current, directory table does not support expand/shrink.
+:::
+
 ### Create a directory table
 
 You can create a directory table in a local tablespace or in a tablespace of an external storage (such as object storage services or distributed file systems like HDFS).
