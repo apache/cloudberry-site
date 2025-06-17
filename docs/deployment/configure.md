@@ -134,7 +134,7 @@ Also, some packages names vary between different Linux distributions.
 |  `--enable-gpcloud`       | Enable gpcloud support||
 |  `--enable-external-fts`  | Enable external fts support||
 |  `--enable-ic-proxy`      | Enable interconnect proxy mode | This requires libuv library to be installed. |
-|  `--enable-pax`          | Enable PAX support | gcc/gcc-c++ 11+, cmake3, protobuf and ZSTD are required, see details [here](https://github.com/apache/cloudberry/blob/main/contrib/pax_storage/doc/README.md#build). |
+|  `--enable-pax`          | Enable PAX support | gcc/gcc-c++ 8+, cmake3, protobuf and ZSTD are required, see details [here](https://github.com/apache/cloudberry/blob/main/contrib/pax_storage/doc/README.md#build). |
 |  `--with-includes=DIRS`   | Look for additional header files in DIRS|The Xerces-C is required to build with ORCA.|
 |  `--with-libraries=DIRS`  | Look for additional libraries in DIRS|The library xerces-c is required to build with ORCA|
 |  `--with-pgport=PORTNUM`  | Set default port number [5432]| `--with-pgport=5432` is used in this guide.|

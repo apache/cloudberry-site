@@ -40,10 +40,10 @@ To enable PAX when building Apache Cloudberry from source code, you need to:
    The following submodules will be downloaded for building and tesing PAX:
 
     - yyjson (`dependency/yyjson`)
-    - cpp-stub (`contrib/pax_storage/src/cpp/cotnrib`)
-    - googlebench (`contrib/pax_storage/src/cpp/cotnrib`)
-    - googletest (`contrib/pax_storage/src/cpp/cotnrib`)
-    - tabulate (`contrib/pax_storage/src/cpp/cotnrib`)
+    - cpp-stub (`contrib/pax_storage/src/cpp/contrib`)
+    - googlebench (`contrib/pax_storage/src/cpp/contrib`) (Now it's an optional dependency, it will be downloaded but not built by default. If needed, you can build it manually.)
+    - googletest (`contrib/pax_storage/src/cpp/contrib`)
+    - tabulate (`contrib/pax_storage/src/cpp/contrib`)
 
     :::note
     The submodules above are already included in the latest release source code archive, so you do not need to download the submodules manually after extracting the archive.

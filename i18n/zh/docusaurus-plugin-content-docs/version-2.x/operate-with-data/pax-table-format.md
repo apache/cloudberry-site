@@ -40,10 +40,10 @@ PAX 的混合存储能力使其适合于需要处理大量数据写入和频繁�
    执行该命令会下载这些子模块，用来构建和测试 PAX：
 
     - yyjson (`dependency/yyjson`)
-    - cpp-stub (`contrib/pax_storage/src/cpp/cotnrib`)
-    - googlebench (`contrib/pax_storage/src/cpp/cotnrib`)
-    - googletest (`contrib/pax_storage/src/cpp/cotnrib`)
-    - tabulate (`contrib/pax_storage/src/cpp/cotnrib`)
+    - cpp-stub (`contrib/pax_storage/src/cpp/contrib`)
+    - googlebench (`contrib/pax_storage/src/cpp/contrib`) - 该子模块会被下载，但不会默认构建，如有需要开发者可手动开启该功能。
+    - googletest (`contrib/pax_storage/src/cpp/contrib`)
+    - tabulate (`contrib/pax_storage/src/cpp/contrib`)
 
     :::note 注意
     上述子模块已经包含在最新发布的源代码压缩包中，因此解压后无需手动下载这些子模块。

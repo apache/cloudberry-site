@@ -73,24 +73,6 @@ sudo dnf install -y --enablerepo=crb libuv-devel libyaml-devel perl-IPC-Run prot
 In Red Hat Enterprise Linux (RHEL), this repository is called "PowerTools."
 :::
 
-### Install gcc/gcc-c++ 11+ for Rocky Linux 8 (Optional)
-
-For Rocky Linux 8, we need to install the higher version of gcc and gcc-c++ to build Apache Cloudberry with PAX support:
-
-```bash
-sudo yum install -y gcc-toolset-11-gcc gcc-toolset-11-gcc-c++
-scl enable gcc-toolset-11 bash # for temprory use
-sudo echo "source /opt/rh/gcc-toolset-11/enable" >> /etc/profile.d/gcc.sh
-sudo source /etc/profile.d/gcc.sh #  for permanent use
-```
-
-You can verify the gcc and gcc-c++ 11+ version by running:
-
-```bash
-gcc --version
-g++ --version
-```
-
 ### Install Apache Xerces-C for ORCA
 
 Apache Xerces-C is a required dependency for enabling the Orca query optimizer in Cloudberry. The following steps download the source code, verify its integrity, build the library, and install it.
