@@ -6,12 +6,9 @@ toc_max_heading_level: 5
 # Migration and Upgrade
 
 This guide provides detailed instructions for two scenarios:
-1. Migrating from Greenplum Database 6.x/7.x to Cloudberry
-2. Upgrading from Cloudberry 1.x to Cloudberry 2.x
-=======
-1. Migrating from Greenplum Database 6.x/7.x to Cloudberry Database
+
+1. Migrating from Greenplum Database 6.x/7.x to Apache Cloudberry
 2. Upgrading from Apache Cloudberry 1.x (non-Apache release before joining the Apache Incubator) to Apache Cloudberry 2.x
->>>>>>> b2d3500ed39fddb1e4422ed51e369b4b60d43d38
 
 Both scenarios utilize the `cbcopy` tool, a powerful data migration utility designed for efficient database migration and upgrade operations.
 
@@ -29,7 +26,7 @@ Before starting the migration or upgrade process, ensure you have:
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/HashDataInc/cbcopy.git
+git clone https://github.com/cloudberry-contrib/cbcopy.git
 ```
 
 2. Build the binaries:
@@ -246,6 +243,10 @@ cbcopy --source-host=127.0.0.1 \
 
 ## Additional Resources
 
-- [cbcopy GitHub Repository](https://github.com/HashDataInc/cbcopy)
+- [cbcopy GitHub Repository](https://github.com/cloudberry-contrib/cbcopy)
 
+
+:::note
+cbcopy is contributed by community members; however, please note that it is not maintained as an official Cloudberry project yet.
+:::
 
