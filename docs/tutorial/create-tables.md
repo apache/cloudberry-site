@@ -1,13 +1,13 @@
 ---
-title: "[101-3] Lesson 3: Create Tables"
+title: "Lesson 3: Create Tables"
 description: Learn how to create tables in the Apache Cloudberry.
 ---
 
-After creating and preparing a database in [Lesson 2: Create and Prepare a Database](./101-2-create-and-prepare-database), you can start to create tables in the database.
+After creating and preparing a database in [Lesson 2: Create and Prepare a Database](./create-and-prepare-database), you can start to create tables in the database.
 
 :::note
 
-To introduce Apache Cloudberry, we use a public data set, the Airline On-Time Statistics and Delay Causes data set, published by the United States Department of Transportation at http://www.transtats.bts.gov/. The On-Time Performance dataset records flights by date, airline, originating airport, destination airport, and many other flight details. The data is available for flights since 1987. The exercises in this guide use data for about a million flights in 2009 and 2010. You are encouraged to review the SQL scripts in the GitHub `000-cbdb-sandbox/configs/faa.tar.gz` directory as you work through this introduction. You can run most of the exercises by entering the commands yourself or by executing a script in the `faa` directory.
+To introduce Apache Cloudberry, we use a public data set, the Airline On-Time Statistics and Delay Causes data set, published by the United States Department of Transportation at http://www.transtats.bts.gov/. The On-Time Performance dataset records flights by date, airline, originating airport, destination airport, and many other flight details. The data is available for flights since 1987. The exercises in this guide use data for about a million flights in 2009 and 2010. You are encouraged to review the SQL scripts in the GitHub [`000-cbdb-sandbox/configs/faa.tar.gz`](https://github.com/apache/cloudberry-bootcamp/tree/main/000-cbdb-sandbox/configs) directory as you work through this introduction. You can run most of the exercises by entering the commands yourself or by executing a script in the `faa` directory.
 
 :::
 
@@ -20,15 +20,15 @@ In the following steps, you will be guided to run a SQL file `create_dim_tables.
 1. Log into Apache Cloudberry in Docker as `gpadmin`. Then enter the `faa` directory, in which the SQL file `create_dim_tables.sql` is located.
 
     ```shell
-    [gpadmin@mdw tmp]$ cd /tmp
-    [gpadmin@mdw tmp]$ tar xzf faa.tar.gz
-    [gpadmin@mdw tmp]$ cd faa
+    [gpadmin@cdw tmp]$ cd /tmp
+    [gpadmin@cdw tmp]$ tar xzf faa.tar.gz
+    [gpadmin@cdw tmp]$ cd faa
     ```
 
 2. Take a look at the `create_dim_tables.sql` file.
 
     ```shell
-    [gpadmin@mdw faa]$ more create_dim_tables.sql
+    [gpadmin@cdw faa]$ more create_dim_tables.sql
     ```
 
     The `create_dim_tables.sql` file contains the following `CREATE TABLE` statements:
@@ -75,7 +75,7 @@ In the following steps, you will be guided to run a SQL file `create_dim_tables.
 3. Connect to the `tutorial` database as `lily` using the `psql`. You will run the SQL file as `lily`.
 
     ```shell
-    [gpadmin@mdw faa]$ psql -U lily tutorial
+    [gpadmin@cdw faa]$ psql -U lily tutorial
 
     Password for user lily:  # changeme
     ```
@@ -146,14 +146,3 @@ Use the `DISTRIBUTED` clause in `CREATE TABLE` statement to define the distribut
 - `DISTRIBUTED RANDOMLY` distributes rows in round-robin fashion among segments.
 
 When different tables that have the same or similar columns as distribution key are about to be joined, join action might be accomplished on segments, which will be much faster than re-distributing rows across segments and then joining. The random distribution policy cannot make it happen, so it is definitely better to have a distribution key for a table.
-
-## What's next
-
-After creating some tables in the database, you can continue to load data into the tables. See [Lesson 4: Data Loading](./101-4-data-loading).
-
-Other tutorials:
-
-- [Lesson 1: Create Users and Roles](./101-1-create-users-and-roles)
-- [Lesson 2: Create and Prepare Database](./101-2-create-and-prepare-database)
-- [Lesson 5: Queries and Performance Tuning](./101-5-queries-and-performance-tuning)
-- [Lesson 6: Backup and Restore Operations](./101-6-backup-and-recovery-operations)

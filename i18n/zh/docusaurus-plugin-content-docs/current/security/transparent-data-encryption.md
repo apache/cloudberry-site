@@ -87,11 +87,8 @@ COORDINATOR_DATA_DIRECTORY=/home/gpadmin/work/data0/master/gpseg-1
 
 ```shell
 $ pwd
-/home/gpadmin/work/data0/master/gpseg-1
 
-$ ls -l pg_cryptokeys/live/
-total 8
--rw------- 1 gpadmin gpadmin 48 Apr 12 10:26 relation.wkey
+@@ -95,72 +95,72 @@ total 8
 -rw------- 1 gpadmin gpadmin 48 Apr 12 10:26 wal.wkey
 ```
 
@@ -164,18 +161,8 @@ total 8
 
         ```sql
         postgres=# select * from ao2 order by id;
-        id
-        ----
-        1
-        2
-        3
-        4
-        5
-        6
-        7
-        8
-        9
-        10
+
+@@ -179,4 +179,4 @@ total 8
         (10 rows)
         ```
 

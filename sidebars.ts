@@ -37,7 +37,8 @@ const sidebars: SidebarsConfig = {
         type: 'category',
         label: 'Deploy on Physical or Virtual Machine',
         items: ['cbdb-op-software-hardware', 'cbdb-op-prepare-to-deploy', 'cbdb-op-deploy-guide','deploy-cbdb-with-single-node']
-      }
+      },
+      'deployment/sandbox'
      ]
     },
 
@@ -145,12 +146,18 @@ const sidebars: SidebarsConfig = {
           id: 'security/index',
       },
        items: [
+        'security/ports-and-protocols',
         'security/manage-roles-and-privileges', 
-        'security/client-auth', 
+        'security/client-auth',
+        'security/configure-db-auth',
+        'security/encrypt-data-and-db-connections',
+        'security/transparent-data-encryption',
+        'security/log-auditing',
         'security/configure-row-level-security-policy',
         'security/protect-passwords',
         'security/set-password-profile',
-        'security/transparent-data-encryption']
+        'security/security-best-practices'
+]
      },
 
      {
@@ -562,6 +569,33 @@ const sidebars: SidebarsConfig = {
         "releases/index"
       ]
     },
+
+    {
+      type: 'category',
+      label: 'Tutorials',
+      link: {
+        type: "doc",
+        id: 'tutorial/index',
+      },
+      items: [
+      'tutorial/introduction-to-database-and-cloudberry-architecture',
+      'tutorial/create-users-and-roles',
+      'tutorial/create-and-prepare-database',
+      'tutorial/create-tables',
+      'tutorial/data-loading',
+      'tutorial/queries-and-performance-tuning',
+      'tutorial/backup-and-recovery-operations'
+      ]
+    },
+
+    {
+      type: "category",
+      label: "Crash Course",
+      items: [
+        "tutorial/crash-course",
+      ]
+    },
+
   ]
 }
 

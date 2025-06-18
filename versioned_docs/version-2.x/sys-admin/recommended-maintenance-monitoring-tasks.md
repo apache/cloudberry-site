@@ -521,7 +521,7 @@ psql &lt;dbname&gt; -c<br />
     </tr>
     <tr>
       <td>
-        Install Apache Cloudberry minor releases, for example v1.5.0.<em>x</em>.
+        Install Apache Cloudberry minor releases<em>x</em>.
         <p>Recommended frequency: quarterly</p>
         <p>Severity: IMPORTANT</p>
       </td>

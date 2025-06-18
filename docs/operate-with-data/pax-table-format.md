@@ -467,8 +467,7 @@ By following the steps above, you can track and analyze WAL logs related to PAX 
 - For index support, the PAX storage format currently only supports B-tree (`btree`) indexes. Bugs might occur when using GiST, SP-GiST (`gist/spgist`) or Brin indexes. Supports for other index types are still experimental and might be unavailable.
 - Currently, if a field is too long, it will be stored in a TOAST file. This TOAST is different from PostgreSQL's TOAST tables, and they only share the same name.
 - Unlike traditional heap tables, PAX format does not support `TOAST` fields. Currently, all column data is stored in the same data file.
-- The PAX format does not support data backup and restore using `pg_dump` or `pg_restore`. PAX tables are ignored during these operations.
-- PAX format does not support Write-Ahead Logging (WAL), so there is no data backup between the primary and mirror servers.
+- The PAX format does not support data backup and restore using `pg_dump` or `pg_restore`. PAX tables are ignored during these operations. You can use `pg_basebackup` to backup and restore PAX tables.
 
 ## PAX-related SQL options
 

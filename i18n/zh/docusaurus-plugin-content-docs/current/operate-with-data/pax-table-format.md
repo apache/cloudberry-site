@@ -467,8 +467,7 @@ PAX 表的 WAL 日志主要有以下用途：
 
 - 在索引支持方面，PAX 存储格式目前仅支持 B-tree (`btree`) 索引。在 PAX 表上创建 GiST 索引、SP-GiST (`gist/spgist`) 索引和 Brin 索引时会报错，其他的索引仅为实验性功能，可能不支持。
 - 目前如果字段太长，会放到 TOAST 文件里存储。这里的 TOAST 与 PostgreSQL 的 TOAST 表不同，仅仅在名称上相同。
-- PAX 格式暂不支持使用 `pg_dump` 或 `pg_restore` 进行数据备份和恢复，PAX 表在这些操作中会被忽略。
-- PAX 格式暂不支持写前日志 (WAL)，因此在主服务器 (primary) 与镜像服务器 (mirror) 之间不进行数据备份。
+- PAX 格式暂不支持使用 `pg_dump` 或 `pg_restore` 进行数据备份和恢复，PAX 表在这些操作中会被忽略。你可以使用 `pg_basebackup` 对 PAX 表进行备份和恢复。
 
 ## PAX 相关 SQL 选项
 

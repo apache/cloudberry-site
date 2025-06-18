@@ -2,11 +2,11 @@
 title: Deploy with a Single Computing Node
 ---
 
-# Deploy Apache Cloudberry with a Single Computing Node (New in v1.5.0)
+# Deploy Apache Cloudberry with a Single Computing Node
 
 Apache Cloudberry is not fully compatible with PostgreSQL, and some features and syntax are Apache Cloudberry-specific. If your business already relies on Apache Cloudberry and you want to use the Apache Cloudberry-specific syntax and features on a single node to avoid compatibility issues with PostgreSQL, you can consider deploying Apache Cloudberry free of segments.
 
-Starting from v1.5.0, Apache Cloudberry provides the single-computing-node deployment mode. This mode runs under the `utility` gp_role, with only one coordinator (QD) node and one coordinator standby node, without a segment node or data distribution. You can directly connect to the coordinator and run queries as if you were connecting to a regular multi-node cluster. Note that some SQL statements are not effective in this mode because data distribution does not exist, and some SQL statements are not supported. See [user behavior changes](#user-behavior-changes) for details.
+Apache Cloudberry provides the single-computing-node deployment mode. This mode runs under the `utility` gp_role, with only one coordinator (QD) node and one coordinator standby node, without a segment node or data distribution. You can directly connect to the coordinator and run queries as if you were connecting to a regular multi-node cluster. Note that some SQL statements are not effective in this mode because data distribution does not exist, and some SQL statements are not supported. See [user behavior changes](#user-behavior-changes) for details.
 
 ## How to deploy
 

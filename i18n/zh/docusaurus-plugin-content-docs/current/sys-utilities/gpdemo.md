@@ -2,9 +2,9 @@
 title: gpdemo
 ---
 
-# gpdemo（引入自 v1.5.0 版本）
+# gpdemo
 
-在 v1.5.0 以前，如果用户想在单节点上部署带有 Segment 的 Apache Cloudberry 小型集群用于演示，需要花费时间编写配置文件和参数。自 v1.5.0 起，用户只需要通过内置的 `gpdemo` 脚本，使用一条命令就能快速部署指定 Segment 数的 Apache Cloudberry 集群。
+如果用户想在单节点上部署带有 Segment 的 Apache Cloudberry 小型集群用于演示，需要花费时间编写配置文件和参数。用户只需要通过内置的 `gpdemo` 脚本，使用一条命令就能快速部署指定 Segment 数的 Apache Cloudberry 集群。
 
 `gpdemo` 将随其他系统工具（例如 `gpinitsystem`、`gpstart`、`gpstop` 等）一并安装到 `GPHOME/bin` 目录下。
 

@@ -2,11 +2,11 @@
 title: 单计算节点模式部署
 ---
 
-# 单计算节点模式部署 Apache Cloudberry（引入自 v1.5.0 版本）
+# 单计算节点模式部署 Apache Cloudberry
 
 Apache Cloudberry 与 PostgreSQL 并不完全兼容，部分功能和语法都是专有的。如果用户业务已经依赖 Apache Cloudberry，想在单节点上使用 Apache Cloudberry 特有的语法和功能，规避与 PostgreSQL 的兼容性问题，那么可以使用这种单计算节点的部署方式。
 
-自 v1.5.0 起，Apache Cloudberry 提供这一单计算节点的部署模式。该模式在 `utility` gp_role 下运行，仅有一个 coordinator (QD) 和一个 coordinator standby 节点，没有 segment 节点和数据分布。用户可以直接连接到 coordinator 并执行查询，就像连接的是一个正常的多节点集群一样。注意，由于没有数据分布，一些 SQL 语句在单计算节点部署下没有效果，还有一些 SQL 语句不受支持。具体可见最后一节[用户行为变更](#用户行为变更)。
+Apache Cloudberry 提供这一单计算节点的部署模式。该模式在 `utility` gp_role 下运行，仅有一个 coordinator (QD) 和一个 coordinator standby 节点，没有 segment 节点和数据分布。用户可以直接连接到 coordinator 并执行查询，就像连接的是一个正常的多节点集群一样。注意，由于没有数据分布，一些 SQL 语句在单计算节点部署下没有效果，还有一些 SQL 语句不受支持。具体可见最后一节[用户行为变更](#用户行为变更)。
 
 ## 部署方法
 

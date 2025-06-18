@@ -2,9 +2,9 @@
 title: gpdemo
 ---
 
-# gpdemo (New in v1.5.0)
+# gpdemo
 
-Before v1.5.0, if you want to deploy a small Apache Cloudberry cluster with segments on a single node to make a demo, you need to spend time writing configuration files and parameters. Starting from v1.5.0, you can use the built-in `gpdemo` script to quickly deploy a cluster with a specified number of segments only with a single command.
+You can use the built-in `gpdemo` script to quickly deploy a cluster with a specified number of segments only with a single command.
 
 `gpdemo` is installed with other system utilities (such as `gpinitsystem`, `gpstart`, and `gpstop`) in the  `GPHOME/bin` directory.
 

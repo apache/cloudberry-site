@@ -1,15 +1,15 @@
 ---
-title: "[101-4] Lesson 4: Data Loading"
+title: "Lesson 4: Data Loading"
 description: Load your data to the Apache Cloudberry.
 ---
 
-This tutorial briefly introduces 3 methods to load the example data `FAA` into Apache Cloudberry tables you have created in the previous tutorial [Lesson 3: Create Tables](./101-3-create-tables). Before continuing, make sure you have completed the previous tutorial.
+This tutorial briefly introduces 3 methods to load the example data `FAA` into Apache Cloudberry tables you have created in the previous tutorial [Lesson 3: Create Tables](./create-tables). Before continuing, make sure you have completed the previous tutorial.
 
 - Method 1: Use the `INSERT` statement. This is the easiest way to load data. You can execute `INSERT` directly in psql, run scripts that have `INSERT` statements, or run a client-side application with database connection. It is not recommended to use `INSERT` to load a large amount of data, because the loading efficiency is low.
 
 - Method 2: Use the SQL statement `COPY` to load data into database. The `COPY` syntax allows you to define the format of the text file so that data can be parsed into rows and columns. This method is faster than the `INSERT` statement. But, like `INSERT` statement, `COPY` is not a parallel data loading process.
 
-    The `COPY` statement requires that external files be accessible to the host where the master process is running. On a multi-node Apache Cloudberry system, data files might reside on a file system that is not accessible from master node. In this case, you need to use the psql command `\copy meta-command` that streams data to Cloudberry master node over `psql` connection. Some example scripts in this tutorial use the `\copy meta-command`.
+    The `COPY` statement requires that external files be accessible to the host where the coordinator process is running. On a multi-node Apache Cloudberry system, data files might reside on a file system that is not accessible from coordinator node. In this case, you need to use the psql command `\copy meta-command` that streams data to Cloudberry coordinator node over `psql` connection. Some example scripts in this tutorial use the `\copy meta-command`.
 
 - Method 3: Use Apache Cloudberry utilities to load external data into tables. When you are working with a large-scale data warehouse, you might often face the challenge of loading large amounts of data in a short time. The utilities, `gpfdist` and `gpload`, are tailored for this purpose, enabling you to achieve rapid, parallel data transfers.
 
@@ -17,7 +17,7 @@ This tutorial briefly introduces 3 methods to load the example data `FAA` into A
 
     For optimal speed, combine the use of external tables with the parallel file server (`gpfdist`). This approach will help you maximize efficiency, making your data loading tasks smoother and more efficient.
 
-    ![External Tables Using Cloudberry Parallel File Server](./images/ext_tables.jpg)
+    ![External Tables Using Cloudberry Parallel File Server](/img/bootcamp/ext_tables.jpg)
     _Figure 1. External Tables Using Parallel File Server (gpfdist)_
 
     Another utility `gpload` is a batch job. When using this utility, you should specify a YAML-formatted control file, describe source data locations, format, transformations required, participating hosts, database destinations and other particulars in the file. `gpload` will parse the control file and use `gpfdsit` to execute the task. This allows you to describe a complex task and execute it in a controlled and repeatable way.
@@ -28,7 +28,7 @@ In the following exercise, you will load sample data into the `tutorial` databas
 
 ### Load data using `INSERT`
 
-In [Lesson 3: Create Tables](./101-3-create-tables), you have created 6 tables in the `tutorial` database, one of which is `d_cancellation_codes` in the `faa` directory.
+In [Lesson 3: Create Tables](./create-tables), you have created 6 tables in the `tutorial` database, one of which is `d_cancellation_codes` in the `faa` directory.
 
 The `faa.d_cancellation_codes` table is a simple 2-column look-up table. You will load data into the table using the `INSERT` statement.
 
@@ -37,13 +37,13 @@ The `faa.d_cancellation_codes` table is a simple 2-column look-up table. You wil
 1. Log into Apache Cloudberry in Docker as `gpadmin`, and change to the `faa` directory. This directory contains `faa` data and scripts.
 
     ```shell
-    [gpadmin@mdw ~]$ cd /tmp/faa
+    [gpadmin@cdw ~]$ cd /tmp/faa
     ```
 
 2. Log into the `tutorial` database as `lily`.
 
     ```shell
-    [gpadmin@mdw faa]$ psql -U lily -d tutorial
+    [gpadmin@cdw faa]$ psql -U lily -d tutorial
     ```
 
     ```shell
@@ -115,7 +115,7 @@ The `COPY` statement moves data from the file system to database tables. Data fo
 3. Log into the `tutorial` database as `lily`.
 
     ```shell
-    [gpadmin@mdw faa]$ psql -U lily -d tutorial
+    [gpadmin@cdw faa]$ psql -U lily -d tutorial
     ```
 
     ```shell
@@ -161,7 +161,7 @@ In production system, `gpfdist` runs on file servers that external data resides.
 1. Start `gpfdist`:
 
     ```shell
-    [gpadmin@mdw tmp]$ gpfdist -d /tmp/faa -p 8081 > /tmp/gpfdist.log 2>&1 &
+    [gpadmin@cdw tmp]$ gpfdist -d /tmp/faa -p 8081 > /tmp/gpfdist.log 2>&1 &
     ```
 
     In this operation:
@@ -177,7 +177,7 @@ In production system, `gpfdist` runs on file servers that external data resides.
 2. Check the running processes:
 
     ```shell
-    [gpadmin@mdw tmp]$ ps -ef  |grep gpfdist
+    [gpadmin@cdw tmp]$ ps -ef  |grep gpfdist
     ```
 
     This command checks whether `gpfdist` is running:
@@ -190,7 +190,7 @@ In production system, `gpfdist` runs on file servers that external data resides.
 3. View the log file:
 
     ```shell
-    [gpadmin@mdw tmp]$ more /tmp/gpfdist.log
+    [gpadmin@cdw tmp]$ more /tmp/gpfdist.log
     ```
 
     This command allows you to view the contents of the `gpfdist.log` file. The log messages indicate the initialization steps of the `gpfdist` utility:
@@ -220,8 +220,8 @@ The following operations are performed in this section:
     These operations are purely metadata-based; no actual data will be transferred at this point.
 
     ```shell
-    [gpadmin@mdw tmp]$ cd faa
-    [gpadmin@mdw faa]$ psql -U gpadmin tutorial
+    [gpadmin@cdw tmp]$ cd faa
+    [gpadmin@cdw faa]$ psql -U gpadmin tutorial
 
     tutorial=# \i create_load_tables.sql
     ```
@@ -254,7 +254,7 @@ The following operations are performed in this section:
 
     ```sql
     tutorial=# \q
-    [gpadmin@mdw faa]$
+    [gpadmin@cdw faa]$
     ```
 
     Summary: By now, you should have set up your tables, loaded the data, and had a quick look at any loading errors. This ensures that you have a good understanding of the data quality and structure.
@@ -271,9 +271,9 @@ In this section, we walk through the process of loading data with `gpload`. The 
     Before using `gpload`, ensure no `gpfdist` processes from previous tasks are running. Here is how you can check and kill them:
 
     ```shell
-    [gpadmin@mdw faa]$ ps -ef | grep gpfdist
-    [gpadmin@mdw faa]$ pkill gpfdist
-    [gpadmin@mdw faa]$ ps -ef | grep gpfdist
+    [gpadmin@cdw faa]$ ps -ef | grep gpfdist
+    [gpadmin@cdw faa]$ pkill gpfdist
+    [gpadmin@cdw faa]$ ps -ef | grep gpfdist
     ```
 
 2. Customize the `gpload` input file.
@@ -283,22 +283,22 @@ In this section, we walk through the process of loading data with `gpload`. The 
     The following is what the `gpload.yaml` file might look like:
 
     ```shell
-    [gpadmin@mdw faa]$ cat ./gpload.yaml
+    [gpadmin@cdw faa]$ cat ./gpload.yaml
 
     ---
     VERSION: 1.0.0.1
     # describe the Greenplum database parameters
     DATABASE: tutorial
     USER: gpadmin
-    HOST: mdw
+    HOST: cdw
     PORT: 5432
     # describe the location of the source files
-    # in this example, the database master lives on the same host as the source files
+    # in this example, the database coordinator lives on the same host as the source files
     GPLOAD:
     INPUT:
         - SOURCE:
             LOCAL_HOSTNAME:
-            - mdw
+            - cdw
             PORT: 8081
             FILE:
             - /tmp/faa/otp*.gz
@@ -318,7 +318,7 @@ In this section, we walk through the process of loading data with `gpload`. The 
     Finally, you can run the gpload command to start the data loading process. If you want a detailed view of the loading, include the -v flag.
 
     ```shell
-    [gpadmin@mdw faa]$ gpload -f gpload.yaml -l gpload.log
+    [gpadmin@cdw faa]$ gpload -f gpload.yaml -l gpload.log
     ```
 
     Summary: At the end of this guide, you would have successfully used gpload to load data into Apache Cloudberry. Make sure to check the logs for any warnings or errors to ensure data consistency and integrity.
@@ -329,7 +329,7 @@ In this section, we walk through the process of loading data with `gpload`. The 
 The final step of the ELT process is to move data from the load table to the fact table. For the `FAA` example, you create 2 fact tables. The `faa.otp_r` table is a row-oriented table, which will be loaded with data from the `faa.faa_otp_load` table. The `faa.otp_c` table has the same structure as the `faa.otp_r` table, but is column-oriented and partitioned. You will load it with data from the `faa.otp_r` table. The 2 tables will contain identical data and allow you to experiment with a column-oriented and partitioned table in addition to a traditional row-oriented table. Then you create the `faa.otp_r` and `faa.otp_c` tables by executing the `create_fact_tables.sql` script. Load the data from the `faa_otp_load` table into the `faa.otp_r` table using the `INSERT FROM` SQL statement. Load the `faa.otp_c` table from the `faa.otp_r` table. Both of these loads can be accomplished by running the `load_into_fact_table.sql` script.
 
 ```shell
-[gpadmin@mdw faa]$ psql -U gpadmin tutorial
+[gpadmin@cdw faa]$ psql -U gpadmin tutorial
 
 psql (14.4, server 14.4)
 Type "help" for help.
@@ -358,7 +358,7 @@ tutorial=#
 
 - Loading mechanisms
 
-    - `COPY`: Loads data via the master in a single process, but doesn't harness Apache Cloudberry's parallel capabilities.
+    - `COPY`: Loads data via the coordinator in a single process, but doesn't harness Apache Cloudberry's parallel capabilities.
     - External tables:
         - Advantage: Takes advantage of the parallel processing power of segments.
         - Flexibility: One `SELECT` statement can access multiple data sources.
@@ -380,14 +380,3 @@ tutorial=#
         - Users need to be cautious and verify data when using Web tables.
 
 Understanding and using these features and mechanisms effectively can ensure optimal data loading and management within the Apache Cloudberry.
-
-## What's next
-
-In this tutorial, you learned how to load data into Apache Cloudberry. You learned about the different loading mechanisms and how to use them. You also learned how to use the `gpload` utility to load data. Finally, you learned how to create and load fact tables. You can now move on to the next tutorial, [Lesson 5: Queries and Performance Tuning](./101-5-queries-and-performance-tuning), to learn about query performance tuning in Apache Cloudberry.
-
-Other tutorials:
-
-- [Lesson 1: Create Users and Roles](./101-1-create-users-and-roles)
-- [Lesson 2: Create and Prepare Database](./101-2-create-and-prepare-database)
-- [Lesson 3: Create Tables](./101-3-create-tables)
-- [Lesson 6: Backup and Restore Operations](./101-6-backup-and-recovery-operations)

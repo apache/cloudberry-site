@@ -62,14 +62,14 @@ This shows the complete cluster configuration. The `content = -1` identifies coo
 ```sql
  dbid | content | role | preferred_role | mode | status | port | hostname | address |                                  datadir                                   | warehouseid 
 ------+---------+------+----------------+------+--------+------+----------+---------+----------------------------------------------------------------------------+-------------
-    1 |      -1 | p    | p              | n    | u      | 7000 | mdw      | mdw     | /home/gpadmin/cloudberry/gpAux/gpdemo/datadirs/qddir/demoDataDir-1         |           0
-    8 |      -1 | m    | m              | s    | u      | 7001 | mdw      | mdw     | /home/gpadmin/cloudberry/gpAux/gpdemo/datadirs/standby                     |           0
-    2 |       0 | p    | p              | s    | u      | 7002 | mdw      | mdw     | /home/gpadmin/cloudberry/gpAux/gpdemo/datadirs/dbfast1/demoDataDir0        |           0
-    5 |       0 | m    | m              | s    | u      | 7005 | mdw      | mdw     | /home/gpadmin/cloudberry/gpAux/gpdemo/datadirs/dbfast_mirror1/demoDataDir0 |           0
-    3 |       1 | p    | p              | s    | u      | 7003 | mdw      | mdw     | /home/gpadmin/cloudberry/gpAux/gpdemo/datadirs/dbfast2/demoDataDir1        |           0
-    6 |       1 | m    | m              | s    | u      | 7006 | mdw      | mdw     | /home/gpadmin/cloudberry/gpAux/gpdemo/datadirs/dbfast_mirror2/demoDataDir1 |           0
-    4 |       2 | p    | p              | s    | u      | 7004 | mdw      | mdw     | /home/gpadmin/cloudberry/gpAux/gpdemo/datadirs/dbfast3/demoDataDir2        |           0
-    7 |       2 | m    | m              | s    | u      | 7007 | mdw      | mdw     | /home/gpadmin/cloudberry/gpAux/gpdemo/datadirs/dbfast_mirror3/demoDataDir2 |           0
+    1 |      -1 | p    | p              | n    | u      | 7000 | cdw      | cdw     | /home/gpadmin/cloudberry/gpAux/gpdemo/datadirs/qddir/demoDataDir-1         |           0
+    8 |      -1 | m    | m              | s    | u      | 7001 | cdw      | cdw     | /home/gpadmin/cloudberry/gpAux/gpdemo/datadirs/standby                     |           0
+    2 |       0 | p    | p              | s    | u      | 7002 | cdw      | cdw     | /home/gpadmin/cloudberry/gpAux/gpdemo/datadirs/dbfast1/demoDataDir0        |           0
+    5 |       0 | m    | m              | s    | u      | 7005 | cdw      | cdw     | /home/gpadmin/cloudberry/gpAux/gpdemo/datadirs/dbfast_mirror1/demoDataDir0 |           0
+    3 |       1 | p    | p              | s    | u      | 7003 | cdw      | cdw     | /home/gpadmin/cloudberry/gpAux/gpdemo/datadirs/dbfast2/demoDataDir1        |           0
+    6 |       1 | m    | m              | s    | u      | 7006 | cdw      | cdw     | /home/gpadmin/cloudberry/gpAux/gpdemo/datadirs/dbfast_mirror2/demoDataDir1 |           0
+    4 |       2 | p    | p              | s    | u      | 7004 | cdw      | cdw     | /home/gpadmin/cloudberry/gpAux/gpdemo/datadirs/dbfast3/demoDataDir2        |           0
+    7 |       2 | m    | m              | s    | u      | 7007 | cdw      | cdw     | /home/gpadmin/cloudberry/gpAux/gpdemo/datadirs/dbfast_mirror3/demoDataDir2 |           0
 ```
 
 Each `datadir` contains log files that can help diagnose test failures. Review the logs in the relevant component's directory based on which test failed. 
