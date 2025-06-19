@@ -16,7 +16,7 @@ From users' view, Apache Cloudberry is a complete relational database management
 
 The architecture diagram of Apache Cloudberry is as follows:
 
-![Apache Cloudberry Architecture](./media/cbdb-arch.png)
+![Apache Cloudberry Architecture](./media/cbdb-arch.jpg)
 
 - **Coordinator node** (or control node) is the gateway to the Apache Cloudberry system, which accepts client connections and SQL queries, and allocates tasks to data node instances. Users interact with Apache Cloudberry by connecting to the coordinator node using a client program (such as psql) or an application programming interface (API) (such as JDBC, ODBC, or libpq PostgreSQL C API).
     - The coordinator node acts as the global system directory, containing a set of system tables that record the metadata of Apache Cloudberry.
