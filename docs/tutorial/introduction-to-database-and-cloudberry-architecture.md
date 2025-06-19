@@ -37,7 +37,7 @@ Apache Cloudberry also includes features designed to optimize PostgreSQL for bus
 
 _Figure 1. High-Level Apache Cloudberry Architecture_
 
-![High-Level Apache Cloudberry Architecture](/img/bootcamp/highlevel_arch.jpg) 
+![High-Level Apache Cloudberry Architecture](/img/bootcamp/cbdb-arch.jpg) 
 
 The following topics describe the components that make up a Apache Cloudberry system and how they work together.
 
