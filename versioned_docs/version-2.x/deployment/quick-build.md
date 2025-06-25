@@ -102,12 +102,6 @@ sudo dnf install -y --enablerepo=devel libuv-devel libyaml-devel perl-IPC-Run pr
 ## For Rocky Linux 9
 sudo dnf install -y --enablerepo=crb libuv-devel libyaml-devel perl-IPC-Run protobuf-devel
 
-# Only for Rocky Linux 8, install the higher version of gcc and gcc-c++
-sudo yum install -y gcc-toolset-11-gcc gcc-toolset-11-gcc-c++
-scl enable gcc-toolset-11 bash # for temprory use
-sudo echo "source /opt/rh/gcc-toolset-11/enable" >> /etc/profile.d/gcc.sh
-sudo source /etc/profile.d/gcc.sh #  for permanent use
-
 # Build Xerces-C source code
 XERCES_LATEST_RELEASE=3.3.0
 XERCES_INSTALL_PREFIX="/usr/local/xerces-c"
