@@ -16,7 +16,7 @@ MPP 也称为大规模并行处理架构，是指具有多台主机的系统，�
 
 Apache Cloudberry 架构图如下所示：
 
-![Apache Cloudberry Architecture](./media/cbdb-arch.png)
+![Apache Cloudberry Architecture](./media/cbdb-arch.jpg)
 
 - **控制节点 (Coordinator)** 是 Apache Cloudberry 数据库系统的入口，它接受客户端连接和 SQL 查询，并将工作分配给数据节点实例。用户与 Apache Cloudberry 进行交互，使用客户端程序（例如 psql）或应用程序编程接口（API）（例如 JDBC、ODBC 或 libpq PostgreSQL C API）连接到控制节点。
     - 控制节点是全局系统目录所在的位置，全局系统目录是一组系统表，其中包含有关 Apache Cloudberry 数据库系统本身的元数据。
