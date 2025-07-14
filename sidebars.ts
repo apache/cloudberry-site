@@ -118,14 +118,14 @@ const sidebars: SidebarsConfig = {
      {
        type: 'category',
        label: 'Optimize Performance',
-       link: {
-        type: "doc",
-        id: 'performance/index',
-      },
-       items: [
+       items: ['performance/define-database-performance',
         {
         type: 'category',
         label: 'Optimize Query Performance',
+        link: {
+          type: "doc",
+          id: 'performance/optimize-queries/index'
+        },
         items:[
           'performance/optimize-queries/query-process-overview', 'performance/optimize-queries/analyze-query-performance',
           {
@@ -135,7 +135,17 @@ const sidebars: SidebarsConfig = {
           },
          'performance/optimize-queries/use-unique-index-on-ao-tables', 'performance/optimize-queries/use-auto-materialized-view-to-answer-queries', 'performance/optimize-queries/use-incremental-materialized-view', 'performance/optimize-queries/parallel-create-ao-refresh-mv', 'performance/optimize-queries/parallel-query-execution', 'performance/optimize-queries/use-aggre-pushdown-to-speed-up-queries', 'performance/optimize-queries/use-index-scan-on-ao-tables', 'performance/optimize-queries/use-runtimefilter-to-optimize-queries','performance/optimize-queries/query-hints']
         },
-        'performance/update-stats-using-analyze', 'performance/use-columnar-compression', 'performance/manage-resources-using-resource-groups', 'performance/use-dynamic-tables']
+        'performance/distribution-and-skew','performance/memory-overview','performance/update-stats-using-analyze', 'performance/use-columnar-compression', 
+        {
+          type: 'category',
+          label: 'Manage Resources',
+          link: {
+            type: "doc",
+            id: 'performance/manage-resources',
+          },
+          items: ['performance/manage-resources-using-resource-queues','performance/manage-resources-using-resource-groups']
+        },
+        'performance/use-dynamic-tables','performance/common-cause-of-performance-issues','performance/investigate-performance-issues']
      },
 
      {

@@ -89,7 +89,7 @@ The estimated startup cost for this plan is `00.00` (no cost) and a total cost o
 - The total runtime (in milliseconds) in which the query ran.
 - The memory used by each slice of the query plan, as well as the memory reserved for the whole query statement.
 - The number of *workers* (segments) involved in a plan node operation. Only segments that return rows are counted.
-- The maximum number of rows returned by the segment that produced the most rows for the operation. If multiple segments produce an equal number of rows, `EXPLAIN ANALYZE` shows the segment with the longest `time to end`.
+- The maximum number of rows returned by the segment that produced the most rows for the operation. If multiple segments produce an equal number of rows, `EXPLAIN ANALYZE` shows the segment with the longest `time` to end*.
 - The segment id of the segment that produced the most rows for an operation.
 - For relevant operations, the amount of memory (`work_mem`) used by the operation. If the `work_mem` was insufficient to perform the operation in memory, the plan shows the amount of data spilled to disk for the lowest-performing segment. For example:
 
