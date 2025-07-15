@@ -1,4 +1,4 @@
-# 使用 Resource Groups 管理资源
+# 使用资源组管理资源
 
 Resource Group（资源组）可用来管理和保护 Apache Cloudberry 中 CPU、内存、并发事务限制和磁盘 I/O 的资源分配。定义资源组后，可将该组分配给一个或多个 Apache Cloudberry 用户角色（Role），或分配给外部组件（如 PL/Container），以控制其使用的资源。
 

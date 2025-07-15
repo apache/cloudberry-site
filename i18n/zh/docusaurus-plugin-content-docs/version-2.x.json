@@ -110,5 +110,9 @@
   "sidebar.docsbars.category.Built-in Functions": {
     "message": "内置函数",
     "description": "The label for category built-in functions in sidebar docs"
+  },
+  "sidebar.docsbars.category.Manage Resources": {
+    "message": "管理资源",
+    "description": "The label for category manage resources in sidebar docs"
   }
 }
