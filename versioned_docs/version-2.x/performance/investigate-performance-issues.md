@@ -22,7 +22,7 @@ Failed segments can indicate a hardware failure, such as a failed disk drive or 
 
 ### Check for active sessions (workload)
 
-The *pg_stat_activity* system catalog view shows one row per server process; it shows the database OID, database name, process ID, user OID, user name, current query, time at which the current query began execution, time at which the process was started, client address, and port number. To obtain the most information about the current system workload, query this view as the database superuser. For example:
+The `pg_stat_activity` system catalog view shows one row per server process; it shows the database OID, database name, process ID, user OID, user name, current query, time at which the current query began execution, time at which the process was started, client address, and port number. To obtain the most information about the current system workload, query this view as the database superuser. For example:
 
 ```sql
 SELECT * FROM pg_stat_activity;
@@ -34,7 +34,7 @@ Note that the information does not update instantaneously.
 
 The `pg_locks` system catalog view allows you to see information about outstanding locks. If a transaction is holding a lock on an object, any other queries must wait for that lock to be released before they can continue. This may appear to the user as if a query is hanging.
 
-Examine `pg_locks` for ungranted locks to help identify contention between database client sessions. *pg_locks* provides a global view of all locks in the database system, not only those relevant to the current database. You can join its relation column against `pg_class.oid` to identify locked relations (such as tables), but this works correctly only for relations in the current database. You can join the `pid` column to the `pg_stat_activity.pid` to see more information about the session holding or waiting to hold a lock. For example:
+Examine `pg_locks` for ungranted locks to help identify contention between database client sessions. `pg_locks` provides a global view of all locks in the database system, not only those relevant to the current database. You can join its relation column against `pg_class.oid` to identify locked relations (such as tables), but this works correctly only for relations in the current database. You can join the `pid` column to the `pg_stat_activity.pid` to see more information about the session holding or waiting to hold a lock. For example:
 
 ```sql
 SELECT locktype, database, c.relname, l.relation, 
@@ -45,13 +45,13 @@ a.query
         ORDER BY c.relname;
 ```
 
-If you use resource groups, queries that are waiting will also show in *pg_locks*. To see how many queries are waiting to run in a resource group, use the*gp_resgroup_status*system catalog view. For example:
+If you use resource groups, queries that are waiting will also show in `pg_locks`. To see how many queries are waiting to run in a resource group, use the `gp_resgroup_status` system catalog view. For example:
 
 ```sql
 SELECT * FROM gp_toolkit.gp_resgroup_status;
 ```
 
-Similarly, if you use resource queues, queries that are waiting in a queue also show in *pg_locks*. To see how many queries are waiting to run from a resource queue, use the *gp_resqueue_status* system catalog view. For example:
+Similarly, if you use resource queues, queries that are waiting in a queue also show in `pg_locks`. To see how many queries are waiting to run from a resource queue, use the `gp_resqueue_status` system catalog view. For example:
 
 ```sql
 SELECT * FROM gp_toolkit.gp_resqueue_status;
@@ -71,7 +71,7 @@ When an out of memory event occurs during query execution, the Apache Cloudberry
 
 ## Investigate error messages
 
-Apache Cloudberry log messages are written to files in the `log` directory within the coordinator's or segment's data directory. Because the coordinator log file contains the most information, you should always check it first. Log files roll over daily and use the naming convention: `gpdb-`*`YYYY`*`-`*`MM`*`-`*`DD_hhmmss.csv`*. To locate the log files on the coordinator host:
+Apache Cloudberry log messages are written to files in the `log` directory within the coordinator's or segment's data directory. Because the coordinator log file contains the most information, you should always check it first. Log files roll over daily and use the naming convention: `gpdb-YYYY-MM-DD_hhmmss.csv`. To locate the log files on the coordinator host:
 
 ```shell
 $ cd $COORDINATOR_DATA_DIRECTORY/log
@@ -90,7 +90,7 @@ You may want to focus your search for `WARNING`, `ERROR`, `FATAL` or `PANIC` log
 $ gplogfilter -t
 ```
 
-To search for related log entries in the segment log files, you can run `gplogfilter` on the segment hosts using `gpssh`. You can identify corresponding log entries by the *`statement_id`* or *`con`*`#` (session identifier). For example, to search for log messages in the segment log files containing the string `con6` and save output to a file:
+To search for related log entries in the segment log files, you can run `gplogfilter` on the segment hosts using `gpssh`. You can identify corresponding log entries by the `statement_id` or `con`# (session identifier). For example, to search for log messages in the segment log files containing the string `con6` and save output to a file:
 
 ```shell
 gpssh -f seg_hosts_file -e 'source 

@@ -34,7 +34,7 @@ Host memory is the total memory shared by all applications on the segment host. 
 - Allocate swap space to increase the size of virtual memory.
 - Adjust the kernel parameter `vm.overcommit_ratio` to configure how the operating system handles large memory allocation requests.
 
-The physical RAM and OS configuration are usually managed by the platform team and system administrators. See the [Apache Cloudberry Installation Guide](../install_guide/prep_os.html#topic3) for the recommended kernel parameters and for how to set the `/etc/sysctl.conf` file parameters.
+The physical RAM and OS configuration are usually managed by the platform team and system administrators. See the [Software and Hardware Requirements](../cbdb-op-software-hardware.md) for the recommended kernel parameters and for how to set the `/etc/sysctl.conf` file parameters.
 
 The amount of memory to reserve for the operating system and other processes is workload dependent. The minimum recommendation for operating system memory is 32GB, but if there is much concurrency in Apache Cloudberry, increasing to 64GB of reserved memory may be required. The largest user of operating system memory is SLAB, which increases as Apache Cloudberry concurrency and the number of sockets used increases.
 

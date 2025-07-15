@@ -16,7 +16,7 @@ Apache Cloudberry 的 Segment 主机运行着多个 PostgreSQL 实例，它们�
 
 下图展示了启用资源队列管理时，Apache Cloudberry Segment 主机的内存使用分布。
 
-![Apache Cloudberry Segment Host Memory](../media/memory-overview.png)
+![Apache Cloudberry Segment 主机内存](../media/memory-overview.png)
 
 从图的底部开始，标记为 `A` 的线代表主机总内存。紧邻上方的线显示总内存由物理 RAM 和交换空间组成。
 

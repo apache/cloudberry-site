@@ -12,7 +12,7 @@ title: 资源队列
 
 用户提交查询执行时，系统会根据资源队列的限制来评估该查询。如果查询不会导致队列超出资源限制，则立即运行。如果查询会导致队列超限（例如，活跃语句槽位已全部占用），则查询必须等待队列资源释放后才能运行。查询按照先进先出的原则进行评估。如果启用了查询优先级功能，系统会定期评估当前工作负载，并根据查询优先级重新分配处理资源（参见[优先级工作原理](#优先级工作原理)）。具有 `SUPERUSER` 属性的角色不受资源队列限制。超级用户查询始终立即运行，不受其分配的资源队列限制影响。
 
-![Resource Queue Process](../media/resource-queues-1.png)
+![资源队列处理](../media/resource-queues-1.png)
 
 资源队列定义了具有相似资源需求的查询类别。管理员应该为组织中的各种工作负载类型创建资源队列。例如，你可以为以下查询类别创建资源队列，对应不同的服务等级协议：
 
@@ -59,7 +59,7 @@ Apache Cloudberry 系统的默认配置有一个名为 `pg_default` 的单一默
 
 下图显示了一个 `gp_vmem_protect_limit` 设置为 8GB 的 Apache Cloudberry 系统的资源队列配置示例：
 
-![Resource Queue Configuration Example](../media/resource-queues-2.png)
+![资源队列配置示例](../media/resource-queues-2.png)
 
 此示例有三类具有不同特征和服务等级协议（SLA）的查询。为它们配置了三个资源队列。一部分 Segment 内存被保留作为安全边际。
 
@@ -120,7 +120,7 @@ SET statement_mem='2MB';
 
 在运行时，活跃查询的 CPU 份额由这些优先级设置决定。如果报告队列中的查询 1 和 2 同时运行，它们具有相同的 CPU 份额。当 ad-hoc 查询激活时，它声称较小的 CPU 份额。报告查询的精确份额被调整，但保持相同，因为它们的优先级设置相同：
 
-![CPU share readjusted according to priority](../media/resource-queues-3.png)
+![CPU 份额根据优先级调整](../media/resource-queues-3.png)
 
 :::note 注意
 这些插图中的百分比仅供参考。高、低和最高优先级队列之间的 CPU 使用率不一定精确计算为这些比例。
@@ -128,7 +128,7 @@ SET statement_mem='2MB';
 
 当高管查询进入活跃查询组时，CPU 使用率会根据其最高优先级设置进行调整。它可能是一个简单的查询，与分析师和报告查询相比，但在完成之前，它将声称最大的 CPU 份额。
 
-![CPU share readjusted for maximum priority query](../media/resource-queues-4.png)
+![CPU 份额根据最高优先级查询调整](../media/resource-queues-4.png)
 
 有关设置优先级的命令，请参见[设置优先级级别](#设置优先级级别)。
 
@@ -153,7 +153,7 @@ SET statement_mem='2MB';
 
 在创建任何资源组之前，请了解不同的资源队列服务器配置参数及其用途。
 
-1.  一般配置。
+1. 一般配置。
 
     - `max_resource_queues` - 设置资源队列的最大数量。
     - `max_resource_portals_per_transaction` - 设置每个事务中允许的同时打开游标数量。注意，打开游标会占用资源队列中的一个活跃查询槽位。
@@ -161,7 +161,7 @@ SET statement_mem='2MB';
     - `resource_cleanup_gangs_on_wait` - 在资源队列中等待时清理空闲段工作进程。
     - `stats_queue_level` - 启用资源队列使用情况统计收集，然后可以通过查询 `pg_stat_resqueues` 系统视图查看。
 
-2.  内存利用。
+2. 内存利用。
 
     - `gp_resqueue_memory_policy` - 启用 Apache Cloudberry 内存管理功能。
 
@@ -174,7 +174,7 @@ SET statement_mem='2MB';
     - `gp_vmem_idle_resource_timeout` 和 `gp_vmem_protect_segworker_cache_limit` - 用于释放段主机上由空闲数据库进程持有的内存。管理员可能希望在系统具有大量并发时调整这些设置。
     - `shared_buffers` - 设置 Cloudberry 服务器实例用于共享内存缓冲区的内存量。此设置必须至少为 128KB，且至少为 16KB 乘以 `max_connections`。值必须不超过操作系统共享内存最大分配请求大小，Linux 上的 `shmmax`。
 
-3.  查询优先级。注意，以下参数均为*本地*参数，即必须在协调器和所有段落的 `postgresql.conf` 文件中设置：
+3. 查询优先级。注意，以下参数均为*本地*参数，即必须在协调器和所有段落的 `postgresql.conf` 文件中设置：
 
     - `gp_resqueue_priority` - 查询优先级功能默认启用。
     - `gp_resqueue_priority_sweeper_interval` - 设置 CPU 使用率重新计算的间隔。此参数的默认值对于典型数据库操作来说应该足够。
@@ -217,17 +217,17 @@ gpstop -r
 
 ### 创建具有活跃查询限制的队列
 
-资源队列的 `ACTIVE_STATEMENTS` 设置限制分配给该队列的角色可以运行的查询数量。例如，要创建一个名为 *adhoc* 的资源队列，并设置活跃查询限制为三个：
+资源队列的 `ACTIVE_STATEMENTS` 设置限制分配给该队列的角色可以运行的查询数量。例如，要创建一个名为 `adhoc` 的资源队列，并设置活跃查询限制为三个：
 
 ```sql
 CREATE RESOURCE QUEUE adhoc WITH (ACTIVE_STATEMENTS=3);
 ```
 
-这意味着对于分配给 *adhoc* 资源队列的所有角色，系统中任何时刻最多只能有三个活跃查询运行。如果此队列有三个查询运行，并且该队列中的角色提交了第四个查询，则该查询必须等待直到有空闲槽位才能运行。
+这意味着对于分配给 `adhoc` 资源队列的所有角色，系统中任何时刻最多只能有三个活跃查询运行。如果此队列有三个查询运行，并且该队列中的角色提交了第四个查询，则该查询必须等待直到有空闲槽位才能运行。
 
 ### 创建具有内存限制的队列
 
-资源队列的 `MEMORY_LIMIT` 设置控制通过该队列提交的所有查询的内存量。总内存不应超过每个段实例的物理内存。将 `MEMORY_LIMIT` 设置为每个段实例物理内存的 90%。例如，如果主机有 48 GB 物理内存和 6 个段实例，则每个段实例的内存可用量为 8 GB。你可以计算单个队列的推荐 `MEMORY_LIMIT` 为 0.90*8=7.2 GB。如果系统中创建了多个队列，它们的总内存限制也必须加起来为 7.2 GB。
+资源队列的 `MEMORY_LIMIT` 设置控制通过该队列提交的所有查询的内存量。总内存不应超过每个段实例的物理内存。将 `MEMORY_LIMIT` 设置为每个段实例物理内存的 90%。例如，如果主机有 48 GB 物理内存和 6 个段实例，则每个段实例的内存可用量为 8 GB。你可以计算单个队列的推荐 `MEMORY_LIMIT` 为 0.90\*8=7.2 GB。如果系统中创建了多个队列，它们的总内存限制也必须加起来为 7.2 GB。
 
 当与 `ACTIVE_STATEMENTS` 结合使用时，默认每查询分配的内存量为：`MEMORY_LIMIT / ACTIVE_STATEMENTS`。当与 `MAX_COST` 结合使用时，默认每查询分配的内存量为：`MEMORY_LIMIT * (query_cost / MAX_COST)`。使用 `MEMORY_LIMIT` 与 `ACTIVE_STATEMENTS` 结合，而不是与 `MAX_COST` 结合。
 
@@ -252,14 +252,14 @@ RESET statement_mem;
 
 为了控制资源队列消耗可用 CPU 资源的程度，管理员可以分配适当的优先级级别。当高并发导致 CPU 资源竞争时，与高优先级资源队列关联的查询和语句将声称更大的可用 CPU 份额。
 
-优先级设置通过 `CREATE RESOURCE QUEUE` 和 `ALTER RESOURCE QUEUE` 命令的 `WITH` 参数创建或修改。例如，要为 *adhoc* 和 *reporting* 队列指定优先级设置，管理员将使用以下命令：
+优先级设置通过 `CREATE RESOURCE QUEUE` 和 `ALTER RESOURCE QUEUE` 命令的 `WITH` 参数创建或修改。例如，要为 `adhoc` 和 `reporting` 队列指定优先级设置，管理员将使用以下命令：
 
 ```sql
 ALTER RESOURCE QUEUE adhoc WITH (PRIORITY=LOW);
 ALTER RESOURCE QUEUE reporting WITH (PRIORITY=HIGH);
 ```
 
-要创建具有最高优先级的 *executive* 队列，管理员将使用以下命令：
+要创建具有最高优先级的 `executive` 队列，管理员将使用以下命令：
 
 ```sql
 CREATE RESOURCE QUEUE executive WITH (ACTIVE_STATEMENTS=3, PRIORITY=MAX);
@@ -443,6 +443,6 @@ SELECT gp_adjust_priority(752, 24905, 'HIGH')`
 - `rqpcommand` 列的值作为 `statement_count` 参数
 - `rqppriority` 列的值是当前优先级。你可以指定一个字符串值 `MAX`、`HIGH`、`MEDIUM` 或 `LOW` 作为 `priority`。
 
-:::note
+:::note 注意
 `gp_adjust_priority()` 函数仅影响指定的语句。同一资源队列中的后续语句使用队列分配的正常优先级运行。
 :::

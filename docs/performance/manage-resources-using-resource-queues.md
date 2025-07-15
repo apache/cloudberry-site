@@ -112,7 +112,7 @@ The `PRIORITY` setting for a resource queue differs from the `MEMORY_LIMIT` and 
 
 The comparative size or complexity of the queries does not affect the allotment of CPU. If a simple, low-cost query is running simultaneously with a large, complex query, and their priority settings are the same, they will be allocated the same share of available CPU resources. When a new query becomes active, the CPU shares will be recalculated, but queries of equal priority will still have equal amounts of CPU.
 
-For example, an administrator creates three resource queues: *adhoc* for ongoing queries submitted by business analysts, *reporting* for scheduled reporting jobs, and *executive* for queries submitted by executive user roles. The administrator wants to ensure that scheduled reporting jobs are not heavily affected by unpredictable resource demands from ad-hoc analyst queries. Also, the administrator wants to make sure that queries submitted by executive roles are allotted a significant share of CPU. Accordingly, the resource queue priorities are set as shown:
+For example, an administrator creates three resource queues: `adhoc` for ongoing queries submitted by business analysts, `reporting` for scheduled reporting jobs, and `executive` for queries submitted by executive user roles. The administrator wants to ensure that scheduled reporting jobs are not heavily affected by unpredictable resource demands from ad-hoc analyst queries. Also, the administrator wants to make sure that queries submitted by executive roles are allotted a significant share of CPU. Accordingly, the resource queue priorities are set as shown:
 
 - `adhoc` — Low priority
 - `reporting` — High priority
@@ -151,13 +151,13 @@ When you install Apache Cloudberry, no resource management policy is enabled by 
 
 ## Configure resource queues
 
-Before you create any resource groups, learn about the different resouce queue server configuration parameters and their usage. See [Server Configuration Parameters](../ref_guide/config_params/guc-list.html) for more information.
+Before you create any resource groups, learn about the different resouce queue server configuration parameters and their usage.
 
 1.  General configuration.
 
     - `max_resource_queues` - Sets the maximum number of resource queues.
     - `max_resource_portals_per_transaction` - Sets the maximum number of simultaneously open cursors allowed per transaction. Note that an open cursor will hold an active query slot in a resource queue.
-    - `resource_select_only` - If set to *on*, then `SELECT`, `SELECT INTO`, `CREATE TABLE AS``SELECT`, and `DECLARE CURSOR` commands are evaluated. If set to *off* `INSERT`, `UPDATE`, and `DELETE` commands will be evaluated as well.
+    - `resource_select_only` - If set to `on`, then `SELECT`, `SELECT INTO`, `CREATE TABLE AS``SELECT`, and `DECLARE CURSOR` commands are evaluated. If set to `off`, `INSERT`, `UPDATE`, and `DELETE` commands will be evaluated as well.
     - `resource_cleanup_gangs_on_wait` - Cleans up idle segment worker processes before taking a slot in the resource queue.
     - `stats_queue_level` - Enables statistics collection on resource queue usage, which can then be viewed by querying the pg_stat_resqueues system view.
 
@@ -174,7 +174,7 @@ Before you create any resource groups, learn about the different resouce queue s
     - `gp_vmem_idle_resource_timeout` and `gp_vmem_protect_segworker_cache_limit` - used to free memory on segment hosts held by idle database processes. Administrators may want to adjust these settings on systems with lots of concurrency.
     - `shared_buffers` - Sets the amount of memory a Cloudberry server instance uses for shared memory buffers. This setting must be at least 128 kilobytes and at least 16 kilobytes times `max_connections`. The value must not exceed the operating system shared memory maximum allocation request size, `shmmax` on Linux.
 
-3.  Query prioritization. Note that the following parameters are all *local* parameters, meaning they must be set in the `postgresql.conf` files of the coordinator and all segments:
+3.  Query prioritization. Note that the following parameters are all local parameters, meaning they must be set in the `postgresql.conf` files of the coordinator and all segments:
 
     - `gp_resqueue_priority` - The query prioritization feature is enabled by default.
     - `gp_resqueue_priority_sweeper_interval` - Sets the interval at which CPU usage is recalculated for all active statements. The default value for this parameter should be sufficient for typical database operations.
@@ -217,13 +217,13 @@ When you create a resource queue for a role, you provide a name, set an active q
 
 ### Create queues with an active query limit
 
-Resource queues with an `ACTIVE_STATEMENTS` setting limit the number of queries that can be run by roles assigned to that queue. For example, to create a resource queue named *adhoc* with an active query limit of three:
+Resource queues with an `ACTIVE_STATEMENTS` setting limit the number of queries that can be run by roles assigned to that queue. For example, to create a resource queue named `adhoc` with an active query limit of three:
 
 ```sql
 CREATE RESOURCE QUEUE adhoc WITH (ACTIVE_STATEMENTS=3);
 ```
 
-This means that for all roles assigned to the *adhoc* resource queue, only three active queries can be running on the system at any given time. If this queue has three queries running, and a fourth query is submitted by a role in that queue, that query must wait until a slot is free before it can run.
+This means that for all roles assigned to the `adhoc` resource queue, only three active queries can be running on the system at any given time. If this queue has three queries running, and a fourth query is submitted by a role in that queue, that query must wait until a slot is free before it can run.
 
 ### Create queues with memory limits
 
@@ -252,14 +252,14 @@ As a general guideline, `MEMORY_LIMIT` for all of your resource queues should no
 
 To control a resource queue's consumption of available CPU resources, an administrator can assign an appropriate priority level. When high concurrency causes contention for CPU resources, queries and statements associated with a high-priority resource queue will claim a larger share of available CPU than lower priority queries and statements.
 
-Priority settings are created or altered using the `WITH` parameter of the commands `CREATE RESOURCE QUEUE` and `ALTER RESOURCE QUEUE`. For example, to specify priority settings for the *adhoc* and *reporting* queues, an administrator would use the following commands:
+Priority settings are created or altered using the `WITH` parameter of the commands `CREATE RESOURCE QUEUE` and `ALTER RESOURCE QUEUE`. For example, to specify priority settings for the `adhoc` and `reporting` queues, an administrator would use the following commands:
 
 ```sql
 ALTER RESOURCE QUEUE adhoc WITH (PRIORITY=LOW);
 ALTER RESOURCE QUEUE reporting WITH (PRIORITY=HIGH);
 ```
 
-To create the *executive* queue with maximum priority, an administrator would use the following command:
+To create the `executive` queue with maximum priority, an administrator would use the following command:
 
 ```sql
 CREATE RESOURCE QUEUE executive WITH (ACTIVE_STATEMENTS=3, PRIORITY=MAX);
