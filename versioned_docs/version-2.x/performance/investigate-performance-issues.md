@@ -51,7 +51,7 @@ If you use resource groups, queries that are waiting will also show in *pg_locks
 SELECT * FROM gp_toolkit.gp_resgroup_status;
 ```
 
-Similarly, if you use resource queues, queries that are waiting in a queue also show in *pg_locks*. To see how many queries are waiting to run from a resource queue, use the*gp_resqueue_status*system catalog view. For example:
+Similarly, if you use resource queues, queries that are waiting in a queue also show in *pg_locks*. To see how many queries are waiting to run from a resource queue, use the *gp_resqueue_status* system catalog view. For example:
 
 ```sql
 SELECT * FROM gp_toolkit.gp_resqueue_status;
@@ -61,11 +61,11 @@ SELECT * FROM gp_toolkit.gp_resqueue_status;
 
 You can use system monitoring utilities such as `ps`, `top`, `iostat`, `vmstat`, `netstat` and so on to monitor database activity on the hosts in your Apache Cloudberry array. These tools can help identify Apache Cloudberry processes (`postgres` processes) currently running on the system and the most resource intensive tasks with regards to CPU, memory, disk I/O, or network activity. Look at these system statistics to identify queries that degrade database performance by overloading the system and consuming excessive resources. Apache Cloudberry's management tool `gpssh` allows you to run these system monitoring commands on several hosts simultaneously.
 
-You can create and use the Apache Cloudberry `session_level_memory_consumption` view that provides information about the current memory utilization and idle time for sessions that are running queries on Apache Cloudberry. For information about the view, see [Viewing Session Memory Usage Information](managing/monitor.html).
+You can create and use the Apache Cloudberry `session_level_memory_consumption` view that provides information about the current memory utilization and idle time for sessions that are running queries on Apache Cloudberry. For information about the view, see [Viewing Session Memory Usage Information](../sys-admin/check-database-system.md).
 
 ## Troubleshoot problem queries
 
-If a query performs poorly, look at its query plan to help identify problems. The `EXPLAIN` command shows the query plan for a given query. See [Query Profiling](query/topics/query-profiling.html) for more information about reading query plans and identifying problems.
+If a query performs poorly, look at its query plan to help identify problems. The `EXPLAIN` command shows the query plan for a given query. See [Analyze Query Performance](./optimize-queries/analyze-query-performance.md) for more information about reading query plans and identifying problems.
 
 When an out of memory event occurs during query execution, the Apache Cloudberry memory accounting framework reports detailed memory consumption of every query running at the time of the event. The information is written to the Apache Cloudberry segment logs.
 
