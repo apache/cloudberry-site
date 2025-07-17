@@ -22,17 +22,15 @@ Resource queues define classes of queries with similar resource requirements. Ad
 
 A resource queue has the following characteristics:
 
-`MEMORY_LIMIT`: The amount of memory used by all the queries in the queue (per segment). For example, setting `MEMORY_LIMIT` to 2GB on the ETL queue allows ETL queries to use up to 2GB of memory in each segment.
+- **`MEMORY_LIMIT`**: The amount of memory used by all the queries in the queue (per segment). For example, setting `MEMORY_LIMIT` to 2GB on the ETL queue allows ETL queries to use up to 2GB of memory in each segment.
 
-`ACTIVE_STATEMENTS`: The number of *slots* for a queue; the maximum concurrency level for a queue. When all slots are used, new queries must wait. Each query uses an equal amount of memory by default.
+- **`ACTIVE_STATEMENTS`**: The number of *slots* for a queue; the maximum concurrency level for a queue. When all slots are used, new queries must wait. Each query uses an equal amount of memory by default.
 
-For example, the `pg_default` resource queue has `ACTIVE_STATEMENTS` = 20.
+    For example, the `pg_default` resource queue has `ACTIVE_STATEMENTS` = 20.
 
-`PRIORITY`: The relative CPU usage for queries. This may be one of the following levels: `LOW`, `MEDIUM`, `HIGH`, `MAX`. The default level is `MEDIUM`. The query prioritization mechanism monitors the CPU usage of all the queries running in the system, and adjusts the CPU usage for each to conform to its priority level. For example, you could set `MAX` priority to the `executive` resource queue and `MEDIUM` to other queues to ensure that executive queries receive a greater share of CPU.
+- **`PRIORITY`**: The relative CPU usage for queries. This may be one of the following levels: `LOW`, `MEDIUM`, `HIGH`, `MAX`. The default level is `MEDIUM`. The query prioritization mechanism monitors the CPU usage of all the queries running in the system, and adjusts the CPU usage for each to conform to its priority level. For example, you could set `MAX` priority to the `executive` resource queue and `MEDIUM` to other queues to ensure that executive queries receive a greater share of CPU.
 
-`MAX_COST`: Query plan cost limit.
-
-The Apache Cloudberry optimizer assigns a numeric cost to each query. If the cost exceeds the `MAX_COST` value set for the resource queue, the query is rejected as too expensive.
+- **`MAX_COST`**: Query plan cost limit. The Apache Cloudberry optimizer assigns a numeric cost to each query. If the cost exceeds the `MAX_COST` value set for the resource queue, the query is rejected as too expensive.
 
 :::note
 GPORCA and the Postgres-based planner utilize different query costing models and may compute different costs for the same query. The Apache Cloudberry resource queue resource management scheme neither differentiates nor aligns costs between GPORCA and the Postgres-based planner; it uses the literal cost value returned from the optimizer to throttle queries.

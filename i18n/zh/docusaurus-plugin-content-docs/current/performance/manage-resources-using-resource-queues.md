@@ -22,17 +22,15 @@ title: 使用资源队列管理资源
 
 资源队列具有以下特性：
 
-`MEMORY_LIMIT`：队列中所有查询使用的内存量（每个 Segment）。例如，将 ETL 队列的 `MEMORY_LIMIT` 设置为 2GB，允许 ETL 查询在每个 Segment 中使用最多 2GB 内存。
+- `MEMORY_LIMIT`：队列中所有查询使用的内存量（每个 Segment）。例如，将 ETL 队列的 `MEMORY_LIMIT` 设置为 2GB，允许 ETL 查询在每个 Segment 中使用最多 2GB 内存。
 
-`ACTIVE_STATEMENTS`：队列的槽位数量；队列的最大并发级别。当所有槽位都被占用时，新查询必须等待。默认情况下，每个查询使用相等的内存量。
+- `ACTIVE_STATEMENTS`：队列的槽位数量；队列的最大并发级别。当所有槽位都被占用时，新查询必须等待。默认情况下，每个查询使用相等的内存量。
 
-例如，`pg_default` 资源队列的 `ACTIVE_STATEMENTS` = 20。
+    例如，`pg_default` 资源队列的 `ACTIVE_STATEMENTS` = 20。
 
-`PRIORITY`：查询的相对 CPU 使用率。可以是以下级别之一：`LOW`、`MEDIUM`、`HIGH`、`MAX`。默认级别为 `MEDIUM`。查询优先级机制监控系统中所有运行查询的 CPU 使用情况，并调整每个查询的 CPU 使用率以符合其优先级别。例如，你可以将 `executive` 资源队列设置为 `MAX` 优先级，其他队列设置为 `MEDIUM`，以确保高管查询获得更多的 CPU 份额。
+- `PRIORITY`：查询的相对 CPU 使用率。可以是以下级别之一：`LOW`、`MEDIUM`、`HIGH`、`MAX`。默认级别为 `MEDIUM`。查询优先级机制监控系统中所有运行查询的 CPU 使用情况，并调整每个查询的 CPU 使用率以符合其优先级别。例如，你可以将 `executive` 资源队列设置为 `MAX` 优先级，其他队列设置为 `MEDIUM`，以确保高管查询获得更多的 CPU 份额。
 
-`MAX_COST`：查询计划成本限制。
-
-Apache Cloudberry 优化器为每个查询分配一个数值成本。如果成本超过资源队列设置的 `MAX_COST` 值，查询将被拒绝为过于昂贵。
+- `MAX_COST`：查询计划成本限制。Apache Cloudberry 优化器为每个查询分配一个数值成本。如果成本超过资源队列设置的 `MAX_COST` 值，查询将被拒绝为过于昂贵。
 
 :::note 注意
 GPORCA 和基于 Postgres 的规划器使用不同的查询成本模型，可能为同一查询计算出不同的成本。Apache Cloudberry 资源队列资源管理方案既不区分也不对齐 GPORCA 和基于 Postgres 的规划器之间的成本；它使用优化器返回的字面成本值来限制查询。
