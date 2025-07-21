@@ -462,7 +462,7 @@ gpssh -f <seg_host_file>
 ```
 
 ```shell
-=> source /usr/local/cloudberry/greenplum_path.sh
+=> source /usr/local/cloudberry/cloudberry-env.sh
 => gplogfilter -n 3 <seg_host_file>
 ``` -->
 
