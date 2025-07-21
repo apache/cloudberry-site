@@ -33,7 +33,7 @@ ssh $(hostname) date
 Load Cloudberry environment variables that set up paths for binaries, libraries, and other essential components:
 
 ```bash
-source /usr/local/cloudberry-db/greenplum_path.sh
+source /usr/local/cloudberry-db/cloudberry-env.sh
 ```
 
 ## Create development cluster
