@@ -58,7 +58,10 @@ github:
 
       # requires all conversations to be resolved before merging is possible
       required_conversation_resolution: true
-  del_branch_on_merge: true
+  pull_requests:
+    # enable updating head branches of pull requests
+    allow_update_branch: true
+    del_branch_on_merge: true
   dependabot_alerts: true
   dependabot_updates: false
 notifications:
