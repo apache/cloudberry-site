@@ -20,7 +20,7 @@ This tutorial briefly introduces 3 methods to load the example data `FAA` into A
     ![External Tables Using Cloudberry Parallel File Server](/img/bootcamp/ext_tables.jpg)
     _Figure 1. External Tables Using Parallel File Server (gpfdist)_
 
-    Another utility `gpload` is a batch job. When using this utility, you should specify a YAML-formatted control file, describe source data locations, format, transformations required, participating hosts, database destinations and other particulars in the file. `gpload` will parse the control file and use `gpfdsit` to execute the task. This allows you to describe a complex task and execute it in a controlled and repeatable way.
+    Another utility `gpload` is a batch job. When using this utility, you should specify a YAML-formatted control file, describe source data locations, format, transformations required, participating hosts, database destinations and other particulars in the file. `gpload` will parse the control file and use `gpfdist` to execute the task. This allows you to describe a complex task and execute it in a controlled and repeatable way.
 
 ## Quick-start operations
 
@@ -156,7 +156,7 @@ In production system, `gpfdist` runs on file servers that external data resides.
 
 > **Note:**
 >
-> This exercise loads data using `gpfdsit` to move data from external data files into Apache Cloudberry. Moving data between the database and external tables also needs security request. Therefore, only superusers are permitted to use `gpfdsit` and you will complete this exercise as `gpadmin` user.
+> This exercise loads data using `gpfdist` to move data from external data files into Apache Cloudberry. Moving data between the database and external tables also needs security request. Therefore, only superusers are permitted to use `gpfdist` and you will complete this exercise as `gpadmin` user.
 
 1. Start `gpfdist`:
 
