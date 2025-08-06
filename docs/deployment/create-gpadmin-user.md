@@ -66,8 +66,8 @@ The script uses a heredoc (EOF) block to execute multiple commands under the `gp
 sudo -u gpadmin bash <<'EOF'
 # Add Cloudberry environment setup to .bashrc
 echo -e '\n# Add Cloudberry entries
-if [ -f /usr/local/cloudberry-db/greenplum_path.sh ]; then
-  source /usr/local/cloudberry-db/greenplum_path.sh
+if [ -f /usr/local/cloudberry-db/cloudberry-env.sh ]; then
+  source /usr/local/cloudberry-db/cloudberry-env.sh
 fi
 
 # US English with UTF-8 character encoding
