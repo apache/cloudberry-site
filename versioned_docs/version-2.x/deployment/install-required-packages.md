@@ -18,6 +18,7 @@ The following command installs the full set of primary packages required for Clo
 sudo dnf install -y apr-devel \
   bison \
   bzip2-devel \
+  curl \
   cmake3 \
   diffutils \
   flex \
@@ -43,6 +44,7 @@ sudo dnf install -y apr-devel \
   perl-Test-Simple \
   perl-Env \
   python3-devel \
+  python3-pip \
   readline-devel \
   rsync \
   wget \
@@ -148,7 +150,42 @@ For Ubuntu users:
 - We will use the default version of `libxerces-c` available in the Ubuntu repositories, which is compatible with Apache Cloudberry.
 
 ```bash
-sudo apt install -y gcc g++ libxml2-dev pkg-config bzip2 libzstd-dev bison python3 flex python3-dev libreadline-dev  libuv1-dev libkrb5-dev libapr1-dev libevent-dev libyaml-dev libssl-dev libpam0g-dev libcurl4-gnutls-dev libbz2-dev libldap2-dev libxerces-c-dev libperl-dev libipc-run-perl make cmake libprotobuf-dev python3-setuptools iproute2 iputils-ping rsync liblz4-dev protobuf-compiler language-pack-en locales
+sudo apt install -y bison \
+  bzip2 \
+  cmake \
+  curl \
+  flex \
+  gcc \
+  g++ \
+  iproute2 \
+  iputils-ping \
+  language-pack-en \
+  locales \
+  libapr1-dev \
+  libbz2-dev \
+  libcurl4-gnutls-dev \
+  libevent-dev \
+  libkrb5-dev \
+  libipc-run-perl \
+  libldap2-dev \
+  libpam0g-dev \
+  libprotobuf-dev \
+  libreadline-dev \
+  libssl-dev \
+  libuv1-dev \
+  liblz4-dev \
+  libxerces-c-dev \
+  libxml2-dev \
+  libyaml-dev \
+  libzstd-dev \
+  libperl-dev \
+  make \
+  pkg-config \
+  protobuf-compiler \
+  python3-dev \
+  python3-pip \
+  python3-setuptools \
+  rsync
 ```
 </TabItem>
 </Tabs>
