@@ -586,25 +586,57 @@
     {
       "type": "category",
       "label": "Tutorials",
-      "link": {
-        "type": "doc",
-        "id": "tutorial/index"
+      "items": [
+      "tutorials/crash-course",
+      {
+        "type": "category",
+        "label": "Quick Trial Lessons",
+        "link": {
+          "type": "doc",
+          "id": "tutorials/quick-trial-lessons/index"
         },
-      "items": [
-      "tutorial/introduction-to-database-and-cloudberry-architecture",
-      "tutorial/create-users-and-roles",
-      "tutorial/create-and-prepare-database",
-      "tutorial/create-tables",
-      "tutorial/data-loading",
-      "tutorial/queries-and-performance-tuning",
-      "tutorial/backup-and-recovery-operations"
-      ]
-    },
-    {
-      "type": "category",
-      "label": "Crash Course",
-      "items": [
-        "tutorial/crash-course"
+        "items": [
+          "tutorials/quick-trial-lessons/introduction-to-database-and-cloudberry-architecture",
+          "tutorials/quick-trial-lessons/introduction-to-cloudberry-in-database-analytics",
+          "tutorials/quick-trial-lessons/create-users-and-roles",
+          "tutorials/quick-trial-lessons/create-and-prepare-database",
+          "tutorials/quick-trial-lessons/create-tables",
+          "tutorials/quick-trial-lessons/data-loading",
+          "tutorials/quick-trial-lessons/queries-and-performance-tuning",
+          "tutorials/quick-trial-lessons/backup-and-recovery-operations"
+        ]
+      },
+      {
+        "type": "category",
+        "label": "Product Principles",
+        "items": [
+          "tutorials/product-principles/about-mvcc",
+          "tutorials/product-principles/about-statistics",
+          "tutorials/product-principles/about-data-loading",
+          "tutorials/product-principles/about-ha",
+          "tutorials/product-principles/about-utilities"
+        ]
+      },
+      {
+        "type": "category",
+        "label": "Best Practices",
+        "link": {
+          "type": "doc",
+          "id": "tutorials/best-practices/index"
+        },
+        "items": [
+          "tutorials/best-practices/schema-design-best-practices",
+          "tutorials/best-practices/load-data-best-practices",
+          "tutorials/best-practices/db-encryption-best-practices",
+          "tutorials/best-practices/high-availability-best-practices",
+          "tutorials/best-practices/resource-group-best-practices",
+          "tutorials/best-practices/system-configuration-best-practices",
+          "tutorials/best-practices/system-monitor-and-maintain-best-practices",
+          "tutorials/best-practices/manage-bloat",
+          "tutorials/best-practices/identify-and-mitigate-heap-table-performance-issues",
+          "tutorials/best-practices/security-best-practices"
+        ]
+      }
       ]
     }
   ]
