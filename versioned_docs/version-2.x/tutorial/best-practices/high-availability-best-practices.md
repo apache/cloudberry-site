@@ -27,7 +27,7 @@ It is important to regularly monitor available disk space on each segment host. 
 
 ## Coordinator mirroring
 
-The Apache Cloudberry coordinator instance is clients' single point of access to the system. The coordinator instance stores the global system catalog, the set of system tables that store metadata about the database instance, but no user data. If an unmirrored coordinator instance fails or becomes inaccessible, the Cloudberry instance is effectively off-line, since the entry point to the system has been lost. For this reason, a standby coordinator must be ready to take over if the primary coordinator fails.
+The Apache Cloudberry coordinator instance is clients' single point of access to the system. The coordinator instance stores the global system catalog, the set of system tables that store metadata about the database instance, but no user data. If an unmirrored coordinator instance fails or becomes inaccessible, the Cloudberry instance is effectively off-line, because the entry point to the system has been lost. For this reason, a standby coordinator must be ready to take over if the primary coordinator fails.
 
 Coordinator mirroring uses two processes, a sender on the active coordinator host and a receiver on the mirror host, to synchronize the mirror with the coordinator. As changes are applied to the coordinator system catalogs, the active coordinator streams its write-ahead log (WAL) to the mirror so that each transaction applied on the coordinator is applied on the mirror.
 
@@ -97,7 +97,7 @@ Finally, through native API integration, Apache Cloudberry can stream backups di
 
 - Use the `gpbackup` command to specify only the schema and tables that you want backed up. See the [`gpbackup`](../../sys-admin/backup-and-restore/index.md) reference for more information.
 
-- `gpbackup` places `SHARED ACCESS` locks on the set of tables to back up. Backups with fewer tables are more efficient for selectively restoring schemas and tables, since `gprestore` does not have to search through the entire database.
+- `gpbackup` places `SHARED ACCESS` locks on the set of tables to back up. Backups with fewer tables are more efficient for selectively restoring schemas and tables, because `gprestore` does not have to search through the entire database.
 
 - If backups are saved to local cluster storage, move the files to a safe, off-cluster location when the backup is complete. Backup files and database files that reside on the same storage can be lost simultaneously.
 - If backups are saved to NFS mounts, use a scale-out NFS solution such as Dell EMC Isilon to prevent IO bottlenecks.
@@ -155,7 +155,7 @@ The following sections compare the group, spread, and block mirroring configurat
 
 ### Configure group mirroring
 
-Group mirroring is easiest to set up and is the default Cloudberry mirroring configuration. It is least expensive to expand, since it can be done by adding as few as two hosts. There is no need to move mirrors after expansion to maintain a consistent mirror configuration.
+Group mirroring is easiest to set up and is the default Cloudberry mirroring configuration. It is least expensive to expand, because it can be done by adding as few as two hosts. There is no need to move mirrors after expansion to maintain a consistent mirror configuration.
 
 The following diagram shows a group mirroring configuration with eight primary segments on four hosts.
 

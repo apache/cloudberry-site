@@ -72,7 +72,7 @@ The `stakindN` columns each contain a numeric code to describe the type of stati
                         most common non-null values appearing in the column.</li>
                       <li class="li"><code class="ph codeph">stanumbers</code> contains the frequencies (fractions of total
                         row count) of the values in the <code class="ph codeph">stavalues</code> array. </li>
-                    </ul>The values are ordered in decreasing frequency. Since the arrays are
+                    </ul>The values are ordered in decreasing frequency. because the arrays are
                     variable-size, <var class="keyword varname">K</var> can be chosen by the statistics collector.
                     Values must occur more than once to be added to the <code class="ph codeph">stavalues</code>
                     array; a unique column has no MCV slot.</td>
@@ -123,7 +123,7 @@ The `stakindN` columns each contain a numeric code to describe the type of stati
                     </ul><p class="p">Frequencies are measured as the fraction of non-null rows the element
                       value appears in, not the frequency of all rows. Also, the values are sorted
                       into the element type's default order (to support binary search for a
-                      particular value). Since this puts the minimum and maximum frequencies at
+                      particular value). because this puts the minimum and maximum frequencies at
                       unpredictable spots in <code class="ph codeph">stanumbers</code>, there are two extra
                       members of <code class="ph codeph">stanumbers</code> that hold copies of the minimum and
                       maximum frequencies. Optionally, there can be a third extra member that holds

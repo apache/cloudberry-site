@@ -24,7 +24,7 @@ Use `COPY` to add relatively small sets of data, for example dimension tables wi
 
 Use `COPY` when scripting a process that loads small amounts of data, less than 10 thousand rows.
 
-Since COPY is a single command, there is no need to deactivate autocommit when you use this method to populate a table.
+Because COPY is a single command, there is no need to deactivate autocommit when you use this method to populate a table.
 
 You can run multiple concurrent `COPY` commands to improve performance.
 
@@ -75,7 +75,7 @@ Performing small, high frequency data loads into heavily partitioned column-orie
 
 `gpload` is a data loading utility that acts as an interface to the Cloudberry external table parallel loading feature.
 
-Beware of using `gpload` as it can cause catalog bloat by creating and dropping external tables. Use `gpfdist` instead, since it provides the best performance.
+Beware of using `gpload` as it can cause catalog bloat by creating and dropping external tables. Use `gpfdist` instead, because it provides the best performance.
 
 `gpload` runs a load using a specification defined in a YAML-formatted control file. It performs the following operations:
 
