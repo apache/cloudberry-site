@@ -573,14 +573,6 @@ const sidebars: SidebarsConfig = {
     },
 
     {
-      type: "category",
-      label: "Releases",
-      items: [
-        "releases/index"
-      ]
-    },
-
-    {
       type: 'category',
       label: 'Tutorials',
       link: {

@@ -166,7 +166,7 @@ const config: Config = {
         },
         { to: "/blog", label: "Blog", position: "right" },
         {
-          to: "/docs/releases",
+          to: "/releases",
           label: "Download",
           position: "right",
         },
@@ -306,7 +306,7 @@ const config: Config = {
           items: [
             {
               label: "Download",
-              href: "https://github.com/apache/cloudberry/releases",
+              href: "/releases",
             },
             {
               label: "Documentation",

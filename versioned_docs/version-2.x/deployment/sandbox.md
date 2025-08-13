@@ -29,7 +29,7 @@ When building and deploying Cloudberry in Docker, you will have 2 different depl
 
 **Build Options**
 
-1. Compile with the source code of the latest Apache Cloudberry (released in [Apache Cloudberry Release Page](https://github.com/apache/cloudberry/releases)). The base OS will be Rocky Linux 9 Docker image.
+1. Compile with the source code of the latest Apache Cloudberry (released in [Apache Cloudberry Release Page](/releases)). The base OS will be Rocky Linux 9 Docker image.
 2. Method 2 - Compile with the latest Apache Cloudberry [main](https://github.com/apache/cloudberry/tree/main) branch. The base OS will be Rocky Linux 9 Docker image.
 
 Build and deploy steps:

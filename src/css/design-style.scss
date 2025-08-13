@@ -29,7 +29,7 @@ a {
     color: var(--active-color);
 
     // specify the active link color
-    &[href="/docs/releases"] {
+    &[href="/releases"] {
       color: var(--ifm-navbar-link-color);
     }
   }

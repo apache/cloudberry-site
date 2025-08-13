@@ -275,7 +275,7 @@ sudo apt install -y bison \
 # Use the gpadmin user from now on
 sudo su - gpadmin
 
-# Clone the Apache Cloudberry repository
+# Clone the Apache Cloudberry repository (main branch)
 git clone https://github.com/apache/cloudberry.git ~/cloudberry
 cd ~/cloudberry
 git submodule update --init --recursive
