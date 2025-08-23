@@ -142,11 +142,11 @@ Ensure the SHA-256 checksum validation passes (output: `xerces-c-3.3.0.tar.gz: O
 :::
 
 </TabItem>
-<TabItem value="ubuntu" label="For Ubuntu 22.04+">
+<TabItem value="ubuntu" label="For Ubuntu 20.04+">
 
 For Ubuntu users:
 
-- The gcc and g++ versions in Ubuntu 22.04+ are sufficient for building Apache Cloudberry.
+- The gcc and g++ versions in Ubuntu 20.04+ are sufficient for building Apache Cloudberry.
 - We will use the default version of `libxerces-c` available in the Ubuntu repositories, which is compatible with Apache Cloudberry.
 
 ```bash

@@ -184,7 +184,7 @@ psql -P pager=off template1 -c 'SELECT * from gp_segment_configuration'
 psql template1 -c 'SELECT version()'
 ```
 </TabItem>
-<TabItem value="ubuntu" label="For Ubuntu 22.04+">
+<TabItem value="ubuntu" label="For Ubuntu 20.04+">
 
 ```bash
 

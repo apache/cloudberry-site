@@ -35,20 +35,20 @@ For those new to Cloudberry or PostgreSQL, we recommend starting with a PostgreS
 
 ## Prerequisites
 
-### Provision a Rocky Linux 8+ / Ubuntu 22.04+ Environment
+### Provision a Rocky Linux 8+ / Ubuntu 20.04+ Environment
 
 - Use any platform to create a virtual machine or container:
 
-    - **Cloud providers**: You can use the Rocky Linux 8+ or Ubuntu 22.04+ images provided by the cloud providers, such as AWS, Google Cloud, Microsoft Azure, and more.
-    - **VirtualBox**: Use the official [Rocky Linux 8+](https://rockylinux.org/download) / [Ubuntu 22.04+](https://ubuntu.com/download) ISO or Vagrant boxes.
-    - **Docker**: These instructions were validated under Rocky Linux 8+ and Ubuntu 22.04 official base docker images, but should work with any of their based container. 
+    - **Cloud providers**: You can use the Rocky Linux 8+ or Ubuntu 20.04+ images provided by the cloud providers, such as AWS, Google Cloud, Microsoft Azure, and more.
+    - **VirtualBox**: Use the official [Rocky Linux 8+](https://rockylinux.org/download) / [Ubuntu 20.04+](https://ubuntu.com/download) ISO or Vagrant boxes.
+    - **Docker**: These instructions were validated under Rocky Linux 8+ and Ubuntu 20.04 official base docker images, but should work with any of their based container. 
       - For example, you can run the following command to start a Rocky Linux 8 container:
 
         ```bash
         docker run -it --shm-size=2gb -h cdw rockylinux/rockylinux:8
 
-        # Start a Ubuntu 22.04 container:
-        # docker run -it --shm-size=2gb -h cdw ubuntu:22.04
+        # Start a Ubuntu 20.04 container:
+        # docker run -it --shm-size=2gb -h cdw ubuntu:20.04
         ```
 
         The hostname `cdw` (Coordinator Data Warehouse) is just an example of how we started the container for testing.
@@ -76,7 +76,7 @@ Minimum requirements for development environment:
 
 ## Build Apache Cloudberry from source code
 
-The following steps guide you through building Apache Cloudberry from source code on Rocky Linux 8+ or Ubuntu 22.04+. The process is similar for both operating systems, with minor differences in package management, dependencies and software versions between these two distributions.
+The following steps guide you through building Apache Cloudberry from source code on Rocky Linux 8+ or Ubuntu 20.04+. The process is similar for both operating systems, with minor differences in package management, dependencies and software versions between these two distributions.
 
 Just go ahead and follow the steps below to build Apache Cloudberry from source code:
 

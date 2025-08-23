@@ -16,7 +16,7 @@ If `sudo` & `git` command is not already installed, run the following command to
 dnf install -y sudo git
 ```
 </TabItem>
-<TabItem value="ubuntu" label="For Ubuntu 22.04+" default>
+<TabItem value="ubuntu" label="For Ubuntu 20.04+" default>
 ```bash
 apt update && apt install -y sudo git
 ```

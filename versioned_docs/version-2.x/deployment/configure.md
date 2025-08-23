@@ -59,7 +59,7 @@ export LD_LIBRARY_PATH=/usr/local/cloudberry-db/lib:LD_LIBRARY_PATH
             --with-libraries=/usr/local/cloudberry-db/lib
 ```
 </TabItem>
-<TabItem value="ubuntu-linux" label="For Ubuntu 22.04+" default>
+<TabItem value="ubuntu-linux" label="For Ubuntu 20.04+" default>
 
 ### Prepare environment
 

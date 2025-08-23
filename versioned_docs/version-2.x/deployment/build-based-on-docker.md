@@ -27,7 +27,7 @@ docker run --name cbdb-dev -it --rm -h cdw --shm-size=2gb apache/incubator-cloud
 docker run --name cbdb-dev -it --rm -h cdw --shm-size=2gb apache/incubator-cloudberry:cbdb-build-rocky9-latest
 ```
 </TabItem>
-<TabItem value="ubuntu-22" label="Ubuntu 22.04">
+<TabItem value="ubuntu-22" label="Ubuntu 20.04">
 :::note
 The official Docker development image for Apache Cloudberry is still in development. Coming soon.
 :::
