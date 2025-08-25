@@ -126,7 +126,7 @@ title: 通过 RPM 包手动部署
         =>
         ```
 
-        若无法执行 `gpssh`，可在 Coordinator 节点先执行如下命令 `source /usr/local/cloudberry/greenplum_path.sh`。
+        若无法执行 `gpssh`，可在 Coordinator 节点先执行如下命令 `source /usr/local/cloudberry/cloudberry-env.sh`。
 
 ## 第 4 步：初始化 Apache Cloudberry
 
@@ -135,7 +135,7 @@ title: 通过 RPM 包手动部署
 1. 在所有节点（Coordinator/Standby Coordinator/Segment）的 `~/.bashrc` 文件中新增一行 `source` 命令，示例如下：
 
     ```bash
-    source /usr/local/cloudberry/greenplum_path.sh
+    source /usr/local/cloudberry/cloudberry-env.sh
     ```
 
 2. 执行 `source` 命令使得新增内容生效：

@@ -372,7 +372,7 @@ Apache Cloudberry 会为每个连接分配部分资源，因此建议设定允�
 1. 以 Cloudberry 管理员身份登录 Coordinator 主机，并执行以下命令加载环境变量：
 
     ```shell
-    source $GPHOME/greenplum_path.sh
+    source $GPHOME/cloudberry-env.sh
     ```
 
 2. 设置 `max_connections` 参数。下面这个命令将在 Segment 上设置为 1000，在 Coordinator 上设置为 200：

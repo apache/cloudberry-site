@@ -26,8 +26,8 @@ sudo -u gpadmin sudo whoami # if the output is root, the configuration is correc
 sudo -u gpadmin bash <<'EOF'
 ## Add Cloudberry environment setup to .bashrc
 echo -e '\n# Add Cloudberry entries
-if [ -f /usr/local/cloudberry-db/cloudberry-env.sh ]; then
-  source /usr/local/cloudberry-db/cloudberry-env.sh
+if [ -f /usr/local/cloudberry-db/greenplum_path.sh ]; then
+  source /usr/local/cloudberry-db/greenplum_path.sh
 fi
 ## US English with UTF-8 character encoding
 export LANG=en_US.UTF-8
@@ -183,7 +183,7 @@ make install -C ~/cloudberry/contrib
 ldd /usr/local/cloudberry-db/bin/postgres
 
 # Set up a Cloudberry demo cluster
-source /usr/local/cloudberry-db/cloudberry-env.sh
+source /usr/local/cloudberry-db/greenplum_path.sh
 make create-demo-cluster -C ~/cloudberry
 source ~/cloudberry/gpAux/gpdemo/gpdemo-env.sh
 psql -P pager=off template1 -c 'SELECT * from gp_segment_configuration'
@@ -206,8 +206,8 @@ sudo -u gpadmin sudo whoami # if the output is root, the configuration is correc
 sudo -u gpadmin bash <<'EOF'
 ## Add Cloudberry environment setup to .bashrc
 echo -e '\n# Add Cloudberry entries
-if [ -f /usr/local/cloudberry-db/cloudberry-env.sh ]; then
-  source /usr/local/cloudberry-db/cloudberry-env.sh
+if [ -f /usr/local/cloudberry-db/greenplum_path.sh ]; then
+  source /usr/local/cloudberry-db/greenplum_path.sh
 fi
 ## US English with UTF-8 character encoding
 export LANG=en_US.UTF-8
@@ -332,7 +332,7 @@ make install -C ~/cloudberry/contrib
 ldd /usr/local/cloudberry-db/bin/postgres
 
 # Set up a Cloudberry demo cluster
-source /usr/local/cloudberry-db/cloudberry-env.sh
+source /usr/local/cloudberry-db/greenplum_path.sh
 make create-demo-cluster -C ~/cloudberry
 source ~/cloudberry/gpAux/gpdemo/gpdemo-env.sh
 psql -P pager=off template1 -c 'SELECT * from gp_segment_configuration'

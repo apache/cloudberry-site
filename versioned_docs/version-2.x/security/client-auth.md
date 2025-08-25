@@ -363,7 +363,7 @@ The following steps set the parameter values with the Apache Cloudberry utility 
 
 ### Change the number of allowed connections
 
-1. Log into the Apache Cloudberry coordinator host as the Apache Cloudberry administrator and source the file `$GPHOME/cloudberry-env.sh`.
+1. Log into the Apache Cloudberry coordinator host as the Apache Cloudberry administrator and source the file `$GPHOME/greenplum_path.sh`.
 2. Set the value of the `max_connections` parameter. This `gpconfig` command sets the value on the segments to 1000 and the value on the coordinator to 200.
 
     ```shell

@@ -63,7 +63,7 @@ You can also use `gplogfilter` to search through all segment log files at once b
 
 ```shell
 $ gpssh -f seg_host_file
-  => source /usr/local/cloudberry-db/cloudberry-env.sh
+  => source /usr/local/cloudberry-db/greenplum_path.sh
   => gplogfilter -n 3 /data*/*/gp*/pg_log/gpdb*.csv
 ```
 

@@ -121,7 +121,7 @@ After the preparation, it is time to install Apache Cloudberry. You need to down
         =>
         ```
 
-        If you fail to run `gpssh`, you can first run `source /usr/local/cloudberry/cloudberry-env.sh` on the coordinator node.
+        If you fail to run `gpssh`, you can first run `source /usr/local/cloudberry/greenplum_path.sh` on the coordinator node.
 
 ## Step 4. Initialize Apache Cloudberry
 
@@ -130,7 +130,7 @@ Before performing the following operations, run `su - gpadmin` to switch to the 
 1. Add a new line of `source` command to the `~/.bashrc` files of all nodes (coordinator/standby coordinator/segment). The example is as follows:
 
     ```bash
-    source /usr/local/cloudberry/cloudberry-env.sh
+    source /usr/local/cloudberry/greenplum_path.sh
     ```
 
 2. Run the `source` command to make the newly added content effective:

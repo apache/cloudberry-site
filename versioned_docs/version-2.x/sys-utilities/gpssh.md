@@ -58,7 +58,7 @@ Specifies a single host name that will participate in this SSH session. You can 
 
 **`-s`**
 
-Optional. If specified, before running any commands on the target host, `gpssh` sources the file `cloudberry-env.sh` in the directory specified by the `$GPHOME` environment variable.
+Optional. If specified, before running any commands on the target host, `gpssh` sources the file `greenplum_path.sh` in the directory specified by the `$GPHOME` environment variable.
 
 This option is valid for both interactive mode and single command mode.
 

@@ -14,7 +14,7 @@ title: gpdemo
 
 ## 使用方法
 
-在目标服务器上安装完成 RPM 包，并正确加载 `greenplum_path.sh` 后，即可执行 `gpdemo`。
+在目标服务器上安装完成 RPM 包，并正确加载 `cloudberry-env.sh` 后，即可执行 `gpdemo`。
 
 ### 默认部署
 

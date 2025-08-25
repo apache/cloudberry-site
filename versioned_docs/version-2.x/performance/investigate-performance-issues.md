@@ -94,6 +94,6 @@ To search for related log entries in the segment log files, you can run `gplogfi
 
 ```shell
 gpssh -f seg_hosts_file -e 'source 
-/usr/local/cloudberry-db/cloudberry-env.sh ; gplogfilter -f 
+/usr/local/cloudberry-db/greenplum_path.sh ; gplogfilter -f 
 con6 /gpdata/*/log/gpdb*.csv' > seglog.out
 ```

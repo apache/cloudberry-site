@@ -25,7 +25,7 @@ Before compiling filedump, you need to have a Apache Cloudberry cluster installe
 
     ```bash
     su - gpadmin
-    source /usr/local/cloudberry/cloudberry-env.sh
+    source /usr/local/cloudberry/greenplum_path.sh
     ```
 
 2. Clone the GitHub repository `cloudberry-contrib/filedump` to your local environment:

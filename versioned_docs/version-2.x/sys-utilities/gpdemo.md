@@ -14,7 +14,7 @@ It is not recommended to use `gpdemo` for production environments, except when d
 
 ## How to use
 
-You can run `gpdemo` once the RPM package is installed on the target server and `cloudberry-env.sh` is correctly loaded.
+You can run `gpdemo` once the RPM package is installed on the target server and `greenplum_path.sh` is correctly loaded.
 
 ### Deploy with default settings
 

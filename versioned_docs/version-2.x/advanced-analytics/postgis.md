@@ -105,7 +105,7 @@ Before you get started, ensure that the Apache Cloudberry is correctly installed
         Before starting the compilation process, run the following commands to make sure the environment variables are set ready:
 
         ```bash
-        source /usr/local/cloudberry/cloudberry-env.sh
+        source /usr/local/cloudberry/greenplum_path.sh
         source /home/gpadmin/cloudberry/gpAux/gpdemo/gpdemo-env.sh
         scl enable devtoolset-10 bash
         source /opt/rh/devtoolset-10/enable
