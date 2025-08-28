@@ -42,7 +42,7 @@ ALTER COLLATION <name> SET SCHEMA <new_schema>
 
 **`REFRESH VERSION`**
 
-更新排序规则的版本。请参阅下面的 [注意事项](/i18n/zh/docusaurus-plugin-content-docs/current/sql-stmts/sql-stmt-alter-collation#notes)
+更新排序规则的版本。请参阅下面的[注意事项](/i18n/zh/docusaurus-plugin-content-docs/current/sql-stmts/sql-stmt-alter-collation#notes)
 
 ## 注意事项
 
