@@ -72,7 +72,8 @@ ALTER AGGREGATE <name> ( <aggregate_signature> ) SET SCHEMA <new_schema>
 ALTER AGGREGATE myavg(integer) RENAME TO my_average;
 ```
 
-要将类型为`integer` 的聚合函数`myavg` 的所有者更改为`joe`:
+要将类型为`integer` 的聚合函数`myavg` 的所有者更改为`joe`：
+
 ```sql
 ALTER AGGREGATE myavg(integer) OWNER TO joe;
 ```
