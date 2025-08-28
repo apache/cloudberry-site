@@ -16,7 +16,7 @@ ALTER AGGREGATE <name> ( <aggregate_signature> )
 
 ALTER AGGREGATE <name> ( <aggregate_signature> ) SET SCHEMA <new_schema>
 
---  where <聚合函数标识> 是：
+--  上面 <aggregate_signature> 可以是：
 
 * |
 [ <argmode> ] [ <argname> ] <argtype> [ , ... ] |
