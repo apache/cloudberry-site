@@ -18,7 +18,7 @@ Each Podling Project Management Committee (PPMC) helps its Podling learn how to 
 | Hao Wu | gfphoenix78@gmail.com | gfphoenix78 | HashData |
 | Hope Gao | gaoxueyu_hope@163.com | gaoxueyu | HighGo |
 | Jianghua Yang | yjhjstz@gmail.com | yjhjstz | HashData |
-| Jiaqi Zhou | jiaqizho@163.com | jiaqizho | HashData |
+| Jiaqi Zhou | jiaqizho@163.com | jiaqizho | Zilliz |
 | Jinbao Chen | chenjinbao1989@gmail.com | oppenheimer01 | HashData |
 | Kirill Reshke | reshkekirill@gmail.com | reshke  | Yandex Cloud | Yandex Cloud |
 | Kent Yao *(Mentor)* | yao@apache.org | yaooqinn | Apache Member, NetEase |
@@ -31,7 +31,7 @@ Each Podling Project Management Committee (PPMC) helps its Podling learn how to 
 | Tushar Pednekar | tushar.pednekar@gmail.com | 2shar-p | Synx Data Labs |
 | Weinan WANG | wang.wn827@gmail.com | weinan003 | HashData |
 | Willem Jiang *(Mentor)*|ningjiang@apache.org | WillemJiang | Apache Member, ByteDance |
-| Xiaoran Wang | fanfuxiaoran@gmail.com | fanfuxiaoran | HashData |
+| Xiaoran Wang | fanfuxiaoran@gmail.com | fanfuxiaoran | ByteDance |
 | Xin (Alwin) Tang | xtang.code@gmail.com | xtangcode | HashData |
 | Zhang Mingli | avamingli@gmail.com | avamingli | HashData |
 
@@ -69,6 +69,7 @@ The listing includes new committers, excluding PPMC members above:
 |--|--|--|--|
 | Xiong Tong | tomshawn@apache.org | TomShawn | HashData |
 | Wenchao Zhang | zhangwenchao@apache.org | zhangwenchao-123 | HashData |
+| Xun Gong | gongxun@apache.org | gongxun0928 | HashData |
 
 ## Contributors wall
 
