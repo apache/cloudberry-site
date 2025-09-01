@@ -1,4 +1,8 @@
-# 使用 Resource Groups 管理资源
+---
+title: 使用资源组管理资源
+---
+
+# 使用资源组管理资源
 
 Resource Group（资源组）可用来管理和保护 Apache Cloudberry 中 CPU、内存、并发事务限制和磁盘 I/O 的资源分配。定义资源组后，可将该组分配给一个或多个 Apache Cloudberry 用户角色（Role），或分配给外部组件（如 PL/Container），以控制其使用的资源。
 
@@ -14,9 +18,9 @@ Apache Cloudberry 支持两种类型的资源组：用于管理角色资源的�
 
 当用户运行查询时，Apache Cloudberry 会根据为资源组定义的一组限制评估该查询。如果该组的资源限制尚未达到，并且该查询不会导致该组超过并发事务限制，Apache Cloudberry 会立即运行该查询。如果这些条件不满足，Apache Cloudberry 会将查询进行队列排序。例如，如果资源组的最大并发事务数已经达到，后续查询将被排序等待，必须等待其他查询完成后才能运行。当资源组的并发性和内存限制调整到足够大的值时，Apache Cloudberry 也可能运行待处理的查询。
 
-在角色的资源组内，事务是按照先进先出 （First-in-first-out） 原则进行评估的。Apache Cloudberry 定期评估系统的活动工作负载，根据需要重新分配资源，并启动作业或将其放入队列。
+在角色的资源组内，事务是按照先进先出（First-in-first-out）原则进行评估的。Apache Cloudberry 定期评估系统的活动工作负载，根据需要重新分配资源，并启动作业或将其放入队列。
 
-您还可以使用资源组来管理外部组件（如 PL/Container）的 CPU 和内存资源。外部组件的资源组使用 Linux cgroups 来管理该组件的总 CPU 资源。
+你还可以使用资源组来管理外部组件（如 PL/Container）的 CPU 和内存资源。外部组件的资源组使用 Linux cgroups 来管理该组件的总 CPU 资源。
 
 ## 资源组属性和限制
 
@@ -24,11 +28,11 @@ Apache Cloudberry 支持两种类型的资源组：用于管理角色资源的�
 
 | 限制类型          | 描述                                                                               | 范围                      | 默认值                                                    |
 |-------------------|------------------------------------------------------------------------------------|---------------------------|-----------------------------------------------------------|
-| `CONCURRENCY`     | 资源组中允许的最大并发事务数，包括活动和空闲事务。                                 | \[0,max_connections\]     | 20                                                        |
-| `CPU_MAX_PERCENT` | 组可使用的 CPU 资源的最大百分比。                                                  | \[1,100\]                 | -1（未设置）                                              |
-| `CPU_WEIGHT`      | 资源组的调度优先级。                                                               | \[1,500\]                 | 100                                                       |
+| `CONCURRENCY`     | 资源组中允许的最大并发事务数，包括活动和空闲事务。                                 | [0,max_connections]     | 20                                                        |
+| `CPU_MAX_PERCENT` | 组可使用的 CPU 资源的最大百分比。                                                  | [1,100]                 | -1（未设置）                                              |
+| `CPU_WEIGHT`      | 资源组的调度优先级。                                                               | [1,500]                 | 100                                                       |
 | `CPUSET`          | 为该资源组保留的特定 CPU 逻辑核（或超线程中的逻辑线程）。                          | 取决于系统核配置          | -1                                                        |
-| `IO_LIMIT`        | 读取/写入磁盘 I/O 吞吐量的最大限制，以及每秒的最大读/写 I/O 操作。按表空间设置值。 | \[2,4294967295 或 `max`\] | -1                                                        |
+| `IO_LIMIT`        | 读取/写入磁盘 I/O 吞吐量的最大限制，以及每秒的最大读/写 I/O 操作。按表空间设置值。 | [2,4294967295 或 `max`] | -1                                                        |
 | `MEMORY_QUOTA`    | 为资源组指定的内存限制值。                                                         | `Integar`（MB）           | -1（未设置，使用 `statement_mem` 作为单个查询的内存限制） |
 | `MIN_COST`        | 查询计划被包含在资源组中的最小成本。                                               | `Integar`                 | 0                                                         |
 
@@ -46,7 +50,7 @@ Apache Cloudberry 支持两种类型的资源组：用于管理角色资源的�
 
 Apache Cloudberry 将任何在资源组达到 `CONCURRENCY` 限制后提交的事务排队。当运行的事务完成时，如果存在足够的内存资源，Apache Cloudberry 会取消排队并运行排队中最早的事务。请注意，如果事务处于 `idle in transaction` 状态，即使没有语句在运行，并发 slot 仍然处于使用中。
 
-您可以设置服务器配置参数 `gp_resource_group_queuing_timeout` 来指定事务在 Apache Cloudberry 取消之前在队列中保持的时间。默认超时值为 `0`，Apache Cloudberry 会无限期地排队事务。
+你可以设置服务器配置参数 `gp_resource_group_queuing_timeout` 来指定事务在 Apache Cloudberry 取消之前在队列中保持的时间。默认超时值为 `0`，Apache Cloudberry 会无限期地排队事务。
 
 ### 绕过和解除资源组分配
 
@@ -54,7 +58,7 @@ Apache Cloudberry 将任何在资源组达到 `CONCURRENCY` 限制后提交的�
 
 你可绕过仅 catalogue tables 的查询，例如数据库图形用户界面（GUI）客户端运行的获取元数据的 catalogue 查询。如果服务器配置参数 `gp_resource_group_bypass_catalog_query` 设置为 `true`（默认），Apache Cloudberry 的资源组调度器会绕过所有仅从系统目录读取的查询，或查询文本中仅包含 `pg_catalog` 模式表的查询。这些查询会自动解除分配其当前资源组；它们不强制执行资源组的限制，也不计算资源使用。查询资源会从资源组中分配并立即运行。内存限制为每个查询的 `statement_mem`。
 
-可使用服务器配置参数 `gp_resource_group_bypass_direct_dispatch` 绕过直接调度查询。直接调度查询是一种特殊类型的查询，仅需要一个分段参与执行。为了提高效率，Apache Cloudberry 优化了此类型的查询，使用直接调度优化。系统将查询计划发送到需要执行该计划的单个分段，而不是将其发送到所有分段进行执行。如果将 `gp_resource_group_bypass_direct_dispatch` 设置为 `true`，该查询不再强制执行分配给其资源组的 CPU 或内存限制，因此立即运行。相反，该查询分配的内存限制为每个查询的 `statement_mem`。如果没有足够的内存满足内存分配请求，查询将失败。您只能在单个会话中设置此参数，而不能在事务或函数内。
+可使用服务器配置参数 `gp_resource_group_bypass_direct_dispatch` 绕过直接调度查询。直接调度查询是一种特殊类型的查询，仅需要一个分段参与执行。为了提高效率，Apache Cloudberry 优化了此类型的查询，使用直接调度优化。系统将查询计划发送到需要执行该计划的单个分段，而不是将其发送到所有分段进行执行。如果将 `gp_resource_group_bypass_direct_dispatch` 设置为 `true`，该查询不再强制执行分配给其资源组的 CPU 或内存限制，因此立即运行。相反，该查询分配的内存限制为每个查询的 `statement_mem`。如果没有足够的内存满足内存分配请求，查询将失败。你只能在单个会话中设置此参数，而不能在事务或函数内。
 
 计划成本低于限制 `MIN_COST` 的查询会自动解除分配其资源组，不强制执行其任何限制。查询使用的资源不会计算为资源组的资源。查询的内存限制为 `statement_mem`。 `MIN_COST` 的默认值为 `0`。
 
@@ -132,7 +136,7 @@ Apache Cloudberry 使用服务器配置参数 `gp_resource_group_cpu_limit` 来�
 
 资源组的 `MEMORY_QUOTA` 参数设置此资源组在段上的最大内存量。这决定了查询执行期间该段主机上所有工作进程可消耗的内存总量。分配给查询的内存量是组内存限制除以组并发限制： `MEMORY_QUOTA` / `CONCURRENCY`。
 
-如果查询需要大量内存，您可以使用服务器配置参数 `gp_resgroup_memory_query_fixed_mem` 在会话级别为查询设置固定的内存量。该参数会覆盖并可以超出资源组的分配内存。
+如果查询需要大量内存，你可以使用服务器配置参数 `gp_resgroup_memory_query_fixed_mem` 在会话级别为查询设置固定的内存量。该参数会覆盖并可以超出资源组的分配内存。
 
 Apache Cloudberry 在处理传入查询时使用 `gp_resgroup_memory_query_fixed_mem` 的值（如果设置），以绕过资源组设置。否则，它使用 `MEMORY_QUOTA` / `CONCURRENCY` 作为查询的分配内存。如果 `MEMORY_QUOTA` 未设置，则查询内存分配的默认值为 `statement_mem`。
 
@@ -163,7 +167,6 @@ Apache Cloudberry 在处理传入查询时使用 `gp_resgroup_memory_query_fixed
 
 Apache Cloudberry 利用 Linux 控制组实现磁盘 I/O 限制。参数 `IO_LIMIT` 限制分配给特定资源组的查询的最大读/写磁盘 I/O 吞吐量，以及最大读/写 I/O 操作数。它分配带宽，确保高优先级资源组的使用，避免过度使用磁盘带宽。该参数的值按表空间基础设置。
 
-
 :::note 注意
 仅在使用 Linux cgroup v2 时，磁盘 I/O 限制才可用。
 :::
@@ -191,7 +194,7 @@ stat -fc %T /sys/fs/cgroup/
 对于 cgroup v1，输出为 `tmpfs`。对于 cgroup v2，输出为 `cgroup2fs`。
 
 :::note 注意
-- Linux 控制组可被更改，但如果您使用较旧版本的操作系统，例如 Centos 7.x 或更早，将只能使用默认的 `cgroup v1` 控制组；如果你使用的是 Centos 8.x，可按照下方步骤，将控制组从 v1 切换到 v2。
+- Linux 控制组可被更改，但如果你使用较旧版本的操作系统，例如 Centos 7.x 或更早，将只能使用默认的 `cgroup v1` 控制组；如果你使用的是 Centos 8.x，可按照下方步骤，将控制组从 v1 切换到 v2。
 - 从 v2.0.0 起，对于 `cpu.pressure`，即使 `gp_resource_manager` 设置为 `group-v2`，Apache Cloudberry 也不再检查 `/proc/pressure/cpu` 接口的权限或是否存在。因此，即使未启用 PSI（Pressure Stall Information），只要内核版本兼容，仍可正常使用 `group-v2` 模式。
 :::
 
@@ -300,7 +303,7 @@ stat -fc %T /sys/fs/cgroup/
 
     输出的第一行标识 `cgroup` 挂载点。
 
-7. 通过运行以下命令来验证您是否正确设置了 Apache Cloudberry 数据库 cgroups 配置。用前一步中识别的挂载点替换/ `<cgroup_mount_point>`：
+7. 通过运行以下命令来验证你是否正确设置了 Apache Cloudberry 数据库 cgroups 配置。用前一步中识别的挂载点替换/ `<cgroup_mount_point>`：
 
     ```bash
     ls -l <cgroup_mount_point>/cpu/gpdb
@@ -357,9 +360,9 @@ stat -fc %T /sys/fs/cgroup/
 
     # 仅在挂载 cgroup v2 时设置层次结构
     ExecCondition=bash -c '[ xcgroup2fs = x$(stat -fc "%%T" /sys/fs/cgroup) ] || exit 1'
-    ExecStartPre=bash -ec " \
-    chown -R gpadmin:gpadmin .; \
-    chmod a+w ../cgroup.procs; \
+    ExecStartPre=bash -ec " 
+    chown -R gpadmin:gpadmin .; 
+    chmod a+w ../cgroup.procs; 
     mkdir -p helper.scope"
     ExecStart=sleep infinity
     ExecStartPost=bash -ec "echo $MAINPID > ./helper.scope/cgroup.procs;"
@@ -378,7 +381,7 @@ stat -fc %T /sys/fs/cgroup/
 
 当安装 Apache Cloudberry 时，默认情况下未启用任何资源管理策略。要使用资源组，请设置 `gp_resource_manager` 服务器配置参数。
 
-1. 将 `gp_resource_manager` 服务器配置参数设置为值 `"group"` 或 `"group-v2"` ，具体取决于您 Linux 发行版上配置的 cgroup 版本。例如：
+1. 将 `gp_resource_manager` 服务器配置参数设置为值 `"group"` 或 `"group-v2"` ，具体取决于你 Linux 发行版上配置的 cgroup 版本。例如：
 
     ``` bash
     gpconfig -c gp_resource_manager -v "group"
@@ -394,7 +397,7 @@ stat -fc %T /sys/fs/cgroup/
 
 启用后，由角色提交的任何事务将被指向分配给该角色的资源组，并受到该资源组的并发、内存、CPU 和磁盘 I/O 限制的管理。
 
-Apache Cloudberry 为名为 `admin_group`、/ `default_group` 和 `system_group` 的角色创建三个默认资源组。当启用资源组时，任何未明确分配资源组的角色将被分配为角色能力的默认组。/ `SUPERUSER` 角色被分配到 `admin_group`，非管理员角色被分配到名为 `default_group` 的组。Apache Cloudberry 系统进程的资源被分配到 `system_group`。您不能手动将任何角色分配给 `system_group`。
+Apache Cloudberry 为名为 `admin_group`、/ `default_group` 和 `system_group` 的角色创建三个默认资源组。当启用资源组时，任何未明确分配资源组的角色将被分配为角色能力的默认组。/ `SUPERUSER` 角色被分配到 `admin_group`，非管理员角色被分配到名为 `default_group` 的组。Apache Cloudberry 系统进程的资源被分配到 `system_group`。你不能手动将任何角色分配给 `system_group`。
 
 可使用以下命令，查看包括默认资源组 `admin_group`、/ `default_group` 和 `system_group` 在内的所有资源组参数：
 
@@ -420,7 +423,7 @@ CREATE RESOURCE GROUP rgroup1 WITH (CONCURRENCY=20, CPU_MAX_PERCENT=20, MEMORY_Q
 CPU 限制 20 被分配给每个分配到 `rgroup1` 的角色。同样，内存限制 25 也被分配给每个分配到 `rgroup1` 的角色。/ `rgroup1` 使用默认的 `CONCURRENCY` 设置 20。
 :::
 
-`ALTER RESOURCE GROUP` 命令用于更新资源组的限制。要更改资源组的限制，请指定您想要的新值。例如：
+`ALTER RESOURCE GROUP` 命令用于更新资源组的限制。要更改资源组的限制，请指定你想要的新值。例如：
 
 ``` sql
 ALTER RESOURCE GROUP rg_role_light SET CONCURRENCY 7;
@@ -445,7 +448,7 @@ DROP RESOURCE GROUP exec;
 Apache Cloudberry 支持 Runaway 检测器，它根据查询使用的内存量自动终止查询。对于资源组管理的查询，Apache Cloudberry 根据查询使用的内存量终止正在运行的查询。相关的配置参数有：
 
 - `gp_vmem_protect_limit` 设置活动段实例中所有 `postgres` 进程可以消耗的内存量。如果查询导致超过此限制，则不会分配内存，查询将失败。
-- `runaway_detector_activation_percent` 当启用资源组时，如果使用的内存超过指定值 `gp_vmem_protect_limit` \* `runaway_detector_activation_percent`，Apache Cloudberry 将根据内存使用情况终止查询，从用户资源组管理的查询中选择查询（不包括 `system_group` 资源组中的查询）。Apache Cloudberry 将首先处理消耗内存最多的查询。查询将持续终止，直到使用的内存百分比降到指定百分比以下。
+- `runaway_detector_activation_percent` 当启用资源组时，如果使用的内存超过指定值 `gp_vmem_protect_limit` * `runaway_detector_activation_percent`，Apache Cloudberry 将根据内存使用情况终止查询，从用户资源组管理的查询中选择查询（不包括 `system_group` 资源组中的查询）。Apache Cloudberry 将首先处理消耗内存最多的查询。查询将持续终止，直到使用的内存百分比降到指定百分比以下。
 
 ## 将资源组分配给用户角色
 
@@ -568,7 +571,7 @@ SELECT pg_cancel_backend(31905);
 只能将活动或正在运行的查询移动到新的资源组。不能移动由于并发或内存限制而处于空闲状态的排队或待处理查询。
 :::
 
-`pg_resgroup_move_query()` 需要正在运行查询的进程 ID（pid），以及您要将查询移动到的资源组的名称。该函数的签名如下：
+`pg_resgroup_move_query()` 需要正在运行查询的进程 ID（pid），以及你要将查询移动到的资源组的名称。该函数的签名如下：
 
 ```sql
 pg_resgroup_move_query( pid int4, group_name text );
@@ -581,7 +584,7 @@ pg_resgroup_move_query( pid int4, group_name text );
 - 如该组已经达到并发任务限制，Apache Cloudberry 会将查询排队，直到有插槽打开或达到 `gp_resource_group_queuing_timeout` 毫秒（如设置）。
 - 如该组有空闲插槽，`pg_resgroup_move_query()` 将尝试将插槽控制权交给目标进程，最长时间为 `gp_resource_group_move_timeout` 毫秒。如果目标进程无法处理移动请求直到 `gp_resource_group_queuing_timeout` 超过，Apache Cloudberry 将返回错误：“`target process failed to move to a new group`”。
 - 如 `pg_resgroup_move_query()` 被取消，但目标进程已经获得了所有插槽控制权，则段的进程将不会被移动到新组，目标进程将保持插槽。这种不一致状态将通过事务结束或目标进程在同一事务内部调度的任何下一个命令来修复。
-- 如目标资源组没有足够的内存来满足查询当前的内存要求，Apache Cloudberry 将返回错误：“/ `group <group_name> doesn't have enough memory ...`”。在这种情况下，您可以选择增加分配给目标资源组的共享内存，或等待一段时间让正在运行的查询完成，然后再次调用该函数。
+- 如目标资源组没有足够的内存来满足查询当前的内存要求，Apache Cloudberry 将返回错误：“/ `group <group_name> doesn't have enough memory ...`”。在这种情况下，你可以选择增加分配给目标资源组的共享内存，或等待一段时间让正在运行的查询完成，然后再次调用该函数。
 
 在 Apache Cloudberry 移动查询后，无法保证当前在目标资源组中运行的查询不会超过组的内存限制。在这种情况下，目标组中的一个或多个正在运行的查询可能会失败，包括被移动的查询。请保留足够的资源组全局共享内存，以最小化这种情况发生的可能性。
 

@@ -26,8 +26,8 @@ sudo -u gpadmin sudo whoami # if the output is root, the configuration is correc
 sudo -u gpadmin bash <<'EOF'
 ## Add Cloudberry environment setup to .bashrc
 echo -e '\n# Add Cloudberry entries
-if [ -f /usr/local/cloudberry-db/greenplum_path.sh ]; then
-  source /usr/local/cloudberry-db/greenplum_path.sh
+if [ -f /usr/local/cloudberry-db/cloudberry-env.sh ]; then
+  source /usr/local/cloudberry-db/cloudberry-env.sh
 fi
 ## US English with UTF-8 character encoding
 export LANG=en_US.UTF-8
@@ -65,6 +65,7 @@ sudo -u gpadmin bash -c "ulimit -a"
 sudo dnf install -y apr-devel \
   bison \
   bzip2-devel \
+  curl \
   cmake3 \
   diffutils \
   flex \
@@ -90,6 +91,7 @@ sudo dnf install -y apr-devel \
   perl-Test-Simple \
   perl-Env \
   python3-devel \
+  python3-pip \
   readline-devel \
   rsync \
   wget \
@@ -101,12 +103,6 @@ sudo dnf install -y apr-devel \
 sudo dnf install -y --enablerepo=devel libuv-devel libyaml-devel perl-IPC-Run protobuf-devel
 ## For Rocky Linux 9
 sudo dnf install -y --enablerepo=crb libuv-devel libyaml-devel perl-IPC-Run protobuf-devel
-
-# Only for Rocky Linux 8, install the higher version of gcc and gcc-c++
-sudo yum install -y gcc-toolset-11-gcc gcc-toolset-11-gcc-c++
-scl enable gcc-toolset-11 bash # for temprory use
-sudo echo "source /opt/rh/gcc-toolset-11/enable" >> /etc/profile.d/gcc.sh
-sudo source /etc/profile.d/gcc.sh #  for permanent use
 
 # Build Xerces-C source code
 XERCES_LATEST_RELEASE=3.3.0
@@ -181,14 +177,14 @@ make install -C ~/cloudberry/contrib
 ldd /usr/local/cloudberry-db/bin/postgres
 
 # Set up a Cloudberry demo cluster
-source /usr/local/cloudberry-db/greenplum_path.sh
+source /usr/local/cloudberry-db/cloudberry-env.sh
 make create-demo-cluster -C ~/cloudberry
 source ~/cloudberry/gpAux/gpdemo/gpdemo-env.sh
 psql -P pager=off template1 -c 'SELECT * from gp_segment_configuration'
 psql template1 -c 'SELECT version()'
 ```
 </TabItem>
-<TabItem value="ubuntu" label="For Ubuntu 22.04+">
+<TabItem value="ubuntu" label="For Ubuntu 20.04+">
 
 ```bash
 
@@ -204,8 +200,8 @@ sudo -u gpadmin sudo whoami # if the output is root, the configuration is correc
 sudo -u gpadmin bash <<'EOF'
 ## Add Cloudberry environment setup to .bashrc
 echo -e '\n# Add Cloudberry entries
-if [ -f /usr/local/cloudberry-db/greenplum_path.sh ]; then
-  source /usr/local/cloudberry-db/greenplum_path.sh
+if [ -f /usr/local/cloudberry-db/cloudberry-env.sh ]; then
+  source /usr/local/cloudberry-db/cloudberry-env.sh
 fi
 ## US English with UTF-8 character encoding
 export LANG=en_US.UTF-8
@@ -239,12 +235,47 @@ EOF
 sudo -u gpadmin bash -c "ulimit -a"
 
 # Install basic system packages
-sudo apt install -y gcc g++ libxml2-dev pkg-config bzip2 libzstd-dev bison python3 flex python3-dev libreadline-dev  libuv1-dev libkrb5-dev libapr1-dev libevent-dev libyaml-dev libssl-dev libpam0g-dev libcurl4-gnutls-dev libbz2-dev libldap2-dev libxerces-c-dev libperl-dev libipc-run-perl make cmake libprotobuf-dev python3-setuptools iproute2 iputils-ping rsync liblz4-dev protobuf-compiler language-pack-en locales
+sudo apt install -y bison \
+  bzip2 \
+  cmake \
+  curl \
+  flex \
+  gcc \
+  g++ \
+  iproute2 \
+  iputils-ping \
+  language-pack-en \
+  locales \
+  libapr1-dev \
+  libbz2-dev \
+  libcurl4-gnutls-dev \
+  libevent-dev \
+  libkrb5-dev \
+  libipc-run-perl \
+  libldap2-dev \
+  libpam0g-dev \
+  libprotobuf-dev \
+  libreadline-dev \
+  libssl-dev \
+  libuv1-dev \
+  liblz4-dev \
+  libxerces-c-dev \
+  libxml2-dev \
+  libyaml-dev \
+  libzstd-dev \
+  libperl-dev \
+  make \
+  pkg-config \
+  protobuf-compiler \
+  python3-dev \
+  python3-pip \
+  python3-setuptools \
+  rsync
 
 # Use the gpadmin user from now on
 sudo su - gpadmin
 
-# Clone the Apache Cloudberry repository
+# Clone the Apache Cloudberry repository (main branch)
 git clone https://github.com/apache/cloudberry.git ~/cloudberry
 cd ~/cloudberry
 git submodule update --init --recursive
@@ -295,7 +326,7 @@ make install -C ~/cloudberry/contrib
 ldd /usr/local/cloudberry-db/bin/postgres
 
 # Set up a Cloudberry demo cluster
-source /usr/local/cloudberry-db/greenplum_path.sh
+source /usr/local/cloudberry-db/cloudberry-env.sh
 make create-demo-cluster -C ~/cloudberry
 source ~/cloudberry/gpAux/gpdemo/gpdemo-env.sh
 psql -P pager=off template1 -c 'SELECT * from gp_segment_configuration'

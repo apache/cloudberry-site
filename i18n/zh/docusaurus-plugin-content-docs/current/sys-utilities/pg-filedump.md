@@ -24,7 +24,7 @@ Filedump 工具主要适用于以下场景：
 
     ```bash
     su - gpadmin
-    source /usr/local/cloudberry/greenplum_path.sh
+    source /usr/local/cloudberry/cloudberry-env.sh
     ```
 
 2. 将 GitHub 仓库 `cloudberry-contrib/filedump` 克隆至本地：

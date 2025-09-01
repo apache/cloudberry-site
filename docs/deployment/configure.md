@@ -59,7 +59,7 @@ export LD_LIBRARY_PATH=/usr/local/cloudberry-db/lib:LD_LIBRARY_PATH
             --with-libraries=/usr/local/cloudberry-db/lib
 ```
 </TabItem>
-<TabItem value="ubuntu-linux" label="For Ubuntu 22.04+" default>
+<TabItem value="ubuntu-linux" label="For Ubuntu 20.04+" default>
 
 ### Prepare environment
 
@@ -134,7 +134,7 @@ Also, some packages names vary between different Linux distributions.
 |  `--enable-gpcloud`       | Enable gpcloud support||
 |  `--enable-external-fts`  | Enable external fts support||
 |  `--enable-ic-proxy`      | Enable interconnect proxy mode | This requires libuv library to be installed. |
-|  `--enable-pax`          | Enable PAX support | gcc/gcc-c++ 11+, cmake3, protobuf and ZSTD are required, see details [here](https://github.com/apache/cloudberry/blob/main/contrib/pax_storage/doc/README.md#build). |
+|  `--enable-pax`          | Enable PAX support | gcc/gcc-c++ 8+, cmake3, protobuf and ZSTD are required, see details [here](https://github.com/apache/cloudberry/blob/main/contrib/pax_storage/doc/README.md#build). |
 |  `--with-includes=DIRS`   | Look for additional header files in DIRS|The Xerces-C is required to build with ORCA.|
 |  `--with-libraries=DIRS`  | Look for additional libraries in DIRS|The library xerces-c is required to build with ORCA|
 |  `--with-pgport=PORTNUM`  | Set default port number [5432]| `--with-pgport=5432` is used in this guide.|
@@ -142,12 +142,11 @@ Also, some packages names vary between different Linux distributions.
 |  `--with-icu`             | Build with ICU support  | This requires the ICU4C package to be installed. |
 |  `--with-perl`            | Build Perl modules (PL/Perl)|This requires Perl devel packages to be installed.|
 |  `--with-python`          | Build Python modules (PL/Python)|This requires Python3 devel packages to be installed.|
-|  `--with-pythonsrc-ext`   | Build Python modules for gpMgmt|Recommended options. It's used for gpMgmt tools. If you don't build with this option, you will need to install the Python packages from the Linux distros after installing Cloudberry: `psutil`, `pygresql`, `pyyaml`. |
+|  `--with-pythonsrc-ext`   | Build Python modules for gpMgmt|Recommended options. It's used for gpMgmt tools. This option requires `curl`, `python3`, and `python3-pip` to be installed; `curl` is used for downloading the needed Python3 packages, and `python3-pip` is used for installing the Python packages for building PyYaml. If you don't build with this option, after installing Cloudberry you will need to install the specific Python packages from the Linux distros: `psutil`, `pygresql`, `pyyaml`, or run the command at the top directory `pip3 install -r python-dependencies.txt`.|
 |  `--with-gssapi`          | Build with GSSAPI support|The GSSAPI system is usually a part of the Kerberos installation, so this requires the krb5 package to be installed.|
 |  `--with-pam`             | Build with PAM (Pluggable Authentication Modules) support.|This requires the PAM package to be installed.|
 |  `--with-ldap`            | Build with LDAP support for authentication and connection parameter lookup.|This requires the OpenLDAP package to be installed.|
 |  `--with-uuid=LIB`        | Build contrib/uuid-ossp module using LIB (bsd,e2fs,ossp).| <ul><li>`bsd` to use the UUID functions found in FreeBSD and some other BSD-derived systems</li><li>`e2fs` to use the UUID library created by the e2fsprogs project; this library is present in most Linux systems and in macOS, and can be obtained for other platforms as well</li><li>`ossp` to use the OSSP UUID library</li></ul> So we use `--with-uuid=e2fs` in the build under Linux/macOS - this requires the uuid library to be installed.|
 |  `--with-libxml`          | Build with libxml2, enabling SQL/XML support.|This requires libxml2 to be installed.|
 |  `--with-lz4`             | Build with LZ4 compression support |This allows the use of LZ4 for compression of table data and lz4 library is required to be installed.|
-|  `--with-quicklz`         | Build with QuickLZ support |This requires quicklz library to be installed. |
 |  `--with-ssl=LIB`         | Build with support for SSL (encrypted) connections. | The only LIBRARY supported is openssl, so `--with-ssl=openssl` is used in this guide. This requires the OpenSSL package to be installed. |

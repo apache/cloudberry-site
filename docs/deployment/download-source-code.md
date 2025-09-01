@@ -10,7 +10,7 @@ From here on out we execute commands as the `gpadmin` user:
 sudo su - gpadmin
 ```
 
-## Clone the Apache Cloudberry repository
+## Clone the Apache Cloudberry repository (main branch)
 
 Clone the source code for Apache Cloudberry into the `gpadmin` user's home directory:
 
@@ -41,10 +41,10 @@ export GNUTLS_CPUID_OVERRIDE=0x1
 
 ## Download the source code archive
 
-Alternatively, you can download the source code archive from the [Apache Cloudberry releases page](https://github.com/apache/cloudberry/releases).
+Alternatively, you can download the source code archive from the [Apache Cloudberry releases page](/releases).
 
 ```bash
-tar xvzf apache-cloudberry-<version>-incubating.tar.gz
+tar xvzf apache-cloudberry-2.0.0-incubating-src.tar.gz
 cd apache-cloudberry-<version>-incubating
 ```
 

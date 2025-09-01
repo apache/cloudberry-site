@@ -19,6 +19,7 @@ sudo dnf install -y apr-devel \
   bison \
   bzip2-devel \
   cmake3 \
+  curl \
   diffutils \
   flex \
   gcc \
@@ -43,6 +44,7 @@ sudo dnf install -y apr-devel \
   perl-Test-Simple \
   perl-Env \
   python3-devel \
+  python3-pip \
   readline-devel \
   rsync \
   wget \
@@ -72,24 +74,6 @@ sudo dnf install -y --enablerepo=crb libuv-devel libyaml-devel perl-IPC-Run prot
 :::note
 In Red Hat Enterprise Linux (RHEL), this repository is called "PowerTools."
 :::
-
-### Install gcc/gcc-c++ 11+ for Rocky Linux 8 (Optional)
-
-For Rocky Linux 8, we need to install the higher version of gcc and gcc-c++ to build Apache Cloudberry with PAX support:
-
-```bash
-sudo yum install -y gcc-toolset-11-gcc gcc-toolset-11-gcc-c++
-scl enable gcc-toolset-11 bash # for temprory use
-sudo echo "source /opt/rh/gcc-toolset-11/enable" >> /etc/profile.d/gcc.sh
-sudo source /etc/profile.d/gcc.sh #  for permanent use
-```
-
-You can verify the gcc and gcc-c++ 11+ version by running:
-
-```bash
-gcc --version
-g++ --version
-```
 
 ### Install Apache Xerces-C for ORCA
 
@@ -140,15 +124,50 @@ Ensure the SHA-256 checksum validation passes (output: `xerces-c-3.3.0.tar.gz: O
 :::
 
 </TabItem>
-<TabItem value="ubuntu" label="For Ubuntu 22.04+">
+<TabItem value="ubuntu" label="For Ubuntu 20.04+">
 
 For Ubuntu users:
 
-- The gcc and g++ versions in Ubuntu 22.04+ are sufficient for building Apache Cloudberry.
+- The gcc and g++ versions in Ubuntu 20.04+ are sufficient for building Apache Cloudberry.
 - We will use the default version of `libxerces-c` available in the Ubuntu repositories, which is compatible with Apache Cloudberry.
 
 ```bash
-sudo apt install -y gcc g++ libxml2-dev pkg-config bzip2 libzstd-dev bison python3 flex python3-dev libreadline-dev  libuv1-dev libkrb5-dev libapr1-dev libevent-dev libyaml-dev libssl-dev libpam0g-dev libcurl4-gnutls-dev libbz2-dev libldap2-dev libxerces-c-dev libperl-dev libipc-run-perl make cmake libprotobuf-dev python3-setuptools iproute2 iputils-ping rsync liblz4-dev protobuf-compiler language-pack-en locales
+sudo apt install -y bison \
+  bzip2 \
+  cmake \
+  curl \
+  flex \
+  gcc \
+  g++ \
+  iproute2 \
+  iputils-ping \
+  language-pack-en \
+  locales \
+  libapr1-dev \
+  libbz2-dev \
+  libcurl4-gnutls-dev \
+  libevent-dev \
+  libkrb5-dev \
+  libipc-run-perl \
+  libldap2-dev \
+  libpam0g-dev \
+  libprotobuf-dev \
+  libreadline-dev \
+  libssl-dev \
+  libuv1-dev \
+  liblz4-dev \
+  libxerces-c-dev \
+  libxml2-dev \
+  libyaml-dev \
+  libzstd-dev \
+  libperl-dev \
+  make \
+  pkg-config \
+  protobuf-compiler \
+  python3-dev \
+  python3-pip \
+  python3-setuptools \
+  rsync
 ```
 </TabItem>
 </Tabs>

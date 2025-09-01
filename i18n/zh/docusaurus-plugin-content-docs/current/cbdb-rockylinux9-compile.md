@@ -183,8 +183,8 @@ sudo -u gpadmin bash <<'EOF'
 echo -e '\n
 
 # 添加 Cloudberry 条目
-if [ -f /usr/local/cloudberry-db/greenplum_path.sh ]; then
-  source /usr/local/cloudberry-db/greenplum_path.sh
+if [ -f /usr/local/cloudberry-db/cloudberry-env.sh ]; then
+  source /usr/local/cloudberry-db/cloudberry-env.sh
 fi
 
 # 使用 UTF-8 编码的美式英语
@@ -482,7 +482,7 @@ ssh $(hostname) date
 加载 Cloudberry 环境变量，这些变量会设置二进制文件、库和其他关键组件的路径：
 
 ```bash
-source /usr/local/cloudberry-db/greenplum_path.sh
+source /usr/local/cloudberry-db/cloudberry-env.sh
 ```
 
 ### 6.4 创建开发集群

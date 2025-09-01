@@ -23,7 +23,7 @@ title: pg_attribute
 | `attstorage`  | char       |                       | 通常是这列数据类型的 `pg_type.typstorage` 的副本。对于可 TOAST 的数据类型，可以在列创建后更改这个值来控制存储策略。 |
 | `attalign`    | char       |                       | 这列数据类型的 `pg_type.typalign` 的副本。 |
 | `attnotnull`  | boolean    |                       | 表示这列有非空约束。     |
-| `attcompression` | char     |                       | 这列的压缩类型。有效值包括：`n`（无压缩）、`r`（游程编码）、`z`（zlib）、`q`（quicklz）和 `s`（snappy）。 |
+| `attcompression` | char     |                       | 这列的压缩类型。有效值包括：`n`（无压缩）、`r`（游程编码）、`z`（zlib）和 `s`（snappy）。 |
 | `atthasdef`   | boolean    |                       | 这列有默认表达式或生成表达式，这种情况下在 `pg_attrdef` 目录里会有对应的条目来定义这个值。（检查 `attgenerated` 可以确定这是默认值还是生成表达式。） |
 | `atthasmissing` | boolean  |                       | 这列有一个值，当这列完全缺失时（比如在行创建后添加有非易失性 `DEFAULT` 值的列时）会用这个值。实际值存储在 `attmissingval` 列里。 |
 | `attidentity` | char       |                       | 如果是零字节（`''`），就不是身份列。否则，`a` 表示始终生成，`d` 表示默认生成。 |

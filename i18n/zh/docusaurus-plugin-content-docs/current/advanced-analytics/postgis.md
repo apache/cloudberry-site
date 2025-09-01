@@ -105,7 +105,7 @@ title: 地理空间分析
         在开始编译流程前，执行以下命令，以确保环境变量设置完毕：
 
             ```bash
-            source /usr/local/cloudberry/greenplum_path.sh
+            source /usr/local/cloudberry/cloudberry-env.sh
             source /home/gpadmin/cloudberry/gpAux/gpdemo/gpdemo-env.sh
             scl enable devtoolset-10 bash
             source /opt/rh/devtoolset-10/enable

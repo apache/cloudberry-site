@@ -89,7 +89,7 @@ make -j8 install
 
 # 3. 将 Apache Cloudberry 的 Greenplum 环境引入运行中的 shell。
 
-source $(cd ~; pwd)/install/cbdb/greenplum_path.sh
+source $(cd ~; pwd)/install/cbdb/cloudberry-env.sh
 
 # 4. 安装 Python 依赖。
 

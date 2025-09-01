@@ -163,7 +163,7 @@ git clone https://github.com/apache/cloudberry.git
     chown -R gpadmin:gpadmin cloudberry/
     su - gpadmin
     cd cloudberry/
-    source /usr/local/cloudberry/greenplum_path.sh
+    source /usr/local/cloudberry/cloudberry-env.sh
     ```
 
 4. 启动示例集群。
