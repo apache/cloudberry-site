@@ -13,11 +13,4 @@ export function getFirstLetter(str: string, splitSep: string = " ") {
     .join("");
 }
 
-export function matchLangrage() {
-  const p = globalThis.location?.pathname;
-  const lang = p?.match(/\/\w+\/*/);
-  return lang?.[0];
-}
-export function isZhLangrage() {
-  return matchLangrage() === "/zh/";
-}
+

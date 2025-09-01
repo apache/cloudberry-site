@@ -10,16 +10,13 @@ import BlogItemTags from "./components/Tags";
 import BlogItemTitle from "./components/Title";
 
 import LinkWithBaseUrl from "@site/src/components/common/LinkWithBaseUrl";
-import { isZhLangrage } from "@site/src/utils";
 import styles from "./styles.module.scss";
 
 const BlogListItem = () => {
   const {
     metadata: { permalink },
   } = useBlogPost();
-  if (useBlogPost().metadata.frontMatter["zh_hidden"] && isZhLangrage()) {
-    return null;
-  }
+
   return (
     <BlogPostItemContainer className={styles["blogList"]}>
       <header className="link-wrap">

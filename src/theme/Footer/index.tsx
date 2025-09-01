@@ -27,20 +27,7 @@ export default function Footer() {
     navToTarget(url, "_blank");
   };
 
-  const handleCheckLang = () => {
-    const langStr = "/zh";
-    // check lang
-    let href = location.href;
-    let pathname = location.pathname;
-    const hash = location.hash;
 
-    if (href.includes(langStr)) {
-      pathname = pathname.replace(langStr, "");
-      navToTarget(pathname + hash, "_self", true);
-    } else {
-      navToTarget(langStr + pathname + hash, "_self", true);
-    }
-  };
 
   const { siteConfig } = useDocusaurusContext();
   const footerConfig = siteConfig.themeConfig.footer;

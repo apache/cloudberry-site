@@ -1,5 +1,5 @@
 import LinkWithBaseUrl from "../components/common/LinkWithBaseUrl";
-import { formatStrHorizontalLine, isZhLangrage } from "../utils";
+import { formatStrHorizontalLine } from "../utils";
 
 let BOOTCAMP_PAGE_CONFIG = {
   headerCard: {

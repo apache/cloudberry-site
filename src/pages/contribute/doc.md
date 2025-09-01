@@ -25,8 +25,6 @@ the following ways:
 Here are some of the key files in our documentation repository:
 
 - `docs/`: This directory contains the English documentation.
-- `i18n/zh/docusaurus-plugin-content-docs/current/`: This directory
-  contains the Chinese documentation.
 
 If you want to add other language support for the documents, welcome!
 

@@ -3,9 +3,7 @@ import recentPosts from "../../.docusaurus/docusaurus-plugin-content-blog/defaul
 
 export default function useGetNewBlogList(n: number = 4) {
   let blogPosts = recentPosts.blogPosts;
-  // if (isZhLangrage()) {
-  //  require("../../.docusaurus/docusaurus-plugin-content-blog/default/zh-blog-archive-8d7.json");
-  // }
+
 
   blogPosts
     .sort((a, b) => {

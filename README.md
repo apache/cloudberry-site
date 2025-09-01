@@ -21,7 +21,6 @@
 ├── docs
 ├── docusaurus.config.ts
 ├── global.d.ts
-├── i18n
 ├── package-lock.json
 ├── package.json
 ├── scripts
@@ -41,8 +40,7 @@ Notable directories Description:
 
 2. Document
 
-   The latest version of the document is under the `docs` (en) and
-   `/i18n/zh/docusaurus-plugin-content-docs/current/` (zh).
+   The latest version of the document is under the `docs` (en) 
    directory. Media including images, video can be placed in
    `docs/media` folder. You must add the new doc file name to
    `sidebars.js` to make it display on the website.

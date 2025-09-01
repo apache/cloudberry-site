@@ -18,7 +18,7 @@ export default function MDXPage(props: Props): JSX.Element {
   const { content: MDXPageContent } = props;
   const location = useLocation();
   const pathLen = location.pathname.split("/").filter((item) => {
-    return item != "" && item != "zh";
+    return item != "";
   }).length;
 
   const {

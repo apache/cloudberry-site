@@ -14,7 +14,7 @@ export default function BlogLayout(props: Props & { items: any }): JSX.Element {
 
   useEffect(() => {
     let pattern = /^\/(blog)\/(.+)$/;
-    let pathname = location.pathname.replace("/zh", "");
+    let pathname = location.pathname;
     let matches = pathname.match(pattern);
     if (!matches) {
       setPath([]);

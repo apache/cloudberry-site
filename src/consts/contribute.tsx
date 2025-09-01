@@ -2,7 +2,7 @@ import styles from "@site/src/css/pages/contribute.module.scss";
 import clsx from "clsx";
 import LinkWithBaseUrl from "../components/common/LinkWithBaseUrl";
 import Card from "../components/contribute/Card";
-import { formatStrHorizontalLine, isZhLangrage } from "../utils";
+import { formatStrHorizontalLine } from "../utils";
 interface ConfigProps {
   headerCard: {
     titleText: string;

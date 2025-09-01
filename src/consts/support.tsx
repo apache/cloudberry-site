@@ -1,5 +1,4 @@
 import LinkWithBaseUrl from "../components/common/LinkWithBaseUrl";
-import { isZhLangrage } from "../utils";
 
 const configData = {
   titleText: "Support for Apache Cloudberry",

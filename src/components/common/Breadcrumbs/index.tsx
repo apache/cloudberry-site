@@ -21,7 +21,7 @@ function getDefaultPath(): Path[] {
   if (currentPathName.endsWith("/")) {
     currentPathName = currentPathName.slice(0, -1);
   }
-  currentPathName = currentPathName.replace("zh/", "");
+
   currentPathName = currentPathName[0].toUpperCase() + currentPathName.slice(1);
   const path: Path[] = currentPathName.split("/").map((item) => {
     return {
@@ -41,7 +41,7 @@ export default function BreadCrumbs(props: IProps) {
   }
 
   const pathLen = location.pathname.split("/").filter((item) => {
-    return item != "" && item != "zh" && item != "blog";
+    return item != "" && item != "blog";
   }).length;
 
   return (

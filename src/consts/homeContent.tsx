@@ -1,5 +1,4 @@
 import LinkWithBaseUrl from "../components/common/LinkWithBaseUrl";
-import { isZhLangrage } from "../utils";
 
 let TIPS_CONTENT = (
   <LinkWithBaseUrl href="https://github.com/apache/cloudberry">
