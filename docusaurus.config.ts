@@ -91,14 +91,22 @@ const config: Config = {
       },
       items: [
         {
-          type: 'docsVersionDropdown',
-          versions: ['current', '2.x', '1.x'],
-        },
-        {
-          type: "docSidebar",
-          sidebarId: "docsbars",
           position: "right",
           label: "Docs",
+          items : [
+              {
+                label: "Next",
+                to: "docs/next",
+              },
+              {
+                label: "2.x (Current)",
+                to: "docs/",
+              },
+              {
+                label: "1.x",
+                to: "docs/1.x",
+              },
+            ],
         },
         {
           label: "Community",

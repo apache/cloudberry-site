@@ -2,7 +2,35 @@
   font-size: 28px;
   width: 895px;
   text-align: center;
-  margin: 120px auto 136px;
+  margin: 80px auto 100px;
+
+  /* Progressive responsive margin adjustments */
+  @media screen and (max-width: 1440px) {
+    margin: 60px auto 80px;
+    width: auto;
+    max-width: 895px;
+    padding: 0 var(--mobile-padding-width);
+  }
+
+  @media screen and (max-width: 1200px) {
+    margin: 50px auto 70px;
+    font-size: 26px;
+  }
+
+  @media screen and (max-width: 1024px) {
+    margin: 40px auto 60px;
+    font-size: 24px;
+  }
+
+  @media screen and (max-width: 768px) {
+    margin: 30px auto 50px;
+    font-size: 22px;
+  }
+
+  @media screen and (max-width: 480px) {
+    margin: 25px auto 40px;
+    font-size: 20px;
+  }
 }
 .content {
   position: relative;
