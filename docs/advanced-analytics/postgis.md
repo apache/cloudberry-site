@@ -2,6 +2,9 @@
 title: Geospatial Analytics
 ---
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 # Geospatial Analytics
 
 [PostGIS](https://postgis.net/) extends the capabilities of the PostgreSQL by adding support for storing, indexing, and querying geospatial data. Apache Cloudberry supports PostGIS for geospatial analytics.
@@ -10,32 +13,87 @@ This document introduces how to compile and build PostGIS for your Apache Cloudb
 
 You can access the PostGIS for Apache Cloudberry project repo at [`cloudberry-contrib/postgis`](https://github.com/cloudberry-contrib/postgis). The PostGIS code in this repo is dedicated to Apache Cloudberry. The compilation and building method introduced in this document is based on the code of this repo.
 
+:::note
+This repo is contributed by the community members and customized for Cloudberry, but please note that it is not maintained as one official Cloudberry project.
+:::
+
 ## Compile PostGIS for Apache Cloudberry
 
-Before installing PostGIS for Apache Cloudberry, install the required dependencies and compile several components. This process is currently supported only on CentOS, with plans to support Rocky Linux in the future.
+Before installing PostGIS for Apache Cloudberry, install the required dependencies and compile several components. This process is tested and supported on Rocky Linux 8 & Rocky Linux 9.
 
 Before you get started, ensure that the Apache Cloudberry is correctly installed on your machine. If it is not installed, see the [documentation](https://cloudberry.apache.org/docs/) for installation instructions.
 
+The following steps will be operated under the `gpadmin` user. Please make sure you are using the `gpadmin` user to operate the commands. If not, you can swithch to the `gpadmin` user by running the `su - gpadmin` command.
+
 1. Install the pre-requested dependencies.
 
+    <Tabs>
+    <TabItem value="rocky-linux8" label="For Rocky Linux 8" default>
     ```bash
-    yum install -y libtool proj-devel boost-devel gmp-devel mpfr-devel pcre-devel protobuf protobuf-c protobuf-devel protobuf-c-devel && \
-    yum install -y gcc make subversion gcc-c++ sqlite-devel libxml2-devel swig expat-devel libcurl-devel python36-devel json-c
-    ```
+    sudo dnf install -y libtool boost-devel gmp-devel mpfr-devel \
+        pcre-devel protobuf-c protobuf-c-devel bzip2 \
+        gcc make subversion gcc-c++ sqlite-devel libxml2-devel \
+        swig expat-devel libcurl-devel python3-devel json-c
 
-2. Build the components (GDAL, CGAL, SFCGAL, and GEOS). Make sure you are building them by `root`.
+    sudo dnf install -y --enablerepo=devel protobuf protobuf-devel
+    ```
+    </TabItem>
+    <TabItem value="rocky-linux9" label="Rocky Linux 9">
+    ```bash
+    sudo dnf install -y libtool boost-devel gmp-devel mpfr-devel \
+        pcre-devel  protobuf-c bzip2 gcc make subversion gcc-c++ \
+        sqlite-devel libxml2-devel  expat-devel libcurl-devel \
+        json-c python3-devel
+
+    sudo dnf install -y --enablerepo=crb protobuf protobuf-devel protobuf-c-devel swig
+    sudo dnf install --enablerepo=epel proj-devel
+    ```
+    </TabItem>
+    </Tabs>
+
+2. Build the components (GDAL, CGAL, SFCGAL, and GEOS).
 
     1. Build GDAL.
 
         [GDAL](https://gdal.org/index.html) is a translator library for raster and vector geospatial data formats. Follow the commands to install it:
 
-        ```bash
+      <Tabs>
+      <TabItem value="rocky-linux8" label="For Rocky Linux 8" default>
+      We need to install Jasper first under Rocky Linux 8 for building GDAL library:
+
+      ```bash
+        wget https://www.ece.uvic.ca/~frodo/jasper/software/jasper-1.900.1.zip
+        unzip jasper-1.900.1.zip
+        cd jasper-1.900.1
+        ./configure --prefix=/usr/local/jasper-1.900.1 --build=aarch64-unknown-linux-gnu CFLAGS="-fPIC"
+        make -j$(nproc) && sudo make -j$(nproc) install
+        echo "/usr/local/jasper-1.900/lib" | sudo tee /etc/ld.so.conf.d/jasper.conf
+        sudo ldconfig
+      ```
+  
+      Then build GDAL:
+
+      ```bash
+        wget https://download.osgeo.org/gdal/2.2.1/gdal-2.2.1.tar.gz --no-check-certificate
+        tar xf gdal-2.2.1.tar.gz
+        cd gdal-2.2.1/
+        ./configure --prefix=/usr/local/gdal-2.2.1 \
+            --with-jasper=/usr/local/jasper-1.900.1 \
+            --enable-static
+        make -j$(nproc) && sudo make -j$(nproc) install
+       ``` 
+
+      </TabItem>
+      <TabItem value="rocky-linux9" label="Rocky Linux 9">
+      ```bash
         wget https://download.osgeo.org/gdal/2.2.1/gdal-2.2.1.tar.gz --no-check-certificate
         tar xf gdal-2.2.1.tar.gz
         cd gdal-2.2.1/
         ./configure --prefix=/usr/local/gdal-2.2.1
-        make && make install
+        make -j$(nproc) && sudo make -j$(nproc) install
         ```
+      </TabItem>
+      </Tabs>
 
     2. Build CGAL.
 
@@ -47,7 +105,7 @@ Before you get started, ensure that the Apache Cloudberry is correctly installed
         cd cgal-releases-CGAL-4.13/
         mkdir build && cd build
         cmake ..
-        make && make install
+        make -j$(nproc) && sudo make -j$(nproc) install
         ```
 
     3. Build SFCGAL.
@@ -60,7 +118,7 @@ Before you get started, ensure that the Apache Cloudberry is correctly installed
         cd SFCGAL-1.3.6/
         mkdir build && cd build
         cmake -DCMAKE_INSTALL_PREFIX=/usr/local/sfcgal-1.3.6 ..
-        make && make install
+        make -j$(nproc) && sudo make -j$(nproc) install
         ```
 
     4. Build GEOS.
@@ -72,24 +130,45 @@ Before you get started, ensure that the Apache Cloudberry is correctly installed
         tar xf geos-3.7.0.tar.bz2
         cd geos-3.7.0/
         ./configure --prefix=/usr/local/geos-3.7.0/
-        make && make install
+        make -j$(nproc) && sudo make -j$(nproc) install
         ```
 
-    5. Update `/etc/ld.so.conf`.
+    5. Install proj library.
+
+        [proj](https://proj.org/) is a library for performing conversions between geospatial coordinates. Follow the commands to install it:
+
+        ```bash
+        wget https://download.osgeo.org/proj/proj-4.9.3.tar.gz
+        tar -xzf proj-4.9.3.tar.gz
+        cd proj-4.9.3
+        ./configure --prefix=/usr/local/proj4
+        make -j$(nproc) && sudo make -j$(nproc) install
+        ```
+
+    6. Update `/etc/ld.so.conf`.
 
         After installing the above components, update `/etc/ld.so.conf` to configure the dynamic loader to search for their directories:
 
         ```bash
-        cat << EOF >> /etc/ld.so.conf
+        sudo vi /etc/ld.so.conf
+       ```
+
+        Add the following lines to the end of the file:
+
+       ```bash 
         /usr/lib/
         /usr/lib64/
         /usr/local/sfcgal-1.3.6/lib64/
         /usr/local/gdal-2.2.1/lib/
         /usr/local/geos-3.7.0/lib/
-        EOF
+        /usr/local/proj4/lib
         ```
 
-        Then run the command `ldconfig`.
+        Then run the command to update the dynamic loader cache:
+        
+        ```bash
+        sudo ldconfig
+        ```
 
 3. Build and install PostGIS.
 
@@ -97,18 +176,15 @@ Before you get started, ensure that the Apache Cloudberry is correctly installed
 
         ```bash
         git clone https://github.com/cloudberry-contrib/postgis.git /home/gpadmin/postgis
-        chown -R gpadmin:gpadmin /home/gpadmin/postgis
         ```
 
     2. Compile PostGIS.
 
-        Before starting the compilation process, run the following commands to make sure the environment variables are set ready:
+        Before starting the compilation process, run the following commands to make sure the environment variables are set ready (in the gpdemo environment):
 
         ```bash
-        source /usr/local/cloudberry/cloudberry-env.sh
+        source /usr/local/cloudberry-db/cloudberry-env.sh
         source /home/gpadmin/cloudberry/gpAux/gpdemo/gpdemo-env.sh
-        scl enable devtoolset-10 bash
-        source /opt/rh/devtoolset-10/enable
         ```
 
         Then continue:
@@ -116,8 +192,13 @@ Before you get started, ensure that the Apache Cloudberry is correctly installed
         ```bash
         cd /home/gpadmin/postgis/postgis/build/postgis-2.5.4/
         ./autogen.sh
-        ./configure --prefix="${GPHOME}" --with-pgconfig="${GPHOME}"/bin/pg_config --with-raster --without-topology --with-gdalconfig=/usr/local/gdal-2.2.1/bin/gdal-config --with-sfcgal=/usr/local/sfcgal-1.3.6/bin/sfcgal-config --with-geosconfig=/usr/local/geos-3.7.0/bin/geos-config
-        make && make install
+        ./configure --with-pgconfig="${GPHOME}"/bin/pg_config \
+          --with-raster --without-topology \
+          --with-gdalconfig=/usr/local/gdal-2.2.1/bin/gdal-config \
+          --with-sfcgal=/usr/local/sfcgal-1.3.6/bin/sfcgal-config \
+          --with-geosconfig=/usr/local/geos-3.7.0/bin/geos-config \
+          --with-projdir=/usr/local/proj4
+        make -j$(nproc) && sudo make -j$(nproc) install
         ```
 
 ## Use PostGIS in Apache Cloudberry
