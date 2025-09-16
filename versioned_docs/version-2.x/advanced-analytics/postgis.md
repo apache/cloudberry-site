@@ -35,7 +35,7 @@ The following steps will be operated under the `gpadmin` user. Please make sure 
     sudo dnf install -y libxml2-devel json-c pkg-config gettext \
         protobuf-c gmp-devel boost-devel automake libtool make \
         gcc gcc-c++ sqlite-devel mpfr-devel bzip2 xz libcurl-devel \
-        cmake protobuf-c-devel
+        cmake protobuf-c-devel libxslt
 
     sudo dnf install -y --enablerepo=devel protobuf-devel
     ```
@@ -45,7 +45,7 @@ The following steps will be operated under the `gpadmin` user. Please make sure 
     sudo dnf install -y libxml2-devel json-c pkg-config gettext \
         protobuf-c gmp-devel boost-devel automake libtool make \
         gcc gcc-c++ sqlite-devel mpfr-devel bzip2 xz libcurl-devel \
-        cmake
+        cmake libxslt
 
     sudo dnf install --enablerepo=crb protobuf-c-devel
     ```
