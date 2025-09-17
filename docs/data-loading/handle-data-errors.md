@@ -96,7 +96,7 @@ SEGMENT REJECT LIMIT 25;
 When error logging is enabled, Apache Cloudberry creates error log tables that you can query:
 
 ```sql
--- View recent errors from the current session
+-- Views recent errors from the current session.
 SELECT * FROM gp_read_error_log('sales_data_logged');
 ```
 
@@ -124,7 +124,7 @@ FROM gp_read_error_log('sales_data_logged')
 GROUP BY errmsg
 ORDER BY error_count DESC;
 
--- View specific error details
+-- Views specific error details.
 SELECT cmdtime, filename, linenum, errmsg, rawdata
 FROM gp_read_error_log('sales_data_logged')
 WHERE errmsg LIKE '%invalid input syntax%'
@@ -140,8 +140,8 @@ ORDER BY cmdtime DESC;
 **Solution**: Clean data or use text columns with post-processing
 
 ```sql
--- Original problematic data: "N/A" in amount column
--- Solution: Use text type and handle conversion later
+-- Original problematic data: "N/A" in amount column.
+-- Solution: Use text type and handle conversion later.
 CREATE EXTERNAL TABLE sales_flexible (
     transaction_id int,
     product_name text,
@@ -157,10 +157,10 @@ LOG ERRORS SEGMENT REJECT LIMIT 10 PERCENT;
 
 **Error**: `invalid input syntax for type date`  
 **Cause**: Inconsistent date formats
-**Solution**: Standardize date formats or use flexible parsing
+**Solution**: Standardize date formats or use flexible parsing.
 
 ```sql
--- Handle multiple date formats in post-processing
+-- Handles multiple date formats in post-processing.
 SELECT 
     transaction_id,
     product_name,
@@ -181,7 +181,7 @@ WHERE sale_date IS NOT NULL;
 **Solution**: Use more flexible table definition
 
 ```sql
--- Add extra optional columns to handle variable column counts
+-- Adds extra optional columns to handle variable column counts.
 CREATE EXTERNAL TABLE flexible_sales (
     transaction_id int,
     product_name text,
