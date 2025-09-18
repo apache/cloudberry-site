@@ -26,7 +26,7 @@ Take the following steps to enable and activate coordinator mirroring for your C
 Make sure that you have already configured a standby coordinator on a different host from where the primary coordinator is running. Specifically, ensure that the following is properly configured on the standby coordinator host:
 
 - `gpadmin` system user is created
-- CBDB rpm package is installed
+- Cloudberry rpm package is installed
 - Environmental variables are set
 - SSH keys are exchanged
 - Data directories and tablespace directories, if needed, are created
@@ -53,7 +53,7 @@ You need to first enable the standby coordinator using the `gpinitstandby` utili
 
 2. You can run the `gpstate` utility with the `-f` option to display details of the standby coordinator host.
 
-    ```shell
+    ```
     $ gpstate -f
     ```
 

@@ -2,7 +2,7 @@
 title: Recommended Monitoring and Maintenance Tasks
 ---
 
-# Recommended Monitoring and Maintenance Tasks
+# Recommend monitoring and maintenance tasks
 
 This section lists monitoring and maintenance operations recommended to ensure high availability and consistent performance of your Apache Cloudberry cluster.
 
