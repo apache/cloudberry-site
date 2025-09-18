@@ -2,7 +2,7 @@
 title: Perform Incremental Backup and Restore
 ---
 
-# Perform Incremental Backup and Restore
+# Perform incremental backup and restore
 
 Before reading this document, you are expected to first read the [Perform Full Backup and Restore](/docs/sys-admin/backup-and-restore/perform-full-backup-and-restore.md) document.
 
