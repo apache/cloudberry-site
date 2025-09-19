@@ -48,14 +48,31 @@ const sidebars: SidebarsConfig = {
       link: {
         type: "doc",
         id: 'data-loading/index',
-    },
-      items: [
-      {
-        type: 'category',
-        label: 'Load Data from Local Files',
-        items: ['data-loading/load-data-using-copy', 'data-loading/load-data-using-gpfdist', 'data-loading/load-data-using-file-protocol','data-loading/load-data-using-gpload']
       },
-      'data-loading/load-data-from-web-services', 'data-loading/load-data-from-kafka-using-fdw']
+      items: [
+        {
+          type: 'category',
+          label: 'From Local or Network Files',
+          items: [
+            'data-loading/load-data-using-copy',
+            'data-loading/load-data-using-gpfdist',
+            'data-loading/load-data-using-gpfdists',
+            'data-loading/load-data-using-file-protocol',
+            'data-loading/load-data-using-gpload',
+          ],
+        },
+        {
+          type: 'category',
+          label: 'From Cloud or Big Data Systems',
+          items: [
+            'data-loading/load-data-from-s3',
+            'data-loading/load-data-using-pxf',
+          ],
+        },
+        'data-loading/load-data-from-web-services',
+        'data-loading/load-data-from-kafka-using-fdw',
+        'data-loading/handle-data-errors',
+      ],
     },
 
     {
@@ -189,7 +206,7 @@ const sidebars: SidebarsConfig = {
      {
       type: 'category',
       label: 'Developer',
-      items: ['developer/develop-extensions-using-rust']
+      items: ['developer/develop-extensions-using-rust', 'developer/write-a-foreign-data-wrapper']
      },
 
      {
