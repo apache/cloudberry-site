@@ -1,10 +1,12 @@
 ---
-title: Recovering a Failed Coordinator 
+title: Recover a Failed Coordinator
 ---
 
-If the primary coordinator fails, the Apache Cloudberry system is not accessible and WAL replication stops. Use [gpactivatestandby](../../../utility_guide/ref/gpactivatestandby.html) to activate the standby coordinator. Upon activation of the standby coordinator, Apache Cloudberry reconstructs the coordinator host state at the time of the last successfully committed transaction.
+# Recover a Failed Coordinator
 
-These steps assume a standby coordinator host is configured for the system. See [Enabling Coordinator Mirroring](g-enabling-coordinator-mirroring.html).
+If the primary coordinator fails, the Apache Cloudberry system is not accessible and WAL replication stops. Use [`gpactivatestandby`](../../sys-utilities/gpactivatestandby.md) to activate the standby coordinator. Upon activation of the standby coordinator, Apache Cloudberry reconstructs the coordinator host state at the time of the last successfully committed transaction.
+
+These steps assume a standby coordinator host is configured for the system. See [Enable Coordinator Mirroring](./enable-coordinator-mirroring.md).
 
 ## To activate the standby coordinator
 
@@ -23,7 +25,6 @@ These steps assume a standby coordinator host is configured for the system. See 
     Before running `gpactivatestandby`, be sure to run `gpstate -f` to confirm that the standby coordinator is synchronized with the current coordinator node. If synchronized, the final line of the `gpstate -f` output will look similar to this: `20230607:06:50:06:004205 gpstate:test1-m:gpadmin-[INFO]:--Sync state: sync`.
     :::
 
-
 2. After the utility completes, run `gpstate` with the `-b` option to display a summary of the system status:
 
     ```shell
@@ -34,9 +35,8 @@ These steps assume a standby coordinator host is configured for the system. See 
 
 3. Optional: If you have not already done so while activating the prior standby coordinator, you can run `gpinitstandby` on the active coordinator host to configure a new standby coordinator.
 
-    > **Important** You must initialize a new standby coordinator to continue providing coordinator mirroring.
+    :::note
+    You need to initialize a new standby coordinator to continue providing coordinator mirroring.
+    :::
 
-    For information about restoring the original coordinator and standby coordinator configuration, see [Restoring Coordinator Mirroring After a Recovery](g-restoring-coordinator-mirroring-after-a-recovery.html).
-
-
-- **[Restoring Coordinator Mirroring After a Recovery](../../highavail/topics/g-restoring-coordinator-mirroring-after-a-recovery.html)**  
+    For information about restoring the original coordinator and standby coordinator configuration, see [Restore Coordinator Mirroring After a Recovery](./restore-coordinator-mirroring-after-a-recovery.md).

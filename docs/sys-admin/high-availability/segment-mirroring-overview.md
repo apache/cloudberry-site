@@ -1,6 +1,8 @@
 ---
-title: Overview of Segment Mirroring 
+title: Segment Mirroring Overview
 ---
+
+# Segment Mirroring Overview
 
 When Apache Cloudberry High Availability is enabled, there are two types of segment instances: *primary* and *mirror*. Each primary segment has one corresponding mirror segment. A primary segment instance receives requests from the coordinator to make changes to the segment data and then replicates those changes to the corresponding mirror. If Apache Cloudberry detects that a primary segment has failed or become unavailable, it changes the role of its mirror segment to primary segment and the role of the unavailable primary segment to mirror segment. Transactions in progress when the failure occurred roll back and must be restarted. The administrator must then recover the mirror segment, allow the mirror to synchronize with the current primary segment, and then exchange the primary and mirror segments so they are in their preferred roles.
 
@@ -10,16 +12,16 @@ When segment mirroring is enabled for an existing system, the primary segment in
 
 When database changes occur, the logs that capture the changes are streamed to the mirror segment to keep it current with the corresponding primary segments. During WAL replication, database changes are written to the logs before being applied, to ensure data integrity for any in-process operations.
 
-When Apache Cloudberry detects a primary segment failure, the WAL replication process stops and the mirror segment automatically starts as the active primary segment. If a mirror segment fails or becomes inaccessible while the primary is active, the primary segment tracks database changes in logs that are applied to the mirror when it is recovered. For information about segment fault detection and the recovery process, see [How Apache Cloudberry Detects a Failed Segment](g-detecting-a-failed-segment.html) and [Recovering from Segment Failures](g-recovering-from-segment-failures.html).
+When Apache Cloudberry detects a primary segment failure, the WAL replication process stops and the mirror segment automatically starts as the active primary segment. If a mirror segment fails or becomes inaccessible while the primary is active, the primary segment tracks database changes in logs that are applied to the mirror when it is recovered. For information about segment fault detection and the recovery process, see [How Apache Cloudberry Detects a Failed Segment](./detect-a-failed-segment.md) and [Recovering from Segment Failures](./recover-from-segment-failures.md).
 
 These Apache Cloudberry system catalog tables contain mirroring and replication information.
 
-- The catalog table [gp_segment_configuration](../../../ref_guide/system_catalogs/gp_segment_configuration.html) contains the current configuration and state of primary and mirror segment instances and the coordinator and standby coordinator instance.
-- The catalog view [gp_stat_replication](../../../ref_guide/system_catalogs/catalog_ref-views.html#gp_stat_replication) contains replication statistics of the `walsender` processes that are used for Apache Cloudberry coordinator and segment mirroring.
+- The catalog table [`gp_segment_configuration`](../../sys-catalogs/sys-tables/gp-segment-configuration.md) contains the current configuration and state of primary and mirror segment instances and the coordinator and standby coordinator instance.
+- The catalog view gp_stat_replication contains replication statistics of the `walsender` processes that are used for Apache Cloudberry coordinator and segment mirroring.
 
 ## About segment mirroring configurations
 
-Mirror segment instances can be placed on hosts in the cluster in different configurations. As a best practice, a primary segment and the corresponding mirror are placed on different hosts. Each host must have the same number of primary and mirror segments. When you create segment mirrors with the Apache Cloudberry utilities [gpinitsystem](../../../utility_guide/ref/gpinitsystem.html) or [gpaddmirrors](../../../utility_guide/ref/gpaddmirrors.html) you can specify the segment mirror configuration, group mirroring (the default) or spread mirroring. With `gpaddmirrors`, you can create custom mirroring configurations with a `gpaddmirrors` configuration file and specify the file on the command line.
+Mirror segment instances can be placed on hosts in the cluster in different configurations. As a best practice, a primary segment and the corresponding mirror are placed on different hosts. Each host must have the same number of primary and mirror segments. When you create segment mirrors with the Apache Cloudberry utilities [`gpinitsystem`](../../sys-utilities/gpinitsystem.md) or [`gpaddmirrors`](../../sys-utilities/gpaddmirrors.md) you can specify the segment mirror configuration, group mirroring (the default) or spread mirroring. With `gpaddmirrors`, you can create custom mirroring configurations with a `gpaddmirrors` configuration file and specify the file on the command line.
 
 *Group mirroring* is the default mirroring configuration when you enable mirroring during system initialization. The mirror segments for each host's primary segments are placed on one other host. If a single host fails, the number of active primary segments doubles on the host that backs the failed host. The following figure illustrates a group mirroring configuration.
 
@@ -30,5 +32,5 @@ Mirror segment instances can be placed on hosts in the cluster in different conf
 ![Spread Segment Mirroring in Apache Cloudberry](../../graphics/spread-mirroring.png "Spread Segment Mirroring in Apache Cloudberry")
 
 :::note
-You must ensure you have the appropriate number of host systems for your mirroring configuration when you create a system or when you expand a system. For example, to create a system that is configured with spread mirroring requires more hosts than segment instances per host, and a system that is configured with group mirroring requires at least two new hosts when expanding the system. For information about segment mirroring configurations, see [Segment Mirroring Configurations](../../../best_practices/ha.html#topic_ngz_qf4_tt). For information about expanding systems with segment mirroring enabled, see [Planning Mirror Segments](../../expand/expand-planning.html).
+You must ensure you have the appropriate number of host systems for your mirroring configuration when you create a system or when you expand a system. For example, to create a system that is configured with spread mirroring requires more hosts than segment instances per host, and a system that is configured with group mirroring requires at least two new hosts when expanding the system. For information about segment mirroring configurations, see [Segment Mirroring Configurations](../../tutorials/best-practices/high-availability-best-practices.md#configure-segment-mirroring). For information about expanding systems with segment mirroring enabled, see [Planning Mirror Segments](../expand-cluster/plan-system-expansion.md).
 :::

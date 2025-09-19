@@ -1,10 +1,12 @@
 ---
-title: Restoring Coordinator Mirroring After a Recovery 
+title: Restore Coordinator Mirroring After a Recovery
 ---
+
+# Restore Coordinator Mirroring After a Recovery
 
 After you activate a standby coordinator for recovery, the standby coordinator becomes the primary coordinator. You can continue running that instance as the primary coordinator if it has the same capabilities and dependability as the original coordinator host.
 
-You must initialize a new standby coordinator to continue providing coordinator mirroring unless you have already done so while activating the prior standby coordinator. Run [gpinitstandby](../../../utility_guide/ref/gpinitstandby.html) on the active coordinator host to configure a new standby coordinator. See [Enabling Coordinator Mirroring](g-enabling-coordinator-mirroring.html).
+You must initialize a new standby coordinator to continue providing coordinator mirroring unless you have already done so while activating the prior standby coordinator. Run [`gpinitstandby`](../../sys-utilities/gpinitstandby.md) on the active coordinator host to configure a new standby coordinator. See [Enabling Coordinator Mirroring](./enable-coordinator-mirroring.md).
 
 You can restore the primary and standby coordinator instances on the original hosts. This process swaps the roles of the primary and standby coordinator hosts, and it should be performed only if you strongly prefer to run the coordinator instances on the same hosts they occupied prior to the recovery scenario.
 
@@ -31,7 +33,7 @@ For information about the Apache Cloudberry utilities, see the *Apache Cloudberr
     $ gpinitstandby -s cdw
     ```
 
-4. After the initialization completes, check the status of standby coordinator, cdw. Run [gpstate](../../../utility_guide/ref/gpstate.html) with the `-f` option to check the standby coordinator status:
+4. After the initialization completes, check the status of standby coordinator, cdw. Run [`gpstate`](../../sys-utilities/gpstate.md) with the `-f` option to check the standby coordinator status:
 
     ```shell
     $ gpstate -f
@@ -43,7 +45,7 @@ For information about the Apache Cloudberry utilities, see the *Apache Cloudberr
 ## To restore the coordinator and standby instances on original hosts (optional)
 
 :::note
-Before performing the steps in this section, be sure you have followed the steps to restore coordinator mirroring after a recovery, as described in the [To restore the coordinator mirroring after a recovery](#topic_us3_md4_npb)previous section.
+Before performing the steps in this section, be sure you have followed the steps to restore coordinator mirroring after a recovery, as described in the [To restore the coordinator mirroring after a recovery](#to-restore-the-coordinator-mirroring-after-a-recovery)previous section.
 :::
 
 1. Stop the Apache Cloudberry coordinator instance on the standby coordinator. For example:
@@ -98,6 +100,3 @@ $ gpstate -f
 ```
 
 The standby coordinator status should be `passive`, and the WAL sender state should be `streaming`.
-
-For information about the [gpstate](../../../utility_guide/ref/gpstate.html) utility, see the *Apache Cloudberry Utility Guide*.
-

@@ -6,7 +6,7 @@ title: Initialize New Segments
 
 Use the `gpexpand` utility to create and initialize the new segment instances and create the expansion schema.
 
-The first time you run [`gpexpand`](../../utility_guide/ref/gpexpand.html) with a valid input file it creates and initializes segment instances and creates the expansion schema. After these steps are completed, running `gpexpand` detects if the expansion schema has been created and, if so, performs table redistribution.
+The first time you run [`gpexpand`](../../sys-utilities/gpexpand.md) with a valid input file it creates and initializes segment instances and creates the expansion schema. After these steps are completed, running `gpexpand` detects if the expansion schema has been created and, if so, performs table redistribution.
 
 :::note
 To prevent catalog inconsistency across existing and new segments, be sure that no DDL operations are running during the initialization phase.
@@ -55,7 +55,7 @@ The utility automatically generates an input file based on this information, `db
 
 5. Enter the mirroring strategy used in your system, if any. Options are `spread|grouped|none`. The default setting is `grouped`.
 
-    Ensure you have enough hosts for the selected grouping strategy. For more information about mirroring, see [Planning Mirror Segments](expand-planning.html).
+    Ensure you have enough hosts for the selected grouping strategy. For more information about mirroring, see [Plan Mirror Segments](./plan-system-expansion.md).
 
 6. Enter the number of new primary segments to add, if any. By default, new hosts are initialized with the same number of primary segments as existing hosts. Increase segments per host by entering a number greater than zero. The number you enter will be the number of additional segments initialized on all hosts. For example, if existing hosts currently have two segments each, entering a value of `2` initializes two more segments on existing hosts, and four segments on new hosts.
 7. If you are adding new primary segments, enter the new primary data directory root for the new segments. Do not specify the actual data directory name, which is created automatically by `gpexpand` based on the existing data directory names.
@@ -151,14 +151,14 @@ After you have created an input file, run `gpexpand` to initialize new segment i
     $ gpexpand -i input_file
     ```
 
-    The utility detects if an expansion schema exists for the Apache Cloudberry system. If a *gpexpand* schema exists, remove it with `gpexpand -c` before you start a new expansion operation. See [Removing the Expansion Schema](expand-post.html).
+    The utility detects if an expansion schema exists for the Apache Cloudberry system. If a *gpexpand* schema exists, remove it with `gpexpand -c` before you start a new expansion operation. See [Removing the Expansion Schema](./post-expansion-tasks.md).
 
     When the new segments are initialized and the expansion schema is created, the utility prints a success message and exits.
 
 
-When the initialization process completes, you can connect to Apache Cloudberry and view the expansion schema. The *gpexpand* schema resides in the postgres database. For more information, see [About the Expansion Schema](expand-planning.html).
+When the initialization process completes, you can connect to Apache Cloudberry and view the expansion schema. The *gpexpand* schema resides in the postgres database. For more information, see [About the Expansion Schema](./plan-system-expansion.md).
 
-After segment initialization is complete, [redistribute the tables](expand-redistribute.html#expand-redistribute) to balance existing data over the new segments.
+After segment initialization is complete, [redistribute the tables](./redistribute-tables.md#redistribute-tables) to balance existing data over the new segments.
 
 ## Monitor the cluster expansion state
 
@@ -170,7 +170,7 @@ $ gpstate -x
 
 If the expansion schema exists in the postgres database, `gpstate -x` reports on the progress of the expansion. During the first expansion phase, `gpstate` reports on the progress of new segment initialization. During the second phase, `gpstate` reports on the progress of table redistribution, and whether redistribution is paused or active.
 
-You can also query the expansion schema to see expansion status. See [Monitoring Table Redistribution](expand-redistribute.html) for more information.
+You can also query the expansion schema to see expansion status. See [Monitoring Table Redistribution](./redistribute-tables.md) for more information.
 
 ## Roll back a failed expansion setup
 

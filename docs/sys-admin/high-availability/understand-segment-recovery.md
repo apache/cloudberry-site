@@ -1,15 +1,17 @@
 ---
-title: Understanding Segment Recovery 
+title: Understand Segment Recovery
 ---
 
-This topic provides background information about concepts and principles of segment recovery. If you have down segments and need immediate help recovering them, see the instructions in [Recovering from Segment Failures](g-recovering-from-segment-failures.html). For information on how Apache Cloudberry detects that segments are down and an explanation of the Fault Tolerance Server (FTS) that manages down segment tracking, see [How Apache Cloudberry Detects a Failed Segment](g-detecting-a-failed-segment.html).
+# Understand Segment Recovery
+
+This topic provides background information about concepts and principles of segment recovery. If you have down segments and need immediate help recovering them, see the instructions in [Recovering from Segment Failures](./recover-from-segment-failures.md). For information on how Apache Cloudberry detects that segments are down and an explanation of the Fault Tolerance Server (FTS) that manages down segment tracking, see [How Apache Cloudberry Detects a Failed Segment](./detect-a-failed-segment.md).
 
 This topic is divided into the following sections:
 
-- [Segment Recovery Basics](#recovery_basics)
-- [Segment Recovery: Flow of Events](#flow_of_events)
-- [Simple Failover and Recovery Example](#simple_example)
-- [The Three Types of Segment Recovery](#types_of_recovery)
+- [Segment Recovery Basics](#segment-recovery-basics)
+- [Segment Recovery: Flow of Events](#segment-recovery-flow-of-events)
+- [Simple Failover and Recovery Example](#simple-failover-and-recovery-example)
+- [The Three Types of Segment Recovery](#the-three-types-of-segment-recovery)
 
 ## Segment recovery basics
 
@@ -19,7 +21,7 @@ If the coordinator cannot connect to a segment instance, it marks that segment a
 - A segment instance is not running; for example, there is no `postgres` database listener process.
 - The data directory of the segment instance is corrupt or missing; for example, data is not accessible, the file system is corrupt, or there is a disk failure.
 
-In order to bring the down segment instance back into operation again, you must correct the problem that made it fail in the first place, and then – if you have mirroring enabled – you can attempt to recover the segment instance from its mirror using the `gprecoverseg` utility. See [The Three Types of Segment Recovery](#types_of_recovery), below, for details on the three possible ways to recover a downed segment's data.
+In order to bring the down segment instance back into operation again, you must correct the problem that made it fail in the first place, and then – if you have mirroring enabled – you can attempt to recover the segment instance from its mirror using the `gprecoverseg` utility. See [The Three Types of Segment Recovery](#the-three-types-of-segment-recovery), below, for details on the three possible ways to recover a downed segment's data.
 
 ## Segment recovery: flow of events
 
@@ -46,7 +48,7 @@ The following summarizes the flow of events that follow a **mirror** segment goi
 4. The user runs `gprecoverseg` to bring back the (formerly mirror) mirror segment.
 5. The synching process occurs: the mirror comes into sync with its primary via WAL synching. You can check the state of this synching with `gpstate -e`.
 
-## Rebalancing after recovery
+## Rebalance after recovery
 
 After a segment instance has been recovered, the segments may not be in their preferred roles, which can cause processing to be skewed. The `gp_segment_configuration` table has the columns `role` (current role) and `preferred_role` (original role at the beginning). When a segment's `role` and `preferred_role` do not match the system may not be balanced. To rebalance the cluster and bring all the segments into their preferred roles, run the `gprecoverseg -r`command.
 

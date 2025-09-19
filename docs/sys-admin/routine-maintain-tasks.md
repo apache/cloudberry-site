@@ -2,9 +2,11 @@
 title: Routine System Maintenance Tasks
 ---
 
+# Routine System Maintenance Tasks
+
 To keep a Apache Cloudberry system running efficiently, the database must be regularly cleared of expired data and the table statistics must be updated so that the query optimizer has accurate information.
 
-Apache Cloudberry requires that certain tasks be performed regularly to achieve optimal performance. The tasks discussed here are required, but database administrators can automate them using standard UNIX tools such as `cron` scripts. An administrator sets up the appropriate scripts and checks that they ran successfully. See [Recommended Monitoring and Maintenance Tasks](../monitoring/monitoring.html) for additional suggested maintenance activities you can implement to keep your Cloudberry system running optimally.
+Apache Cloudberry requires that certain tasks be performed regularly to achieve optimal performance. The tasks discussed here are required, but database administrators can automate them using standard UNIX tools such as `cron` scripts. An administrator sets up the appropriate scripts and checks that they ran successfully. See [Recommended Monitoring and Maintenance Tasks](./recommended-maintenance-monitoring-tasks.md) for additional suggested maintenance activities you can implement to keep your Cloudberry system running optimally.
 
 ## Routine vacuum and analyze
 
@@ -16,13 +18,11 @@ If the ratio of hidden rows to total rows in a segment file is less than a thres
 
 You can use the `__gp_aovisimap_compaction_info()` function in the *gp_toolkit* schema to investigate the effectiveness of a VACUUM operation on append-optimized tables.
 
-For information about the `__gp_aovisimap_compaction_info()` function, see [Checking Append-Optimized Tables](../../ref_guide/gp_toolkit.html#topic8).
+For information about the `__gp_aovisimap_compaction_info()` function, see [Checking Append-Optimized Tables](../sys-catalogs/gp_toolkit.md#check-append-optimized-tables).
 
 `VACUUM` can be deactivated for append-optimized tables using the `gp_appendonly_compaction` server configuration parameter.
 
-For details about vacuuming a database, see [Vacuuming the Database](../dml.html).
-
-For information about the `gp_appendonly_compaction_threshold` server configuration parameter and the `VACUUM` command, see the *Apache Cloudberry Reference Guide*.
+For details about vacuuming a database, see [Vacuuming the Database](../sql-stmts/vacuum.md).
 
 ### Transaction ID management
 
@@ -30,7 +30,9 @@ Cloudberry's MVCC transaction semantics depend on comparing transaction ID (XID)
 
 Apache Cloudberry assigns XID values only to transactions that involve DDL or DML operations, which are typically the only transactions that require an XID.
 
-> **Important** Apache Cloudberry monitors transaction IDs. If you do not vacuum the database regularly, Apache Cloudberry will generate a warning and error.
+:::note
+Apache Cloudberry monitors transaction IDs. If you do not vacuum the database regularly, Apache Cloudberry will generate a warning and error.
+:::
 
 Apache Cloudberry issues the following warning when a significant portion of the transaction IDs are no longer available and before transaction ID wraparound occurs:
 
@@ -144,9 +146,9 @@ VACUUM cust_info;
 ```
 
 :::note
-- If you intend to run queries on partitioned tables with GPORCA enabled (the default), you must collect statistics on the root partitioned table with the ANALYZE command. For information about GPORCA, see [Overview of GPORCA](../query/topics/query-piv-opt-overview.html).
+- If you intend to run queries on partitioned tables with GPORCA enabled (the default), you must collect statistics on the root partitioned table with the ANALYZE command. For information about GPORCA, see [Overview of GPORCA](../performance/optimize-queries/use-orca/use-orca-overview.md).
 
-- You can use the Apache Cloudberry utility analyzedb to update table statistics. Tables can be analyzed concurrently. For append optimized tables, analyzedb updates statistics only if the statistics are not current. See the [analyzedb](../../utility_guide/ref/analyzedb.html) utility.
+- You can use the Apache Cloudberry utility analyzedb to update table statistics. Tables can be analyzed concurrently. For append optimized tables, analyzedb updates statistics only if the statistics are not current. See the [`analyzedb`](../sys-utilities/analyzedb.md) utility.
 :::
 
 ## Routine reindexing
@@ -157,8 +159,8 @@ For table columns with indexes, some operations such as bulk updates or inserts 
 
 ## Manage apache cloudberry log files
 
-- [Database Server Log Files](#topic10)
-- [Management Utility Log Files](#topic11)
+- [Database Server Log Files](#database-server-log-files)
+- [Management Utility Log Files](#management-utility-log-files)
 
 ### Database server log files
 
@@ -170,7 +172,7 @@ Log rotation can be triggered by the size of the current log file or the age of 
 
 The `log_rotation_age` configuration parameter specifies the age of a log file that triggers rotation. When the specified amount of time has elapsed since the log file was created, the file is closed and a new log file is created. The default `log_rotation_age`, 1d, creates a new log file 24 hours after the current log file was created. If `log_rotation_age` is set to 0, time-based rotation is deactivated.
 
-For information about viewing the database server log files, see [Viewing the Database Server Log Files](monitor.html).
+For information about viewing the database server log files, see [Viewing the Database Server Log Files](./recommended-maintenance-monitoring-tasks.md).
 
 ### Management utility log files
 
