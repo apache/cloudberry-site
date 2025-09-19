@@ -1,15 +1,17 @@
 ---
-title: Planning Cloudberry System Expansion 
+title: Plan Cloudberry System Expansion
 ---
+
+# Plan Cloudberry System Expansion
 
 Careful planning will help to ensure a successful Cloudberry expansion project.
 
 The topics in this section help to ensure that you are prepared to perform a system expansion.
 
-- [System Expansion Checklist](#topic4) is a checklist you can use to prepare for and perform the system expansion process.
-- [Planning New Hardware Platforms](#topic5) covers planning for acquiring and setting up the new hardware.
-- [Planning New Segment Initialization](#topic6) provides information about planning to initialize new segment hosts with `gpexpand`.
-- [Planning Table Redistribution](#topic10) provides information about planning the data redistribution after the new segment hosts have been initialized.
+- [System Expansion Checklist](#system-expansion-checklist) is a checklist you can use to prepare for and perform the system expansion process.
+- [Planning New Hardware Platforms](#plan-new-hardware-platforms) covers planning for acquiring and setting up the new hardware.
+- [Planning New Segment Initialization](#plan-new-segment-initialization) provides information about planning to initialize new segment hosts with `gpexpand`.
+- [Planning Table Redistribution](#plan-table-redistribution) provides information about planning the data redistribution after the new segment hosts have been initialized.
 
 :::note
 When expanding a Apache Cloudberry system, you must deactivate Cloudberry interconnect proxies before adding new hosts and segment instances to the system, and you must update the `gp_interconnect_proxy_addresses` parameter with the newly-added segment instances before you re-enable interconnect proxies. For example, these commands deactivate Cloudberry interconnect proxies by setting the interconnect to the default (`UDPIFC`) and reloading the `postgresql.conf` file to update the Cloudberry system configuration.
@@ -20,7 +22,7 @@ gpconfig -r gp_interconnect_type
 gpstop -u
 ```
 
-For information about Cloudberry interconnect proxies, see [Configuring Proxies for the Cloudberry Interconnect](../managing/proxy-ic.html).
+For information about Cloudberry interconnect proxies, see [Configuring Proxies for the Cloudberry Interconnect](../configure-proxy.md).
 
 ## System expansion checklist
 
@@ -177,7 +179,7 @@ The steps to plan and set up new hardware platforms vary for each deployment. So
 - Capture the system configuration (users, profiles, NICs, and so on) from existing hardware to use as a detailed list for ordering new hardware.
 - Create a custom build plan for deploying hardware with the desired configuration in the particular site and environment.
 
-After selecting and adding new hardware to your network environment, ensure you perform the tasks described in [Preparing and Adding Hosts](expand-nodes.html).
+After selecting and adding new hardware to your network environment, ensure you perform the tasks described in [Preparing and Adding Hosts](./prepare-and-add-hosts.md).
 
 ## Plan new segment initialization
 
@@ -199,13 +201,13 @@ After you begin initializing new segments, you can no longer restore the system 
 
 ### Plan mirror segments
 
-If your existing system has mirror segments, the new segments must have mirroring configured. If there are no mirrors configured for existing segments, you cannot add mirrors to new hosts with the `gpexpand` utility. For more information about segment mirroring configurations that are available during system initialization, see [About Segment Mirroring Configurations](../highavail/topics/g-overview-of-segment-mirroring.html#mirror_configs).
+If your existing system has mirror segments, the new segments must have mirroring configured. If there are no mirrors configured for existing segments, you cannot add mirrors to new hosts with the `gpexpand` utility. For more information about segment mirroring configurations that are available during system initialization, see [About Segment Mirroring Configurations](../high-availability/segment-mirroring-overview.md#about-segment-mirroring-configurations).
 
 For Apache Cloudberry systems with mirror segments, ensure you add enough new host machines to accommodate new mirror segments. The number of new hosts required depends on your mirroring strategy:
 
 - **Group Mirroring** — Add at least two new hosts so the mirrors for the first host can reside on the second host, and the mirrors for the second host can reside on the first. This is the default type of mirroring if you enable segment mirroring during system initialization.
 - **Spread Mirroring** — Add at least one more host to the system than the number of segments per host. The number of separate hosts must be greater than the number of segment instances per host to ensure even spreading. You can specify this type of mirroring during system initialization or when you enable segment mirroring for an existing system.
-- **Block Mirroring** — Adding one or more blocks of host systems. For example add a block of four or eight hosts. Block mirroring is a custom mirroring configuration. For more information about block mirroring, see [Segment Mirroring Configurations](../../best_practices/ha.html#topic_ngz_qf4_tt).
+- **Block Mirroring** — Adding one or more blocks of host systems. For example add a block of four or eight hosts. Block mirroring is a custom mirroring configuration. For more information about block mirroring, see [Segment Mirroring Configurations](../../tutorials/best-practices/high-availability-best-practices.md#configure-segment-mirroring).
 
 ### Increase segments per host
 
@@ -213,7 +215,7 @@ By default, new hosts are initialized with as many primary segments as existing 
 
 For example, if existing hosts currently have two segments per host, you can use `gpexpand` to initialize two additional segments on existing hosts for a total of four segments and initialize four new segments on new hosts.
 
-The interactive process for creating an expansion input file prompts for this option; you can also specify new segment directories manually in the input configuration file. For more information, see [Creating an Input File for System Expansion](expand-initialize.html).
+The interactive process for creating an expansion input file prompts for this option; you can also specify new segment directories manually in the input configuration file. For more information, see [Creating an Input File for System Expansion](./initialize-new-segments.md).
 
 ### About the expansion schema
 
@@ -225,7 +227,7 @@ The expansion schema stores metadata for each table in the system so its status 
 - *gpexpand.status_detail*
 - *gpexpand.expansion_progress*
 
-Control expansion process aspects by modifying *gpexpand.status_detail*. For example, removing a record from this table prevents the system from expanding the table across new segments. Control the order in which tables are processed for redistribution by updating the `rank` value for a record. For more information, see [Ranking Tables for Redistribution](expand-redistribute.html).
+Control expansion process aspects by modifying *gpexpand.status_detail*. For example, removing a record from this table prevents the system from expanding the table across new segments. Control the order in which tables are processed for redistribution by updating the `rank` value for a record. For more information, see [Ranking Tables for Redistribution](./redistribute-tables.md).
 
 ## Plan table redistribution
 
@@ -249,7 +251,7 @@ The rebuild method is similar to creating a new table with a `CREATE TABLE AS SE
 
 When planning the redistribution phase, consider the impact of the `ACCESS EXCLUSIVE` lock taken on each table. User activity on a table can delay its redistribution, but also tables are unavailable for user activity during redistribution.
 
-You can manage the order in which tables are redistributed by adjusting their ranking. See [Ranking Tables for Redistribution](expand-redistribute.html). Manipulating the redistribution order can help adjust for limited disk space and restore optimal query performance for high-priority queries sooner.
+You can manage the order in which tables are redistributed by adjusting their ranking. See [Ranking Tables for Redistribution](./redistribute-tables.md). Manipulating the redistribution order can help adjust for limited disk space and restore optimal query performance for high-priority queries sooner.
 
 #### Systems with abundant free disk space
 
@@ -262,7 +264,7 @@ If your existing hosts have limited disk space, you may prefer to first redistri
 Also consider the following:
 
 - Run multiple parallel redistribution processes during off-peak hours to maximize available system resources.
-- When running multiple processes, operate within the connection limits for your Cloudberry system. For information about limiting concurrent connections, see [Limiting Concurrent Connections](../client_auth.html).
+- When running multiple processes, operate within the connection limits for your Cloudberry system. For information about limiting concurrent connections, see [Limiting Concurrent Connections](../../security/client-auth.md).
 
 ### Redistribute append-optimized and compressed tables
 
@@ -272,7 +274,9 @@ Also consider the following:
 - Append-optimized tables that are defined to use data compression expand at a significantly slower rate than uncompressed append-optimized tables, potentially up to 80% slower.
 - Systems with data compression such as ZFS/LZJB take longer to redistribute.
 
-> **Important** If your system hosts use data compression, use identical compression settings on the new hosts to avoid disk space shortage.
+:::note
+If your system hosts use data compression, use identical compression settings on the new hosts to avoid disk space shortage.
+:::
 
 ### Redistribute partitioned tables
 

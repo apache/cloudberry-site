@@ -1,6 +1,10 @@
-# Monitor long-running operations
+---
+title: Monitor Long-Running Operations
+---
 
-Apache Cloudberry can report the progress of `ANALYZE`, `CLUSTER`, `COPY`, `CREATE INDEX`, `REINDEX`, and `VACUUM` commands during command execution. Cloudberry can also report the progress of a running base backup (initiated during [gprecoverseg -F](../../utility_guide/ref/gprecoverseg.html)) command invocation, allowing you to monitor the progress of these possibly long-running operations.
+# Monitor Long-Running Operations
+
+Apache Cloudberry can report the progress of `ANALYZE`, `CLUSTER`, `COPY`, `CREATE INDEX`, `REINDEX`, and `VACUUM` commands during command execution. Cloudberry can also report the progress of a running base backup (initiated during [`gprecoverseg -F`](../sys-utilities/gprecoverseg.md)) command invocation, allowing you to monitor the progress of these possibly long-running operations.
 
 Cloudberry reports the command progress via ephemeral system views, which return data only while the operations are running. Two sets of progress reporting views are provided:
 
@@ -9,10 +13,9 @@ Cloudberry reports the command progress via ephemeral system views, which return
 
 Cloudberry reports progress in phases, where the phases are specific to the command. For example, `acquiring sample rows` is an analyze progress phase, while `building index` is an index creation progress phase. Cloudberry reports the progress for both heap and AO/CO tables. For most commands, heap and AO/CO table share the same phases. For vacuum and cluster operations, Cloudberry reports heap and AO/CO table progress in separate phases.
 
-
 ## Analyze progress reporting
 
-The [gp_stat_progress_analyze](../../ref_guide/system_catalogs/catalog_ref-views.html#gp_stat_progress_analyze) system view reports the progress of running `ANALYZE` and `analyzedb` operations. The view displays a row per segment instance that is currently servicing an analyze operation.
+The [`pg_stat_progress_analyze`](../sys-catalogs/sys-views/pg-stat-progress-analyze.md) system view reports the progress of running `ANALYZE` and `analyzedb` operations. The view displays a row per segment instance that is currently servicing an analyze operation.
 
 For each active analyze operation, the `gp_stat_progress_analyze_summary` view aggregates across the Apache Cloudberry cluster the metrics reported by `gp_stat_progress_analyze`.
 
@@ -30,7 +33,7 @@ The table below describes how to interpret the phase-specific information report
 
 ## Cluster and VACUUM FULL progress reporting
 
-The [gp_stat_progress_cluster](../../ref_guide/system_catalogs/catalog_ref-views.html#gp_stat_progress_cluster) system view reports the progress of running `CLUSTER`, `clusterdb`, and `VACUUM FULL` (on a heap table) operations. (`VACUUM FULL` on a heap table is similar to `CLUSTER` in that Cloudberry performs a re-write of the table.) The view displays a row per segment instance that is currently servicing any of the mentioned commands.
+The [`pg_stat_progress_cluster`](../sys-catalogs/sys-views/pg-stat-progress-cluster.md) system view reports the progress of running `CLUSTER`, `clusterdb`, and `VACUUM FULL` (on a heap table) operations. (`VACUUM FULL` on a heap table is similar to `CLUSTER` in that Cloudberry performs a re-write of the table.) The view displays a row per segment instance that is currently servicing any of the mentioned commands.
 
 For each active cluster or vacuum full operation, the `gp_stat_progress_cluster_summary` view aggregates across the Apache Cloudberry cluster the metrics reported by `gp_stat_progress_cluster`.
 
@@ -65,7 +68,7 @@ The table below describes how to interpret the *AO/CO table* phase-specific info
 
 ## Copy progress reporting
 
-The [gp_stat_progress_copy](../../ref_guide/system_catalogs/catalog_ref-views.html#gp_stat_progress_copy) system view reports the progress of running `COPY` operations. The view displays a row per segment instance that is currently servicing a copy operation.
+The [`gp_stat_progress_copy`](../sys-catalogs/sys-views/pg-stat-progress-copy.md) system view reports the progress of running `COPY` operations. The view displays a row per segment instance that is currently servicing a copy operation.
 
 For each active copy operation, the `gp_stat_progress_copy_summary` aggregates across the Apache Cloudberry cluster the metrics reported by `gp_stat_progress_copy`.
 
@@ -85,7 +88,7 @@ Cloudberry uses `sum()` for `COPY TO` with replicated tables, as the actual copy
 
 ## Create INDEX progress reporting
 
-The [gp_stat_progress_create_index](../../ref_guide/system_catalogs/catalog_ref-views.html#gp_stat_progress_create_index) system view reports the progress of running `CREATE INDEX` and `REINDEX` operations. The view displays a row per segment instance that is currently servicing either command.
+The [`pg_stat_progress_create_index`](../sys-catalogs/sys-views/pg-stat-progress-create-index.md) system view reports the progress of running `CREATE INDEX` and `REINDEX` operations. The view displays a row per segment instance that is currently servicing either command.
 
 For each active index operation, the `gp_stat_progress_create_index_summary` view aggregates across the Apache Cloudberry cluster the metrics reported by `gp_stat_progress_create_index`.
 
@@ -108,11 +111,11 @@ Apache Cloudberry skips several phases because it does not support concurrent in
 
 ## Vacuum progress reporting
 
-The [gp_stat_progress_vacuum](../../ref_guide/system_catalogs/catalog_ref-views.html#gp_stat_progress_vacuum) system view reports the progress of running `VACUUM` and `vacuumdb` operations on AO/CO and heap tables, and `VACUUM FULL` operations on AO/CO tables. The view displays a row per segment instance that is currently servicing a vacuum operation.
+The `pg_stat_progress_vacuum` system view reports the progress of running `VACUUM` and `vacuumdb` operations on AO/CO and heap tables, and `VACUUM FULL` operations on AO/CO tables. The view displays a row per segment instance that is currently servicing a vacuum operation.
 
 For each active vacuum operation, the `gp_stat_progress_vacuum_summary` view aggregates across the Apache Cloudberry cluster the metrics reported by `gp_stat_progress_vacuum`.
 
-Regular `VACUUM` modifies a heap table in place. `VACUUM FULL` on a heap table rewrites the table as does a `CLUSTER` operation. For information about progress reporting for `VACUUM FULL` on a heap table, see [CLUSTER and VACUUM FULL Progress Reporting](#cluster_progress).
+Regular `VACUUM` modifies a heap table in place. `VACUUM FULL` on a heap table rewrites the table as does a `CLUSTER` operation. For information about progress reporting for `VACUUM FULL` on a heap table, see [CLUSTER and VACUUM FULL Progress Reporting](#copy-progress-reporting).
 
 In Apache Cloudberry, an AO/CO table vacuum behaves differently than a heap table vacuum. Because Cloudberry stores the logical EOF for each segment file, it does not need to scan physical blocks after the logical EOF, so Cloudberry can truncate them. Cloudberry always rewrites data into new segment files to get rid of dead tuples for AO/CO tables, and performs the same operations for both `VACUUM FULL` and `VACUUM`. Due to these difference, Cloudberry reports vacuum progress on heap and AO/CO tables using different phases.
 
@@ -145,7 +148,7 @@ The table below describes how to interpret the *AO/CO table* phase-specific info
 
 ## Base backup progress reporting
 
-The [gp_stat_progress_basebackup](../../ref_guide/system_catalogs/catalog_ref-views.html#gp_stat_progress_basebackup) system view reports the progress of running base backup operations, as is performed by `gprecoverseg -F` (full recovery). The view displays a row per segment instance that is currently servicing replication commands.
+The [`gp_stat_progress_basebackup`](../sys-catalogs/sys-views/pg-stat-progress-basebackup.md) system view reports the progress of running base backup operations, as is performed by `gprecoverseg -F` (full recovery). The view displays a row per segment instance that is currently servicing replication commands.
 
 For each active base backup operation, the `gp_stat_progress_basebackup_summary` view aggregates across the Apache Cloudberry cluster the metrics reported by `gp_stat_progress_basebackup`.
 

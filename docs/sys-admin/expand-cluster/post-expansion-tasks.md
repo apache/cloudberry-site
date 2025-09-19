@@ -1,11 +1,13 @@
 ---
-title: Post Expansion Tasks 
+title: Post Expansion Tasks
 ---
+
+# Post Expansion Tasks
 
 After the expansion is completed, you must perform different tasks depending on your environment.
 
-- [Removing the Expansion Schema](#topic_xvp_5p2_hpb)
-- [Setting Up PXF on the New Host](#topic_pxl_1q2_hpb)
+- [Removing the Expansion Schema](#remove-the-expansion-schema)
+- [Setting Up PXF on the New Host](#set-up-pxf-on-the-new-host)
 
 ## Remove the expansion schema
 
@@ -24,16 +26,15 @@ You can safely remove the expansion schema after the expansion operation is comp
     Some systems require you to press Enter twice.
     :::
 
-
 ## Set up PXF on the new host
 
 If you are using PXF in your Apache Cloudberry cluster, you must perform some configuration steps on the new hosts.
 
 There are different steps to follow depending on your PXF version and the type of installation.
 
-### Pxf 5
+### PXF 5
 
-- You must [install](https://docs.vmware.com/en/VMware-Cloudberry-Platform-Extension-Framework/6.6/greenplum-platform-extension-framework/installing_pxf.html) the same version of the PXF `rpm` or `deb` on the new hosts.
+- You must install the same version of the PXF `rpm` or `deb` on the new hosts.
 - Log into the Cloudberry Coordinator and run the following commands:
 
     ```shell
@@ -44,7 +45,7 @@ There are different steps to follow depending on your PXF version and the type o
 
 ### PXF 6
 
-- You must [install](https://docs.vmware.com/en/VMware-Cloudberry-Platform-Extension-Framework/6.6/greenplum-platform-extension-framework/installing_pxf.html) the same version of the PXF `rpm` or `deb` on the new hosts.
+- You must install the same version of the PXF `rpm` or `deb` on the new hosts.
 - Log into the Cloudberry Coordinator and run the following commands:
 
     ```shell

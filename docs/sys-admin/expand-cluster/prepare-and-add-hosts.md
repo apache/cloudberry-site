@@ -13,18 +13,18 @@ Run performance tests first on the new hosts and then all hosts. Run the tests o
 Generally, you should run performance tests when an administrator modifies host networking or other special conditions in the system. For example, if you will run the expanded system on two network clusters, run tests on each cluster.
 
 :::note
-Preparing host systems for use by a Apache Cloudberry system assumes that the new hosts' operating system has been properly configured to match the existing hosts, described in [Configuring Your Systems](../../install_guide/prep_os.html).
+Preparing host systems for use by a Apache Cloudberry system assumes that the new hosts' operating system has been properly configured to match the existing hosts, described in [Configuring Your Systems](../../cbdb-op-software-hardware.md#supported-os).
 :::
 
 ## Add new hosts to the trusted host environment
 
-New hosts must exchange SSH keys with the existing hosts to enable Cloudberry administrative utilities to connect to all segments without a password prompt. Perform the key exchange process twice with the [gpssh-exkeys](../../utility_guide/ref/gpssh-exkeys.html) utility.
+New hosts must exchange SSH keys with the existing hosts to enable Cloudberry administrative utilities to connect to all segments without a password prompt. Perform the key exchange process twice with the [gpssh-exkeys](../../sys-utilities/gpssh-exkeys.md) utility.
 
 First perform the process as `root`, for administration convenience, and then as the user `gpadmin`, for management utilities. Perform the following tasks in order:
 
-1. [To exchange SSH keys as root](#no160715)
-2. [To create the gpadmin user](#no160595)
-3. [To exchange SSH keys as the gpadmin user](#sshexch_gpadmin)
+1. [To exchange SSH keys as root](#to-exchange-ssh-keys-as-root)
+2. [To create the gpadmin user](#to-create-the-gpadmin-user)
+3. [To exchange SSH keys as the gpadmin user](#to-exchange-ssh-keys-as-the-gpadmin-user)
 
 :::note
 The Apache Cloudberry segment host naming convention is `sdwN` where `sdw` is a prefix and `N` is an integer ( `sdw1`, `sdw2` and so on). For hosts with multiple interfaces, the convention is to append a dash (`-`) and number to the host name. For example, `sdw1-1` and `sdw1-2` are the two interface names for host `sdw1`.
@@ -67,13 +67,13 @@ The Apache Cloudberry segment host naming convention is `sdwN` where `sdw` is a 
 4. `gpssh-exkeys` checks the remote hosts and performs the key exchange between all hosts. Enter the `root` user password when prompted. For example:
 
     ```shell
-    ***Enter password for root@<hostname>: <root_password>
+    Enter password for root@<hostname>: <root_password>
     ```
 
 
 ### To create the gpadmin user
 
-1. Use [gpssh](../../utility_guide/ref/gpssh.html) to create the `gpadmin` user on all the new segment hosts (if it does not exist already). Use the list of new hosts you created for the key exchange. For example:
+1. Use [gpssh](../../sys-utilities/gpssh.md) to create the `gpadmin` user on all the new segment hosts (if it does not exist already). Use the list of new hosts you created for the key exchange. For example:
 
     ```shell
     # gpssh -f <new_hosts_file> '/usr/sbin/useradd gpadmin -d 
@@ -106,13 +106,13 @@ The Apache Cloudberry segment host naming convention is `sdwN` where `sdw` is a 
 2. `gpssh-exkeys` will check the remote hosts and perform the key exchange between all hosts. Enter the `gpadmin` user password when prompted. For example:
 
     ```shell
-    ***Enter password for gpadmin@<hostname>: <gpadmin_password>
+    Enter password for gpadmin@<hostname>: <gpadmin_password>
     ```
 
 
 ## Validate disk I/O and memory bandwidth
 
-Use the [gpcheckperf](../../utility_guide/ref/gpcheckperf.html) utility to test disk I/O and memory bandwidth.
+Use the [gpcheckperf](../../sys-utilities/gpcheckperf.md) utility to test disk I/O and memory bandwidth.
 
 ### To run gpcheckperf
 

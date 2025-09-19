@@ -1,6 +1,8 @@
 ---
-title: Recovering from Segment Failures 
+title: Recover from Segment Failures
 ---
+
+# Recover from Segment Failures
 
 This topic walks you through what to do when one or more segments or hosts are down and you want to recover the down segments. The recovery path you follow depends primarily which of these 3 scenarios fits your circumstances:
 
@@ -23,14 +25,14 @@ Incremental recovery is only possible when recovering segments to the current ho
 
 This topic is divided into the following sections:
 
-- [Prerequisites](#prepare_for_recovery)
-- [Recovery Scenarios](#recovery_scenarios)
-- [Post-Recovery Tasks](#post_recovery)
+- [Prerequisites](#prerequisites)
+- [Recovery Scenarios](#recovery-scenarios)
+- [Post-Recovery Tasks](#post-recovery-tasks)
 
 ## Prerequisites
 
 - Mirroring is enabled for all segments.
-- You've already identified which segments have failed. If necessary, see the topic [Checking for Failed Segments](g-checking-for-failed-segments.html).
+- You've already identified which segments have failed. If necessary, see the topic [Checking for Failed Segments](./check-for-failed-segments.md).
 - The coordinator host can connect to the segment host.
 - All networking or hardware issues that caused the segment to fail have been resolved.
 
@@ -38,12 +40,12 @@ This topic is divided into the following sections:
 
 This section documents the steps for the 3 distinct segment recovery scenarios. Follow the link to instructions that walk you through each scenario.
 
-- [Recover In-Place to Current Host](#same_host)
-    -   [Incremental Recovery](#incremental)
-    -   [Full Recovery](#full)
-    -   [Differential Recovery](#differential)
-- [Recover to A Different Host within the Cluster](#different_host)
-- [Recover to A New Host, Outside of the Cluster](#new_host)
+- [Recover In-Place to Current Host](#recover-in-place-to-current-host)
+    - [Incremental Recovery](#incremental-recovery)
+    - [Full Recovery](#full-recovery)
+    - [Differential Recovery](#differential-recovery)
+- [Recover to A Different Host within the Cluster](#recover-to-a-different-host-within-the-cluster)
+- [Recover to A New Host, Outside of the Cluster](#recover-to-a-different-host-within-the-cluster)
 
 ### Recover in-place to current host
 
@@ -91,7 +93,7 @@ Follow these steps for incremental recovery:
         $ gprecoverseg -i /home/gpadmin/recover_config_file  
         ```
 
-3. Perform the post-recovery tasks summarized in the section [Post-Recovery Tasks](#post_recovery).
+3. Perform the post-recovery tasks summarized in the section [Post-Recovery Tasks](#post-recovery-tasks).
 
 #### Full recovery
 
@@ -116,26 +118,25 @@ Follow these steps for incremental recovery:
 
         Note the literal **SPACE** separating the lines.
 
-    2.  Alternatively, generate a sample recovery file using the following command and edit the resulting file to match your desired recovery configuration:
+    2. Alternatively, generate a sample recovery file using the following command and edit the resulting file to match your desired recovery configuration:
 
         ```shell
         $ gprecoverseg -o /home/gpadmin/recover_config_file
         ```
 
-    3.  Run the following command, passing in the config file generated in the previous step:
+    3. Run the following command, passing in the config file generated in the previous step:
 
         ```shell
         $ gprecoverseg -i recover_config_file
         ```
 
-3. Perform the post-recovery tasks summarized in the section [Post-Recovery Tasks](#post_recovery).
+3. Perform the post-recovery tasks summarized in the section [Post-Recovery Tasks](#post-recovery-tasks).
 
 #### Differential recovery
 
 Follow these steps for differential recovery: 
 
 1. Run `gprecoverseg --differential`
-
 
 ### Recover to a different host within the cluster
 
@@ -171,7 +172,7 @@ Follow these steps to recover all segments or just a subset of segments to a dif
     $ gprecoverseg -i recover_config_file
     ```
 
-3. Perform the post-recovery tasks summarized in the section [Post-Recovery Tasks](#post_recovery).
+3. Perform the post-recovery tasks summarized in the section [Post-Recovery Tasks](#post-recovery-tasks).
 
 ### Recover to a new host, outside of the cluster
 
@@ -213,7 +214,7 @@ The new host must:
     In the case of multiple failed segment hosts, you can specify the hosts to recover to with a comma-separated list. However, it is strongly recommended to recover to one host at a time. If you must recover to more than one host at a time, then it is critical to ensure that a double fault scenario does not occur, in which both the segment primary and corresponding mirror are offline.
     :::
 
-3. Perform the post-recovery tasks summarized in the section [Post-Recovery Tasks](#post_recovery).
+3. Perform the post-recovery tasks summarized in the section [Post-Recovery Tasks](#post-recovery-tasks).
 
 ### Post-recovery tasks
 

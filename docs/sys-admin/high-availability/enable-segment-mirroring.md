@@ -1,23 +1,26 @@
 ---
-title: Enabling Segment Mirroring 
+title: Enable Segment Mirroring
 ---
+
+# Enable Segment Mirroring
 
 Mirror segments allow database queries to fail over to a backup segment if the primary segment is unavailable. By default, mirrors are configured on the same array of hosts as the primary segments. You may choose a completely different set of hosts for your mirror segments so they do not share machines with any of your primary segments.
 
-> **Important** During the online data replication process, Apache Cloudberry should be in a quiescent state, workloads and other queries should not be running.
+:::note
+During the online data replication process, Apache Cloudberry should be in a quiescent state, workloads and other queries should not be running.
+:::
 
 ## To add segment mirrors to an existing system (same hosts as primaries)
 
 1. Allocate the data storage area for mirror data on all segment hosts. The data storage area must be different from your primary segments' file system location.
-2. Use [gpssh-exkeys](../../../utility_guide/ref/gpssh-exkeys.html) to ensure that the segment hosts can SSH and remote sync to each other without a password prompt.
-3. Run the [gpaddmirrors](../../../utility_guide/ref/gpaddmirrors.html) utility to enable mirroring in your Apache Cloudberry system. For example, to add 10000 to your primary segment port numbers to calculate the mirror segment port numbers:
+2. Use [`gpssh-exkeys`](../../sys-utilities/gpssh-exkeys.md) to ensure that the segment hosts can SSH and remote sync to each other without a password prompt.
+3. Run the [`gpaddmirrors`](../../sys-utilities/gpaddmirrors.md) utility to enable mirroring in your Apache Cloudberry system. For example, to add 10000 to your primary segment port numbers to calculate the mirror segment port numbers:
 
     ```shell
     $ gpaddmirrors -p 10000
     ```
 
     Where `-p` specifies the number to add to your primary segment port numbers. Mirrors are added with the default group mirroring configuration.
-
 
 ## To add segment mirrors to an existing system (different hosts from primaries)
 

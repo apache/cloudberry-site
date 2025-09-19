@@ -12,15 +12,15 @@ Because of the Cloudberry MPP architecture, when you add resources to the system
 
 The expansion process uses standard Apache Cloudberry operations so it is transparent and easy for administrators to troubleshoot. Segment mirroring and any replication mechanisms in place remain active, so fault-tolerance is uncompromised and disaster recovery measures remain effective.
 
-- **[System Expansion Overview](../expand/expand-overview.html)**  
+- **[System Expansion Overview](./expand-a-db-system.md)**  
 You can perform a Apache Cloudberry expansion to add segment instances and segment hosts with minimal downtime. In general, adding nodes to a Cloudberry cluster achieves a linear scaling of performance and storage capacity.
-- **[Planning Cloudberry System Expansion](../expand/expand-planning.html)**  
+- **[Planning Cloudberry System Expansion](./plan-system-expansion.md)**  
 Careful planning will help to ensure a successful Cloudberry expansion project.
-- **[Preparing and Adding Hosts](../expand/expand-nodes.html)**  
+- **[Preparing and Adding Hosts](./prepare-and-add-hosts.md)**  
 Verify your new host systems are ready for integration into the existing Cloudberry system.
-- **[Initializing New Segments](../expand/expand-initialize.html)**  
+- **[Initializing New Segments](./initialize-new-segments.md)**  
 Use the `gpexpand` utility to create and initialize the new segment instances and create the expansion schema.
-- **[Redistributing Tables](../expand/expand-redistribute.html)**  
+- **[Redistributing Tables](./redistribute-tables.md)**  
 Redistribute tables to balance existing data over the newly expanded cluster.
-- **[Post Expansion Tasks](../expand/expand-post.html)**  
+- **[Post Expansion Tasks](./post-expansion-tasks.md)**  
 After the expansion is completed, you must perform different tasks depending on your environment.
