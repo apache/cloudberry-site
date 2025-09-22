@@ -37,7 +37,7 @@ If you follow the steps described in the [Prepare to Deploy](../../cbdb-op-prepa
 
 :::
 
-### Step 1. enable the standby coordinator
+### Step 1. Enable the standby coordinator
 
 You need to first enable the standby coordinator using the `gpinitstandby` utility:
 
@@ -61,7 +61,7 @@ You need to first enable the standby coordinator using the `gpinitstandby` utili
 
     ![init standby](../../media/init-standby.png)
 
-### Step 2. activate the standby coordinator
+### Step 2. Activate the standby coordinator
 
 If the primary coordinator fails, the CBDB cluster is not accessible and WAL replication stops. You can use `gpactivatestandby` to activate the standby coordinator. Upon activation of the standby coordinator, CBDB reconstructs the coordinator host state at the time of the last successfully committed transaction.
 
@@ -96,7 +96,7 @@ To activate the standby coordinator:
 
     The coordinator status should be `Active`. When a standby coordinator is not configured, the command displays `No coordinator standby configured` for the standby coordinator status. If you configured a new standby coordinator, its status is `Passive`.
 
-### Step 3. restore coordinator mirroring after a recovery
+### Step 3. Restore coordinator mirroring after a recovery
 
 After you activate a standby coordinator for recovery, the standby coordinator becomes the primary coordinator. You can continue running that instance as the primary coordinator if it has the same capabilities and dependability as the original coordinator host.
 

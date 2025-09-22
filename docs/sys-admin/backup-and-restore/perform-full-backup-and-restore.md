@@ -391,7 +391,7 @@ The email contains summary information about the operation including options, du
 The UNIX mail utility must be running on the Apache Cloudberry host and must be configured to allow the Apache Cloudberry superuser (`gpadmin`) to send email. Also ensure that the mail program executable is locatable via the `gpadmin` user's `$PATH`.
 :::
 
-### Gpbackup and gprestore email file format
+### gpbackup and gprestore email file format
 
 The `gpbackup` and `gprestore` email notification YAML file `gp_email_contacts.yaml` uses indentation (spaces) to determine the document hierarchy and the relationships of the sections to one another. The use of white space is significant. White space should not be used simply for formatting purposes, and tabs should not be used at all.
 
