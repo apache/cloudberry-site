@@ -25,25 +25,25 @@ Take the following steps to enable and activate coordinator mirroring for your C
 
 Make sure that you have already configured a standby coordinator on a different host from where the primary coordinator is running. Specifically, ensure that the following is properly configured on the standby coordinator host:
 
--   `gpadmin` system user is created
--   CBDB rpm package is installed
--   Environmental variables are set
--   SSH keys are exchanged
--   Data directories and tablespace directories, if needed, are created
+- `gpadmin` system user is created
+- Cloudberry rpm package is installed
+- Environmental variables are set
+- SSH keys are exchanged
+- Data directories and tablespace directories, if needed, are created
 
 :::note
 
-If you follow the steps described in the [Prepare to Deploy](https://cloudberry.apache.org/docs/cbdb-op-prepare-to-deploy) and [Deploy Apache Cloudberry Manually Using RPM Package](https://cloudberry.apache.org/docs/cbdb-op-deploy-guide) topics to deploy the cluster, a host for the standby coordinator ( `cbdb-standbycoordinator`) is already configured in the cluster.
+If you follow the steps described in the [Prepare to Deploy](../../cbdb-op-prepare-to-deploy.md) and [Deploy Apache Cloudberry Manually Using RPM Package](../../cbdb-op-deploy-guide.md) topics to deploy the cluster, a host for the standby coordinator ( `cbdb-standbycoordinator`) is already configured in the cluster.
 
 :::
 
-### Step 1. Enable the standby coordinator
+### Step 1. enable the standby coordinator
 
 You need to first enable the standby coordinator using the `gpinitstandby` utility:
 
 1. Run the `gpinitstandby` utility on the currently active primary coordinator (`cbdb-coordinator`) host to add a standby coordinator host to your CBDB cluster. For example:
 
-    ```
+    ```shell
     $ gpinitstandby -s cbdb-standbycoordinator
     ```
 
@@ -59,9 +59,9 @@ You need to first enable the standby coordinator using the `gpinitstandby` utili
 
     The standby coordinator status should be `passive`, and the WAL sender state should be `streaming`, as demonstrated below:
 
-    ![init standby](../media/init-standby.png)
+    ![init standby](../../media/init-standby.png)
 
-### Step 2. Activate the standby coordinator
+### Step 2. activate the standby coordinator
 
 If the primary coordinator fails, the CBDB cluster is not accessible and WAL replication stops. You can use `gpactivatestandby` to activate the standby coordinator. Upon activation of the standby coordinator, CBDB reconstructs the coordinator host state at the time of the last successfully committed transaction.
 
@@ -69,7 +69,7 @@ To activate the standby coordinator:
 
 1. Run the `gpactivatestandby` utility from the standby coordinator host you are activating. For example:
 
-    ```
+    ```shell
     $ export PGPORT=5432
     $ gpactivatestandby -d /data0/coordinator/gpseg-1
     ```
@@ -86,17 +86,17 @@ To activate the standby coordinator:
 
     After you activate the standby, it becomes the active or primary coordinator for your CBDB cluster. You can access the CBDB cluster by connecting to the standby coordinator.
 
-    ![activate standby](../media/activate-standby.png)
+    ![activate standby](../../media/activate-standby.png)
 
 2. After the utility is completed, you can run `gpstate` with the `-b` option to display a summary of the system status:
 
-    ```
+    ```shell
     $ gpstate -b
     ```
 
     The coordinator status should be `Active`. When a standby coordinator is not configured, the command displays `No coordinator standby configured` for the standby coordinator status. If you configured a new standby coordinator, its status is `Passive`.
 
-### Step 3. Restore coordinator mirroring after a recovery
+### Step 3. restore coordinator mirroring after a recovery
 
 After you activate a standby coordinator for recovery, the standby coordinator becomes the primary coordinator. You can continue running that instance as the primary coordinator if it has the same capabilities and dependability as the original coordinator host.
 
@@ -108,7 +108,7 @@ Take the steps below to configure the failed primary coordinator to become a sta
 
 2. On the original primary coordinator host, move or remove the data directory, `gpseg-1`. This example moves the directory to `backup_gpseg-1`:
 
-    ```
+    ```shell
     $ mv /data0/coordinator/gpseg-1 /data0/coordinator/backup_gpseg-1
     ```
 
@@ -116,13 +116,13 @@ Take the steps below to configure the failed primary coordinator to become a sta
 
 3. Initialize a standby coordinator on the original coordinator host. For example, run this command from the current coordinator host, `cbdb-standbycoordinator`:
 
-    ```
+    ```shell
     $ gpinitstandby -s cbdb-coordinator
     ```
 
 4. After the initialization is completed, check the status of the standby coordinator `cbdb-coordinator`. Run `gpstate` with the `-f` option to check the standby coordinator status:
 
-    ```
+    ```shell
     $ gpstate -f
     ```
 
