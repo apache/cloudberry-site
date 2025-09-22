@@ -2,7 +2,7 @@
 title: Recommended Monitoring and Maintenance Tasks
 ---
 
-# Recommended Monitoring and Maintenance Tasks
+# Recommend Monitoring and Maintenance Tasks
 
 This section lists monitoring and maintenance operations recommended to ensure high availability and consistent performance of your Apache Cloudberry cluster.
 
@@ -521,7 +521,7 @@ psql &lt;dbname&gt; -c<br />
     </tr>
     <tr>
       <td>
-        Install Apache Cloudberry minor releases<em>x</em>.
+        <em>x</em>.
         <p>Recommended frequency: quarterly</p>
         <p>Severity: IMPORTANT</p>
       </td>
