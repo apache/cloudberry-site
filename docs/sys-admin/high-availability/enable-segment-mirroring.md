@@ -24,7 +24,7 @@ During the online data replication process, Apache Cloudberry should be in a qui
 
 ## To add segment mirrors to an existing system (different hosts from primaries)
 
-1. Ensure the Apache Cloudberry software is installed on all hosts. See the *Apache Cloudberry Installation Guide* for detailed installation instructions.
+1. Ensure the Apache Cloudberry software is installed on all hosts. See the [Apache Cloudberry Installation Guide](../../cbdb-op-deploy-guide.md) for detailed installation instructions.
 2. Allocate the data storage area for mirror data, and tablespaces if needed, on all segment hosts.
 3. Use `gpssh-exkeys` to ensure the segment hosts can SSH and remote sync to each other without a password prompt.
 4. Create a configuration file that lists the host names, ports, and data directories on which to create mirrors. To create a sample configuration file to use as a starting point, run:

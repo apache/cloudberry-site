@@ -13,7 +13,7 @@ You can restore the primary and standby coordinator instances on the original ho
 :::note
 Restoring the primary and standby coordinator instances to their original hosts is not an online operation. The coordinator host must be stopped to perform the operation.
 
-For information about the Apache Cloudberry utilities, see the *Apache Cloudberry Utility Guide*.
+For information about the Apache Cloudberry utilities, see the [Apache Cloudberry Utility Guide](../../sys-utilities/index.md).
 :::
 
 ## To restore the coordinator mirroring after a recovery
