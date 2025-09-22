@@ -58,8 +58,6 @@ When Apache Cloudberry reaches the `xid_stop_limit` transaction ID limit due to 
 5. Reset the `xid_stop_limit` to its original value.
 6. Restart Apache Cloudberry.
 
-For information about the configuration parameters, see the *Apache Cloudberry Reference Guide*.
-
 For information about transaction ID wraparound see the [PostgreSQL documentation](https://www.postgresql.org/docs/12/index.html).
 
 ### System catalog maintenance
@@ -157,7 +155,7 @@ For B-tree indexes, a freshly-constructed index is slightly faster to access tha
 
 For table columns with indexes, some operations such as bulk updates or inserts to the table might perform more slowly because of the updates to the indexes. To enhance performance of bulk operations on tables with indexes, you can drop the indexes, perform the bulk operation, and then re-create the index.
 
-## Manage apache cloudberry log files
+## Manage Apache Cloudberry log files
 
 - [Database Server Log Files](#database-server-log-files)
 - [Management Utility Log Files](#management-utility-log-files)

@@ -14,4 +14,4 @@ You can configure support for data compression with these features and utilities
 - Workfiles (temporary spill files that are created when running a query that requires more memory than it is allocated) can be compressed. See the server configuration parameter `gp_workfile_compression`.
 - The Apache Cloudberry utilities [`gpbackup`](../sys-utilities/gpbackup.md), [`gprestore`](../sys-utilities/gprestore.md), [`gpcopy`](../sys-utilities/gpcopy.md), [`gpload`](../sys-utilities/gpload.md), and [`gplogfilter`](../sys-utilities/gplogfilter.md) support compression.
 
-For some compression algorithms (such as zlib) Apache Cloudberry requires software packages installed on the host system. For information about required software packages, see the *Apache Cloudberry Installation Guide*.
+For some compression algorithms (such as zlib) Apache Cloudberry requires software packages installed on the host system. For information about required software packages, see the [Apache Cloudberry Installation Guide](../cbdb-op-software-hardware.md).
