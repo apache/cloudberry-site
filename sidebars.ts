@@ -203,7 +203,7 @@ const sidebars: SidebarsConfig = {
           },
           items: [
             'sys-admin/backup-and-restore/perform-full-backup-and-restore', 
-            'sys-admin/backup-and-restore/perform-incremental-backup-and-restore',
+            'sys-admin/backup-and-restore/perform-incremental-backup-and-restore'
           ]
         },
         {
@@ -221,19 +221,19 @@ const sidebars: SidebarsConfig = {
               label: 'Enable Mirroring',
               link: {
                 type: "doc",
-                id: 'sys-admin/high-availability/enable-mirroring',
+                id: 'sys-admin/high-availability/enable-mirroring'
               },
               items: [
                 'sys-admin/high-availability/enable-segment-mirroring',
-                'sys-admin/high-availability/enable-coordinator-mirroring',
+                'sys-admin/high-availability/enable-coordinator-mirroring'
               ]
             },
             'sys-admin/high-availability/detect-a-failed-segment',
+            'sys-admin/high-availability/understand-segment-recovery',
             'sys-admin/high-availability/check-for-failed-segments',
             'sys-admin/high-availability/recover-from-segment-failures',
             'sys-admin/high-availability/recover-a-failed-coordinator',
-            'sys-admin/high-availability/restore-coordinator-mirroring-after-a-recovery',
-            'sys-admin/high-availability/understand-segment-recovery',
+            'sys-admin/high-availability/restore-coordinator-mirroring-after-a-recovery'
           ]
         },
         {
@@ -241,7 +241,7 @@ const sidebars: SidebarsConfig = {
           label: 'Expand Cluster',
           link: {
             type: "doc",
-            id: 'sys-admin/expand-cluster/expand-a-db-system',
+            id: 'sys-admin/expand-cluster/expand-a-db-system'
           },
           items: [
             'sys-admin/expand-cluster/system-expansion-overview',
@@ -249,14 +249,14 @@ const sidebars: SidebarsConfig = {
             'sys-admin/expand-cluster/prepare-and-add-hosts',
             'sys-admin/expand-cluster/initialize-new-segments',
             'sys-admin/expand-cluster/redistribute-tables',
-            'sys-admin/expand-cluster/post-expansion-tasks',
+            'sys-admin/expand-cluster/post-expansion-tasks'
           ]
         },
         'sys-admin/use-compression',
         'sys-admin/migration-and-upgrade',
         'sys-admin/recommended-maintenance-monitoring-tasks',
         'sys-admin/routine-maintain-tasks',
-        'sys-admin/monitor-long-running-operations',
+        'sys-admin/monitor-long-running-operations'
         ]
      },
 

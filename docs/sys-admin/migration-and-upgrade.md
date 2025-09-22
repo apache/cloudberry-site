@@ -3,7 +3,7 @@ title: Migration and Upgrade
 toc_max_heading_level: 5
 ---
 
-# Migration and upgrade
+# Migration and Upgrade
 
 This guide provides detailed instructions for two scenarios:
 

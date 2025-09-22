@@ -3,7 +3,7 @@ title: Enable Coordinator Mirroring for Apache Cloudberry
 toc_max_heading_level: 5
 ---
 
-# Enable coordinator mirroring for apache cloudberry
+# Enable Coordinator Mirroring for Apache Cloudberry
 
 Apache Cloudberry provides a series of high-availability features to make sure your database system can tolerate unexpected incidents such as a hardware platform failure and can be quickly recovered from such incidents.
 
@@ -59,7 +59,7 @@ You need to first enable the standby coordinator using the `gpinitstandby` utili
 
     The standby coordinator status should be `passive`, and the WAL sender state should be `streaming`, as demonstrated below:
 
-    ![init standby](../media/init-standby.png)
+    ![init standby](../../media/init-standby.png)
 
 ### Step 2. activate the standby coordinator
 
@@ -86,7 +86,7 @@ To activate the standby coordinator:
 
     After you activate the standby, it becomes the active or primary coordinator for your CBDB cluster. You can access the CBDB cluster by connecting to the standby coordinator.
 
-    ![activate standby](../media/activate-standby.png)
+    ![activate standby](../../media/activate-standby.png)
 
 2. After the utility is completed, you can run `gpstate` with the `-b` option to display a summary of the system status:
 
