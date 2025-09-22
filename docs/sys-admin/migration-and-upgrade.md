@@ -229,7 +229,7 @@ cbcopy --source-host=127.0.0.1 \
     --copy-jobs=8
 ```
 
-## Troubleshoot
+## Troubleshooting
 
 1. **Failed Migrations**
    - Check `$USER/gpAdminLogs/cbcopy_$timestamp.log` for detailed error messages
