@@ -7,7 +7,7 @@ toc_max_heading_level: 5
 
 This guide provides detailed instructions for two scenarios:
 
-1. Migrating from Apache Cloudberry 6.x/7.x to Apache Cloudberry
+1. Migrating from Greenplum Database 6.x/7.x to Apache Cloudberry
 2. Upgrading from Apache Cloudberry 1.x (non-Apache release before joining the Apache Incubator) to Apache Cloudberry 2.x
 
 Both scenarios utilize the `cbcopy` tool, a powerful data migration utility designed for efficient database migration and upgrade operations.
@@ -22,7 +22,7 @@ Before starting the migration or upgrade process, ensure you have:
 4. Sufficient disk space on both source and target clusters
 5. The `cbcopy` and `cbcopy_helper` binaries installed in the `$GPHOME/bin` directory on all nodes of both source and target databases
 
-## Instal cbcopy
+## Install cbcopy
 
 1. Clone the repository:
 ```bash
@@ -46,8 +46,8 @@ make install
 - Source: Cloudberry 1.6
 - Target: Cloudberry 2.0
 
-### Cloudberry to cloudberry migration
-- Source: Apache Cloudberry 6.x or 7.x
+### Greenplum to Cloudberry migration
+- Source: Apache Cloudberry 1.x or 2.x
 - Target: Cloudberry 1.x or 2.x
 
 ## Migration process
@@ -177,10 +177,10 @@ cbcopy --exclude-table-file=cbcopy_succeed_$timestamp [other_options]
 
 ## Example scenarios
 
-### Scenario 1: cloudberry 1.6 to 2.0 upgrade
+### Scenario 1: Cloudberry 1.6 to 2.0 upgrade
 
 ```bash
-# Step 1: migrate metadata
+# Step 1: Migrate metadata
 cbcopy --source-host=127.0.0.1 \
     --source-port=15432 \
     --source-user=gpadmin \
@@ -190,7 +190,7 @@ cbcopy --source-host=127.0.0.1 \
     --full \
     --metadata-only
 
-# Step 2: migrate data
+# Step 2: Migrate data
 cbcopy --source-host=127.0.0.1 \
     --source-port=15432 \
     --source-user=gpadmin \
@@ -202,10 +202,10 @@ cbcopy --source-host=127.0.0.1 \
     --truncate
 ```
 
-### Scenario 2: cloudberry 6.x/7.x to cloudberry 2.0 migration
+### Scenario 2: Greenplum 6.x/7.x to Cloudberry 2.0 migration
 
 ```bash
-# Step 1: migrate metadata with global objects
+# Step 1: Migrate metadata with global objects
 cbcopy --source-host=127.0.0.1 \
     --source-port=15432 \
     --source-user=gpadmin \
@@ -216,7 +216,7 @@ cbcopy --source-host=127.0.0.1 \
     --metadata-only \
     --with-global-metadata
 
-# Step 2: migrate data
+# Step 2: Migrate data
 cbcopy --source-host=127.0.0.1 \
     --source-port=15432 \
     --source-user=gpadmin \
@@ -229,7 +229,7 @@ cbcopy --source-host=127.0.0.1 \
     --copy-jobs=8
 ```
 
-## Troubleshoot
+## Troubleshooting
 
 1. **Failed Migrations**
    - Check `$USER/gpAdminLogs/cbcopy_$timestamp.log` for detailed error messages

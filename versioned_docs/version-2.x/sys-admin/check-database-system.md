@@ -447,7 +447,7 @@ The following fields are written to the log:
 |29|file\_line|int|The line of the code file where the message originated|
 |30|stack\_trace|text|Stack trace text associated with this message|
 
-### Search the apache cloudberry server log files
+### Search the Apache Cloudberry server log files
 
 Apache Cloudberry provides a utility called `gplogfilter` can search through a Apache Cloudberry log file for entries matching the specified criteria. By default, this utility searches through the Apache Cloudberry coordinator log file in the default logging location. For example, to display the last three lines of each of the log files under the coordinator directory:
 
@@ -474,7 +474,7 @@ Use the Apache Cloudberry administrative schema `gp_toolkit` to query the system
 => ALTER ROLE myrole SET search_path TO myschema,gp_toolkit;
 ```
 
-## Sql standard error codes
+## SQL standard error codes
 
 The following table lists all the defined error codes. Some are not used, but are defined by the SQL standard. The error classes are also shown. For each error class there is a standard error code having the last 3 characters `000`. This code is used only for error conditions that fall within the class but do not have any more-specific code assigned.
 
