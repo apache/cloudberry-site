@@ -2,7 +2,7 @@
 title: Perform Full Backup and Restore
 ---
 
-# Perform full backup and restore
+# Perform Full Backup and Restore
 
 Apache Cloudberry supports backing up and restoring the full database in parallel. Parallel operations scale regardless of the number of segments in your system, because segment hosts each write their data to local disk storage at the same time.
 

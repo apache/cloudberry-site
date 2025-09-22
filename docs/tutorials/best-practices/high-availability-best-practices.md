@@ -159,7 +159,7 @@ Group mirroring is easiest to set up and is the default Cloudberry mirroring con
 
 The following diagram shows a group mirroring configuration with eight primary segments on four hosts.
 
-![Group mirroring configuration](../../media/group-mirroring-1.png)
+![Group mirroring configuration](../../media/group-mirroring.png)
 
 Unless both the primary and mirror of the same segment instance fail, up to half of your hosts can fail and the cluster will continue to run as long as resources (CPU, memory, and IO) are sufficient to meet the needs.
 

@@ -3,7 +3,7 @@ title: Configure Database System
 toc_max_heading_level: 5
 ---
 
-# Configure database system
+# Configure Database System
 
 Server configuration parameters affect the behavior of Apache Cloudberry. They are part of the PostgreSQL "Grand Unified Configuration" system, so they are sometimes called "GUCs". Most of the Apache Cloudberry server configuration parameters are the same as the PostgreSQL configuration parameters, but some are specific to Apache Cloudberry.
 

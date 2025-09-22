@@ -2,7 +2,7 @@
 title: Backup and Restore Overview
 ---
 
-# Backup and restore overview
+# Backup and Restore Overview
 
 Apache Cloudberry offers both parallel and non-parallel methods for database backups and restores. Parallel operations handle large systems efficiently because each segment host writes data to its local disk at the same time. Non-parallel operations, however, transfer all data over the network to the coordinator, which then writes it to its storage. This method not only concentrates I/O on a single host but also requires the coordinator to have enough local disk space for the entire database.
 

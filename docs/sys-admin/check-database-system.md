@@ -3,7 +3,7 @@ title: Check Database System
 toc_max_heading_level: 5
 ---
 
-# Check apache cloudberry system
+# Check Apache Cloudberry System
 
 You can check a Apache Cloudberry system using a variety of tools included with the system or available as plugins.
 
