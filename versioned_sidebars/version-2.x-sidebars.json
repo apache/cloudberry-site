@@ -188,6 +188,9 @@
       "type": "category",
       "label": "Manage System",
       "items": [
+        "sys-admin/configure-database-system",
+        "sys-admin/configure-proxy",
+        "sys-admin/check-database-system",
         {
           "type": "category",
           "label": "Backup and Restore",
@@ -196,17 +199,63 @@
             "id": "sys-admin/backup-and-restore/index"
           },
           "items": [
-            "sys-admin/backup-and-restore/perform-full-backup-and-restore",
+            "sys-admin/backup-and-restore/perform-full-backup-and-restore", 
             "sys-admin/backup-and-restore/perform-incremental-backup-and-restore"
           ]
         },
-        "sys-admin/configure-database-system",
-        "sys-admin/check-database-system",
-        "sys-admin/enable-coordinator-mirroring",
+        {
+          "type": "category",
+          "label": "High Availability",
+          "link": {
+            "type": "doc",
+            "id": "sys-admin/high-availability/high-availability-overview"
+          },
+          "items": [
+            "sys-admin/high-availability/segment-mirroring-overview",
+            "sys-admin/high-availability/coordinator-mirroring-overview",
+            {
+              "type": "category",
+              "label": "Enable Mirroring",
+              "link": {
+                "type": "doc",
+                "id": "sys-admin/high-availability/enable-mirroring"
+              },
+              "items": [
+                "sys-admin/high-availability/enable-segment-mirroring",
+                "sys-admin/high-availability/enable-coordinator-mirroring"
+              ]
+            },
+            "sys-admin/high-availability/detect-a-failed-segment",
+            "sys-admin/high-availability/understand-segment-recovery",
+            "sys-admin/high-availability/check-for-failed-segments",
+            "sys-admin/high-availability/recover-from-segment-failures",
+            "sys-admin/high-availability/recover-a-failed-coordinator",
+            "sys-admin/high-availability/restore-coordinator-mirroring-after-a-recovery"
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Expand Cluster",
+          "link": {
+            "type": "doc",
+            "id": "sys-admin/expand-cluster/expand-a-db-system"
+          },
+          "items": [
+            "sys-admin/expand-cluster/system-expansion-overview",
+            "sys-admin/expand-cluster/plan-system-expansion",
+            "sys-admin/expand-cluster/prepare-and-add-hosts",
+            "sys-admin/expand-cluster/initialize-new-segments",
+            "sys-admin/expand-cluster/redistribute-tables",
+            "sys-admin/expand-cluster/post-expansion-tasks"
+          ]
+        },
+        "sys-admin/use-compression",
+        "sys-admin/migration-and-upgrade",
         "sys-admin/recommended-maintenance-monitoring-tasks",
-        "sys-admin/migration-and-upgrade"
-      ]
-    },
+        "sys-admin/routine-maintain-tasks",
+        "sys-admin/monitor-long-running-operations"
+        ]
+     },
     {
       "type": "category",
       "label": "Developer",
