@@ -90,4 +90,4 @@ gpsync -h sdw1 -h sdw2 myfuncs.so =:/usr/local/cloudberry/lib
 
 ## See also
 
-[gpssh](/docs/sys-utilities/gpssh.md), [gpssh-exkeys](/docs/sys-utilities/gpssh-exkeys.md)
+[gpssh](./gpssh.md), [gpssh-exkeys](./gpssh-exkeys.md)

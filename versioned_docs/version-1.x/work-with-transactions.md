@@ -57,5 +57,5 @@ The default transaction isolation level in Apache Cloudberry is `READ COMMITTED`
 
 ## See also
 
-- [Transactional Concurrency Control](/docs/transactional-concurrency-control.md)
-- [Insert, Update, and Delete Rows](/docs/insert-update-delete-rows.md)
+- [Transactional Concurrency Control](./transactional-concurrency-control.md)
+- [Insert, Update, and Delete Rows](./insert-update-delete-rows.md)

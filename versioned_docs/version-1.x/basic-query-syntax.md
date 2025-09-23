@@ -63,4 +63,4 @@ The above is just a brief overview of the basic query syntax in Apache Cloudberr
 
 ## See also
 
-- [Insert, Update, and Delete Rows](/docs/insert-update-delete-rows.md)
+- [Insert, Update, and Delete Rows](./insert-update-delete-rows.md)

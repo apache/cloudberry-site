@@ -430,7 +430,7 @@ systemctl status chronyd
 
 ### Step 3. Deploy Apache Cloudberry with a single computing node
 
-Use the scripting tool [`gpdemo`](/docs/sys-utilities/gpdemo.md) to quickly deploy Apache Cloudberry. `gpdemo` is included in the RPM package and will be installed in the `GPHOME/bin` directory along with the configuration scripts (gpinitsystem, gpstart, and gpstop). `gpdemo` supports quickly deploying Apache Cloudberry with a single computing node.
+Use the scripting tool [`gpdemo`](./sys-utilities/gpdemo.md) to quickly deploy Apache Cloudberry. `gpdemo` is included in the RPM package and will be installed in the `GPHOME/bin` directory along with the configuration scripts (gpinitsystem, gpstart, and gpstop). `gpdemo` supports quickly deploying Apache Cloudberry with a single computing node.
 
 In the above [setting mount options for the XFS file system](#set-mount-options-for-the-xfs-file-system), the XFS  file system's data directory is mounted on `/data0`. The following commands deploy a single-computing-node cluster in this data directory:
 

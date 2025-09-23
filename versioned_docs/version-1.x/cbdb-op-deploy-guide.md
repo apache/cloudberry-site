@@ -4,7 +4,7 @@ title: Deploy Manually Using RPM Package
 
 # Deploy Apache Cloudberry Manually Using RPM Package
 
-This document introduces how to manually deploy Apache Cloudberry on physical/virtual machines using RPM package. Before reading this document, it is recommended to first read the [Software and Hardware Configuration Requirements](/docs/cbdb-op-software-hardware.md) and [Prepare to Deploy Apache Cloudberry](/docs/cbdb-op-prepare-to-deploy.md).
+This document introduces how to manually deploy Apache Cloudberry on physical/virtual machines using RPM package. Before reading this document, it is recommended to first read the [Software and Hardware Configuration Requirements](./cbdb-op-software-hardware.md) and [Prepare to Deploy Apache Cloudberry](./cbdb-op-prepare-to-deploy.md).
 
 The deployment method in this document is for production environments.
 
@@ -18,7 +18,7 @@ The example in this document uses CentOS 7.6 and deploys Apache Cloudberry v1.0.
 
 ## Step 1: Prepare server nodes
 
-Read the [Prepare to Deploy Apache Cloudberry](/docs/cbdb-op-prepare-to-deploy.md) document to prepare the server nodes.
+Read the [Prepare to Deploy Apache Cloudberry](./cbdb-op-prepare-to-deploy.md) document to prepare the server nodes.
 
 ## Step 2. Install the RPM package
 
