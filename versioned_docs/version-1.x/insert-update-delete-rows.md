@@ -121,5 +121,5 @@ You need to use the `VACUUM`, `VACUUM FULL`, and `VACUUM ANALYZE` commands to ma
 
 ## See also
 
-- [Work with Transactions](/docs/work-with-transactions.md)
-- [Transactional Concurrency Control](/docs/transactional-concurrency-control.md)
+- [Work with Transactions](./work-with-transactions.md)
+- [Transactional Concurrency Control](./transactional-concurrency-control.md)

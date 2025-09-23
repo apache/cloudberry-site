@@ -158,5 +158,5 @@ The following table shows the concurrent `UPDATE` or `DELETE` commands that are 
 
 ## See also
 
-- [Work with Transactions](/docs/work-with-transactions.md)
-- [Insert, Update, and Delete Rows](/docs/insert-update-delete-rows.md)
+- [Work with Transactions](./work-with-transactions.md)
+- [Insert, Update, and Delete Rows](./operate-with-db-objects/insert-update-delete-rows.md)

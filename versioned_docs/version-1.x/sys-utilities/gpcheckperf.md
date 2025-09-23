@@ -140,4 +140,4 @@ $ gpcheckperf -f hostfile_gpchecknet_ic2 -r N --netperf -d /tmp
 
 ## See also
 
-[gpssh](/docs/sys-utilities/gpssh.md), [gpsync](/docs/sys-utilities/gpsync.md)
+[gpssh](./gpssh.md), [gpsync](./gpsync.md)

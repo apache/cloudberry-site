@@ -4,11 +4,11 @@ title: Prepare to Deploy
 
 # Prepare to Deploy on Physical or Virtual Machine
 
-Before deploying Apache Cloudberry on physical or virtual machines, you need to do some preparations. Read this document and [Software and Hardware Configuration Requirements](/docs/cbdb-op-software-hardware.md) before you start to deploy Apache Cloudberry.
+Before deploying Apache Cloudberry on physical or virtual machines, you need to do some preparations. Read this document and [Software and Hardware Configuration Requirements](./cbdb-op-software-hardware.md) before you start to deploy Apache Cloudberry.
 
 ## Plan the deployment architecture
 
-Plan your deployment architecture based on the [Apache Cloudberry Architecture](/docs/cbdb-architecture.md) and [Software and Hardware Configuration Requirements](/docs/cbdb-op-software-hardware.md), and determine the number of servers needed. Ensure that all servers are within a single security group and have mutual trust configured.
+Plan your deployment architecture based on the [Apache Cloudberry Architecture](./cbdb-architecture.md) and [Software and Hardware Configuration Requirements](./cbdb-op-software-hardware.md), and determine the number of servers needed. Ensure that all servers are within a single security group and have mutual trust configured.
 
 The deployment plan for the example of this document includes 1 coordinator + 1 standby + 3 segments (primary + mirror), totaling 5 servers.
 

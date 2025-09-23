@@ -857,7 +857,7 @@ Apache Cloudberry considers a relation data file that is present in the catalog,
 
 Apache Cloudberry provides the following views to help identify if missing or orphaned files exist in the current database:
 
-- [`gp_move_orphaned_files()`](#gp_move_orphaned_files)
+- [`gp_move_orphaned_files()`](#move-orphaned-data-files)
 - [`gp_check_orphaned_files`](#gp_check_orphaned_files)
 - [`gp_check_missing_files`](#gp_check_missing_files)
 

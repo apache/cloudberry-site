@@ -10,7 +10,7 @@ The source of this document is from [Building Apache Cloudberry (Incubating): A 
 
 This document is intended for developers interested in exploring and potentially contributing to Apache Cloudberry. The build environment described here is optimized for development and testing purposes only.
 
-To learn how to compile and install Apache Cloudberry on Rocky Linux 8 and Ubuntu, see [Compile on Rocky Linux 8 and Ubuntu](/docs/cbdb-rockylinux8-ubuntu-compile.md).
+To learn how to compile and install Apache Cloudberry on Rocky Linux 8 and Ubuntu, see [Compile on Rocky Linux 8 and Ubuntu](./cbdb-rockylinux8-ubuntu-compile.md).
 
 ## 1. Target audience
 
