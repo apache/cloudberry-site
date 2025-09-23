@@ -56,21 +56,71 @@ jobs:
       # Install dependencies and build site
       - name: Install dependencies
         run: npm install
+        
       - name: Build site
-        run: npm run build
+        run: |
+          echo "🏗️ Building Docusaurus site..."
+          npm run build 2>&1 | tee build.log
+          echo "✅ Build completed"
+          
+      - name: Check for broken links in build
+        id: link-check
+        run: |
+          echo "🔍 Checking for broken internal links..."
+          
+          # Check if build.log exists
+          if [ ! -f build.log ]; then
+            echo "❌ build.log file not found!"
+            echo "has_link_errors=false" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+          
+          # Display some build.log content for debugging
+          echo "📄 Build log contains $(wc -l < build.log) lines"
+          echo "🔍 Searching for link errors..."
+          
+          # Search for broader error patterns
+          if grep -i "link.*couldn't.*be.*resolved\|broken.*anchor\|link.*not.*found\|markdown.*link.*error" build.log; then
+            echo "❌ Found potential link issues!"
+            
+            # Save all possible link errors to temporary file
+            grep -i -A 3 -B 1 "link.*couldn't.*be.*resolved\|broken.*anchor\|link.*not.*found\|markdown.*link.*error" build.log > link_errors.txt || true
+            
+            # Write to Summary
+            {
+              echo "## 🔗 Broken Links Found"
+              echo ""
+              echo "The following link issues were detected during the Docusaurus build:"
+              echo ""
+              echo '```'
+              cat link_errors.txt
+              echo '```'
+            } >> $GITHUB_STEP_SUMMARY
+            
+            echo "has_link_errors=true" >> $GITHUB_OUTPUT
+          else
+            echo "✅ No broken internal links found"
+            
+            # Write success information to Summary
+            {
+              echo "## ✅ Link Check Passed"
+              echo ""
+              echo "All internal links and anchors are working correctly!"
+            } >> $GITHUB_STEP_SUMMARY
+            
+            echo "has_link_errors=false" >> $GITHUB_OUTPUT
+          fi
+          
+          # Debug info: check if Summary was written successfully
+          if [ -s "$GITHUB_STEP_SUMMARY" ]; then
+            echo "✅ Summary information written successfully"
+          else
+            echo "⚠️ Warning: Summary file is empty or doesn't exist"
+          fi
+          
       - name: Copy ASF config
         run: cp .asf.yaml build/.asf.yaml
 
-      ## Deploy to asf-staging for PR preview
-      ## You can view the staging site at https://cloudberry.staged.apache.org
-      #- name: Deploy to staging
-      #  if: github.event_name == 'pull_request'
-      #  uses: peaceiris/actions-gh-pages@v4
-      #  with:
-      #    github_token: ${{ secrets.GITHUB_TOKEN }}
-      #    publish_dir: ./build
-      #    publish_branch: asf-staging
-          
       # Deploy to asf-site for production
       - name: Deploy to production
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
@@ -79,3 +129,16 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./build
           publish_branch: asf-site
+          
+      # Final step: fail if there were link errors
+      - name: Report link check results
+        if: always()
+        run: |
+          if [[ "${{ steps.link-check.outputs.has_link_errors }}" == "true" ]]; then
+            echo "❌ Workflow completed but with broken links detected!"
+            echo "Please fix the broken internal links before merging."
+            echo "Check the Summary tab above for detailed error information."
+            exit 1
+          else
+            echo "✅ All checks passed successfully!"
+          fi
