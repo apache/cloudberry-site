@@ -56,21 +56,49 @@ jobs:
       # Install dependencies and build site
       - name: Install dependencies
         run: npm install
+        
       - name: Build site
-        run: npm run build
+        run: |
+          echo "🏗️ Building Docusaurus site..."
+          npm run build 2>&1 | tee build.log
+          echo "✅ Build completed"
+          
+      - name: Check for broken links in build
+        id: link-check
+        run: |
+          echo "🔍 Checking for broken internal links..."
+          if grep -q "Docs markdown link couldn't be resolved\|Docusaurus found broken anchors" build.log; then
+            echo "❌ Found broken internal links or anchors during build!"
+            echo "Details:"
+            grep -A 3 -B 1 "Docs markdown link couldn't be resolved\|Docusaurus found broken anchors" build.log
+            
+            # Save detailed error info for summary
+            echo "## 🔗 Broken Links Found" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "The following broken links were detected during the Docusaurus build:" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "```" >> $GITHUB_STEP_SUMMARY
+            grep -A 3 -B 1 "Docs markdown link couldn't be resolved\|Docusaurus found broken anchors" build.log >> $GITHUB_STEP_SUMMARY
+            echo "```" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "### 🛠️ How to Fix" >> $GITHUB_STEP_SUMMARY
+            echo "1. Check the file paths mentioned in the errors above" >> $GITHUB_STEP_SUMMARY
+            echo "2. Ensure the target files exist in the correct locations" >> $GITHUB_STEP_SUMMARY
+            echo "3. Verify that internal links use the correct relative paths" >> $GITHUB_STEP_SUMMARY
+            echo "4. For anchor links, make sure the target headings exist" >> $GITHUB_STEP_SUMMARY
+            
+            echo "has_link_errors=true" >> $GITHUB_OUTPUT
+          else
+            echo "✅ No broken internal links found"
+            echo "## ✅ Link Check Passed" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "All internal links and anchors are working correctly!" >> $GITHUB_STEP_SUMMARY
+            echo "has_link_errors=false" >> $GITHUB_OUTPUT
+          fi
+          
       - name: Copy ASF config
         run: cp .asf.yaml build/.asf.yaml
 
-      ## Deploy to asf-staging for PR preview
-      ## You can view the staging site at https://cloudberry.staged.apache.org
-      #- name: Deploy to staging
-      #  if: github.event_name == 'pull_request'
-      #  uses: peaceiris/actions-gh-pages@v4
-      #  with:
-      #    github_token: ${{ secrets.GITHUB_TOKEN }}
-      #    publish_dir: ./build
-      #    publish_branch: asf-staging
-          
       # Deploy to asf-site for production
       - name: Deploy to production
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
@@ -79,3 +107,16 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./build
           publish_branch: asf-site
+          
+      # Final step: fail if there were link errors
+      - name: Report link check results
+        if: always()
+        run: |
+          if [[ "${{ steps.link-check.outputs.has_link_errors }}" == "true" ]]; then
+            echo "❌ Workflow completed but with broken links detected!"
+            echo "Please fix the broken internal links before merging."
+            echo "Check the Summary tab above for detailed error information."
+            exit 1
+          else
+            echo "✅ All checks passed successfully!"
+          fi
