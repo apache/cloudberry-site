@@ -21,4 +21,4 @@ Becoming a committer recognizes both Leonid's past contributions and the communi
 
 Please join us in congratulating Leonid Borchuk on this well-deserved recognition. We look forward to his continued contributions and collaboration within the Apache Cloudberry community!
 
-You can find the official announcement on the [Apache mailing list](https://lists.apache.org/thread/vn8k3dy2j11nv5bk3kryhjowv20ct73n).
+You can find the official announcement on the [Apache mailing list](https://lists.apache.org/thread/129x1k8l10rbvtqtpf5gclft6j3wwn2j).
