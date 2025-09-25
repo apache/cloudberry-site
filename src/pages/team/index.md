@@ -8,7 +8,7 @@ The Apache Cloudberry (Incubating) team works on developing the core database ke
 ## Podling PMC
 Each Podling Project Management Committee (PPMC) helps its Podling learn how to govern itself. It works like a PMC but reports to the Incubator PMC instead of to the ASF Board. Initially, it is composed of the Podling’s mentors and the initial committers. The PPMC is directly responsible for the oversight of the podling, and it also decides who to add as a PPMC member.
 
-|Name| Email | GitHub ID | Organization|
+| Name| Email | GitHub ID | Organization |
 |--|--|--|--|
 | Andrey Borodin | amborodin@acm.org | x4m |  Yandex Cloud |
 | Antonio Petrole | antoniopetrole@gmail.com | antoniopetrole | Individual |
@@ -65,11 +65,12 @@ Committer status recognizes your contributions and grants you additional respons
 
 The listing includes new committers, excluding PPMC members above:
 
-|Name| Email | GitHub ID | Organization|
+| Name | Email | GitHub ID | Organization |
 |--|--|--|--|
 | Xiong Tong | tomshawn@apache.org | TomShawn | HashData |
 | Wenchao Zhang | zhangwenchao@apache.org | zhangwenchao-123 | HashData |
 | Xun Gong | gongxun@apache.org | gongxun0928 | HashData |
+| Leonid Borchuk | leborchuk@apache.org | leborchuk | Yandex Cloud |
 
 ## Contributors wall
 
