@@ -2,11 +2,29 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://cloudberry.apache.org/blog</id>
     <title>Apache Cloudberry (Incubating) is one advanced and mature open-source MPP (Massively Parallel Processing) databases available.</title>
-    <updated>2025-09-18T00:00:00.000Z</updated>
+    <updated>2025-09-26T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://cloudberry.apache.org/blog"/>
     <subtitle>Apache Cloudberry (Incubating) Blog</subtitle>
     <icon>https://cloudberry.apache.org/img/favicon.ico</icon>
+    <entry>
+        <title type="html"><![CDATA[Welcoming Leonid Borchuk as a New Apache Cloudberry Committer]]></title>
+        <id>https://cloudberry.apache.org/blog/welcoming-leonid-borchuk-as-a-new-apache-cloudberry-committer</id>
+        <link href="https://cloudberry.apache.org/blog/welcoming-leonid-borchuk-as-a-new-apache-cloudberry-committer"/>
+        <updated>2025-09-26T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[Becoming a committer demonstrates a strong commitment to the community.]]></summary>
+        <content type="html"><![CDATA[<p>We're thrilled to announce that Leonid Borchuk (GitHub ID: leborchuk) has joined Apache Cloudberry as our newest committer! 🎉</p>
+<p>The Podling Project Management Committee (PPMC) for Apache Cloudberry has invited Leonid Borchuk to become a committer, and we are pleased to announce that he has accepted.</p>
+<p>Leonid has been an active contributor to the Apache Cloudberry project since October 2024. He has demonstrated consistent engagement and technical expertise across multiple areas, including cherry-picking commits from Greenplum to Cloudberry, reviewing PRs and providing valuable feedback to other contributors, participating in roadmap discussions, and contributing innovative ideas. He has been instrumental in renaming greenplum_path.sh to cloudberry-env.sh.</p>
+<p>He also helped migrate the cloudberry-devops-release repo to the main repo and implemented Ubuntu support workflow for CI/CD. These efforts have brought significant improvements to our infrastructure.</p>
+<p>Becoming a committer recognizes both Leonid's past contributions and the community's trust in his continued involvement. Committers play a vital role in shaping the project by reviewing and merging contributions, participating in design decisions, and helping guide the project's growth.</p>
+<p>Please join us in congratulating Leonid Borchuk on this well-deserved recognition. We look forward to his continued contributions and collaboration within the Apache Cloudberry community!</p>
+<p>You can find the official announcement on the <a href="https://lists.apache.org/thread/129x1k8l10rbvtqtpf5gclft6j3wwn2j" target="_blank" rel="noopener noreferrer">Apache mailing list</a>.</p>]]></content>
+        <author>
+            <name>Apache Cloudberry</name>
+        </author>
+        <category label="Announcement" term="Announcement"/>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Welcoming Xun Gong as a New Apache Cloudberry Committer]]></title>
         <id>https://cloudberry.apache.org/blog/welcoming-xungong-as-a-new-apache-cloudberry-committer</id>
