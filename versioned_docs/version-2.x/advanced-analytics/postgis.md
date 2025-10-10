@@ -37,7 +37,8 @@ The following steps will be operated under the `gpadmin` user. Please make sure 
         gcc gcc-c++ sqlite-devel mpfr-devel bzip2 xz libcurl-devel \
         cmake protobuf-c-devel libxslt
 
-    sudo dnf install -y --enablerepo=devel protobuf-devel
+    sudo dnf install -y --enablerepo=devel protobuf-devel json-c-devel
+    sudo dnf install -y --enablerepo=devel CUnit-devel (Optional, for PostGIS testing)
     ```
     </TabItem>
     <TabItem value="rocky-linux9" label="Rocky Linux 9">
@@ -47,7 +48,8 @@ The following steps will be operated under the `gpadmin` user. Please make sure 
         gcc gcc-c++ sqlite-devel mpfr-devel bzip2 xz libcurl-devel \
         cmake libxslt
 
-    sudo dnf install --enablerepo=crb protobuf-c-devel
+    sudo dnf install -y --enablerepo=crb protobuf-c-devel json-c-devel
+    sudo dnf install -y --enablerepo=crb CUnit-devel (Optional, for PostGIS testing)
     ```
     </TabItem>
     </Tabs>
