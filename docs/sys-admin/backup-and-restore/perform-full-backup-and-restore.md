@@ -15,18 +15,18 @@ The backup metadata files contain all of the information that `gprestore` needs 
 Before installing the `gpbackup` and `gprestore` utilities, make sure that you have the [Golang](https://golang.org/doc/) (v1.11 or later) installed and that you have set the [Go `PATH` environment
 variable](https://go.dev/doc/install).
 
-1. Pull the `apache/cloudberry-gpbackup` GitHub repository to the target machine.
+1. Pull the `apache/cloudberry-backup` GitHub repository to the target machine.
 
     ```bash
-    go install github.com/apache/cloudberry-gpbackup@latest
+    go install github.com/apache/cloudberry-backup@latest
     ```
 
-    The repository is placed in `$GOPATH/pkg/mod/github.com/apache/cloudberry-gpbackup`.
+    The repository is placed in `$GOPATH/pkg/mod/github.com/apache/cloudberry-backup`.
 
-2. Enter the `apache/cloudberry-gpbackup` directory. Then, build and install the source code:
+2. Enter the `apache/cloudberry-backup` directory. Then, build and install the source code:
 
     ```bash
-    cd <$GOPATH/pkg/mod/github.com/apache/cloudberry-gpbackup>
+    cd <$GOPATH/pkg/mod/github.com/apache/cloudberry-backup>
     make depend
     make build
     ```
