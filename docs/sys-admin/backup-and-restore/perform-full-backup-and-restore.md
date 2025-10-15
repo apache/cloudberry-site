@@ -12,8 +12,14 @@ The backup metadata files contain all of the information that `gprestore` needs 
 
 ## Install the `gpbackup` and `gprestore` utilities
 
-Before installing the `gpbackup` and `gprestore` utilities, make sure that you have the [Golang](https://golang.org/doc/) (v1.11 or later) installed and that you have set the [Go `PATH` environment
-variable](https://go.dev/doc/install).
+Before installing the `gpbackup` and `gprestore` utilities, make sure that you have the [Golang](https://golang.org/doc/) (v1.21 or later) installed and that you have set the [Go `PATH` environment
+variable](https://go.dev/doc/install):
+
+  ```
+  ## Set the Go `PATH` environment variable
+  export GOPATH=$HOME/go
+  export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
+  ```
 
 1. Pull the `apache/cloudberry-backup` GitHub repository to the target machine.
 
