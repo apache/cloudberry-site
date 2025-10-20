@@ -158,7 +158,7 @@ After you have created an input file, run `gpexpand` to initialize new segment i
 
 When the initialization process completes, you can connect to Apache Cloudberry and view the expansion schema. The *gpexpand* schema resides in the postgres database. For more information, see [About the Expansion Schema](./plan-system-expansion.md).
 
-After segment initialization is complete, [redistribute the tables](./redistribute-tables.md#redistribute-tables) to balance existing data over the new segments.
+After segment initialization is complete, [redistribute the tables](./redistribute-tables.md) to balance existing data over the new segments.
 
 ## Monitor the cluster expansion state
 
