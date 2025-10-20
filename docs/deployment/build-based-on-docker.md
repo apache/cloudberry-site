@@ -27,10 +27,10 @@ docker run --name cbdb-dev -it --rm -h cdw --shm-size=2gb apache/incubator-cloud
 docker run --name cbdb-dev -it --rm -h cdw --shm-size=2gb apache/incubator-cloudberry:cbdb-build-rocky9-latest
 ```
 </TabItem>
-<TabItem value="ubuntu-22" label="Ubuntu 20.04">
-:::note
-The official Docker development image for Apache Cloudberry is still in development. Coming soon.
-:::
+<TabItem value="ubuntu-22" label="Ubuntu 22.04">
+```bash
+docker run --name cbdb-dev -it --rm -h cdw --shm-size=2gb apache/incubator-cloudberry:cbdb-build-ubuntu22.04-latest
+```
 </TabItem>
 </Tabs>
 
@@ -90,8 +90,36 @@ Memory .............. : 15Gi total
 
 ## What's next?
 
+You can now proceed with the following steps to build and install Apache Cloudberry:
+
 - [Download the source code](./download-source-code.md)
 - [Configure Apache Cloudberry Build](./configure.md)
 - [Build and Install Apache Cloudberry and contrib extensions](./build-and-install.md)
 - [Set up a Cloudberry Demo Cluster](./set-demo-cluster.md) (start with the step `Set up Cloudberry environment variables`) 
 - [Post installation](./post-installation.md)
+
+Or just running the following command more quickly:
+
+```bash
+## Download the source code
+git clone --recurse-submodules --branch main --single-branch --depth=1 https://github.com/apache/cloudberry.git
+
+## Change directory
+cd /home/gpadmin/cloudberry
+
+## Set up the SRC_DIR environment variable and create a directory for build logs
+export SRC_DIR=/home/gpadmin/cloudberry
+mkdir -p ${SRC_DIR}/build-logs
+
+## Configure, build, and install Cloudberry
+./devops/build/automation/cloudberry/scripts/configure-cloudberry.sh
+./devops/build/automation/cloudberry/scripts/build-cloudberry.sh
+
+## Set up a Cloudberry Demo Cluster
+./devops/build/automation/cloudberry/scripts/create-cloudberry-demo-cluster.sh
+
+## Start a Cloudberry Demo Cluster
+source /usr/local/cloudberry-db/cloudberry-env.sh
+source /home/gpadmin/cloudberry/gpAux/gpdemo/gpdemo-env.sh
+psql -p 7000 postgres
+```

@@ -9,7 +9,7 @@ Managing Apache Cloudberry resources with resource groups.
 Memory, CPU, and concurrent transaction management have a significant impact on performance in a Apache Cloudberry cluster. Resource groups are a newer resource management scheme that enforce memory, CPU, and concurrent transaction limits in Apache Cloudberry.
 
 - [Configure Memory for Apache Cloudberry](#configure-memory-for-apache-cloudberry)
-- [Memory Considerations when using Resource Groups](#memory-considerations-when-using-resource-groups)
+- [Consider memory when using resource groups](#consider-memory-when-using-resource-groups)
 - [Configure Resource Groups](#configure-resource-groups)
 - [Low Memory Queries](#low-memory-queries)
 - [Administrative Utilities and admin_group Concurrency](#administrative-utilities-and-admin_group-concurrency)

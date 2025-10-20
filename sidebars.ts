@@ -23,6 +23,7 @@ const sidebars: SidebarsConfig = {
       type: 'category',
       label: 'Deploy and Build',
       items: [
+      'deployment/build-based-on-docker',
       {
         type: 'category',
         label: 'Build from Source (Complete Guide)',
@@ -32,7 +33,6 @@ const sidebars: SidebarsConfig = {
         },
         items: [`deployment/quick-build`, `deployment/create-gpadmin-user`, `deployment/system-settings`, `deployment/install-required-packages`,  `deployment/download-source-code`, `deployment/configure`, `deployment/build-and-install`, `deployment/set-demo-cluster`, `deployment/post-installation`]
         },
-      'deployment/build-based-on-docker',
       {
         type: 'category',
         label: 'Deploy on Physical or Virtual Machine',

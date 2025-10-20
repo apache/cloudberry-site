@@ -35,7 +35,7 @@ The following example queries list view information on dependencies on tables an
 - [List view definitions](#list-view-definitions)
 - [List nested views](#list-nested-views)
 
-The example output is based on the [Example Data](#example_data) at the end of this topic.
+The example output is based on the [Example data](#example-data) at the end of this topic.
 
 Also, you can use the first example query [Find direct view dependencies on a table](#find-direct-view-dependencies-on-a-table) to find dependencies on user-defined functions (or procedures). The query uses the catalog table `pg_class` that contains information about tables and views. For functions, you can use the catalog table `pg_proc` to get information about functions.
 
