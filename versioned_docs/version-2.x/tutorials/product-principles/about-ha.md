@@ -20,7 +20,7 @@ Two standard mirroring configurations are available when you initialize or expan
 
 This figure shows how table data is distributed across segments when spread mirroring is configured.
 
-![Spread Mirroring in Apache Cloudberry](../../media/spread-mirror.png)
+![Spread Mirroring in Apache Cloudberry](../../media/spread-mirroring.png)
 
 ## Segment failover and recovery
 

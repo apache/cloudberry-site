@@ -22,7 +22,7 @@ Before starting the migration or upgrade process, ensure you have:
 4. Sufficient disk space on both source and target clusters
 5. The `cbcopy` and `cbcopy_helper` binaries installed in the `$GPHOME/bin` directory on all nodes of both source and target databases
 
-## Installing cbcopy
+## Install cbcopy
 
 1. Clone the repository:
 ```bash
@@ -40,17 +40,17 @@ make
 make install
 ```
 
-## Version Compatibility
+## Version compatibility
 
-### Cloudberry Upgrade (1.x to 2.x)
+### Cloudberry upgrade (1.x to 2.x)
 - Source: Cloudberry 1.6
 - Target: Cloudberry 2.0
 
-### Greenplum to Cloudberry Migration
-- Source: Greenplum Database 6.x or 7.x
+### Greenplum to Cloudberry migration
+- Source: Apache Cloudberry 1.x or 2.x
 - Target: Cloudberry 1.x or 2.x
 
-## Migration Process
+## Migration process
 
 The migration process consists of two main phases:
 1. Metadata migration
@@ -60,7 +60,7 @@ We recommend performing these phases separately for better control and reliabili
 1. First migrate metadata using `--metadata-only`
 2. Then migrate data using `--data-only`
 
-### Basic Migration Command
+### Basic migration command
 
 ```bash
 cbcopy --source-host=<source_host> \
@@ -72,7 +72,7 @@ cbcopy --source-host=<source_host> \
     [additional_options]
 ```
 
-### Migration Modes
+### Migration modes
 
 cbcopy supports several migration modes:
 
@@ -97,7 +97,7 @@ cbcopy supports several migration modes:
    cbcopy --include-table="database.schema.table1,database.schema.table2" [other_options]
    ```
 
-### Data Loading Options
+### Data loading options
 
 1. **Append Mode** (`--append`)
    - Inserts migrated records into existing tables
@@ -110,9 +110,9 @@ cbcopy supports several migration modes:
    cbcopy --truncate [other_options]
    ```
 
-### Handling Dependencies
+### Handle dependencies
 
-#### Global Objects
+#### Global objects
 For tables depending on global objects (e.g., tablespaces):
 
 1. Use `--with-global-metadata` to automatically create these objects
@@ -121,7 +121,7 @@ For tables depending on global objects (e.g., tablespaces):
    CREATE TABLESPACE custom_tablespace LOCATION '/path/to/tablespace';
    ```
 
-#### Role Management
+#### Role management
 To change table ownership during migration:
 
 1. Create target roles in the target database
@@ -131,7 +131,7 @@ To change table ownership during migration:
    source_role2,target_role2
    ```
 
-### Tablespace Management
+### Tablespace management
 
 Three options for handling tablespaces:
 
@@ -150,7 +150,7 @@ Three options for handling tablespaces:
    source_tablespace2,target_tablespace2
    ```
 
-### Performance Optimization
+### Performance optimization
 
 1. **Parallel Jobs**
    - Control concurrent table copies with `--copy-jobs`
@@ -164,7 +164,7 @@ Three options for handling tablespaces:
    - Copy On Segment: For large tables with matching cluster configurations
    - Copy on External Table: For other cases
 
-### Migration Validation
+### Migration validation
 
 cbcopy performs automatic validation by comparing row counts between source and target. Failed migrations are logged in:
 - `$USER/gpAdminLogs/cbcopy_succeed_$timestamp`
@@ -175,9 +175,9 @@ For retry attempts, use:
 cbcopy --exclude-table-file=cbcopy_succeed_$timestamp [other_options]
 ```
 
-## Example Scenarios
+## Example scenarios
 
-### Scenario 1: Cloudberry 1.6 to 2.0 Upgrade
+### Scenario 1: Cloudberry 1.6 to 2.0 upgrade
 
 ```bash
 # Step 1: Migrate metadata
@@ -202,7 +202,7 @@ cbcopy --source-host=127.0.0.1 \
     --truncate
 ```
 
-### Scenario 2: Greenplum 6.x/7.x to Cloudberry 2.0 Migration
+### Scenario 2: Greenplum 6.x/7.x to Cloudberry 2.0 migration
 
 ```bash
 # Step 1: Migrate metadata with global objects
@@ -241,7 +241,7 @@ cbcopy --source-host=127.0.0.1 \
    - Check user permissions on both databases
    - Ensure sufficient disk space on both clusters
 
-## Additional Resources
+## Additional resources
 
 - [cbcopy GitHub Repository](https://github.com/cloudberry-contrib/cbcopy)
 
