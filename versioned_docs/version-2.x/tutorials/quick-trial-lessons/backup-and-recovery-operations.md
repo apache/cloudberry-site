@@ -5,7 +5,7 @@ description: Learn how to backup and restore your data in the Apache Cloudberry.
 
 :::info
 
-The Apache Cloudberry does not include the utility `gpbackup` by default. It's maintained separately. Please follow the [README](https://github.com/apache/cloudberry-gpbackup) to install `gpbackup` before using it.
+The Apache Cloudberry does not include the utility `gpbackup` by default. It's maintained separately. Please follow the [README](https://github.com/apache/cloudberry-backup) to install `gpbackup` before using it.
 
 :::
 
