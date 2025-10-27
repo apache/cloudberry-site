@@ -46,10 +46,10 @@ The following steps will be operated under the `gpadmin` user. Please make sure 
     sudo dnf install -y libxml2-devel json-c pkg-config gettext \
         protobuf-c gmp-devel boost-devel automake libtool make \
         gcc gcc-c++ sqlite-devel mpfr-devel bzip2 xz libcurl-devel \
-        cmake libxslt
+        cmake libxslt docbook-style-xsl
 
     sudo dnf install -y --enablerepo=crb protobuf-c-devel json-c-devel
-    sudo dnf install -y --enablerepo=crb CUnit-devel (Optional, for PostGIS testing)
+    sudo dnf install -y --enablerepo=crb CUnit-devel # Optional, for PostGIS testing
     ```
     </TabItem>
     </Tabs>
