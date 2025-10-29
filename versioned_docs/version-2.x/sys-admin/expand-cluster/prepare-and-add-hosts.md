@@ -50,11 +50,11 @@ The Apache Cloudberry segment host naming convention is `sdwN` where `sdw` is a 
     sdw3-4
     ```
 
-2. Log in as `root` on the coordinator host, and source the `greenplum_path.sh` file from your Cloudberry installation.
+2. Log in as `root` on the coordinator host, and source the `cloudberry-env.sh` file from your Cloudberry installation.
 
     ```shell
     $ su - 
-    # source /usr/local/greenplum-db/greenplum_path.sh
+    # source /usr/local/cloudberry-db/cloudberry-env.sh
     ```
 
 3. Run the `gpssh-exkeys` utility referencing the host list files. For example:

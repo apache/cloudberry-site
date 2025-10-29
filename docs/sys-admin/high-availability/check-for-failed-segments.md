@@ -54,6 +54,6 @@ Use the [`gplogfilter`](../../sys-utilities/gplogfilter.md) utility to check the
 
     ```shell
     $ gpssh -f seg_hosts_file -e 'source 
-    /usr/local/greenplum-db/greenplum_path.sh ; gplogfilter -t 
+    /usr/local/cloudberry-db/cloudberry-env.sh ; gplogfilter -t 
     /data1/primary/*/log/gpdb*.log' > seglog.out
     ```
