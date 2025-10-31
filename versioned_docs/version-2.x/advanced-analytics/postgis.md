@@ -35,10 +35,10 @@ The following steps will be operated under the `gpadmin` user. Please make sure 
     sudo dnf install -y libxml2-devel json-c pkg-config gettext \
         protobuf-c gmp-devel boost-devel automake libtool make \
         gcc gcc-c++ sqlite-devel mpfr-devel bzip2 xz libcurl-devel \
-        cmake protobuf-c-devel libxslt
+        cmake protobuf-c-devel libxslt docbook-style-xsl
 
     sudo dnf install -y --enablerepo=devel protobuf-devel json-c-devel
-    sudo dnf install -y --enablerepo=devel CUnit-devel (Optional, for PostGIS testing)
+    sudo dnf install -y --enablerepo=devel CUnit-devel # Optional, for PostGIS testing
     ```
     </TabItem>
     <TabItem value="rocky-linux9" label="Rocky Linux 9">
@@ -46,10 +46,10 @@ The following steps will be operated under the `gpadmin` user. Please make sure 
     sudo dnf install -y libxml2-devel json-c pkg-config gettext \
         protobuf-c gmp-devel boost-devel automake libtool make \
         gcc gcc-c++ sqlite-devel mpfr-devel bzip2 xz libcurl-devel \
-        cmake libxslt
+        cmake libxslt docbook-style-xsl
 
     sudo dnf install -y --enablerepo=crb protobuf-c-devel json-c-devel
-    sudo dnf install -y --enablerepo=crb CUnit-devel (Optional, for PostGIS testing)
+    sudo dnf install -y --enablerepo=crb CUnit-devel # Optional, for PostGIS testing
     ```
     </TabItem>
     </Tabs>
@@ -181,7 +181,9 @@ Key dependencies include, which will be built from source:
        --with-sfcgal=/usr/local/sfcgal-1.4.1/bin/sfcgal-config \
        --with-geosconfig=/usr/local/geos-3.11.0/bin/geos-config \
        --with-projdir=/usr/local/proj6/
-     make -j$(nproc) && sudo make -j$(nproc) install
+     make -j$(nproc)
+     make check # Optional, to run PostGIS tests
+     sudo make -j$(nproc) install
      ```
 
 ## Use PostGIS in Apache Cloudberry
