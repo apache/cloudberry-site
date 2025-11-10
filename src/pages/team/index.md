@@ -69,7 +69,7 @@ The listing includes new committers, excluding PPMC members above:
 |--|--|--|--|
 | Xiong Tong | tomshawn@apache.org | TomShawn | HashData |
 | Wenchao Zhang | zhangwenchao@apache.org | zhangwenchao-123 | HashData |
-| Xun Gong | gongxun@apache.org | gongxun0928 | HashData |
+| Xun Gong | gongxun@apache.org | gongxun0928 | Kwai |
 | Leonid Borchuk | leborchuk@apache.org | leborchuk | Yandex Cloud |
 
 ## Contributors wall
