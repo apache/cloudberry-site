@@ -113,7 +113,7 @@ PL/Container requires specific Docker images to create containers for running UD
 
 2. Use the `plcontainer image-add` command to install the image on all Apache Cloudberry hosts. Use the `-f` option to specify the path to the image file.
 
-    :::{note}
+    :::note
     Make sure that your system has the `rsync` dependency; otherwise, the following commands will fail.
     :::
 
@@ -320,7 +320,7 @@ Docker containers share CPU and memory resources with the Apache Cloudberry data
 
 PL/Container manages resources at two levels: container level and runtime level. You can control container-level CPU and memory resources by configuring `memory_mb` and `cpu_share` settings for a runtime. `memory_mb` controls the memory resources available to each container instance, while `cpu_share` defines the CPU usage weight of a container relative to others.
 
-:::{note}
+:::note
 If you do not explicitly configure a resource group for a PL/Container runtime, its container instances will only be limited by system resources. This can lead to containers consuming excessive resources, thus affecting the performance of the database server.
 :::
 
