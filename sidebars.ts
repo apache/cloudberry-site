@@ -263,7 +263,15 @@ const sidebars: SidebarsConfig = {
      {
       type: 'category',
       label: 'Developer',
-      items: ['developer/develop-extensions-using-rust', 'developer/write-a-foreign-data-wrapper']
+      items: [
+        'developer/develop-background-process-worker',
+        'developer/develop-extensions-using-rust',
+        'developer/supported-bi-tools',
+        'developer/use-jdbc-driver',
+        'developer/use-odbc-driver',
+        'developer/use-pl-container',
+        'developer/write-a-foreign-data-wrapper'
+      ]
      },
 
      {
