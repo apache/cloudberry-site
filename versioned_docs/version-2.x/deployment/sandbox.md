@@ -22,8 +22,9 @@ When building and deploying Cloudberry in Docker, you will have 2 different depl
 
 **Deployment Options**
 
-1. **Single Container** (Default) - With the single container option, you will have the coordinator as well as the Cloudberry segments all running on a single container. This is the default behavior when deploying using the `run.sh` script provided.
-2. **Multi-Container** - Deploying with the multi-container option will give you a more realistic deployment of what actual production Cloudberry clusters look like. With multi-node, you will have the coordinator, the standby coordinator, and 2 segment hosts all on their own respective containers. This is to both highlight the distributed nature of Apache Cloudberry as well as highlight how high availability (HA) features work in the event of a server (or in this case a container) failing. This is enabled by passing the `-m` flag to the `run.sh` script which will be highlighted below.
+1. **Recommended for most users** – Build directly from your current local source code using `-c local`. This is the fastest way to get started as it reuses your existing checkout, avoiding the need to download the code again inside the container. It is also ideal for developers testing local changes.
+2. Compile with the source code of the latest Apache Cloudberry (released in [Apache Cloudberry Release Page](https://github.com/apache/cloudberry/releases)). The base OS will be Rocky Linux 9 Docker image.
+3. Compile with the latest Apache Cloudberry [main](https://github.com/apache/cloudberry/tree/main) branch. The base OS will be Rocky Linux 9 Docker image.
 
 ![Apache Cloudberry Sandbox Deployments](/img/bootcamp/sandbox-deployment.jpg)
 
@@ -36,43 +37,63 @@ Build and deploy steps:
 
 1. Start Docker Desktop and make sure it is running properly on your host platform.
 
-2. Download the repository [apache/cloudberry-bootcamp](https://github.com/apache/cloudberry-bootcamp) to the target machine.
+2. Clone the Apache Cloudberry repository to the target machine.
 
     ```shell
-    git clone https://github.com/apache/cloudberry-bootcamp.git
+    git clone https://github.com/apache/cloudberry.git
     ```
 
-3. Enter the repository and run the `run.sh` script to start the Docker container. This will start the automatic installation process. Depending on your environment, you may need to run this with `sudo` command.
+3. Enter the repository and run the `run.sh` script to start the Docker container. This will start the automatic installation process. Depending on your environment, you may need to run this with 'sudo' command.
 
-    - For latest Cloudberry release running on a single container:
+    - **Recommended: Build from your current local source code (single container)**
+
+        This is the most efficient option for both new users and developers. It uses your local checkout directly, saving time by skipping the code download step inside the container. It also allows you to immediately test any local code modifications.
 
     ```shell
-    cd cloudberry-bootcamp/000-cbdb-sandbox
-    ./run.sh
+    cd cloudberry/devops/sandbox
+    ./run.sh -c local
     ```
-    - For latest Cloudberry release running across multiple containers:
+
+    - **Recommended: Build from your current local source code (multi-container)**
+
+        Same as above, but deploys a multi-container cluster. Ideal for testing distributed features or high availability with your local code.
 
     ```shell
-    cd cloudberry-bootcamp/000-cbdb-sandbox
-    ./run.sh -m
+    cd cloudberry/devops/sandbox
+    ./run.sh -c local -m
     ```
-    - For latest main branch running on a single container:
+
+    - For latest Apache Cloudberry release running on a single container
 
     ```shell
-    cd cloudberry-bootcamp/000-cbdb-sandbox
+    cd cloudberry/devops/sandbox
+    ./run.sh -c 2.0.0
+    ```
+
+    - For latest Apache Cloudberry release running across multiple containers
+
+    ```shell
+    cd cloudberry/devops/sandbox
+    ./run.sh -c 2.0.0 -m
+    ```
+
+    - For latest main branch running on a single container
+
+    ```shell
+    cd cloudberry/devops/sandbox
     ./run.sh -c main
     ```
 
-    - For latest main branch running across multiple containers:
+    - For latest main branch running across multiple containers
 
     ```shell
-    cd cloudberry-bootcamp/000-cbdb-sandbox
+    cd cloudberry/devops/sandbox
     ./run.sh -c main -m
     ```
 
-    Once the script finishes without error, the sandbox is built and running successfully. The `docker run` and `docker compose` commands use the `--detach` option allowing you to ssh or access the running Cloudberry instance remotely.
+    Once the script finishes without error, the sandbox is built and running successfully. The `docker run` and `docker compose` commands use the --detach option allowing you to ssh or access the running Apache Cloudberry instance remotely.
 
-    Please review `run.sh` script for additional options (e.g. setting Timezone in running container, only building container). You can also execute `./run.sh -h` to see the usage.
+    Please review run.sh script for additional options (e.g. setting Timezone in running container, only building container). You can also execute `./run.sh -h` to see the usage.
 
 ## Connect to the database
 
