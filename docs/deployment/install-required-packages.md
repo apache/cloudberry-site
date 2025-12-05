@@ -45,6 +45,7 @@ sudo dnf install -y apr-devel \
   perl-Env \
   python3-devel \
   python3-pip \
+  python3-setuptools \
   readline-devel \
   rsync \
   wget \
@@ -62,11 +63,13 @@ On Rocky Linux, they are disabled by default and must be explicitly enabled.
 <TabItem value="rocky-linux-8" label="For Rocky Linux 8" default>
 ```bash
 sudo dnf install -y --enablerepo=devel libuv-devel libyaml-devel perl-IPC-Run protobuf-devel
+sudo dnf install -y --enablerepo=devel python3-wheel python3-cython
 ```
 </TabItem>
 <TabItem value="rocky-linux-9" label="For Rocky Linux 9">
 ```bash
 sudo dnf install -y --enablerepo=crb libuv-devel libyaml-devel perl-IPC-Run protobuf-devel
+sudo dnf install -y --enablerepo=crb python3-wheel python3-cython
 ```
 </TabItem>
 </Tabs>
@@ -167,6 +170,7 @@ sudo apt install -y bison \
   python3-dev \
   python3-pip \
   python3-setuptools \
+  python3-wheel \
   rsync
 ```
 </TabItem>
