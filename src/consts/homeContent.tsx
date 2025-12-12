@@ -58,7 +58,7 @@ let WANT_TO_CONTRIBUTE = {
         <span>
           There are many ways to contribute to Apache Cloudberry (Incubating), and you can easily find the ones that suit your skills and interests to 
           <LinkWithBaseUrl className={"light-active-color"} href="/contribute">
-            begin your contribution
+             begin your contribution 
           </LinkWithBaseUrl>
            journey.
         </span>
