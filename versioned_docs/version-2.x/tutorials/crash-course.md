@@ -33,7 +33,7 @@ Topics include:
 
 ## Lesson 0. Prerequisite
 
-Before starting this crash course, spend some time going through the [Apache Cloudberry Tutorials Based on Single-Node Installation](https://github.com/apache/cloudberry-bootcamp/tree/main/000-cbdb-sandbox/configs) to get familiar with Apache Cloudberry and how it works.
+Before starting this crash course, spend some time going through the [Apache Cloudberry Tutorials Based on Single-Node Installation](https://github.com/apache/cloudberry/tree/main/devops/sandbox) to get familiar with Apache Cloudberry and how it works.
 
 ## Lesson 1. Where to read the official documentation
 
@@ -43,7 +43,7 @@ Take a quick look at the official [Cloudberry Documentation](https://cloudberry.
 
 To begin your journey with Cloudberry, you are expected to install Cloudberry in your preferred environment. The following options are available:
 
-- For testing or trying out Cloudberry in a sandbox environment, see [Install Cloudberry in a Sandbox](https://github.com/apache/cloudberry-bootcamp/tree/main/000-cbdb-sandbox/configs).
+- For testing or trying out Cloudberry in a sandbox environment, see [Install Cloudberry in a Sandbox](https://github.com/apache/cloudberry/tree/main/devops/sandbox).
 - For deploying Cloudberry in other environments (including the production environment) and the prerequisite software/hardware configuration, see [Cloudberry Deployment Guide](http://localhost:3000/docs/next/deployment/).
 
 ## Lesson 3. Cluster architecture
