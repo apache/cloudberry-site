@@ -100,9 +100,9 @@ sudo dnf install -y apr-devel \
 
 # Enable additional development tools and libraries
 ## For Rocky Linux 8
-sudo dnf install -y --enablerepo=devel libuv-devel libyaml-devel perl-IPC-Run protobuf-devel
+sudo dnf install -y --enablerepo=devel liburing-devel libuv-devel libyaml-devel perl-IPC-Run protobuf-devel
 ## For Rocky Linux 9
-sudo dnf install -y --enablerepo=crb libuv-devel libyaml-devel perl-IPC-Run protobuf-devel
+sudo dnf install -y --enablerepo=crb liburing-devel libuv-devel libyaml-devel perl-IPC-Run protobuf-devel
 
 # Build Xerces-C source code
 XERCES_LATEST_RELEASE=3.3.0
@@ -257,6 +257,7 @@ sudo apt install -y bison \
   libprotobuf-dev \
   libreadline-dev \
   libssl-dev \
+  liburing-dev \
   libuv1-dev \
   liblz4-dev \
   libxerces-c-dev \

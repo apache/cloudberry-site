@@ -30,6 +30,7 @@ To enable PAX when building Apache Cloudberry from source code, you need to:
     - CMake: 3.11 or later
     - Protobuf: 3.5.0 or later
     - ZSTD (libzstd): 1.4.0 or later
+    - liburing
 
 2. Run the following command at the top level of the Cloudberry source code directory to download the submodules:
 

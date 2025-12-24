@@ -61,12 +61,12 @@ On Rocky Linux, they are disabled by default and must be explicitly enabled.
 <Tabs>
 <TabItem value="rocky-linux-8" label="For Rocky Linux 8" default>
 ```bash
-sudo dnf install -y --enablerepo=devel libuv-devel libyaml-devel perl-IPC-Run protobuf-devel
+sudo dnf install -y --enablerepo=devel liburing-devel libuv-devel libyaml-devel perl-IPC-Run protobuf-devel
 ```
 </TabItem>
 <TabItem value="rocky-linux-9" label="For Rocky Linux 9">
 ```bash
-sudo dnf install -y --enablerepo=crb libuv-devel libyaml-devel perl-IPC-Run protobuf-devel
+sudo dnf install -y --enablerepo=crb liburing-devel libuv-devel libyaml-devel perl-IPC-Run protobuf-devel
 ```
 </TabItem>
 </Tabs>
@@ -154,6 +154,7 @@ sudo apt install -y bison \
   libprotobuf-dev \
   libreadline-dev \
   libssl-dev \
+  liburing-dev \
   libuv1-dev \
   liblz4-dev \
   libxerces-c-dev \
