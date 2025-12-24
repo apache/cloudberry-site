@@ -4,10 +4,122 @@
         <title>Apache Cloudberry (Incubating) is one advanced and mature open-source MPP (Massively Parallel Processing) databases available.</title>
         <link>https://cloudberry.apache.org/blog</link>
         <description>Apache Cloudberry (Incubating) Blog</description>
-        <lastBuildDate>Fri, 21 Nov 2025 00:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 24 Dec 2025 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
+        <item>
+            <title><![CDATA[Apache Cloudberry 2025 Review: A Year of Progress in the Apache Incubator]]></title>
+            <link>https://cloudberry.apache.org/blog/apache-cloudberry-2025-review</link>
+            <guid>https://cloudberry.apache.org/blog/apache-cloudberry-2025-review</guid>
+            <pubDate>Wed, 24 Dec 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[A year of milestones: First Apache release, growing community, and technical breakthroughs.]]></description>
+            <content:encoded><![CDATA[<p>2025 has been a defining year for Apache Cloudberry (Incubating).
+Over the past twelve months, the project and its community have made steady and meaningful progress across releases, governance, infrastructure, and ecosystem growth.</p>
+<p>This post looks back at the key milestones of Apache Cloudberry in 2025 and reflects on how the project has evolved since entering the Apache Incubator.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="from-proposal-to-incubation">From Proposal to Incubation<a href="https://cloudberry.apache.org/blog/apache-cloudberry-2025-review#from-proposal-to-incubation" class="hash-link" aria-label="Direct link to From Proposal to Incubation" title="Direct link to From Proposal to Incubation">​</a></h2>
+<p>Apache Cloudberry officially entered the Apache Incubator in October 2024.
+Following the successful vote, the project completed the migration of its source code repositories and infrastructure to the Apache Software Foundation in November 2024.</p>
+<p>This initial phase focused on establishing a solid foundation under the ASF:</p>
+<ul>
+<li>Migrating repositories and CI infrastructure</li>
+<li>Completing project renaming and branding updates</li>
+<li>Aligning documentation and workflows with ASF policies</li>
+<li>Starting systematic code cleanup and compliance work</li>
+<li>Gathering broad community feedback and discussing the roadmap in depth</li>
+</ul>
+<p>These efforts set the stage for sustained development and growth throughout 2025.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="first-apache-release-cloudberry-200-incubating">First Apache Release: Cloudberry 2.0.0 (Incubating)<a href="https://cloudberry.apache.org/blog/apache-cloudberry-2025-review#first-apache-release-cloudberry-200-incubating" class="hash-link" aria-label="Direct link to First Apache Release: Cloudberry 2.0.0 (Incubating)" title="Direct link to First Apache Release: Cloudberry 2.0.0 (Incubating)">​</a></h2>
+<p>One of the most important milestones in 2025 was the release of Apache Cloudberry (Incubating) 2.0.0 in August 2025 — the project's first official Apache release.</p>
+<p>Leading up to this release, the community completed several major efforts:</p>
+<ul>
+<li>Cherry-picking and consolidating large portions of the archived Greenplum open-source codebase</li>
+<li>Completing ASF license and compliance requirements (LICENSE, NOTICE, RAT audits)</li>
+<li>Cleaning up legacy files and restructuring the repository</li>
+<li>Building a new, Apache-compliant CI/CD workflow</li>
+<li>Running multiple release candidate (RC) rounds and addressing review feedback from the Incubator community</li>
+</ul>
+<p>A major highlight of this release cycle was the introduction of the PAX (Partition Attributes Across) storage engine, a row-column hybrid format that optimizes performance for mixed workloads—a significant innovation contributed back to the core.</p>
+<p>The 2.0.0 release marked a major transition from incubation setup to regular, disciplined Apache-style releases.</p>
+<p>For more details, see the <a href="https://cloudberry.apache.org/blog/announce-apache-cloudberry-2.0.0">release announcement</a> and <a href="https://cloudberry.apache.org/blog/whats-new-in-apache-cloudberry-2.0.0">What's New in Apache Cloudberry 2.0.0</a>.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="community-growth">Community Growth<a href="https://cloudberry.apache.org/blog/apache-cloudberry-2025-review#community-growth" class="hash-link" aria-label="Direct link to Community Growth" title="Direct link to Community Growth">​</a></h2>
+<p>Community is the heartbeat of any Apache project, and 2025 saw the Cloudberry family grow stronger and more diverse.</p>
+<p>During the year, the Cloudberry Podling Project Management Committee (PPMC) was proud to welcome four new committers:</p>
+<ul>
+<li><a href="https://cloudberry.apache.org/blog/welcoming-xiongtong-as-a-new-apache-cloudberry-committer">Xiong Tong</a></li>
+<li><a href="https://cloudberry.apache.org/blog/welcoming-wenchaozhang-as-a-new-apache-cloudberry-committer">Wenchao Zhang</a></li>
+<li><a href="https://cloudberry.apache.org/blog/welcoming-xungong-as-a-new-apache-cloudberry-committer">Xun Gong</a></li>
+<li><a href="https://cloudberry.apache.org/blog/welcoming-leonid-borchuk-as-a-new-apache-cloudberry-committer">Leonid Borchuk</a></li>
+</ul>
+<p>Mailing list discussions, GitHub issues, and design conversations continued to be kept active, covering topics such as kernel upgrades, performance improvements, extensions, and ecosystem integration.</p>
+<p>The project has also emphasized transparent governance, clear contribution guidelines, and mentoring new contributors as part of its incubation journey.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="community-activities-and-events">Community Activities and Events<a href="https://cloudberry.apache.org/blog/apache-cloudberry-2025-review#community-activities-and-events" class="hash-link" aria-label="Direct link to Community Activities and Events" title="Direct link to Community Activities and Events">​</a></h2>
+<p>Apache Cloudberry community members were active across a wide range of global and regional events in 2025, including:</p>
+<ul>
+<li>PostgresConf Global 2025</li>
+<li>Flink Forward Asia 2025</li>
+<li>Community Over Code Asia 2025</li>
+<li>PostgreSQL and data community meetups in Asia, Europe, and North America</li>
+</ul>
+<p>In addition to conference talks, the community members organized and participated in Apache Cloudberry Meetups in multiple cities, providing opportunities to share technical updates, discuss roadmap items, and introduce the Apache way to new users and contributors.</p>
+<p>These activities helped increase the project's visibility and attracted new participants from the broader PostgreSQL and data ecosystem.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="postgresql-kernel-upgrade-pg-14--pg-16">PostgreSQL Kernel Upgrade: PG 14 → PG 16<a href="https://cloudberry.apache.org/blog/apache-cloudberry-2025-review#postgresql-kernel-upgrade-pg-14--pg-16" class="hash-link" aria-label="Direct link to PostgreSQL Kernel Upgrade: PG 14 → PG 16" title="Direct link to PostgreSQL Kernel Upgrade: PG 14 → PG 16">​</a></h2>
+<p>In 2025, the project also initiated the PostgreSQL kernel upgrade, moving Apache Cloudberry from PostgreSQL 14.x toward PostgreSQL 16.x.</p>
+<p>This effort represents a significant technical investment and includes:</p>
+<ul>
+<li>Merging the new PostgreSQL kernel into Cloudberry work branches</li>
+<li>Resolving conflicts introduced by Cloudberry's MPP architecture</li>
+<li>Incrementally restoring build, initialization, and test coverage</li>
+<li>Validating parallel execution and regression test suites</li>
+</ul>
+<p>The kernel upgrade work remains ongoing, but important milestones — including successful cluster startup — were achieved during the year. This challenging effort is expected to be completed in early 2026.</p>
+<p>If you're interested in contributing to this effort, check out the <a href="https://lists.apache.org/list.html?dev@cloudberry.apache.org" target="_blank" rel="noopener noreferrer">kernel upgrade discussion on the mailing list</a> and the <a href="https://github.com/orgs/apache/projects/497" target="_blank" rel="noopener noreferrer">GitHub Project board</a>.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="ecosystem-and-integrations">Ecosystem and Integrations<a href="https://cloudberry.apache.org/blog/apache-cloudberry-2025-review#ecosystem-and-integrations" class="hash-link" aria-label="Direct link to Ecosystem and Integrations" title="Direct link to Ecosystem and Integrations">​</a></h2>
+<p>The Apache Cloudberry ecosystem expanded significantly in 2025, driven by a "Upstream first" philosophy.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="native-integrations">Native Integrations<a href="https://cloudberry.apache.org/blog/apache-cloudberry-2025-review#native-integrations" class="hash-link" aria-label="Direct link to Native Integrations" title="Direct link to Native Integrations">​</a></h3>
+<p>Several widely used tools now provide native support for Cloudberry, including:</p>
+<ul>
+<li><a href="https://dbeaver.io/" target="_blank" rel="noopener noreferrer">DBeaver</a>: For seamless database management and SQL development.</li>
+<li><a href="https://github.com/wal-g/wal-g" target="_blank" rel="noopener noreferrer">WAL-G</a>: Enabling robust disaster recovery and continuous archiving.</li>
+<li><a href="https://seatunnel.apache.org/docs/2.3.12/connector-v2/source/Cloudberry" target="_blank" rel="noopener noreferrer">Apache SeaTunnel</a>: Facilitating high-performance data integration.</li>
+<li><a href="https://github.com/apache/flink-connector-jdbc" target="_blank" rel="noopener noreferrer">Flink JDBC Connector</a> (v3.3.0+): Supporting real-time streaming data ingestion.</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="community-maintained-extensions">Community-Maintained Extensions<a href="https://cloudberry.apache.org/blog/apache-cloudberry-2025-review#community-maintained-extensions" class="hash-link" aria-label="Direct link to Community-Maintained Extensions" title="Direct link to Community-Maintained Extensions">​</a></h3>
+<p>The community also maintains a set of adapted extensions for Cloudberry:</p>
+<ul>
+<li><a href="https://github.com/cloudberry-contrib/postgis" target="_blank" rel="noopener noreferrer">PostGIS for Cloudberry</a>: Upgraded to PostGIS 3.3.2, unlocking advanced geospatial analytics capabilities.</li>
+<li><a href="https://github.com/cloudberry-contrib/kafka_fdw" target="_blank" rel="noopener noreferrer">kafka_fdw for Cloudberry</a>: Enabling efficient real-time data processing from Kafka.</li>
+<li><a href="https://github.com/cloudberry-contrib/cbcopy" target="_blank" rel="noopener noreferrer">cbcopy</a>: Supporting migration from Greenplum to Cloudberry.</li>
+<li><a href="https://github.com/cloudberry-contrib/paradedb" target="_blank" rel="noopener noreferrer">ParadeDB for Cloudberry</a>: Enabling search and analytics workloads on Cloudberry.</li>
+<li><a href="https://github.com/cloudberry-contrib/pgvector" target="_blank" rel="noopener noreferrer">pgvector for Cloudberry</a>: Upgraded to version 0.8, enabling similarity search capabilities.</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="cross-project-collaboration">Cross-Project Collaboration<a href="https://cloudberry.apache.org/blog/apache-cloudberry-2025-review#cross-project-collaboration" class="hash-link" aria-label="Direct link to Cross-Project Collaboration" title="Direct link to Cross-Project Collaboration">​</a></h3>
+<p>Work is actively underway to add native Apache Cloudberry support to Apache MADlib, strengthening Cloudberry's position in advanced analytics and machine learning workloads. This collaboration highlights the strength of the Apache ecosystem, where projects work together to deliver integrated solutions.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="repository-consolidation">Repository Consolidation<a href="https://cloudberry.apache.org/blog/apache-cloudberry-2025-review#repository-consolidation" class="hash-link" aria-label="Direct link to Repository Consolidation" title="Direct link to Repository Consolidation">​</a></h2>
+<p>To streamline the developer experience, the community consolidated several sub-repositories: <code>cloudberry-gpbackup</code> was renamed to <code>cloudberry-backup</code>, and the <a href="https://github.com/apache/cloudberry-gpbackup-s3-plugin" target="_blank" rel="noopener noreferrer">S3 plugin</a> was merged into the main backup repository.</p>
+<p>Furthermore, <code>apache/cloudberry-devops-release</code> and <code>apache/cloudberry-bootcamp</code> were integrated into the main Cloudberry repository under the <a href="https://github.com/apache/cloudberry/tree/main/devops" target="_blank" rel="noopener noreferrer"><code>devops/</code></a> and <a href="https://github.com/apache/cloudberry/tree/main/devops/sandbox" target="_blank" rel="noopener noreferrer"><code>devops/sandbox</code></a> directories, respectively.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="looking-ahead">Looking Ahead<a href="https://cloudberry.apache.org/blog/apache-cloudberry-2025-review#looking-ahead" class="hash-link" aria-label="Direct link to Looking Ahead" title="Direct link to Looking Ahead">​</a></h2>
+<p>As 2025 comes to a close, Apache Cloudberry stands on a much stronger foundation than it did a year ago:</p>
+<ul>
+<li>A completed first Apache release</li>
+<li>A growing and more diverse contributor community</li>
+<li>Active participation in global open-source events</li>
+<li>Ongoing kernel modernization</li>
+<li>An expanding ecosystem of integrations</li>
+</ul>
+<p>The project will continue focusing on community growth, regular Apache releases, technical stability, and progress toward graduation from the Apache Incubator.</p>
+<p>We would like to thank all contributors, mentors, and community members who helped make 2025 a productive and rewarding year for Apache Cloudberry.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="stay-connected">Stay Connected<a href="https://cloudberry.apache.org/blog/apache-cloudberry-2025-review#stay-connected" class="hash-link" aria-label="Direct link to Stay Connected" title="Direct link to Stay Connected">​</a></h2>
+<p>Apache Cloudberry follows the principle of open and transparent governance. You can follow our <a href="https://whimsy.apache.org/board/minutes/Cloudberry.html" target="_blank" rel="noopener noreferrer">quarterly incubation reports</a> to stay updated on key community events and project progress.</p>
+<p>Get involved with the community:</p>
+<ul>
+<li><strong>GitHub</strong>: <a href="https://github.com/apache/cloudberry" target="_blank" rel="noopener noreferrer">github.com/apache/cloudberry</a></li>
+<li><strong>Slack</strong>: <a href="https://inviter.co/apache-cloudberry" target="_blank" rel="noopener noreferrer">Join our Slack workspace</a></li>
+<li><strong>Mailing Lists</strong>: <a href="https://lists.apache.org/list.html?dev@cloudberry.apache.org" target="_blank" rel="noopener noreferrer">lists.apache.org/list.html?dev@cloudberry.apache.org</a></li>
+<li><strong>Website</strong>: <a href="https://cloudberry.apache.org/" target="_blank" rel="noopener noreferrer">cloudberry.apache.org</a></li>
+</ul>]]></content:encoded>
+            <category>Incubation</category>
+        </item>
         <item>
             <title><![CDATA[Apache Cloudberry Incubation Report - November 2025]]></title>
             <link>https://cloudberry.apache.org/blog/apache-cloudberry-incubation-report-202511</link>
