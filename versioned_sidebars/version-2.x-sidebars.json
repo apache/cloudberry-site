@@ -333,7 +333,18 @@
         "developer/supported-bi-tools",
         "developer/use-jdbc-driver",
         "developer/use-odbc-driver",
-        "developer/use-pl-container",
+        {
+          "type": "category",
+          "label": "Stored Procedures and UDFs",
+          "items": [
+            "developer/functions-and-procedures/overview",
+            "developer/functions-and-procedures/use-pl-container",
+            "developer/functions-and-procedures/use-pl-java",
+            "developer/functions-and-procedures/use-pl-perl",
+            "developer/functions-and-procedures/use-pl-pgsql",
+            "developer/functions-and-procedures/use-pl-python"
+          ]
+        },
         "developer/write-a-foreign-data-wrapper"
       ]
     },
