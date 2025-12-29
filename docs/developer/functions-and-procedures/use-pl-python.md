@@ -28,7 +28,7 @@ To use PL/Python, you must enable it in your database. Apache Cloudberry uses th
     CREATE EXTENSION plpython3u;
     ```
 
-    :::{note}
+    :::note
     Because PL/Python is an untrusted language (`u` suffix), only database superusers can creating functions using it. This is because it allows access to the file system and other system resources.
     :::
 
