@@ -417,7 +417,7 @@ PL/Container supports using NVIDIA GPUs for computational acceleration. This req
     # Install CUDA from https://developer.nvidia.com/cuda-downloads
     # By downloading and using the software, you agree to fully comply with the terms and conditions of the CUDA EULA.
     RUN true &&\
-        wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/cuda-ubuntu1804.pin && \
+        wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/cuda-ubuntu2204.pin && \
         mv cuda-ubuntu1804.pin /etc/apt/preferences.d/cuda-repository-pin-600 && \
         wget https://developer.download.nvidia.com/compute/cuda/11.7.0/local_installers/cuda-repo-ubuntu1804-11-7-local_11.7.0-515.43.04-1_amd64.deb && \
         dpkg -i cuda-repo-ubuntu1804-11-7-local_11.7.0-515.43.04-1_amd64.deb && \

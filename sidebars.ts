@@ -279,7 +279,8 @@ const sidebars: SidebarsConfig = {
             'developer/functions-and-procedures/use-pl-java',
             'developer/functions-and-procedures/use-pl-perl',
             'developer/functions-and-procedures/use-pl-pgsql',
-            'developer/functions-and-procedures/use-pl-python'
+            'developer/functions-and-procedures/use-pl-python',
+            'developer/functions-and-procedures/use-pl-r'
           ]
         },
         'developer/write-a-foreign-data-wrapper'

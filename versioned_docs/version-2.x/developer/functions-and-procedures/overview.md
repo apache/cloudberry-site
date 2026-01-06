@@ -13,9 +13,10 @@ User-Defined Functions (UDFs) return values and can be used in queries. They all
 Apache Cloudberry supports several procedural languages for writing UDFs:
 
 - **PL/Python**: Write functions using Python 3. With the `plpython3u` untrusted language, you can access system calls and external libraries.
-- **PL/Java**: Write functions using Java. Suitable for complex computations and integration with existing Java libraries.
+- **[PL/Java](https://github.com/cloudberry-contrib/pljava)**: Write functions using Java. Suitable for complex computations and integration with existing Java libraries.
 - **PL/Perl**: Write functions using Perl, leveraging its strong string manipulation capabilities.
-- **PL/Container**: Run Python and R functions securely inside Docker containers. This provides isolation and security for running untrusted code.
+- **[PL/Container](https://github.com/cloudberry-contrib/plcontainer)**: Run Python and R functions securely inside Docker containers. This provides isolation and security for running untrusted code.
+- **[PL/R](https://github.com/cloudberry-contrib/plr)**: Write functions using the R statistical computing language. Ideal for advanced data analysis and statistical modeling.
 
 ## Stored procedures
 
@@ -30,4 +31,5 @@ Stored Procedures are similar to functions but do not return a value. They are i
 | **PL/Python** | `plpython3u` | No | Python 3 procedural language. |
 | **PL/Java** | `pljava` | Yes | Java procedural language. |
 | **PL/Perl** | `plperl` | Yes | Perl procedural language. |
+| **PL/R** | `plr` | No | R procedural language. |
 | **PL/Container** | `plcontainer` | Yes (Safe) | Run Python/R in Docker containers. |
