@@ -25,7 +25,7 @@ const config: Config = {
       'docusaurus-biel',
       {
         project: 'tn36ske74m',
-        headerTitle: 'Biel.ai chatbot',
+        headerTitle: 'AI Chatbot',
         version: 'latest',
       }
     ],
