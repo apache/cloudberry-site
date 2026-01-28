@@ -2,11 +2,31 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://cloudberry.apache.org/blog</id>
     <title>Apache Cloudberry (Incubating) is one advanced and mature open-source MPP (Massively Parallel Processing) databases available.</title>
-    <updated>2025-12-24T00:00:00.000Z</updated>
+    <updated>2026-01-28T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://cloudberry.apache.org/blog"/>
     <subtitle>Apache Cloudberry (Incubating) Blog</subtitle>
     <icon>https://cloudberry.apache.org/img/favicon.ico</icon>
+    <entry>
+        <title type="html"><![CDATA[Welcoming Rose Duan as a New Apache Cloudberry Committer]]></title>
+        <id>https://cloudberry.apache.org/blog/welcoming-rose-duan-as-a-new-apache-cloudberry-committer</id>
+        <link href="https://cloudberry.apache.org/blog/welcoming-rose-duan-as-a-new-apache-cloudberry-committer"/>
+        <updated>2026-01-28T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[Becoming a committer demonstrates a strong commitment to the community.]]></summary>
+        <content type="html"><![CDATA[<p>The Apache Cloudberry community is excited to announce that Rose Duan (GitHub ID: roseduan) has officially joined the project as a Committer!</p>
+<p>Rose has been an active and valuable contributor to Apache Cloudberry over the past few years. Through his consistent involvement, he has demonstrated strong technical expertise, a collaborative mindset, and a clear commitment to the long-term success of the project.</p>
+<p>Rose has contributed to a wide range of Cloudberry features and improvements, including enhancements to warehouse grammar and numerous bug fixes. Beyond the core repository, Rose has also played an important role in maintaining and improving ecosystem projects closely related to Cloudberry, such as <code>kafka_fdw for Cloudberry</code> and <code>pgvector for Cloudberry</code>.</p>
+<p>In addition to his technical work, Rose has been actively involved in community outreach and advocacy. Notably, he shared Cloudberry-related content at <code>Community Over Code Asia 2025</code> (formerly ApacheCon), helping raise awareness of the project and connect Cloudberry with a wider audience.</p>
+<p>His willingness to engage in discussions, respond to feedback, and support other contributors reflects the collaborative spirit we value deeply in the Apache community.</p>
+<p>After discussion on the private mailing list and a successful vote by the PPMC, Rose was formally invited to become a Cloudberry Committer. This recognition reflects not only his past contributions, but also the community’s trust in his continued involvement and leadership going forward.</p>
+<p>Please join us in welcoming <strong>Rose Duan</strong> as the newest Apache Cloudberry Committer! We look forward to his ongoing contributions and to working together to grow the Cloudberry project and community.</p>
+<p>Welcome aboard, Rose!</p>
+<p>You can find the official announcement on the <a href="https://lists.apache.org/thread/fvnq1bnzwblmpk2zl6vz8hy8f4rc4y1f" target="_blank" rel="noopener noreferrer">Apache mailing list</a>.</p>]]></content>
+        <author>
+            <name>Apache Cloudberry</name>
+        </author>
+        <category label="Announcement" term="Announcement"/>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Apache Cloudberry 2025 Review: A Year of Progress in the Apache Incubator]]></title>
         <id>https://cloudberry.apache.org/blog/apache-cloudberry-2025-review</id>
