@@ -71,6 +71,7 @@ The listing includes new committers, excluding PPMC members above:
 | Wenchao Zhang | zhangwenchao@apache.org | zhangwenchao-123 | HashData |
 | Xun Gong | gongxun@apache.org | gongxun0928 | Kwai |
 | Leonid Borchuk | leborchuk@apache.org | leborchuk | Yandex Cloud |
+| Rose Duan | roseduan@apache.org | roseduan | HashData |
 
 ## Contributors wall
 
