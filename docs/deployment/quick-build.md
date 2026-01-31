@@ -10,7 +10,7 @@ In the following sections, we'll provide detailed, step-by-step instructions for
 By this, you will get an Apache Cloudberry environment with a demo cluster ready for testing and development.
 
 <Tabs>
-<TabItem value="rocky-linux" label="For Rocky Linux 8+" default>
+<TabItem value="rocky-linux" label="For Rocky Linux 8/9" default>
 ```bash
 
 # Install sudo & git
@@ -141,7 +141,6 @@ export LD_LIBRARY_PATH=/usr/local/cloudberry-db/lib:LD_LIBRARY_PATH
 ./configure --prefix=/usr/local/cloudberry-db \
             --disable-external-fts \
             --enable-debug \
-            --enable-cassert \
             --enable-debug-extensions \
             --enable-gpcloud \
             --enable-ic-proxy \
@@ -149,7 +148,7 @@ export LD_LIBRARY_PATH=/usr/local/cloudberry-db/lib:LD_LIBRARY_PATH
             --enable-orafce \
             --enable-orca \
             --enable-pax \
-            --enable-pxf \
+            --disable-pxf \
             --enable-tap-tests \
             --with-gssapi \
             --with-ldap \
@@ -184,7 +183,7 @@ psql -P pager=off template1 -c 'SELECT * from gp_segment_configuration'
 psql template1 -c 'SELECT version()'
 ```
 </TabItem>
-<TabItem value="ubuntu" label="For Ubuntu 20.04+">
+<TabItem value="ubuntu" label="For Ubuntu 20.04/22.04">
 
 ```bash
 
@@ -257,7 +256,6 @@ sudo apt install -y bison \
   libprotobuf-dev \
   libreadline-dev \
   libssl-dev \
-  liburing-dev \
   libuv1-dev \
   liblz4-dev \
   libxerces-c-dev \
@@ -272,6 +270,19 @@ sudo apt install -y bison \
   python3-pip \
   python3-setuptools \
   rsync
+
+# For PAX build, you need to install liburing
+## For Ubuntu 22.04
+  sudo apt install -y liburing-dev
+## For Ubuntu 20.04
+  sudo apt install -y git build-essential
+  cd /tmp
+  wget https://github.com/axboe/liburing/archive/refs/tags/liburing-2.1.tar.gz
+  tar -xzf liburing-2.1.tar.gz
+  cd liburing-liburing-2.1
+  make -j$(nproc)
+  sudo make install prefix=/usr
+  sudo ldconfig
 
 # Use the gpadmin user from now on
 sudo su - gpadmin
@@ -292,7 +303,6 @@ cd ~/cloudberry
 ./configure --prefix=/usr/local/cloudberry-db \
             --disable-external-fts \
             --enable-debug \
-            --enable-cassert \
             --enable-debug-extensions \
             --enable-gpcloud \
             --enable-ic-proxy \
@@ -300,7 +310,7 @@ cd ~/cloudberry
             --enable-orafce \
             --enable-orca \
             --enable-pax \
-            --enable-pxf \
+            --disable-pxf \
             --enable-tap-tests \
             --with-gssapi \
             --with-ldap \
