@@ -18,7 +18,13 @@ Clone the release source code for Apache Cloudberry into the `gpadmin` user's ho
 git clone https://github.com/apache/cloudberry.git ~/cloudberry
 cd ~/cloudberry
 git fetch --tags
+
+# For Apache Cloudberry 2.0.0
 git checkout tags/2.0.0-incubating
+
+# For Apache Cloudberry 2.1.0
+git checkout tags/2.1.0-incubating
+
 git submodule update --init --recursive
 ```
 
@@ -45,11 +51,21 @@ export GNUTLS_CPUID_OVERRIDE=0x1
 
 Alternatively, you can download the source code archive from the [Apache Cloudberry releases page](/releases).
 
+
+- For Apache Cloudberry 2.0.0
+
 ```bash
 tar xvzf apache-cloudberry-2.0.0-incubating-src.tar.gz
 mv apache-cloudberry-2.0.0-incubating cloudberry
 ```
 
+- For Apache Cloudberry 2.1.0
+
+```bash
+tar xvzf apache-cloudberry-2.1.0-incubating-src.tar.gz
+mv apache-cloudberry-2.1.0-incubating cloudberry
+```
+
 :::note
-The submodules are already included in the latest 2.0.0 release source code archive, so you don't need to download the submodules manually after extracting the archive.
+The submodules are already included in the latest 2.x.0 release source code archive, so you don't need to download the submodules manually after extracting the archive.
 :::

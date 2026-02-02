@@ -170,5 +170,29 @@ sudo apt install -y bison \
   python3-setuptools \
   rsync
 ```
+
+### Extra dependencies for building PAX
+
+In the latest main branch, we have introduced a new dependency `liburing` for building PAX.
+
+* For Ubuntu 22.04
+
+```bash
+sudo apt install -y liburing-dev
+```
+
+* For Ubuntu 20.04
+
+```bash
+sudo apt install -y git build-essential
+wget https://github.com/axboe/liburing/archive/refs/tags/liburing-2.1.tar.gz
+tar -xzf liburing-2.1.tar.gz
+rm "liburing-2.1.tar.gz"
+cd liburing-liburing-2.1
+make -j$(nproc)
+sudo make install
+sudo ldconfig
+```
+
 </TabItem>
 </Tabs>
