@@ -11,7 +11,8 @@ Convenience binaries (eg, `.deb`, `.rpm`) will be made in the future.
 
 | Version | Date | Source archive | Signature & Checksum | Changelog |
 |---------|------|----------------|-----------|---------------|
-| 2.0.0-incubating (latest) | August 25, 2025 | [apache-cloudberry-2.0.0-incubating-src.tar.gz](https://downloads.apache.org/incubator/cloudberry/2.0.0-incubating/apache-cloudberry-2.0.0-incubating-src.tar.gz) | [.asc](https://downloads.apache.org/incubator/cloudberry/2.0.0-incubating/apache-cloudberry-2.0.0-incubating-src.tar.gz.asc), [.sha512](https://downloads.apache.org/incubator/cloudberry/2.0.0-incubating/apache-cloudberry-2.0.0-incubating-src.tar.gz.sha512) | [Changelog](../releases/2.0.0-incubating) |
+| 2.1.0-incubating (latest) | January x, 2026 | [apache-cloudberry-2.1.0-incubating-src.tar.gz](https://downloads.apache.org/incubator/cloudberry/2.1.0-incubating/apache-cloudberry-2.1.0-incubating-src.tar.gz) | [.asc](https://downloads.apache.org/incubator/cloudberry/2.1.0-incubating/apache-cloudberry-2.1.0-incubating-src.tar.gz.asc), [.sha512](https://downloads.apache.org/incubator/cloudberry/2.1.0-incubating/apache-cloudberry-2.1.0-incubating-src.tar.gz.sha512) | [Changelog](../releases/2.1.0-incubating) |
+| 2.0.0-incubating | August 25, 2025 | [apache-cloudberry-2.0.0-incubating-src.tar.gz](https://downloads.apache.org/incubator/cloudberry/2.0.0-incubating/apache-cloudberry-2.0.0-incubating-src.tar.gz) | [.asc](https://downloads.apache.org/incubator/cloudberry/2.0.0-incubating/apache-cloudberry-2.0.0-incubating-src.tar.gz.asc), [.sha512](https://downloads.apache.org/incubator/cloudberry/2.0.0-incubating/apache-cloudberry-2.0.0-incubating-src.tar.gz.sha512) | [Changelog](../releases/2.0.0-incubating) |
 
 
 ## Verifying Releases
@@ -26,11 +27,11 @@ Convenience binaries (eg, `.deb`, `.rpm`) will be made in the future.
 curl https://downloads.apache.org/incubator/cloudberry/KEYS | gpg --import
 
 # Download artifact, matching .asc file
-curl -O https://downloads.apache.org/incubator/cloudberry/2.0.0-incubating/apache-cloudberry-2.0.0-incubating-src.tar.gz
-curl -O https://downloads.apache.org/incubator/cloudberry/2.0.0-incubating/apache-cloudberry-2.0.0-incubating-src.tar.gz.asc
+curl -O https://downloads.apache.org/incubator/cloudberry/2.1.0-incubating/apache-cloudberry-2.1.0-incubating-src.tar.gz
+curl -O https://downloads.apache.org/incubator/cloudberry/2.1.0-incubating/apache-cloudberry-2.1.0-incubating-src.tar.gz.asc
 
 # Verify signature
-gpg --verify apache-cloudberry-2.0.0-incubating-src.tar.gz.asc apache-cloudberry-2.0.0-incubating-src.tar.gz
+gpg --verify apache-cloudberry-2.1.0-incubating-src.tar.gz.asc apache-cloudberry-2.1.0-incubating-src.tar.gz
 ```
 
 Expected output:
@@ -51,18 +52,18 @@ Primary key fingerprint: 3B90 B563 4E45 06F0 5BA5  1F2F C960 4135 C07C D12A
 The SHA512 checksum is used to check that a file has been downloaded correctly, and your download hasn't been modifed or is otherwise incomplete or faulty.
 
 ```
-curl -O https://downloads.apache.org/incubator/cloudberry/2.0.0-incubating/apache-cloudberry-2.0.0-incubating-src.tar.gz
-curl -O https://downloads.apache.org/incubator/cloudberry/2.0.0-incubating/apache-cloudberry-2.0.0-incubating-src.tar.gz.sha512
+curl -O https://downloads.apache.org/incubator/cloudberry/2.1.0-incubating/apache-cloudberry-2.1.0-incubating-src.tar.gz
+curl -O https://downloads.apache.org/incubator/cloudberry/2.1.0-incubating/apache-cloudberry-2.1.0-incubating-src.tar.gz.sha512
 
 # For Linux users
-sha512sum -c apache-cloudberry-2.0.0-incubating-src.tar.gz.sha512
+sha512sum -c apache-cloudberry-2.1.0-incubating-src.tar.gz.sha512
 
 # For macOS users
-shasum -a 512 -c apache-cloudberry-2.0.0-incubating-src.tar.gz.sha512
+shasum -a 512 -c apache-cloudberry-2.1.0-incubating-src.tar.gz.sha512
 ```
 
 Expected output should be:
 
 ```
-apache-cloudberry-2.0.0-incubating-src.tar.gz: OK
+apache-cloudberry-2.1.0-incubating-src.tar.gz: OK
 ```
