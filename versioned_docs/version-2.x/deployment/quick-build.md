@@ -32,8 +32,8 @@ sudo -u gpadmin sudo whoami # if the output is root, the configuration is correc
 sudo -u gpadmin bash <<'EOF'
 ## Add Cloudberry environment setup to .bashrc
 echo -e '\n# Add Cloudberry entries
-if [ -f /usr/local/cloudberry-db/greenplum_path.sh ]; then
-  source /usr/local/cloudberry-db/greenplum_path.sh
+if [ -f /usr/local/cloudberry-db/cloudberry-env.sh ]; then
+  source /usr/local/cloudberry-db/cloudberry-env.sh
 fi
 ## US English with UTF-8 character encoding
 export LANG=en_US.UTF-8
@@ -105,6 +105,7 @@ sudo dnf install -y apr-devel \
   zlib-devel
 
 # Enable additional development tools and libraries
+## For Rocky Linux 8
 sudo dnf install -y --enablerepo=devel liburing-devel libuv-devel libyaml-devel perl-IPC-Run protobuf-devel
 ## For Rocky Linux 9
 sudo dnf install -y --enablerepo=crb liburing-devel libuv-devel libyaml-devel perl-IPC-Run protobuf-devel
@@ -183,7 +184,7 @@ make install -C ~/cloudberry/contrib
 ldd /usr/local/cloudberry-db/bin/postgres
 
 # Set up a Cloudberry demo cluster
-source /usr/local/cloudberry-db/greenplum_path.sh
+source /usr/local/cloudberry-db/cloudberry-env.sh
 make create-demo-cluster -C ~/cloudberry
 source ~/cloudberry/gpAux/gpdemo/gpdemo-env.sh
 psql -P pager=off template1 -c 'SELECT * from gp_segment_configuration'
@@ -394,8 +395,8 @@ sudo -u gpadmin sudo whoami # if the output is root, the configuration is correc
 sudo -u gpadmin bash <<'EOF'
 ## Add Cloudberry environment setup to .bashrc
 echo -e '\n# Add Cloudberry entries
-if [ -f /usr/local/cloudberry-db/greenplum_path.sh ]; then
-  source /usr/local/cloudberry-db/greenplum_path.sh
+if [ -f /usr/local/cloudberry-db/cloudberry-env.sh ]; then
+  source /usr/local/cloudberry-db/cloudberry-env.sh
 fi
 ## US English with UTF-8 character encoding
 export LANG=en_US.UTF-8
@@ -476,8 +477,7 @@ sudo apt install -y bison \
   rm "liburing-2.1.tar.gz"
   cd liburing-liburing-2.1
   make -j$(nproc)
-  make check
-  sudo make install prefix=/usr
+  sudo make install
   sudo ldconfig
 
 # Use the gpadmin user from now on
@@ -535,7 +535,7 @@ make install -C ~/cloudberry/contrib
 ldd /usr/local/cloudberry-db/bin/postgres
 
 # Set up a Cloudberry demo cluster
-source /usr/local/cloudberry-db/greenplum_path.sh
+source /usr/local/cloudberry-db/cloudberry-env.sh
 make create-demo-cluster -C ~/cloudberry
 source ~/cloudberry/gpAux/gpdemo/gpdemo-env.sh
 psql -P pager=off template1 -c 'SELECT * from gp_segment_configuration'

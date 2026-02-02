@@ -62,6 +62,35 @@ This script performs three main tasks as the `gpadmin` user:
 
 The script uses a heredoc (EOF) block to execute multiple commands under the `gpadmin` user context. This will be used multiple time throughout these instructions.
 
+<Tabs>
+<TabItem value="cloudberry-2.1.0" label="Apache Cloudberry 2.1.0" default>
+```bash
+sudo -u gpadmin bash <<'EOF'
+# Add Cloudberry environment setup to .bashrc
+echo -e '\n# Add Cloudberry entries
+if [ -f /usr/local/cloudberry-db/cloudberry-env.sh ]; then
+  source /usr/local/cloudberry-db/cloudberry-env.sh
+fi
+
+# US English with UTF-8 character encoding
+export LANG=en_US.UTF-8
+' >> /home/gpadmin/.bashrc
+
+# Set up SSH for passwordless access
+mkdir -p /home/gpadmin/.ssh
+if [ ! -f /home/gpadmin/.ssh/id_rsa ]; then
+  ssh-keygen -t rsa -b 2048 -C 'apache-cloudberry-dev' -f /home/gpadmin/.ssh/id_rsa -N ""
+fi
+cat /home/gpadmin/.ssh/id_rsa.pub >> /home/gpadmin/.ssh/authorized_keys
+
+# Set proper SSH directory permissions
+chmod 700 /home/gpadmin/.ssh
+chmod 600 /home/gpadmin/.ssh/authorized_keys
+chmod 644 /home/gpadmin/.ssh/id_rsa.pub
+EOF
+```
+</TabItem>
+<TabItem value="cloudberry-2.0.0" label="Apache Cloudberry 2.0.0">
 ```bash
 sudo -u gpadmin bash <<'EOF'
 # Add Cloudberry environment setup to .bashrc
@@ -87,3 +116,5 @@ chmod 600 /home/gpadmin/.ssh/authorized_keys
 chmod 644 /home/gpadmin/.ssh/id_rsa.pub
 EOF
 ```
+</TabItem>
+</Tabs>

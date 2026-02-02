@@ -60,11 +60,29 @@ On Rocky Linux, they are disabled by default and must be explicitly enabled.
 
 <Tabs>
 <TabItem value="rocky-linux-8" label="For Rocky Linux 8" default>
+
+- For Apache Cloudberry 2.1.0
+
+```bash
+sudo dnf install -y --enablerepo=devel liburing-devel libuv-devel libyaml-devel perl-IPC-Run protobuf-devel
+```
+
+- For Apache Cloudberry 2.0.0
+
 ```bash
 sudo dnf install -y --enablerepo=devel libuv-devel libyaml-devel perl-IPC-Run protobuf-devel
 ```
 </TabItem>
 <TabItem value="rocky-linux-9" label="For Rocky Linux 9">
+
+- For Apache Cloudberry 2.1.0
+
+```bash
+sudo dnf install -y --enablerepo=crb liburing-devel libuv-devel libyaml-devel perl-IPC-Run protobuf-devel
+```
+
+- For Apache Cloudberry 2.0.0
+
 ```bash
 sudo dnf install -y --enablerepo=crb libuv-devel libyaml-devel perl-IPC-Run protobuf-devel
 ```
@@ -75,9 +93,13 @@ sudo dnf install -y --enablerepo=crb libuv-devel libyaml-devel perl-IPC-Run prot
 In Red Hat Enterprise Linux (RHEL), this repository is called "PowerTools."
 :::
 
-### Install gcc/gcc-c++ 11+ for Rocky Linux 8 (Optional)
+### Install gcc and gcc-c++ 11+ for Rocky Linux 8 (Optional)
 
-For Rocky Linux 8, we need to install the higher version of gcc and gcc-c++ to build Apache Cloudberry with PAX support:
+:::tip
+This step is only required for Apache Cloudberry 2.0.0. You can skip this step when building Apache Cloudberry 2.1.0.
+:::
+
+For Rocky Linux 8, we need to install the higher version of gcc and gcc-c++ to build Apache Cloudberry 2.0.0 with PAX support:
 
 ```bash
 sudo yum install -y gcc-toolset-11-gcc gcc-toolset-11-gcc-c++
@@ -186,6 +208,33 @@ sudo apt install -y bison \
   python3-pip \
   python3-setuptools \
   rsync
+```
+
+### Extra dependencies for building PAX (Optional)
+
+:::tip
+Only required for Apache Cloudberry 2.1.0. You can skip this step when building Apache Cloudberry 2.0.0.
+:::
+
+In Apache Cloudberry 2.1.0, we have introduced a new dependency `liburing` for building PAX.
+
+* For Ubuntu 22.04
+
+```bash
+sudo apt install -y liburing-dev
+```
+
+* For Ubuntu 20.04
+
+```bash
+sudo apt install -y git build-essential
+wget https://github.com/axboe/liburing/archive/refs/tags/liburing-2.1.tar.gz
+tar -xzf liburing-2.1.tar.gz
+rm "liburing-2.1.tar.gz"
+cd liburing-liburing-2.1
+make -j$(nproc)
+sudo make install
+sudo ldconfig
 ```
 </TabItem>
 </Tabs>

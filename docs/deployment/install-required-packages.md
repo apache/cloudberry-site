@@ -185,12 +185,12 @@ sudo apt install -y liburing-dev
 
 ```bash
 sudo apt install -y git build-essential
-cd /tmp
 wget https://github.com/axboe/liburing/archive/refs/tags/liburing-2.1.tar.gz
 tar -xzf liburing-2.1.tar.gz
+rm "liburing-2.1.tar.gz"
 cd liburing-liburing-2.1
 make -j$(nproc)
-sudo make install prefix=/usr
+sudo make install
 sudo ldconfig
 ```
 
