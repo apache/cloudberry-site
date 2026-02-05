@@ -13,13 +13,21 @@ const config: Config = {
   // onBrokenLinks: "throw",
   onBrokenLinks: "ignore",
   onBrokenMarkdownLinks: "warn",
-  
+
   plugins: [
     "docusaurus-plugin-sass",
     'docusaurus-plugin-matomo',
     [
       "@easyops-cn/docusaurus-search-local",
       { hashed: true, indexPages: true, language: ["en"] },
+    ],
+    [
+      'docusaurus-biel',
+      {
+        project: 'tn36ske74m',
+        headerTitle: 'AI Chatbot',
+        version: 'latest',
+      }
     ],
   ],
 
@@ -86,20 +94,20 @@ const config: Config = {
         {
           position: "right",
           label: "Docs",
-          items : [
-              {
-                label: "Next",
-                to: "docs/next",
-              },
-              {
-                label: "2.x (Current)",
-                to: "docs/",
-              },
-              {
-                label: "1.x",
-                to: "docs/1.x",
-              },
-            ],
+          items: [
+            {
+              label: "Next",
+              to: "docs/next",
+            },
+            {
+              label: "2.x (Current)",
+              to: "docs/",
+            },
+            {
+              label: "1.x",
+              to: "docs/1.x",
+            },
+          ],
         },
         {
           label: "Community",
@@ -133,7 +141,7 @@ const config: Config = {
               label: "Security Policy",
               to: "/community/security",
             },
-           ],
+          ],
         },
         {
           label: "Contribute",
@@ -163,7 +171,7 @@ const config: Config = {
               label: "Doc Contribution Guide",
               to: "/contribute/doc",
             },
-           ],
+          ],
         },
         { to: "/blog", label: "Blog", position: "right" },
         {
@@ -191,16 +199,16 @@ const config: Config = {
               label: "Setup the Apache account",
               to: "/team/setup-apache-email-account",
             },
-           ],
+          ],
         },
         {
           label: "Resources",
           position: "right",
           items: [
             {
-               label: "Wiki",
-               to: "https://github.com/apache/cloudberry/wiki",
-             },
+              label: "Wiki",
+              to: "https://github.com/apache/cloudberry/wiki",
+            },
             {
               label: "Roadmap",
               to: "https://github.com/apache/cloudberry/discussions/868",
@@ -212,10 +220,10 @@ const config: Config = {
             {
               label: "Support",
               to: "/support",
-             },
+            },
           ],
         },
- 	      {
+        {
           label: 'ASF',
           position: 'right',
           items: [
