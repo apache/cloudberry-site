@@ -13,7 +13,7 @@ Permissions can be granted to users or groups. Initially, only the `gpadmin` rol
 
 You can follow the examples below to create users and roles.
 
-Before moving on to the operations, make sure that you have installed Apache Cloudberry by following [Install a Apache Cloudberry](https://github.com/apache/cloudberry-bootcamp/tree/main/000-cbdb-sandbox).
+Before moving on to the operations, make sure that you have installed Apache Cloudberry by following [Install a Apache Cloudberry](https://github.com/apache/cloudberry/tree/main/devops/sandbox).
 
 ### Create a user using the CREATE USER command
 
