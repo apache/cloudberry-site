@@ -46,6 +46,15 @@ Primary key fingerprint: 3B90 B563 4E45 06F0 5BA5  1F2F C960 4135 C07C D12A
      Subkey fingerprint: 2157 1B62 BF59 A2C8 96EE  A490 60C8 D62C 2677 5FC1
 ```
 
+:::tip
+
+To verify multiple `.tar.gz` artifacts in the current directory:
+
+```
+for i in *.tar.gz; do echo $i; gpg --verify $i.asc $i ; done
+```
+:::
+
 ### Checking the SHA512 checksum
 
 The SHA512 checksum is used to check that a file has been downloaded correctly, and your download hasn't been modifed or is otherwise incomplete or faulty.
@@ -66,3 +75,13 @@ Expected output should be:
 ```
 apache-cloudberry-2.0.0-incubating-src.tar.gz: OK
 ```
+
+:::tip
+
+To check SHA512 checksums for multiple `.tar.gz` artifacts in the current directory:
+
+```
+for i in *.tar.gz; do echo $i; sha512sum --check  $i.sha512; done
+```
+
+:::
