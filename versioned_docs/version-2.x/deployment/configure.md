@@ -33,8 +33,6 @@ cd ~/cloudberry
 export LD_LIBRARY_PATH=/usr/local/cloudberry-db/lib:LD_LIBRARY_PATH
 ./configure --prefix=/usr/local/cloudberry-db \
             --disable-external-fts \
-            --enable-debug \
-            --enable-debug-extensions \
             --enable-gpcloud \
             --enable-ic-proxy \
             --enable-mapreduce \
@@ -79,8 +77,6 @@ The `configure` command sets up the build environment for Apache Cloudberry. Thi
 cd ~/cloudberry
 ./configure --prefix=/usr/local/cloudberry-db \
             --disable-external-fts \
-            --enable-debug \
-            --enable-debug-extensions \
             --enable-gpcloud \
             --enable-ic-proxy \
             --enable-mapreduce \

@@ -140,8 +140,6 @@ cd ~/cloudberry
 export LD_LIBRARY_PATH=/usr/local/cloudberry-db/lib:LD_LIBRARY_PATH
 ./configure --prefix=/usr/local/cloudberry-db \
             --disable-external-fts \
-            --enable-debug \
-            --enable-debug-extensions \
             --enable-gpcloud \
             --enable-ic-proxy \
             --enable-mapreduce \
@@ -302,8 +300,6 @@ sudo chown -R gpadmin:gpadmin /usr/local/cloudberry-db
 cd ~/cloudberry
 ./configure --prefix=/usr/local/cloudberry-db \
             --disable-external-fts \
-            --enable-debug \
-            --enable-debug-extensions \
             --enable-gpcloud \
             --enable-ic-proxy \
             --enable-mapreduce \
