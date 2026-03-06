@@ -148,8 +148,6 @@ cd ~/cloudberry
 export LD_LIBRARY_PATH=/usr/local/cloudberry-db/lib:LD_LIBRARY_PATH
 ./configure --prefix=/usr/local/cloudberry-db \
             --disable-external-fts \
-            --enable-debug \
-            --enable-debug-extensions \
             --enable-gpcloud \
             --enable-ic-proxy \
             --enable-mapreduce \
@@ -331,8 +329,6 @@ cd ~/cloudberry
 export LD_LIBRARY_PATH=/usr/local/cloudberry-db/lib:LD_LIBRARY_PATH
 ./configure --prefix=/usr/local/cloudberry-db \
             --disable-external-fts \
-            --enable-debug \
-            --enable-debug-extensions \
             --enable-gpcloud \
             --enable-ic-proxy \
             --enable-mapreduce \
@@ -377,6 +373,7 @@ psql template1 -c 'SELECT version()'
 <TabItem value="ubuntu" label="For Ubuntu 20.04/22.04">
 
 Below are the instructions for building Apache Cloudberry 2.0.0 and Apache Cloudberry 2.1.0 from source code on Ubuntu 20.04/22.04:
+
 - [For Apache Cloudberry 2.1.0](#for-apache-cloudberry-210-1)
 - [For Apache Cloudberry 2.0.0](#for-apache-cloudberry-200-1)
 
@@ -500,8 +497,6 @@ sudo chown -R gpadmin:gpadmin /usr/local/cloudberry-db
 cd ~/cloudberry
 ./configure --prefix=/usr/local/cloudberry-db \
             --disable-external-fts \
-            --enable-debug \
-            --enable-debug-extensions \
             --enable-gpcloud \
             --enable-ic-proxy \
             --enable-mapreduce \
@@ -649,8 +644,6 @@ sudo chown -R gpadmin:gpadmin /usr/local/cloudberry-db
 cd ~/cloudberry
 ./configure --prefix=/usr/local/cloudberry-db \
             --disable-external-fts \
-            --enable-debug \
-            --enable-debug-extensions \
             --enable-gpcloud \
             --enable-ic-proxy \
             --enable-mapreduce \
