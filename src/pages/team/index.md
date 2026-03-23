@@ -72,6 +72,9 @@ The listing includes new committers, excluding PPMC members above:
 | Xun Gong | gongxun@apache.org | gongxun0928 | Kwai |
 | Leonid Borchuk | leborchuk@apache.org | leborchuk | Yandex Cloud |
 | Rose Duan | roseduan@apache.org | roseduan | HashData |
+| Xiaoyu Liu | liuxiaoyu@apache.org | MisterRaindrop | HashData |
+| Nikolay Antonov | ostinru@apache.org | ostinru | Yandex Cloud |
+| Robert Mu | robertmu@apache.org | robertmu | HashData |
 
 ## Contributors wall
 
