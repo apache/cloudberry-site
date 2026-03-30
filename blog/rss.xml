@@ -4,10 +4,70 @@
         <title>Apache Cloudberry (Incubating) is one advanced and mature open-source MPP (Massively Parallel Processing) databases available.</title>
         <link>https://cloudberry.apache.org/blog</link>
         <description>Apache Cloudberry (Incubating) Blog</description>
-        <lastBuildDate>Tue, 24 Mar 2026 00:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 26 Mar 2026 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
+        <item>
+            <title><![CDATA[Previewing Apache Cloudberry (Incubating) 2.1.0]]></title>
+            <link>https://cloudberry.apache.org/blog/apache-cloudberry-2.1.0-preview</link>
+            <guid>https://cloudberry.apache.org/blog/apache-cloudberry-2.1.0-preview</guid>
+            <pubDate>Thu, 26 Mar 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[A preview of key changes in the current Apache Cloudberry 2.1.0 release candidate across the core database, PXF, and backup tooling.]]></description>
+            <content:encoded><![CDATA[<div class="theme-admonition theme-admonition-note admonition_xJq3 alert alert--secondary"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M6.3 5.69a.942.942 0 0 1-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 0 1-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"></path></svg></span>note</div><div class="admonitionContent_BuS1"><p>Apache Cloudberry 2.1.0 is currently under community vote and has not been officially released yet. This post highlights several changes included in the current release candidate. Final contents may still change before the release is approved.</p></div></div>
+<p>Apache Cloudberry (Incubating) 2.1.0 continues the project's work on database kernel improvements, ecosystem modernization, and ASF-oriented release engineering. Based on the current release candidate, this upcoming version includes changes across the core database, Apache Cloudberry PXF, and Apache Cloudberry Backup.</p>
+<p>This article is a preview rather than an official release announcement, so it focuses on a few representative updates instead of a complete changelog.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="apache-cloudberry-core-apachecloudberry">Apache Cloudberry Core (<code>apache/cloudberry</code>)<a href="https://cloudberry.apache.org/blog/apache-cloudberry-2.1.0-preview#apache-cloudberry-core-apachecloudberry" class="hash-link" aria-label="Direct link to apache-cloudberry-core-apachecloudberry" title="Direct link to apache-cloudberry-core-apachecloudberry">​</a></h2>
+<p>The core repository in 2.1.0 includes both user-facing improvements and behind-the-scenes engineering work.</p>
+<p>It is important to emphasize that 2.1.0 is built on a <strong>stable branch</strong>. The community is currently undertaking an effort to upgrade the underlying PostgreSQL core from version 14.4 to the latest 14.22. This approach ensures that the database receives essential kernel updates while maintaining strict stability. While 2.1.0 does not include the entirety of this massive upgrade, these updates will be included in the future 2.x release.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="selected-kernel-and-performance-updates">Selected kernel and performance updates<a href="https://cloudberry.apache.org/blog/apache-cloudberry-2.1.0-preview#selected-kernel-and-performance-updates" class="hash-link" aria-label="Direct link to Selected kernel and performance updates" title="Direct link to Selected kernel and performance updates">​</a></h3>
+<ul>
+<li><strong>UDP2 interconnect:</strong> 2.1.0 adds a new UDP2 interconnect protocol implementation, continuing work on the interconnect layer and distributed execution path.</li>
+<li><strong>MCP server:</strong> The release candidate adds an MCP server for Cloudberry, making it easier to connect Cloudberry with LLM-based tools and workflows.</li>
+<li><strong>PAX improvements:</strong> PAX gains support for <code>LZ4</code> compression for table columns, along with I/O and memory-management refinements.</li>
+<li><strong>Fast <code>ANALYZE</code> for AO tables:</strong> The release candidate introduces fast <code>ANALYZE</code> for append-optimized tables, targeting a common operational pain point for large analytical workloads.</li>
+<li><strong>ORCA optimizer work:</strong> 2.1.0 includes a series of ORCA improvements such as CTE pruning, partial aggregate pushdown below joins, and multiple correctness and memory-leak fixes.</li>
+<li><strong>Runtime filter pushdown:</strong> Runtime filter pushdown work continues in this cycle, including support for pushing filters down to Table AM and related fixes.</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="developer-workflow-and-release-engineering">Developer workflow and release engineering<a href="https://cloudberry.apache.org/blog/apache-cloudberry-2.1.0-preview#developer-workflow-and-release-engineering" class="hash-link" aria-label="Direct link to Developer workflow and release engineering" title="Direct link to Developer workflow and release engineering">​</a></h3>
+<ul>
+<li><strong>Release-branch testing and ASF checks:</strong> The project added binary swap testing for the <code>REL_2_STABLE</code> branch and expanded Apache RAT-related audit checks in CI.</li>
+<li><strong>Sandbox and developer tooling:</strong> The earlier <code>apache/cloudberry-devops-release</code> and <code>apache/cloudberry-bootcamp</code> work has been integrated into the main repository under <code>devops</code>, and the sandbox gains a local mode for development and validation.</li>
+<li><strong>Environment naming transition:</strong> In 2.1, the environment setup has completed the move from <code>greenplum_path.sh</code> to <code>cloudberry-env.sh</code>. For background on that transition, see <a href="https://cloudberry.apache.org/blog/from-greenplum-path.sh-to-cloudberry-env.sh" target="_blank" rel="noopener noreferrer">Goodbye <code>greenplum_path.sh</code>, Hello <code>cloudberry-env.sh</code>: A Phased Transition Plan</a>.</li>
+<li><strong>Compression and dependency cleanup:</strong> The codebase also removes support for QuickLZ, encouraging the use of maintained alternatives such as <code>zlib</code> or <code>zstd</code>.</li>
+</ul>
+<p>There are many other fixes in areas such as hot standby, disaster recovery, utilities, CI portability, and testing. For a broader view of the current release candidate, see the <a href="https://github.com/apache/cloudberry/compare/2.0.0-incubating...2.1.0-incubating-rc2" target="_blank" rel="noopener noreferrer">core branch comparison</a>.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="apache-cloudberry-pxf-apachecloudberry-pxf">Apache Cloudberry PXF (<code>apache/cloudberry-pxf</code>)<a href="https://cloudberry.apache.org/blog/apache-cloudberry-2.1.0-preview#apache-cloudberry-pxf-apachecloudberry-pxf" class="hash-link" aria-label="Direct link to apache-cloudberry-pxf-apachecloudberry-pxf" title="Direct link to apache-cloudberry-pxf-apachecloudberry-pxf">​</a></h2>
+<p>Apache Cloudberry PXF is one of the clearest examples of ecosystem modernization in the 2.1.0 cycle.</p>
+<p>First, the codebase has been realigned with the archived <code>greenplum/pxf-archive</code> baseline, and Cloudberry-specific support has been ported onto that newer base for Cloudberry 2.1. The repository also received ASF-oriented cleanup, including updates to <code>DISCLAIMER</code>, <code>LICENSE</code>, and <code>NOTICE</code>, as well as removal of the pre-bundled <code>gradle-wrapper.jar</code>.</p>
+<p>Second, the project has refreshed its engineering workflow. Legacy Concourse CI files have been removed in favor of a refactored and robust CI layout oriented around current Cloudberry development and testing.</p>
+<p>Third, 2.1.0 continues the broader Cloudberry branding refresh. Java package declarations move from <code>org.greenplum</code> to <code>org.apache.cloudberry</code>, and the Go library dependency references are updated to <code>apache/cloudberry-go-libs</code>.</p>
+<p>PXF also includes a substantial set of dependency and connector updates in this cycle:</p>
+<ul>
+<li>Apache Avro is updated to newer Java 8 compatible versions, with added <code>zstd</code> support in tests and related automation.</li>
+<li>Apache ORC is updated to <code>1.7.11</code>.</li>
+<li>Parquet is updated first to <code>1.12.3</code> and later to <code>1.15.2</code>, adding support such as <code>ZSTD</code>, <code>LZ4_RAW</code>, and vectored I/O improvements.</li>
+<li>HBase client support is updated from <code>1.3.2</code> to <code>2.3.7</code>.</li>
+</ul>
+<p>For more detail, see the <a href="https://github.com/apache/cloudberry-pxf/compare/1.6.0...2.1.0-incubating-rc2" target="_blank" rel="noopener noreferrer">PXF branch comparison</a>.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="apache-cloudberry-backup-apachecloudberry-backup">Apache Cloudberry Backup (<code>apache/cloudberry-backup</code>)<a href="https://cloudberry.apache.org/blog/apache-cloudberry-2.1.0-preview#apache-cloudberry-backup-apachecloudberry-backup" class="hash-link" aria-label="Direct link to apache-cloudberry-backup-apachecloudberry-backup" title="Direct link to apache-cloudberry-backup-apachecloudberry-backup">​</a></h2>
+<p>Apache Cloudberry Backup also sees significant repository and tooling work in the current 2.1.0 release candidate.</p>
+<p>The project has been renamed from <code>cloudberry-gpbackup</code> to <code>cloudberry-backup</code>, and its codebase has been aligned with the archived <code>greenplum/gpbackup-archive</code> baseline while preserving Cloudberry-specific adaptation for Cloudberry 2.1. Dependency references have also been updated from <code>gp-common-go-libs</code> to <code>apache/cloudberry-go-libs</code>.</p>
+<p>One practical usability change is that the archived <code>gpbackup-s3-plugin</code> has been merged into the main repository under <code>plugins/s3plugin</code>, reducing the amount of separate setup required for S3-based backup workflows.</p>
+<p>The repository also continues the project's ASF-oriented cleanup work, including updates to LICENSE and NOTICE files, removal of legacy files, and modernization of CI coverage for unit, integration, end-to-end, S3 plugin, and scale-related testing.</p>
+<p>For the complete set of changes in the current release candidate, see the <a href="https://github.com/apache/cloudberry-backup/compare/1.6.0...2.1.0-incubating-rc2" target="_blank" rel="noopener noreferrer">Backup branch comparison</a>.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="looking-ahead">Looking Ahead<a href="https://cloudberry.apache.org/blog/apache-cloudberry-2.1.0-preview#looking-ahead" class="hash-link" aria-label="Direct link to Looking Ahead" title="Direct link to Looking Ahead">​</a></h2>
+<p>Even before the 2.1.0 vote is complete, the current release candidate already shows the project's direction clearly: continued kernel work in the main database, modernization of surrounding components, and a cleaner foundation for future community development.</p>
+<p>If the release is approved, the project will share the official release announcement and related materials through the website and community channels. Until then, this post should be read as a preview of the current release candidate rather than the final release notes.</p>
+<p>We welcome everyone to continue following and participating in the Apache Cloudberry community to witness the 2.1.0 release:</p>
+<ul>
+<li>Visit our website: <a href="https://cloudberry.apache.org/" target="_blank" rel="noopener noreferrer">https://cloudberry.apache.org</a></li>
+<li>Follow us on GitHub: <a href="https://github.com/apache/cloudberry" target="_blank" rel="noopener noreferrer">https://github.com/apache/cloudberry</a></li>
+<li>Join our Slack workspace: <a href="https://apache-cloudberry.slack.com/" target="_blank" rel="noopener noreferrer">https://apache-cloudberry.slack.com</a></li>
+<li>Subscribe to the mailing lists: <a href="https://cloudberry.apache.org/community/mailing-lists" target="_blank" rel="noopener noreferrer">https://cloudberry.apache.org/community/mailing-lists</a></li>
+</ul>]]></content:encoded>
+            <category>Release</category>
+        </item>
         <item>
             <title><![CDATA[Apache Cloudberry Incubation Report - February 2026]]></title>
             <link>https://cloudberry.apache.org/blog/apache-cloudberry-incubation-report-202602</link>
