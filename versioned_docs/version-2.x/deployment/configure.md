@@ -30,7 +30,7 @@ The `configure` command sets up the build environment for Apache Cloudberry. Thi
 
 ```bash
 cd ~/cloudberry
-export LD_LIBRARY_PATH=/usr/local/cloudberry-db/lib:LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=/usr/local/cloudberry-db/lib:${LD_LIBRARY_PATH:-""}
 ./configure --prefix=/usr/local/cloudberry-db \
             --disable-external-fts \
             --enable-gpcloud \
