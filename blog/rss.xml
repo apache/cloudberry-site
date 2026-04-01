@@ -9,6 +9,20 @@
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
         <item>
+            <title><![CDATA[Welcoming Nikolay Antonov as a New Apache Cloudberry Committer]]></title>
+            <link>https://cloudberry.apache.org/blog/welcoming-nikolayantonov-as-a-new-apache-cloudberry-committer</link>
+            <guid>https://cloudberry.apache.org/blog/welcoming-nikolayantonov-as-a-new-apache-cloudberry-committer</guid>
+            <pubDate>Tue, 31 Mar 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[Becoming a committer demonstrates a strong commitment to the community.]]></description>
+            <content:encoded><![CDATA[<p>We're excited to welcome Nikolay Antonov (GitHub ID: ostinru) as Apache Cloudberry's newest committer! 🎉</p>
+<p>Over the past few months, Nikolay has been an active and impactful contributor, particularly in the <code>cloudberry-pxf</code> project. He has worked on aligning the Cloudberry PXF codebase with the archived Greenplum PXF project, contributed multiple code improvements and optimizations, and actively participated in community discussions with constructive ideas and feedback.</p>
+<p>What makes Nikolay's contributions especially noteworthy is his work beyond Cloudberry itself. He has contributed to the broader Cloudberry/PostgreSQL ecosystem by adding Cloudberry support to <code>WAL-G</code> and continuing to improve Cloudberry integration in WAL-G. This work significantly enhances backup and recovery capabilities for Cloudberry users.</p>
+<p>Becoming a committer is a recognition of both Nikolay's past contributions and the community's trust in his continued involvement. Committers play an important role in shaping the project by reviewing and merging contributions, participating in design decisions, and helping guide the project's growth.</p>
+<p>Please join us in congratulating Nikolay on this well-deserved recognition. We look forward to his continued contributions and collaboration within the Apache Cloudberry community!</p>
+<p>You can find the official announcement on the <a href="https://lists.apache.org/thread/fsngl9hpmjy38fqj645cyjcjsjsrcsol" target="_blank" rel="noopener noreferrer">Apache Cloudberry mailing list</a>.</p>]]></content:encoded>
+            <category>Announcement</category>
+        </item>
+        <item>
             <title><![CDATA[Welcoming Xiaoyu Liu as a New Apache Cloudberry Committer]]></title>
             <link>https://cloudberry.apache.org/blog/welcoming-xiaoyuliu-as-a-new-apache-cloudberry-committer</link>
             <guid>https://cloudberry.apache.org/blog/welcoming-xiaoyuliu-as-a-new-apache-cloudberry-committer</guid>
