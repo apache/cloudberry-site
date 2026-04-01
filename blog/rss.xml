@@ -4,10 +4,24 @@
         <title>Apache Cloudberry (Incubating) is one advanced and mature open-source MPP (Massively Parallel Processing) databases available.</title>
         <link>https://cloudberry.apache.org/blog</link>
         <description>Apache Cloudberry (Incubating) Blog</description>
-        <lastBuildDate>Thu, 26 Mar 2026 00:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 31 Mar 2026 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
+        <item>
+            <title><![CDATA[Welcoming Xiaoyu Liu as a New Apache Cloudberry Committer]]></title>
+            <link>https://cloudberry.apache.org/blog/welcoming-xiaoyuliu-as-a-new-apache-cloudberry-committer</link>
+            <guid>https://cloudberry.apache.org/blog/welcoming-xiaoyuliu-as-a-new-apache-cloudberry-committer</guid>
+            <pubDate>Tue, 31 Mar 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[Becoming a committer demonstrates a strong commitment to the community.]]></description>
+            <content:encoded><![CDATA[<p>We're excited to welcome Xiaoyu Liu (GitHub ID: MisterRaindrop) as Apache Cloudberry's newest committer! 🎉</p>
+<p>Xiaoyu has been involved in the Cloudberry project from an early stage, reporting issues and contributing improvements to the main repository. In recent months, he has taken a leadership role in aligning the <code>cloudberry-pxf</code> codebase with the archived Greenplum PXF project, added CI/CD workflows for PXF, and actively fixed issues to improve the project.</p>
+<p>What makes Xiaoyu's contributions particularly valuable is his collaborative approach. He has worked closely with other developers in the community, participating in discussions and sharing technical ideas and suggestions that benefit the entire project.</p>
+<p>Becoming a committer is a recognition of both Xiaoyu's past contributions and the community's trust in his continued involvement. Committers play an important role in shaping the project by reviewing and merging contributions, participating in design decisions, and helping guide the project's growth.</p>
+<p>Please join us in congratulating Xiaoyu on this well-deserved recognition. We look forward to his continued contributions and collaboration within the Apache Cloudberry community!</p>
+<p>You can find the official announcement on the <a href="https://lists.apache.org/thread/2kqoko222qnmtyg6xm0366jrkkx37ps8" target="_blank" rel="noopener noreferrer">Apache Cloudberry mailing list</a>.</p>]]></content:encoded>
+            <category>Announcement</category>
+        </item>
         <item>
             <title><![CDATA[Previewing Apache Cloudberry (Incubating) 2.1.0]]></title>
             <link>https://cloudberry.apache.org/blog/apache-cloudberry-2.1.0-preview</link>
