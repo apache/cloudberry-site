@@ -34,6 +34,7 @@ Each Podling Project Management Committee (PPMC) helps its Podling learn how to 
 | Xiaoran Wang | fanfuxiaoran@apache.org | fanfuxiaoran | ByteDance |
 | Xin (Alwin) Tang | alwintang@apache.org | xtangcode | HashData |
 | Zhang Mingli | avamingli@apache.org | avamingli | HashData |
+| Leonid Borchuk | leborchuk@apache.org | leborchuk | Yandex Cloud |
 
 ## Committers
 
@@ -70,7 +71,6 @@ The listing includes new committers, excluding PPMC members above:
 | Xiong Tong | tomshawn@apache.org | TomShawn | HashData |
 | Wenchao Zhang | zhangwenchao@apache.org | zhangwenchao-123 | HashData |
 | Xun Gong | gongxun@apache.org | gongxun0928 | Kwai |
-| Leonid Borchuk | leborchuk@apache.org | leborchuk | Yandex Cloud |
 | Rose Duan | roseduan@apache.org | roseduan | HashData |
 | Xiaoyu Liu | liuxiaoyu@apache.org | MisterRaindrop | HashData |
 | Nikolay Antonov | ostinru@apache.org | ostinru | Yandex Cloud |
