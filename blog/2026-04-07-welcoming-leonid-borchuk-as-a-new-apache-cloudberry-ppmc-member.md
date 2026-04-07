@@ -40,4 +40,6 @@ You can explore his contributions here:
 - [Pull Requests](https://github.com/apache/cloudberry/pulls?q=is%3Apr+author%3Aleborchuk+is%3Aclosed)
 - [Mailing List Discussions](https://lists.apache.org/list?dev@cloudberry.apache.org:lte=12M:Leonid%20Borchuk)
 
-Welcome to the PPMC, Leonid! 🚀
+You can find the official announcement on the [Apache Cloudberry Dev mailing list](https://lists.apache.org/thread/x2bnqy4ff0yb6hg1525jv4t0m6ytdqzb).
+
+Welcome to the PPMC, Leonid!
