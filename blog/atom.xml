@@ -2,11 +2,46 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://cloudberry.apache.org/blog</id>
     <title>Apache Cloudberry (Incubating) is one advanced and mature open-source MPP (Massively Parallel Processing) databases available.</title>
-    <updated>2026-03-31T00:00:00.000Z</updated>
+    <updated>2026-04-07T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://cloudberry.apache.org/blog"/>
     <subtitle>Apache Cloudberry (Incubating) Blog</subtitle>
     <icon>https://cloudberry.apache.org/img/favicon.ico</icon>
+    <entry>
+        <title type="html"><![CDATA[Welcoming Leonid Borchuk as a New Apache Cloudberry PPMC Member]]></title>
+        <id>https://cloudberry.apache.org/blog/welcoming-leonid-borchuk-as-a-new-apache-cloudberry-ppmc-member</id>
+        <link href="https://cloudberry.apache.org/blog/welcoming-leonid-borchuk-as-a-new-apache-cloudberry-ppmc-member"/>
+        <updated>2026-04-07T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[Becoming a PPMC member demonstrates exceptional commitment to community building and project governance.]]></summary>
+        <content type="html"><![CDATA[<p>We are excited to announce that Leonid Borchuk (GitHub ID: leborchuk) has been elected as a member of the Podling Project Management Committee (PPMC) for Apache Cloudberry! 🎉</p>
+<p>The PPMC has voted to invite Leonid Borchuk to join as a PPMC member, and we are delighted that he has accepted this important role.</p>
+<p>Since joining the Apache Cloudberry project, Leonid has been an active and highly engaged contributor. Beyond his solid technical contributions—including helping cherry-pick changes from Greenplum, reviewing PRs, contributing to CI/CD improvements, and more—he has demonstrated a strong commitment to the community and overall project development.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="community-leadership-and-contributions">Community Leadership and Contributions<a href="https://cloudberry.apache.org/blog/welcoming-leonid-borchuk-as-a-new-apache-cloudberry-ppmc-member#community-leadership-and-contributions" class="hash-link" aria-label="Direct link to Community Leadership and Contributions" title="Direct link to Community Leadership and Contributions">​</a></h2>
+<p>What sets Leonid apart is his proactive involvement in community-facing responsibilities that go beyond code contributions:</p>
+<ul>
+<li><strong>Incubation Reporting</strong>: Proactively volunteered to draft the Cloudberry Incubation Report, helping the project maintain transparency and accountability with the Apache Incubator</li>
+<li><strong>Community Meetings</strong>: Initiated and co-organized the Cloudberry bi-weekly community meetings, and has served as a rotating host, fostering regular communication and collaboration</li>
+<li><strong>Code Review and Mentorship</strong>: Actively reviews pull requests and engages with contributors through constructive feedback, helping maintain code quality and supporting other contributors</li>
+<li><strong>Strategic Planning</strong>: Contributed ideas and discussions around the project roadmap and future directions, demonstrating a vision for the project's growth</li>
+</ul>
+<p>These contributions demonstrate not only technical capability, but also a clear sense of responsibility and growing involvement in the project's community and governance.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="what-is-a-ppmc-member">What is a PPMC Member?<a href="https://cloudberry.apache.org/blog/welcoming-leonid-borchuk-as-a-new-apache-cloudberry-ppmc-member#what-is-a-ppmc-member" class="hash-link" aria-label="Direct link to What is a PPMC Member?" title="Direct link to What is a PPMC Member?">​</a></h2>
+<p>The Podling Project Management Committee (PPMC) is responsible for the oversight and direction of a podling project during its incubation at the Apache Software Foundation. PPMC members help build a healthy and sustainable community, guide the project's development under ASF principles, and work toward graduation as a top-level Apache project.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="looking-forward">Looking Forward<a href="https://cloudberry.apache.org/blog/welcoming-leonid-borchuk-as-a-new-apache-cloudberry-ppmc-member#looking-forward" class="hash-link" aria-label="Direct link to Looking Forward" title="Direct link to Looking Forward">​</a></h2>
+<p>Leonid's consistent contributions, active participation, and demonstrated leadership make him a strong addition to the PPMC. We are confident that he will continue to help us build a thriving, inclusive, and sustainable community for Apache Cloudberry.</p>
+<p>Please join us in congratulating Leonid Borchuk on this well-deserved recognition and welcoming him to the PPMC!</p>
+<p>You can explore his contributions here:</p>
+<ul>
+<li><a href="https://github.com/apache/cloudberry/pulls?q=is%3Apr+author%3Aleborchuk+is%3Aclosed" target="_blank" rel="noopener noreferrer">Pull Requests</a></li>
+<li><a href="https://lists.apache.org/list?dev@cloudberry.apache.org:lte=12M:Leonid%20Borchuk" target="_blank" rel="noopener noreferrer">Mailing List Discussions</a></li>
+</ul>
+<p>You can find the official announcement on the <a href="https://lists.apache.org/thread/x2bnqy4ff0yb6hg1525jv4t0m6ytdqzb" target="_blank" rel="noopener noreferrer">Apache Cloudberry Dev mailing list</a>.</p>
+<p>Welcome to the PPMC, Leonid!</p>]]></content>
+        <author>
+            <name>Apache Cloudberry</name>
+        </author>
+        <category label="Announcement" term="Announcement"/>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Welcoming Nikolay Antonov as a New Apache Cloudberry Committer]]></title>
         <id>https://cloudberry.apache.org/blog/welcoming-nikolayantonov-as-a-new-apache-cloudberry-committer</id>
