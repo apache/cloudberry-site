@@ -36,6 +36,10 @@ Each Podling Project Management Committee (PPMC) helps its Podling learn how to 
 | Zhang Mingli | avamingli@apache.org | avamingli | HashData |
 | Leonid Borchuk | leborchuk@apache.org | leborchuk | Yandex Cloud |
 
+### New PPMC Members
+
+- [Inviting New PPMC Members](./team/new-ppmc-member)
+
 ## Committers
 
 Committers are contributors who have shown sustained commitment to the project through ongoing contributions of high quality and have been granted write access to the project repositories.

@@ -184,6 +184,10 @@ const config: Config = {
               to: "/team/new-committers",
             },
             {
+              label: "Inviting New PPMC Members",
+              to: "/team/new-ppmc-member",
+            },
+            {
               label: "Sign ICLA",
               to: "/team/sign-icla",
             },
