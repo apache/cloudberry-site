@@ -35,7 +35,7 @@ export default function HCard() {
                 <Translate>Community</Translate>
               </span>
             </LinkWithBaseUrl>
-            <a href="https://inviter.co/apache-cloudberry" target="_blank" rel="noopener noreferrer">
+            <a href="https://join.slack.com/t/asf-cloudberry/shared_invite/zt-3um34r7hf-Sh~6jG6hVxlQJo1tbhK2sw" target="_blank" rel="noopener noreferrer">
               <span className={styles.more}>
                 <Translate>Slack</Translate>
               </span>

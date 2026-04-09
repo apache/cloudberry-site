@@ -69,5 +69,5 @@ Stay tuned for the official 2.0 release announcement! Thank you for being part o
 
 - Visit the website: [https://cloudberry.apache.org](https://cloudberry.apache.org)
 - Follow us on GitHub: [https://github.com/apache/cloudberry](https://github.com/apache/cloudberry)
-- Join Slack workspace: [https://apache-cloudberry.slack.com](https://apache-cloudberry.slack.com)
+- Join Slack workspace: [https://join.slack.com/t/asf-cloudberry/shared_invite/zt-3um34r7hf-Sh~6jG6hVxlQJo1tbhK2sw](https://join.slack.com/t/asf-cloudberry/shared_invite/zt-3um34r7hf-Sh~6jG6hVxlQJo1tbhK2sw)
 - Dev mailing list: to subscribe and check the archives, please visit [here](/community/mailing-lists)

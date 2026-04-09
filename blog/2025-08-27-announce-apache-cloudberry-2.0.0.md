@@ -44,7 +44,7 @@ We are eager to expand our community and extend an invitation to new contributor
 - Discussions: https://github.com/apache/cloudberry/discussions
 - Issue tracker: https://github.com/apache/cloudberry/issues
 - Mailing list: https://lists.apache.org/list.html?dev@cloudberry.apache.org
-- Slack channel: https://inviter.co/apache-cloudberry
+- Slack channel: https://join.slack.com/t/asf-cloudberry/shared_invite/zt-3um34r7hf-Sh~6jG6hVxlQJo1tbhK2sw
 
 
 :::note

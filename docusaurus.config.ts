@@ -114,6 +114,10 @@ const config: Config = {
               to: "/community/slack",
             },
             {
+              label: "Discord Guide",
+              to: "/community/discord",
+            },
+            {
               label: "WeChat Guide",
               to: "/community/wechat",
             },
@@ -290,7 +294,11 @@ const config: Config = {
             },
             {
               label: "Slack",
-              href: "https://inviter.co/apache-cloudberry",
+              href: "https://join.slack.com/t/asf-cloudberry/shared_invite/zt-3um34r7hf-Sh~6jG6hVxlQJo1tbhK2sw",
+            },
+            {
+              label: "Discord",
+              href: "https://discord.gg/GJrz3Fxf6y",
             },
             {
               label: "Twitter",

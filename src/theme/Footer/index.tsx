@@ -9,6 +9,7 @@ import SecuritySvg from "@site/static/img/security.svg";
 import TwitterSvg from "@site/static/img/twitter.svg";
 import WechatSvg from "@site/static/img/wechat.svg";
 import YoutubeSvg from "@site/static/img/youtube.svg";
+import DiscordSvg from "@site/static/img/discord.svg";
 import clsx from "clsx";
 import styles from "./styles.module.scss";
 
@@ -88,6 +89,11 @@ export default function Footer() {
               className={styles.item}
               cursor="pointer"
               onClick={() => handleOpen(LINKS.community)}
+            />
+            <DiscordSvg
+              className={styles.item}
+              cursor="pointer"
+              onClick={() => handleOpen(LINKS.discord)}
             />
             <LinkedIn
               className={styles.item}

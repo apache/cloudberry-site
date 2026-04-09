@@ -80,5 +80,5 @@ We welcome everyone to continue following and participating in the Apache Cloudb
 
 - Visit our website: https://cloudberry.apache.org
 - Follow us on GitHub: https://github.com/apache/cloudberry
-- Join our Slack workspace: https://apache-cloudberry.slack.com
+- Join our Slack workspace: https://join.slack.com/t/asf-cloudberry/shared_invite/zt-3um34r7hf-Sh~6jG6hVxlQJo1tbhK2sw
 - Subscribe to the mailing lists: https://cloudberry.apache.org/community/mailing-lists
