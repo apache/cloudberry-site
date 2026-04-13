@@ -41,6 +41,7 @@ The channels listed below may change based on community settings. Please refer t
 | `#general`             | This channel is for workspace-wide communication and discussions. All members are in this channel.                                                 |
 | `#introductions`       | New to Slack? Please do say hello! Let us know who you are, and what your interests are, so we can help you to kick-start as smoothly as possible! |
 | `#random`              | A channel to post and discuss random topics not directly related to Apache Cloudberry.                                                             |
+| `#release-cicd`        | CICD pipeline, build, and release topics.                                                                                                          |
 
 After joining, we encourage you to share a bit about yourself and what
 brings you here at the `#introductions` channel, so the community

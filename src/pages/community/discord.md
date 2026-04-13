@@ -31,13 +31,14 @@ The channels listed below may change based on community settings. Please refer t
 | `#announcements`       | Announcements regarding new releases, blogs, webinars, meetups and other events.                                                                   |
 | `#introductions`       | New to Discord? Please do say hello! Let us know who you are, and what your interests are, so we can help you to kick-start as smoothly as possible! |
 | `#general`             | This channel is for server-wide communication and discussions. All members are in this channel.                                                    |
-| `#off-topic`           | A channel to post and discuss random topics not directly related to Apache Cloudberry.                                                             |
+| `#random`              | A channel to post and discuss random topics not directly related to Apache Cloudberry.                                                             |
 | `#cloudberry-pxf`      | Discussions about Apache Cloudberry PXF (Platform Extension Framework) for external data access.                                                   |
-| `#docs-and-site`       | The channel for documentation and website updates.                                                                                                 |
+| `#docs`                | The channel for documentation and website updates.                                                                                                 |
 | `#cloudberry-backup`   | Discussions about backup and recovery operations for Apache Cloudberry.                                                                            |
 | `#ecosystem-extension` | Discussions about ecosystem tools, extensions, and integrations with Apache Cloudberry.                                                            |
 | `#release-cicd`        | CICD pipeline, build, and release topics.                                                                                                          |
-| `#github-events`       | Automated notifications and discussions about GitHub activities (PRs, issues, commits, etc.).                                                      |
+| `#cloudberry-core`     | Discussions about the core database kernel development and architecture.                                                                           |
+| `#events`              | Community events, meetups, conferences, and related discussions.                                                                                   |
 
 After joining, we encourage you to share a bit about yourself and what
 brings you here at the `#introductions` channel, so the community
