@@ -19,7 +19,7 @@ For better collaboration, we hope you:
   Issues](https://github.com/apache/cloudberry/issues),
   [Discussions](https://github.com/apache/cloudberry/discussions), [Dev mailing
   list](/community/mailing-lists) or
-  [Slack](https://inviter.co/apache-cloudberry) instead.
+  [Slack](https://join.slack.com/t/asf-cloudberry/shared_invite/zt-3um34r7hf-Sh~6jG6hVxlQJo1tbhK2sw) instead.
 - DO NOT report security issues on public GitHub Issues, Jira tickets, mailing
   lists, or other public forums.
 

@@ -4,6 +4,7 @@ import ForDevIcon from "/img/community/for-dev.svg";
 import ReportBugsIcon from "/img/community/report-bugs.svg";
 import ShareNewIdeasIcon from "/img/community/share-new-ideas.svg";
 import SlackIcon from "/img/community/slack.svg";
+import DiscordIcon from "/img/community/discord.svg";
 import WechatIcon from "/img/community/wechat.svg";
 import MailingLists from '/img/community/mailing-lists.svg'
 
@@ -49,6 +50,13 @@ let COMMUNITY_PAGE: CommunityPageConfig = {
               content:
                 "The global channel for community members to chat with others in real time. Read our Slack guide to get started.",
               link: { text: "Join to talk", href: "/community/slack" },
+            },
+            {
+              icon: <DiscordIcon fill="#fff" />,
+              title: "Discord",
+              content:
+                "Join our Discord server for real-time discussions and community support. Connect with other members globally.",
+              link: { text: "Join Discord", href: "/community/discord" },
             },
             {
               icon: <WechatIcon fill="#fff" />,

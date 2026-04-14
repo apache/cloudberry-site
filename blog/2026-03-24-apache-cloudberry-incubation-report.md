@@ -90,6 +90,6 @@ Apache Cloudberry follows the principle of open and transparent governance. You 
 Get involved with the community:
 
 * **GitHub**: [github.com/apache/cloudberry](https://github.com/apache/cloudberry)
-* **Slack**: [Join our Slack workspace](https://inviter.co/apache-cloudberry)
+* **Slack**: [Join our Slack workspace](https://join.slack.com/t/asf-cloudberry/shared_invite/zt-3um34r7hf-Sh~6jG6hVxlQJo1tbhK2sw)
 * **Mailing Lists**: [lists.apache.org/list.html?dev@cloudberry.apache.org](https://lists.apache.org/list.html?dev@cloudberry.apache.org)
 * **Website**: [cloudberry.apache.org](https://cloudberry.apache.org)
