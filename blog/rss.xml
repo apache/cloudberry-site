@@ -4,10 +4,69 @@
         <title>Apache Cloudberry (Incubating) is one advanced and mature open-source MPP (Massively Parallel Processing) databases available.</title>
         <link>https://cloudberry.apache.org/blog</link>
         <description>Apache Cloudberry (Incubating) Blog</description>
-        <lastBuildDate>Tue, 07 Apr 2026 00:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 09 Apr 2026 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
+        <item>
+            <title><![CDATA[Moving Forward: New Slack Workspace and Discord Server]]></title>
+            <link>https://cloudberry.apache.org/blog/moving-forward-new-slack-workspace-and-discord-server</link>
+            <guid>https://cloudberry.apache.org/blog/moving-forward-new-slack-workspace-and-discord-server</guid>
+            <pubDate>Thu, 09 Apr 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[Update on our community communication channels: new Slack workspace and Discord server established, with mailing lists remaining our primary channel.]]></description>
+            <content:encoded><![CDATA[<p>On April 1, 2025, our <code>apache-cloudberry.slack.com</code> workspace became inaccessible due to Slack's policy changes affecting services originating from certain regions. While the timing coincided with April Fools' Day, this was unfortunately not a joke—it was a real incident that impacted our community's real-time communication channel.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="what-happened">What Happened<a href="https://cloudberry.apache.org/blog/moving-forward-new-slack-workspace-and-discord-server#what-happened" class="hash-link" aria-label="Direct link to What Happened" title="Direct link to What Happened">​</a></h2>
+<p>On April 1, 2025, we were surprised to find our workspace suddenly inaccessible. After contacting Slack support, we received confirmation that our workspace was affected by a policy change regarding workspaces created from certain regions. While Slack had sent a notification email to the workspace's primary owner role about this policy change, it was unfortunately overlooked. We immediately reached out to explore options for data recovery and export, but have not received any updates on this matter.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="our-response">Our Response<a href="https://cloudberry.apache.org/blog/moving-forward-new-slack-workspace-and-discord-server#our-response" class="hash-link" aria-label="Direct link to Our Response" title="Direct link to Our Response">​</a></h2>
+<p>In response to this situation, we have established new communication channels to ensure our community remains connected:</p>
+<ul>
+<li>
+<p><strong>New Slack Workspace</strong>: We have created a new Slack workspace at <code>asf-cloudberry.slack.com</code>. You can join using the following invitation link: <a href="https://join.slack.com/t/asf-cloudberry/shared_invite/zt-3um34r7hf-Sh~6jG6hVxlQJo1tbhK2sw" target="_blank" rel="noopener noreferrer">https://join.slack.com/t/asf-cloudberry/shared_invite/zt-3um34r7hf-Sh~6jG6hVxlQJo1tbhK2sw</a>.</p>
+</li>
+<li>
+<p><strong>Discord Server</strong>: We have also set up a Discord server to provide an additional platform for real-time communication. Discord is widely accessible globally and popular among developer communities. You can join our Discord server here: <a href="https://discord.gg/GJrz3Fxf6y" target="_blank" rel="noopener noreferrer">https://discord.gg/GJrz3Fxf6y</a>.</p>
+</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="historical-channel-archives">Historical Channel Archives<a href="https://cloudberry.apache.org/blog/moving-forward-new-slack-workspace-and-discord-server#historical-channel-archives" class="hash-link" aria-label="Direct link to Historical Channel Archives" title="Direct link to Historical Channel Archives">​</a></h3>
+<p>For those who wish to access historical conversations from the previous workspace, we have made archives available through Linen:</p>
+<ul>
+<li>Previous workspace (<code>apache-cloudberry.slack.com</code>): <a href="https://www.linen.dev/s/cloudberrydb/" target="_blank" rel="noopener noreferrer">https://www.linen.dev/s/cloudberrydb/</a></li>
+<li>Current workspace (<code>asf-cloudberry.slack.com</code>): <a href="https://www.linen.dev/s/apache-cloudberry" target="_blank" rel="noopener noreferrer">https://www.linen.dev/s/apache-cloudberry</a></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="important-reminder-mailing-lists-remain-our-primary-channel">Important Reminder: Mailing Lists Remain Our Primary Channel<a href="https://cloudberry.apache.org/blog/moving-forward-new-slack-workspace-and-discord-server#important-reminder-mailing-lists-remain-our-primary-channel" class="hash-link" aria-label="Direct link to Important Reminder: Mailing Lists Remain Our Primary Channel" title="Direct link to Important Reminder: Mailing Lists Remain Our Primary Channel">​</a></h2>
+<p>This incident reinforces the importance of relying on mailing lists as our primary and official communication channel. As an Apache project, we follow the Apache Way, which emphasizes:</p>
+<ul>
+<li>Mailing lists are the official record: All important discussions and decisions must take place on our mailing lists</li>
+<li>Transparency and inclusivity: Mailing lists ensure that all community members can participate, regardless of their access to third-party services</li>
+<li>Permanence: Mailing list archives are maintained by the Apache Software Foundation and will remain accessible</li>
+</ul>
+<p>Real-time platforms like Slack and Discord serve as supplementary channels for informal discussions and day-to-day collaboration. However, any significant outcomes or decisions from these platforms should always be summarized and documented on the mailing lists.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="our-mailing-lists">Our Mailing Lists<a href="https://cloudberry.apache.org/blog/moving-forward-new-slack-workspace-and-discord-server#our-mailing-lists" class="hash-link" aria-label="Direct link to Our Mailing Lists" title="Direct link to Our Mailing Lists">​</a></h3>
+<ul>
+<li>
+<p>Dev mailing list: For development discussions, proposals, and technical decisions</p>
+<ul>
+<li>Subscribe: <a href="mailto:dev-subscribe@cloudberry.apache.org" target="_blank" rel="noopener noreferrer">dev-subscribe@cloudberry.apache.org</a></li>
+<li>Archives: <a href="https://lists.apache.org/list.html?dev@cloudberry.apache.org" target="_blank" rel="noopener noreferrer">https://lists.apache.org/list.html?dev@cloudberry.apache.org</a></li>
+</ul>
+</li>
+<li>
+<p>Commits mailing list: For tracking code commits and pull requests</p>
+<ul>
+<li>Subscribe: <a href="mailto:commits-subscribe@cloudberry.apache.org" target="_blank" rel="noopener noreferrer">commits-subscribe@cloudberry.apache.org</a></li>
+<li>Archives: <a href="https://lists.apache.org/list.html?commits@cloudberry.apache.org" target="_blank" rel="noopener noreferrer">https://lists.apache.org/list.html?commits@cloudberry.apache.org</a></li>
+</ul>
+</li>
+</ul>
+<p>For complete information about our mailing lists, please visit our <a href="https://cloudberry.apache.org/community/mailing-lists">Mailing Lists page</a>.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="looking-forward">Looking Forward<a href="https://cloudberry.apache.org/blog/moving-forward-new-slack-workspace-and-discord-server#looking-forward" class="hash-link" aria-label="Direct link to Looking Forward" title="Direct link to Looking Forward">​</a></h2>
+<p>While we have established new real-time communication channels, we acknowledge that as third-party services, they may face similar challenges in the future. This is why we remain committed to the Apache Way and continue to prioritize mailing lists as our primary communication channel.</p>
+<p>We appreciate your understanding and continued participation in our community. If you have any questions or concerns, please feel free to reach out through any of our communication channels or contact us at <a href="mailto:dev@cloudberry.apache.org" target="_blank" rel="noopener noreferrer">dev@cloudberry.apache.org</a>.</p>
+<p>Thank you for being part of the Apache Cloudberry community.</p>
+<hr>
+<p>For the discussion thread on this topic, please see the dev mailing list: <a href="https://lists.apache.org/thread/fzdo4y45tv1ro4mlwf0w26ozwbnyj2bf" target="_blank" rel="noopener noreferrer">https://lists.apache.org/thread/fzdo4y45tv1ro4mlwf0w26ozwbnyj2bf</a></p>]]></content:encoded>
+            <category>Announcement</category>
+        </item>
         <item>
             <title><![CDATA[Welcoming Leonid Borchuk as a New Apache Cloudberry PPMC Member]]></title>
             <link>https://cloudberry.apache.org/blog/welcoming-leonid-borchuk-as-a-new-apache-cloudberry-ppmc-member</link>
@@ -123,7 +182,7 @@
 <ul>
 <li>Visit our website: <a href="https://cloudberry.apache.org/" target="_blank" rel="noopener noreferrer">https://cloudberry.apache.org</a></li>
 <li>Follow us on GitHub: <a href="https://github.com/apache/cloudberry" target="_blank" rel="noopener noreferrer">https://github.com/apache/cloudberry</a></li>
-<li>Join our Slack workspace: <a href="https://apache-cloudberry.slack.com/" target="_blank" rel="noopener noreferrer">https://apache-cloudberry.slack.com</a></li>
+<li>Join our Slack workspace: <a href="https://join.slack.com/t/asf-cloudberry/shared_invite/zt-3um34r7hf-Sh~6jG6hVxlQJo1tbhK2sw" target="_blank" rel="noopener noreferrer">https://join.slack.com/t/asf-cloudberry/shared_invite/zt-3um34r7hf-Sh~6jG6hVxlQJo1tbhK2sw</a></li>
 <li>Subscribe to the mailing lists: <a href="https://cloudberry.apache.org/community/mailing-lists" target="_blank" rel="noopener noreferrer">https://cloudberry.apache.org/community/mailing-lists</a></li>
 </ul>]]></content:encoded>
             <category>Release</category>
@@ -231,7 +290,7 @@
 <p>Get involved with the community:</p>
 <ul>
 <li><strong>GitHub</strong>: <a href="https://github.com/apache/cloudberry" target="_blank" rel="noopener noreferrer">github.com/apache/cloudberry</a></li>
-<li><strong>Slack</strong>: <a href="https://inviter.co/apache-cloudberry" target="_blank" rel="noopener noreferrer">Join our Slack workspace</a></li>
+<li><strong>Slack</strong>: <a href="https://join.slack.com/t/asf-cloudberry/shared_invite/zt-3um34r7hf-Sh~6jG6hVxlQJo1tbhK2sw" target="_blank" rel="noopener noreferrer">Join our Slack workspace</a></li>
 <li><strong>Mailing Lists</strong>: <a href="https://lists.apache.org/list.html?dev@cloudberry.apache.org" target="_blank" rel="noopener noreferrer">lists.apache.org/list.html?dev@cloudberry.apache.org</a></li>
 <li><strong>Website</strong>: <a href="https://cloudberry.apache.org/" target="_blank" rel="noopener noreferrer">cloudberry.apache.org</a></li>
 </ul>]]></content:encoded>
@@ -360,7 +419,7 @@ Following the successful vote, the project completed the migration of its source
 <p>Get involved with the community:</p>
 <ul>
 <li><strong>GitHub</strong>: <a href="https://github.com/apache/cloudberry" target="_blank" rel="noopener noreferrer">github.com/apache/cloudberry</a></li>
-<li><strong>Slack</strong>: <a href="https://inviter.co/apache-cloudberry" target="_blank" rel="noopener noreferrer">Join our Slack workspace</a></li>
+<li><strong>Slack</strong>: <a href="https://join.slack.com/t/asf-cloudberry/shared_invite/zt-3um34r7hf-Sh~6jG6hVxlQJo1tbhK2sw" target="_blank" rel="noopener noreferrer">Join our Slack workspace</a></li>
 <li><strong>Mailing Lists</strong>: <a href="https://lists.apache.org/list.html?dev@cloudberry.apache.org" target="_blank" rel="noopener noreferrer">lists.apache.org/list.html?dev@cloudberry.apache.org</a></li>
 <li><strong>Website</strong>: <a href="https://cloudberry.apache.org/" target="_blank" rel="noopener noreferrer">cloudberry.apache.org</a></li>
 </ul>]]></content:encoded>
@@ -1255,7 +1314,7 @@ Following the successful vote, the project completed the migration of its source
 <li>Discussions: <a href="https://github.com/apache/cloudberry/discussions" target="_blank" rel="noopener noreferrer">https://github.com/apache/cloudberry/discussions</a></li>
 <li>Issue tracker: <a href="https://github.com/apache/cloudberry/issues" target="_blank" rel="noopener noreferrer">https://github.com/apache/cloudberry/issues</a></li>
 <li>Mailing list: <a href="https://lists.apache.org/list.html?dev@cloudberry.apache.org" target="_blank" rel="noopener noreferrer">https://lists.apache.org/list.html?dev@cloudberry.apache.org</a></li>
-<li>Slack channel: <a href="https://inviter.co/apache-cloudberry" target="_blank" rel="noopener noreferrer">https://inviter.co/apache-cloudberry</a></li>
+<li>Slack channel: <a href="https://join.slack.com/t/asf-cloudberry/shared_invite/zt-3um34r7hf-Sh~6jG6hVxlQJo1tbhK2sw" target="_blank" rel="noopener noreferrer">https://join.slack.com/t/asf-cloudberry/shared_invite/zt-3um34r7hf-Sh~6jG6hVxlQJo1tbhK2sw</a></li>
 </ul>
 <div class="theme-admonition theme-admonition-note admonition_xJq3 alert alert--secondary"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M6.3 5.69a.942.942 0 0 1-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 0 1-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"></path></svg></span>note</div><div class="admonitionContent_BuS1"><p>Disclaimer:
 Apache Cloudberry is an effort undergoing incubation at the Apache Software Foundation (ASF), sponsored by the Apache Incubator PMC. Incubation is required of all newly accepted projects until a review by the Incubator PMC demonstrates that the project has met the ASF’s requirements for community and process. While incubation status is not necessarily a reflection of the project’s stability or readiness for production, it does indicate that the project is working towards compliance with ASF processes and governance.</p></div></div>]]></content:encoded>
@@ -1467,7 +1526,7 @@ Apache Cloudberry is an effort undergoing incubation at the Apache Software Foun
 <ul>
 <li>Visit the website: <a href="https://cloudberry.apache.org/" target="_blank" rel="noopener noreferrer">https://cloudberry.apache.org</a></li>
 <li>Follow us on GitHub: <a href="https://github.com/apache/cloudberry" target="_blank" rel="noopener noreferrer">https://github.com/apache/cloudberry</a></li>
-<li>Join Slack workspace: <a href="https://apache-cloudberry.slack.com/" target="_blank" rel="noopener noreferrer">https://apache-cloudberry.slack.com</a></li>
+<li>Join Slack workspace: <a href="https://join.slack.com/t/asf-cloudberry/shared_invite/zt-3um34r7hf-Sh~6jG6hVxlQJo1tbhK2sw" target="_blank" rel="noopener noreferrer">https://join.slack.com/t/asf-cloudberry/shared_invite/zt-3um34r7hf-Sh~6jG6hVxlQJo1tbhK2sw</a></li>
 <li>Dev mailing list: to subscribe and check the archives, please visit <a href="https://cloudberry.apache.org/community/mailing-lists">here</a></li>
 </ul>]]></content:encoded>
             <category>Announcement</category>
@@ -1514,7 +1573,7 @@ Apache Cloudberry is an effort undergoing incubation at the Apache Software Foun
 <ul>
 <li>Visit the website: <a href="https://cloudberry.apache.org/" target="_blank" rel="noopener noreferrer">https://cloudberry.apache.org</a></li>
 <li>Follow us on GitHub: <a href="https://github.com/apache/cloudberry" target="_blank" rel="noopener noreferrer">https://github.com/apache/cloudberry</a></li>
-<li>Join Slack workspace: <a href="https://apache-cloudberry.slack.com/" target="_blank" rel="noopener noreferrer">https://apache-cloudberry.slack.com</a></li>
+<li>Join Slack workspace: <a href="https://join.slack.com/t/asf-cloudberry/shared_invite/zt-3um34r7hf-Sh~6jG6hVxlQJo1tbhK2sw" target="_blank" rel="noopener noreferrer">https://join.slack.com/t/asf-cloudberry/shared_invite/zt-3um34r7hf-Sh~6jG6hVxlQJo1tbhK2sw</a></li>
 <li>Dev mailing list: to subscribe and check the archives, please visit <a href="https://cloudberry.apache.org/community/mailing-lists">here</a></li>
 </ul>]]></content:encoded>
             <category>Release</category>
@@ -1636,72 +1695,6 @@ on 03/22, 2025.</li>
 <p>Over the past two years, TomShawn has made outstanding contributions to the project's documentation, significantly enhancing the clarity and accessibility of our resources. His dedication and commitment have played a crucial role in shaping the project's documentation landscape. You can explore his impactful work here: <a href="https://github.com/apache/cloudberry-site/commits?author=TomShawn" target="_blank" rel="noopener noreferrer">TomShawn's Contributions</a>.</p>
 <p>Becoming a committer is a significant milestone that reflects both technical expertise and a strong commitment to the community. We are excited to see Xiong Tong continue to make meaningful contributions and take on greater responsibilities within the project.</p>
 <p>Please join us in congratulating Xiong Tong on this well-deserved achievement and welcoming him to his new role in the Apache Cloudberry community!</p>]]></content:encoded>
-            <category>Announcement</category>
-        </item>
-        <item>
-            <title><![CDATA[Cloudberry Database Enters the Apache Incubator: A New Chapter in Open-Source MPP Database for Analytics and AI]]></title>
-            <link>https://cloudberry.apache.org/blog/cloudberry-database-enters-the-apache-incubator</link>
-            <guid>https://cloudberry.apache.org/blog/cloudberry-database-enters-the-apache-incubator</guid>
-            <pubDate>Wed, 20 Nov 2024 00:00:00 GMT</pubDate>
-            <description><![CDATA[Cloudberry is now rebranded to Apache Cloudberry™️ (Incubating).]]></description>
-            <content:encoded><![CDATA[<p>On October 12th, 2024, the Cloudberry Database project was voted to enter the Apache Software Foundation Incubator<sup><a href="https://cloudberry.apache.org/blog/cloudberry-database-enters-the-apache-incubator#user-content-fn-1-347664" id="user-content-fnref-1-347664" data-footnote-ref="true" aria-describedby="footnote-label">1</a></sup>, marking a significant milestone for the Cloudberry project and its community. On November 5th, 2024, the Cloudberry project repositories were transferred to the Apache Software Foundation. With this transition, Cloudberry has fully joined the incubator and begun its development under the Apache umbrella. Additionally, the Cloudberry Database is now proudly rebranded to Apache Cloudberry™️ (Incubating).</p>
-<p><img decoding="async" loading="lazy" alt="Cloudberry Database enters Apache Incubator" src="https://cloudberry.apache.org/assets/images/cloudberry-database-enters-apache-incubator-f520f475fe0c480c181a5abf93732f34.jpeg" width="1920" height="1080" class="img_ev3q"></p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="what-is-cloudberry">What is Cloudberry<a href="https://cloudberry.apache.org/blog/cloudberry-database-enters-the-apache-incubator#what-is-cloudberry" class="hash-link" aria-label="Direct link to What is Cloudberry" title="Direct link to What is Cloudberry">​</a></h2>
-<p>Cloudberry, created by the original developers of Greenplum Database, is an advanced and mature open-source Massively Parallel Processing (MPP) database. It evolves from the open-source version of the Pivotal Greenplum Database® but features a newer PostgreSQL kernel and more advanced enterprise capabilities. Cloudberry can serve as a data warehouse and can also be used for large-scale analytics and AI/ML workloads.</p>
-<p><img decoding="async" loading="lazy" alt="Apache Cloudberry Logo" src="https://cloudberry.apache.org/assets/images/apache-cloudberry-logo-color-cf7ce44365345569e1c1c7003e10e2e0.png" width="1200" height="199" class="img_ev3q"></p>
-<p>The Greenplum Database has been massively adopted by large numbers of small, medium, and big giant teams from different industries. It is also listed among the Top50 popular databases according to the <a href="https://db-engines.com/en/ranking" target="_blank" rel="noopener noreferrer">DB-Engines website</a>. However, with the archiving of the open-source Greenplum Database and a complete shutdown of its community, original open-source Greenplum users cannot get the security or feature updates for free anymore which results in potential challenges for their business.</p>
-<p>We want to make Cloudberry the primary open-source alternative to the original Greenplum open-source version. We hope all open-source developers and users of Greenplum will migrate to Cloudberry.</p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="the-story-of-cloudberry">The Story of Cloudberry<a href="https://cloudberry.apache.org/blog/cloudberry-database-enters-the-apache-incubator#the-story-of-cloudberry" class="hash-link" aria-label="Direct link to The Story of Cloudberry" title="Direct link to The Story of Cloudberry">​</a></h2>
-<p>Before going further, we would like to recap the history of the Greenplum Database from closed-source to open-source (October 2015) and then going closed-source (May 2024):</p>
-<ul>
-<li>The Greenplum Database has a long history back to 2003 when it was originally developed based on Massively Parallel Processing (MPP) architecture and the PostgreSQL technology by a company called Greenplum Inc.</li>
-<li>In 2010, Greenplum Inc. was acquired by EMC Corporation.</li>
-<li>In 2012, EMC and VMware (a subsidiary of EMC) combined several of their software assets, including Greenplum Database, into a new company called Pivotal Software, Inc.</li>
-<li>In 2015, Pivotal open sourced the Greenplum’s core engine and rebranded it as Pivotal Greenplum Database®, which became the first open-source MPP data warehouse. The open-source core of the Pivotal Greenplum Database® was used to initiate Apache HAWQ and Apache MADlib projects, while the Greenplum itself remained a single vendor open-source project.</li>
-<li>In 2019, VMware acquired Pivotal Software. This acquisition brought the Pivotal Greenplum Database® back into VMware. VMware continued to support the Greenplum Database development and its open-source community and provided VMware Tanzu Greenplum as the commercial product in the following years.</li>
-<li>In November 2023, Broadcom completed its acquisition of VMware and Greenplum is under Broadcom<sup><a href="https://cloudberry.apache.org/blog/cloudberry-database-enters-the-apache-incubator#user-content-fn-2-347664" id="user-content-fnref-2-347664" data-footnote-ref="true" aria-describedby="footnote-label">2</a></sup>.</li>
-<li>In May 2024, nearly all Greenplum’s GitHub repos were archived and became read-only, the Slack workspace was deleted (<a href="https://greenplum.slack.com/" target="_blank" rel="noopener noreferrer">https://greenplum.slack.com</a>), and both <code>user</code><sup><a href="https://cloudberry.apache.org/blog/cloudberry-database-enters-the-apache-incubator#user-content-fn-3-347664" id="user-content-fnref-3-347664" data-footnote-ref="true" aria-describedby="footnote-label">3</a></sup> and <code>dev</code><sup><a href="https://cloudberry.apache.org/blog/cloudberry-database-enters-the-apache-incubator#user-content-fn-4-347664" id="user-content-fnref-4-347664" data-footnote-ref="true" aria-describedby="footnote-label">4</a></sup> community email lists went silent. These are done by its latest owner without any announcements.</li>
-</ul>
-<p>You can see that the ownership of Greenplum Database has changed many times over the past many years, which has raised concerns among the community users, developers, and ecosystem partners. Being controlled by one single vendor, Greenplum has lacked an open governance model that allows community participation in the decision-making process.</p>
-<p>The Cloudberry builders recognized that the Greenplum Database had lost its drive for innovation and major feature updates for a long time. Greenplum became less competitive compared to newer generation open-source data warehouses and analytics projects.</p>
-<p>Cloudberry was launched in 2022 by the original Greenplum developers, and its source code was made open in 2023. We were surprised when Greenplum suddenly shifted to a closed-source model, which was quite dramatic. From that point on, we were determined to continue our mission and reunite the original open-source Greenplum developers and users, shaping our project in a community way.</p>
-<p>Cloudberry is not only simply remade with a different brand. It comes with a fantastic vision and ships a lot of advanced features and highlights, including a newer PostgreSQL kernel, enhanced security, end-to-end performance optimization, supporting AI/ML workloads and streaming, lakehouse integration, and more. We aim to keep Cloudberry compatible with Greenplum to let users use Cloudberry the way they were using Greenplum.</p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="why-apache-incubator">Why Apache Incubator?<a href="https://cloudberry.apache.org/blog/cloudberry-database-enters-the-apache-incubator#why-apache-incubator" class="hash-link" aria-label="Direct link to Why Apache Incubator?" title="Direct link to Why Apache Incubator?">​</a></h2>
-<p>Joining the Apache Incubator is a major step for Cloudberry as it opens the door for collaboration, community growth, and innovation within the open-source world. The Apache Incubator provides a framework for the governance, mentoring, and management of open-source projects, ensuring the project’s growth while aligning with the Apache Way—a community-driven development model that emphasizes transparency and open collaboration.</p>
-<p>As Cloudberry enters the Incubator, we are more committed than ever to fostering a vibrant, diverse developer community and encouraging contributions from across the globe. Cloudberry will now have the opportunity to benefit from the mentorship of experienced Apache community members. We hope Cloudberry can graduate from ASF Incubator and be mature and successful as a top-level Apache project by following the Apache Way.</p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="acknowledgments">Acknowledgments<a href="https://cloudberry.apache.org/blog/cloudberry-database-enters-the-apache-incubator#acknowledgments" class="hash-link" aria-label="Direct link to Acknowledgments" title="Direct link to Acknowledgments">​</a></h2>
-<p>Thank you to all contributors from the Cloudberry community and our upstream projects’ contributors for their great contributions! Thanks to Roman Shaposhnik as our Champion, and thanks to Willem Jiang and Kent Yao as our mentors.</p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="join-us">Join us<a href="https://cloudberry.apache.org/blog/cloudberry-database-enters-the-apache-incubator#join-us" class="hash-link" aria-label="Direct link to Join us" title="Direct link to Join us">​</a></h2>
-<p>As Cloudberry embarks on this exciting journey within the Apache Incubator, we invite developers, data scientists, and database enthusiasts to get involved in shaping the future of the project. Whether through contributing code, sharing use cases, or participating in discussions, we welcome everyone to join the growing community around Cloudberry.</p>
-<p>Stay tuned for more updates, and join us in building the future of data warehouse and data analytics.</p>
-<p>You can find us as follows:</p>
-<ul>
-<li>Visit the website: <a href="https://cloudberry.apache.org/" target="_blank" rel="noopener noreferrer">https://cloudberry.apache.org</a></li>
-<li>Follow us on GitHub: <a href="https://github.com/apache/cloudberry" target="_blank" rel="noopener noreferrer">https://github.com/apache/cloudberry</a></li>
-<li>Join Slack workspace: <a href="https://apache-cloudberry.slack.com/" target="_blank" rel="noopener noreferrer">https://apache-cloudberry.slack.com</a></li>
-<li>Dev mailing list:<!-- -->
-<ul>
-<li>To subscribe to dev mailing list: Send an email to <a href="mailto:dev-subscribe@cloudberry.apache.org" target="_blank" rel="noopener noreferrer">dev-subscribe@cloudberry.apache.org</a></li>
-<li>To browse past dev mailing list discussions: <a href="https://lists.apache.org/list.html?dev@cloudberry.apache.org" target="_blank" rel="noopener noreferrer">https://lists.apache.org/list.html?dev@cloudberry.apache.org</a></li>
-</ul>
-</li>
-</ul>
-<section data-footnotes="true" class="footnotes"><h2 class="anchor anchorWithStickyNavbar_LWe7 sr-only" id="footnote-label">Footnotes<a href="https://cloudberry.apache.org/blog/cloudberry-database-enters-the-apache-incubator#footnote-label" class="hash-link" aria-label="Direct link to Footnotes" title="Direct link to Footnotes">​</a></h2>
-<ol>
-<li id="user-content-fn-1-347664">
-<p><a href="https://lists.apache.org/thread/qzfb38dzb1x3cg29snq4doy95gd6pzy8" target="_blank" rel="noopener noreferrer">https://lists.apache.org/thread/qzfb38dzb1x3cg29snq4doy95gd6pzy8</a> <a href="https://cloudberry.apache.org/blog/cloudberry-database-enters-the-apache-incubator#user-content-fnref-1-347664" data-footnote-backref="" aria-label="Back to reference 1" class="data-footnote-backref">↩</a></p>
-</li>
-<li id="user-content-fn-2-347664">
-<p><a href="https://investors.broadcom.com/news-releases/news-release-details/broadcom-completes-acquisition-vmware" target="_blank" rel="noopener noreferrer">https://investors.broadcom.com/news-releases/news-release-details/broadcom-completes-acquisition-vmware</a> <a href="https://cloudberry.apache.org/blog/cloudberry-database-enters-the-apache-incubator#user-content-fnref-2-347664" data-footnote-backref="" aria-label="Back to reference 2" class="data-footnote-backref">↩</a></p>
-</li>
-<li id="user-content-fn-3-347664">
-<p><a href="https://groups.google.com/a/greenplum.org/g/gpdb-users" target="_blank" rel="noopener noreferrer">https://groups.google.com/a/greenplum.org/g/gpdb-users</a> <a href="https://cloudberry.apache.org/blog/cloudberry-database-enters-the-apache-incubator#user-content-fnref-3-347664" data-footnote-backref="" aria-label="Back to reference 3" class="data-footnote-backref">↩</a></p>
-</li>
-<li id="user-content-fn-4-347664">
-<p><a href="https://groups.google.com/a/greenplum.org/g/gpdb-dev" target="_blank" rel="noopener noreferrer">https://groups.google.com/a/greenplum.org/g/gpdb-dev</a> <a href="https://cloudberry.apache.org/blog/cloudberry-database-enters-the-apache-incubator#user-content-fnref-4-347664" data-footnote-backref="" aria-label="Back to reference 4" class="data-footnote-backref">↩</a></p>
-</li>
-</ol>
-</section>]]></content:encoded>
             <category>Announcement</category>
         </item>
     </channel>
