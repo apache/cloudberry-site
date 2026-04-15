@@ -8,7 +8,7 @@ image: /img/blog/20260415-cloudberry2.1.png
 ---
 
 :::note
-See the official announcement on the [Apache Cloudberry Dev mailing list](#).
+See the official announcement on the [Apache Cloudberry Dev mailing list](https://lists.apache.org/thread/m8j6ss247v2cnlmsd5rhxcfmzssv202q).
 :::
 
 The Apache Cloudberry (Incubating) community is pleased to announce the release of Apache Cloudberry (Incubating) version 2.1.0.
