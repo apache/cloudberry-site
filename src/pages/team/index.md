@@ -14,14 +14,14 @@ Each Podling Project Management Committee (PPMC) helps its Podling learn how to 
 | Antonio Petrole | apetrole@apache.org | antoniopetrole | Individual |
 | Dianjin Wang | djwang@apache.org | tuhaihe | HashData |
 | Ed Espino | espino@apache.org | edespino | Apache Member, Synx Data Labs |
-| Greg Spiegelberg | gspiegelberg@apache.org | gspiegelberg | MNTN |
+| Greg Spiegelberg | gspiegelberg@apache.org | gspiegelberg | EDB |
 | Hao Wu | gfphoenix78@apache.org | gfphoenix78 | HashData |
 | Hope Gao | gaoxueyu@apache.org | gaoxueyu | HighGo |
 | Jianghua Yang | yjhjstz@apache.org | yjhjstz | HashData |
 | Jiaqi Zhou | jiaqizho@apache.org | jiaqizho | Zilliz |
 | Jinbao Chen | chenjinbao1989@apache.org | oppenheimer01 | HashData |
 | Kirill Reshke | reshke@apache.org | reshke  | Yandex Cloud | Yandex Cloud |
-| Kent Yao *(Mentor)* | yao@apache.org | yaooqinn | Apache Member, NetEase |
+| Kent Yao *(Mentor)* | yao@apache.org | yaooqinn | Apache Member, Microsoft |
 | Louis Mugnano | lmugnano@apache.org | lmugnano4537 | Individual |
 | Max Yang | maxyang@apache.org | my-ship-it | HashData |
 | Maxim Smyatkin | smyatkin@apache.org | Smyatkin-Maxim | Yandex Cloud |
@@ -32,7 +32,7 @@ Each Podling Project Management Committee (PPMC) helps its Podling learn how to 
 | Weinan WANG | wangwn@apache.org | weinan003 | HashData |
 | Willem Jiang *(Mentor)*| ningjiang@apache.org | WillemJiang | Apache Member, ByteDance |
 | Xiaoran Wang | fanfuxiaoran@apache.org | fanfuxiaoran | ByteDance |
-| Xin (Alwin) Tang | alwintang@apache.org | xtangcode | HashData |
+| Xin (Alwin) Tang | alwintang@apache.org | xtangcode | Synx Data Labs |
 | Zhang Mingli | avamingli@apache.org | avamingli | HashData |
 | Leonid Borchuk | leborchuk@apache.org | leborchuk | Yandex Cloud |
 
