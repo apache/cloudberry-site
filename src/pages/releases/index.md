@@ -5,7 +5,9 @@ description: This page provides download links for the latest release of Apache 
 
 The Apache Cloudberry (Incubating) project is released in source form (`.tar.gz`) as its official releases. All the official releases are signed by the release manager for the release. PGP signatures and SHA512 checksums are available along with the distribution.
 
-Convenience binaries (`.deb`, `.rpm`, and binary packages) for version 2.1.0 are coming soon. 
+:::note
+Convenience binaries for Cloudberry have been available since version 2.1.0. You can download them from the GitHub release page. After downloading, please verify the signatures and checksums of the files.
+:::
 
 ## Releases
 
@@ -26,18 +28,18 @@ Convenience binaries (`.deb`, `.rpm`, and binary packages) for version 2.1.0 are
 <td rowSpan="3">April 14, 2026</td>
 <td><a href="https://www.apache.org/dyn/closer.lua/incubator/cloudberry/2.1.0-incubating/apache-cloudberry-2.1.0-incubating-src.tar.gz?action=download">apache-cloudberry-2.1.0-incubating-src.tar.gz</a></td>
 <td><a href="https://downloads.apache.org/incubator/cloudberry/2.1.0-incubating/apache-cloudberry-2.1.0-incubating-src.tar.gz.asc">.asc</a>, <a href="https://downloads.apache.org/incubator/cloudberry/2.1.0-incubating/apache-cloudberry-2.1.0-incubating-src.tar.gz.sha512">.sha512</a></td>
-<td>RPM, DEB<br/><em>(Coming soon)</em></td>
+<td><a href="https://github.com/apache/cloudberry/releases/tag/2.1.0-incubating">RPM/DEB</a></td>
 <td rowSpan="3"><a href="../releases/2.1.0-incubating">Changelog</a></td>
 </tr>
 <tr>
 <td><a href="https://www.apache.org/dyn/closer.lua/incubator/cloudberry/2.1.0-incubating/apache-cloudberry-backup-2.1.0-incubating-src.tar.gz?action=download">apache-cloudberry-backup-2.1.0-incubating-src.tar.gz</a></td>
 <td><a href="https://downloads.apache.org/incubator/cloudberry/2.1.0-incubating/apache-cloudberry-backup-2.1.0-incubating-src.tar.gz.asc">.asc</a>, <a href="https://downloads.apache.org/incubator/cloudberry/2.1.0-incubating/apache-cloudberry-backup-2.1.0-incubating-src.tar.gz.sha512">.sha512</a></td>
-<td>Binary Package<br/><em>(Coming soon)</em></td>
+<td><a href="https://github.com/apache/cloudberry-backup/releases/tag/2.1.0-incubating">Binary Package</a></td>
 </tr>
 <tr>
 <td><a href="https://www.apache.org/dyn/closer.lua/incubator/cloudberry/2.1.0-incubating/apache-cloudberry-pxf-2.1.0-incubating-src.tar.gz?action=download">apache-cloudberry-pxf-2.1.0-incubating-src.tar.gz</a></td>
 <td><a href="https://downloads.apache.org/incubator/cloudberry/2.1.0-incubating/apache-cloudberry-pxf-2.1.0-incubating-src.tar.gz.asc">.asc</a>, <a href="https://downloads.apache.org/incubator/cloudberry/2.1.0-incubating/apache-cloudberry-pxf-2.1.0-incubating-src.tar.gz.sha512">.sha512</a></td>
-<td>RPM, DEB<br/><em>(Coming soon)</em></td>
+<td><a href="https://github.com/apache/cloudberry-pxf/releases/tag/2.1.0-incubating">RPM/DEB</a></td>
 </tr>
 <tr>
 <td>2.0.0-incubating</td>
