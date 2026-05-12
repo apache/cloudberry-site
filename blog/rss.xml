@@ -4,10 +4,144 @@
         <title>Apache Cloudberry (Incubating) is one advanced and mature open-source MPP (Massively Parallel Processing) databases available.</title>
         <link>https://cloudberry.apache.org/blog</link>
         <description>Apache Cloudberry (Incubating) Blog</description>
-        <lastBuildDate>Wed, 15 Apr 2026 00:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 12 May 2026 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
+        <item>
+            <title><![CDATA[Apache Cloudberry Incubation Report - May 2026]]></title>
+            <link>https://cloudberry.apache.org/blog/apache-cloudberry-incubation-report-202605</link>
+            <guid>https://cloudberry.apache.org/blog/apache-cloudberry-incubation-report-202605</guid>
+            <pubDate>Tue, 12 May 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[We’re making steady progress to grow!]]></description>
+            <content:encoded><![CDATA[<div class="theme-admonition theme-admonition-note admonition_xJq3 alert alert--secondary"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M6.3 5.69a.942.942 0 0 1-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 0 1-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"></path></svg></span>note</div><div class="admonitionContent_BuS1"><p>This Cloudberry incubation report summarizes our major progress from February 2026 to April 2026. It is adapted from the <a href="https://cwiki.apache.org/confluence/display/INCUBATOR/May2026#cloudberry" target="_blank" rel="noopener noreferrer">Apache Incubator Report May 2026</a>, with some modifications for readability.</p></div></div>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="cloudberry">Cloudberry<a href="https://cloudberry.apache.org/blog/apache-cloudberry-incubation-report-202605#cloudberry" class="hash-link" aria-label="Direct link to Cloudberry" title="Direct link to Cloudberry">​</a></h2>
+<p>Cloudberry is an advanced and mature open-source Massively Parallel Processing (MPP) database, derived from the open-source version of Pivotal Greenplum Database®️ but built on a more modern PostgreSQL 14 kernel, whereas Greenplum is based on PostgreSQL 12. This upgrade brings enhanced enterprise capabilities, making Cloudberry well-suited for data warehousing, large-scale analytics, and AI/ML workloads.</p>
+<p>Cloudberry has been incubating since 2024-10-11.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="three-most-important-unfinished-issues-to-address-before-graduating">Three most important unfinished issues to address before graduating:<a href="https://cloudberry.apache.org/blog/apache-cloudberry-incubation-report-202605#three-most-important-unfinished-issues-to-address-before-graduating" class="hash-link" aria-label="Direct link to Three most important unfinished issues to address before graduating:" title="Direct link to Three most important unfinished issues to address before graduating:">​</a></h3>
+<ol>
+<li>Grow the contributor and community to ensure long-term sustainability.</li>
+<li>Publish a few more Apache releases following the ASF release processes.</li>
+</ol>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="how-has-the-community-developed-since-the-last-report">How has the community developed since the last report?<a href="https://cloudberry.apache.org/blog/apache-cloudberry-incubation-report-202605#how-has-the-community-developed-since-the-last-report" class="hash-link" aria-label="Direct link to How has the community developed since the last report?" title="Direct link to How has the community developed since the last report?">​</a></h3>
+<ul>
+<li>The community continued the Apache Cloudberry bi-weekly community meeting, holding five public meetings from February to April 2026. These meetings covered release coordination, kernel upgrades, ecosystem projects, testing strategy, events, and open community topics.</li>
+<li>New Committers: Xiaoyu Liu (@misterRaindrop), Nikolay Antonov (@ostinru), Robert Mu (@robertmu)</li>
+<li>New PPMC Member: Leonid Borchuk</li>
+<li>Community channels:<!-- -->
+<ul>
+<li>Created a new Slack workspace and a new Discord server after the previous Slack workspace became unavailable.</li>
+<li>Updated the website and planned updates across related repositories to point users to the current communication channels.</li>
+</ul>
+</li>
+<li>Governance and community process:<!-- -->
+<ul>
+<li>Started discussion on an AI conduct policy to guide responsible use of LLM tools while following ASF copyright and attribution expectations.</li>
+<li>Added a website page documenting how to invite new PPMC members.</li>
+</ul>
+</li>
+<li>Events and outreach:<!-- -->
+<ul>
+<li>Community Over Code Asia 2026: around 11 Cloudberry-related proposals, now waiting for the review results. Plan to organize one in-person community gathering in Beijing during the conference.</li>
+<li>A Cloudberry meetup was organized in Moscow, with public recordings and a Russian Habr article bringing more user feedback to the community.</li>
+<li>Two community members were confirmed as PGConf.dev 2026 speakers.</li>
+</ul>
+</li>
+<li>New contributors appeared in community discussions and PRs, including contributions around Cloudberry Backup, PXF, and core repository features.</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="how-has-the-project-developed-since-the-last-report">How has the project developed since the last report?<a href="https://cloudberry.apache.org/blog/apache-cloudberry-incubation-report-202605#how-has-the-project-developed-since-the-last-report" class="hash-link" aria-label="Direct link to How has the project developed since the last report?" title="Direct link to How has the project developed since the last report?">​</a></h3>
+<ul>
+<li>Released Apache Cloudberry (Incubating) 2.1.0 in April 2026, the project's second Apache release after entering the ASF Incubator. Convenience RPM/DEB packages and binary packages were provided for the first time. Manual packages were made for 2.1.0, and automation is being considered for 2.2.0.</li>
+<li>PostgreSQL kernel upgrade:<!-- -->
+<ul>
+<li>Started the PostgreSQL 14.x minor-version upgrade work for the 2.x release branch. The branch progressed from PostgreSQL 14.4 through 14.8, with later 14.x updates being tracked in the project Kanban.</li>
+<li>Continued the PostgreSQL 16 kernel upgrade on the work development branch. This work is expected to be completed by the end of Q2 2026.</li>
+<li>Fixed PostgreSQL upstream CVEs and security-related patches, including libpq SSL/GSS negotiation error handling.</li>
+</ul>
+</li>
+<li>Core project improvements:<!-- -->
+<ul>
+<li>Merged the diskquota extension into the main repository.</li>
+<li>Added the gp_stats_collector extension, improving observability and laying groundwork for dashboard related work.</li>
+<li>Added AQUMV exact-match support for multi-table JOIN queries.</li>
+<li>Started discussion on an Iceberg subsystem for <code>datalake_fdw</code>.</li>
+</ul>
+</li>
+<li>CI, testing, and platform support:<!-- -->
+<ul>
+<li>Added Ubuntu 24.04 Docker image and test matrix support.</li>
+<li>Continued Rocky Linux 10 support work, with initial build docker images. The related test matrix support is to be added.</li>
+<li>Started discussion on rethinking the testing strategy for better test efficiency and coverage.</li>
+<li>Upgraded Go to 1.24 in Cloudberry development images and related ecosystem repositories. Newer Go version support is in the discussion.</li>
+<li>Started adding Behave tests for gpMgmt tools (WIP).</li>
+</ul>
+</li>
+<li>Ecosystem and sub-repositories:<!-- -->
+<ul>
+<li><code>cloudberry-pxf</code>:<!-- -->
+<ul>
+<li>Started a roadmap discussion for the PXF project.</li>
+<li>Released 2.1.0, the first Apache release for PXF.</li>
+<li>Renamed Java packages from <code>org.greenplum</code> to <code>org.apache.cloudberry</code> and updated ASF compliance files.</li>
+<li>Added Java 17 support and Rocky Linux 9 CI support.</li>
+<li>Removed <code>gradle-wrapper.jar</code> from source release artifacts and download/verify it during build for ASF license compliance.</li>
+<li>Added or improved JDBC tests using Testcontainers for ClickHouse, MS SQL, and Oracle.</li>
+<li>Upgraded dependencies including Apache AVRO, Apache ORC, Parquet, and HBase related components, and discussed Java 21 support.</li>
+</ul>
+</li>
+<li><code>cloudberry-backup</code>:<!-- -->
+<ul>
+<li>Released 2.1.0, the first Apache release for gpbackup.</li>
+<li>Completed migration work from legacy Concourse CI to GitHub Actions.</li>
+<li>Added ASF release script support and Cloudberry 2.1 compatibility.</li>
+<li>Started a roadmap discussion for the backup project.</li>
+<li>Merged gpbackman-related backup management work. The Prometheus exporter for the gpbackup history database work is in the review process.</li>
+</ul>
+</li>
+<li><code>cloudberry-go-libs</code>:<!-- -->
+<ul>
+<li>Tracked a security issue and dependency update needed by related backup tooling.</li>
+</ul>
+</li>
+<li>Apache MADlib:<!-- -->
+<ul>
+<li>Continued collaboration with Apache MADlib to add Apache Cloudberry support upstream, with community discussion ongoing. See: <a href="https://s.apache.org/bsu9m" target="_blank" rel="noopener noreferrer">https://s.apache.org/bsu9m</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Next release: Started early discussion for Apache Cloudberry 2.2.0, including release manager, release process documentation, packaging automation, and testing strategy.</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="how-would-you-assess-the-podlings-maturity">How would you assess the podling's maturity?<a href="https://cloudberry.apache.org/blog/apache-cloudberry-incubation-report-202605#how-would-you-assess-the-podlings-maturity" class="hash-link" aria-label="Direct link to How would you assess the podling's maturity?" title="Direct link to How would you assess the podling's maturity?">​</a></h3>
+<ul class="contains-task-list containsTaskList_mC6p">
+<li class="task-list-item"><input type="checkbox" disabled=""> <!-- -->Initial setup</li>
+<li class="task-list-item"><input type="checkbox" disabled=""> <!-- -->Working towards first release</li>
+<li class="task-list-item"><input type="checkbox" disabled="" checked=""> <!-- -->Community building</li>
+<li class="task-list-item"><input type="checkbox" disabled=""> <!-- -->Nearing graduation</li>
+<li class="task-list-item"><input type="checkbox" disabled=""> <!-- -->Other:</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="date-of-last-release">Date of last release:<a href="https://cloudberry.apache.org/blog/apache-cloudberry-incubation-report-202605#date-of-last-release" class="hash-link" aria-label="Direct link to Date of last release:" title="Direct link to Date of last release:">​</a></h3>
+<ul>
+<li>April 14, 2026 - Apache Cloudberry (Incubating) 2.1.0</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="when-were-the-last-committers-or-ppmc-members-elected">When were the last committers or PPMC members elected?<a href="https://cloudberry.apache.org/blog/apache-cloudberry-incubation-report-202605#when-were-the-last-committers-or-ppmc-members-elected" class="hash-link" aria-label="Direct link to When were the last committers or PPMC members elected?" title="Direct link to When were the last committers or PPMC members elected?">​</a></h3>
+<ul>
+<li>March 24, 2026 - Xiaoyu Liu (@misterRaindrop), Nikolay Antonov (@ostinru), Robert Mu (@robertmu) were announced as new committers.</li>
+<li>April 07, 2026 - Leonid Borchuk was announced as a new PPMC member.</li>
+</ul>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="join-us">Join Us<a href="https://cloudberry.apache.org/blog/apache-cloudberry-incubation-report-202605#join-us" class="hash-link" aria-label="Direct link to Join Us" title="Direct link to Join Us">​</a></h2>
+<p>Apache Cloudberry follows the principle of open and transparent governance. You can follow our <a href="https://whimsy.apache.org/board/minutes/Cloudberry.html" target="_blank" rel="noopener noreferrer">quarterly incubation reports</a> to stay updated on key community events and project progress.</p>
+<p>Get involved with the community:</p>
+<ul>
+<li><strong>GitHub</strong>: <a href="https://github.com/apache/cloudberry" target="_blank" rel="noopener noreferrer">github.com/apache/cloudberry</a></li>
+<li><strong>Slack</strong>: <a href="https://join.slack.com/t/asf-cloudberry/shared_invite/zt-3um34r7hf-Sh~6jG6hVxlQJo1tbhK2sw" target="_blank" rel="noopener noreferrer">Join our Slack workspace</a></li>
+<li><strong>Discord</strong>: <a href="https://discord.gg/GJrz3Fxf6y" target="_blank" rel="noopener noreferrer">Join our Discord server</a></li>
+<li><strong>Mailing Lists</strong>: <a href="https://lists.apache.org/list.html?dev@cloudberry.apache.org" target="_blank" rel="noopener noreferrer">lists.apache.org/list.html?dev@cloudberry.apache.org</a></li>
+<li><strong>Website</strong>: <a href="https://cloudberry.apache.org/" target="_blank" rel="noopener noreferrer">cloudberry.apache.org</a></li>
+</ul>]]></content:encoded>
+            <category>Incubation</category>
+        </item>
         <item>
             <title><![CDATA[Apache Cloudberry (Incubating) 2.1.0 Released]]></title>
             <link>https://cloudberry.apache.org/blog/announce-apache-cloudberry-2.1.0</link>
@@ -1721,20 +1855,6 @@ on 03/22, 2025.</li>
 <li>Mar 19, 2025 - Xiong Tong (committer)</li>
 </ul>]]></content:encoded>
             <category>Incubation</category>
-        </item>
-        <item>
-            <title><![CDATA[Welcoming Wenchao Zhang as a New Apache Cloudberry Committer]]></title>
-            <link>https://cloudberry.apache.org/blog/welcoming-wenchaozhang-as-a-new-apache-cloudberry-committer</link>
-            <guid>https://cloudberry.apache.org/blog/welcoming-wenchaozhang-as-a-new-apache-cloudberry-committer</guid>
-            <pubDate>Thu, 22 May 2025 00:00:00 GMT</pubDate>
-            <description><![CDATA[Becoming a committer demonstrates a strong commitment to the community.]]></description>
-            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="Welcoming Wenchao Zhang as a New Committer" src="https://cloudberry.apache.org/assets/images/202505-welcome-new-committer-wenchaozhang-banner-large-f7faa7c3a1c0480673b508ece7b08dd0.png" width="1200" height="662" class="img_ev3q"></p>
-<p>We are thrilled to announce that Wenchao Zhang (GitHub ID: zhangwenchao-123) has officially joined the Apache Cloudberry community as a committer! The Podling Project Management Committee (PPMC) for Apache Cloudberry invited him to become a committer, and we are pleased to announce that he has accepted this invitation.</p>
-<p>Wenchao has made consistent and meaningful contributions to the Cloudberry project, particularly in the directory table, password profile feature, and performance issues. You can review his commit history here: <a href="https://github.com/apache/cloudberry/commits?author=zhangwenchao-123" target="_blank" rel="noopener noreferrer">Wenchao's Contributions</a>.</p>
-<p>His technical insights, responsiveness, and collaboration with the community have made a positive impact, and we believe he is a valuable addition to the Committer team.</p>
-<p>Becoming a committer is a significant milestone that reflects both technical expertise and a strong commitment to the community. We are excited to see Wenchao Zhang continue to make meaningful contributions and take on greater responsibility within the project.</p>
-<p>Please join us in congratulating Wenchao Zhang on this well-deserved achievement and welcoming him to his new role in the Apache Cloudberry community!</p>]]></content:encoded>
-            <category>Announcement</category>
         </item>
     </channel>
 </rss>
