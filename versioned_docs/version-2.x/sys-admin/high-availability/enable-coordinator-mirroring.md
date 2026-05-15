@@ -33,7 +33,7 @@ Make sure that you have already configured a standby coordinator on a different 
 
 :::note
 
-If you follow the steps described in the [Prepare to Deploy](../../cbdb-op-prepare-to-deploy.md) and [Deploy Apache Cloudberry Manually Using RPM Package](../../cbdb-op-deploy-guide.md) topics to deploy the cluster, a host for the standby coordinator ( `cbdb-standbycoordinator`) is already configured in the cluster.
+If you follow the steps described in the [Prepare to Deploy](../../deployment/prepare-to-deploy.md) and [Deploy Apache Cloudberry Manually Using RPM Package](../../deployment/install_cloudberry.md) topics to deploy the cluster, a host for the standby coordinator ( `scdw`) is already configured in the cluster.
 
 :::
 
@@ -41,15 +41,15 @@ If you follow the steps described in the [Prepare to Deploy](../../cbdb-op-prepa
 
 You need to first enable the standby coordinator using the `gpinitstandby` utility:
 
-1. Run the `gpinitstandby` utility on the currently active primary coordinator (`cbdb-coordinator`) host to add a standby coordinator host to your CBDB cluster. For example:
+1. Run the `gpinitstandby` utility on the currently active primary coordinator (`scdw`) host to add a standby coordinator host to your CBDB cluster. For example:
 
     ```shell
-    $ gpinitstandby -s cbdb-standbycoordinator
+    $ gpinitstandby -s scdw
     ```
 
     The `-s` option specifies the standby coordinator hostname.
 
-    You will be prompted with the following message when the initialization is completed: `-Successfully created standby coordinator on cbdb-coordinator`.
+    You will be prompted with the following message when the initialization is completed: `-Successfully created standby coordinator on scdw`.
 
 2. You can run the `gpstate` utility with the `-f` option to display details of the standby coordinator host.
 
@@ -114,13 +114,13 @@ Take the steps below to configure the failed primary coordinator to become a sta
 
     You can remove the backup directory once the standby is successfully configured.
 
-3. Initialize a standby coordinator on the original coordinator host. For example, run this command from the current coordinator host, `cbdb-standbycoordinator`:
+3. Initialize a standby coordinator on the original coordinator host. For example, run this command from the current coordinator host, `scdw`:
 
     ```shell
-    $ gpinitstandby -s cbdb-coordinator
+    $ gpinitstandby -s scdw
     ```
 
-4. After the initialization is completed, check the status of the standby coordinator `cbdb-coordinator`. Run `gpstate` with the `-f` option to check the standby coordinator status:
+4. After the initialization is completed, check the status of the standby coordinator `scdw`. Run `gpstate` with the `-f` option to check the standby coordinator status:
 
     ```shell
     $ gpstate -f

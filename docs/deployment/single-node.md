@@ -1,5 +1,5 @@
 ---
-title: Deploy with a Single Computing Node
+title: (Optional) Deploy with a Single Computing Node
 ---
 
 # Deploy Apache Cloudberry with a Single Computing Node
@@ -211,15 +211,19 @@ You can set up XFS file mounting in the `/etc/fstab` file. See the following com
 ```bash
 mkdir -p /data0/
 mkfs.xfs -f /dev/vdc
-echo "/dev/vdc /data0 xfs rw,nodev,noatime,nobarrier,inode64 0 0"  /etc/fstab
+echo "/dev/vdc /data0 xfs rw,nodev,noatime,inode64 0 0"  /etc/fstab
 mount /data0
 chown -R gpadmin:gpadmin /data0/
 ```
 
+:::note
+The `nobarrier` option is not supported on RHEL 8/9 or Ubuntu systems. Use only the options `rw,nodev,noatime,inode64`.
+:::
+
 Run the following command to check whether the mounting is successful:
 
 ```bash
-df-h
+df -h
 ```
 
 ##### Blockdev value
@@ -263,8 +267,6 @@ The disk type, operating system, and scheduling policies of Apache Cloudberry ar
 <tbody>
   <tr>
     <td rowspan="3">NVMe</td>
-    <td>RHEL 7</td>
-    <td>none</td>
   </tr>
   <tr>
     <td>RHEL 8</td>
@@ -276,8 +278,6 @@ The disk type, operating system, and scheduling policies of Apache Cloudberry ar
   </tr>
   <tr>
     <td rowspan="3">SSD</td>
-    <td>RHEL 7</td>
-    <td>noop</td>
   </tr>
   <tr>
     <td>RHEL 8</td>
@@ -289,8 +289,6 @@ The disk type, operating system, and scheduling policies of Apache Cloudberry ar
   </tr>
   <tr>
     <td rowspan="3">Other</td>
-    <td>RHEL 7</td>
-    <td>deadline</td>
   </tr>
   <tr>
     <td>RHEL 8</td>
@@ -398,29 +396,35 @@ systemctl status chronyd
 
 ### Step 2. Install Apache Cloudberry
 
-1. Download the RPM package to the home directory of `gpadmin`.
+:::info
+Starting from Apache Cloudberry 2.1, RPM and DEB packages are officially provided. RPM packages support Rocky Linux 8/9, RHEL 8/9, and compatible distributions. DEB packages support Ubuntu 22.04.
+:::
 
-    ```bash
-    wget -P /home/gpadmin <download address>
-    ```
+1. Download the package to the home directory of `gpadmin`.
 
-2. Install the RPM package in the `/home/gpadmin` directory.
+2. Install the package in the `/home/gpadmin` directory.
 
-    When running the following command, you need to replace `<RPM package path>` with the actual RPM package path, as the `root` user. During the installation, the directory `/usr/local/cloudberry/` is automatically created.
+    When running the following command, you need to replace `<package path>` with the actual package path, as the `root` user. During the installation, the directory `/usr/local/cloudberry-db/` is automatically created.
 
     ```bash
     cd /home/gpadmin
-    yum install <RPM package path>
+    
+    # For RPM (Rocky Linux, RHEL, etc.)
+    dnf install <RPM package path>
+    # Or for older systems: yum install <RPM package path>
+    
+    # For DEB (Ubuntu)
+    apt install <DEB package path>
+    # Or alternatively: dpkg -i <DEB package path> && apt-get install -f
     ```
 
-3. Grant the `gpadmin` user the permission to access the `/usr/local/cloudberry/` directory.
+3. Grant the `gpadmin` user the permission to access the `/usr/local/cloudberry-db/` directory.
 
     ```bash
-    chown -R gpadmin:gpadmin /usr/local
     chown -R gpadmin:gpadmin /usr/local/cloudberry*
     ```
 
-4. Configure local SSH connection for the node. As the `gpadmin ` user, perform the following operations:
+4. Configure local SSH connection for the node. As the `gpadmin` user, perform the following operations:
 
     ```bash
     ssh-keygen
