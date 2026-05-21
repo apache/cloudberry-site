@@ -66,6 +66,10 @@ Your Cloudberry configuration file tells the [gpinitsystem](/sys-utilities/gpini
 
     The `DATA_DIRECTORY` parameter is what determines how many segments per host will be created. If your segment hosts have multiple network interfaces, and you used their interface address names in your host file, the number of segments will be evenly spread over the number of available interfaces.
 
+    The `COORDINATOR_HOSTNAME` is the hostname of the coordinator node.
+
+    The `COORDINATOR_DIRECTORY` is the data directory of the coordinator node.
+
     To specify `PORT_BASE`, review the port range specified in the `net.ipv4.ip_local_port_range` parameter in the `/etc/sysctl.conf` file.
 
     Here is an example of the *required* parameters in the `gpinitsystem_config` file:
@@ -92,7 +96,13 @@ Your Cloudberry configuration file tells the [gpinitsystem](/sys-utilities/gpini
     :::note
     You can initialize your Cloudberry system with primary segments only and deploy mirrors later using the [gpaddmirrors](/sys-utilities/gpaddmirrors.md) utility.
 
-4.  Save and close the file.
+4. To create a default database during initialization, you need to fill in the database name. In this example, the `warehouse` database is created during initialization:
+
+    ```
+    DATABASE_NAME=warehouse
+    ```
+
+5.  Save and close the file.
 
 ## Running the Initialization Utility 
 
@@ -108,6 +118,8 @@ These steps assume you are logged in as the `gpadmin` user and have sourced the 
     $ cd ~
     $ gpinitsystem -c gpconfigs/gpinitsystem_config -h gpconfigs/hostfile_gpinitsystem
     ```
+
+    In the command above, `-c` specifies the configuration file and `-h` specifies the computing node list.
 
     For a fully redundant system (with a standby coordinator and a *spread* mirror configuration) include the `-s` and `--mirror-mode=spread` options. For example:
 
