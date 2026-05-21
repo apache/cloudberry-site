@@ -52,7 +52,7 @@ NUM_PRIMARY_MIRROR_PAIRS=3 gpdemo
 
 :::info
 - Each segment node consists of a primary node and a mirror node. So every time the parameter value increases by `1`, 2 more nodes will be created. To better capture data distribution issues, it is recommended to set the value to an odd number.
-- When the parameter value is set to 0, a single-computing-node cluster is deployed. See [Deploy Apache Cloudberry with a Single Computing Node](/docs/deploy-cbdb-with-single-node.md) for details.
+- When the parameter value is set to 0, a single-computing-node cluster is deployed. See [Deploy Apache Cloudberry with a Single Computing Node](../deploy-cbdb-with-single-node.md) for details.
 :::
 
 #### Specify the data directory of a node
