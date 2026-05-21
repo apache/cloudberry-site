@@ -44,6 +44,17 @@ Resource Groups - one of the key Apache Cloudberry features - can control transa
 
 When using resource groups to control resource allocation on Intel based systems, consider switching off Hyper-Threading (HT) in the server BIOS (for Intel cores the default is ON). Switching off HT might cause a small throughput reduction (less than 15%), but can achieve greater isolation between resource groups, and higher query performance with lower concurrency workloads.
 
+### CPU architecture support
+
+Apache Cloudberry supports running on both **x86_64** and **ARM (AARCH64)** CPU architectures, making it suitable for a wide range of hardware platforms including cloud instances and ARM-based servers.
+
+| Architecture | Source Build | Convenience binaries |
+|---|---|---|
+| x86_64 | Supported | Available (2.1+) |
+| ARM (AARCH64) | Supported | Planned for 2.2 |
+
+For ARM-based deployments in the current release, you can [build Apache Cloudberry from source](../build/index.md).
+
 ### Storage
 
 - To prevent a high data disk load from affecting the operating system's normal I/O response, mount the operating system and the data disk on separate disks.
