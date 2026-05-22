@@ -37,6 +37,10 @@ Data directories used:
 
 ### 1.1 Deactivate SELinux
 
+:::note
+This step applies to RHEL/Oracle/Rocky Linux only. On Ubuntu, SELinux is not installed by default and this step can be skipped.
+:::
+
 ```bash
 # Check current status
 sestatus
@@ -49,6 +53,8 @@ sed -i 's/^SELINUX=.*/SELINUX=disabled/' /etc/selinux/config
 
 ### 1.2 Deactivate firewall
 
+**For RHEL/Rocky Linux (firewalld):**
+
 ```bash
 # Check current status
 systemctl status firewalld
@@ -56,6 +62,16 @@ systemctl status firewalld
 # If not disabled, deactivate it
 systemctl stop firewalld.service
 systemctl disable firewalld.service
+```
+
+**For Ubuntu (ufw):**
+
+```bash
+# Check current status (disabled by default)
+ufw status
+
+# If active, disable it
+ufw disable
 ```
 
 ### 1.3 Set the hosts file
@@ -189,8 +205,11 @@ mount /data
 echo '/sbin/blockdev --setra 16384 /dev/sdb' >> /etc/rc.d/rc.local
 chmod +x /etc/rc.d/rc.local
 
-# Set I/O scheduler (for non-NVMe/SSD disks)
+# Set I/O scheduler permanently (for non-NVMe/SSD disks)
+# For RHEL/Rocky Linux:
 grubby --update-kernel=ALL --args="elevator=mq-deadline"
+# For Ubuntu:
+sed -i 's/GRUB_CMDLINE_LINUX="\(.*\)"/GRUB_CMDLINE_LINUX="\1 elevator=mq-deadline"/' /etc/default/grub && update-grub
 ```
 
 ### 1.8 Disable Transparent Huge Pages
@@ -199,8 +218,11 @@ grubby --update-kernel=ALL --args="elevator=mq-deadline"
 # Check current THP status
 cat /sys/kernel/mm/*transparent_hugepage/enabled
 
-# If not [never], disable it
+# If not [never], disable it permanently
+# For RHEL/Rocky Linux:
 grubby --update-kernel=ALL --args="transparent_hugepage=never"
+# For Ubuntu:
+sed -i 's/GRUB_CMDLINE_LINUX="\(.*\)"/GRUB_CMDLINE_LINUX="\1 transparent_hugepage=never"/' /etc/default/grub && update-grub
 
 # Reboot is required to take effect
 ```
@@ -223,11 +245,14 @@ service sshd restart
 ### 1.11 Synchronize system clocks
 
 ```bash
-# Enable and start chronyd
+# For RHEL/Rocky Linux
 systemctl enable chronyd
 systemctl restart chronyd
+chronyc tracking
 
-# Verify synchronization status
+# For Ubuntu (enable must use 'chrony', restart works with either name)
+systemctl enable chrony
+systemctl restart chronyd
 chronyc tracking
 ```
 
@@ -238,12 +263,16 @@ groupadd gpadmin
 useradd gpadmin -r -m -g gpadmin
 passwd gpadmin
 
-# Enable wheel group for passwordless sudo
-sed -i 's/^# %wheel\tALL=(ALL)\tNOPASSWD: ALL/%wheel\tALL=(ALL)\tNOPASSWD: ALL/' /etc/sudoers
+# Grant passwordless sudo
+# For RHEL/Rocky Linux: uncomment the %wheel NOPASSWD line in sudoers
 # Or use visudo to uncomment: %wheel ALL=(ALL) NOPASSWD: ALL
-
-# Grant sudo to gpadmin
+sed -i 's/^# %wheel\tALL=(ALL)\tNOPASSWD: ALL/%wheel\tALL=(ALL)\tNOPASSWD: ALL/' /etc/sudoers
 usermod -aG wheel gpadmin
+
+# For Ubuntu: add gpadmin to sudo group and create a sudoers drop-in file
+usermod -aG sudo gpadmin
+echo "gpadmin ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/gpadmin
+chmod 440 /etc/sudoers.d/gpadmin
 
 # Set data directory ownership to gpadmin
 chown -R gpadmin:gpadmin /data

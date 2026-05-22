@@ -25,6 +25,10 @@ When data loss is not acceptable for an Apache Cloudberry cluster, coordinator a
 
 ## Deactivate or configure SELinux
 
+:::note
+This section applies to RHEL/Oracle/Rocky Linux only. On Ubuntu, SELinux is not installed by default — Ubuntu uses AppArmor instead, which does not require any configuration for Apache Cloudberry. Ubuntu users can skip this section.
+:::
+
 For all Apache Cloudberry host systems running RHEL/Oracle/Rocky Linux, SELinux must either be `Disabled` or configured to allow unconfined access to Apache Cloudberry processes, directories, and the `gpadmin` user.
 
 If you choose to deactivate SELinux:
@@ -57,25 +61,42 @@ If you choose to enable SELinux in `Enforcing` mode, then Apache Cloudberry proc
 
 You should also deactivate firewall software such as `firewalld` (on RHEL systems) or `ufw` (on Ubuntu systems, deactivated by default). If firewall software is not deactivated, you must instead configure your software to allow required communication between Apache Cloudberry hosts.
 
-1. Check the status of `firewalld` with the command:
 
-    ```bash
-    # systemctl status firewalld
-    ```
+- For RHEL/Rocky Linux (firewalld)
+
+    Check the status of `firewalld`:
+
+        ```bash
+        systemctl status firewalld
+        ```
 
     If `firewalld` is deactivated, the command output is:
 
-    ```
-    * firewalld.service - firewalld - dynamic firewall daemon
-       Loaded: loaded (/usr/lib/systemd/system/firewalld.service; disabled; vendor preset: enabled)
-       Active: inactive (dead)
-    ```
+        ```
+        * firewalld.service - firewalld - dynamic firewall daemon
+        Loaded: loaded (/usr/lib/systemd/system/firewalld.service; disabled; vendor preset: enabled)
+        Active: inactive (dead)
+        ```
 
-2. If necessary, run these commands as root to deactivate `firewalld`:
+    If necessary, run these commands as root to deactivate `firewalld`:
+
+        ```bash
+        systemctl stop firewalld.service
+        systemctl disable firewalld.service
+        ```
+
+- For Ubuntu (ufw)
+
+    On Ubuntu, `ufw` is disabled by default. Verify the status with:
 
     ```bash
-    # systemctl stop firewalld.service
-    # systemctl disable firewalld.service
+    ufw status
+    ```
+
+    If the output is `Status: inactive`, no action is needed. If it is active, disable it:
+
+    ```bash
+    ufw disable
     ```
 
 See the documentation for the firewall or your operating system for additional information.
@@ -440,19 +461,31 @@ For example:
 Using the `echo` command to set the disk I/O scheduler policy is not persistent; you must ensure that you run the command whenever the system reboots. How to run the command will vary based on your system.
 :::
 
-To specify the I/O scheduler at boot time on systems that use `grub2`, use the system utility `grubby`. This command adds the parameter when run as `root`:
+To specify the I/O scheduler at boot time on systems that use `grub2`, you use the system utility `grubby` on RHEL or edit the Grub configure file directly on Ubuntu.
 
-```bash
-# grubby --update-kernel=ALL --args="elevator=mq-deadline"
-```
+To permanently set the I/O scheduler at boot time:
+
+- For RHEL/Rocky Linux — use `grubby`. This command adds the parameter when run as `root`:
+
+    ```bash
+    # grubby --update-kernel=ALL --args="elevator=mq-deadline"
+    ```
+
+    This `grubby` command displays kernel parameter settings:
+
+    ```bash
+    # grubby --info=ALL
+    ```
+
+- For Ubuntu — edit `/etc/default/grub` and run `update-grub`:
+
+    ```bash
+    # sed -i 's/GRUB_CMDLINE_LINUX="\(.*\)"/GRUB_CMDLINE_LINUX="\1 elevator=mq-deadline"/' /etc/default/grub
+
+    # update-grub
+    ```
 
 After adding the parameter, reboot the system.
-
-This `grubby` command displays kernel parameter settings:
-
-```bash
-# grubby --info=ALL
-```
 
 ### Networking
 
@@ -472,25 +505,35 @@ These settings are connected, in that they should always be either the same, or 
 
 Deactivate Transparent Huge Pages (THP) as it degrades Apache Cloudberry performance.
 
-On systems that use `grub2`, use the system utility `grubby`. This command adds the parameter when run as root:
+First, check the current THP status:
 
 ```bash
-# grubby --update-kernel=ALL --args="transparent_hugepage=never"
+cat /sys/kernel/mm/*transparent_hugepage/enabled
 ```
+
+If the output shows `[never]`, THP is already disabled. Otherwise, disable it permanently:
+
+    - For RHEL/Rocky Linux — use `grubby`. This command adds the parameter when run as root:
+
+    ```bash
+    # grubby --update-kernel=ALL --args="transparent_hugepage=never"
+    ```
+
+    - For Ubuntu — edit `/etc/default/grub` and run `update-grub`:
+
+    ```bash
+    # sed -i 's/GRUB_CMDLINE_LINUX="\(.*\)"/GRUB_CMDLINE_LINUX="\1 transparent_hugepage=never"/' /etc/default/grub
+
+    # update-grub
+    ```
 
 After adding the parameter, reboot the system.
-
-For Ubuntu systems, install the `hugepages` package and run this command as root:
-
-```bash
-# hugeadm --thp-never
-```
 
 This cat command checks the state of THP. The output indicates that THP is deactivated:
 
 ```bash
-$ cat /sys/kernel/mm/*transparent_hugepage/enabled
-always [never]
+cat /sys/kernel/mm/*transparent_hugepage/enabled
+# Expected output: always madvise [never]
 ```
 
 ### IPC object removal
@@ -584,6 +627,10 @@ Depending on your operating system version, the NTP protocol may be implemented 
     If you are using the `chronyd` daemon:
 
     ```bash
+    # For RHEL/Rocky Linux
+    systemctl restart chronyd
+
+    # For Ubuntu (restart works with either name, but enable requires 'chrony')
     systemctl restart chronyd
     ```
 
@@ -657,16 +704,22 @@ The following steps show how to set up the `gpadmin` user on a host, set a passw
 
 3. Grant sudo access to the `gpadmin` user.
 
-    On Red Hat or Rocky Linux, run `visudo` and uncomment the `%wheel` group entry.
+    **For RHEL/Rocky Linux** — run `visudo` and uncomment the `%wheel` group entry:
 
     ```
     %wheel        ALL=(ALL)       NOPASSWD: ALL
     ```
 
-    Make sure you uncomment the line that has the `NOPASSWD` keyword.
-
-    Add the `gpadmin` user to the `wheel` group with this command.
+    Make sure you uncomment the line that has the `NOPASSWD` keyword. Then add `gpadmin` to the `wheel` group:
 
     ```bash
     # usermod -aG wheel gpadmin
+    ```
+
+    **For Ubuntu** — add `gpadmin` to the `sudo` group and create a sudoers drop-in file for passwordless sudo:
+
+    ```bash
+    usermod -aG sudo gpadmin
+    echo "gpadmin ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/gpadmin
+    chmod 440 /etc/sudoers.d/gpadmin
     ```

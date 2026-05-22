@@ -269,7 +269,6 @@ passwd gpadmin
 sed -i 's/^# %wheel\tALL=(ALL)\tNOPASSWD: ALL/%wheel\tALL=(ALL)\tNOPASSWD: ALL/' /etc/sudoers
 usermod -aG wheel gpadmin
 
-
 # For Ubuntu: add gpadmin to sudo group and create a sudoers drop-in file
 usermod -aG sudo gpadmin
 echo "gpadmin ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/gpadmin
