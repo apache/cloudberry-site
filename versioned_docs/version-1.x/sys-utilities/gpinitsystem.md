@@ -372,4 +372,4 @@ gp7c~gp7c-2~50000~/data/mirror1/gpseg1~5~1
 
 ## See also
 
-[gpssh-exkeys](/docs/sys-utilities/gpssh-exkeys.md), [gpdeletesystem](/docs/sys-utilities/gpdeletesystem.md), [Start and Stop Apache Cloudberry](/docs/start-and-stop-cbdb-database.md)
+[gpssh-exkeys](/docs/sys-utilities/gpssh-exkeys.md), [gpdeletesystem](/docs/sys-utilities/gpdeletesystem.md), [Start and Stop Apache Cloudberry](../start-and-stop-cbdb-database.md)

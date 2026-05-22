@@ -25,11 +25,11 @@ You must restart Apache Cloudberry after changing the timezone. The command `gps
 
 ## Configure the file system
 
-XFS is the file system used for Apache Cloudberry data directories. Use the mount options described in [Configuring Your Systems](../../cbdb-op-prepare-to-deploy.md).
+XFS is the file system used for Apache Cloudberry data directories. Use the mount options described in [Configuring Your Systems](../../deployment/prepare-to-deploy.md).
 
 ## Configure ports
 
-See the [recommended OS parameter settings](../../cbdb-op-prepare-to-deploy.md#set-system-parameters) for further details.
+See the [recommended OS parameter settings](../../deployment/prepare-to-deploy#the-sysctlconf-file) for further details.
 
 Set up `ip_local_port_range` so it does not conflict with the Apache Cloudberry port ranges. For example, setting this range in `/etc/sysctl.conf`:
 
@@ -44,7 +44,7 @@ PORT_BASE = 6000
 MIRROR_PORT_BASE = 7000
 ```
 
-See the [Recommended OS Parameters Settings](../../cbdb-op-prepare-to-deploy.md#set-system-parameters) for further details.
+See the [Recommended OS Parameters Settings](../../deployment/prepare-to-deploy#the-sysctlconf-file) for further details.
 
 ## Configure I/O
 
