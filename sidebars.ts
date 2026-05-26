@@ -16,32 +16,52 @@ const sidebars: SidebarsConfig = {
     {
       type: 'category',
       label: 'Introduction',
-      items: ['cbdb-overview', 'cbdb-architecture', 'cbdb-scenarios', 'cbdb-vs-gp-features']
+      items: ['introduction/cbdb-overview', 'introduction/cbdb-architecture', 'introduction/cbdb-scenarios', 'introduction/cbdb-vs-gp-features']
     },
 
     {
       type: 'category',
-      label: 'Deploy and Build',
+      label: 'Build Apache Cloudberry',
       items: [
-        'deployment/build-based-on-docker',
+        'build/build-based-on-docker',
         {
           type: 'category',
           label: 'Build from Source (Complete Guide)',
           link: {
             type: "doc",
-            id: 'deployment/index',
+            id: 'build/index',
           },
-          items: [`deployment/quick-build`, `deployment/create-gpadmin-user`, `deployment/system-settings`, `deployment/install-required-packages`, `deployment/download-source-code`, `deployment/configure`, `deployment/build-and-install`, `deployment/set-demo-cluster`, `deployment/post-installation`]
+          items: [`build/quick-build`, `build/create-gpadmin-user`, `build/system-settings`, `build/install-required-packages`, `build/download-source-code`, `build/configure`, `build/build-and-install`, `build/set-demo-cluster`, `build/post-installation`]
         },
-        {
-          type: 'category',
-          label: 'Deploy on Physical or Virtual Machine',
-          items: ['cbdb-op-software-hardware', 'cbdb-op-prepare-to-deploy', 'cbdb-op-deploy-guide', 'deploy-cbdb-with-single-node']
-        },
-        'deployment/sandbox'
+        'build/sandbox'
       ]
     },
-
+    {
+      type: 'category',
+      label: 'Deploy in Production',
+      link: {
+        type: "doc",
+        id: "deployment/index",
+      },
+      items: [
+        'deployment/quick-deploy',
+        'deployment/platform-requirements', 
+        'deployment/capacity_planning', 
+        'deployment/prepare-to-deploy', 
+        'deployment/install_cloudberry', 
+        'deployment/create_data_dirs', 
+        'deployment/validate', 
+        'deployment/init_cloudberry', 
+        'deployment/login_cloudberry', 
+        'deployment/single-node',
+        'deployment/ansible-example'
+      ]
+    },
+    {
+      type: 'category',
+      label: 'Basic Database Operations',
+      items: ['database-basic/create-and-manage-database', 'database-basic/start-and-stop-cbdb-database', 'database-basic/connect-to-cbdb']
+    },
     {
       type: 'category',
       label: 'Load Data',
@@ -73,12 +93,6 @@ const sidebars: SidebarsConfig = {
         'data-loading/load-data-from-kafka-using-fdw',
         'data-loading/handle-data-errors',
       ],
-    },
-
-    {
-      type: 'category',
-      label: 'Create and Prepare',
-      items: ['operate-with-data/operate-with-db-objects/create-and-manage-database', 'start-and-stop-cbdb-database', 'connect-to-cbdb']
     },
 
     {

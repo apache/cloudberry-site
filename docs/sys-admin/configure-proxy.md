@@ -6,7 +6,7 @@ title: Configure Proxies for the Interconnect
 
 You can configure a Cloudberry system to use proxies for interconnect communication to reduce the use of connections and ports during query processing.
 
-The Cloudberry *interconnect* (the networking layer) refers to the inter-process communication between segments and the network infrastructure on which this communication relies. For information about the Cloudberry architecture and interconnect, see [About the Cloudberry Architecture](../cbdb-architecture.md).
+The Cloudberry *interconnect* (the networking layer) refers to the inter-process communication between segments and the network infrastructure on which this communication relies. For information about the Cloudberry architecture and interconnect, see [About the Cloudberry Architecture](../introduction/cbdb-architecture.md).
 
 In general, when running a query, a QD (query dispatcher) on the Cloudberry coordinator creates connections to one or more QE (query executor) processes on segments, and a QE can create connections to other QEs. For a description of Cloudberry query processing and parallel query processing, see [About Cloudberry Query Processing](../performance/optimize-queries/parallel-query-execution.md).
 

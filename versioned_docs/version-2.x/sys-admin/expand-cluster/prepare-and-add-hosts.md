@@ -13,7 +13,7 @@ Run performance tests first on the new hosts and then all hosts. Run the tests o
 Generally, you should run performance tests when an administrator modifies host networking or other special conditions in the system. For example, if you will run the expanded system on two network clusters, run tests on each cluster.
 
 :::note
-Preparing host systems for use by a Apache Cloudberry system assumes that the new hosts' operating system has been properly configured to match the existing hosts, described in [Configuring Your Systems](../../cbdb-op-software-hardware.md#supported-os).
+Preparing host systems for use by a Apache Cloudberry system assumes that the new hosts' operating system has been properly configured to match the existing hosts, described in [Configuring Your Systems](../../deployment/platform-requirements#supported-os).
 :::
 
 ## Add new hosts to the trusted host environment

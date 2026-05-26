@@ -22,7 +22,7 @@ The following operating system and Apache Cloudberry memory settings are signifi
 
 - **vm.overcommit_memory**
 
-    This Linux kernel parameter, set in [`/etc/sysctl.conf`](../../cbdb-op-prepare-to-deploy.md#set-system-parameters), identifies the method that the operating system uses to determine how much memory can be allocated to processes. `vm.overcommit_memory` must always be set to 2 for Apache Cloudberry systems.
+    This Linux kernel parameter, set in [`/etc/sysctl.conf`](../../deployment/prepare-to-deploy#the-sysctlconf-file), identifies the method that the operating system uses to determine how much memory can be allocated to processes. `vm.overcommit_memory` must always be set to 2 for Apache Cloudberry systems.
 
 - **vm.overcommit_ratio**
 

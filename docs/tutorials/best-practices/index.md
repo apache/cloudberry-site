@@ -115,7 +115,7 @@ See [Distributions](./schema-design-best-practices.md).
 - Ensure that resource queue memory allocations do not exceed the setting for `gp_vmem_protect_limit`.
 - Dynamically update resource queue settings to match daily operations flow.
 
-See [Setting the Cloudberry Recommended OS Parameters](../../deployment/system-settings.md).
+See [Setting the Cloudberry Recommended OS Parameters](../../build/system-settings.md).
 
 ## Partitioning
 
