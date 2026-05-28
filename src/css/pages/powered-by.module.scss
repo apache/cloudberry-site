@@ -1,0 +1,187 @@
+.mainContent {
+  max-width: var(--global-main-width);
+  margin: 0 auto;
+  padding: 60px var(--mobile-padding-width) 120px;
+  box-sizing: border-box;
+}
+
+.intro {
+  max-width: 900px;
+  margin: 0 auto 56px;
+  font-size: 15px;
+  line-height: 26px;
+  color: var(--sub-text-color-2);
+  text-align: center;
+}
+
+.sectionTitle {
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 32px;
+  margin-bottom: 28px;
+  color: var(--title-text-color);
+}
+
+.logoGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 24px;
+  margin-bottom: 80px;
+}
+
+.logoCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: center;
+  padding: 28px 20px;
+  border: 1px solid var(--blog-border-color);
+  border-radius: 8px;
+  background-color: var(--normal-bg-1);
+  transition: border-color 0.2s ease, transform 0.2s ease,
+    box-shadow 0.2s ease;
+  min-height: 200px;
+  text-decoration: none;
+  color: inherit;
+
+  &:hover {
+    border-color: var(--active-color);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    text-decoration: none;
+    color: inherit;
+  }
+}
+
+.logoBox {
+  width: 100%;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+
+  img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+}
+
+.logoFallback {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--title-text-color);
+  letter-spacing: 0.02em;
+}
+
+.userName {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--title-text-color);
+  margin-bottom: 6px;
+}
+
+.userMeta {
+  font-size: 12px;
+  color: var(--sub-text-color-1);
+  margin-bottom: 8px;
+}
+
+.userDesc {
+  font-size: 13px;
+  line-height: 20px;
+  color: var(--sub-text-color-2);
+}
+
+.emptyState {
+  border: 1px dashed var(--blog-border-color);
+  border-radius: 8px;
+  padding: 48px 24px;
+  text-align: center;
+  color: var(--sub-text-color-2);
+  font-size: 14px;
+  line-height: 22px;
+  margin-bottom: 80px;
+}
+
+.submitSection {
+  border-radius: 12px;
+  padding: 48px 40px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 168, 0, 0.12),
+    rgba(139, 123, 207, 0.08)
+  );
+  border: 1px solid var(--blog-border-color);
+  text-align: center;
+}
+
+.submitTitle {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: var(--title-text-color);
+}
+
+.submitText {
+  max-width: 720px;
+  margin: 0 auto 24px;
+  color: var(--sub-text-color-2);
+  font-size: 15px;
+  line-height: 24px;
+}
+
+.guidelines {
+  max-width: 640px;
+  margin: 0 auto 28px;
+  text-align: left;
+  padding-left: 22px;
+
+  li {
+    font-size: 14px;
+    line-height: 24px;
+    color: var(--sub-text-color-2);
+    margin-bottom: 4px;
+  }
+}
+
+.submitButton {
+  display: inline-block;
+  padding: 12px 28px;
+  background-color: var(--active-color);
+  color: var(--home-btn-color, #000);
+  font-weight: 700;
+  font-size: 15px;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: var(--hover-fill-color);
+    color: var(--home-btn-color, #000);
+    text-decoration: none;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .logoGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .logoGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media screen and (max-width: 560px) {
+  .logoGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .submitSection {
+    padding: 32px 20px;
+  }
+}

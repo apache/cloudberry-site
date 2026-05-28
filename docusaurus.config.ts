@@ -221,6 +221,10 @@ const config: Config = {
               label: "Support",
               to: "/support",
              },
+            {
+              label: "Powered By",
+              to: "/powered-by",
+             },
           ],
         },
  	      {
@@ -332,6 +336,10 @@ const config: Config = {
             {
               label: "Brand Guidelines",
               href: "/community/brand",
+            },
+            {
+              label: "Powered By",
+              href: "/powered-by",
             },
           ],
         },
