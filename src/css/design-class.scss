@@ -1,20 +1,29 @@
+/**
+ * Atomic utility classes used by page components.
+ */
+
 .sub-text {
-  line-height: 24px;
-  letter-spacing: 0.02em;
+  line-height: 1.6;
+  letter-spacing: 0.01em;
   text-align: left;
-  color: var(--sub-text-color-2);
+  color: var(--color-text-muted);
 }
 
 .main-title {
-  font-size: 30px;
+  font-family: var(--font-family-display);
+  font-size: 1.875rem;
   font-weight: 700;
-  line-height: 56px;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: var(--color-text);
 }
+
 .sub-title {
-  font-size: 24px;
-  font-weight: 700;
-  line-height: 20px;
-  color: var(--sub-text-color-5);
+  font-family: var(--font-family-display);
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--color-text);
 }
 
 .flex {
@@ -25,13 +34,16 @@
 }
 
 .active-color {
-  color: var(--active-color);
+  color: var(--color-accent);
   cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
 }
 .light-active-color {
   color: #fff;
   cursor: pointer;
-  font-weight: 700;
+  font-weight: 600;
   &:hover {
     text-decoration: underline;
     color: inherit;
@@ -41,10 +53,11 @@
 .two-lines-ellipsis {
   display: -webkit-box;
   line-clamp: 2;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
-  font-size: 14px;
+  font-size: 0.875rem;
 }
 .single-line-overflow {
   white-space: nowrap;
@@ -70,7 +83,6 @@
   }
 }
 
-// set up an external container and remove the underline of other labels in label a
 .link-wrap {
   &:hover {
     * {
@@ -80,6 +92,9 @@
 }
 
 .code-block {
-  background-color: rgba(217, 217, 217, 0.2);
-  padding: 3px 5px;
+  background-color: var(--color-bg-muted);
+  padding: 0.125em 0.375em;
+  border-radius: 4px;
+  font-family: var(--font-family-mono);
+  font-size: 0.875em;
 }

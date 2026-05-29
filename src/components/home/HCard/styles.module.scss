@@ -1,332 +1,222 @@
-.leftBox {
-  position: absolute;
-  left: -100px;
-  bottom: -100px;
-  width: 200px;
-  height: 200px;
-  border-radius: 30% 70% 0% 33% / 64% 70% 0% 36%;
-  background-color: #ef9364;
-  animation: 5s infinite light linear;
-  box-shadow: 90px 90px 90px 90px #ef9364, 90px -90px 190px 90px #ef9364,
-    -90px 90px 90px 190px #ef9364, -90px -90px 90px 100px #ef9364;
-}
-
-.rightBox {
-  @keyframes light {
-    0% {
-      transform: translate(0) scale(1);
-    }
-
-    33% {
-      transform: translate(30px, -20px) scale(1);
-    }
-
-    66% {
-      transform: translate(-20px, 20px) scale(0.9);
-    }
-
-    to {
-      transform: translate(0, 0) scale(1);
-    }
-  }
-  @keyframes light2 {
-    0% {
-      transform: translate(0) scale(1);
-    }
-
-    33% {
-      transform: translate(-20px, 20px) scale(1.1);
-    }
-
-    66% {
-      transform: translate(20px, -20px) scale(0.9);
-    }
-
-    to {
-      transform: translate(0, 0) scale(1);
-    }
-  }
-  position: absolute;
-  right: -120px;
-  top: -150px;
-  width: 200px;
-  height: 200px;
-  background-color: #8b7bcf;
-  border-radius: 30% 70% 67% 13% / 44% 30% 70% 66%;
-  animation: 5s infinite light2 linear;
-  box-shadow: 90px 90px 90px 90px #8b7bcf, 90px -90px 90px 190px #8b7bcf,
-    -90px 90px 90px 90px #8b7bcf, -90px -90px 90px 190px #8b7bcf;
-}
+/**
+ * Home hero — clean, modern, brand-driven (Mintlify-inspired).
+ * - Soft gradient background with subtle dotted texture
+ * - Large display typeface (Montserrat)
+ * - Pill primary CTA + ghost CTAs
+ */
 
 .bannerContainer {
   position: relative;
   overflow: hidden;
-  height: 867px;
-  margin-top: -98px;
-  background-color: black;
-  position: relative;
-  background-image: url("/img/rectangle.png");
-  background-size: 66.6px;
+  margin-top: calc(var(--ifm-navbar-height) * -1);
+  padding-top: calc(var(--ifm-navbar-height) + 96px);
+  padding-bottom: 96px;
   color: #fff;
- 
-  .bottomTips {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 5;
-    .tipsContent {
-      background: linear-gradient(90deg, #000000 0%, #292929 35.48%);
-      height: 37px;
-      text-align: center;
-      line-height: 37px;
-      font-size: 14px;
-      .text {
-        .blogTextIcon {
-          margin-right: 10px;
-          position: relative;
-          top: 5px;
-        }
-      }
-    }
+  background:
+    radial-gradient(1100px 520px at 80% -10%, rgba(255, 89, 0, 0.45), transparent 60%),
+    radial-gradient(900px 480px at 0% 0%, rgba(254, 163, 21, 0.32), transparent 60%),
+    linear-gradient(180deg, #000000 0%, #0a0a0a 100%);
+}
+
+.bannerContainer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+  background-size: 24px 24px;
+  pointer-events: none;
+  mask-image: radial-gradient(ellipse at 50% 35%, #000 50%, transparent 90%);
+  -webkit-mask-image: radial-gradient(ellipse at 50% 35%, #000 50%, transparent 90%);
+}
+
+.content {
+  max-width: var(--global-main-width);
+  margin: 0 auto;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+  padding: 0 var(--mobile-padding-width);
+
+  .left {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    text-align: center;
   }
 
-  .content {
-    max-width: var(--global-main-width);
-    margin: 0 auto;
-    width: 100%;
-    position: relative;
-    display: flex;
-    position: relative;
-    .left {
-      position: relative;
-      z-index: 2;
-      width: 100%;
-      
-      .centerContent {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        margin-top: 400px;
-      }
+  .right {
+    display: none;
+  }
 
-      .textWrap {
-        text-align: center;
-        padding-top: 240px;
-        h1 {
-          font-size: 55px;
-          font-weight: bold;
-          color: #fff;
-          margin: 0;
-          line-height: 1.2;
+  .bline {
+    display: none;
+  }
+}
 
-          @media screen and (max-width: 768px) {
-            font-size: 32px;
-          }
-        }
+.textWrap {
+  text-align: center;
+  padding-top: 24px;
 
-        .description {
-          max-width: 900px;
-          margin: 20px auto 0;
-          font-size: 16px;
-          line-height: 1.6;
-          color: #fff;
-          opacity: 0.9;
-          
-          @media screen and (max-width: 768px) {
-            font-size: 14px;
-            padding: 0 20px;
-            margin-top: 15px;
-          }
-        }
-      }
+  .highText,
+  h1 {
+    font-family: var(--font-family-display);
+    font-size: clamp(2.25rem, 5vw, 3.75rem);
+    font-weight: 800;
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    color: #ffffff;
+    margin: 0;
+    max-width: 920px;
+    margin-left: auto;
+    margin-right: auto;
+  }
 
-      .btnWrap {
-        margin-top: 31px;
-        font-size: 14px;
-        color: #fff;
-        display: flex;
-        justify-content: center;
-        gap: 20px;
-        span {
-          border-radius: 36px;
-          padding: 10px;
-          height: 44px;
-          line-height: 24px;
-          font-weight: 700;
-          color: #fff;
-          cursor: pointer;
+  .description {
+    max-width: 760px;
+    margin: 24px auto 0;
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.78);
 
-          &.more, &.hub {
-            background-color: var(--home-btn-bg);
-          }
-        }
-        a {
-          text-decoration: none;
-        }
-      }
-    }
-    .right {
-      .loopRun {
-        @keyframes jump {
-          0% {
-            transform: translate(-50%, -50%) scale(1);
-          }
-          40% {
-            transform: translate(-50%, -60%) scale(1);
-          }
-          80% {
-            transform: translate(-50%, -40%) scale(1);
-          }
-          100% {
-            transform: translate(-50%, -50%) scale(1);
-          }
-        }
-
-        @keyframes animX {
-          0% {
-            left: -4%;
-          }
-
-          100% {
-            left: 96%;
-          }
-        }
-
-        @keyframes animY {
-          0% {
-            top: -4%;
-          }
-
-          100% {
-            top: 96%;
-          }
-        }
-        @keyframes scale {
-          0% {
-            transform: scale(0.5);
-          }
-
-          50% {
-            transform: scale(1);
-          }
-
-          100% {
-            transform: scale(0.5);
-          }
-        }
-
-        width: 400px;
-        height: 300px;
-        position: absolute;
-        border-radius: 50%;
-        top: 200px;
-        right: 100px;
-        .circle {
-          border-radius: 50%;
-          position: absolute;
-          text-align: center;
-          z-index: 2;
-          color: #fff;
-          &.circle1 {
-            width: 94px;
-            height: 94px;
-            background: linear-gradient(180deg, #dbfdff 0%, #52d1d9 100%);
-            line-height: 94px;
-            animation: animX 6s cubic-bezier(0.36, 0, 0.64, 1) -3.1s infinite alternate,
-              animY 6s cubic-bezier(0.36, 0, 0.64, 1) 0s infinite alternate,
-              scale 12s cubic-bezier(0.36, 0, 0.64, 1) 0s infinite alternate;
-          }
-          &.circle3 {
-            width: 88px;
-            height: 88px;
-            background: linear-gradient(180deg, #ffca80 0%, #f18433 100%);
-
-            line-height: 88px;
-            animation: animX 6s cubic-bezier(0.36, 0, 0.64, 1) -7.8s infinite alternate,
-              animY 6s cubic-bezier(0.36, 0, 0.64, 1) -4.8s infinite alternate,
-              scale 12s cubic-bezier(0.36, 0, 0.64, 1) -4.8s infinite alternate;
-          }
-          &.circle5 {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(180deg, #dfd8ff 0%, #8c7cd0 100%);
-            line-height: 80px;
-            animation: animX 6s cubic-bezier(0.36, 0, 0.64, 1) -12.6s infinite alternate,
-              animY 6s cubic-bezier(0.36, 0, 0.64, 1) -9.6s infinite alternate,
-              scale 12s cubic-bezier(0.36, 0, 0.64, 1) -9.6s infinite alternate;
-          }
-        }
-
-        .centerCircle {
-          width: 185px;
-          height: 185px;
-          position: absolute;
-          left: 50%;
-          top: 50%;
-          transform: translate(-50%, -50%);
-          z-index: 3;
-          animation: jump 10s ease infinite alternate;
-        }
-      }
-    }
-    .bline {
-      width: 1323px;
-      height: 399px;
-      position: absolute;
-      top: 257px;
-      right: -160px;
-      background-image: url("/img/home/hcard/bline.png");
-      z-index: 1;
+    @media screen and (max-width: 768px) {
+      font-size: 1rem;
+      padding: 0 4px;
+      margin-top: 18px;
     }
   }
 }
 
-@media screen and (max-width: 1024px) {
-  .leftBox {
-    left: -150px;
-    bottom: -150px;
-    width: 80px;
-    height: 80px;
-    box-shadow: 90px -90px 120px 90px #ef9364, -90px 90px 120px 90px #ef9364;
+.btnWrap {
+  margin-top: 36px;
+  font-size: 0.9375rem;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+
+  a {
+    text-decoration: none;
+    display: inline-flex;
   }
-  .rightBox {
-    right: -120px;
-    top: -150px;
-    width: 80px;
-    height: 80px;
-    background-color: #8b7bcf;
-    border-radius: 30% 70% 67% 13% / 44% 30% 70% 66%;
-    animation: 5s infinite light2 linear;
-    box-shadow: -90px 90px 90px 90px #8b7bcf, -90px -90px 90px 190px #8b7bcf;
+
+  span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 44px;
+    padding: 0 22px;
+    border-radius: var(--radius-pill);
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform var(--motion-fast),
+      box-shadow var(--motion-fast),
+      background-color var(--motion-fast),
+      border-color var(--motion-fast),
+      color var(--motion-fast);
+    line-height: 1;
   }
-  .bannerContainer {
-    min-width: 100vw;
-    height: auto;
-    padding-bottom: 170px;
-    .content {
-      .left {
-        .highText, .btnWrap {
-          margin-left: 0;
+
+  /* primary — uses brand "Berry Orange" deep tone for max contrast on dark hero */
+  .more {
+    background-color: var(--brand-orange-deep);
+    color: #ffffff;
+    border: 1px solid var(--brand-orange-deep);
+    box-shadow: 0 8px 20px rgba(255, 89, 0, 0.32);
+    &:hover {
+      transform: translateY(-1px);
+      background-color: #d94a00;
+      border-color: #d94a00;
+    }
+  }
+
+  /* ghost */
+  .hub {
+    background-color: rgba(255, 255, 255, 0.06);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.32);
+    }
+  }
+
+  /* For each subsequent button (Slack, Docs), make them ghost too. */
+  a:not(:first-child):not(:last-child) span {
+    background-color: rgba(255, 255, 255, 0.06);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: none;
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.32);
+    }
+  }
+}
+
+/* Bottom thin tip (latest blog) */
+.bottomTips {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 5;
+
+  .tipsContent {
+    background: linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.9) 0%,
+      rgba(255, 89, 0, 0.18) 100%
+    );
+    border-top: 1px solid rgba(255, 89, 0, 0.25);
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.92);
+
+    .text {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      .blogTextIcon {
+        position: relative;
+      }
+      a {
+        color: inherit;
+        &:hover {
+          color: var(--color-accent);
+          text-decoration: none;
         }
       }
     }
+  }
+}
+
+/* Hide legacy decorative blobs */
+.leftBox,
+.rightBox {
+  display: none;
+}
+
+@media screen and (max-width: 1024px) {
+  .bannerContainer {
+    padding-top: calc(var(--ifm-navbar-height) + 64px);
+    padding-bottom: 80px;
   }
 }
 
 @media screen and (max-width: 768px) {
   .bannerContainer {
-    .content {
-      .left {
-        .highText, .btnWrap {
-          margin-left: 0;
-        }
-      }
-    }
-    .bline {
-      width: 100% !important;
-      right: 0 !important;
+    padding-top: calc(var(--ifm-navbar-height) + 48px);
+    padding-bottom: 72px;
+  }
+  .btnWrap {
+    margin-top: 28px;
+    gap: 8px;
+    span {
+      height: 40px;
+      padding: 0 18px;
+      font-size: 0.875rem;
     }
   }
 }

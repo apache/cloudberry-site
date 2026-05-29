@@ -8,7 +8,6 @@ import NavbarItem, { type Props as NavbarItemConfig } from "@theme/NavbarItem";
 import SearchBar from "@theme/SearchBar";
 import { type ReactNode } from "react";
 
-import { useIsMobile } from "@site/src/hooks/useIsMobile";
 import styles from "./styles.module.css";
 
 function useNavbarItems() {
@@ -53,7 +52,6 @@ function NavbarContentLayout({
 }
 
 export default function NavbarContent(): JSX.Element {
-  const isMobile = useIsMobile();
   const items = useNavbarItems();
   const [leftItems, rightItems] = splitNavbarItems(items);
   const searchBarItem = items.find((item) => item.type === "search");
@@ -63,7 +61,7 @@ export default function NavbarContent(): JSX.Element {
         // TODO stop hardcoding items?
         <>
           <div className="nav-left-logo">
-            {isMobile && <NavbarMobileSidebarToggle />}
+            <NavbarMobileSidebarToggle />
             <NavbarLogo />
           </div>
           <NavbarItems items={leftItems} />

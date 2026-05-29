@@ -1,58 +1,83 @@
 .breadcrumbs {
   display: flex;
-  align-items: self-start;
-  height: 21px;
-  font-size: 13px;
-  color: var(--sub-text-color-2);
-  &.mdxPage {
-    .backPath {
-      color: #fff !important;
-    }
-  }
+  align-items: center;
+  font-size: 0.8125rem;
+  color: var(--color-text-muted);
+  gap: 4px;
 
   .backLogoA {
-    position: relative;
-    top: 1px;
+    display: inline-flex;
+    align-items: center;
+    width: 16px;
+    height: 16px;
+    color: var(--color-text-muted);
+    transition: color var(--motion-fast);
+    &:hover {
+      color: var(--color-text);
+    }
     .backLogoSvg {
       display: inline-block;
-      fill: var(--back-home-logo-color);
+      fill: var(--color-text-muted);
     }
     .backLogoLightSvg {
       display: none;
+      fill: currentColor;
     }
   }
+
   .line {
-    fill: #4c4c4c;
+    fill: var(--color-border-strong);
     vertical-align: middle;
+    width: 12px;
+    height: 12px;
+    opacity: 0.6;
   }
 
   .path {
-    span.leafPath {
-      color: var(--active-color);
-      vertical-align: middle;
-    }
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+
     .backPath {
       text-decoration: none;
+      color: var(--color-text-muted);
+      padding: 4px 6px;
+      border-radius: var(--radius-sm);
+      transition: background-color var(--motion-fast),
+        color var(--motion-fast);
+      &:hover {
+        background-color: var(--color-bg-muted);
+        color: var(--color-text);
+      }
+    }
+    span.leafPath {
+      color: var(--color-accent);
+      vertical-align: middle;
+      padding: 4px 6px;
+      font-weight: 600;
     }
   }
 }
 
 html[data-theme="light"] {
-  .breadcrumbs:not(.mdxPage) {
-    color: #000;
-  }
-  .breadcrumbs:not(.mdxPage) svg {
-    fill: #000;
-  }
-  .breadcrumbs:not(.mdxPage) .line {
-    opacity: 1;
-  }
-  .breadcrumbs:not(.mdxPage) {
+  .breadcrumbs {
+    color: var(--color-text-muted);
+    .backLogoSvg {
+      display: none !important;
+    }
     .backLogoLightSvg {
       display: inline-block !important;
     }
+  }
+}
+
+html[data-theme="dark"] {
+  .breadcrumbs {
     .backLogoSvg {
-      display: none !important;
+      display: inline-block;
+    }
+    .backLogoLightSvg {
+      display: none;
     }
   }
 }
