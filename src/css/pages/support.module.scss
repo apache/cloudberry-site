@@ -1,49 +1,34 @@
 .mainContent {
   max-width: var(--global-main-width);
   margin: 0 auto;
-  position: relative;
-  min-height: 1365px;
-  .content {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    top: 33px;
+  padding: 48px var(--mobile-padding-width) 96px;
 
-    .title {
-      font-size: 30px;
-      line-height: 40px;
-    }
+  .content {
+    width: 100%;
+
     .subText {
-      line-height: 25px;
-      color: var(--sub-text-color-2);
-      margin-top: 17px;
+      line-height: 1.7;
+      color: var(--color-text-muted);
+      font-size: 1rem;
+      margin-bottom: 32px;
     }
     .typeDesc {
-      margin-top: 46px;
+      margin-top: 24px;
+      margin-bottom: 32px;
     }
   }
-  @media screen and (max-width: 1024px) {
-    padding-bottom: 100px;
-    .content {
-      width: 100%;
-      padding: 0 var(--mobile-padding-width);
-      position: static;
-      transform: translateX(0);
 
-      .table {
-        width: 100% !important;
-      }
-    }
-  }
   @media screen and (max-width: 768px) {
     .table {
-      width: auto !important;
+      width: 100% !important;
     }
   }
 }
 
 .subTitleText {
-  line-height: 50px;
-  font-size: 20px;
-  font-weight: bold;
+  font-family: var(--font-family-display);
+  line-height: 1.4;
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 16px;
 }

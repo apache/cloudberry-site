@@ -22,9 +22,9 @@ const BlogListItem = () => {
       <header className="link-wrap">
         <LinkWithBaseUrl to={permalink}>
           <BlogItemCover />
-          <div style={{ padding: "0 16px 10px" }}>
+          <div style={{ padding: "20px 22px 22px" }}>
             <div style={{ cursor: "pointer" }}>
-              <BlogItemTags style={{ marginTop: 6, marginBottom: 10 }} />
+              <BlogItemTags style={{ marginBottom: 12 }} />
               <BlogItemTitle />
               <BlogItemDesc style={{ marginTop: 10 }} />
             </div>

@@ -1,37 +1,40 @@
+.main {
+  width: 100%;
+  max-width: var(--global-main-width);
+  margin: 0 auto;
+  position: relative;
+
+  .content {
+    max-width: 880px;
+    .bigText {
+      font-family: var(--font-family-display);
+      font-weight: 800;
+      font-size: clamp(2rem, 4vw, 2.75rem);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: var(--color-text);
+      margin-top: 16px;
+    }
+    .smallText {
+      font-size: 1.0625rem;
+      line-height: 1.65;
+      color: var(--color-text-muted);
+      margin-top: 16px;
+    }
+  }
+}
+
 html[data-theme="light"] {
   .main {
     &.mdxCard {
       .content {
         .bigText {
-          color: #fff;
+          color: var(--color-text);
         }
         .smallText {
-          color: rgba(255, 255, 255, 0.6);
+          color: var(--color-text-muted);
         }
       }
-    }
-  }
-}
-.main {
-  width: var(--global-main-width);
-  margin: 0 auto;
-  position: relative;
-
-  .content {
-    max-width: 949px;
-    .bigText {
-      max-width: 847px;
-      font-weight: 700;
-      margin-top: 12px;
-      font-size: 32px;
-      line-height: 40px;
-      color: var(--title-text-color);
-    }
-    .smallText {
-      font-size: 16px;
-      line-height: 24px;
-      color: var(--sub-text-color-2);
-      margin-top: 20px;
     }
   }
 }

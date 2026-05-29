@@ -1,37 +1,46 @@
 .card {
-  border: 1px solid var(--box-border-color);
-  border-radius: var(--normal-box-radius);
-  padding: 0 21px;
-  padding-top: 14px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background-color: var(--color-surface);
+  padding: 24px;
   cursor: pointer;
+  box-shadow: var(--shadow-xs);
+  transition: border-color var(--motion-fast),
+    box-shadow var(--motion-fast),
+    transform var(--motion-fast);
+
   &:hover {
-    background-color: var(--active-color);
-    color: var(--hover-full-bg-text-color);
-    .link,
-    a {
-      color: var(--hover-full-bg-text-color);
-    }
-    .content {
-      color: var(--sub-text-color-3);
-    }
-    svg {
-      fill: var(--hover-full-bg-text-color) !important;
+    border-color: var(--color-accent);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+    .link {
+      color: var(--color-accent);
+      svg {
+        fill: var(--color-accent);
+        transform: translateX(2px);
+      }
     }
   }
+
   .content {
-    line-height: 26px;
-    padding-bottom: 22px;
+    line-height: 1.7;
+    color: var(--color-text-muted);
+    padding-bottom: 16px;
+    font-size: 0.9375rem;
   }
   .link {
-    padding-bottom: 25px;
-    font-size: 14px;
-    color: var(--active-color);
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-accent);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
     svg {
-      fill: var(--active-color);
+      fill: var(--color-accent);
       vertical-align: middle;
+      transition: transform var(--motion-fast);
+      width: 12px;
+      height: 12px;
     }
-  }
-  @media screen and (max-width: 1440px) {
-    width: auto !important;
   }
 }

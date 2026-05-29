@@ -1,41 +1,47 @@
 .frequentlyAskedQuestions {
-  width: 832px;
-  margin: auto;
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 64px var(--mobile-padding-width) 96px;
+
   .highTitle {
-    margin-top: 86px;
-    margin-bottom: 61px;
-    font-size: 64px;
-    background-image: linear-gradient(
-      to left,
-      #9ee8ee 1%,
-      #f78013 55%,
-      #9f8ced 97%
-    );
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    font-weight: 700;
-    line-height: 66px;
+    font-family: var(--font-family-display);
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--color-text);
+    margin-bottom: 32px;
+    text-align: left;
   }
+
   .contentList {
-    color: #fff;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border-top: 1px solid var(--color-border);
+
     .item {
-      margin-top: 35px;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--color-border);
+
       .title {
-        font-size: 20px;
+        font-family: var(--font-family-display);
+        font-size: 1.125rem;
+        font-weight: 600;
+        color: var(--color-text);
+        line-height: 1.4;
+        margin-bottom: 8px;
       }
+
       .content {
-        margin-top: 3px;
-        color: #728095;
+        font-size: 0.9375rem;
+        line-height: 1.7;
+        color: var(--color-text-muted);
       }
+
       .bottomLine {
-        margin-top: 12px;
-        height: 2px;
-        background-color: rgb(48, 54, 61);
+        display: none;
       }
     }
-  }
-  @media screen and (max-width: 1024px) {
-    width: 100%;
-    padding: 0 var(--mobile-padding-width);
   }
 }

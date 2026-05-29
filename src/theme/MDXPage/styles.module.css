@@ -1,15 +1,32 @@
+/**
+ * Sub-page (MDX) layout — keep article body flush with the banner
+ * title above. The banner uses .global-width-layout (padding =
+ * --mobile-padding-width). We mirror that padding here and strip
+ * the Infima column gutter so the article gets the same left edge
+ * as the title.
+ */
 .mdxPageWrapper {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 56px;
   max-width: var(--global-main-width);
-  margin: 60px auto;
+  margin: 32px auto 64px;
+  padding: 0 var(--mobile-padding-width);
+}
 
-  @media screen and (max-width: 1440px) {
-    padding: 0 var(--mobile-padding-width);
-  }
-  @media screen and (max-width: 1024px) {
-    .rightContent {
-      display: none;
-    }
+/* Strip Infima column padding so the article lines up with the banner */
+.mdxPageWrapper :global(.col) {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.rightContent {
+  flex-shrink: 0;
+}
+
+@media screen and (max-width: 1024px) {
+  .rightContent {
+    display: none;
   }
 }

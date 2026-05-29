@@ -37,7 +37,10 @@ export default function NavbarLayout({ children }: Props): JSX.Element {
   if (logoObj.backSrc) {
     logoObj.src = logoObj.backSrc;
   }
-  if (useIsBaseUrl()) {
+  // Swap to the white logo only on the home page hero (and only when
+  // the mobile sidebar is closed, since the sidebar shows a light
+  // panel where the dark logo reads better).
+  if (useIsBaseUrl() && !mobileSidebar.shown) {
     logoObj.backSrc = logoObj.src;
     logoObj.src = logoObj.srcDark;
   }
@@ -61,7 +64,11 @@ export default function NavbarLayout({ children }: Props): JSX.Element {
           "navbar--dark": style === "dark",
           "navbar--primary": style === "primary",
           "navbar-sidebar--show": mobileSidebar.shown,
-          "navbar-home-lighting": useIsBaseUrl(),
+          // Apply home-page dark hero styling only on the home page AND
+          // when the mobile sidebar is closed. When the sidebar is open,
+          // it covers the navbar with a solid panel and we don't want
+          // the white-on-white text/logo bleed.
+          "navbar-home-lighting": useIsBaseUrl() && !mobileSidebar.shown,
         }
       )}
     >
