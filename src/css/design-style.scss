@@ -233,54 +233,11 @@ article {
     }
   }
 
-  .markdown ul {
-    list-style-type: disc;
-  }
-  .markdown ul,
-  .markdown ol {
-    font-size: 0.9375rem; /* 15px — one notch smaller than 16px body for clear hierarchy */
-    line-height: 1.65;
-    padding-left: 1.5rem;
-    margin: 12px 0 16px;
-  }
-  .markdown li {
-    margin: 4px 0;
-  }
-  .markdown li > p {
-    margin: 0;
-  }
-  /* Nested lists step down once more for visual depth */
-  .markdown li ul,
-  .markdown li ol {
-    font-size: 0.875rem; /* 14px */
-    margin: 4px 0;
-  }
-
-  .markdown blockquote {
-    border-left: 3px solid var(--brand-orange);
-    background-color: rgba(255, 89, 0, 0.06);
-    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-    color: var(--color-text-muted);
-    font-style: normal;
-    padding: 12px 18px;
-    margin: 16px 0;
-  }
-
-  .markdown img {
-    max-width: 100%;
-    height: auto;
-    border-radius: var(--radius-md);
-    box-shadow: var(--shadow-sm);
-    display: block;
-    margin: 20px auto;
-    border: 1px solid var(--color-border);
-  }
-
   /* Numbered lists with subtle pill counters */
   ol {
     counter-reset: list;
     list-style: none;
-    padding-left: 1.6em;
+    padding-left: 1.75rem;
 
     > li {
       position: relative;
@@ -295,8 +252,8 @@ article {
         height: 22px;
         line-height: 22px;
         text-align: center;
-        left: -32px;
-        top: 2px;
+        left: -28px;
+        top: 1px;
         border-radius: 50%;
         font-size: 12px;
         font-weight: 600;
@@ -363,6 +320,65 @@ article {
 
 pre code .token {
   font-size: 0.8125rem;
+}
+
+/* ------------------------------------------------------------------ */
+/* Shared markdown content typography                                 */
+/* Applies identically to Docs, Blog and MDX sub-pages                */
+/* (Community / Contribute / Team / Resources / Download).            */
+/* The .markdown class is present on all three:                       */
+/*   - Docs:  <article><div class="markdown">                         */
+/*   - Blog:  <div class="markdown">                                  */
+/*   - MDX :  <article class="markdown">                              */
+/* ------------------------------------------------------------------ */
+.markdown {
+  ul {
+    list-style-type: disc;
+  }
+  ul,
+  ol {
+    font-size: 0.9375rem; /* 15px — one notch smaller than 16px body for clear hierarchy */
+    line-height: 1.65;
+    margin: 12px 0 16px;
+  }
+  ul {
+    padding-left: 1.5rem;
+  }
+  ol {
+    padding-left: 1.75rem;
+  }
+  li {
+    margin: 4px 0;
+  }
+  li > p {
+    margin: 0;
+  }
+  /* Nested lists step down once more for visual depth */
+  li ul,
+  li ol {
+    font-size: 0.875rem; /* 14px */
+    margin: 4px 0;
+  }
+
+  blockquote {
+    border-left: 3px solid var(--brand-orange);
+    background-color: rgba(255, 89, 0, 0.06);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    color: var(--color-text-muted);
+    font-style: normal;
+    padding: 12px 18px;
+    margin: 16px 0;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    display: block;
+    margin: 20px auto;
+    border: 1px solid var(--color-border);
+  }
 }
 
 /* ------------------------------------------------------------------ */

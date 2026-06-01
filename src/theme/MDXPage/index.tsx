@@ -37,7 +37,7 @@ export default function MDXPage(props: Props): JSX.Element {
         <div className={styles.mdxPageWrapper}>
           <div style={{ flex: 1, minWidth: 0 }}>
             {unlisted && <Unlisted />}
-            <article>
+            <article className="markdown">
               <MDXContent>
                 <MDXPageContent />
               </MDXContent>

@@ -1,4 +1,3 @@
-import clsx from "clsx";
 import ColorCard from "../components/common/ColorCard";
 import CommonLayout from "../components/common/Layout";
 import Table from "../components/common/Table";
@@ -14,30 +13,32 @@ const {
   commercialDesc,
   commercialSupportText,
 } = configData;
+
 export default function Support() {
   return (
     <CommonLayout>
       <ColorCard titleText={titleText} subText={subText} />
       <div className={styles.mainContent}>
-        <div className={clsx(styles.content, "global-width")}>
-          <div className={styles.subText}>{contentTextDesc}</div>
-          <div className={styles.typeDesc}>
-            <div className={styles.subTitleText}>{communitySupportText}</div>
-            <Table
-              style={{
-                width: 795,
-              }}
-              className={styles.table}
-              data={tableData}
-              tableColumns={[
-                { label: "Type", prop: "type", width: 290 },
-                { label: "Description", prop: "desc" },
-              ]}
-            />
-          </div>
-          <div className={styles.subTitleText}>{commercialSupportText}</div>
-          <div>{commercialDesc}</div>
-        </div>
+        {/*
+         * Use the shared "markdown" article shell so the table, lists,
+         * blockquotes etc. inherit the exact same styling as Docs and
+         * MDX sub-pages (Community / Contribute / Team).
+         */}
+        <article className="markdown">
+          <p>{contentTextDesc}</p>
+
+          <h2>{communitySupportText}</h2>
+          <Table
+            data={tableData}
+            tableColumns={[
+              { label: "Type", prop: "type" },
+              { label: "Description", prop: "desc" },
+            ]}
+          />
+
+          <h2>{commercialSupportText}</h2>
+          <p>{commercialDesc}</p>
+        </article>
       </div>
     </CommonLayout>
   );
