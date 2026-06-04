@@ -79,9 +79,10 @@ This repository uses git submodules to include PXF documentation. After cloning,
 
 ```
 $ git submodule update --init --recursive
+$ ./scripts/setup-pxf-submodule.sh
 ```
 
-This will fetch the PXF documentation submodule with sparse checkout configured to only include the `docs/` directory.
+The setup script configures sparse checkout to only include the `docs/` directory from the PXF submodule.
 
 4. Build and run
 
