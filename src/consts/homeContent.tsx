@@ -118,7 +118,7 @@ let FREQUENTLY_ASKED_QUESTIONS = {
           Though Apache Cloudberry (Incubating) takes the Greenplum Database 7 as its codebase, Cloudberry has a newer solid PostgreSQL kernel built-in and has more features. You can check the 
           <LinkWithBaseUrl
             className="active-color"
-            href="https://cloudberry.apache.org/docs/cbdb-vs-gp-features"
+            href="https://cloudberry.apache.org/docs/introduction/cbdb-vs-gp-features/"
           >
             {" "}
             docs{" "}
