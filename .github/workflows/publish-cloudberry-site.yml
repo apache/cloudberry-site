@@ -49,6 +49,8 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
       - uses: actions/setup-node@v4
         with:
           node-version: 20
@@ -56,6 +58,12 @@ jobs:
       # Install dependencies and build site
       - name: Install dependencies
         run: npm install
+      
+      - name: Initialize submodules
+        run: |
+          echo "📦 Initializing git submodules..."
+          git submodule update --init --recursive
+          echo "✅ Submodules initialized"
         
       - name: Build site
         run: |
