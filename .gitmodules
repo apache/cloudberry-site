@@ -1,0 +1,5 @@
+[submodule "pxf"]
+	path = pxf
+	url = https://github.com/tuhaihe/cloudberry-pxf.git
+	branch = docs-update-for-site
+	sparse-checkout = docs/
