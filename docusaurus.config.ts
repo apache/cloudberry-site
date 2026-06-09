@@ -21,6 +21,18 @@ const config: Config = {
       "@easyops-cn/docusaurus-search-local",
       { hashed: true, indexPages: true, language: ["en"] },
     ],
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'pxf',
+        path: 'pxf/docs',
+        routeBasePath: 'pxf',
+        sidebarPath: './sidebarsPxf.ts',
+        editUrl: 'https://github.com/apache/cloudberry-pxf/edit/main/docs/',
+        // Exclude repo-level non-doc files from being rendered as pages
+        exclude: ['README.md'],
+      },
+    ],
   ],
 
   presets: [

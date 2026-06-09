@@ -1,0 +1,4 @@
+[submodule "pxf"]
+	path = pxf
+	url = https://github.com/apache/cloudberry-pxf.git
+	sparse-checkout = docs/

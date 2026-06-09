@@ -49,6 +49,8 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
       - uses: actions/setup-node@v4
         with:
           node-version: 20
@@ -56,6 +58,22 @@ jobs:
       # Install dependencies and build site
       - name: Install dependencies
         run: npm install
+      
+      - name: Initialize submodules
+        run: |
+          echo "Initializing git submodules..."
+          git submodule update --init --recursive
+          echo "Submodules initialized"
+          
+          # Configure sparse checkout for PXF submodule
+          if [ -f "scripts/setup-pxf-submodule.sh" ]; then
+            echo "Configuring sparse checkout for PXF submodule..."
+            chmod +x scripts/setup-pxf-submodule.sh
+            ./scripts/setup-pxf-submodule.sh
+            echo "Sparse checkout configured"
+          else
+            echo "WARNING: setup-pxf-submodule.sh not found, continuing without sparse checkout configuration"
+          fi
         
       - name: Build site
         run: |

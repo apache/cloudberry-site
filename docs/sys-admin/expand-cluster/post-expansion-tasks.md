@@ -28,22 +28,15 @@ You can safely remove the expansion schema after the expansion operation is comp
 
 ## Set up PXF on the new host
 
+:::tip
+You can visit [PXF](/pxf) guides for more details.
+:::
+
 If you are using PXF in your Apache Cloudberry cluster, you must perform some configuration steps on the new hosts.
 
 There are different steps to follow depending on your PXF version and the type of installation.
 
-### PXF 5
-
-- You must install the same version of the PXF `rpm` or `deb` on the new hosts.
-- Log into the Cloudberry Coordinator and run the following commands:
-
-    ```shell
-    gpadmin@gpcoordinator$ pxf cluster reset
-    gpadmin@gpcoordinator$ pxf cluster init
-    ```
-
-
-### PXF 6
+### Apache Cloudberry PXF 2.x
 
 - You must install the same version of the PXF `rpm` or `deb` on the new hosts.
 - Log into the Cloudberry Coordinator and run the following commands:
@@ -52,5 +45,3 @@ There are different steps to follow depending on your PXF version and the type o
     gpadmin@gpcoordinator$ pxf cluster register
     gpadmin@gpcoordinator$ pxf cluster sync
     ```
-
-

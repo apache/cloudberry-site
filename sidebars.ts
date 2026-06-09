@@ -736,8 +736,12 @@ const sidebars: SidebarsConfig = {
           ],
         },
       ]
+    },
+    {
+      type: 'link',
+      label: 'Platform Extension Framework (PXF)',
+      href: '/pxf/',
     }
-
   ]
 }
 

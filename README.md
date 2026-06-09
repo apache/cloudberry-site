@@ -73,7 +73,18 @@ sure no errors when building.
 $ npm install
 ```
 
-3. Build and run
+3. Initialize submodules (required for PXF documentation)
+
+This repository uses git submodules to include PXF documentation. After cloning, run:
+
+```
+$ git submodule update --init --recursive
+$ ./scripts/setup-pxf-submodule.sh
+```
+
+The setup script configures sparse checkout to only include the `docs/` directory from the PXF submodule.
+
+4. Build and run
 
 ```
 $ npm run build
