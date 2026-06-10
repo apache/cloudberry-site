@@ -28,7 +28,7 @@ const config: Config = {
         path: 'pxf/docs',
         routeBasePath: 'pxf',
         sidebarPath: './sidebarsPxf.ts',
-        editUrl: 'https://github.com/apache/cloudberry-pxf/edit/main/docs/',
+        editUrl: ({ docPath }) => `https://github.com/apache/cloudberry-pxf/edit/main/docs/${docPath}`,
         // Exclude repo-level non-doc files from being rendered as pages
         exclude: ['README.md'],
       },
