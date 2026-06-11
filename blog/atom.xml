@@ -2,11 +2,212 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://cloudberry.apache.org/blog</id>
     <title>Apache Cloudberry (Incubating) is one advanced and mature open-source MPP (Massively Parallel Processing) databases available.</title>
-    <updated>2026-05-12T00:00:00.000Z</updated>
+    <updated>2026-06-09T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://cloudberry.apache.org/blog"/>
     <subtitle>Apache Cloudberry (Incubating) Blog</subtitle>
     <icon>https://cloudberry.apache.org/img/favicon.ico</icon>
+    <entry>
+        <title type="html"><![CDATA[Apache Cloudberry Upgrades to PostgreSQL 16 Kernel]]></title>
+        <id>https://cloudberry.apache.org/blog/postgresql16-for-apache-cloudberry-202606</id>
+        <link href="https://cloudberry.apache.org/blog/postgresql16-for-apache-cloudberry-202606"/>
+        <updated>2026-06-09T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[Cloudberry's main branch merges PostgreSQL 16, bringing MERGE, SQL/JSON, parallel VACUUM, logical replication enhancements, and over 5,730 upstream commits from PostgreSQL 15 and 16.]]></summary>
+        <content type="html"><![CDATA[<p>The Apache Cloudberry (Incubating) community is pleased to announce that the Cloudberry main branch has upgraded its PostgreSQL kernel from <strong>14.4</strong> to <strong>16.9</strong>.</p>
+<p>Apache Cloudberry users can now leverage PostgreSQL 16 features—including the MERGE command, SQL/JSON constructors, parallel VACUUM, and a rewritten statistics subsystem—directly in their MPP workloads. This upgrade spans two major PostgreSQL upstream releases (PostgreSQL 15 and 16) and incorporates over <strong>5,730</strong> upstream commits. It marks Cloudberry’s second cross-version kernel upgrade since the project was derived from Greenplum Database and began its independent evolution (the first being the leap from PostgreSQL 12.x — the kernel carried by Greenplum Database 7.0 — to 14.4). It is also the first major kernel upgrade driven by a broad group of community contributors since Cloudberry joined the Apache Incubator.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="why-this-upgrade-matters">Why this upgrade matters<a href="https://cloudberry.apache.org/blog/postgresql16-for-apache-cloudberry-202606#why-this-upgrade-matters" class="hash-link" aria-label="Direct link to Why this upgrade matters" title="Direct link to Why this upgrade matters">​</a></h2>
+<p>The PostgreSQL database kernel is the foundation Cloudberry is built on. Tracking the PostgreSQL upstream release cadence is both an engineering necessity and a responsibility to our ecosystem.</p>
+<ul>
+<li><strong>PostgreSQL 14.x is approaching end of life.</strong> Following the PostgreSQL community’s release lifecycle, PostgreSQL 14 is scheduled to reach end of support in November 2026. Completing the major-version upgrade in advance avoids a future where Cloudberry users have to choose between security patches and stability.</li>
+<li><strong>Faster access to PostgreSQL innovation.</strong> Features like <code>pg_stat_io</code>, Memoize, and LZ4 WAL compression—originally developed by the upstream community—now flow into Cloudberry without years of backporting effort. Staying aligned with PostgreSQL upstream lets new features, planner improvements, and ecosystem tooling reach Cloudberry users naturally.</li>
+</ul>
+<p>By staying aligned with a modern PostgreSQL releases, Cloudberry ensures users run their MPP workloads on an actively maintained PostgreSQL kernel — one that delivers a decade of upstream improvements without the delays and risks of backporting.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="what-this-upgrade-brings">What this upgrade brings<a href="https://cloudberry.apache.org/blog/postgresql16-for-apache-cloudberry-202606#what-this-upgrade-brings" class="hash-link" aria-label="Direct link to What this upgrade brings" title="Direct link to What this upgrade brings">​</a></h2>
+<p>PostgreSQL 15 and 16 together accumulated a large body of improvements. To make this extensive list of updates easy to navigate, we have grouped the key changes into four primary categories for users and administrators, followed by developer-specific internal changes:</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="1-modern-sql-capabilities--query-standards">1. Modern SQL Capabilities &amp; Query Standards<a href="https://cloudberry.apache.org/blog/postgresql16-for-apache-cloudberry-202606#1-modern-sql-capabilities--query-standards" class="hash-link" aria-label="Direct link to 1. Modern SQL Capabilities &amp; Query Standards" title="Direct link to 1. Modern SQL Capabilities &amp; Query Standards">​</a></h3>
+<p>Upgrading to PostgreSQL 16 brings full support for the SQL-standard <strong><code>MERGE</code> command</strong>, robust <strong>SQL/JSON constructors</strong>, and advanced database collations to Cloudberry:</p>
+<ul>
+<li><strong><code>MERGE</code> Statement:</strong> Full support for the SQL-standard <code>MERGE</code> command, allowing <code>INSERT / UPDATE / DELETE</code> to be expressed in a single statement. In Cloudberry’s distributed environment, this significantly simplifies ETL/ELT pipelines, replacing complex client-side workarounds and reducing coordinator-segment round-trips. Accompanying fixes cover partitioned tables, cross-partition triggers, RLS, <code>EvalPlanQual</code>, self-modified tuples, and <code>pg_stat_statements</code> integration.</li>
+<li><strong>SQL/JSON Enhancements:</strong> New <code>IS JSON</code> predicate and standard JSON constructor functions (<code>json_array</code>, <code>json_object</code>, <code>json_scalar</code>, <code>json_serialize</code>), plus auto-generated query jumbling via <code>gen_node_support.pl</code> and stability fixes such as the <code>json_array()</code> subquery double-transformation issue.</li>
+<li><strong>Built-in ICU Support:</strong> ICU support is now built by default, bringing superior multilingual sorting and localization out-of-the-box. <code>initdb</code> uses <code>uloc_getDefault()</code>, and <code>CREATE DATABASE LOCALE</code> applies across all collation providers.</li>
+<li><strong>SQL Types &amp; Functions:</strong>
+<ul>
+<li>Numeric scale can now be negative or greater than precision.</li>
+<li>New <code>ANY_VALUE</code> aggregate.</li>
+<li><code>unnest(multirange)</code> and <code>range_agg</code> with multirange inputs.</li>
+<li><code>pg_size_pretty</code> / <code>pg_size_bytes</code> extended to petabyte scale.</li>
+<li><code>ALTER TABLE SET ACCESS METHOD</code> for switching table storage backends.</li>
+<li>New <code>SYSTEM_USER</code> function and a <code>numeric_mul()</code> overflow fix.</li>
+</ul>
+</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="2-performance--resource-optimization">2. Performance &amp; Resource Optimization<a href="https://cloudberry.apache.org/blog/postgresql16-for-apache-cloudberry-202606#2-performance--resource-optimization" class="hash-link" aria-label="Direct link to 2. Performance &amp; Resource Optimization" title="Direct link to 2. Performance &amp; Resource Optimization">​</a></h3>
+<p>Tracking upstream PostgreSQL releases introduces critical performance, query planning, and storage enhancements designed to scale with your MPP workloads:</p>
+<ul>
+<li><strong>Parallel <code>VACUUM</code> &amp; Autovacuum:</strong>
+<ul>
+<li><strong>Parallel VACUUM</strong> (PostgreSQL 16, with the new <code>vacuumparallel.c</code>) helps reclaim space faster, allowing segment nodes to execute vacuuming operations in parallel to reduce disk I/O bottlenecks and locking overhead.</li>
+<li><code>ON COMMIT DELETE ROWS</code> no longer errors out after <code>relhassubclass=f</code>.</li>
+<li>VACUUM end-of-truncation phase uses <code>WaitLatch()</code> instead of <code>pg_usleep()</code>.</li>
+<li>Numeric overflow fix in parallel numeric aggregates.</li>
+<li><code>ANALYZE</code> preserves <code>relhasindex</code> for partitioned tables.</li>
+</ul>
+</li>
+<li><strong>Optimizer &amp; Executor Improvements:</strong>
+<ul>
+<li>Hash-table acceleration for <code>NOT IN (values)</code>.</li>
+<li>Datum sorts for single-column sorts.</li>
+<li>Result Cache renamed to <strong>Memoize</strong>, with continued performance tuning.</li>
+<li><strong>Parallel Hash Full Join</strong> to speed up complex distributed queries.</li>
+<li>Lower planning cost for deeply nested views, and fewer pallocs when building partition bounds.</li>
+<li>Outer join optimization enhancements and symmetric hash join improvements (PostgreSQL 16).</li>
+</ul>
+</li>
+<li><strong>WAL &amp; Storage Subsystem:</strong>
+<ul>
+<li><strong>LZ4 compression for full-page writes (FPW)</strong> to reduce WAL volume and speed up replication under write-heavy workloads.</li>
+<li><strong>Custom WAL resource managers</strong> so extensions can register their own WAL record types.</li>
+<li><strong>Direct I/O on macOS</strong>, and skipping WAL recycling/preallocation during archive recovery.</li>
+<li>Buffer manager refactored for faster relation extension, with new helpers like <code>smgrzeroextend()</code>, <code>FileZero()</code>, and <code>FileFallocate()</code>.</li>
+<li>WAL/Recovery code split into <code>xlogrecovery.c</code> and <code>xlogprefetcher.c</code>, plus a new backup sink architecture (PostgreSQL 15).</li>
+<li>To guarantee data integrity, the <code>HeapBitmapScan</code> <code>skip_fetch</code> optimization, which had correctness concerns, has been removed.</li>
+</ul>
+</li>
+<li><strong>Critical Correctness Planner/Executor Fixes:</strong>
+<ul>
+<li>Recognition of multiple hashable <code>ScalarArrayOpExpr</code>s in the planner.</li>
+<li>Consistent whole-row Var construction between parsing and planning.</li>
+<li>WindowAgg evaluation crash.</li>
+<li><code>WITH RECURSIVE UNION</code> assertion failure.</li>
+<li><code>ORDER BY</code> / <code>DISTINCT</code> aggregates with <code>FILTER</code>.</li>
+<li>Missing expression processing on prune steps in <code>setrefs.c</code>.</li>
+<li>Extreme skew detection in Parallel Hash Join.</li>
+</ul>
+</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="3-data-sync--ecosystem-connectivity">3. Data Sync &amp; Ecosystem Connectivity<a href="https://cloudberry.apache.org/blog/postgresql16-for-apache-cloudberry-202606#3-data-sync--ecosystem-connectivity" class="hash-link" aria-label="Direct link to 3. Data Sync &amp; Ecosystem Connectivity" title="Direct link to 3. Data Sync &amp; Ecosystem Connectivity">​</a></h3>
+<p>This upgrade enhances the reliability and performance of logical replication, backup/restore workflows, and client-side protocols:</p>
+<ul>
+<li><strong>Major Logical Replication Improvements:</strong>
+<ul>
+<li>Built-in support for <strong>two-phase commit (2PC) on logical replication</strong>, which can be enabled directly through the replication protocol. This is vital for maintaining transactional consistency across distributed segments in an MPP layout.</li>
+<li><strong>Parallel apply workers</strong> (PostgreSQL 16), <strong>row/column-level filtering and schema-level publications</strong> (PostgreSQL 15) significantly improve replication throughput and flexibility.</li>
+<li>New predefined role <code>pg_create_subscription</code> for finer-grained permission management.</li>
+<li>A series of correctness and robustness fixes, including a critical data-loss issue, slot invalidation, snapshot handling, and memory leaks.</li>
+</ul>
+</li>
+<li><strong>Backup, Restore, and Upgrade Tooling:</strong>
+<ul>
+<li><strong><code>pg_dump</code></strong>: generic compression API, with zstd and LZ4 frame-only formats.</li>
+<li><strong><code>pg_basebackup</code></strong>: extended compression options, server-side compression (including <code>-Fp</code>), client-side LZ4 decompression, and parallel zstd compression.</li>
+<li><strong><code>pg_upgrade</code></strong>: fixes for an unintentional <code>'NULL'</code> string literal and cross-version <code>XMLSERIALIZE(NO INDENT)</code> handling; <code>pg_dumpall</code> correctly handles dangling OIDs in <code>pg_auth_members</code>.</li>
+</ul>
+</li>
+<li><strong>Client Protocol &amp; libpq:</strong>
+<ul>
+<li>New <code>PQsendFlushRequest</code> and a fix for the pipeline-mode state machine.</li>
+<li>SASL code refactored into a generic interface.</li>
+<li>Escape function fixes for invalid encoding data, including security-relevant changes.</li>
+<li>Length handling fixes in <code>PQescapeLiteral()</code> / <code>PQescapeIdentifier()</code>.</li>
+<li>Build-time check that libpq does not call <code>exit()</code> or <code>abort()</code>.</li>
+</ul>
+</li>
+<li><strong>Operator &amp; psql Experience:</strong>
+<ul>
+<li><code>\watch</code> honors <code>PSQL_WATCH_PAGER</code>.</li>
+<li>New <code>\drg</code> command for inspecting role grants.</li>
+<li><code>\copy from</code> now sends data in larger chunks.</li>
+<li><code>pg_waldump --rmgr</code> accepts multiple specifications.</li>
+</ul>
+</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="4-enterprise-observability-security--stability">4. Enterprise Observability, Security &amp; Stability<a href="https://cloudberry.apache.org/blog/postgresql16-for-apache-cloudberry-202606#4-enterprise-observability-security--stability" class="hash-link" aria-label="Direct link to 4. Enterprise Observability, Security &amp; Stability" title="Direct link to 4. Enterprise Observability, Security &amp; Stability">​</a></h3>
+<p>Upgrading the core kernel to PostgreSQL 16 brings a modern, shared-memory statistics subsystem, security guardrails, and key robustness fixes:</p>
+<ul>
+<li><strong>Observability &amp; the pgstat Rewrite:</strong>
+<ul>
+<li><strong>Shared-Memory pgstat Rewrite (PostgreSQL 15):</strong> The dedicated stats collector process is replaced with shared memory stats. This eliminates a potential performance bottleneck under high concurrent workloads. The monolithic <code>pgstat.c</code> was split into 14 files under <code>utils/activity/</code>, making the database kernel cleaner and easier to maintain.</li>
+<li><strong>New <code>pg_stat_io</code> View (PostgreSQL 16):</strong> Detailed I/O statistics including shared buffer hits, I/O times, and writebacks.</li>
+<li><strong><code>pg_stat_statements</code> Upgrades:</strong> JIT counters, temp file block I/O timing, normalized utility query strings, <code>MERGE</code> support, and a 32-bit integer overflow fix.</li>
+<li>Other improvements: SP-GiST index scans counted in pgstat, enhanced <code>pg_stat_reset_single_table_counters</code>, and new test helpers <code>pg_stat_force_next_flush()</code> and <code>pg_stat_have_stats()</code>.</li>
+</ul>
+</li>
+<li><strong>Security and Privilege Model:</strong>
+<ul>
+<li><strong><code>CREATEROLE</code> privilege restrictions:</strong> A substantial improvement to the role/privilege model that closes long-standing privilege escalation paths.</li>
+<li>New GUCs: <code>createrole_self_grant</code>, <code>reserved_connections</code>.</li>
+<li>New predefined roles: <code>pg_maintain</code>, <code>pg_create_subscription</code>.</li>
+<li>Non-superuser predefined roles for vacuum / analyze workflows.</li>
+<li><code>PUBLIC CREATE</code> is revoked from the public schema, which is now owned by <code>pg_database_owner</code>.</li>
+<li><strong>Security Invoker Views</strong> (<code>SECURITY INVOKER</code>).</li>
+<li>Fixes around <code>session_authorization</code> interactions and a <code>scram_SaltedPassword()</code> integer overflow.</li>
+</ul>
+</li>
+<li><strong>Partitioned Table Improvements:</strong>
+<ul>
+<li>Self-referencing foreign keys on partitioned tables.</li>
+<li>Correct handling of detach with top-level FKs.</li>
+<li><code>relhassubclass</code> reset on ATTACH; consistent trigger renames; firing state preserved on clone.</li>
+<li>Partitionwise join / grouping is disabled when collations do not match, preventing incorrect results.</li>
+</ul>
+</li>
+<li><strong>Critical Stability and Data Correctness Fixes:</strong>
+<ul>
+<li>Fixed data corruption on relation truncation failure.</li>
+<li>Page header is no longer corrupted when an update lands on a non-<code>LP_NORMAL</code> TID; the operation now fails cleanly.</li>
+<li>Unsafe <code>BufferDescriptors</code> access.</li>
+<li>GB18030 SIGSEGV from out-of-bounds read.</li>
+<li>Snowball stemmer null pointer dereference after OOM.</li>
+<li>Rare standby assertion failure on primary restart.</li>
+<li>Catcache invalidation during list entry construction.</li>
+</ul>
+</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="5-under-the-hood-updates-for-kernel-contributors">5. Under the Hood: Updates for Kernel Contributors<a href="https://cloudberry.apache.org/blog/postgresql16-for-apache-cloudberry-202606#5-under-the-hood-updates-for-kernel-contributors" class="hash-link" aria-label="Direct link to 5. Under the Hood: Updates for Kernel Contributors" title="Direct link to 5. Under the Hood: Updates for Kernel Contributors">​</a></h3>
+<p>If you are a contributor working on the Cloudberry database engine, this upgrade introduces several codebase updates, cleaner abstraction layers, and automated testing tools:</p>
+<ul>
+<li><strong>Pervasive Storage Refactor:</strong> <strong><code>RelFileNode</code> ➔ <code>RelFileLocator</code></strong> rename. This touches hundreds of files, aligning Cloudberry's internal naming conventions with modern PostgreSQL.</li>
+<li><strong>Configuration Engine Decoupling:</strong> GUC system split: <code>guc.c</code> ➔ <code>guc.c</code> + <code>guc_tables.c</code> + <code>guc_funcs.c</code>.</li>
+<li><strong>Header Optimization:</strong> <code>varatt.h</code> separated from <code>postgres.h</code>.</li>
+<li><strong>Modernized Testing Cluster:</strong> The test suite transitioned from <code>PostgresNode.pm</code> to the new <code>PostgreSQL::Test::Cluster</code> framework, improving testing speed and reliability.</li>
+<li><strong>Parser Automation:</strong> <code>gen_node_support.pl</code> auto-generates <code>copyfuncs</code> / <code>equalfuncs</code> / <code>outfuncs</code> / <code>readfuncs</code> and query jumbling code, with a NodeTag ABI stability check.</li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="what-this-means-for-cloudberry-users">What this means for Cloudberry users<a href="https://cloudberry.apache.org/blog/postgresql16-for-apache-cloudberry-202606#what-this-means-for-cloudberry-users" class="hash-link" aria-label="Direct link to What this means for Cloudberry users" title="Direct link to What this means for Cloudberry users">​</a></h2>
+<ul>
+<li><strong>A modern PostgreSQL foundation.</strong> Cloudberry users can now benefit directly from features accumulated across PostgreSQL 15 and 16, including MERGE, SQL/JSON, two-phase logical replication, Memoize, Parallel Hash Full Join, and <code>pg_stat_io</code>.</li>
+<li><strong>Better observability and operability.</strong> The shared-memory pgstat rewrite, the new I/O view, and <code>pg_stat_statements</code> enhancements give operators and DBAs a richer toolbox for performance analysis.</li>
+<li><strong>A stronger security posture.</strong> <code>CREATEROLE</code> tightening, new predefined roles, and security invoker views align Cloudberry’s privilege model more closely with modern production practices.</li>
+<li><strong>Smoother ecosystem integration.</strong> Staying close to PostgreSQL upstream means Cloudberry can interoperate more naturally with PostgreSQL extensions, tools, and clients.</li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="what-comes-next">What comes next<a href="https://cloudberry.apache.org/blog/postgresql16-for-apache-cloudberry-202606#what-comes-next" class="hash-link" aria-label="Direct link to What comes next" title="Direct link to What comes next">​</a></h2>
+<p>Landing this work on the main branch is a milestone, not the finish line.</p>
+<ul>
+<li><strong>Try it out.</strong> Some issues uncovered during the upgrade (tracked on the <a href="https://github.com/orgs/apache/projects/497" target="_blank" rel="noopener noreferrer">community project board</a>) are not yet fully resolved; the community is actively working on them and aims to address them as quickly as possible. We warmly invite users and developers to exercise the new kernel in test environments and share feedback.</li>
+<li><strong>Continued optimization.</strong> Expect ongoing work on MPP-side integration with the new kernel, performance regression fixes, and further tuning of existing capabilities on top of PostgreSQL 16.</li>
+<li><strong>Community collaboration.</strong> Issues, pull requests, and real-world usage reports all help Cloudberry move forward. If you would like to contribute, the door is open.</li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="acknowledgments">Acknowledgments<a href="https://cloudberry.apache.org/blog/postgresql16-for-apache-cloudberry-202606#acknowledgments" class="hash-link" aria-label="Direct link to Acknowledgments" title="Direct link to Acknowledgments">​</a></h2>
+<p>This kernel upgrade was a collaborative effort across the community. Special thanks to the contributors who drove the merge:</p>
+<blockquote>
+<p>@chenjinbao1989, @lss602726449, @reshke, @gfphoenix78, @yjhjstz, @tuhaihe</p>
+</blockquote>
+<p>And to everyone who participated in code reviews, testing, and issue reporting throughout the year-long effort.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="join-us">Join us<a href="https://cloudberry.apache.org/blog/postgresql16-for-apache-cloudberry-202606#join-us" class="hash-link" aria-label="Direct link to Join us" title="Direct link to Join us">​</a></h2>
+<p>Apache Cloudberry is a community-driven open-source project, and we welcome contributors of all backgrounds—whether you are a database veteran or just getting started with MPP systems.</p>
+<ul>
+<li>Website: <a href="https://cloudberry.apache.org/" target="_blank" rel="noopener noreferrer">https://cloudberry.apache.org</a></li>
+<li>Repository: <a href="https://github.com/apache/cloudberry" target="_blank" rel="noopener noreferrer">https://github.com/apache/cloudberry</a></li>
+<li>Discussions: <a href="https://github.com/apache/cloudberry/discussions" target="_blank" rel="noopener noreferrer">https://github.com/apache/cloudberry/discussions</a></li>
+<li>Issue tracker: <a href="https://github.com/apache/cloudberry/issues" target="_blank" rel="noopener noreferrer">https://github.com/apache/cloudberry/issues</a></li>
+<li>Mailing list: <a href="https://lists.apache.org/list.html?dev@cloudberry.apache.org" target="_blank" rel="noopener noreferrer">https://lists.apache.org/list.html?dev@cloudberry.apache.org</a></li>
+<li>Slack workspace: <a href="https://join.slack.com/t/asf-cloudberry/shared_invite/zt-3um34r7hf-Sh~6jG6hVxlQJo1tbhK2sw" target="_blank" rel="noopener noreferrer">https://join.slack.com/t/asf-cloudberry/shared_invite/zt-3um34r7hf-Sh~6jG6hVxlQJo1tbhK2sw</a></li>
+<li>Discord server: <a href="https://discord.gg/GJrz3Fxf6y" target="_blank" rel="noopener noreferrer">Join our Discord server</a></li>
+</ul>]]></content>
+        <author>
+            <name>Apache Cloudberry</name>
+        </author>
+        <category label="Announcement" term="Announcement"/>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Apache Cloudberry Incubation Report - May 2026]]></title>
         <id>https://cloudberry.apache.org/blog/apache-cloudberry-incubation-report-202605</id>
@@ -1819,100 +2020,5 @@ Apache Cloudberry is an effort undergoing incubation at the Apache Software Foun
             <name>Apache Cloudberry</name>
         </author>
         <category label="Release" term="Release"/>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Apache Cloudberry Incubation Report - May 2025]]></title>
-        <id>https://cloudberry.apache.org/blog/apache-cloudberry-incubation-report-202505</id>
-        <link href="https://cloudberry.apache.org/blog/apache-cloudberry-incubation-report-202505"/>
-        <updated>2025-05-23T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[We’re making steady progress to grow!]]></summary>
-        <content type="html"><![CDATA[<div class="theme-admonition theme-admonition-note admonition_xJq3 alert alert--secondary"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M6.3 5.69a.942.942 0 0 1-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 0 1-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"></path></svg></span>note</div><div class="admonitionContent_BuS1"><p>This Cloudberry incubation report summarizes our major progress during March and April 2025. It is adapted from the <a href="https://cwiki.apache.org/confluence/display/INCUBATOR/May2025#cloudberry" target="_blank" rel="noopener noreferrer">Apache Incubator Report May 2025</a>, with some modifications for readability.</p></div></div>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="cloudberry">Cloudberry<a href="https://cloudberry.apache.org/blog/apache-cloudberry-incubation-report-202505#cloudberry" class="hash-link" aria-label="Direct link to Cloudberry" title="Direct link to Cloudberry">​</a></h2>
-<p>Cloudberry is an advanced and mature open-source Massively Parallel Processing (MPP) database, derived from the open-source version of Pivotal Greenplum Database®️ but built on a more modern PostgreSQL 14 kernel, whereas Greenplum is based on PostgreSQL 12. This upgrade brings enhanced enterprise capabilities, making Cloudberry well-suited for data warehousing, large-scale analytics, and AI/ML workloads.</p>
-<p>Cloudberry has been incubating since 2024-10-11</p>
-<h3 class="anchor anchorWithStickyNavbar_LWe7" id="three-most-important-unfinished-issues-to-address-before-graduating">Three most important unfinished issues to address before graduating:<a href="https://cloudberry.apache.org/blog/apache-cloudberry-incubation-report-202505#three-most-important-unfinished-issues-to-address-before-graduating" class="hash-link" aria-label="Direct link to Three most important unfinished issues to address before graduating:" title="Direct link to Three most important unfinished issues to address before graduating:">​</a></h3>
-<ol>
-<li>Complete the source code cleanup to ensure ASF compliance.</li>
-<li>Publish the first Apache release following ASF release processes.</li>
-<li>Grow the contributor and community to ensure long-term sustainability.</li>
-</ol>
-<h3 class="anchor anchorWithStickyNavbar_LWe7" id="how-has-the-community-developed-since-the-last-report">How has the community developed since the last report?<a href="https://cloudberry.apache.org/blog/apache-cloudberry-incubation-report-202505#how-has-the-community-developed-since-the-last-report" class="hash-link" aria-label="Direct link to How has the community developed since the last report?" title="Direct link to How has the community developed since the last report?">​</a></h3>
-<ul>
-<li>Mailing list Activity: 59 messages and 92 messages on the Dev mailing list in March and April 2025, covering technical and Apache-related
-discussions.</li>
-<li>Slack Activity: 16 new threads in <code>general</code> channel, 27 new members since last report.</li>
-<li>GitHub Discussions: 4 new threads in March and 7 new threads in April.</li>
-<li>New Committer: welcomed our first committer since joining the incubator.<!-- -->
-<ul>
-<li>Mar 19, 2025 - Xiong Tong</li>
-</ul>
-</li>
-<li>Events:<!-- -->
-<ul>
-<li>Join OSPP 2025 to attract university students to join the open-source development</li>
-<li>A Cloudberry Meetup hosted by HashData in Hangzhou attracted 30~ attendees.</li>
-<li>The contributor @Leonid Borchuk and PPMC Member @Kirill Reshke presented their talks on Cloudberry at the sql-ninja conference in Moscow
-on 03/22, 2025.</li>
-<li>PPMC member Shine Zhang presented "From Greenplum to Apache Cloudberry" at Postgres Conference 2025, Orlando / United States, March 20, 2025</li>
-<li>6+ Cloudberry proposals are submitted to CommunityOverCode NA/Asia 2025 (still in review and waiting for the final approval).</li>
-<li>Create website pages to guide on how to invite the new committer.</li>
-</ul>
-</li>
-</ul>
-<h3 class="anchor anchorWithStickyNavbar_LWe7" id="how-has-the-project-developed-since-the-last-report">How has the project developed since the last report?<a href="https://cloudberry.apache.org/blog/apache-cloudberry-incubation-report-202505#how-has-the-project-developed-since-the-last-report" class="hash-link" aria-label="Direct link to How has the project developed since the last report?" title="Direct link to How has the project developed since the last report?">​</a></h3>
-<ul>
-<li>Create the Wiki space in GitHub to organize the collective knowledge from community practices, including the release process.</li>
-<li>Security:<!-- -->
-<ul>
-<li>Integrated two code analysis tools to enhance our code quality and identify potential issues in the development process: Coverity Scan and SonarQube Scan.</li>
-<li>Fix the PostgreSQL security issue CVE-2025-1094.</li>
-</ul>
-</li>
-<li>CICD:<!-- -->
-<ul>
-<li>Working on adding the Ubuntu build and test environment support to Cloudberry</li>
-</ul>
-</li>
-<li>Codebase Updates:<!-- -->
-<ul>
-<li>Evolve the Cloudberry code following the Roadmap: Contributed back the row-column hybrid storage engine -PAX to the Cloudberry codebase;</li>
-<li>Completed the first stage of cherry-picking commits from the open-source Greenplum project to Cloudberry (80%+ progress of plan).</li>
-<li>Work for the first Apache Cloudberry (Incubating) 2.0.0 release<!-- -->
-<ul>
-<li>Pull Request management through the GitHub project: <a href="https://github.com/orgs/apache/projects/490" target="_blank" rel="noopener noreferrer">https://github.com/orgs/apache/projects/490</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li>License-related updates:<!-- -->
-<ul>
-<li>Update the NOTICE and LICENSE files.</li>
-<li>List the third-party licenses under the <code>licenses</code> directory.</li>
-<li>Replace the Pylint with a license-compatible one - ruff.</li>
-<li>Update the license headers with the Apache license header for the newly created files.</li>
-<li>Add RAT license audit config and compliance metadata.</li>
-</ul>
-</li>
-<li>Brand updates: rebrand old names to the latest Apache Cloudberry brand both in the main codebase and the site source.</li>
-<li>Cleanup the old unused files from the source code for a clearer codebase and ASF compliance (including <code>concourse/*</code>, <code>hd-ci/*</code>, <code>deploy/*</code>, and so on).</li>
-</ul>
-<h3 class="anchor anchorWithStickyNavbar_LWe7" id="how-would-you-assess-the-podlings-maturity">How would you assess the podling's maturity?<a href="https://cloudberry.apache.org/blog/apache-cloudberry-incubation-report-202505#how-would-you-assess-the-podlings-maturity" class="hash-link" aria-label="Direct link to How would you assess the podling's maturity?" title="Direct link to How would you assess the podling's maturity?">​</a></h3>
-<ul class="contains-task-list containsTaskList_mC6p">
-<li class="task-list-item"><input type="checkbox" disabled=""> <!-- -->Initial setup</li>
-<li class="task-list-item"><input type="checkbox" disabled="" checked=""> <!-- -->Working towards first release</li>
-<li class="task-list-item"><input type="checkbox" disabled="" checked=""> <!-- -->Community building</li>
-<li class="task-list-item"><input type="checkbox" disabled=""> <!-- -->Nearing graduation</li>
-<li class="task-list-item"><input type="checkbox" disabled=""> <!-- -->Other:</li>
-</ul>
-<h3 class="anchor anchorWithStickyNavbar_LWe7" id="date-of-last-release">Date of last release:<a href="https://cloudberry.apache.org/blog/apache-cloudberry-incubation-report-202505#date-of-last-release" class="hash-link" aria-label="Direct link to Date of last release:" title="Direct link to Date of last release:">​</a></h3>
-<p>N/A</p>
-<h3 class="anchor anchorWithStickyNavbar_LWe7" id="when-were-the-last-committers-or-ppmc-members-elected">When were the last committers or PPMC members elected?<a href="https://cloudberry.apache.org/blog/apache-cloudberry-incubation-report-202505#when-were-the-last-committers-or-ppmc-members-elected" class="hash-link" aria-label="Direct link to When were the last committers or PPMC members elected?" title="Direct link to When were the last committers or PPMC members elected?">​</a></h3>
-<ul>
-<li>Mar 19, 2025 - Xiong Tong (committer)</li>
-</ul>]]></content>
-        <author>
-            <name>Apache Cloudberry</name>
-        </author>
-        <category label="Incubation" term="Incubation"/>
     </entry>
 </feed>
