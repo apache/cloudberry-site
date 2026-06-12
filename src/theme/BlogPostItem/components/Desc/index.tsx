@@ -4,7 +4,12 @@ export default function Desc({ style }: { style?: React.CSSProperties }) {
   return (
     <div
       className="two-lines-ellipsis"
-      style={{ color: "var(--sub-text-color-2)", lineHeight: "26px", ...style }}
+      style={{
+        color: "var(--color-text-muted)",
+        lineHeight: 1.6,
+        fontSize: "0.9375rem",
+        ...style,
+      }}
     >
       {metadata.description}
     </div>

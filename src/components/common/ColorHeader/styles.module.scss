@@ -1,330 +1,45 @@
-@keyframes light {
-  0% {
-    transform: translate(0) scale(1);
-  }
-
-  33% {
-    transform: translate(30px, -20px) scale(1);
-  }
-
-  66% {
-    transform: translate(-20px, 20px) scale(0.9);
-  }
-
-  to {
-    transform: translate(0, 0) scale(1);
-  }
-}
-@keyframes light2 {
-  0% {
-    transform: translate(0) scale(1) rotate(45deg);
-  }
-
-  33% {
-    transform: translate(-20px, 20px) scale(1.1) rotate(45deg);
-  }
-
-  66% {
-    transform: translate(20px, -20px) scale(0.9) rotate(45deg);
-  }
-
-  to {
-    transform: translate(0, 0) scale(1) rotate(45deg);
-  }
-}
-@keyframes light3 {
-  0% {
-    transform: translate(0) scale(1);
-  }
-
-  33% {
-    transform: translate(0, 100px) scale(1.1);
-  }
-
-  66% {
-    transform: translate(0, -100px) scale(0.9);
-  }
-
-  to {
-    transform: translate(0, 0) scale(1);
-  }
-}
-@keyframes light4 {
-  0% {
-    transform: translate(0) scale(1);
-  }
-
-  33% {
-    transform: translate(0, 10px) scale(1);
-  }
-
-  66% {
-    transform: translate(0, -10px) scale(1);
-  }
-
-  to {
-    transform: translate(0, 0) scale(1);
-  }
-}
-@keyframes smallTYKeyframe {
-  0% {
-    transform: translate(0) scale(1);
-  }
-
-  33% {
-    transform: translate(0, 10px) scale(1.1);
-  }
-
-  66% {
-    transform: translate(0, -10px) scale(0.9);
-  }
-
-  to {
-    transform: translate(0, 0) scale(1);
-  }
-}
-@keyframes scaleKeyframe {
-  0% {
-    transform: scale(0.8);
-  }
-
-  50% {
-    transform: scale(1.2);
-  }
-
-  to {
-    transform: scale(0.8);
-  }
-}
-
-.leftBox {
-  position: absolute;
-  left: -180px;
-  bottom: -180px;
-  width: 200px;
-  height: 200px;
-  border-radius: 30% 70% 0% 33% / 64% 70% 0% 36%;
-  background-color: #ef9364;
-  animation: 5s infinite light linear;
-  box-shadow: 90px 90px 50px 90px #ef9364, 90px -90px 190px 90px #ef9364,
-    -90px 90px 90px 190px #ef9364, -90px -90px 90px 100px #ef9364;
-}
-
-.rightBox {
-  position: absolute;
-  right: -220px;
-  top: 100px;
-  width: 200px;
-  height: 200px;
-  background-color: #8b7bcf;
-  border-radius: 30% 70% 67% 13% / 47% 30% 70% 66%;
-  animation: 5s infinite light2 linear;
-  box-shadow: 0 0px 1150px 250px #8b7bcf, -100px 40px 180px 200px #8b7bcf;
-}
+/**
+ * Page header band — clean, soft brand-tinted background.
+ */
 
 .wrap {
   position: relative;
   overflow: hidden;
-  padding-bottom: 158px;
-  background-color: var(--ifm-navbar-background-color);
-  background-image: url("/img/rectangle.png");
-  background-size: 72.6px 66.6px;
-  .darkModeBox {
-    display: block;
-  }
-  .lightModeBox {
-    display: none;
-  }
+  padding: 32px 0 64px;
+  background:
+    radial-gradient(800px 320px at 12% 0%, rgba(255, 89, 0, 0.10), transparent 65%),
+    radial-gradient(700px 320px at 95% 10%, rgba(254, 163, 21, 0.10), transparent 65%),
+    var(--color-bg);
+  border-bottom: 1px solid var(--color-border);
+
   .content {
-    margin-top: 38px;
+    margin-top: 24px;
   }
 
-  .back {
-    display: flex;
-    align-items: center;
-    height: 21px;
-    line-height: 21px;
-    width: var(--global-main-width);
-    margin: 0 auto;
-    position: relative;
-    .main {
-      position: absolute;
-      top: 14px;
-      display: flex;
-      justify-content: center;
-      a {
-        height: 18px;
-        width: 18px;
-        overflow: hidden;
-      }
-
-      .backLogo {
-        height: 18px;
-        cursor: pointer;
-        position: relative;
-        top: 1px;
-      }
-
-      .line {
-        display: inline-block;
-        margin: 0 6px;
-        opacity: 0.4;
-        width: 12px;
-        height: 12px;
-        line-height: 21px;
-        position: relative;
-        top: 4px;
-      }
-      .curText {
-        color: var(--active-color);
-        font-size: 13px;
-      }
-    }
+  /* Hide legacy decorative blobs */
+  .darkModeBox,
+  .lightModeBox,
+  .leftBox,
+  .rightBox,
+  .lbBox,
+  .rbBox,
+  .sBox,
+  .xBox {
+    display: none !important;
   }
 }
-html[data-theme="light"] {
+
+[data-theme="dark"] {
   .wrap {
-    // left box
-    background: #fffafa;
-    .lbBox {
-      position: absolute;
-      width: 150px;
-      height: 150px;
-      background-color: #ffa800;
-      opacity: 0.3;
-      bottom: 8%;
-      left: 5%;
-      border-radius: 50%;
-      animation: scaleKeyframe 5s infinite linear;
-    }
-
-    .rbBox {
-      position: absolute;
-      right: 500px;
-
-      .sBox {
-        position: absolute;
-        width: 250px;
-        height: 250px;
-        background-color: #ffa800;
-        opacity: 0.3;
-        border-radius: 50%;
-        z-index: 2;
-        left: -350px;
-        bottom: -300px;
-        animation: 5s infinite light4 linear;
-      }
-      .xBox {
-        position: absolute;
-        width: 100px;
-        height: 300px;
-        background-color: rgb(255, 209, 126);
-        border-radius: 50%;
-        bottom: -500px;
-        z-index: 1;
-        box-shadow: 50px 40px 120px 250px rgb(255, 209, 126);
-        animation: 5s infinite light3 linear;
-      }
-    }
-    @media screen and (max-width: 1200px) {
-      .lbBox {
-        width: 100px;
-        height: 100px;
-      }
-      .rbBox {
-        .sBox {
-          width: 180px;
-          height: 180px;
-          bottom: -270px;
-          left: -300px;
-        }
-        .xBox {
-          width: 60px;
-          height: 300px;
-        }
-      }
-    }
-    @media screen and (max-width: 996px) {
-      .lbBox {
-        width: 50px;
-        height: 50px;
-        left: 160px;
-        bottom: 100px;
-      }
-      .rbBox {
-        bottom: 42px;
-        right: 200px;
-        .sBox {
-          width: 100px;
-          height: 100px;
-          left: -150px;
-          bottom: -110px;
-        }
-        .xBox {
-          width: 50px;
-          height: 50px;
-          bottom: -100px;
-          box-shadow: 10px 10px 50px 100px rgb(255, 209, 126);
-          animation-name: smallTYKeyframe;
-        }
-      }
-    }
-    @media screen and (max-width: 768px) {
-      .lbBox {
-        width: 50px;
-        height: 50px;
-        left: 30px;
-        bottom: 100px;
-      }
-      .rbBox {
-        bottom: 42px;
-        right: 200px;
-        .sBox {
-          width: 100px;
-          height: 100px;
-          left: -150px;
-          bottom: -110px;
-        }
-        .xBox {
-          width: 50px;
-          height: 50px;
-          bottom: -100px;
-          box-shadow: 10px 10px 50px 100px rgb(255, 209, 126);
-          animation-name: smallTYKeyframe;
-        }
-      }
-    }
-  }
-  .darkModeBox {
-    display: none;
-  }
-  .lightModeBox {
-    display: block;
+    background:
+      radial-gradient(800px 320px at 12% 0%, rgba(255, 89, 0, 0.18), transparent 65%),
+      radial-gradient(700px 320px at 95% 10%, rgba(254, 163, 21, 0.14), transparent 65%),
+      var(--color-bg);
   }
 }
-@media screen and (max-width: 1440px) {
-  .leftBox {
-    width: 100px;
-    height: 100px;
-  }
-  .rightBox {
-    width: 80px;
-    height: 80px;
-    top: 0;
-    right: -250px;
-  }
-}
+
 @media screen and (max-width: 768px) {
-  .leftBox {
-    width: 60px;
-    height: 60px;
-    box-shadow: 90px -90px 190px 90px #ef9364;
-    left: -150px;
-    bottom: -150px;
-  }
-  .rightBox {
-    width: 60px;
-    height: 60px;
-    box-shadow: -100px 60px 80px 180px #8b7bcf;
+  .wrap {
+    padding: 24px 0 48px;
   }
 }

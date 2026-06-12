@@ -9,13 +9,16 @@ export default function Tags({ style }: { style?: React.CSSProperties }) {
       <span
         key={text.toString()}
         style={{
-          marginRight: 14,
-          borderRadius: 24,
-          fontSize: 16,
-          // background: "var(--tags-bg-color)",
-          color: "#ff5900",
-          padding: "5px 9px",
-          marginLeft: "-9px",
+          marginRight: 6,
+          borderRadius: 999,
+          fontSize: "0.75rem",
+          fontWeight: 600,
+          background: "rgba(254, 163, 21, 0.14)",
+          color: "var(--color-accent, #ff5900)",
+          padding: "3px 10px",
+          textTransform: "uppercase",
+          letterSpacing: "0.04em",
+          display: "inline-block",
         }}
       >
         {text.toString()}

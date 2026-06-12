@@ -1,61 +1,40 @@
 .contentLayout {
-  padding: 0 var(--mobile-padding-width);
+  max-width: var(--global-main-width);
+  margin: 0 auto;
+  padding: 24px var(--mobile-padding-width) 48px;
 }
+
 .main {
-  // max-width: 896px;
   width: 100%;
-  &.blogList {
-    max-width: 1056px;
-    margin: 0 auto;
-  }
-  &.blogDetail {
-    max-width: 650px;
-  }
 
   &.blogList {
-    .breadcrumbs {
-      margin-bottom: 10px;
-      margin-top: 10px;
-    }
+    margin: 0 auto;
+
     .listWrap {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      grid-column-gap: 2rem;
-      grid-row-gap: 3rem;
+      gap: 24px;
     }
   }
+
   &.blogDetail {
+    max-width: 760px;
     margin: 0 auto;
-    .breadcrumbs {
-      margin-top: 20px;
-      display: flex;
-      align-items: self-start;
-    }
   }
-  @media screen and (max-width: 1056px) {
-    &.blogList {
-      .listWrap {
-        gap: 15px;
-      }
-    }
-  }
+
   @media screen and (max-width: 1024px) {
     &.blogList {
       .listWrap {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
       }
     }
   }
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 640px) {
     &.blogList {
       .listWrap {
         grid-template-columns: 1fr;
       }
     }
-  }
-}
-@media screen and (max-width: 1440px) {
-  .contentLayout {
-    width: calc(100vw);
   }
 }

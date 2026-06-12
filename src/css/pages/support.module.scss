@@ -1,49 +1,11 @@
+/**
+ * Support page — uses <article class="markdown"> for body content,
+ * so all element styling (tables, h2, p, lists) comes from the
+ * shared markdown rules in design-style.scss. We only own the
+ * outer page width / padding here.
+ */
 .mainContent {
   max-width: var(--global-main-width);
   margin: 0 auto;
-  position: relative;
-  min-height: 1365px;
-  .content {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    top: 33px;
-
-    .title {
-      font-size: 30px;
-      line-height: 40px;
-    }
-    .subText {
-      line-height: 25px;
-      color: var(--sub-text-color-2);
-      margin-top: 17px;
-    }
-    .typeDesc {
-      margin-top: 46px;
-    }
-  }
-  @media screen and (max-width: 1024px) {
-    padding-bottom: 100px;
-    .content {
-      width: 100%;
-      padding: 0 var(--mobile-padding-width);
-      position: static;
-      transform: translateX(0);
-
-      .table {
-        width: 100% !important;
-      }
-    }
-  }
-  @media screen and (max-width: 768px) {
-    .table {
-      width: auto !important;
-    }
-  }
-}
-
-.subTitleText {
-  line-height: 50px;
-  font-size: 20px;
-  font-weight: bold;
+  padding: 32px var(--mobile-padding-width) 96px;
 }

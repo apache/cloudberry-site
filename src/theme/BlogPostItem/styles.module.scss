@@ -1,10 +1,36 @@
 .blogList {
-  border: 1px solid var(--blog-border-color);
   position: relative;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background-color: var(--color-surface);
+  box-shadow: var(--shadow-xs);
+  transition: border-color var(--motion-fast),
+    box-shadow var(--motion-fast),
+    transform var(--motion-fast);
+
   &:hover {
-    border: 1px solid var(--active-color);
+    border-color: var(--color-accent);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+  }
+
+  header {
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+  }
+
+  /* Cover image fits header without rounded corners overlap */
+  img {
+    border-radius: 0;
+    border: none;
+    margin: 0;
+    box-shadow: none;
   }
 }
+
 .blogDetail {
   header {
     margin-bottom: 32px;
@@ -12,19 +38,17 @@
   .tags {
     display: flex;
     align-items: center;
-    margin-top: 35px;
+    margin-top: 24px;
     .text {
-      margin-right: 15px;
-      color: var(--sub-text-color-2);
+      margin-right: 12px;
+      color: var(--color-text-muted);
     }
   }
 }
+
 article[itemProp="blogPost"] {
-  border-radius: 6px;
-  // last column no margin
-  &:nth-last-of-type(1) {
-    margin-bottom: 0;
-  }
+  border-radius: var(--radius-lg);
+  &:nth-last-of-type(1),
   &:nth-last-of-type(2) {
     margin-bottom: 0;
   }

@@ -1,20 +1,23 @@
 .title {
-  font-size: 20px;
-  font-weight: 500;
-  line-height: 1.4;
-  color: var(--title-text-color);
+  font-family: var(--font-family-display);
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--color-text);
+
   .detailTitle {
-    font-size: 30px;
-    font-weight: 600;
-    line-height: 1.2;
-    margin-top: 55px;
+    font-size: clamp(1.875rem, 3.5vw, 2.5rem);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-top: 32px;
     display: inline-block;
   }
   a {
     color: inherit;
     text-decoration: none;
     &:hover {
-      color: var(--active-color);
+      color: var(--color-accent);
     }
   }
 }
