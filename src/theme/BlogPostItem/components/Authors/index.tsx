@@ -6,64 +6,51 @@ export default function BlogPostItemHeaderAuthors({
 }): JSX.Element {
   const {
     metadata: { authors, formattedDate },
-    assets,
   } = useBlogPost();
   const authorsCount = authors.length;
   if (authorsCount === 0) {
     return null;
   }
-  // const authorsDom = authors.map((author) => {
-  //   return (
-  //     <span
-  //       key={author.name}
-  //       style={{
-  //         width: 20,
-  //         height: 20,
-  //         borderRadius: "50%",
-  //         display: "inline-block",
-  //         overflow: "hidden",
-  //         boxSizing: "border-box",
-  //         // border: "1px solid var(--portrait-border-color)",
-  //       }}
-  //     >
-  //       {/* <Popper content={author.name}>
-  //         <img
-  //           style={{ width: 18, height: 18 }}
-  //           src={useBaseUrl(author.imageURL)}
-  //           srcSet={author.imageURL}
-  //           alt=""
-  //         />
-  //       </Popper> */}
-  //       {author.name}
-  //     </span>
-  //   );
-  // });
   return (
     <div
       style={{
-        color: "var(--sub-text-color-2)",
-        fontSize: 12,
+        color: "var(--color-text-muted)",
+        fontSize: "0.8125rem",
         display: "flex",
         alignItems: "center",
-        marginTop: 10,
+        gap: 12,
+        marginTop: 14,
         ...styles,
       }}
     >
       <span
         style={{
-          width: 110,
+          maxWidth: 180,
           whiteSpace: "nowrap",
           overflow: "hidden",
           textOverflow: "ellipsis",
-          marginRight: 18,
           display: "inline-block",
-          verticalAlign: "middle",
+          fontWeight: 500,
+          color: "var(--color-text)",
         }}
       >
         {authors.map((author, index) => {
-          return <span key={index}>{author.name}</span>;
+          return (
+            <span key={index}>
+              {author.name}
+              {index < authors.length - 1 ? ", " : ""}
+            </span>
+          );
         })}
       </span>
+      <span
+        style={{
+          width: 4,
+          height: 4,
+          borderRadius: "50%",
+          background: "var(--color-border-strong)",
+        }}
+      />
       <span>{formattedDate}</span>
     </div>
   );

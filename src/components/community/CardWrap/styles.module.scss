@@ -1,15 +1,14 @@
 .cardWrap {
-  width: 980px;
-  @media screen and (max-width: 1440px) {
-    width: auto;
-  }
+  width: 100%;
+  padding-bottom: 56px;
+
   .title {
-    font-size: 30px;
+    font-family: var(--font-family-display);
+    font-size: 1.625rem;
     font-weight: 700;
-    line-height: 56px;
-    // margin-top: 69px;
-    margin-bottom: 32px;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    color: var(--color-text);
+    margin-bottom: 24px;
   }
-  // padding-bottom: 90px;
-  padding-bottom: 129px;
 }

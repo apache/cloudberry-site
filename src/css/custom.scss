@@ -1,161 +1,382 @@
 /**
- * Any CSS included here will be global. The classic template
- * bundles Infima by default. Infima is a CSS framework designed to
- * work well for content-centric websites.
+ * Apache Cloudberry — Global design system
+ *
+ * Inspired by Mintlify for a clean, modern, unified feel.
+ * Brand palette per Apache Cloudberry Brand Guidelines:
+ *   - #FF5900  Berry Orange (deep)
+ *   - #FEA315  Berry Orange (light / amber)
+ *   - #000000  Black
+ *   - #FFFFFF  White
+ *
+ * Typography note: per ASF policy we do NOT load fonts from third-party
+ * CDNs (e.g. Google Fonts) at runtime. The font-family stack lists
+ * "Montserrat" first so users who have it installed locally (or any
+ * future self-hosted bundle) see the brand typeface; otherwise the
+ * system stack is used as a graceful fallback.
  */
 
-/* You can override the default Infima variables here. */
 :root {
-  font-family: -apple-system, BlinkMacSystemFont, "Noto Sans", "Open Sans",
-    "Source Sans", Helvetica, Arial, Inter, Ubuntu, Roboto, sans-serif;
-  font-size: 16px;
-  --ifm-color-primary: #2e8555;
-  --ifm-color-primary-dark: #29784c;
-  --ifm-color-primary-darker: #277148;
-  --ifm-color-primary-darkest: #205d3b;
-  --ifm-color-primary-light: #33925d;
-  --ifm-color-primary-lighter: #359962;
-  --ifm-color-primary-lightest: #3cad6e;
-  --ifm-code-font-size: 95%;
-  --docusaurus-highlighted-code-line-bg: rgba(17, 15, 15);
+  /* === Typography ============================================ */
+  /* GitHub-style body stack */
+  --font-family-base: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans",
+    Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  /* Montserrat for headings & display */
+  --font-family-display: "Montserrat", -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Helvetica, Arial, sans-serif;
+  --font-family-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo,
+    Consolas, "Liberation Mono", monospace;
 
-  // background color
-  --normal-bg-1: rgba(17, 15, 15);
-  --navbar-bg-color: rgb(7, 7, 7);
-  --active-color: rgba(255, 168, 0, 1);
-  --hover-fill-color: rgba(255, 61, 0, 1);
-  --docs-detail-bg: rgba(22, 27, 34, 1);
-  --ordered-list-bg-color: rgb(51, 34, 0);
-  --ordered-list-text-color: #fff;
-  --tags-bg-color: rgba(255, 168, 0, 0.15);
-  --menu-bg-color: rgb(76, 50, 0);
-  --hover-full-bg-text-color: rgb(0, 0, 0);
-  --code-bg-color: rgb(51, 51, 51);
-  --right-sidebar-circle-bg-color: rgba(48, 54, 61, 1);
-  --right-sidebar-active-color: var(--active-color);
-  --portrait-border-hover-color: rgb(254, 177, 25);
+  /* === Brand palette ==========================================
+   * Apache Cloudberry Brand Guidelines — Primary palette:
+   *   - #FF5900  Berry Orange (deep)
+   *   - #FEA315  Berry Orange (light / amber)
+   *   - #000000  Black
+   *   - #FFFFFF  White
+   *
+   * Contrast (WCAG 2.1):
+   *   #FF5900 on #fff  ≈ 3.16:1   (AA Large / 1.4.11 UI ✓)
+   *   #FEA315 on #fff  ≈ 2.27:1   (decorative only)
+   *   #FF5900 on #000  ≈ 6.65:1   (AAA ✓)
+   *   #FEA315 on #000  ≈ 9.27:1   (AAA ✓)
+   *   #000    on #fff  = 21:1     (AAA ✓)
+   *
+   * To satisfy WCAG 1.4.1 (color is not the sole signal), inline body
+   * links using --color-accent are always underlined.
+   */
+  --brand-orange-deep: #ff5900;
+  --brand-orange: #fea315;
+  --brand-orange-soft: rgba(254, 163, 21, 0.16);
+  --brand-black: #000000;
+  --brand-white: #ffffff;
 
-  // text color
-  --normal-text-color: rgba(12, 14, 20, 1);
-  --normal-text-color-1: rgb(0, 0, 0);
-  --sub-text-color: rgba(161, 174, 191);
-  --sub-text-color-1: rgba(114, 128, 149);
-  --sub-text-color-2: rgba(255, 255, 255, 0.6);
-  --sub-text-color-3: rgba(0, 0, 0, 0.6);
-  --sub-text-color-4: rgba(0, 194, 255, 1);
-  --sub-text-color-5: rgba(242, 242, 242);
-  --sub-text-color-6: #212529;
-  --blog-border-color: rgba(48, 54, 61, 1);
-  --back-home-logo-color: rgba(76, 76, 76);
-  --title-text-color: rgb(255, 255, 255);
+  /* Legacy aliases (kept so existing rules keep working) */
+  --brand-orange-dark: var(--brand-orange-deep);
+  --brand-orange-accent: var(--brand-orange-deep);
+  --brand-yellow: var(--brand-orange);
+  --brand-yellow-soft: var(--brand-orange-soft);
+
+  /* === Neutral scale (derived from brand black/white) ========= */
+  --color-bg: #ffffff;
+  --color-bg-subtle: #fafafa;
+  --color-bg-muted: #f5f6f8;
+  --color-surface: #ffffff;
+  --color-border: #e6e8ec;
+  --color-border-strong: #d0d4dc;
+  --color-text: #18181b;       /* near-black for body text, AAA on white */
+  --color-text-muted: #4a5160; /* secondary text, ~7.8:1 on white */
+  --color-text-soft: #6b7280;
+
+  /* === Radii, shadows, motion ================================ */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+  --radius-pill: 999px;
+  --shadow-xs: 0 1px 2px rgba(15, 17, 22, 0.04);
+  --shadow-sm: 0 1px 3px rgba(15, 17, 22, 0.06),
+    0 1px 2px rgba(15, 17, 22, 0.04);
+  --shadow-md: 0 6px 16px rgba(15, 17, 22, 0.06),
+    0 2px 4px rgba(15, 17, 22, 0.04);
+  --shadow-lg: 0 18px 40px rgba(15, 17, 22, 0.08),
+    0 4px 12px rgba(15, 17, 22, 0.04);
+  --motion-fast: 150ms ease;
+  --motion-base: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* === Layout tokens ========================================= */
+  --global-main-width: 1200px;
+  --mobile-padding-width: 32px;
+  --normal-box-radius: 10px;
+  --doc-sidebar-width: 280px;
+  --docs-nav-margin: 60px;
+
+  /* === Docusaurus / Infima overrides ========================== */
+  --ifm-color-primary: var(--brand-orange-deep);
+  --ifm-color-primary-dark: #e54e00;
+  --ifm-color-primary-darker: #cc4600;
+  --ifm-color-primary-darkest: #a83a00;
+  --ifm-color-primary-light: var(--brand-orange);
+  --ifm-color-primary-lighter: #fec246;
+  --ifm-color-primary-lightest: #fed276;
+
+  --ifm-font-family-base: var(--font-family-base);
+  --ifm-heading-font-family: var(--font-family-display);
+  --ifm-font-family-monospace: var(--font-family-mono);
+  --ifm-font-size-base: 16px;
+  --ifm-line-height-base: 1.65;
+
+  --ifm-h1-font-size: 2.25rem;
+  --ifm-h2-font-size: 1.625rem;
+  --ifm-h3-font-size: 1.25rem;
+  --ifm-heading-font-weight: 700;
+  --ifm-heading-line-height: 1.25;
+
+  --ifm-code-font-size: 92%;
+  --ifm-code-background: #f5f6f8;
+  --ifm-code-border-radius: 4px;
+
+  --ifm-navbar-height: 68px;
+  --ifm-navbar-padding-vertical: 0;
+  --ifm-navbar-padding-horizontal: 0;
+  --ifm-menu-link-padding-horizontal: 16px;
+  --ifm-menu-link-padding-vertical: 8px;
+  --ifm-breadcrumb-spacing: 0;
   --ifm-breadcrumb-item-background-active: transparent;
   --ifm-breadcrumb-separator: url("/img/line.svg");
 
-  // shape
-  --ifm-menu-link-padding-horizontal: 21px !important;
-  --ifm-h1-font-size: 32px !important;
-  --ifm-font-family-base: -apple-system, Montserrat, BlinkMacSystemFont, "Noto Sans",
-    "Open Sans", "Source Sans", Helvetica, Arial, Inter, Ubuntu, Roboto,
-    sans-serif;
-  --ifm-alert-foreground-color: red;
   --ifm-container-width-xl: var(--global-main-width);
-  --ifm-global-spacing: 10px;
-  --ifm-navbar-height: 98px;
-  --ifm-menu-link-padding-horizontal: 25px;
-  --ifm-breadcrumb-spacing: 0;
+  --ifm-global-spacing: 12px;
+  --ifm-tabs-padding-vertical: 8px;
+  --ifm-tabs-padding-horizontal: 16px;
 
-  --global-main-width: 1440px;
-  --normal-box-radius: 4px;
-  --doc-sidebar-width: 301px;
-  --home-btn-bg: rgba(255, 168, 0, 1);
-  --home-btn-color: rgb(0, 0, 0);
-  --footer-bg-color: #212529;
-  --mobile-padding-width: 70px;
-  --docs-nav-margin: 60px;
-  --ifm-tabs-padding-vertical: 5px;
-  --ifm-tabs-padding-horizontal: 14px;
+  --docusaurus-highlighted-code-line-bg: rgba(254, 163, 21, 0.14);
+
+  /* === Semantic accent === */
+  /* Used for inline links / accent text. Defaults to brand "Berry Orange"
+   * deep tone on light backgrounds; dark mode uses the lighter brand
+   * orange (#FEA315) for AAA contrast. */
+  --color-accent: var(--brand-orange-deep);
+  --color-accent-hover: #d94a00;
+
+  /* === Legacy compat aliases (kept so existing components still work) === */
+  --normal-bg-1: var(--color-bg);
+  --navbar-bg-color: var(--color-bg);
+  --active-color: var(--color-accent);
+  --hover-fill-color: var(--color-accent);
+  --docs-detail-bg: #fff8e6;
+  --ordered-list-bg-color: var(--brand-orange-soft);
+  --ordered-list-text-color: var(--color-text);
+  --tags-bg-color: rgba(254, 163, 21, 0.14);
+  --menu-bg-color: var(--brand-orange-soft);
+  --hover-full-bg-text-color: var(--color-text);
+  --code-bg-color: var(--ifm-code-background);
+  --right-sidebar-circle-bg-color: #e6e8ec;
+  --right-sidebar-active-color: var(--color-accent);
+  --portrait-border-hover-color: var(--color-accent);
+
+  --normal-text-color: var(--color-text);
+  --normal-text-color-1: var(--color-text);
+  --sub-text-color: var(--color-text-muted);
+  --sub-text-color-1: var(--color-text-muted);
+  --sub-text-color-2: var(--color-text-muted);
+  --sub-text-color-3: rgba(0, 0, 0, 0.7);
+  --sub-text-color-4: #2563eb;
+  --sub-text-color-5: var(--color-text);
+  --sub-text-color-6: var(--brand-white);
+  --blog-border-color: var(--color-border);
+  --back-home-logo-color: var(--color-text-muted);
+  --title-text-color: var(--color-text);
+
+  --home-btn-bg: var(--brand-orange);
+  --home-btn-color: var(--color-text);
+  --footer-bg-color: var(--brand-black);
+
+  --box-border-color: var(--color-border);
+  --box-hover-border-color: var(--color-accent);
+  --code-border-color: transparent;
+  --portrait-border-color: var(--color-border);
+  --nav-link-line-normal-color: var(--color-border);
+  --popper-bg-color: var(--brand-black);
+  --popper-text-color: var(--brand-white);
 }
 
-@media screen and (max-width: 1024px) {
+/* Responsive layout tokens */
+@media screen and (max-width: 1280px) {
   :root {
     --global-main-width: 100%;
   }
 }
+@media screen and (max-width: 1024px) {
+  :root {
+    --mobile-padding-width: 24px;
+  }
+}
 @media screen and (max-width: 768px) {
   :root {
-    --mobile-padding-width: 37px;
+    --mobile-padding-width: 20px;
+    --ifm-navbar-height: 56px;
+    --ifm-h1-font-size: 1.875rem;
+    --ifm-h2-font-size: 1.5rem;
   }
 }
 
-/* For readability concerns, you should choose a lighter palette in dark mode. */
-[data-theme="dark"] {
-  --ifm-color-primary: #25c2a0;
-  --ifm-color-primary-dark: #21af90;
-  --ifm-color-primary-darker: #1fa588;
-  --ifm-color-primary-darkest: #1a8870;
-  --ifm-color-primary-light: #29d5b0;
-  --ifm-color-primary-lighter: #32d8b4;
-  --ifm-color-primary-lightest: #4fddbf;
-  --ifm-background-color: #212529 !important;
-  --ifm-breadcrumb-color-active: rgba(255, 168, 0, 1);
-  --ifm-hover-overlay: rgba(255, 168, 0, 0.3) !important;
-  --ifm-menu-color-active: rgba(255, 168, 0, 1) !important;
-  --ifm-menu-color: rgb(153, 153, 153) !important;
-  --ifm-navbar-link-hover-color: var(--active-color);
-  --ifm-color-primary: var(--active-color);
-  --ifm-navbar-background-color: rgba(15, 15, 15, 0.4);
-  --ifm-font-weight-semibold: 400;
-  --ifm-code-background: rgb(51, 51, 51) !important;
-
-  --code-border-color: rgb(153, 109, 26);
-  --portrait-border-color: rgb(37, 38, 39);
-  --box-border-color: var(--sub-text-color);
-  --box-hover-border-color: var(--title-text-color);
-  --sub-text-color-2: rgba(255, 255, 255, 0.6);
-  --nav-link-line-normal-color: rgba(48, 54, 61, 1);
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
-  --popper-bg-color: rgb(255, 168, 0);
-  --popper-text-color: #3a3f63;
-}
-
+/* Light mode (default) */
 [data-theme="light"] {
-  --ifm-font-color-base: #212529;
-  --normal-bg-1: #fff;
-  --title-text-color: #212529;
-  --sub-text-color-2: #546e7a;
-  --sub-text-color: #525665;
-  --sub-text-color-1: #525665;
-  --sub-text-color-6: #fff;
+  --ifm-background-color: var(--color-bg);
+  --ifm-font-color-base: var(--color-text);
+  --ifm-color-content: var(--color-text);
+  --ifm-color-content-secondary: var(--color-text-muted);
 
-  --home-btn-bg: #212529;
-  --home-btn-color: #212529;
+  --ifm-navbar-background-color: #ffffff;
+  --ifm-navbar-link-color: var(--color-text);
+  --ifm-navbar-link-hover-color: var(--color-accent);
 
-  --box-border-color: #e0e0e0;
-  --box-hover-border-color: #e0e0e0;
+  --ifm-menu-color: var(--color-text-muted);
+  --ifm-menu-color-active: var(--color-text);
+  --ifm-menu-color-background-active: var(--brand-orange-soft);
+  --ifm-menu-color-background-hover: var(--color-bg-muted);
+  --ifm-breadcrumb-color-active: var(--color-accent);
 
-  --right-sidebar-circle-bg-color: #f2f2f2;
-  --sub-text-color-5: #212529;
-  --blog-border-color: #e0e0e0;
-  --docs-detail-bg: #eef9fd;
-  --ordered-list-bg-color: #ffeecc;
-  --ordered-list-text-color: #212529;
-  --ifm-menu-color-background-active: #ffe5b3;
-  --right-sidebar-active-color: #212529;
+  --ifm-pagination-nav-color-hover: var(--color-border);
 
-  --ifm-menu-color-active: #212529;
-  --ifm-menu-color: #212529;
-  --ifm-breadcrumb-color-active: var(--active-color);
-  --ifm-pagination-nav-color-hover: #e0e0e0;
-  --portrait-border-color: #eef9fd;
-  --ifm-navbar-link-hover-color: var(--active-color);
-  --popper-bg-color: #212529;
-  --popper-text-color: #ffffff;
-  --ifm-color-primary: #212529;
-  --navbar-bg-color: rgb(255, 255, 255);
-  .navbar-home-lighting {
-    --ifm-navbar-background-color: rgba(15, 15, 15, 0.4) !important;
-    --ifm-navbar-link-color: #fff;
-    --home-btn-bg: rgba(255, 168, 0, 1) !important;
-    --navbar-bg-color: rgb(7, 7, 7);
+  /* Accent: use original #ffa800 on light backgrounds for warmth and brand
+   * continuity. #e69500 is ~10 % darker for hover/active states. */
+  --color-accent: #ffa800;
+  --color-accent-hover: #e69500;
+
+  /* Primary button shade family based on #ffa800 */
+  --ifm-color-primary: #ffa800;
+  --ifm-color-primary-dark: #e69500;
+  --ifm-color-primary-darker: #cc8400;
+  --ifm-color-primary-darkest: #a86c00;
+  --ifm-color-primary-light: #ffb933;
+  --ifm-color-primary-lighter: #ffca66;
+  --ifm-color-primary-lightest: #ffdb99;
+
+  --normal-bg-1: var(--color-bg);
+  --navbar-bg-color: var(--color-bg);
+  --title-text-color: var(--color-text);
+  --sub-text-color-2: var(--color-text-muted);
+  --sub-text-color-5: var(--color-text);
+  --sub-text-color-6: var(--brand-white);
+  --blog-border-color: var(--color-border);
+  --right-sidebar-circle-bg-color: #e6e8ec;
+  --right-sidebar-active-color: var(--color-accent);
+  --docs-detail-bg: #fff8e6;
+  --portrait-border-color: var(--color-border);
+  --popper-bg-color: var(--brand-black);
+  --popper-text-color: var(--brand-white);
+
+  --code-border-color: transparent;
+  --box-border-color: var(--color-border);
+  --box-hover-border-color: var(--color-accent);
+
+  /* Force pure-black background for code blocks in light mode too,
+   * matching the dark-mode "terminal" look (see design-style.scss). */
+  div[class*="theme-code-block"] > div > pre {
+    background-color: #000000 !important;
   }
+
+  /* Opaque dark navbar over the home hero */
+  .navbar-home-lighting {
+    --ifm-navbar-background-color: #0a0a0a;
+    --ifm-navbar-link-color: #fff;
+    --home-btn-bg: var(--brand-orange-deep);
+    --navbar-bg-color: #0a0a0a;
+  }
+}
+
+/* Dark mode */
+[data-theme="dark"] {
+  --color-bg: #000000;          /* brand black (page background) */
+  /* Elevated surfaces are deliberately lifted well above pure black
+   * so cards, code chips, table headers etc. are clearly separated
+   * from the page background. */
+  --color-bg-subtle: #161616;
+  --color-bg-muted: #202020;
+  --color-surface: #141414;
+  --color-border: #2e2e2e;
+  --color-border-strong: #3d3d3d;
+  --color-text: #d8d8d8;
+  --color-text-muted: #9a9a9a;
+  --color-text-soft: #707070;
+
+  --ifm-background-color: var(--color-bg) !important;
+  --ifm-font-color-base: var(--color-text);
+  --ifm-color-content: var(--color-text);
+  --ifm-color-content-secondary: var(--color-text-muted);
+
+  --ifm-navbar-background-color: #000000;
+  --ifm-navbar-link-color: var(--color-text);
+  --ifm-navbar-link-hover-color: var(--color-accent);
+
+  --ifm-menu-color: var(--color-text-muted) !important;
+  --ifm-menu-color-active: var(--color-accent) !important;
+  --ifm-menu-color-background-active: rgba(254, 163, 21, 0.16);
+  --ifm-menu-color-background-hover: var(--color-bg-muted);
+  --ifm-breadcrumb-color-active: var(--color-accent);
+  --ifm-hover-overlay: rgba(254, 163, 21, 0.18) !important;
+
+  /* Inline code chip — clearly lighter than the black page so the
+   * monospace text stands out. */
+  --ifm-code-background: #2a2a2a !important;
+  /* Warm, brand-tinted border + text so inline code pops on black */
+  --inline-code-border: rgba(254, 163, 21, 0.45);
+  --inline-code-color: #ffce7a;
+  --ifm-pre-background: #000000;
+  --docusaurus-highlighted-code-line-bg: rgba(254, 163, 21, 0.18);
+
+  --normal-bg-1: var(--color-bg);
+  --navbar-bg-color: var(--color-bg);
+  --title-text-color: var(--color-text);
+  --sub-text-color: var(--color-text-muted);
+  --sub-text-color-1: var(--color-text-muted);
+  --sub-text-color-2: var(--color-text-muted);
+  --sub-text-color-3: rgba(255, 255, 255, 0.7);
+  --sub-text-color-5: var(--color-text);
+  --sub-text-color-6: var(--brand-white);
+
+  --blog-border-color: var(--color-border);
+  --right-sidebar-circle-bg-color: var(--color-border);
+  --right-sidebar-active-color: var(--color-accent);
+  --docs-detail-bg: #1c1c1c;
+  --ordered-list-bg-color: rgba(254, 163, 21, 0.18);
+  --ordered-list-text-color: var(--color-text);
+  --portrait-border-color: var(--color-border);
+  --popper-bg-color: var(--color-accent);
+  --popper-text-color: var(--brand-black);
+
+  --box-border-color: var(--color-border);
+  --box-hover-border-color: var(--color-accent);
+  --code-border-color: transparent;
+  --nav-link-line-normal-color: var(--color-border);
+
+  --footer-bg-color: #000000;
+
+  /* AA-compliant link color on dark background.
+   * #FEA315 (brand light orange) on #000 ≈ 9.27:1 (AAA). */
+  --color-accent: var(--brand-orange);
+  --color-accent-hover: #ffba47;
+
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.5),
+    0 1px 2px rgba(0, 0, 0, 0.35);
+  --shadow-md: 0 6px 16px rgba(0, 0, 0, 0.5),
+    0 2px 4px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 18px 40px rgba(0, 0, 0, 0.6),
+    0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Base body */
+html,
+body {
+  font-family: var(--font-family-base);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Global focus-visible ring for keyboard accessibility */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* Headings always use Montserrat */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-family-display);
+  letter-spacing: -0.01em;
+}
+
+code,
+kbd,
+pre,
+samp {
+  font-family: var(--font-family-mono);
 }

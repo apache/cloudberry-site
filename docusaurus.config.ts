@@ -379,8 +379,11 @@ const config: Config = {
       ],
     },
     prism: {
+      // Both modes use the same dark token palette since code blocks
+      // always render on a pure-black background (see design-style.scss).
       theme: prismThemes.nightOwl,
-      darkTheme: prismThemes.okaidia,
+      darkTheme: prismThemes.nightOwl,
+      additionalLanguages: ["bash", "sql", "python", "yaml", "json"],
     },
     // Change website analytics from Google Analytics to Matomo
     matomo: {
