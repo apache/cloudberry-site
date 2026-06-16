@@ -4,6 +4,7 @@ import HCard from "../components/home/HCard";
 import MeetTheCommunity from "../components/home/MeetTheCommunity";
 import SlackWechatTwitterYoutube from "../components/home/SlackWechatTwitterYoutube";
 import WantToContribute from "../components/home/WantToContribute";
+import WhyCloudberry from "../components/home/WhyCloudberry";
 import styles from "../css/pages/home.module.scss";
 export default function Home(): JSX.Element {
   return (
@@ -11,6 +12,7 @@ export default function Home(): JSX.Element {
       <div className="navbar-home-lighting">
         <HCard />
         <div className={styles.homeContentContainer}>
+          <WhyCloudberry />
           <MeetTheCommunity />
           <SlackWechatTwitterYoutube />
           <WantToContribute />

@@ -1,5 +1,49 @@
 import LinkWithBaseUrl from "../components/common/LinkWithBaseUrl";
 
+let WHY_CLOUDBERRY = {
+  title: "Why Apache Cloudberry",
+  list: [
+    {
+      icon: "kernel",
+      title: "Modern PostgreSQL Kernel",
+      content:
+        "Built on a modern and stable PostgreSQL kernel, Cloudberry leverages upstream features, performance improvements, and the rich PostgreSQL ecosystem — giving you access to a vast landscape of extensions and modern tooling.",
+    },
+    {
+      icon: "compat",
+      title: "Greenplum\u00AE Compatible",
+      content:
+        "Derived from Greenplum\u00AE Database, Cloudberry maintains operational and behavioral compatibility — making migration straightforward for existing open-source Greenplum users with support for familiar workflows and migration tooling.",
+    },
+    {
+      icon: "governance",
+      title: "Vendor-Neutral & Apache-Governed",
+      content:
+        "Developed under the Apache Software Foundation's governance model, ensuring a truly open, vendor-neutral community with transparent, merit-based decision-making.",
+    },
+    {
+      icon: "performance",
+      title: "Built for Performance",
+      content:
+        "Parallel query execution and incremental materialized views deliver fast, scalable analytics — from terabytes to petabytes — on commodity hardware, virtual machines, or in the cloud.",
+    },
+    {
+      icon: "workloads",
+      title: "Multi-Workload Ready",
+      content:
+        "Handle diverse workloads out of the box — spatial analysis with PostGIS and in-database machine learning with Apache MADlib, all within a single MPP engine.",
+    },
+    {
+      icon: "security",
+      title: "Enterprise-Grade Security & Modern Features",
+      content:
+        "Transparent data encryption, password policies, a hybrid PAX storage engine, and dynamic tables for near-real-time data — all built for production-critical environments.",
+    },
+  ],
+  disclaimer:
+    "Greenplum\u00AE is a registered trademark of Broadcom Inc. Apache Cloudberry is not affiliated with, endorsed by, or sponsored by Broadcom Inc. Any references to Greenplum are for comparative, educational, and interoperability purposes only.",
+};
+
 let TIPS_CONTENT = (
   <LinkWithBaseUrl href="https://github.com/apache/cloudberry">
     <span>If you like Apache Cloudberry (Incubating), give it a star on GitHub! </span>
@@ -172,4 +216,5 @@ export {
   SLACK_TWITTER_TWITTER_WECHAT,
   TIPS_CONTENT,
   WANT_TO_CONTRIBUTE,
+  WHY_CLOUDBERRY,
 };

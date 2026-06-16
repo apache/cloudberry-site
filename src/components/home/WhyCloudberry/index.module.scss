@@ -1,0 +1,104 @@
+.whyCloudberry {
+  padding: 80px var(--mobile-padding-width);
+  max-width: var(--global-main-width);
+  margin: 0 auto;
+
+  @media screen and (max-width: 768px) {
+    padding: 56px var(--mobile-padding-width);
+  }
+}
+
+.sectionTitle {
+  font-family: var(--font-family-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: var(--color-text);
+  text-align: center;
+  margin: 0 0 48px;
+
+  @media screen and (max-width: 768px) {
+    margin-bottom: 36px;
+  }
+}
+
+.cardGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+
+  @media screen and (max-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media screen and (max-width: 640px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.card {
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  background-color: var(--color-surface);
+  box-shadow: var(--shadow-xs);
+  padding: 28px 28px 24px;
+  transition: border-color var(--motion-fast),
+    box-shadow var(--motion-fast),
+    transform var(--motion-fast);
+
+  &:hover {
+    border-color: var(--color-accent);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+  }
+}
+
+.cardIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  background-color: var(--brand-orange-soft);
+  color: var(--brand-orange-deep);
+  margin-bottom: 18px;
+
+  svg {
+    stroke: var(--brand-orange-deep);
+  }
+}
+
+html[data-theme="dark"] .cardIcon {
+  color: var(--brand-orange);
+
+  svg {
+    stroke: var(--brand-orange);
+  }
+}
+
+.cardTitle {
+  font-family: var(--font-family-display);
+  font-size: 1.125rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+  color: var(--color-text);
+  margin: 0 0 8px;
+}
+
+.cardDesc {
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+.disclaimer {
+  margin: 32px auto 0;
+  max-width: 760px;
+  text-align: center;
+  font-size: 0.75rem;
+  line-height: 1.6;
+  color: var(--color-text-soft);
+}
