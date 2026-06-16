@@ -16,6 +16,7 @@ Convenience binaries for Cloudberry have been available since version 2.1.0. You
 <tr>
 <th>Version</th>
 <th>Date</th>
+<th>PostgreSQL Base</th>
 <th>Source archive</th>
 <th>Signature & Checksum</th>
 <th>Convenience Binaries</th>
@@ -26,6 +27,7 @@ Convenience binaries for Cloudberry have been available since version 2.1.0. You
 <tr>
 <td rowSpan="3">2.1.0-incubating <strong>(Latest)</strong></td>
 <td rowSpan="3">April 14, 2026</td>
+<td rowSpan="3">PostgreSQL 14.4</td>
 <td><a href="https://www.apache.org/dyn/closer.lua/incubator/cloudberry/2.1.0-incubating/apache-cloudberry-2.1.0-incubating-src.tar.gz?action=download">apache-cloudberry-2.1.0-incubating-src.tar.gz</a></td>
 <td><a href="https://downloads.apache.org/incubator/cloudberry/2.1.0-incubating/apache-cloudberry-2.1.0-incubating-src.tar.gz.asc">.asc</a>, <a href="https://downloads.apache.org/incubator/cloudberry/2.1.0-incubating/apache-cloudberry-2.1.0-incubating-src.tar.gz.sha512">.sha512</a></td>
 <td><a href="https://github.com/apache/cloudberry/releases/tag/2.1.0-incubating">RPM/DEB</a></td>
@@ -44,6 +46,7 @@ Convenience binaries for Cloudberry have been available since version 2.1.0. You
 <tr>
 <td>2.0.0-incubating</td>
 <td>August 25, 2025</td>
+<td>PostgreSQL 14.4</td>
 <td><a href="https://archive.apache.org/dist/incubator/cloudberry/2.0.0-incubating/apache-cloudberry-2.0.0-incubating-src.tar.gz">apache-cloudberry-2.0.0-incubating-src.tar.gz</a></td>
 <td><a href="https://downloads.apache.org/incubator/cloudberry/2.0.0-incubating/apache-cloudberry-2.0.0-incubating-src.tar.gz.asc">.asc</a>, <a href="https://downloads.apache.org/incubator/cloudberry/2.0.0-incubating/apache-cloudberry-2.0.0-incubating-src.tar.gz.sha512">.sha512</a></td>
 <td>-</td>
