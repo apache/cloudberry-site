@@ -26,4 +26,4 @@ Becoming a committer recognizes both Anton's past contributions and the communit
 
 Please join us in congratulating Anton Kurochkin on this well-deserved recognition. We look forward to his continued contributions and collaboration within the Apache Cloudberry community!
 
-You can find the official announcement on the [Apache mailing list](https://lists.apache.org/list.html?commits@cloudberry.apache.org).
+You can find the official announcement on the [Apache Cloudberry mailing list](https://lists.apache.org/thread/81qp2zdg9kwq75dpl72myz76xyjpmfq8).
