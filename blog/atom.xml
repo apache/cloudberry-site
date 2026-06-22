@@ -2,11 +2,35 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://cloudberry.apache.org/blog</id>
     <title>Apache Cloudberry (Incubating) is one advanced and mature open-source MPP (Massively Parallel Processing) databases available.</title>
-    <updated>2026-06-09T00:00:00.000Z</updated>
+    <updated>2026-06-22T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://cloudberry.apache.org/blog"/>
     <subtitle>Apache Cloudberry (Incubating) Blog</subtitle>
     <icon>https://cloudberry.apache.org/img/favicon.ico</icon>
+    <entry>
+        <title type="html"><![CDATA[Welcoming Anton Kurochkin as a New Apache Cloudberry Committer]]></title>
+        <id>https://cloudberry.apache.org/blog/welcoming-anton-kurochkin-as-a-new-apache-cloudberry-committer</id>
+        <link href="https://cloudberry.apache.org/blog/welcoming-anton-kurochkin-as-a-new-apache-cloudberry-committer"/>
+        <updated>2026-06-22T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[Becoming a committer demonstrates a strong commitment to the community.]]></summary>
+        <content type="html"><![CDATA[<p>We're thrilled to announce that Anton Kurochkin (GitHub ID: @woblerr) has joined Apache Cloudberry as our newest committer! 🎉</p>
+<p>Over the past several months, Anton has been an active and impactful contributor to the Cloudberry community, with a particular focus on the <code>cloudberry-backup</code> project and related Go-based tooling. His contributions span a wide range of areas — from roadmap discussions and code improvements to project modernization and community collaboration.</p>
+<p>Some highlights of Anton's contributions include:</p>
+<ul>
+<li>Engaging deeply in the <code>cloudberry-backup</code> roadmap discussions, sharing practical operational experience and helping shape the project's direction.</li>
+<li>Contributing <code>gpbackman</code>, a CLI tool for managing gpbackup backups more conveniently.</li>
+<li>Contributing <code>gpbackup_exporter</code>, a Prometheus exporter that collects metrics from <code>gpbackup_history.db</code>.</li>
+<li>Modernizing the Go development infrastructure, including upgrading the Go toolchain from 1.21 to 1.24, updating golangci-lint, and refactoring deprecated syntax and usages across the project.</li>
+</ul>
+<p>Anton's work has meaningfully strengthened Cloudberry's backup ecosystem and Go tooling capabilities. His combination of technical depth, practical experience, and community spirit makes him a natural fit for the committer role.</p>
+<p>Becoming a committer recognizes both Anton's past contributions and the community's trust in his continued involvement. Committers play an important role in shaping the project by reviewing and merging contributions, participating in design decisions, and helping guide the project's growth.</p>
+<p>Please join us in congratulating Anton Kurochkin on this well-deserved recognition. We look forward to his continued contributions and collaboration within the Apache Cloudberry community!</p>
+<p>You can find the official announcement on the <a href="https://lists.apache.org/thread/81qp2zdg9kwq75dpl72myz76xyjpmfq8" target="_blank" rel="noopener noreferrer">Apache Cloudberry mailing list</a>.</p>]]></content>
+        <author>
+            <name>Apache Cloudberry</name>
+        </author>
+        <category label="Announcement" term="Announcement"/>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Apache Cloudberry Upgrades to PostgreSQL 16 Kernel]]></title>
         <id>https://cloudberry.apache.org/blog/postgresql16-for-apache-cloudberry-202606</id>
@@ -1970,55 +1994,5 @@ Apache Cloudberry is an effort undergoing incubation at the Apache Software Foun
             <name>Apache Cloudberry</name>
         </author>
         <category label="Announcement" term="Announcement"/>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Apache Cloudberry 2.0 Preview: Key Features and Improvements Ahead]]></title>
-        <id>https://cloudberry.apache.org/blog/apache-cloudberry-2.0-preview-key-features-and-improvements-ahead</id>
-        <link href="https://cloudberry.apache.org/blog/apache-cloudberry-2.0-preview-key-features-and-improvements-ahead"/>
-        <updated>2025-06-20T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[Key highlights of Apache Cloudberry 2.0]]></summary>
-        <content type="html"><![CDATA[<p>The next major release of Apache Cloudberry (Incubating)—version 2.0—is just around the corner. As the project’s first Apache release since joining the Apache Incubator, Cloudberry 2.0 brings a host of new features, performance enhancements, and compliance improvements. While the official release is still in progress, we’d like to share a preview of the most exciting changes and innovations you can expect. This overview highlights the key updates and sets the stage for the upcoming launch.</p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="key-highlights-of-apache-cloudberry-20">Key Highlights of Apache Cloudberry 2.0<a href="https://cloudberry.apache.org/blog/apache-cloudberry-2.0-preview-key-features-and-improvements-ahead#key-highlights-of-apache-cloudberry-20" class="hash-link" aria-label="Direct link to Key Highlights of Apache Cloudberry 2.0" title="Direct link to Key Highlights of Apache Cloudberry 2.0">​</a></h2>
-<h3 class="anchor anchorWithStickyNavbar_LWe7" id="codebase-cleanup">Codebase Cleanup<a href="https://cloudberry.apache.org/blog/apache-cloudberry-2.0-preview-key-features-and-improvements-ahead#codebase-cleanup" class="hash-link" aria-label="Direct link to Codebase Cleanup" title="Direct link to Codebase Cleanup">​</a></h3>
-<p>One of the major efforts in this release was cleaning up the code repository to remove outdated and unused files. This includes legacy components such as Concourse CI configurations (<code>concourse/*</code>), <code>hd-ci/*</code>, legacy deployment directories (e.g., Vagrant and Kubernetes setups), and redundant artifacts like PyGreSQL-related files. This cleanup streamlines the codebase, making it easier for contributors to navigate and focus on meaningful development.</p>
-<h3 class="anchor anchorWithStickyNavbar_LWe7" id="brand-refresh">Brand Refresh<a href="https://cloudberry.apache.org/blog/apache-cloudberry-2.0-preview-key-features-and-improvements-ahead#brand-refresh" class="hash-link" aria-label="Direct link to Brand Refresh" title="Direct link to Brand Refresh">​</a></h3>
-<p>As part of the transition to the Apache Incubator, we’ve unified branding across the project source code and website. References to legacy names like "Cloudberry Database" and "CloudberryDB" have been replaced with <code>Apache Cloudberry</code> or simply <code>Cloudberry</code>. This ensures consistency and aligns the project with Apache’s branding guidelines.</p>
-<h3 class="anchor anchorWithStickyNavbar_LWe7" id="compliance-improvements">Compliance Improvements<a href="https://cloudberry.apache.org/blog/apache-cloudberry-2.0-preview-key-features-and-improvements-ahead#compliance-improvements" class="hash-link" aria-label="Direct link to Compliance Improvements" title="Direct link to Compliance Improvements">​</a></h3>
-<p>To meet Apache’s licensing and compliance standards, we’ve added the standard Apache License headers to all relevant newly created files by the Cloudberry community, replaced incompatible tarballs like Pylint (GPL-licensed) with Ruff (MIT-licensed), and ensured the codebase passes Apache RAT validation.</p>
-<p>We’ve reworded the NOTICE, LICENSE, DISCLAIMER, COPYRIGHT, and SECURITY files to reflect the new Apache Cloudberry branding and compliance requirements. All submodules and components’ licenses are listed in the top-level <code>licenses</code> directory.</p>
-<p>Our PPMC members and committers have all signed the ICLA (Individual Contributor License Agreement) files and the Cloudberry donation corporation also signed the Software Grant Agreement (SGA) files and and has been filed with the Apache Software Foundation.</p>
-<p>These changes make Cloudberry fully compliant with Apache’s open-source policies, paving the way for a smooth release process.</p>
-<h3 class="anchor anchorWithStickyNavbar_LWe7" id="cherry-picked-enhancements-from-archived-greenplum">Cherry-Picked Enhancements from archived Greenplum<a href="https://cloudberry.apache.org/blog/apache-cloudberry-2.0-preview-key-features-and-improvements-ahead#cherry-picked-enhancements-from-archived-greenplum" class="hash-link" aria-label="Direct link to Cherry-Picked Enhancements from archived Greenplum" title="Direct link to Cherry-Picked Enhancements from archived Greenplum">​</a></h3>
-<p>Apache Cloudberry 2.0 incorporates hundreds of commits cherry-picked from the archived Greenplum repository. These include critical bug fixes, performance improvements, and enhancements to the ORCA query optimizer and other components. While some changes outside Cloudberry’s roadmap were deprioritized, the codebase is now largely aligned with Greenplum, offering a solid foundation for future development. Community contributors are welcome to pick up tasks related to these deprioritized changes. See the <a href="https://github.com/apache/cloudberry/discussions/675" target="_blank" rel="noopener noreferrer">proposal</a> for more details.</p>
-<h3 class="anchor anchorWithStickyNavbar_LWe7" id="new-features-and-enhancements">New Features and Enhancements<a href="https://cloudberry.apache.org/blog/apache-cloudberry-2.0-preview-key-features-and-improvements-ahead#new-features-and-enhancements" class="hash-link" aria-label="Direct link to New Features and Enhancements" title="Direct link to New Features and Enhancements">​</a></h3>
-<p>This release introduces new features and enhancements that expand Cloudberry’s capabilities compared to the previous Cloudberry 1.6 release:</p>
-<ul>
-<li>Dynamic Tables: Automatically refresh query results based on base tables, external tables, or materialized views—ideal for building live analytical dashboards. See the <a href="https://cloudberry.apache.org/docs/next/performance/use-dynamic-tables" target="_blank" rel="noopener noreferrer">doc</a> for more details.</li>
-<li>PAX: Introduces a hybrid row-column storage model that improves cache efficiency and supports both object and local file systems. See the <a href="https://cloudberry.apache.org/docs/next/operate-with-data/pax-table-format" target="_blank" rel="noopener noreferrer">doc</a> for more details.</li>
-<li>And More: Cloudberry 2.0 brings extensive enhancements across query optimization, the ORCA optimizer, transaction management, storage, data handling, resource managment, and tools. Full details will be available in the official 2.0 release notes.</li>
-</ul>
-<h3 class="anchor anchorWithStickyNavbar_LWe7" id="cicd-process">CICD Process<a href="https://cloudberry.apache.org/blog/apache-cloudberry-2.0-preview-key-features-and-improvements-ahead#cicd-process" class="hash-link" aria-label="Direct link to CICD Process" title="Direct link to CICD Process">​</a></h3>
-<p>Since entering the Apache Incubator, a strong CI/CD pipeline has been established. This pipeline covers all the core tests and checks to ensure the quality of the codebase. At the same time, it can support parallel tests to speed up the CI/CD process, and output the detailed test result parsing and reporting, etc.</p>
-<p>As an Apache Incubator project, Apache Cloudberry 2.0 follows the Apache Software Foundation’s release process, including community discussions, voting, and compliance checks. This ensures the release meets the standards of quality and transparency.</p>
-<h3 class="anchor anchorWithStickyNavbar_LWe7" id="security-enhancements">Security Enhancements<a href="https://cloudberry.apache.org/blog/apache-cloudberry-2.0-preview-key-features-and-improvements-ahead#security-enhancements" class="hash-link" aria-label="Direct link to Security Enhancements" title="Direct link to Security Enhancements">​</a></h3>
-<p>Security has been a top priority for Apache Cloudberry 2.0. We’ve introduced Coverity Scan and SonarQube for automated weekly code analysis, ensuring the codebase is robust and secure.</p>
-<p>Additionally, we’ve addressed critical vulnerabilities, including PostgreSQL CVE-2025-1049 fixes, and upgraded dependencies such as <code>PyYAML</code> to patch known issues. These measures reinforce Cloudberry’s commitment to providing a secure and reliable database platform.</p>
-<h3 class="anchor anchorWithStickyNavbar_LWe7" id="website-and-docs-updates">Website and Docs updates<a href="https://cloudberry.apache.org/blog/apache-cloudberry-2.0-preview-key-features-and-improvements-ahead#website-and-docs-updates" class="hash-link" aria-label="Direct link to Website and Docs updates" title="Direct link to Website and Docs updates">​</a></h3>
-<p>The website and documentation have been updated to reflect the new branding and features. The website now includes a new design, updated content, and better navigation. The documentation has been updated to reflect the new features and changes in the codebase.</p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="looking-ahead">Looking Ahead<a href="https://cloudberry.apache.org/blog/apache-cloudberry-2.0-preview-key-features-and-improvements-ahead#looking-ahead" class="hash-link" aria-label="Direct link to Looking Ahead" title="Direct link to Looking Ahead">​</a></h2>
-<p>As an Apache Incubator project, Cloudberry 2.0 follows the ASF’s rigorous release process, including open discussion, voting, and compliance checks. This ensures transparency, quality, and community trust.</p>
-<p>With a cleaner codebase, enhanced security, and exciting new features and enhancements, Apache Cloudberry 2.0 will be a major milestone that sets the stage for future innovation. We invite the community to join us in shaping the future of Apache Cloudberry by contributing, testing, and sharing feedback.</p>
-<p>Stay tuned for the official 2.0 release announcement! Thank you for being part of the Apache Cloudberry journey!</p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="join-us">Join Us<a href="https://cloudberry.apache.org/blog/apache-cloudberry-2.0-preview-key-features-and-improvements-ahead#join-us" class="hash-link" aria-label="Direct link to Join Us" title="Direct link to Join Us">​</a></h2>
-<ul>
-<li>Visit the website: <a href="https://cloudberry.apache.org/" target="_blank" rel="noopener noreferrer">https://cloudberry.apache.org</a></li>
-<li>Follow us on GitHub: <a href="https://github.com/apache/cloudberry" target="_blank" rel="noopener noreferrer">https://github.com/apache/cloudberry</a></li>
-<li>Join Slack workspace: <a href="https://join.slack.com/t/asf-cloudberry/shared_invite/zt-3um34r7hf-Sh~6jG6hVxlQJo1tbhK2sw" target="_blank" rel="noopener noreferrer">https://join.slack.com/t/asf-cloudberry/shared_invite/zt-3um34r7hf-Sh~6jG6hVxlQJo1tbhK2sw</a></li>
-<li>Dev mailing list: to subscribe and check the archives, please visit <a href="https://cloudberry.apache.org/community/mailing-lists">here</a></li>
-</ul>]]></content>
-        <author>
-            <name>Apache Cloudberry</name>
-        </author>
-        <category label="Release" term="Release"/>
     </entry>
 </feed>
