@@ -79,6 +79,7 @@ The listing includes new committers, excluding PPMC members above:
 | Xiaoyu Liu | liuxiaoyu@apache.org | MisterRaindrop | HashData |
 | Nikolay Antonov | ostinru@apache.org | ostinru | Yandex Cloud |
 | Robert Mu | robertmu@apache.org | robertmu | HashData |
+| Anton Kurochkin | woblerr@apache.org | woblerr | ecom.tech |
 
 ## Contributors wall
 
