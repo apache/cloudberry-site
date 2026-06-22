@@ -1,5 +1,6 @@
 ---
 title: Migration and Upgrade
+slug: /sys-admin/migration-and-upgrade
 toc_max_heading_level: 5
 ---
 

@@ -325,7 +325,14 @@
           ]
         },
         "sys-admin/use-compression",
-        "sys-admin/migration-and-upgrade",
+        {
+          "type": "category",
+          "label": "Migration and Upgrade",
+          "items": [
+            "sys-admin/migration-and-upgrade/migration-and-upgrade",
+            "sys-admin/migration-and-upgrade/backward-incompatible-changes-from-greenplum-6"
+          ]
+        },
         "sys-admin/recommended-maintenance-monitoring-tasks",
         "sys-admin/routine-maintain-tasks",
         "sys-admin/monitor-long-running-operations"
