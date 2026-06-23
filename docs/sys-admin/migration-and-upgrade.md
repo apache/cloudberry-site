@@ -47,7 +47,7 @@ make install
 - Target: Cloudberry 2.0
 
 ### Greenplum to Cloudberry migration
-- Source: Apache Cloudberry 1.x or 2.x
+- Source: Greenplum 6.x or 7.x
 - Target: Cloudberry 1.x or 2.x
 
 ## Migration process

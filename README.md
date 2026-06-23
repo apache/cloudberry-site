@@ -111,7 +111,7 @@ server.
 
 Our documents are still in construction, welcome to help. If you're
 interested in [document
-contribution](https://cloudberry.apache.org/community/docs-contributing-guide),
+contribution](https://cloudberry.apache.org/contribute/doc),
 you can submit the pull request
 [here](https://github.com/apache/cloudberry-site/tree/main/docs).
 
