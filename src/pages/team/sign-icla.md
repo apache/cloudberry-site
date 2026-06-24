@@ -37,34 +37,34 @@ description: Follow these steps to sign your ICLA for Apache, including detailed
 
 3. Fill the fields with your personal information
 
-* Full Name: Please enter your full name.
-* Public Name: Can enter your full name or a new name. If you do not enter a public name, your full name will be public.
-* Postal Address: You need to make it more detailed to the door number. If not, it will be rejected by Apache. (Apache will not publish your postal address).
-* Email: Please enter your commonly used email address.
-* (optional) preferred Apache id(s):  This will used for the xxx@apache.org email.
-* notify project: Apache Cloudberry
+    * Full Name: Please enter your full name.
+    * Public Name: Can enter your full name or a new name. If you do not enter a public name, your full name will be public.
+    * Postal Address: You need to make it more detailed to the door number. If not, it will be rejected by Apache. (Apache will not publish your postal address).
+    * Email: Please enter your commonly used email address.
+    * (optional) preferred Apache id(s):  This will used for the xxx@apache.org email.
+    * notify project: Apache Cloudberry
 
-Create your signature on MacOS:
-![Sign Apache ICLA - step 1](/img/team/sign-apache-icla-1.jpeg)
-
-Move your signature to the right place, then save the doc:
-![Sign Apache ICLA - step 2](/img/team/sign-apache-icla-2.jpeg)
+      Create your signature on MacOS:
+      ![Sign Apache ICLA - step 1](/img/team/sign-apache-icla-1.jpeg)
+      
+      Move your signature to the right place, then save the doc:
+      ![Sign Apache ICLA - step 2](/img/team/sign-apache-icla-2.jpeg)
 
 4. Create one email to Apache.
 
-* Recipients: secretary@apache.org  (Please don’t copy others)
-* Subject: ICLA from [Your Name] for Project Cloudberry
-* Message Body:
+    * Recipients: `secretary@apache.org`  (Please don’t copy others)
+    * Subject: `ICLA from [Your Name] for Project Cloudberry`
+    * Message Body:
 
-  ```
-  Hi there,
+      ```
+      Hi there,
 
-  The attachment ICLA is from [Your Name], one new committer for the Cloudberry podling.
+      The attachment ICLA is from [Your Name], one new committer for the Cloudberry podling.
 
-  If any questions about the signed doc, please let me know.
+      If any questions about the signed doc, please let me know.
 
-  Thanks!
-  ```
+      Thanks!
+      ```
 
-* Attach your completed ICLA file to the email.
-* Send.
+    * Attach your completed ICLA file to the email.
+    * Send.
