@@ -33,7 +33,7 @@ Each Podling Project Management Committee (PPMC) helps its Podling learn how to 
 | Willem Jiang *(Mentor)*| ningjiang@apache.org | WillemJiang | Apache Member, ByteDance |
 | Xiaoran Wang | fanfuxiaoran@apache.org | fanfuxiaoran | ByteDance |
 | Xin (Alwin) Tang | alwintang@apache.org | xtangcode | Synx Data Labs |
-| Zhang Mingli | avamingli@apache.org | avamingli | Individual |
+| Zhang Mingli | avamingli@apache.org | avamingli | EDB |
 | Leonid Borchuk | leborchuk@apache.org | leborchuk | Yandex Cloud |
 
 ### New PPMC Members
