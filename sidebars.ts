@@ -16,7 +16,7 @@ const sidebars: SidebarsConfig = {
     {
       type: 'category',
       label: 'Introduction',
-      items: ['introduction/cbdb-overview', 'introduction/cbdb-architecture', 'introduction/cbdb-scenarios', 'introduction/cbdb-vs-gp-features']
+      items: ['introduction/cbdb-overview', 'introduction/cbdb-architecture', 'introduction/cbdb-scenarios', 'introduction/cbdb-vs-gp-features', 'introduction/cloudberry-history']
     },
 
     {
