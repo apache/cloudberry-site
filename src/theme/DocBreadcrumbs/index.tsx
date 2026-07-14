@@ -2,8 +2,8 @@ import { translate } from "@docusaurus/Translate";
 import { ThemeClassNames } from "@docusaurus/theme-common";
 import {
   useHomePageRoute,
-  useSidebarBreadcrumbs,
 } from "@docusaurus/theme-common/internal";
+import { useSidebarBreadcrumbs } from "@docusaurus/plugin-content-docs/client";
 import HomeBreadcrumbItem from "@theme/DocBreadcrumbs/Items/Home";
 import clsx from "clsx";
 import { type ReactNode } from "react";

@@ -1,8 +1,8 @@
 import dayjs from "dayjs";
-import recentPosts from "../../.docusaurus/docusaurus-plugin-content-blog/default/blog-archive-80c.json";
+import recentPosts from "../../.docusaurus/docusaurus-plugin-content-blog/default/p/blog-archive-f05.json";
 
 export default function useGetNewBlogList(n: number = 4) {
-  let blogPosts = recentPosts.blogPosts;
+  let blogPosts = recentPosts.archive.blogPosts;
 
 
   blogPosts

@@ -2,7 +2,7 @@ import React from "react";
 import clsx from "clsx";
 import { translate } from "@docusaurus/Translate";
 import { usePluralForm } from "@docusaurus/theme-common";
-import { useBlogPost } from "@docusaurus/theme-common/internal";
+import { useBlogPost } from "@docusaurus/plugin-content-blog/client";
 import type { Props } from "@theme/BlogPostItem/Header/Info";
 
 // Very simple pluralization: probably good enough for now

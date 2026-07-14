@@ -1,4 +1,4 @@
-import { useBlogPost } from "@docusaurus/theme-common/internal";
+import { useBlogPost } from "@docusaurus/plugin-content-blog/client";
 export default function Desc({ style }: { style?: React.CSSProperties }) {
   const { metadata } = useBlogPost();
   return (

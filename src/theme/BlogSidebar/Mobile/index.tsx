@@ -1,5 +1,5 @@
 import React from 'react';
-import {useVisibleBlogSidebarItems} from '@docusaurus/theme-common/internal';
+import {useVisibleBlogSidebarItems} from '@docusaurus/plugin-content-blog/client';
 import {NavbarSecondaryMenuFiller} from '@docusaurus/theme-common';
 import type {Props} from '@theme/BlogSidebar/Mobile';
 import LinkWithBaseUrl from '@site/src/components/common/LinkWithBaseUrl';
