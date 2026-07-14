@@ -12,7 +12,12 @@ const config: Config = {
 
   // onBrokenLinks: "throw",
   onBrokenLinks: "ignore",
-  onBrokenMarkdownLinks: "warn",
+
+  markdown: {
+    hooks: {
+      onBrokenMarkdownLinks: "warn",
+    },
+  },
   
   plugins: [
     "docusaurus-plugin-sass",
@@ -56,6 +61,7 @@ const config: Config = {
           path: "blog", // Path to the existing blog folder
           routeBasePath: "blog", // Route for the existing blog
           include: ["*.md", "*.mdx"], // File types to include for the existing blog
+          onUntruncatedBlogPosts: 'ignore',
 
           feedOptions: {
             type: "all",

@@ -7,7 +7,7 @@ import CommonLayout from "@site/src/components/common/Layout";
 import MDXContent from "@theme/MDXContent";
 import type { Props } from "@theme/MDXPage";
 import TOC from "@theme/TOC";
-import Unlisted from "@theme/Unlisted";
+import ContentVisibility from "@theme/ContentVisibility";
 import clsx from "clsx";
 import styles from "./styles.module.css";
 
@@ -15,9 +15,10 @@ export default function MDXPage(props: Props): JSX.Element {
   const { content: MDXPageContent } = props;
 
   const {
-    metadata: { frontMatter, unlisted, description, title },
+    metadata,
     assets,
   } = MDXPageContent;
+  const { frontMatter, description, title } = metadata;
   const { wrapperClassName, hide_table_of_contents: hideTableOfContents } =
     frontMatter;
 
@@ -36,7 +37,7 @@ export default function MDXPage(props: Props): JSX.Element {
 
         <div className={styles.mdxPageWrapper}>
           <div style={{ flex: 1, minWidth: 0 }}>
-            {unlisted && <Unlisted />}
+            <ContentVisibility metadata={metadata} />
             <article className="markdown">
               <MDXContent>
                 <MDXPageContent />
