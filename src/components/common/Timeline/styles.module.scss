@@ -1,0 +1,165 @@
+/* ------------------------------------------------------------------ */
+/* Timeline — vertical milestone timeline                             */
+/* ------------------------------------------------------------------ */
+
+.timeline {
+  margin: 2.5rem 0;
+}
+
+/* ---- Row: marker + content -------------------------------------- */
+.item {
+  display: flex;
+  gap: 28px;
+
+  &:hover .dot {
+    transform: scale(1.35);
+    box-shadow: 0 0 0 6px rgba(255, 89, 0, 0.18);
+  }
+}
+
+/* ---- Marker (dot + line) ---------------------------------------- */
+.marker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 20px;
+  flex-shrink: 0;
+}
+
+.dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--brand-orange-deep);
+  border: 3px solid var(--color-bg);
+  flex-shrink: 0;
+  margin-top: 5px;
+  z-index: 1;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.dotLatest {
+  animation: dotPulse 2.2s ease-in-out infinite;
+  box-shadow: 0 0 0 0 rgba(255, 89, 0, 0.45);
+}
+
+@keyframes dotPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 89, 0, 0.45);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(255, 89, 0, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 89, 0, 0);
+  }
+}
+
+.line {
+  width: 2px;
+  flex: 1;
+  min-height: 28px;
+  background: linear-gradient(
+    to bottom,
+    var(--brand-orange-deep) 0%,
+    var(--color-border) 20%
+  );
+  margin-top: 6px;
+  border-radius: 1px;
+}
+
+/* ---- Content ---------------------------------------------------- */
+.content {
+  flex: 1;
+  padding-bottom: 40px;
+}
+
+.date {
+  display: inline-block;
+  font-family: var(--font-family-mono);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 6px;
+}
+
+.title {
+  font-family: var(--font-family-display);
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--color-text);
+  margin: 0 0 8px 0;
+}
+
+.desc {
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  color: var(--color-text-muted);
+  margin: 0;
+  max-width: 640px;
+}
+
+/* ---- Reference links ------------------------------------------- */
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.link {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+  transition: color var(--motion-fast);
+
+  &:hover {
+    color: var(--color-accent-hover);
+    text-decoration-thickness: 2px;
+  }
+}
+
+/* ---- Dark-mode overrides --------------------------------------- */
+html[data-theme="dark"] {
+  .dot {
+    /* Match the surface color so the border ring blends in */
+    border-color: var(--color-bg);
+  }
+}
+
+/* ---- Accessibility: reduce motion ------------------------------ */
+@media (prefers-reduced-motion: reduce) {
+  .dot {
+    transition: none;
+  }
+
+  .dotLatest {
+    animation: none;
+    box-shadow: 0 0 0 4px rgba(255, 89, 0, 0.25);
+  }
+}
+
+/* ---- Responsive ------------------------------------------------- */
+@media (max-width: 768px) {
+  .item {
+    gap: 18px;
+  }
+
+  .content {
+    padding-bottom: 28px;
+  }
+
+  .title {
+    font-size: 1rem;
+  }
+
+  .desc {
+    font-size: 0.875rem;
+  }
+}
