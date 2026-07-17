@@ -1,0 +1,1 @@
+"use strict";(globalThis.webpackChunkApache_Cloudberry_Incubating_website=globalThis.webpackChunkApache_Cloudberry_Incubating_website||[]).push([[26272],{82036(e){e.exports=JSON.parse('{"name":"docusaurus-plugin-content-docs","id":"pxf"}')}}]);
