@@ -314,6 +314,16 @@ const sidebars: SidebarsConfig = {
           type: 'category',
           label: 'Data Integration',
           items: ['ecosystem/data-integration/seatunnel']
+        },
+        {
+          type: 'category',
+          label: 'Connection Pooling',
+          items: ['ecosystem/connection-pooling/odyssey']
+        },
+        {
+          type: 'category',
+          label: 'Backup & Restore',
+          items: ['ecosystem/backup-and-restore/wal-g']
         }
       ]
     },
