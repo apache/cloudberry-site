@@ -2,6 +2,7 @@ import React from "react";
 import clsx from "clsx";
 import { translate } from "@docusaurus/Translate";
 import { usePluralForm } from "@docusaurus/theme-common";
+import { useDateTimeFormat } from "@docusaurus/theme-common/internal";
 import { useBlogPost } from "@docusaurus/plugin-content-blog/client";
 import type { Props } from "@theme/BlogPostItem/Header/Info";
 
@@ -30,7 +31,7 @@ function ReadingTime({ readingTime }: { readingTime: number }) {
   return <>{readingTimePlural(readingTime)}</>;
 }
 
-function Date({
+function DateTime({
   date,
   formattedDate,
 }: {
@@ -52,11 +53,21 @@ export default function BlogPostItemHeaderInfo({
   className,
 }: Props): JSX.Element {
   const { metadata } = useBlogPost();
-  const { date, formattedDate, readingTime } = metadata;
+  const { date, readingTime } = metadata;
+
+  const dateTimeFormat = useDateTimeFormat({
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+    timeZone: "UTC",
+  });
+
+  const formatDate = (blogDate: string) =>
+    dateTimeFormat.format(new Date(blogDate));
 
   return (
     <div className={clsx(className)}>
-      <Date date={date} formattedDate={formattedDate} />
+      <DateTime date={date} formattedDate={formatDate(date)} />
       {typeof readingTime !== "undefined" && (
         <>
           <Spacer />

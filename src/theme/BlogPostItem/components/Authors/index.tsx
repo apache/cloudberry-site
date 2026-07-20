@@ -1,12 +1,19 @@
 import { useBlogPost } from "@docusaurus/plugin-content-blog/client";
+import { useDateTimeFormat } from "@docusaurus/theme-common/internal";
 export default function BlogPostItemHeaderAuthors({
   styles,
 }: {
   styles?: React.CSSProperties;
 }): JSX.Element {
   const {
-    metadata: { authors, formattedDate },
+    metadata: { authors, date },
   } = useBlogPost();
+  const dateTimeFormat = useDateTimeFormat({
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+    timeZone: "UTC",
+  });
   const authorsCount = authors.length;
   if (authorsCount === 0) {
     return null;
@@ -51,7 +58,7 @@ export default function BlogPostItemHeaderAuthors({
           background: "var(--color-border-strong)",
         }}
       />
-      <span>{formattedDate}</span>
+      <span>{dateTimeFormat.format(new Date(date))}</span>
     </div>
   );
 }
