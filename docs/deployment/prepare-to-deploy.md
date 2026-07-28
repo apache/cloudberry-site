@@ -272,8 +272,8 @@ The following `sysctl.conf` operating system parameters control the reassembly p
 
 | OS Parameter | Description |
 |---|---|
-| `net.ipv4.ipfrag_high_thresh` | The maximum amount of memory used to reassemble IP fragments before the kernel starts to remove fragments to free up resources. The default value is 4194304 bytes (4MB). |
-| `net.ipv4.ipfrag_low_thresh` | The minimum amount of memory used to reassemble IP fragments. The default value is 3145728 bytes (3MB). (Deprecated after kernel version 4.17.) |
+| `net.ipv4.ipfrag_high_thresh` | The upper threshold (in bytes) for memory allocated to IP fragment reassembly. Once this threshold is reached, additional fragments are dropped until memory usage falls back to the lower threshold. Increasing this value lets the system handle more reassembly requests without dropping fragments due to insufficient memory. The default value is 4194304 bytes (4MB). |
+| `net.ipv4.ipfrag_low_thresh` | The lower threshold (in bytes) for memory allocated to IP fragment reassembly. Increasing this value helps ensure there is enough space to receive and reassemble new IP fragments even when memory usage is relatively low. The default value is 3145728 bytes (3MB). (Deprecated after kernel version 4.17.) |
 | `net.ipv4.ipfrag_time` | The maximum amount of time (in seconds) to keep an IP fragment in memory. The default value is 30. |
 
 The recommended settings for these parameters for Apache Cloudberry follow:
@@ -283,6 +283,23 @@ net.ipv4.ipfrag_high_thresh = 41943040
 net.ipv4.ipfrag_low_thresh = 31457280
 net.ipv4.ipfrag_time = 60
 ```
+
+:::tip
+If you see the message `interconnect may have encountered a network error, please check your network` in the segment logs, or experience segment failures with the same error, the IP fragment reassembly buffers are likely too small for your workload. This is common on hosts with large amounts of memory that run high-volume UDP interconnect traffic.
+
+On hosts with more than 16GB of memory, try increasing the thresholds to the following starting values and reload with `sysctl -p`:
+
+```conf
+net.ipv4.ipfrag_high_thresh = 536870912
+net.ipv4.ipfrag_low_thresh = 429496730
+net.ipv4.ipfrag_time = 60
+```
+
+When tuning these values:
+
+- Start with `net.ipv4.ipfrag_high_thresh = 536870912` (512MB). If interconnect errors persist, increase it further. You can raise this parameter up to 5% of the available physical memory.
+- Set `net.ipv4.ipfrag_low_thresh` to about 80% of `net.ipv4.ipfrag_high_thresh`. For a high threshold of 512MB, this is approximately `429496730`.
+:::
 
 #### System memory
 
