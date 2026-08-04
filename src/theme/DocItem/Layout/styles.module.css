@@ -3,13 +3,27 @@
   margin-top: 0;
 }
 
-@media (min-width: 1024px) {
+/* 1280px is where design-style.scss stops hiding the TOC column, so the two
+   have to agree. When they disagreed (1280 vs 1440), everything between those
+   two widths rendered the TOC alongside an article still claiming 100%, which
+   squeezed the TOC down to ~185px. */
+@media (min-width: 1280px) {
+  /* The TOC only needs a fixed column; every remaining pixel goes to the
+     article instead of being locked up in a percentage-based col--3. */
   .docItemCol {
-    max-width: 70% !important;
-    margin-right: 40px;
+    flex: 1 1 auto;
+    max-width: calc(100% - var(--doc-toc-width)) !important;
+    margin-right: 0;
+  }
+
+  /* !important: Infima's own .col--3 rule (flex: 0 0 25%) wins otherwise. */
+  .docTocCol {
+    flex: 0 0 var(--doc-toc-width) !important;
+    max-width: var(--doc-toc-width);
   }
 }
-@media screen and (max-width: 1440px) {
+/* Below 1280px the TOC is hidden, so the article spans the full width. */
+@media screen and (max-width: 1280px) {
   .docItemCol {
     max-width: calc(100%) !important;
     margin-right: 0;
