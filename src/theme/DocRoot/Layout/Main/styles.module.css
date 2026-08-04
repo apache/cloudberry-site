@@ -19,7 +19,7 @@
     ) !important;
   }
 }
-@media screen and (max-width: 1440px) {
+@media screen and (max-width: 1280px) {
   .docMainContainer {
     max-width: calc(
       100vw - var(--doc-sidebar-width) - var(--docs-nav-margin) - 140px

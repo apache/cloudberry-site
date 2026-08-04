@@ -88,6 +88,7 @@
   --normal-box-radius: 10px;
   --doc-sidebar-width: 280px;
   --docs-nav-margin: 60px;
+  --doc-toc-width: 288px;
 
   /* === Docusaurus / Infima overrides ========================== */
   --ifm-color-primary: var(--brand-orange-deep);
@@ -184,6 +185,14 @@
   :root {
     --global-main-width: 100%;
   }
+}
+
+/* Docs pages need far more room than the marketing pages: the layout has to
+   fit the left sidebar, the TOC and the article itself. Let them use the whole
+   viewport (capped so lines stay readable on ultra-wide screens) instead of
+   the 1200px shared with the rest of the site. */
+html.docs-wrapper {
+  --global-main-width: min(100%, 1920px);
 }
 @media screen and (max-width: 1024px) {
   :root {

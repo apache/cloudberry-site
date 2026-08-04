@@ -58,7 +58,11 @@ export default function DocItemLayout({ children }: Props): JSX.Element {
           <DocItemPaginator />
         </div>
       </div>
-      {docTOC.desktop && <div className="col col--3">{docTOC.desktop}</div>}
+      {docTOC.desktop && (
+        <div className={clsx('col col--3', styles.docTocCol)}>
+          {docTOC.desktop}
+        </div>
+      )}
     </div>
   );
 }
