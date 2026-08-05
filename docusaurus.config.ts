@@ -22,6 +22,33 @@ const config: Config = {
   plugins: [
     "docusaurus-plugin-sass",
     'docusaurus-plugin-matomo',
+    // Emits a plain-Markdown twin of every page, reachable by appending `.md`
+    // to its URL. Build-output only; does not affect the rendered site.
+    [
+      "./src/plugins/markdown-export",
+      {
+        // Both lists are keyed by docs plugin id: the unreleased version of
+        // *every* instance is named `current`, so a flat list would silently
+        // take PXF down with `docs/next`.
+
+        // Skipped outright. `/docs/1.x/**.md` returns 404 and those pages get
+        // no Copy page menu; their HTML is untouched. 1.x is legacy and not
+        // worth the weight it adds to every asf-site commit.
+        excludeVersions: {
+          default: ["1.x"],
+        },
+
+        // Exported and linked from the page, but kept out of sitemap.xml --
+        // the two entry points serve different audiences. A contributor
+        // reading the dev docs should get the dev docs when they hit Copy
+        // page; a crawler should not be answering user questions out of an
+        // unreleased version. Keeping `docs/next` out also spares crawlers 516
+        // files whose prose is byte-identical to 2.x on 491 of them.
+        excludeFromSitemap: {
+          default: ["current"],
+        },
+      },
+    ],
     [
       "@easyops-cn/docusaurus-search-local",
       { hashed: true, indexPages: true, language: ["en"] },
