@@ -35,6 +35,11 @@
   header {
     margin-bottom: 32px;
   }
+  /* Sits below the author row rather than beside the title, which already
+     competes for width on narrow viewports. */
+  .blogAiActions {
+    margin-top: 20px;
+  }
   .tags {
     display: flex;
     align-items: center;
