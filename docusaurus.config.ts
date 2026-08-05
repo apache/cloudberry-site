@@ -1,6 +1,8 @@
 import type * as Preset from "@docusaurus/preset-classic";
 import type { Config } from "@docusaurus/types";
 import { themes as prismThemes } from "prism-react-renderer";
+
+import markdownExportRegistry from "./src/plugins/markdown-export/registry";
 const config: Config = {
   title: "Apache Cloudberry (Incubating)",
   tagline: "One advanced and mature open-source MPP (Massively Parallel Processing) database. Open source alternative to Greenplum Database.",
@@ -94,6 +96,47 @@ const config: Config = {
             type: "all",
             title:
               "Apache Cloudberry (Incubating) is one advanced and mature open-source MPP (Massively Parallel Processing) databases available.",
+          },
+        },
+        sitemap: {
+          // List the Markdown twins alongside the HTML pages. `<link
+          // rel="alternate">` already announces them per page, but sitemap.xml
+          // is the one discovery file AI crawlers reliably fetch, and nothing
+          // else on the site links to a `.md` URL.
+          //
+          // Tradeoff: every page now appears twice, and ASF's static hosting
+          // gives us no way to send `X-Robots-Tag: noindex` on the Markdown
+          // half. Delete this block to go back to HTML-only.
+          createSitemapItems: async ({
+            defaultCreateSitemapItems,
+            ...params
+          }) => {
+            const items = await defaultCreateSitemapItems(params);
+
+            // Reuse each page's own lastmod so the twin is never treated as
+            // fresher (or staler) than the page it mirrors. A no-op today --
+            // the plugin's `lastmod` option defaults to null, so no entry
+            // carries one -- but it keeps the two halves in step if that is
+            // ever switched on.
+            const lastmodByPath = new Map(
+              items.map((item) => [
+                new URL(item.url).pathname.replace(/\/$/, ""),
+                item.lastmod,
+              ]),
+            );
+
+            // Populated by `markdown-export` in `allContentLoaded`, which
+            // always runs before any `postBuild`. See registry.js.
+            const twins = [...markdownExportRegistry.sitemapPermalinks].map(
+              (permalink) => ({
+                url: `${params.siteConfig.url}${markdownExportRegistry.markdownPathFor(
+                  permalink,
+                )}`,
+                lastmod: lastmodByPath.get(permalink.replace(/\/$/, "")),
+              }),
+            );
+
+            return [...items, ...twins];
           },
         },
         theme: {

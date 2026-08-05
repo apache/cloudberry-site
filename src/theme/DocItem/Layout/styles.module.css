@@ -3,6 +3,33 @@
   margin-top: 0;
 }
 
+/* Breadcrumbs on the left, the page's AI actions pinned to the right. On narrow
+   viewports the actions wrap onto their own line instead of being pushed out of
+   the viewport. */
+.docItemTopBar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px 16px;
+  margin-bottom: var(--ifm-spacing-vertical);
+}
+
+/* Breadcrumbs bring their own bottom margin; the row now owns that spacing, so
+   drop it to avoid a doubled gap. `min-width: 0` lets a long trail shrink (it
+   scrolls on its own) rather than shoving the actions off-screen. */
+.docItemTopBar > nav {
+  margin-bottom: 0;
+  min-width: 0;
+}
+
+/* Keep the actions flush right even once they wrap onto their own line: the
+   dropdown is anchored to the trigger's right edge, so a left-aligned trigger
+   would send the panel off the left of the viewport. */
+.docItemTopBar > :last-child {
+  margin-left: auto;
+}
+
 /* 1280px is where design-style.scss stops hiding the TOC column, so the two
    have to agree. When they disagreed (1280 vs 1440), everything between those
    two widths rendered the TOC alongside an article still claiming 100%, which
