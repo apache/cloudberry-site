@@ -1,0 +1,141 @@
+/* ------------------------------------------------------------------ */
+/* AiActions — per-page menu exposing the page's Markdown twin         */
+/* ------------------------------------------------------------------ */
+
+.root {
+  position: relative;
+  display: inline-flex;
+  flex-shrink: 0;
+}
+
+/* ---- Trigger ----------------------------------------------------- */
+.trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 10px;
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+
+  &:hover {
+    color: var(--color-text);
+    border-color: var(--color-border-strong);
+    background: var(--color-bg-subtle);
+  }
+
+  /* Keep keyboard focus obvious; the trigger is small and easy to lose. */
+  &:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+}
+
+.triggerLabel {
+  white-space: nowrap;
+}
+
+.chevron {
+  flex-shrink: 0;
+  transition: transform 0.15s ease;
+}
+
+.chevronOpen {
+  transform: rotate(180deg);
+}
+
+/* ---- Menu -------------------------------------------------------- */
+.menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  z-index: 20;
+  min-width: 240px;
+  /* Never wider than the viewport, however narrow the screen gets. */
+  max-width: calc(100vw - 24px);
+  padding: 6px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.14);
+}
+
+.menuStart {
+  right: auto;
+  left: 0;
+}
+
+html[data-theme="dark"] .menu {
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.55);
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 100%;
+  /* Reset the shared <button>/<a> differences so both rows render alike. */
+  padding: 8px 10px;
+  text-align: left;
+  background: none;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+
+  &:hover {
+    background: var(--color-bg-muted);
+    text-decoration: none;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: -2px;
+  }
+}
+
+.itemLabel {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.itemHint {
+  font-size: 0.75rem;
+  line-height: 1.35;
+  color: var(--color-text-soft);
+}
+
+.separator {
+  height: 1px;
+  margin: 6px 4px;
+  background: var(--color-border);
+}
+
+/* Anchor rows are links, so both the theme's link colouring and the blog
+   content's underlines would otherwise leak in. */
+a.item,
+a.item:hover,
+a.item:visited {
+  color: inherit;
+  text-decoration: none;
+
+  .itemLabel,
+  .itemHint {
+    text-decoration: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trigger,
+  .chevron,
+  .item {
+    transition: none;
+  }
+}

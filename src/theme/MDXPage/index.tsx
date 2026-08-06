@@ -8,6 +8,7 @@ import MDXContent from "@theme/MDXContent";
 import type { Props } from "@theme/MDXPage";
 import TOC from "@theme/TOC";
 import ContentVisibility from "@theme/ContentVisibility";
+import MarkdownAlternate from "@site/src/components/common/markdownTwin";
 import clsx from "clsx";
 import styles from "./styles.module.css";
 
@@ -25,6 +26,10 @@ export default function MDXPage(props: Props): JSX.Element {
   const showTOC =
     !hideTableOfContents && MDXPageContent.toc && MDXPageContent.toc.length > 0;
 
+  // `markdown-export` only twins `.md` pages -- an `.mdx` one would get a link
+  // to a file that was never written.
+  const hasMarkdownTwin = metadata.source?.endsWith(".md") ?? false;
+
   return (
     <HtmlClassNameProvider
       className={clsx(
@@ -33,6 +38,7 @@ export default function MDXPage(props: Props): JSX.Element {
       )}
     >
       <CommonLayout>
+        {hasMarkdownTwin && <MarkdownAlternate permalink={metadata.permalink} />}
         <ColorCard subText={description} titleText={title} />
 
         <div className={styles.mdxPageWrapper}>
