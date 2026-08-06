@@ -1,0 +1,124 @@
+---
+title: Sizing Methodology
+description: How the Apache Cloudberry sizing calculator estimates compute and storage resources.
+---
+
+# Sizing Methodology
+
+How compute and storage resources are estimated. [← Back to calculator](/sizing/)
+
+## 1. Inputs
+
+The inputs are the **uncompressed business data size** (GB/TB/PB) and the infrastructure type. Every path derives node counts and per-node specs from these two values.
+
+## 2. Common rules
+
+### Compression
+
+With columnar storage + compression, on-disk data ≈ business data ÷ compression ratio (default 2, adjustable in advanced options).
+
+```
+onDiskTB = dataTB ÷ compressionRatio
+```
+
+### Compute constraint (8c32G / TB)
+
+Baseline: one segment of **8 logical cores (vCPU) + 32 GB** per TB of on-disk data supports up to **~80 concurrent queries** — enough for most data-warehouse workloads. Grounding, from MPP memory-management best practice: 8GB minimum and 32GB recommended per segment; per-query memory `statement_mem = gp_vmem_protect_limit × 0.9 ÷ expected_concurrency`, and 32G × 0.9 ÷ 80 ≈ 368MB per query is a healthy value. For higher concurrency the per-segment resources scale linearly (advanced options): ≤120 concurrent ×1.5, ≤160 ×2.
+
+```
+perNodeTB    = min( vCPU ÷ (8 × f),  memGB ÷ (32 × f) )     # f = concurrency factor: ≤80→1 (default) / ≤120→1.5 / ≤160→2
+computeNodes = CEIL( onDiskTB ÷ perNodeTB )
+```
+
+**What "concurrency" means here**: the number of **simultaneously active statements** after resource-group queueing (mixed BI/reporting workloads, ~300–400MB per query). If the workload is dominated by heavyweight analytical queries (large joins needing GBs per query), plan for **5–10 concurrent per segment** instead — the same 8-logical-core + 32G quota then gives each query 32G × 0.9 ÷ 5 ≈ 5.7GB. There is no hard "X concurrent per core" formula for CPU: queries share CPU elastically via time-slicing and queueing; memory is the hard constraint on concurrency.
+
+### Per-segment resource quota (field experience)
+
+The complete resource profile of one primary segment. The first two rows scale with the concurrency factor; network and disk I/O are **per-segment full-load peak references** for sanity-checking host aggregate bandwidth and array throughput (analytical bursts rarely align across all segments, so do not multiply them rigidly):
+
+| Resource | Quota per segment | Ratio to vCPU |
+|---|---|---|
+| Logical cores (vCPU) | 8 × f | — |
+| Memory | 32 GB × f | 4 GB : 1 vCPU |
+| Managed data (on-disk) | 1 TB | 128 GB : 1 vCPU |
+| Interconnect network | 4 Gbps | 0.5 Gbps : 1 vCPU |
+| Disk read | 300 MB/s | ≈38 MB/s : 1 vCPU |
+| Disk write | 300 MB/s | ≈38 MB/s : 1 vCPU |
+
+Applicable concurrency: ≤80 active statements of mixed BI at f=1; plan 5–10 per segment for heavyweight analytics. Coordinators do not follow this table — use the fixed specs given per path.
+
+### Storage constraint (unified formula)
+
+Every path uses one per-node usable-capacity formula, each discount applied exactly once: ×0.9 OS/filesystem overhead, ×0.8 to keep 20% free, ÷(copies + 1/3 workspace). **Copies is 2** (segment primary + mirror, the default HA layout). Physical passes post-RAID array capacity; VM/cloud pass nominal data-disk capacity:
+
+```
+usableTB     = nominalTB × 0.9 × 0.8 ÷ (2 + 1/3)   # primary+mirror ≈ ×0.31
+storageNodes = max( 2, CEIL( onDiskTB ÷ usableTB ) )
+```
+
+### Final node count
+
+Storage-driven and compute-driven node counts are derived independently; the **larger** wins, then rounds up to an even number (for symmetric primary/mirror placement). The result badge shows which constraint binds.
+
+```
+nodes = roundUpToEven( max( storageNodes, computeNodes ) )
+```
+
+## 3. Physical · Apache Cloudberry
+
+Storage nodes use the unified formula with nominalTB = post-RAID array capacity. The method derives from a financial-industry production practice (2023); the unified formula adds the workspace term on top, so it is slightly more conservative (e.g. 14 instead of 12 high-throughput nodes at 160TB / cr 2).
+
+Three hardware presets (arrayTB = usable disks after RAID5 × disk size):
+
+| Preset | CPU / MEM | Data disks | RAID | Usable/node | NIC |
+|---|---|---|---|---|---|
+| Standard · SAS | 2×32C / 512G | 24 × 1.2TB 10K SAS | 2 × RAID5 groups of 12 (22 usable) | 26.4 TB | 2×10GbE |
+| High-throughput · SSD | 2×32C / 1024G | 24 × 960GB SSD | same | 21.1 TB | 2×10GbE/25GbE |
+| Modern · NVMe | 2×32C / 1024G DDR5 | 12 × 3.84TB NVMe U.2 | RAID5 (11 usable; tri-mode RAID or VROC) | 42.2 TB | 2×25GbE |
+
+NVMe RAID note: mainstream 2U servers take 12–24 hot-swap U.2/U.3 front bays (backplane-attached to CPU PCIe lanes, consuming no expansion slots; 12 drives × 4 lanes = 48 of the 128–160 lanes on EPYC 9004 / dual-socket SPR); hardware NVMe RAID5 needs a tri-mode controller (Dell PERC H755N/H965i, Broadcom MegaRAID 9560/9600) or Intel VROC. JBOD with mirror-only redundancy is a common higher-throughput alternative — a single disk failure then triggers mirror takeover; this tool sizes conservatively with RAID5.
+
+Coordinator is fixed at 2 (primary + standby), same CPU/memory class, RAID1 system disks + a small data array. The compute constraint uses the host's OS-visible logical cores (2×32C with HT = 128 threads) and memory in the common rule.
+
+### Segments per host
+
+Primaries per host = host resources ÷ per-segment quota (8 logical cores / 32G × f), the tighter of CPU and memory; mirrors equal primaries, spread across other hosts (the result page shows `N primary + N mirror` plus the actual data per primary). Cores always mean **OS-visible logical cores** (thread count on x86 with hyperthreading; physical cores on SMT-less ARM) — one rule for physical, VM, and cloud alike, with no special cases. Examples: a physical host with 2×32C + HT = 128 threads / 512G → **16 primary + 16 mirror**; a Lite VM (8 vCPU/32G) → 1 segment; an r5.4xlarge (16 vCPU/128G) → 2 segments. The tighter constraint (usually CPU) sets the segment count; surplus memory is **not spent on extra segments** — it raises the actual memory per segment (64G each on r5.4xlarge), buying concurrency headroom and fewer spills. That is the point of memory-optimized instances: not more segments, better segments.
+
+Segments per host must weigh: cores, RAM, NICs, attached storage, the primary/mirror mixture, and ETL or other processes on the host. Memory parameters follow these formulas (same-named Cloudberry GUCs):
+
+```
+gp_vmem (host ≥256G)       = ((SWAP + RAM) − (7.5GB + 0.05 × RAM)) ÷ 1.17
+gp_vmem_protect_limit      = gp_vmem ÷ max_acting_primary_segments
+statement_mem              = gp_vmem_protect_limit × 0.9 ÷ expected_concurrency
+```
+
+## 4. VM · Apache Cloudberry
+
+Storage nodes use the unified formula with nominalTB = the VM's nominal data-disk capacity. Deploys primary+mirror for high availability.
+
+Three VM profiles (1:4 memory ratio — each tier is exactly N × the 8c/32G per-segment quota; a 1:8 memory-optimized variant adds cache/concurrency headroom without changing node counts). Auto-recommended by data size, manual override available:
+
+| Profile | Fits | vCPU / MEM / Disk | Throughput | Host |
+|---|---|---|---|---|
+| Lite | ≤5 TB | 8 / 32G / 2T SSD | ≥500 MB/s | Shared host OK |
+| Medium | ≤50 TB | 16 / 64G / 4T SSD | ≥1000 MB/s | CPU overcommit ≤1:2 |
+| Large | &gt;50 TB | 24 / 96G / 8T SSD | ≥1500 MB/s | Dedicated host, 1:1 physical |
+
+## 5. Cloud · Apache Cloudberry
+
+Same node-count formula as VM, with per-node storage from the selected cloud scheme. Two schemes per provider:
+
+- **Managed-disk schemes** (cloud deployment best practice): AWS r5.4xlarge + 3×EBS ST1/GP3; Azure Standard_E16s_v5 + 3×P40 Premium SSD; GCP n2-highmem-8 + pd-ssd. Deploys primary+mirror for high availability.
+- **Local-NVMe schemes** (production practice): AWS i3en.2xlarge, Azure Standard_L8s_v3, GCP c3d-standard-8-lssd. Higher throughput, lower cost; local disks die with the host, so **primary/mirror is always kept**.
+
+Extra guidance: on Azure use the UDP interconnect and reserve port 65330; on GCP prefer more, smaller nodes (vs AWS).
+
+## 6. Totals & usable capacity
+
+Totals sum count × per-node spec across roles. "Usable data capacity" inverts the storage formula at the final node count — it is ≥ your input, and the difference is the recommendation's natural headroom.
+
+```
+capacityTB = nodes × usableTB × compressionRatio
+```
+
+⚠ All results are estimates; validate with a POC before final sizing.

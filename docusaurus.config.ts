@@ -313,6 +313,10 @@ const config: Config = {
               label: "Powered By",
               to: "/powered-by",
              },
+            {
+              label: "Sizing Calculator",
+              to: "/sizing/",
+             },
           ],
         },
  	      {
