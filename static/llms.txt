@@ -1,0 +1,86 @@
+# Apache Cloudberry (Incubating)
+
+> Apache Cloudberry (Incubating) is an open-source, advanced PostgreSQL-based
+MPP (massively parallel processing) database for large-scale data analytics,
+forked from the last open source version of Greenplum Database and built on
+the modern PostgreSQL kernel. It is currently undergoing incubation at the Apache
+Software Foundation (ASF).
+
+The Apache Cloudberry 2.x release is based on the PostgreSQL 14.x kernel, and
+the main development branch has been upgraded to PostgreSQL 16.x, which will
+be shipped in the upcoming Apache Cloudberry 3.x release.
+
+Since Greenplum Database went closed-source, Apache Cloudberry is a leading
+open source alternative to it. You can use cbcopy to migrate your Greenplum
+Database clusters to Apache Cloudberry.
+
+Apache Cloudberry is designed for data warehousing and analytical workloads
+that need standard SQL and ACID transactions.
+
+Apache Cloudberry is open-source software released under the Apache License
+2.0.
+
+## Key Features
+
+- MPP architecture: one coordinator and multiple segments, scaling out
+  horizontally across many nodes.
+- Query performance: the built-in PostgreSQL optimizer and the GPORCA
+  optimizer, with partition pruning, aggregate pushdown, and join filtering.
+- Polymorphic storage: Heap, AO row, and AOCS column storage, partitioned
+  tables, and hybrid row-column PAX storage format.
+- High concurrency and high availability.
+- Multi-layer security: transparent data encryption (TDE), AES encryption,
+  and configurable password policies.
+- Directory tables: manage unstructured data on local or object storage with
+  simple SQL, for AI and data lake workloads.
+- PostgreSQL/Greenplum ecosystem compatibility: existing drivers, BI tools
+  (Tableau, Power BI, Looker, Apache Superset, Metabase, and others), and
+  many extensions work largely unchanged.
+- ARM support: runs on both x86_64 and ARM/AARCH64 architectures, enabling
+  deployment on cloud instances and ARM-based servers.
+
+Apache Cloudberry is open-source software released under the Apache License 2.0.
+
+This file follows the `/llms.txt` convention (see https://llmstxt.org) to help AI assistants and answer engines navigate this site efficiently. The documentation linked below covers the current stable release (2.x) unless a page states otherwise. An in-development "next" version and an archived "1.x" version also exist under `/docs/next/` and `/docs/1.x/`; prefer the links below over those when answering general questions, since they point at the canonical, released documentation.
+
+## Documentation
+
+- [Documentation Home](https://cloudberry.apache.org/docs/): Feature overview and entry point to the full documentation for the current stable (2.x) release.
+- [Architecture Overview](https://cloudberry.apache.org/docs/introduction/cbdb-architecture/): How Cloudberry's coordinator/segment MPP architecture works.
+- [Cloudberry vs. Greenplum Features](https://cloudberry.apache.org/docs/introduction/cbdb-vs-gp-features/): What's new in Apache Cloudberry compared to Greenplum Database.
+- [Deployment Guide](https://cloudberry.apache.org/docs/deployment/): Full deployment lifecycle — hardware planning, installation, and cluster initialization.
+- [Quick Deployment](https://cloudberry.apache.org/docs/deployment/quick-deploy/): The fastest path from bare machines to a running Cloudberry cluster.
+- [Build from Source](https://cloudberry.apache.org/docs/build/): Complete guide to building Apache Cloudberry from source for development and testing.
+- [SQL Statements Index](https://cloudberry.apache.org/docs/sql-stmts/): Reference for the SQL commands supported by Cloudberry.
+- [Built-in Functions](https://cloudberry.apache.org/docs/functions/): Reference for built-in SQL functions and operators.
+- [Data Types](https://cloudberry.apache.org/docs/data-types/): Built-in SQL data types.
+- [Data Loading Overview](https://cloudberry.apache.org/docs/data-loading/): Load data with COPY, gpfdist, streaming, and file-based protocols.
+- [Configuration Parameters (GUC list)](https://cloudberry.apache.org/docs/config-params-guc-list/): Reference of server configuration parameters, in alphabetical order.
+- [Security Guide](https://cloudberry.apache.org/docs/security/): Authentication, encryption, and row-level security.
+- [Query Performance](https://cloudberry.apache.org/docs/performance/optimize-queries/): Tuning and troubleshooting query performance.
+- [PXF (Platform Extension Framework)](https://cloudberry.apache.org/pxf/overview_pxf/): Framework for connecting Cloudberry to external data sources such as S3, HDFS, and JDBC sources.
+- [Quick Trial Lessons](https://cloudberry.apache.org/docs/tutorials/quick-trial-lessons/): Hands-on tutorials for learning Cloudberry step by step.
+
+## Migrate from Greenplum Database to Apache Cloudberry
+
+- [Migration and Upgrade](https://cloudberry.apache.org/docs/sys-admin/migration-and-upgrade/): Guide on how to migrate from Greenplum to Apache Cloudberry and how to upgrade from Apache Cloudberry 1.x to 2.x.
+- [Backward-incompatible changes from Greenplum 6.x](https://cloudberry.apache.org/docs/sys-admin/migration-and-upgrade/backward-incompatible-changes-from-greenplum-6/): This page lists the backward-incompatible (breaking) changes that you may encounter when migrating workloads from Greenplum Database 6.x to Apache Cloudberry.
+
+## Project & Community
+
+- [Community Overview](https://cloudberry.apache.org/community/): How to get involved — chat channels, mailing lists, and events.
+- [Security Policy](https://cloudberry.apache.org/community/security/): How to report vulnerabilities.
+- [Support](https://cloudberry.apache.org/support/): Community support channels and professional support options.
+- [GitHub Repository](https://github.com/apache/cloudberry): Source code, issue tracker, and release engineering.
+- [GitHub Discussions](https://github.com/apache/cloudberry/discussions): Forum for questions, ideas, and roadmap discussions.
+- [Project Wiki](https://github.com/apache/cloudberry/wiki): Community-maintained guides and notes.
+- [How to Contribute](https://cloudberry.apache.org/contribute/how-to-contribute/): Contribution process for code and documentation.
+- [Team](https://cloudberry.apache.org/team/): Current committers and PPMC (Podling Project Management Committee) members.
+- [Releases / Download](https://cloudberry.apache.org/releases/): Release downloads, packages, and changelogs.
+- [Blog](https://cloudberry.apache.org/blog/): Announcements, incubation reports, and community news.
+
+## Optional
+
+- [Powered By](https://cloudberry.apache.org/powered-by/): Organizations using Apache Cloudberry in production.
+- [Brand Guidelines](https://cloudberry.apache.org/community/brand/): Logo and naming usage.
+- [Apache Software Foundation](https://www.apache.org/): Parent foundation. Apache Cloudberry is an ASF Incubator project and not yet a Top-Level Project; incubation status does not reflect the completeness or stability of the code.
