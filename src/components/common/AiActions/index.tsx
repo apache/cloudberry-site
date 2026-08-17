@@ -79,9 +79,19 @@ export default function AiActions({
       if (!response.ok) {
         throw new Error(`HTTP ${response.status}`);
       }
+
+      const text = await response.text();
+      // A server with no route for `.md` may answer 200 with the SPA shell
+      // rather than 404 -- webpack-dev-server's history fallback does exactly
+      // that. Copying that HTML would look like success and paste as garbage.
+      const contentType = response.headers.get("content-type") ?? "";
+      if (contentType.startsWith("text/html") || /^\s*<(?:!doctype|html)\b/i.test(text)) {
+        throw new Error("endpoint returned HTML, not Markdown");
+      }
+
       // Unavailable outside secure contexts (plain-HTTP dev hosts); the catch
       // below surfaces that rather than failing silently.
-      await navigator.clipboard.writeText(await response.text());
+      await navigator.clipboard.writeText(text);
       setCopyState("done");
     } catch {
       setCopyState("error");

@@ -450,6 +450,94 @@ async function collectPages(pagesDir, baseUrl) {
 }
 
 // ---------------------------------------------------------------------------
+// Export
+// ---------------------------------------------------------------------------
+
+/**
+ * Where the dev server's twins live. Inside `.docusaurus`, which is already
+ * git-ignored and cleared by `docusaurus clear`.
+ */
+function devOutDir(siteDir) {
+  return path.join(siteDir, ".docusaurus", PLUGIN_NAME);
+}
+
+/**
+ * Writes the Markdown twin for every entry.
+ *
+ * @param {object} args
+ * @param {Array<{permalink: string, source: string}>} args.entries
+ * @param {string} args.outDir where the twins go
+ * @param {string} args.siteDir
+ * @param {{baseUrl: string, url: string}} args.siteConfig
+ * @param {boolean} [args.skipUnchanged]
+ *   Skip an entry whose twin is newer than its source. Used by the dev server,
+ *   which re-exports on every content reload; a production build always starts
+ *   from an empty output directory, so there is nothing to skip.
+ * @returns {Promise<{written: number, bytes: number, failures: string[], leaks: string[]}>}
+ */
+async function exportTwins({
+  entries,
+  outDir,
+  siteDir,
+  siteConfig,
+  skipUnchanged = false,
+}) {
+  let written = 0;
+  let bytes = 0;
+  const failures = [];
+  const leaks = [];
+
+  await Promise.all(
+    entries.map(async ({ permalink, source }) => {
+      const target = permalinkToFile(permalink, siteConfig.baseUrl, outDir);
+      if (!target) {
+        failures.push(`${permalink} (refused: escapes outDir)`);
+        return;
+      }
+
+      try {
+        const sourcePath = resolveSource(source, siteDir);
+
+        if (skipUnchanged) {
+          const [sourceStat, targetStat] = await Promise.all([
+            fs.stat(sourcePath),
+            fs.stat(target).catch(() => null),
+          ]);
+          if (targetStat && targetStat.mtimeMs >= sourceStat.mtimeMs) {
+            return;
+          }
+        }
+
+        const raw = await fs.readFile(sourcePath, "utf8");
+        const { fields, body } = splitFrontMatter(raw);
+        const sanitized = sanitizeBody(body);
+        const markdown = renderMarkdown({
+          fields,
+          body: sanitized.body,
+          hasH1: sanitized.hasH1,
+          canonicalUrl: `${siteConfig.url}${permalink}`,
+        });
+
+        await fs.mkdir(path.dirname(target), { recursive: true });
+        await fs.writeFile(target, markdown, "utf8");
+
+        written++;
+        bytes += Buffer.byteLength(markdown);
+
+        const leaked = leakedComponents(raw, sanitized.prose);
+        if (leaked.length > 0) {
+          leaks.push(`${permalink} -> ${leaked.join(", ")}`);
+        }
+      } catch (err) {
+        failures.push(`${permalink} (${err.message})`);
+      }
+    }),
+  );
+
+  return { written, bytes, failures, leaks };
+}
+
+// ---------------------------------------------------------------------------
 // Plugin
 // ---------------------------------------------------------------------------
 
@@ -535,6 +623,54 @@ module.exports = function markdownExportPlugin(context, options = {}) {
           sitemapPermalinks.add(permalink);
         }
       }
+
+      // Under `docusaurus start` this is the only chance to write the twins --
+      // see `configureWebpack` below for how they get served.
+      if (process.env.NODE_ENV !== "production") {
+        const { written, failures } = await exportTwins({
+          entries,
+          outDir: devOutDir(siteDir),
+          siteDir,
+          siteConfig: context.siteConfig,
+          skipUnchanged: true,
+        });
+        if (written > 0) {
+          logger.info(
+            `[${PLUGIN_NAME}] ${written} Markdown twin(s) written for the dev server.`,
+          );
+        }
+        if (failures.length > 0) {
+          logger.warn(
+            `[${PLUGIN_NAME}] ${failures.length} twin(s) failed:\n  ${failures.join("\n  ")}`,
+          );
+        }
+      }
+    },
+
+    /**
+     * `postBuild` never runs under `docusaurus start`, so without this the
+     * dev server has no twins to serve: the menu is visible but every link
+     * resolves to the SPA shell, which renders blank and copies HTML.
+     *
+     * `devServer.static` is an array, so webpack-merge appends to Docusaurus'
+     * own entries instead of replacing them. Overriding `setupMiddlewares`
+     * would have been the other option, but that key merges by replacement and
+     * would drop the middleware behind the dev error overlay.
+     */
+    configureWebpack(_config, isServer) {
+      if (isServer || process.env.NODE_ENV === "production") {
+        return {};
+      }
+      return {
+        devServer: {
+          static: [
+            {
+              publicPath: context.baseUrl,
+              directory: devOutDir(context.siteDir),
+            },
+          ],
+        },
+      };
     },
 
     async postBuild({ outDir, siteDir, siteConfig }) {
@@ -543,45 +679,12 @@ module.exports = function markdownExportPlugin(context, options = {}) {
         return;
       }
 
-      let written = 0;
-      let bytes = 0;
-      const failures = [];
-      const leaks = [];
-
-      await Promise.all(
-        entries.map(async ({ permalink, source }) => {
-          const target = permalinkToFile(permalink, siteConfig.baseUrl, outDir);
-          if (!target) {
-            failures.push(`${permalink} (refused: escapes outDir)`);
-            return;
-          }
-
-          try {
-            const raw = await fs.readFile(resolveSource(source, siteDir), "utf8");
-            const { fields, body } = splitFrontMatter(raw);
-            const sanitized = sanitizeBody(body);
-            const markdown = renderMarkdown({
-              fields,
-              body: sanitized.body,
-              hasH1: sanitized.hasH1,
-              canonicalUrl: `${siteConfig.url}${permalink}`,
-            });
-
-            await fs.mkdir(path.dirname(target), { recursive: true });
-            await fs.writeFile(target, markdown, "utf8");
-
-            written++;
-            bytes += Buffer.byteLength(markdown);
-
-            const leaked = leakedComponents(raw, sanitized.prose);
-            if (leaked.length > 0) {
-              leaks.push(`${permalink} -> ${leaked.join(", ")}`);
-            }
-          } catch (err) {
-            failures.push(`${permalink} (${err.message})`);
-          }
-        }),
-      );
+      const { written, bytes, failures, leaks } = await exportTwins({
+        entries,
+        outDir,
+        siteDir,
+        siteConfig,
+      });
 
       logger.success(
         `[${PLUGIN_NAME}] exported ${written} Markdown files (${(
