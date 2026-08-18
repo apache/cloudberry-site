@@ -1,0 +1,929 @@
+---
+title: "Reading Hive Table Data"
+description: "Reading Hive table data with PXF."
+source: https://cloudberry.apache.org/pxf/access-hadoop/hive_pxf
+---
+
+# Reading Hive Table Data
+
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+Apache Hive is a distributed data warehousing infrastructure. Hive facilitates managing large data sets supporting multiple data formats, including comma-separated value (.csv) TextFile, RCFile, ORC, and Parquet. 
+
+The PXF Hive connector reads data stored in a Hive table. This section describes how to use the PXF Hive connector. 
+
+> <b>Note:</b> When accessing Hive 3, the PXF Hive connector supports using the `hive[:*]` profiles described below to access Hive 3 external tables only. The Connector does not support using the `hive[:*]` profiles to access Hive 3 managed (CRUD and insert-only transactional, and temporary) tables. Use the <a href="../access-jdbc/jdbc_pxf.md">PXF JDBC Connector</a> to access Hive 3 managed tables instead.
+
+## Prerequisites
+
+Before working with Hive table data using PXF, ensure that you have met the PXF Hadoop [Prerequisites](./access_hdfs.md#prerequisites).
+
+*If you plan to use PXF filter pushdown with Hive integral types*, ensure that the configuration parameter `hive.metastore.integral.jdo.pushdown` exists and is set to `true` in the `hive-site.xml` file in both your Hadoop cluster **and** `$PXF_BASE/servers/default/hive-site.xml`. Refer to [About Updating Hadoop Configuration](../administering/configuring/hadoop-connectors/client_instcfg.md#about-updating-the-hadoop-configuration) for more information.
+
+## Hive Data Formats
+
+The PXF Hive connector supports several data formats, and has defined the following profiles for accessing these formats:
+
+| File Format  | Description | Profile |
+|-------|---------------------------|-------|
+| TextFile | Flat file with data in comma-, tab-, or space-separated value format or JSON notation. | hive, hive:text |
+| SequenceFile | Flat file consisting of binary key/value pairs. | hive |
+| RCFile | Record columnar data consisting of binary key/value pairs; high row compression rate. | hive, hive:rc |
+| ORC | Optimized row columnar data with stripe, footer, and postscript sections; reduces data size. | hive, hive:orc |
+| Parquet | Compressed columnar data representation. | hive |
+| Avro | Serialization system with a binary data format. | hive |
+
+**Note**: The `hive` profile supports all file storage formats. It will use the optimal `hive[:*]` profile for the underlying file format type.
+
+## Data Type Mapping
+
+The PXF Hive connector supports primitive and complex data types.
+
+### Primitive Data Types
+To represent Hive data in Apache Cloudberry, map data values that use a primitive data type to Apache Cloudberry columns of the same type.
+
+The following table summarizes external mapping rules for Hive primitive types.
+
+| Hive Data Type  | Apache Cloudberry Data Type |
+|-------|---------------------------|
+| boolean    | bool |
+| int   | int4 |
+| smallint   | int2 |
+| tinyint   | int2 |
+| bigint   | int8 |
+| float   | float4 |
+| double   | float8 |
+| string   | text |
+| binary   | bytea |
+| timestamp   | timestamp |
+
+**Note**: The `hive:orc` profile does not support the timestamp data type when you specify vectorized query execution (`VECTORIZE=true`).
+
+### Complex Data Types
+
+Hive supports complex data types including array, struct, map, and union. PXF maps each of these complex types to `text`. You can create Apache Cloudberry functions or application code to extract subcomponents of these complex data types.
+
+Examples using complex data types with the `hive` and `hive:orc` profiles are provided later in this topic.
+
+**Note**: The `hive:orc` profile does not support complex types when you specify vectorized query execution (`VECTORIZE=true`).
+
+## Sample Data Set
+
+Examples presented in this topic operate on a common data set. This simple data set models a retail sales operation and includes fields with the following names and data types:
+
+| Column Name  | Data Type |
+|-------|---------------------------|
+| location | text |
+| month | text |
+| number\_of\_orders | integer |
+| total\_sales | double |
+
+Prepare the sample data set for use:
+
+1. First, create a text file:
+
+    ```
+    $ vi /tmp/pxf_hive_datafile.txt
+    ```
+
+2. Add the following data to `pxf_hive_datafile.txt`; notice the use of the comma (`,`) to separate the four field values:
+
+    ```
+    Prague,Jan,101,4875.33
+    Rome,Mar,87,1557.39
+    Bangalore,May,317,8936.99
+    Beijing,Jul,411,11600.67
+    San Francisco,Sept,156,6846.34
+    Paris,Nov,159,7134.56
+    San Francisco,Jan,113,5397.89
+    Prague,Dec,333,9894.77
+    Bangalore,Jul,271,8320.55
+    Beijing,Dec,100,4248.41
+    ```
+
+Make note of the path to `pxf_hive_datafile.txt`; you will use it in later exercises.
+
+## Hive Command Line
+
+The Hive command line is a subsystem similar to that of `psql`. To start the Hive command line:
+
+``` shell
+$ HADOOP_USER_NAME=hdfs hive
+```
+
+The default Hive database is named `default`. 
+
+### Example: Creating a Hive Table
+
+Create a Hive table to expose the sample data set.
+
+1. Create a Hive table named `sales_info` in the `default` database:
+
+    ``` sql
+    hive> CREATE TABLE sales_info (location string, month string,
+            number_of_orders int, total_sales double)
+            ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
+            STORED AS textfile;
+    ```
+
+    Notice that:
+
+    - The `STORED AS textfile` subclause instructs Hive to create the table in Textfile (the default) format.  Hive Textfile format supports comma-, tab-, and space-separated values, as well as data specified in JSON notation.
+    - The `DELIMITED FIELDS TERMINATED BY` subclause identifies the field delimiter within a data record (line). The `sales_info` table field delimiter is a comma (`,`).
+
+2. Load the `pxf_hive_datafile.txt` sample data file into the `sales_info` table that you just created:
+
+    ``` sql
+    hive> LOAD DATA LOCAL INPATH '/tmp/pxf_hive_datafile.txt'
+            INTO TABLE sales_info;
+    ```
+    
+    In examples later in this section, you will access the `sales_info` Hive table directly via PXF. You will also insert `sales_info` data into tables of other Hive file format types, and use PXF to access those directly as well.
+
+3. Perform a query on `sales_info` to verify that you loaded the data successfully:
+
+    ``` sql
+    hive> SELECT * FROM sales_info;
+    ```
+
+### Determining the HDFS Location of a Hive Table
+
+Should you need to identify the HDFS file location of a Hive managed table, reference it using its HDFS file path. You can determine a Hive table's location in HDFS using the `DESCRIBE` command. For example:
+
+``` sql
+hive> DESCRIBE EXTENDED sales_info;
+Detailed Table Information
+...
+location:hdfs://<namenode>:<port>/apps/hive/warehouse/sales_info
+...
+```
+
+## Querying External Hive Data
+
+You can create an Apache Cloudberry external table to access Hive table data.   As described previously, the PXF Hive connector defines specific profiles to support different file formats. These profiles are named `hive`, `hive:text`, `hive:rc`, and `hive:orc`. 
+
+The `hive:text` and `hive:rc` profiles are specifically optimized for text and RCFile formats, respectively. The `hive:orc` profile is optimized for ORC file formats. The `hive` profile is optimized for all file storage types; you can use the `hive` profile when the underlying Hive table is composed of multiple partitions with differing file formats.
+
+PXF uses column projection to increase query performance when you access a Hive table using the `hive`, `hive:rc`, or `hive:orc` profiles.
+
+Use the following syntax to create an Apache Cloudberry external table that references a Hive table:
+
+``` sql
+CREATE EXTERNAL TABLE <table_name>
+    ( <column_name> <data_type> [, ...] | LIKE <other_table> )
+LOCATION ('pxf://<hive-db-name>.<hive-table-name>
+    ?PROFILE=<profile_name>[&SERVER=<server_name>][&PPD=<boolean>][&VECTORIZE=<boolean>]')
+FORMAT 'CUSTOM|TEXT' (FORMATTER='pxfwritable_import' | delimiter='<delim>')
+```
+
+Hive connector-specific keywords and values used in the Apache Cloudberry [CREATE EXTERNAL TABLE](https://cloudberry.apache.org/docs/sql-stmts/create-external-table) call are described below.
+
+| Keyword  | Value |
+|-------|-------------------------------------|
+| \<hive&#8209;db&#8209;name\>    | The name of the Hive database. If omitted, defaults to the Hive database named `default`. |
+| \<hive&#8209;table&#8209;name\>    | The name of the Hive table. |
+| PROFILE=\<profile_name\>    | `<profile_name>` must specify one of the values `hive`, `hive:text`, `hive:rc`, or `hive:orc`. |
+| SERVER=\<server_name\>    | The named server configuration that PXF uses to access the data. PXF uses the `default` server if not specified. |
+| PPD=\<boolean\>    | Activate or deactivate predicate pushdown for all queries on this table; this option applies only to the `hive`, `hive:orc`, and `hive:rc` profiles, and overrides a `pxf.ppd.hive` property setting in the \<server_name\> configuration. |
+| VECTORIZE=\<boolean\>    | When `PROFILE=hive:orc`, a Boolean value that specifies whether or not PXF uses vectorized query execution when accessing the underlying ORC files. The default value is `false`, does not use vectorized query execution. |
+| FORMAT (`hive` and `hive:orc` profiles)   | The `FORMAT` clause must specify `'CUSTOM'`. The `CUSTOM` format requires the built-in `pxfwritable_import` `formatter`.   |
+| FORMAT (`hive:text` and `hive:rc` profiles) | The `FORMAT` clause must specify `TEXT`. Specify the single ascii character field delimiter in the `delimiter='<delim>'` formatting option. |
+
+> <b>Note:</b> Because Hive tables can be backed by one or more files and each file can have a unique layout or schema, PXF requires that the column names that you specify when you create the external table match the column names defined for the Hive table. This allows you to:<ul>
+<li>Create the PXF external table with columns in a different order than the Hive table.</li>
+<li>Create a PXF external table that reads a subset of the columns in the Hive table.</li>
+<li>Read a Hive table where the files backing the table have a different number of columns.</li></ul>
+
+## Accessing TextFile-Format Hive Tables
+
+You can use the `hive` and `hive:text` profiles to access Hive table data stored in TextFile format.
+
+### Example: Using the hive Profile
+
+Use the `hive` profile to create a readable Apache Cloudberry external table that references the Hive `sales_info` textfile format table that you created earlier.
+
+1. Create the external table:
+
+    ``` sql
+    postgres=# CREATE EXTERNAL TABLE salesinfo_hiveprofile(location text, month text, number_of_orders int, total_sales float8)
+                LOCATION ('pxf://default.sales_info?PROFILE=hive')
+              FORMAT 'custom' (FORMATTER='pxfwritable_import');
+    ```
+
+2. Query the table:
+
+    ``` sql
+    postgres=# SELECT * FROM salesinfo_hiveprofile;
+    ```
+
+    ``` shell
+       location    | month | number_of_orders | total_sales
+    ---------------+-------+------------------+-------------
+     Prague        | Jan   |              101 |     4875.33
+     Rome          | Mar   |               87 |     1557.39
+     Bangalore     | May   |              317 |     8936.99
+     ...
+    ```
+
+### Example: Using the hive:text Profile
+
+Use the PXF `hive:text` profile to create a readable Apache Cloudberry external table from the Hive `sales_info` textfile format table that you created earlier.
+
+1. Create the external table:
+
+    ``` sql
+    postgres=# CREATE EXTERNAL TABLE salesinfo_hivetextprofile(location text, month text, number_of_orders int, total_sales float8)
+                 LOCATION ('pxf://default.sales_info?PROFILE=hive:text')
+               FORMAT 'TEXT' (delimiter=E',');
+    ```
+
+    Notice that the `FORMAT` subclause `delimiter` value is specified as the single ascii comma character `','`. `E` escapes the character.
+
+2. Query the external table:
+
+    ``` sql
+    postgres=# SELECT * FROM salesinfo_hivetextprofile WHERE location='Beijing';
+    ```
+
+    ``` shell
+     location | month | number_of_orders | total_sales
+    ----------+-------+------------------+-------------
+     Beijing  | Jul   |              411 |    11600.67
+     Beijing  | Dec   |              100 |     4248.41
+    (2 rows)
+    ```
+
+## Accessing RCFile-Format Hive Tables 
+
+The RCFile Hive table format is used for row columnar formatted data. The PXF `hive:rc` profile provides access to RCFile data.
+
+### Example: Using the hive:rc Profile
+
+Use the `hive:rc` profile to query RCFile-formatted data in a Hive table.
+
+1. Start the `hive` command line and create a Hive table stored in RCFile format:
+
+    ``` shell
+    $ HADOOP_USER_NAME=hdfs hive
+    ```
+
+    ``` sql
+    hive> CREATE TABLE sales_info_rcfile (location string, month string,
+            number_of_orders int, total_sales double)
+          ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
+          STORED AS rcfile;
+    ```
+
+2. Insert the data from the `sales_info` table into `sales_info_rcfile`:
+
+    ``` sql
+    hive> INSERT INTO TABLE sales_info_rcfile SELECT * FROM sales_info;
+    ```
+
+    A copy of the sample data set is now stored in RCFile format in the Hive `sales_info_rcfile` table. 
+    
+3. Query the `sales_info_rcfile` Hive table to verify that the data was loaded correctly:
+
+    ``` sql
+    hive> SELECT * FROM sales_info_rcfile;
+    ```
+
+4. Use the PXF `hive:rc` profile to create a readable Apache Cloudberry external table that references the Hive `sales_info_rcfile` table that you created in the previous steps. For example:
+
+    ``` sql
+    postgres=# CREATE EXTERNAL TABLE salesinfo_hivercprofile(location text, month text, number_of_orders int, total_sales float8)
+                 LOCATION ('pxf://default.sales_info_rcfile?PROFILE=hive:rc')
+               FORMAT 'TEXT' (delimiter=E',');
+    ```
+
+5. Query the external table:
+
+    ``` sql
+    postgres=# SELECT location, total_sales FROM salesinfo_hivercprofile;
+    ```
+
+    ``` shell
+       location    | total_sales
+    ---------------+-------------
+     Prague        |     4875.33
+     Rome          |     1557.39
+     Bangalore     |     8936.99
+     Beijing       |    11600.67
+     ...
+    ```
+
+## Accessing ORC-Format Hive Tables
+
+The Optimized Row Columnar (ORC) file format is a columnar file format that provides a highly efficient way to both store and access HDFS data. ORC format offers improvements over text and RCFile formats in terms of both compression and performance.
+
+ORC is type-aware and specifically designed for Hadoop workloads. ORC files store both the type of and encoding information for the data in the file. All columns within a single group of row data (also known as stripe) are stored together on disk in ORC format files. The columnar nature of the ORC format type enables read projection, helping avoid accessing unnecessary columns during a query.
+
+ORC also supports predicate pushdown with built-in indexes at the file, stripe, and row levels, moving the filter operation to the data loading phase.
+
+Refer to the [Apache orc](https://orc.apache.org/docs/) and the Apache Hive [LanguageManual ORC](https://cwiki.apache.org/confluence/display/Hive/LanguageManual+ORC) websites for detailed information about the ORC file format.
+
+### Profiles Supporting the ORC File Format
+
+When choosing an ORC-supporting profile, consider the following:
+
+- The `hive:orc` profile:
+    - Reads a single row of data at a time.
+    - Supports column projection. 
+    - Supports complex types. You can access Hive tables composed of array, map, struct, and union data types. PXF serializes each of these complex types to `text`.  
+
+- The `hive:orc` profile with `VECTORIZE=true`:
+    - Reads up to 1024 rows of data at once.
+    - Supports column projection. 
+    - Does not support complex types or the timestamp data type.
+
+### Example: Using the hive:orc Profile
+
+In the following example, you will create a Hive table stored in ORC format and use the `hive:orc` profile to query this Hive table.
+
+1. Create a Hive table with ORC file format:
+
+    ``` shell
+    $ HADOOP_USER_NAME=hdfs hive
+    ```
+
+    ``` sql
+    hive> CREATE TABLE sales_info_ORC (location string, month string,
+            number_of_orders int, total_sales double)
+          STORED AS ORC;
+    ```
+
+2. Insert the data from the `sales_info` table into `sales_info_ORC`:
+
+    ``` sql
+    hive> INSERT INTO TABLE sales_info_ORC SELECT * FROM sales_info;
+    ```
+
+    A copy of the sample data set is now stored in ORC format in `sales_info_ORC`.
+
+3. Perform a Hive query on `sales_info_ORC` to verify that the data was loaded successfully:
+
+    ``` sql
+    hive> SELECT * FROM sales_info_ORC;
+    ```
+
+4. Start the `psql` subsystem and turn on timing:
+
+    ``` shell
+    $ psql -d postgres
+    ```
+
+    ``` sql
+    postgres=> \timing
+    Timing is on.
+    ```
+
+4. Use the PXF `hive:orc` profile to create an Apache Cloudberry external table that references the Hive table named `sales_info_ORC` you created in Step 1. The `FORMAT` clause must specify `'CUSTOM'`. The `hive:orc` `CUSTOM` format supports only the built-in `'pxfwritable_import'` `formatter`.
+
+    ``` sql
+    postgres=> CREATE EXTERNAL TABLE salesinfo_hiveORCprofile(location text, month text, number_of_orders int, total_sales float8)
+                 LOCATION ('pxf://default.sales_info_ORC?PROFILE=hive:orc')
+                 FORMAT 'CUSTOM' (FORMATTER='pxfwritable_import');
+    ```
+
+5. Query the external table:
+
+    ``` sql
+    postgres=> SELECT * FROM salesinfo_hiveORCprofile;
+    ```
+
+    ``` pre
+       location    | month | number_of_orders | total_sales 
+    ---------------+-------+------------------+-------------
+     Prague        | Jan   |              101 |     4875.33
+     Rome          | Mar   |               87 |     1557.39
+     Bangalore     | May   |              317 |     8936.99
+     ...
+
+    Time: 425.416 ms
+    ```
+
+### Example: Using the Vectorized hive:orc Profile
+
+In the following example, you will use the vectorized `hive:orc` profile to query the `sales_info_ORC` Hive table that you created in the previous example.
+
+1. Start the `psql` subsystem:
+
+    ``` shell
+    $ psql -d postgres
+    ```
+
+2. Use the PXF `hive:orc` profile to create a readable Apache Cloudberry external table that references the Hive table named `sales_info_ORC` that you created in Step 1 of the previous example. The `FORMAT` clause must specify `'CUSTOM'`. The `hive:orc` `CUSTOM` format supports only the built-in `'pxfwritable_import'` `formatter`.
+
+    ``` sql
+    postgres=> CREATE EXTERNAL TABLE salesinfo_hiveVectORC(location text, month text, number_of_orders int, total_sales float8)
+                 LOCATION ('pxf://default.sales_info_ORC?PROFILE=hive:orc&VECTORIZE=true')
+                 FORMAT 'CUSTOM' (FORMATTER='pxfwritable_import');
+    ```
+
+3. Query the external table:
+
+    ``` sql
+    postgres=> SELECT * FROM salesinfo_hiveVectORC;
+    ```
+
+    ``` pre
+       location    | month | number_of_orders | total_sales 
+    ---------------+-------+------------------+-------------
+     Prague        | Jan   |              101 |     4875.33
+     Rome          | Mar   |               87 |     1557.39
+     Bangalore     | May   |              317 |     8936.99
+     ...
+
+    Time: 425.416 ms
+    ```
+
+## Accessing Parquet-Format Hive Tables
+
+The PXF `hive` profile supports both non-partitioned and partitioned Hive tables that use the Parquet storage format. Map the table columns using equivalent Apache Cloudberry data types. For example, if a Hive table is created in the `default` schema using:
+
+``` sql
+hive> CREATE TABLE hive_parquet_table (location string, month string,
+            number_of_orders int, total_sales double)
+        STORED AS parquet;
+```
+
+Define the Apache Cloudberry external table:
+
+``` sql
+postgres=# CREATE EXTERNAL TABLE pxf_parquet_table (location text, month text, number_of_orders int, total_sales double precision)
+    LOCATION ('pxf://default.hive_parquet_table?profile=hive')
+    FORMAT 'CUSTOM' (FORMATTER='pxfwritable_import');
+```
+
+And query the table:
+
+``` sql
+postgres=# SELECT month, number_of_orders FROM pxf_parquet_table;
+```
+## Accessing Avro-Format Hive Tables
+
+The PXF `hive` profile supports accessing Hive tables that use the Avro storage format. Map the table columns using equivalent Apache Cloudberry data types. For example, if a Hive table is created in the `default` schema using:
+
+```sql
+hive> CREATE TABLE hive_avro_data_table (id int, name string, user_id string)
+	ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.avro.AvroSerDe'
+	STORED AS INPUTFORMAT 'org.apache.hadoop.hive.ql.io.avro.AvroContainerInputFormat'
+	OUTPUTFORMAT 'org.apache.hadoop.hive.ql.io.avro.AvroContainerOutputFormat';
+```
+
+Define the Apache Cloudberry external table:
+
+```sql
+postgres=# CREATE EXTERNAL TABLE userinfo_hiveavro(id int, name text, user_id text)
+	LOCATION ('pxf://default.hive_avro_data_table?profile=hive')
+	FORMAT 'custom' (FORMATTER='pxfwritable_import');
+```
+
+And query the table:
+
+```sql
+postgres=# SELECT * FROM userinfo_hiveavro;
+```
+
+## Working with Complex Data Types
+
+### Example: Using the hive Profile with Complex Data Types
+
+This example employs the `hive` profile and the array and map complex types, specifically an array of integers and a string key/value pair map.
+
+The data schema for this example includes fields with the following names and data types:
+
+| Column Name  | Data Type |
+|-------|---------------------------|
+| index | int |
+| name | string
+| intarray | array of integers |
+| propmap | map of string key and value pairs |
+
+When you specify an array field in a Hive table, you must identify the terminator for each item in the collection. Similarly, you must also specify the map key termination character.
+
+1. Create a text file from which you will load the data set:
+
+    ```
+    $ vi /tmp/pxf_hive_complex.txt
+    ```
+
+2. Add the following text to `pxf_hive_complex.txt`.  This data uses a comma (`,`) to separate field values, the percent symbol `%` to separate collection items, and a `:` to terminate map key values:
+
+    ```
+    3,Prague,1%2%3,zone:euro%status:up
+    89,Rome,4%5%6,zone:euro
+    400,Bangalore,7%8%9,zone:apac%status:pending
+    183,Beijing,0%1%2,zone:apac
+    94,Sacramento,3%4%5,zone:noam%status:down
+    101,Paris,6%7%8,zone:euro%status:up
+    56,Frankfurt,9%0%1,zone:euro
+    202,Jakarta,2%3%4,zone:apac%status:up
+    313,Sydney,5%6%7,zone:apac%status:pending
+    76,Atlanta,8%9%0,zone:noam%status:down
+    ```
+
+3. Create a Hive table to represent this data:
+
+    ``` shell
+    $ HADOOP_USER_NAME=hdfs hive
+    ```
+
+    ``` sql
+    hive> CREATE TABLE table_complextypes( index int, name string, intarray ARRAY<int>, propmap MAP<string, string>)
+             ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
+             COLLECTION ITEMS TERMINATED BY '%'
+             MAP KEYS TERMINATED BY ':'
+             STORED AS TEXTFILE;
+    ```
+
+    Notice that:
+
+    - `FIELDS TERMINATED BY` identifies a comma as the field terminator.
+    - The `COLLECTION ITEMS TERMINATED BY` subclause specifies the percent sign as the collection items (array item, map key/value pair) terminator.
+    - `MAP KEYS TERMINATED BY` identifies a colon as the terminator for map keys.
+
+4. Load the `pxf_hive_complex.txt` sample data file into the `table_complextypes` table that you just created:
+
+    ``` sql
+    hive> LOAD DATA LOCAL INPATH '/tmp/pxf_hive_complex.txt' INTO TABLE table_complextypes;
+    ```
+
+5. Perform a query on Hive table `table_complextypes` to verify that the data was loaded successfully:
+
+    ``` sql
+    hive> SELECT * FROM table_complextypes;
+    ```
+
+    ``` shell
+    3	Prague	[1,2,3]	{"zone":"euro","status":"up"}
+    89	Rome	[4,5,6]	{"zone":"euro"}
+    400	Bangalore	[7,8,9]	{"zone":"apac","status":"pending"}
+    ...
+    ```
+
+6. Use the PXF `hive` profile to create a readable Apache Cloudberry external table that references the Hive table named `table_complextypes`:
+
+    ``` sql
+    postgres=# CREATE EXTERNAL TABLE complextypes_hiveprofile(index int, name text, intarray text, propmap text)
+                 LOCATION ('pxf://table_complextypes?PROFILE=hive')
+               FORMAT 'CUSTOM' (FORMATTER='pxfwritable_import');
+    ```
+
+    Notice that the integer array and map complex types are mapped to Apache Cloudberry data type text.
+
+7. Query the external table:
+
+    ``` sql
+    postgres=# SELECT * FROM complextypes_hiveprofile;
+    ```
+
+    ``` shell     
+     index |    name    | intarray |              propmap
+    -------+------------+----------+------------------------------------
+         3 | Prague     | [1,2,3]  | {"zone":"euro","status":"up"}
+        89 | Rome       | [4,5,6]  | {"zone":"euro"}
+       400 | Bangalore  | [7,8,9]  | {"zone":"apac","status":"pending"}
+       183 | Beijing    | [0,1,2]  | {"zone":"apac"}
+        94 | Sacramento | [3,4,5]  | {"zone":"noam","status":"down"}
+       101 | Paris      | [6,7,8]  | {"zone":"euro","status":"up"}
+        56 | Frankfurt  | [9,0,1]  | {"zone":"euro"}
+       202 | Jakarta    | [2,3,4]  | {"zone":"apac","status":"up"}
+       313 | Sydney     | [5,6,7]  | {"zone":"apac","status":"pending"}
+        76 | Atlanta    | [8,9,0]  | {"zone":"noam","status":"down"}
+    (10 rows)
+    ```
+
+    `intarray` and `propmap` are each serialized as text strings.
+
+### Example: Using the hive:orc Profile with Complex Data Types
+
+In the following example, you will create and populate a Hive table stored in ORC format. You will use the `hive:orc` profile to query the complex types in this Hive table.
+
+1. Create a Hive table with ORC storage format:
+
+    ``` shell
+    $ HADOOP_USER_NAME=hdfs hive
+    ```
+
+    ``` sql
+    hive> CREATE TABLE table_complextypes_ORC( index int, name string, intarray ARRAY<int>, propmap MAP<string, string>)
+            ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
+            COLLECTION ITEMS TERMINATED BY '%'
+            MAP KEYS TERMINATED BY ':'
+          STORED AS ORC;
+    ```
+
+2. Insert the data from the `table_complextypes` table that you created in the previous example into `table_complextypes_ORC`:
+
+    ``` sql
+    hive> INSERT INTO TABLE table_complextypes_ORC SELECT * FROM table_complextypes;
+    ```
+
+    A copy of the sample data set is now stored in ORC format in `table_complextypes_ORC`.
+
+3. Perform a Hive query on `table_complextypes_ORC` to verify that the data was loaded successfully:
+
+    ``` sql
+    hive> SELECT * FROM table_complextypes_ORC;
+    ```
+
+    ``` pre
+    OK
+    3       Prague       [1,2,3]    {"zone":"euro","status":"up"}
+    89      Rome         [4,5,6]    {"zone":"euro"}
+    400     Bangalore    [7,8,9]    {"zone":"apac","status":"pending"}
+    ...
+    ```
+
+4. Start the `psql` subsystem:
+
+    ``` shell
+    $ psql -d postgres
+    ```
+
+4. Use the PXF `hive:orc` profile to create a readable Apache Cloudberry external table from the Hive table named `table_complextypes_ORC` you created in Step 1. The `FORMAT` clause must specify `'CUSTOM'`. The `hive:orc` `CUSTOM` format supports only the built-in `'pxfwritable_import'` `formatter`.
+
+    ``` sql
+    postgres=> CREATE EXTERNAL TABLE complextypes_hiveorc(index int, name text, intarray text, propmap text)
+               LOCATION ('pxf://default.table_complextypes_ORC?PROFILE=hive:orc')
+                 FORMAT 'CUSTOM' (FORMATTER='pxfwritable_import');
+    ```
+
+    Notice that the integer array and map complex types are again mapped to Apache Cloudberry data type text.
+
+5. Query the external table:
+
+    ``` sql
+    postgres=> SELECT * FROM complextypes_hiveorc;
+    ```
+
+    ``` pre
+     index |    name    | intarray |              propmap               
+    -------+------------+----------+------------------------------------
+         3 | Prague     | [1,2,3]  | {"zone":"euro","status":"up"}
+        89 | Rome       | [4,5,6]  | {"zone":"euro"}
+       400 | Bangalore  | [7,8,9]  | {"zone":"apac","status":"pending"}
+     ...
+
+    ```
+
+    `intarray` and `propmap` are again serialized as text strings.
+
+## Partition Pruning
+
+The PXF Hive connector supports Hive partition pruning and the Hive partition directory structure. This enables partition exclusion on selected HDFS files comprising a Hive table. To use the partition filtering feature to reduce network traffic and I/O, run a query on a PXF external table using a `WHERE` clause that refers to a specific partition column in a partitioned Hive table.
+
+The PXF Hive Connector partition filtering support for Hive string and integral types is described below:
+
+- The relational operators `=`, `<`, `<=`, `>`, `>=`, and `<>` are supported on string types.
+- The relational operators `=` and `<>` are supported on integral types (To use partition filtering with Hive integral types, you must update the Hive configuration as described in the [Prerequisites](#prerequisites)).
+- The logical operators `AND` and `OR` are supported when used with the relational operators mentioned above.
+- The `LIKE` string operator is not supported.
+
+To take advantage of PXF partition filtering pushdown, the Hive and PXF partition field names must be the same. Otherwise, PXF ignores partition filtering and the filtering is performed on the Apache Cloudberry side, impacting performance.
+
+> <b>Note:</b> The PXF Hive connector filters only on partition columns, not on other table attributes. Additionally, filter pushdown is supported only for those data types and operators identified above.
+
+PXF filter pushdown is enabled by default. You configure PXF filter pushdown as described in [About Filter Pushdown](../intro/filter_push.md).
+
+### Example: Using the hive Profile to Access Partitioned Homogenous Data
+
+In this example, you use the `hive` profile to query a Hive table named `sales_part` that you partition on the `delivery_state` and `delivery_city` fields. You then create an Apache Cloudberry external table to query `sales_part`. The procedure includes specific examples that illustrate filter pushdown.
+
+1. Create a Hive table named `sales_part` with two partition columns, `delivery_state` and `delivery_city:`
+
+    ``` sql
+    hive> CREATE TABLE sales_part (cname string, itype string, supplier_key int, price double)
+            PARTITIONED BY (delivery_state string, delivery_city string)
+            ROW FORMAT DELIMITED FIELDS TERMINATED BY ',';
+    ```
+
+2. Load data into this Hive table and add some partitions:
+
+    ``` sql
+    hive> INSERT INTO TABLE sales_part
+            PARTITION(delivery_state = 'CALIFORNIA', delivery_city = 'Fresno')
+            VALUES ('block', 'widget', 33, 15.17);
+    hive> INSERT INTO TABLE sales_part
+            PARTITION(delivery_state = 'CALIFORNIA', delivery_city = 'Sacramento')
+            VALUES ('cube', 'widget', 11, 1.17);
+    hive> INSERT INTO TABLE sales_part
+            PARTITION(delivery_state = 'NEVADA', delivery_city = 'Reno')
+            VALUES ('dowel', 'widget', 51, 31.82);
+    hive> INSERT INTO TABLE sales_part
+            PARTITION(delivery_state = 'NEVADA', delivery_city = 'Las Vegas')
+            VALUES ('px49', 'pipe', 52, 99.82);
+    ```
+
+3. Query the `sales_part` table:
+
+    ``` sql
+    hive> SELECT * FROM sales_part;
+    ```
+
+    A `SELECT *` statement on a Hive partitioned table shows the partition fields at the end of the record.
+
+3. Examine the Hive/HDFS directory structure for the `sales_part` table:
+
+    ``` shell
+    $ sudo -u hdfs hdfs dfs -ls -R /apps/hive/warehouse/sales_part
+    /apps/hive/warehouse/sales_part/delivery_state=CALIFORNIA/delivery_city=Fresno/
+    /apps/hive/warehouse/sales_part/delivery_state=CALIFORNIA/delivery_city=Sacramento/
+    /apps/hive/warehouse/sales_part/delivery_state=NEVADA/delivery_city=Reno/
+    /apps/hive/warehouse/sales_part/delivery_state=NEVADA/delivery_city=Las Vegas/
+    ```
+
+4. Create a PXF external table to read the partitioned `sales_part` Hive table.  To take advantage of partition filter push-down, define fields corresponding to the Hive partition fields at the end of the `CREATE EXTERNAL TABLE` attribute list.
+
+    ``` shell
+    $ psql -d postgres
+    ```
+
+    ``` sql
+    postgres=# CREATE EXTERNAL TABLE pxf_sales_part(
+                 cname TEXT, itype TEXT,
+                 supplier_key INTEGER, price DOUBLE PRECISION,
+                 delivery_state TEXT, delivery_city TEXT)
+               LOCATION ('pxf://sales_part?PROFILE=hive')
+               FORMAT 'CUSTOM' (FORMATTER='pxfwritable_import');
+    ```
+
+5. Query the table:
+
+    ``` sql
+    postgres=# SELECT * FROM pxf_sales_part;
+    ```
+
+6.  Perform another query (no pushdown) on `pxf_sales_part` to return records where the `delivery_city` is `Sacramento` and  `cname` is `cube`:
+
+    ``` sql
+    postgres=# SELECT * FROM pxf_sales_part WHERE delivery_city = 'Sacramento' AND cname = 'cube';
+    ```
+
+    The query filters the `delivery_city` partition `Sacramento`. The filter on `cname` is not pushed down, since it is not a partition column. It is performed on the Apache Cloudberry side after all the data in the `Sacramento` partition is transferred for processing.
+
+7. Query (with pushdown) for all records where `delivery_state` is `CALIFORNIA`:
+
+    ``` sql
+    postgres=# SET gp_external_enable_filter_pushdown=on;
+    postgres=# SELECT * FROM pxf_sales_part WHERE delivery_state = 'CALIFORNIA';
+    ```
+
+    This query reads all of the data in the `CALIFORNIA` `delivery_state` partition, regardless of the city.
+
+### Example: Using the hive Profile to Access Partitioned Heterogeneous Data
+
+You can use the PXF `hive` profile with any Hive file storage types. With the `hive` profile, you can access heterogeneous format data in a single Hive table where the partitions may be stored in different file formats.
+
+In this example, you create a partitioned Hive external table. The table is composed of the HDFS data files associated with the `sales_info` (text format) and `sales_info_rcfile` (RC format) Hive tables that you created in previous exercises. You will partition the data by year, assigning the data from `sales_info` to the year 2013, and the data from `sales_info_rcfile` to the year 2016. (Ignore at the moment the fact that the tables contain the same data.) You will then use the PXF `hive` profile to query this partitioned Hive external table.
+
+1. Create a Hive external table named `hive_multiformpart` that is partitioned by a string field named `year`:
+
+    ``` shell
+    $ HADOOP_USER_NAME=hdfs hive
+    ```
+
+    ``` sql
+    hive> CREATE EXTERNAL TABLE hive_multiformpart( location string, month string, number_of_orders int, total_sales double)
+            PARTITIONED BY( year string )
+            ROW FORMAT DELIMITED FIELDS TERMINATED BY ',';
+    ```
+
+2. Describe the `sales_info` and `sales_info_rcfile` tables, noting the HDFS file `location` for each table:
+
+    ``` sql
+    hive> DESCRIBE EXTENDED sales_info;
+    hive> DESCRIBE EXTENDED sales_info_rcfile;
+    ```
+    
+3. Create partitions in the `hive_multiformpart` table for the HDFS file locations associated with each of the `sales_info` and `sales_info_rcfile` tables:
+
+    ``` sql
+    hive> ALTER TABLE hive_multiformpart ADD PARTITION (year = '2013') LOCATION 'hdfs://namenode:8020/apps/hive/warehouse/sales_info';
+    hive> ALTER TABLE hive_multiformpart ADD PARTITION (year = '2016') LOCATION 'hdfs://namenode:8020/apps/hive/warehouse/sales_info_rcfile';
+    ```
+
+4. Explicitly identify the file format of the partition associated with the  `sales_info_rcfile` table:
+
+    ``` sql
+    hive> ALTER TABLE hive_multiformpart PARTITION (year='2016') SET FILEFORMAT RCFILE;
+    ```
+    
+    You need not specify the file format of the partition associated with the `sales_info` table, as `TEXTFILE` format is the default.
+
+5. Query the `hive_multiformpart` table:
+
+    ``` sql
+    hive> SELECT * from hive_multiformpart;
+    ...
+    Bangalore	Jul	271	8320.55	2016
+    Beijing	Dec	100	4248.41	2016
+    Prague	Jan	101	4875.33	2013
+    Rome	Mar	87	1557.39	2013
+    ...
+    hive> SELECT * from hive_multiformpart WHERE year='2013';
+    hive> SELECT * from hive_multiformpart WHERE year='2016';
+    ```
+
+6. Show the partitions defined for the `hive_multiformpart` table and exit `hive`:
+
+    ``` sql
+    hive> SHOW PARTITIONS hive_multiformpart;
+    year=2013
+    year=2016
+    hive> quit;
+    ```
+
+7. Start the `psql` subsystem:
+
+    ``` shell
+    $ psql -d postgres
+    ```
+
+8. Use the PXF `hive` profile to create a readable Apache Cloudberry external table that references the Hive `hive_multiformpart` external table that you created in the previous steps:
+
+    ``` sql
+    postgres=# CREATE EXTERNAL TABLE pxf_multiformpart(location text, month text, number_of_orders int, total_sales float8, year text)
+                 LOCATION ('pxf://default.hive_multiformpart?PROFILE=hive')
+               FORMAT 'CUSTOM' (FORMATTER='pxfwritable_import');
+    ```
+
+9. Query the PXF external table:
+
+    ``` sql
+    postgres=# SELECT * FROM pxf_multiformpart;
+    ```
+
+    ``` shell
+       location    | month | number_of_orders | total_sales | year 
+    ---------------+-------+------------------+-------------+--------
+     ....
+     Prague        | Dec   |              333 |     9894.77 | 2013
+     Bangalore     | Jul   |              271 |     8320.55 | 2013
+     Beijing       | Dec   |              100 |     4248.41 | 2013
+     Prague        | Jan   |              101 |     4875.33 | 2016
+     Rome          | Mar   |               87 |     1557.39 | 2016
+     Bangalore     | May   |              317 |     8936.99 | 2016
+     ....
+    ```
+
+10. Perform a second query to calculate the total number of orders for the year 2013:
+
+    ``` sql
+    postgres=# SELECT sum(number_of_orders) FROM pxf_multiformpart WHERE month='Dec' AND year='2013';
+     sum 
+    -----
+     433
+    ```
+
+## Using PXF with Hive Default Partitions
+
+This topic describes a difference in query results between Hive and PXF queries when Hive tables use a default partition. When dynamic partitioning is enabled in Hive, a partitioned table may store data in a default partition. Hive creates a default partition when the value of a partitioning column does not match the defined type of the column (for example, when a NULL value is used for any partitioning column). In Hive, any query that includes a filter on a partition column *excludes* any data that is stored in the table's default partition.
+
+Similar to Hive, PXF represents a table's partitioning columns as columns that are appended to the end of the table. However, PXF translates any column value in a default partition to a NULL value. This means that an Apache Cloudberry query that includes an `IS NULL` filter on a partitioning column can return different results than the same Hive query.
+
+Consider a Hive partitioned table that is created with the statement:
+
+``` sql
+hive> CREATE TABLE sales (order_id bigint, order_amount float) PARTITIONED BY (xdate date);
+```
+
+The table is loaded with five rows that contain the following data:
+
+``` pre
+1.0    1900-01-01
+2.2    1994-04-14
+3.3    2011-03-31
+4.5    NULL
+5.0    2013-12-06
+```
+
+Inserting row 4 creates a Hive default partition, because the partition column `xdate` contains a null value.
+
+In Hive, any query that filters on the partition column omits data in the default partition. For example, the following query returns no rows:
+
+``` sql
+hive> SELECT * FROM sales WHERE xdate IS null;
+```
+
+However, if you map this Hive table to a PXF external table in Apache Cloudberry, all default partition values are translated into actual NULL values. In Apache Cloudberry, running the same query against the PXF external table returns row 4 as the result, because the filter matches the NULL value.
+
+Keep this behavior in mind when you run `IS NULL` queries on Hive partitioned tables.

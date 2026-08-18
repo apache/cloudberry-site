@@ -1,0 +1,298 @@
+---
+title: "Accessing an SQL Database (JDBC)"
+description: "Accessing SQL databases with the PXF JDBC connector."
+source: https://cloudberry.apache.org/pxf/access-jdbc/jdbc_pxf
+---
+
+# Accessing an SQL Database (JDBC)
+
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+Some of your data may already reside in an external SQL database. PXF provides access to this data via the PXF JDBC connector. The JDBC connector is a JDBC client. It can read data from and write data to SQL databases including MySQL, ORACLE, Microsoft SQL Server, DB2, PostgreSQL, Hive, and Apache Ignite.
+
+This section describes how to use the PXF JDBC connector to access data in an external SQL database, including how to create and query or insert data into a PXF external table that references a table in an external database.
+
+> <b>Note:</b> The JDBC connector does not guarantee consistency when writing to an external SQL database. Be aware that if an `INSERT` operation fails, some data may be written to the external database table. If you require consistency for writes, consider writing to a staging table in the external database, and loading to the target table only after verifying the write operation.
+
+## Prerequisites
+
+Before you access an external SQL database using the PXF JDBC connector, ensure that:
+
+- You can identify the PXF runtime configuration directory (`$PXF_BASE`).
+- You have configured PXF, and PXF is running on each Apache Cloudberry host. See [Configuring PXF](../administering/configuring/instcfg_pxf.md) for additional information.
+- Connectivity exists between all Apache Cloudberry hosts and the external SQL database.
+- You have configured your external SQL database for user access from all Apache Cloudberry hosts.
+- You have registered any JDBC driver JAR dependencies.
+- (Recommended) You have created one or more named PXF JDBC connector server configurations as described in [Configuring the PXF JDBC Connector](../administering/configuring/jdbc-connector/jdbc_cfg.md).
+
+## Data Types Supported
+
+The PXF JDBC connector supports the following data types:
+
+- INTEGER, BIGINT, SMALLINT
+- REAL, FLOAT8
+- NUMERIC
+- BOOLEAN
+- VARCHAR, BPCHAR, TEXT
+- DATE
+- TIMESTAMP
+- TIMESTAMPTZ
+- BYTEA
+- UUID
+
+Any data type not listed above is not supported by the PXF JDBC connector.
+
+### About Accessing Hive via JDBC
+
+PXF includes version 1.1.0 of the Hive JDBC driver. This version does **not** support the following data types when you use the PXF JDBC connector to operate on a Hive table:
+
+| Data Type | Fixed in Hive JDBC Driver | Upstream Issue | Operations Not Supported |
+|-----------|---------------------------|----------------| ---------- |
+| NUMERIC   | 2.3.0                     | [HIVE-13614](https://issues.apache.org/jira/browse/HIVE-13614) | Write |
+| TIMESTAMP | 2.0.0                     | [HIVE-11748](https://issues.apache.org/jira/browse/HIVE-11748) | Write |
+| DATE      | 1.3.0, 2.0.0              | [HIVE-11024](https://issues.apache.org/jira/browse/HIVE-11024) | Write |
+| TIMESTAMPTZ | N/A              | [HIVE-576](https://issues.apache.org/jira/browse/HIVE-576) | Read, Write |
+| BYTEA     | N/A                       | N/A | Read, Write |
+
+## Accessing an External SQL Database
+The PXF JDBC connector supports a single profile named `jdbc` for external tables and `jdbc_pxf_fdw` foreign data wrapper for FDW. You can both read data from and write data to an external SQL database table with this profile. You can also use the connector to run a static, named query in external SQL database and read the results.
+
+To access data in a remote SQL database, you create a readable or writable Apache Cloudberry external table that references the remote database table. The Apache Cloudberry external table and the remote database table or query result tuple must have the same definition; the column names and types must match.
+
+Use the following syntax to create an Apache Cloudberry foreign table that references a remote SQL database table or a query result from the remote database:
+
+<pre>
+CREATE SERVER "my_server" FOREIGN DATA WRAPPER jdbc_pxf_fdw;
+CREATE USER MAPPING FOR CURRENT_USER SERVER "my_server";
+CREATE FOREIGN TABLE &lt;table_name>
+    ( &lt;column_name> &lt;data_type> [, ...] | LIKE &lt;other_table> )
+    SERVER "my_server"
+    OPTIONS (
+     	resource '&lt;external-table-name>|query:&lt;query_name>'
+     	[,&&lt;custom-option>=&lt;value>[...]]
+	)
+</pre>
+
+OR create an Apache Cloudberry external table:
+
+<pre>
+CREATE [READABLE | WRITABLE] EXTERNAL TABLE &lt;table_name>
+    ( &lt;column_name> &lt;data_type> [, ...] | LIKE &lt;other_table> )
+LOCATION ('pxf://&lt;external-table-name>|query:&lt;query_name>?<b>PROFILE=jdbc[&SERVER=&lt;server_name>]</b>[&&lt;custom-option>=&lt;value>[...]]')
+FORMAT 'CUSTOM' (FORMATTER='pxfwritable_import'|'pxfwritable_export');
+</pre>
+
+The specific keywords and values used in the Apache Cloudberry [CREATE FOREIGN TABLE](https://cloudberry.apache.org/docs/sql-stmts/create-foreign-table) / [CREATE EXTERNAL TABLE](https://cloudberry.apache.org/docs/sql-stmts/create-external-table/) command are described in the table below.
+
+| Keyword  | Value |
+|-------|-------------------------------------|
+| \<external&#8209;table&#8209;name\>    | The full name of the external table. Depends on the external SQL database, may include a schema name and a table name. |
+| query:\<query_name\>    | The name of the query to run in the remote SQL database. |
+| PROFILE    | The `PROFILE` keyword value must specify `jdbc`. |
+| SERVER=\<server_name\>   | The named server configuration that PXF uses to access the data. PXF uses the `default` server if not specified. |
+| \<custom&#8209;option\>=\<value\>  | \<custom-option\> is profile-specific. `jdbc` profile-specific options are discussed in the next section.|
+| FORMAT 'CUSTOM' | The JDBC `CUSTOM` `FORMAT` supports the built-in `'pxfwritable_import'` `FORMATTER` function for read operations and the built-in `'pxfwritable_export'` function for write operations. |
+
+**Note**: You cannot use the `HEADER` option in your `FORMAT` specification when you create a PXF external table.
+
+### JDBC Custom Options
+
+You include JDBC connector custom options in the `OPTIONS` or `LOCATION` URI (prefacing each option with an ampersand `&`). `CREATE FOREIGN TABLE` / `CREATE EXTERNAL TABLE` \<custom-option\>s supported by the `jdbc` profile include:
+
+| Option Name   | Operation | Description
+|---------------|------------|--------|
+| BATCH_SIZE | Write | Integer that identifies the number of `INSERT` operations to batch to the external SQL database. Write batching is activated by default; the default value is 100. |
+| FETCH_SIZE | Read | Integer that identifies the number of rows to buffer when reading from an external SQL database. Read row batching is activated by default. The default read fetch size for MySQL is `-2147483648` (`Integer.MIN_VALUE`). The default read fetch size for all other databases is 1000. |
+| QUERY_TIMEOUT | Read/Write | Integer that identifies the amount of time (in seconds) that the JDBC driver waits for a statement to run. The default wait time is infinite. |
+| DATE_WIDE_RANGE | Read/Write | Boolean that enables support for `date` and `timestamp` data types that specify `BC` or `AD`. Set this value to `true` to ensure eras data is not lost and to improve performance in cases where the year contains more than 4 digits. The default value is `false`. |
+| POOL_SIZE | Write | Activate thread pooling on `INSERT` operations and identify the number of threads in the pool. Thread pooling is deactivated by default. |
+| PARTITION_BY | Read | Activates read partitioning. The partition column, \<column-name\>:\<column-type\>. You may specify only one partition column. The JDBC connector supports `date`, `int`, and `enum` \<column-type\> values, where `int` represents any JDBC integral type. If you do not identify a `PARTITION_BY` column, a single PXF instance services the read request. |
+| RANGE | Read | Required when `PARTITION_BY` is specified. The query range; used as a hint to aid the creation of partitions. The `RANGE` format is dependent upon the data type of the partition column. When the partition column is an `enum` type, `RANGE` must specify a list of values, \<value\>:\<value\>[:\<value\>[...]], each of which forms its own fragment. If the partition column is an `int` or `date` type, `RANGE` must specify \<start-value\>:\<end-value\> and represents the interval from \<start-value\> through \<end-value\>, inclusive. The `RANGE` for an `int` partition column may span any 64-bit signed integer values. If the partition column is a `date` type, use the `yyyy-MM-dd` date format. |
+| INTERVAL | Read | Required when `PARTITION_BY` is specified and of the `int`, `bigint`, or `date` type. The interval, \<interval-value\>[:\<interval-unit\>], of one fragment. Used with `RANGE` as a hint to aid the creation of partitions. Specify the size of the fragment in \<interval-value\>. If the partition column is a `date` type, use the \<interval-unit\> to specify `year`, `month`, or `day`. PXF ignores `INTERVAL` when the `PARTITION_BY` column is of the `enum` type. |
+| QUOTE_COLUMNS | Read | Controls whether PXF should quote column names when constructing an SQL query to the external database. Specify `true` to force PXF to quote all column names; PXF does not quote column names if any other value is provided. If `QUOTE_COLUMNS` is not specified (the default), PXF automatically quotes *all* column names in the query when *any* column name:<br/>- includes special characters, or <br/>- is mixed case and the external database does not support unquoted mixed case identifiers. |
+
+#### Batching Insert Operations (Write)
+
+*When the JDBC driver of the external SQL database supports it*, batching of `INSERT` operations may significantly increase performance.
+
+Write batching is activated by default, and the default batch size is 100. To deactivate batching or to modify the default batch size value, create the PXF external table with a `BATCH_SIZE` setting:
+
+- `BATCH_SIZE=0` or `BATCH_SIZE=1` - deactivates batching
+- `BATCH_SIZE=(n>1)` - sets the `BATCH_SIZE` to `n`
+
+When the external database JDBC driver does not support batching, the behaviour of the PXF JDBC connector depends on the `BATCH_SIZE` setting as follows:
+
+- `BATCH_SIZE` omitted - The JDBC connector inserts without batching.
+- `BATCH_SIZE=(n>1)` - The `INSERT` operation fails and the connector returns an error.
+
+#### Batching on Read Operations
+
+By default, the PXF JDBC connector automatically batches the rows it fetches from an external database table. The default row fetch size is 1000. To modify the default fetch size value, specify a `FETCH_SIZE` when you create the PXF external table. For example:
+
+``` pre
+FETCH_SIZE=5000
+```
+
+If the external database JDBC driver does not support batching on read, you must explicitly deactivate read row batching by setting `FETCH_SIZE=0`.
+
+#### Thread Pooling (Write)
+
+The PXF JDBC connector can further increase write performance by processing `INSERT` operations in multiple threads when threading is supported by the JDBC driver of the external SQL database.
+
+Consider using batching together with a thread pool. When used together, each thread receives and processes one complete batch of data. If you use a thread pool without batching, each thread in the pool receives exactly one tuple.
+
+The JDBC connector returns an error when any thread in the thread pool fails. Be aware that if an `INSERT` operation fails, some data may be written to the external database table.
+
+To deactivate or activate a thread pool and set the pool size, create the PXF external table with a `POOL_SIZE` setting as follows:
+
+- `POOL_SIZE=(n<1)` - thread pool size is the number of CPUs in the system
+- `POOL_SIZE=1` - deactivate thread pooling
+- `POOL_SIZE=(n>1)`- set the `POOL_SIZE` to `n`
+
+#### Partitioning (Read)
+
+The PXF JDBC connector supports simultaneous read access from PXF instances running on multiple Apache Cloudberry hosts to an external SQL table. This feature is referred to as partitioning. Read partitioning is not activated by default. To activate read partitioning, set the `PARTITION_BY`, `RANGE`, and `INTERVAL` custom options when you create the PXF external table.
+
+PXF uses the `RANGE` and `INTERVAL` values and the `PARTITON_BY` column that you specify to assign specific data rows in the external table to PXF instances running on the Apache Cloudberry segment hosts. This column selection is specific to PXF processing, and has no relationship to a partition column that you may have specified for the table in the external SQL database.
+
+Example JDBC \<custom-option\> substrings that identify partitioning parameters:
+
+``` pre
+&PARTITION_BY=id:int&RANGE=1:100&INTERVAL=5
+&PARTITION_BY=year:int&RANGE=2011:2013&INTERVAL=1
+&PARTITION_BY=createdate:date&RANGE=2013-01-01:2016-01-01&INTERVAL=1:month
+&PARTITION_BY=color:enum&RANGE=red:yellow:blue
+```
+
+When you activate partitioning, the PXF JDBC connector splits a `SELECT` query into multiple subqueries that retrieve a subset of the data, each of which is called a fragment. The JDBC connector automatically adds extra query constraints (`WHERE` expressions) to each fragment to guarantee that every tuple of data is retrieved from the external database exactly once.
+
+For example, when a user queries a PXF external table created with a `LOCATION` clause that specifies `&PARTITION_BY=id:int&RANGE=1:5&INTERVAL=2`, PXF generates 5 fragments: two according to the partition settings and up to three implicitly generated fragments. The constraints associated with each fragment are as follows:
+
+- Fragment 1: WHERE (id < 1) - implicitly-generated fragment for RANGE start-bounded interval
+- Fragment 2: WHERE (id >= 1) AND (id < 3) - fragment specified by partition settings
+- Fragment 3: WHERE (id >= 3) AND (id < 5) - fragment specified by partition settings
+- Fragment 4: WHERE (id >= 5) - implicitly-generated fragment for RANGE end-bounded interval
+- Fragment 5: WHERE (id IS NULL) - implicitly-generated fragment
+
+PXF distributes the fragments among Apache Cloudberry segments. A PXF instance running on a segment host spawns a thread for each segment on that host that services a fragment. If the number of fragments is less than or equal to the number of Cloudberry segments configured on a segment host, a single PXF instance may service all of the fragments. Each PXF instance sends its results back to Apache Cloudberry, where they are collected and returned to the user.
+
+When you specify the `PARTITION_BY` option, tune the `INTERVAL` value and unit based upon the optimal number of JDBC connections to the target database and the optimal distribution of external data across Apache Cloudberry segments. The `INTERVAL` low boundary is driven by the number of Apache Cloudberry segments while the high boundary is driven by the acceptable number of JDBC connections to the target database. The `INTERVAL` setting influences the number of fragments, and should ideally not be set too high nor too low. Testing with multiple values may help you select the optimal settings. 
+
+## Examples
+
+Refer to the following topics for examples on how to use PXF to read data from and write data to specific SQL databases:
+
+- [Reading From and Writing to a PostgreSQL Table](./jdbc_pxf_postgresql.md)
+- [Reading From and Writing to a MySQL Table](./jdbc_pxf_mysql.md)
+- [Reading From and Writing to an Oracle Table](./jdbc_pxf_oracle.md)
+- [Reading From and Writing to a ClickHouse Table](./jdbc_pxf_clickhouse.md)
+- [Reading From and Writing to a Trino Table](./jdbc_pxf_trino.md)
+
+## About Using Named Queries
+
+The PXF JDBC Connector allows you to specify a statically-defined query to run against the remote SQL database. Consider using a *named query* when:
+
+- You need to join several tables that all reside in the same external database.
+- You want to perform complex aggregation closer to the data source.
+- You would use, but are not allowed to create, a `VIEW` in the external database.
+- You would rather consume computational resources in the external system to minimize utilization of Apache Cloudberry resources.
+- You want to run a HIVE query and control resource utilization via YARN.
+
+The Apache Cloudberry administrator defines a query and provides you with the query name to use when you create the external table. Instead of a table name, you specify `query:<query_name>` in the `CREATE EXTERNAL TABLE` `LOCATION` clause to instruct the PXF JDBC connector to run the static query named `<query_name>` in the remote SQL database.
+
+PXF supports named queries only with readable external tables. You must create a unique Apache Cloudberry readable external table for each query that you want to run.
+
+The names and types of the external table columns must exactly match the names, types, and order of the columns return by the query result. If the query returns the results of an aggregation or other function, be sure to use the `AS` qualifier to specify a specific column name.
+
+For example, suppose that you are working with PostgreSQL tables that have the following definitions:
+
+``` sql
+CREATE TABLE customers(id int, name text, city text, state text);
+CREATE TABLE orders(customer_id int, amount int, month int, year int);
+```
+
+And this PostgreSQL query that the administrator named `order_rpt`:
+
+``` sql
+SELECT c.name, sum(o.amount) AS total, o.month
+  FROM customers c JOIN orders o ON c.id = o.customer_id
+  WHERE c.state = 'CO'
+GROUP BY c.name, o.month
+```
+
+This query returns tuples of type `(name text, total int, month int)`. If the `order_rpt` query is defined for the PXF JDBC server named `pgserver`, you could create an Apache Cloudberry external/foreign table to read these query results as follows:
+
+``` sql
+CREATE FOREIGN TABLE orderrpt_frompg(name text, total int, month int)
+  SERVER pgserver
+   OPTIONS ( resource 'query:order_rpt', PARTITION_BY 'month:int', RANGE '1:13', INTERVAL '3')
+```
+OR
+``` sql
+CREATE EXTERNAL TABLE orderrpt_frompg(name text, total int, month int)
+  LOCATION ('pxf://query:order_rpt?PROFILE=jdbc&SERVER=pgserver&PARTITION_BY=month:int&RANGE=1:13&INTERVAL=3')
+FORMAT 'CUSTOM' (FORMATTER='pxfwritable_import');
+```
+
+This command references a query named `order_rpt` defined in the `pgserver` server configuration. It also specifies JDBC read partitioning options that provide PXF with the information that it uses to split/partition the query result data across its servers/segments.
+
+For a more detailed example see [Example: Using a Named Query with PostgreSQL](./jdbc_pxf_named.md).
+
+The PXF JDBC connector automatically applies column projection and filter pushdown to external tables that reference named queries.
+
+## Overriding the JDBC Server Configuration with DDL
+
+You can override certain properties in a JDBC server configuration for a specific external database table by directly specifying the custom option in the `CREATE SERVER` `OPTIONS` section or `CREATE EXTERNAL TABLE` `LOCATION` clause:
+
+| Custom Option Name   | jdbc-site.xml Property Name |
+|----------------------|-----------------------------|
+| JDBC_DRIVER | jdbc.driver |
+| DB_URL | jdbc.url |
+| USER | jdbc.user |
+| PASS | jdbc.password |
+| BATCH_SIZE | jdbc.statement.batchSize |
+| FETCH_SIZE | jdbc.statement.fetchSize |
+| QUERY_TIMEOUT | jdbc.statement.queryTimeout |
+| DATE_WIDE_RANGE | jdbc.date.wideRange |
+
+For foreign tables:
+```sql
+CREATE SERVER "pgserver" FOREIGN DATA WRAPPER jdbc_pxf_fdw
+	OPTIONS (
+		jdbc_driver 'org.postgresql.Driver',
+		db_url 'jdbc:postgresql://pgserverhost:5432/pgtestdb',
+		user 'pxfuser1',
+		pass 'changeme'
+	);
+CREATE USER MAPPING FOR CURRENT_USER SERVER "pgserver";
+CREATE FOREIGN TABLE pxf_pgtbl(name varchar, age int)
+  SERVER "pgserver"
+  OPTIONS (resource 'public.forpxf_table1');
+```
+
+For external tables:
+```sql
+CREATE EXTERNAL TABLE pxf_pgtbl(name text, orders int)
+  LOCATION ('pxf://public.forpxf_table1?PROFILE=jdbc&JDBC_DRIVER=org.postgresql.Driver&DB_URL=jdbc:postgresql://pgserverhost:5432/pgtestdb&USER=pxfuser1&PASS=changeme')
+FORMAT 'CUSTOM' (FORMATTER='pxfwritable_export');
+```
+> <b>Warning:</b> Credentials that you provide in this manner are visible as part of the external table definition. Do not use this method of passing credentials in a production environment.
+
+Refer to [Configuration Property Precedence](../administering/configuring/cfg_server.md#about-configuration-property-precedence) for detailed information about the precedence rules that PXF uses to obtain configuration property settings for an Apache Cloudberry user.

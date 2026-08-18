@@ -1,0 +1,206 @@
+---
+title: "Example: Reading From and Writing to a Trino (formerly Presto SQL) Table"
+description: "Using PXF JDBC with Trino."
+source: https://cloudberry.apache.org/pxf/access-jdbc/jdbc_pxf_trino
+---
+
+# Example: Reading From and Writing to a Trino (formerly Presto SQL) Table
+
+Because PXF accesses Trino using the JDBC connector, this example works for all supported PXF versions.
+
+In this example, you:
+
+- Create an in-memory Trino table and insert data into the table
+- Configure the PXF JDBC connector to access the Trino database
+- Create a PXF readable external table that references the Trino table
+- Read the data in the Trino table using PXF
+- Create a PXF writable external table the references the Trino table
+- Write data to the Trino table using PXF
+- Read the data in the Trino table again
+
+## Create a Trino Table
+
+This example assumes that your Trino server has been configured with the included `memory` connector.
+See [Trino Documentation - Memory Connector](https://trino.io/docs/current/connector/memory.html) for instructions on configuring this connector.
+
+Create a Trino table named `names` and insert some data into this table:
+
+```sql
+> CREATE TABLE memory.default.names(id int, name varchar, last varchar);
+> INSERT INTO memory.default.names(1, 'John', 'Smith'), (2, 'Mary', 'Blake');
+```
+
+## Configure the Trino Connector
+
+You must create a JDBC server configuration for Trino, download the Trino driver JAR file to your system, copy the JAR file to the PXF user configuration directory, synchronize the PXF configuration, and then restart PXF.
+
+This procedure will typically be performed by the Apache Cloudberry administrator.
+
+1. Log in to the Apache Cloudberry coordinator host:
+
+    ```shell
+    $ ssh gpadmin@<coordinator>
+    ```
+
+1. Download the Trino JDBC driver and place it under `$PXF_BASE/lib`.
+   If you [relocated $PXF_BASE](../administering/configuring/about_pxf_dir.md#relocating-pxf_base), make sure you use the updated location.
+   See [Trino Documentation - JDBC Driver](https://trino.io/docs/current/client/jdbc.html#installing) for instructions on downloading the Trino JDBC driver.
+   The following example downloads the driver and places it under `$PXF_BASE/lib`:
+
+    1. If you did not relocate `$PXF_BASE`, run the following from the Cloudberry coordinator:
+
+        ```shell
+        gpadmin@coordinator$ cd /usr/local/cloudberry-pxf-<version>/lib
+        gpadmin@coordinator$ wget <url-to-trino-jdbc-driver>
+        ```
+
+    2. If you relocated `$PXF_BASE`, run the following from the Cloudberry coordinator:
+
+        ```shell
+        gpadmin@coordinator$ cd $PXF_BASE/lib
+        gpadmin@coordinator$ wget <url-to-trino-jdbc-driver>
+        ```
+
+1. Synchronize the PXF configuration, and then restart PXF:
+
+    ```shell
+    gpadmin@coordinator$ pxf cluster sync
+    gpadmin@coordinator$ pxf cluster restart
+    ```
+
+1. Create a JDBC server configuration for Trino as described in [Example Configuration Procedure](../administering/configuring/jdbc-connector/jdbc_cfg.md#example-configuration-procedure), naming the server directory `trino`.
+   The `jdbc-site.xml` file contents should look similar to the following (substitute your Trino host system for `trinoserverhost`):
+
+    ```xml
+    <?xml version="1.0" encoding="UTF-8"?>
+    <configuration>
+        <property>
+            <name>jdbc.driver</name>
+            <value>io.trino.jdbc.TrinoDriver</value>
+            <description>Class name of the JDBC driver</description>
+        </property>
+        <property>
+            <name>jdbc.url</name>
+            <value>jdbc:trino://trinoserverhost:8443</value>
+            <description>The URL that the JDBC driver can use to connect to the database</description>
+        </property>
+        <property>
+            <name>jdbc.user</name>
+            <value>trino-user</value>
+            <description>User name for connecting to the database</description>
+        </property>
+        <property>
+            <name>jdbc.password</name>
+            <value>trino-pw</value>
+            <description>Password for connecting to the database</description>
+        </property>
+
+        <!-- Connection properties -->
+        <property>
+            <name>jdbc.connection.property.SSL</name>
+            <value>true</value>
+            <description>Use HTTPS for connections; authentication using username/password requires SSL to be enabled.</description>
+        </property>
+    </configuration>
+    ```
+
+1. If your Trino server has been configured with a [Globally Trusted Certificate](https://trino.io/docs/current/security/tls.html#add-a-tls-certificate), you can skip this step. If your Trino server has been configured to use Corporate trusted certificates or Generated self-signed certificates, PXF will need a copy of the server's certificate in a PEM-encoded file or a Java Keystore (JKS) file.
+ 
+    **Note:** You do not need the Trino server's private key.
+
+    Copy the certificate to `$PXF_BASE/servers/trino`; storing the server's certificate inside `$PXF_BASE/servers/trino` ensures that `pxf cluster sync` copies the certificate to all segment hosts.
+
+    ```shell
+    $ cp <path-to-trino-server-certificate> /usr/local/cloudberry-pxf-<version>/servers/trino
+    ```
+
+    Add the following connection properties to the `jdbc-site.xml` file that you created in the previous step. Here, `trino.cert` is the name of the certificate file that you copied into `$PXF_BASE/servers/trino`:
+
+    ```xml
+    <configuration>
+    ...
+        <property>
+            <name>jdbc.connection.property.SSLTrustStorePath</name>
+            <value>/usr/local/cloudberry-pxf-<version>/servers/trino/trino.cert</value>
+            <description>The location of the Java TrustStore file that will be used to validate HTTPS server certificates.</description>
+        </property>
+        <!-- the following property is only required if the server's certificate is stored in a JKS file; if using a PEM-encoded file, it should be omitted.-->
+        <!--
+        <property>
+            <name>jdbc.connection.property.SSLTrustStorePassword</name>
+            <value>java-keystore-password</value>
+            <description>The password for the TrustStore.</description>
+        </property>
+        -->
+    </configuration>
+    ```
+
+1. Synchronize the PXF server configuration to the Apache Cloudberry cluster:
+
+    ```shell
+    gpadmin@coordinator$ pxf cluster sync
+    ```
+
+## Read from a Trino Table
+
+Perform the following procedure to create a PXF external table that references the `names` Trino table and reads the data in the table:
+
+1. Create the PXF external table specifying the `jdbc` profile.
+   Specify the Trino catalog and schema in the `LOCATION` URL. The following example reads the `names` table located in the `default` schema of the `memory` catalog:
+
+    ``` sql
+    CREATE EXTERNAL TABLE pxf_trino_memory_names (id int, name text, last text)
+    LOCATION('pxf://memory.default.names?PROFILE=jdbc&SERVER=trino')
+    FORMAT 'CUSTOM' (formatter='pxfwritable_import');
+    ```
+    OR foreign table
+    ``` sql
+    CREATE SERVER "trino" FOREIGN DATA WRAPPER jdbc_pxf_fdw;
+    CREATE USER MAPPING FOR CURRENT_USER SERVER "trino";
+    CREATE FOREIGN TABLE pxf_trino_memory_names (id int, name text, last text)
+		SERVER "trino"
+		OPTIONS ( resource 'memory.default.names' );
+    ```
+
+1. Display all rows of the `pxf_trino_memory_names` table:
+
+    ```sql
+    gpadmin=# SELECT * FROM pxf_trino_memory_names;
+     id | name | last
+    ----+------+-------
+      1 | John | Smith
+      2 | Mary | Blake
+    (2 rows)
+    ```
+
+## Write to the Trino Table
+
+Perform the following procedure to insert some data into the `names` Trino table and then read from the table.
+You must create a new external table for the write operation.
+
+1. Create a writable PXF external table specifying the `jdbc` profile. For example:
+
+    ```sql
+    gpadmin=# CREATE WRITABLE EXTERNAL TABLE pxf_trino_memory_names_w (id int, name text, last text)
+              LOCATION('pxf://memory.default.names?PROFILE=jdbc&SERVER=trino')
+              FORMAT 'CUSTOM' (formatter='pxfwritable_export');
+    ```
+    OR reuse foreign table from previous steps
+
+1. Insert some data into the `pxf_trino_memory_names_w` table. For example:
+
+    ```sql
+    gpadmin=# INSERT INTO pxf_trino_memory_names_w VALUES (3, 'Muhammad', 'Ali');
+    ```
+
+1. Use the `pxf_trino_memory_names` readable external table that you created in the previous section to view the new data in the `names` Trino table:
+
+    ```sql
+    gpadmin=# SELECT * FROM pxf_trino_memory_names;
+     id |   name   | last
+    ----+----------+-------
+      1 | John     | Smith
+      2 | Mary     | Blake
+      3 | Muhammad | Ali
+    (3 rows)
+    ```

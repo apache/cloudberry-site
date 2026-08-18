@@ -1,0 +1,378 @@
+---
+title: "Reading and Writing HDFS ORC Data"
+description: "Reading and writing ORC data in HDFS via PXF."
+source: https://cloudberry.apache.org/pxf/access-hadoop/hdfs_orc
+---
+
+# Reading and Writing HDFS ORC Data
+
+Use the PXF HDFS connector `hdfs:orc` profile to read and write ORC-formatted data. This section describes how to read and write HDFS files that are stored in ORC format, including how to create, query, and insert into external tables that references files in the HDFS data store.
+
+When you use the `hdfs:orc` profile to read ORC-formatted data, the connector:
+
+- Reads 1024 rows of data at a time.
+- Supports column projection.
+- Supports filter pushdown based on file-level, stripe-level, and row-level ORC statistics.
+- Supports the compound list type for a subset of ORC scalar types.
+- Does not support the map, union, or struct compound types.
+
+When you use the `hdfs:orc` profile to write ORC-formatted data, the connector:
+
+- Supports writing the same subset of primitives that are supported for reading ORC-formatted data.
+- Supports writing compound list types only for one-dimensional arrays. User-provided schemas are not supported.
+- Does not support the map, union, or struct compound types.
+
+The `hdfs:orc` profile currently supports reading and writing scalar data types and lists of certain scalar types from ORC files. If the data resides in a Hive table, and you want to read complex types or the Hive table is partitioned, use the [`hive:orc`](./hive_pxf.md#accessing-orc-format-hive-tables) profile.
+
+## Prerequisites
+
+Ensure that you have met the PXF Hadoop [Prerequisites](./access_hdfs.md#prerequisites) before you attempt to read data from or write data to HDFS.
+
+## About the ORC Data Format
+
+The Optimized Row Columnar (ORC) file format is a columnar file format that provides a highly efficient way to both store and access HDFS data. ORC format offers improvements over text and RCFile formats in terms of both compression and performance. PXF supports ORC file versions v0 and v1.
+
+ORC is type-aware and specifically designed for Hadoop workloads. ORC files store both the type of, and encoding information for, the data in the file. All columns within a single group of row data (also known as stripe) are stored together on disk in ORC format files. The columnar nature of the ORC format type enables read projection, helping avoid accessing unnecessary columns during a query.
+
+ORC also supports predicate pushdown with built-in indexes at the file, stripe, and row levels, moving the filter operation to the data loading phase.
+
+Refer to the [Apache ORC](https://orc.apache.org/docs/) documentation for detailed information about the ORC file format.
+
+## Data Type Mapping
+
+To read and write ORC primitive data types in Apache Cloudberry, map ORC data values to Apache Cloudberry columns of the same type.
+
+### Read Mapping
+
+To read ORC scalar data types in Apache Cloudberry, map ORC data values to Apache Cloudberry columns of the same type.
+
+PXF uses the following data type mapping when it reads ORC data:
+
+| ORC Physical Type | ORC Logical Type | PXF/Apache Cloudberry Data Type |
+|-------------------|---------------|--------------------------|
+| binary | decimal | Numeric |
+| binary | timestamp | Timestamp |
+| byte[] | string | Text |
+| byte[] | char | Bpchar |
+| byte[] | varchar | Varchar |
+| byte[] | binary | Bytea |
+| Double | float | Real |
+| Double | double | Float8 |
+| Integer | boolean (1 bit) | Boolean |
+| Integer | tinyint (8 bit) | Smallint |
+| Integer | smallint (16 bit) | Smallint |
+| Integer | int (32 bit) | Integer |
+| Integer | bigint (64 bit) | Bigint |
+| Integer | date | Date |
+
+PXF supports only the list ORC compound type, and only for a subset of the ORC scalar types. The supported mappings follow:
+
+| ORC Compound Type | PXF/Apache Cloudberry Data Type |
+|-------------------|-------------------------|
+| array\<string> | Text[] |
+| array\<char> | Bpchar[] |
+| array\<varchar> | Varchar[] |
+| array\<binary> | Bytea[] |
+| array\<float> | Real[] |
+| array\<double> | Float8[] |
+| array\<boolean> | Boolean[] |
+| array\<tinyint> | Smallint[] |
+| array\<smallint> | Smallint[] |
+| array\<int> | Integer[] |
+| array\<bigint> | Bigint[] |
+
+### Write Mapping
+
+PXF uses the following data type mapping when writing ORC data:
+
+| PXF/Apache Cloudberry Data Type | ORC Logical Type | ORC Physical Type |
+|-------------------------|------------------|-------------------|
+| Numeric | decimal | binary |
+| Timestamp | timestamp | binary |
+| Timestamp with Timezone | timestamp with local time zone | timestamp |
+| Text | string | byte[] |
+| Bpchar | char | byte[] |
+| Varchar | varchar | byte[] |
+| Bytea | binary | byte[] |
+| Real | float | Double |
+| Float8 | double | Double |
+| Boolean | boolean (1 bit) | Integer |
+| Smallint | tinyint (8 bit) | Integer |
+| Smallint | smallint (16 bit) | Integer |
+| Integer | int (32 bit) | Integer |
+| Bigint | bigint (64 bit) | Integer |
+| Date | date | Integer |
+| UUID | string | byte[] |
+
+PXF supports writing the list ORC compound type for one-dimensional arrays, for all of the above of the ORC primitive types. The supported mappings are:
+
+| ORC Compound Type | PXF/Apache Cloudberry Data Type |
+|-------------------|-------------------------|
+| array\<decimal> | Numeric[] |
+| array\<timestamp> | Timestamp[] |
+| array\<string> | Text[] |
+| array\<char> | Bpchar[] |
+| array\<varchar> | Varchar[] |
+| array\<binary> | Bytea[] |
+| array\<float> | Real[] |
+| array\<double> | Float8[] |
+| array\<boolean> | Boolean[] |
+| array\<tinyint> | Smallint[] |
+| array\<smallint> | Smallint[] |
+| array\<int> | Integer[] |
+| array\<bigint> | Bigint[] |
+| array\<date> | Date[] |
+
+## Creating the External Table
+
+The PXF HDFS connector `hdfs:orc` profile supports reading and writing ORC-formatted HDFS files. When you insert records into a writable external table, the block(s) of data that you insert are written to one file per segment in the directory that you specified.
+
+Use the following syntax to create an Apache Cloudberry external table that references an HDFS file or directory:
+
+``` sql
+CREATE [WRITABLE] EXTERNAL TABLE <table_name>
+    ( <column_name> <data_type> [, ...] | LIKE <other_table> )
+LOCATION ('pxf://<path-to-hdfs-file>
+    ?PROFILE=hdfs:orc[&SERVER=<server_name>][&<custom-option>=<value>[...]]')
+FORMAT 'CUSTOM' (FORMATTER='pxfwritable_import'|'pxfwritable_export')
+[DISTRIBUTED BY (<column_name> [, ... ] ) | DISTRIBUTED RANDOMLY];
+```
+
+The specific keywords and values used in the Apache Cloudberry [CREATE EXTERNAL TABLE](https://cloudberry.apache.org/docs/sql-stmts/create-external-table) command are described below.
+
+| Keyword  | Value |
+|-------|-------------------------------------|
+| \<path&#8209;to&#8209;hdfs&#8209;file\>    | The path to the file or directory in the HDFS data store. When the `<server_name>` configuration includes a [`pxf.fs.basePath`](../administering/configuring/cfg_server.md#about-the-pxffsbasepath-property) property setting, PXF considers \<path&#8209;to&#8209;hdfs&#8209;file\> to be relative to the base path specified. Otherwise, PXF considers it to be an absolute path. \<path&#8209;to&#8209;hdfs&#8209;file\> must not specify a relative path nor include the dollar sign (`$`) character. |
+| PROFILE    | The `PROFILE` keyword must specify `hdfs:orc`. |
+| SERVER=\<server_name\>    | The named server configuration that PXF uses to access the data. PXF uses the `default` server if not specified. |
+| \<custom-option\>    | \<custom-option\>s are described below. |
+| FORMAT 'CUSTOM' | Use `FORMAT 'CUSTOM'`with `(FORMATTER='pxfwritable_export')` (write) or `(FORMATTER='pxfwritable_import')` (read).   |
+| DISTRIBUTED BY | If you want to load data from an existing Apache Cloudberry table into the writable external table, consider specifying the same distribution policy or `<column_name>` on both tables. Doing so will avoid extra motion of data between segments on the load operation.  |
+
+## Creating the Foreign Table
+
+The PXF HDFS `hdfs_pxf_fdw` foreign data wrapper supports reading and writing ORC-formatted HDFS files. When you insert records into a foreign table, the block(s) of data that you insert are written to one file per segment in the directory that you specified in the `resource` clause.
+
+Use the following syntax to create an Apache Cloudberry foreign table that references an HDFS file or directory:
+
+``` sql
+CREATE SERVER <foreign_server> FOREIGN DATA WRAPPER hdfs_pxf_fdw;
+CREATE USER MAPPING FOR <user_name> SERVER <foreign_server>;
+
+CREATE FOREIGN TABLE [ IF NOT EXISTS ] <table_name>
+    ( <column_name> <data_type> [, ...] | LIKE <other_table> )
+  SERVER <foreign_server>
+  OPTIONS ( resource '<path-to-file>', format 'orc' [, <custom-option> '<value>'[...]]);
+```
+
+The specific keywords and values used in the Apache Cloudberry [CREATE FOREIGN TABLE](https://cloudberry.apache.org/docs/sql-stmts/create-foreign-table) command are described below.
+
+| Keyword  | Value |
+|-------|-------------------------------------|
+| \<foreign_server\>    | The named server configuration that PXF uses to access the data. You can override credentials in `CREATE SERVER` statement as described in [Overriding the S3 Server Configuration for Foreign Tables](../access-objectstores/access_s3.md#overriding-the-s3-server-configuration-for-foreign-tables) |
+| \<path&#8209;to&#8209;hdfs&#8209;file\>    | The path to the file or directory in the HDFS data store. When the `<server_name>` configuration includes a [`pxf.fs.basePath`](../administering/configuring/cfg_server.md#about-the-pxffsbasepath-property) property setting, PXF considers \<path&#8209;to&#8209;hdfs&#8209;file\> to be relative to the base path specified. Otherwise, PXF considers it to be an absolute path. \<path&#8209;to&#8209;hdfs&#8209;file\> must not specify a relative path nor include the dollar sign (`$`) character. |
+| format    | The file format; specify `'orc'` for ORC-formatted data. |
+| \<custom-option\>    | \<custom-option\>s are described below. |
+
+### Custom Options
+
+The PXF `hdfs:orc` profile supports the following *read* options. You specify this option in the `LOCATION` clause:
+
+| Read Option  | Value Description |
+|-------|-------------------------------------|
+| IGNORE_MISSING_PATH | A Boolean value that specifies the action to take when \<path-to-hdfs-file\> is missing or invalid. The default value is `false`, PXF returns an error in this situation. When the value is `true`, PXF ignores missing path errors and returns an empty fragment. |
+| MAP_BY_POSITION | A Boolean value that, when set to `true`, specifies that PXF should map an ORC column to an Apache Cloudberry column by position. The default value is `false`, PXF maps an ORC column to an Apache Cloudberry column by name. |
+
+The PXF `hdfs:orc` profile supports a single compression-related write option; you specify this option in the `CREATE WRITABLE EXTERNAL TABLE` `LOCATION` clause:
+
+| Write Option  | Value Description |
+|-------|-------------------------------------|
+| COMPRESSION_CODEC    | The compression codec alias. Supported compression codecs for writing ORC data include: `lz4`, `lzo`, `zstd`, `snappy`, `zlib`, and `none` . If this option is not specified, PXF compresses the data using `zlib` compression. |
+
+## About Writing ORC data
+
+When you insert records into a writable external table, the block(s) of data that you insert are written to one or more files in the directory that you specify in the `LOCATION` or `resource` clauses.
+
+When you insert ORC data records, the `pxf.orc.write.timezone.utc` property in the `pxf-site.xml` file governs how PXF writes timestamp values to the external data store. By default, PXF writes a timestamp type using the UTC time zone. If you require PXF to write a timestamp type using the local time zone of the PXF JVM, set the `pxf.orc.write.timezone.utc` property to `false` for the server and synchronize the PXF configuration.
+
+## Example: Reading an ORC File on HDFS
+
+This example operates on a simple data set that models a retail sales operation. The data includes fields with the following names and types:
+
+| Column Name  | Data Type |
+|--------------|---------------|
+| location | text |
+| month | text |
+| num\_orders | integer |
+| total\_sales | numeric(10,2) |
+| items\_sold | text[] |
+
+In this example, you:
+
+- Create a sample data set in JSON format, use the `orc-tools` JAR utilities to convert the JSON file into an ORC-formatted file, and then copy the ORC file to HDFS.
+- Create an Apache Cloudberry readable external table that references the ORC file and that specifies the `hdfs:orc` profile.
+- Query the external table.
+
+You must have administrative privileges to both a Hadoop cluster and an Apache Cloudberry cluster to run the example. You must also have configured a PXF server to access Hadoop.
+
+Procedure:
+
+1. Create a JSON file named `sampledata.json` in the `/tmp` directory:
+
+    ``` shell
+    $ echo '{"location": "Prague", "month": "Jan","num_orders": 101, "total_sales": 4875.33, "items_sold": ["boots", "hats"]}
+    {"location": "Rome", "month": "Mar","num_orders": 87, "total_sales": 1557.39, "items_sold": ["coats"]}
+    {"location": "Bangalore", "month": "May","num_orders": 317, "total_sales": 8936.99, "items_sold": ["winter socks", "long-sleeved shirts", "boots"]}
+    {"location": "Beijing", "month": "Jul","num_orders": 411, "total_sales": 11600.67, "items_sold": ["hoodies/sweaters", "pants"]}
+    {"location": "Los Angeles", "month": "Dec","num_orders": 0, "total_sales": 0.00, "items_sold": null}' > /tmp/sampledata.json
+    ```
+
+1. [Download](https://repo1.maven.org/maven2/org/apache/orc/orc-tools) the most recent version of the `orc-tools` JAR to the current working directory.
+
+1. Run the `orc-tools` `convert` command to convert `sampledata.json` to the ORC file `/tmp/sampledata.orc`; provide the schema to the command:
+
+    ``` shell
+    $ java -jar orc-tools-1.7.3-uber.jar convert /tmp/sampledata.json \
+      --schema 'struct<location:string,month:string,num_orders:int,total_sales:decimal(10,2),items_sold:array<string>>' \
+      -o /tmp/sampledata.orc
+    ```
+
+1. Copy the ORC file to HDFS. The following command copies the file to the `/data/pxf_examples/orc_example` directory:
+
+    ``` shell
+    $ hdfs dfs -put /tmp/sampledata.orc /data/pxf_examples/orc_example/
+    ```
+
+1. Log in to the Apache Cloudberry coordinator host and connect to a database. This command connects to the database named `testdb` as the `gpadmin` user:
+
+    ``` shell
+    gpadmin@coordinator$ psql -d testdb
+    ```
+
+1. Create an external table named `sample_orc` that references the `/data/pxf_examples/orc_example/sampledata.orc` file on HDFS. This command creates the table with the column names specified in the ORC schema, and uses the `default` PXF server:
+
+    ``` sql
+    testdb=# CREATE EXTERNAL TABLE sample_orc(location text, month text, num_orders int, total_sales numeric(10,2), items_sold text[])
+               LOCATION ('pxf://data/pxf_examples/orc_example?PROFILE=hdfs:orc')
+             FORMAT 'CUSTOM' (FORMATTER='pxfwritable_import');
+    ```
+
+    OR
+
+    ``` sql
+    testdb=# CREATE SERVER example_orc FOREIGN DATA WRAPPER hdfs_pxf_fdw;
+    testdb=# CREATE USER MAPPING FOR CURRENT_USER SERVER example_orc;
+    testdb=# CREATE FOREIGN TABLE sample_orc(location text, month text, num_orders int, total_sales numeric(10,2), items_sold text[])
+               SERVER example_orc
+               OPTIONS (
+               	resource 'data/pxf_examples/orc_example',
+               	format 'orc'
+               );
+    ```
+
+1. Read the data in the file by querying the `sample_orc` table:
+
+    ``` sql
+    testdb=# SELECT * FROM sample_orc;
+    ```
+
+    ``` shell
+      location   | month | num_orders | total_sales |                  items_sold
+    -------------+-------+------------+-------------+----------------------------------------------
+     Prague      | Jan   |        101 |     4875.33 | {boots,hats}
+     Rome        | Mar   |         87 |     1557.39 | {coats}
+     Bangalore   | May   |        317 |     8936.99 | {"winter socks","long-sleeved shirts",boots}
+     Beijing     | Jul   |        411 |    11600.67 | {hoodies/sweaters,pants}
+     Los Angeles | Dec   |          0 |        0.00 |
+    (5 rows)
+    ```
+
+1. You can query the data on any column, including the `items_sold` array column. For example, this query returns the rows where the items sold include `boots` and/or `pants`:
+
+    ``` sql
+    testdb=# SELECT * FROM sample_orc WHERE items_sold && '{"boots", "pants"}';
+    ```
+
+    ``` shell
+     location  | month | num_orders | total_sales |                  items_sold
+    -----------+-------+------------+-------------+----------------------------------------------
+     Prague    | Jan   |        101 |     4875.33 | {boots,hats}
+     Bangalore | May   |        317 |     8936.99 | {"winter socks","long-sleeved shirts",boots}
+     Beijing   | Jul   |        411 |    11600.67 | {hoodies/sweaters,pants}
+    (3 rows)
+    ```
+
+1. This query returns the rows where the first item sold is `boots`:
+
+    ``` sql
+    testdb=# SELECT * FROM sample_orc WHERE items_sold[0] = 'boots';
+    ```
+
+    ``` shell
+     location  | month | num_orders | total_sales |                  items_sold
+    -----------+-------+------------+-------------+----------------------------------------------
+     Prague    | Jan   |        101 |     4875.33 | {boots,hats}
+    (1 row)
+    ```
+
+## Example: Writing to an ORC File on HDFS
+
+In this example, you create a writable external table to write some data to the directory referenced by the `sample_orc` table.
+
+1. Create an external table that specifies the `hdfs:orc` profile and the HDFS directory `/data/pxf_examples/orc_example` in the `LOCATION` URL:
+
+    ``` sql
+    postgres=# CREATE WRITABLE EXTERNAL TABLE write_to_sample_orc (location text, month text, num_orders int, total_sales numeric(10,2), items_sold text[] )
+        LOCATION ('pxf://data/pxf_examples/orc_example?PROFILE=hdfs:orc')
+      FORMAT 'CUSTOM' (FORMATTER='pxfwritable_export');
+    ```
+
+    OR
+
+    ```
+        testdb=# CREATE SERVER example_orc FOREIGN DATA WRAPPER hdfs_pxf_fdw;
+        testdb=# CREATE USER MAPPING FOR CURRENT_USER SERVER example_orc;
+        testdb=# CREATE FOREIGN TABLE sample_orc(location text, month text, num_orders int, total_sales numeric(10,2), items_sold text[])
+                   SERVER example_orc
+                   OPTIONS (
+                   	resource 'data/pxf_examples/orc_example',
+                   	format 'orc'
+                   );
+    ```
+
+1. Write a few records to segment files in the `orc_example` directory by inserting into the `write_to_sample_orc` table:
+   
+    ``` sql
+    postgres=# INSERT INTO write_to_sample_orc VALUES ( 'Frankfurt', 'Mar', 777, 3956.98, '{"winter socks","pants",boots}' );
+    postgres=# INSERT INTO write_to_sample_orc VALUES ( 'Cleveland', 'Oct', 3218, 96645.37, '{"long-sleeved shirts",hats}' );
+    ```
+
+1. Recall that Apache Cloudberry does not support directly querying a writable external table. Query the `sample_orc` table that you created in the previous example to read the new data that you added:
+
+    ``` sql
+    postgres=# SELECT * FROM sample_orc ORDER BY num_orders;
+    ```
+
+## Understanding Overflow Conditions When Writing Numeric Data
+
+PXF uses the `HiveDecimal` class to write numeric ORC data. In versions prior to 6.7.0, PXF limited only the precision of a numeric type to a maximum of 38. In versions 6.7.0 and later, PXF must meet both precision and scale requirements before writing numeric ORC data.
+
+When you define a `NUMERIC` column in an external table without specifying a precision or scale, PXF internally maps the column to a `DECIMAL(38, 10)`.
+
+PXF handles the following precision overflow conditions:
+
+- You define a `NUMERIC` column in the external table, and the integer digit count of a value exceeds the maximum supported precision of 38. For example, `1234567890123456789012345678901234567890.12345`, which has an integer digit count of 45.
+- You define a `NUMERIC(<precision>)` column with a `<precision>` greater than 38. For example, `NUMERIC(55)`.
+- You define a `NUMERIC` column in the external table, and the integer digit count of a value is greater than 28 (38-10). For example, `123456789012345678901234567890.12345`, which has an integer digit count of 30.
+
+If you define a `NUMERIC(<precision>, <scale>)` column and the integer digit count of a value is greater than `<precision> - <scale>`, PXF returns an error. For example, you define a `NUMERIC(20,4)` column and the value is `12345678901234567.12`, which has an integer digit count of 19, which is greater than 20-4=16.
+
+PXF can take one of three actions when it detects an overflow while writing numeric data to an ORC file: round the value (the default), return an error, or ignore the overflow. The `pxf.orc.write.decimal.overflow` property in the `pxf-site.xml` server configuration governs PXF's action in this circumstance; valid values for this property follow:
+
+| Value  | PXF Action |
+|-------|-------------------------------------|
+| `round` | When PXF encounters an overflow, it attempts to round the value to meet both precision and scale requirements before writing. PXF reports an error if rounding fails. This may potentially leave an incomplete data set in the external system.  `round` is the default. |
+| `error` | PXF reports an error when it encounters an overflow, and the transaction fails. |
+| `ignore` | PXF attempts to round the value to meet only the precision requirement and ignores validation of precision and scale; otherwise PXF writes a NULL value. (This was PXF's behavior prior to version 6.7.0.) |
+
+PXF logs a warning when it detects an overflow and the `pxf.orc.write.decimal.overflow` property is set to `ignore`.

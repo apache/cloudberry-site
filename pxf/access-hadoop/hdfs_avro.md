@@ -1,0 +1,425 @@
+---
+title: "Reading and Writing HDFS Avro Data"
+description: "Reading and writing Avro data in HDFS via PXF."
+source: https://cloudberry.apache.org/pxf/access-hadoop/hdfs_avro
+---
+
+# Reading and Writing HDFS Avro Data
+
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+Use the PXF HDFS Connector to read and write Avro-format data. This section describes how to use PXF to read and write Avro data in HDFS, including how to create, query, and insert into an external table that references an Avro file in the HDFS data store.
+
+PXF supports reading or writing Avro files compressed with these codecs: `bzip2`, `xz`, `snappy`, `zstandard` and `deflate`.
+
+## Prerequisites
+
+Ensure that you have met the PXF Hadoop [Prerequisites](./access_hdfs.md#prerequisites) before you attempt to read data from HDFS.
+
+## Working with Avro Data
+
+Apache Avro is a data serialization framework where the data is serialized in a compact binary format. Avro specifies that data types be defined in JSON. Avro format data has an independent schema, also defined in JSON. An Avro schema, together with its data, is fully self-describing.
+
+### Data Type Mapping
+
+The Avro specification defines [primitive](https://avro.apache.org/docs/current/spec.html#schema_primitive), [complex](https://avro.apache.org/docs/current/spec.html#schema_complex), and [logical](https://avro.apache.org/docs/current/spec.html#Logical+Types) types.
+
+To represent Avro primitive data types and Avro arrays of primitive types in Apache Cloudberry, map data values to Apache Cloudberry columns of the same type. 
+
+Avro supports other complex data types including arrays of non-primitive types, maps, records, enumerations, and fixed types. Map top-level fields of these complex data types to the Apache Cloudberry `text` type. While PXF does not natively support reading these types, you can create Apache Cloudberry functions or application code to extract or further process subcomponents of these complex data types.
+
+Avro supports logical data types including date, decimal, duration, time, timestamp, and uuid types.
+
+### Read Mapping
+
+<a id="a2g_type_mapping_table"></a>
+
+PXF uses the following data type mapping when reading Avro data:
+
+| Avro Data Type     | PXF/Apache Cloudberry Data Type    |
+|--------------------|----------------------------|
+| boolean | boolean |
+| bytes | bytea |
+| double | double |
+| float | real |
+| int | int |
+| long | bigint |
+| string | text |
+| Complex type: Array (any dimension) of type: boolean, bytes, double, float, int, long, string | array (any dimension) of type: boolean, bytea, double, real, bigint, text   |
+| Complex type: Array of other types<br/>(*Avro schema is provided*) | text[]   |
+| Complex type: Map, Record, or Enum  | text, with delimiters inserted between collection items, mapped key-value pairs, and record data.   |
+| Complex type: Fixed     | bytea (supported for read operations only).   |
+| Union      | Follows the above conventions for primitive or complex data types, depending on the union; must contain 2 elements, one of which must be null.  |
+| Logical type: Date | date |
+| Logical type: Decimal | decimal or numeric |
+| Logical type: duration | bytea |
+| Logical type: Time (millisecond precision) | time (time without time zone) |
+| Logical type: Time (microsecond precision) | time (time without time zone) |
+| Logical type: Timestamp (millisecond precision) | timestamp (with or without time zone) |
+| Logical type: Timestamp (microsecond precision) | timestamp (with or without time zone) |
+| Logical type: Local Timestamp (millisecond precision) | timestamp (with or without time zone) |
+| Logical type: Local Timestamp (microsecond precision) | timestamp (with or without time zone) |
+| Logical type: UUID | UUID |
+
+### Write Mapping
+
+PXF supports writing Avro primitive types and arrays of Avro primitive types. PXF supports writing other complex types to Avro as string.
+
+PXF uses the following data type mapping when writing Avro data:
+
+<a id="g2_type_mapping_table"></a>
+
+| PXF/Apache Cloudberry Data Type | Avro Data Type |
+|-------------------|----------------------|
+| bigint | long |
+| boolean | boolean |
+| bytea | bytes |
+| double | double |
+| char<sup>1</sup> | string |
+| enum | string |
+| int |  int |
+| real | float |
+| smallint<sup>2</sup> | int |
+| text | string |
+| varchar | string |
+| numeric, date, time, timestamp, timestamptz<br/>(*no Avro schema is provided*) | string |
+| array (any dimension) of type: bigint, boolean, bytea, double, int, real, text <br/>(*Avro schema is provided*) | Array (any dimension) of type: long, boolean, bytes, double, int, float, string |
+| bigint[], boolean[], bytea[], double[], int[], real[], text[] <br/>(*no Avro schema is provided*) | long[], boolean[], bytes[], double[], int[], float[], string[] \(one-dimensional array) |
+| numeric[], date[], time[], timestamp[], timestamptz[] <br/> (*Avro is schema is provided*) | string[] |
+| enum, record | string |
+
+<br/><sup>1</sup>&nbsp;PXF right-pads <code>char[<i>n</i>]</code> types to length <code><i>n</i></code>, if required, with white space.
+<br/><sup>2</sup>&nbsp;PXF converts Apache Cloudberry `smallint` types to `int` before it writes the Avro data. Be sure to read the field into an `int`.
+
+### Avro Schemas and Data
+
+Avro schemas are defined using JSON, and composed of the same primitive and complex types identified in the data type mapping section above. Avro schema files typically have a `.avsc` suffix.
+
+Fields in an Avro schema file are defined via an array of objects, each of which is specified by a name and a type.
+
+An Avro data file contains the schema and a compact binary representation of the data. Avro data files typically have the `.avro` suffix.
+
+You can specify an Avro schema on both read and write operations to HDFS. You can provide either a binary `*.avro` file or a JSON-format `*.avsc` file for the schema file:
+
+| External Table Type  | Schema Specified? | Description
+|-------|--------------------------|-----------|
+| readable   | yes | PXF uses the specified schema; this overrides the schema embedded in the Avro data file. |
+| readable   | no | PXF uses the schema embedded in the Avro data file. |
+| writable   | yes | PXF uses the specified schema. |
+| writable   | no | PXF creates the Avro schema based on the external table definition. |
+
+When you provide the Avro schema file to PXF, the file must reside in the same location on each Apache Cloudberry host **or** the file may reside on the Hadoop file system. PXF first searches for an absolute file path on the Apache Cloudberry hosts. If PXF does not find the schema file there, it searches for the file relative to the PXF classpath. If PXF cannot find the schema file locally, it searches for the file on HDFS.
+
+The `$PXF_BASE/conf` directory is in the PXF classpath. PXF can locate an Avro schema file that you add to this directory on every Apache Cloudberry host.
+
+See [Writing Avro Data](#writing-avro-data) for additional schema considerations when writing Avro data to HDFS.
+
+## Creating the External Table
+
+Use the `hdfs:avro` profile to read or write Avro-format data in HDFS. The following syntax creates an Apache Cloudberry readable external table that references such a file:
+
+``` sql
+CREATE [WRITABLE] EXTERNAL TABLE <table_name>
+    ( <column_name> <data_type> [, ...] | LIKE <other_table> )
+LOCATION ('pxf://<path-to-hdfs-file>?PROFILE=hdfs:avro[&SERVER=<server_name>][&<custom-option>=<value>[...]]')
+FORMAT 'CUSTOM' (FORMATTER='pxfwritable_import'|'pxfwritable_export');
+[DISTRIBUTED BY (<column_name> [, ... ] ) | DISTRIBUTED RANDOMLY];
+```
+
+The specific keywords and values used in the Apache Cloudberry [CREATE EXTERNAL TABLE](https://cloudberry.apache.org/docs/sql-stmts/create-external-table) command are described in the table below.
+
+| Keyword  | Value |
+|-------|-------------------------------------|
+| \<path&#8209;to&#8209;hdfs&#8209;file\>    | The path to the directory or file in the HDFS data store. When the `<server_name>` configuration includes a [`pxf.fs.basePath`](../administering/configuring/cfg_server.md#about-the-pxffsbasepath-property) property setting, PXF considers \<path&#8209;to&#8209;hdfs&#8209;file\> to be relative to the base path specified. Otherwise, PXF considers it to be an absolute path. \<path&#8209;to&#8209;hdfs&#8209;file\> must not specify a relative path nor include the dollar sign (`$`) character. |
+| PROFILE    | The `PROFILE` keyword must specify `hdfs:avro`. |
+| SERVER=\<server_name\>    | The named server configuration that PXF uses to access the data. PXF uses the `default` server if not specified. |
+| \<custom&#8209;option\>  | \<custom-option\>s are discussed below.|
+| FORMAT 'CUSTOM' | Use `FORMAT` '`CUSTOM`' with `(FORMATTER='pxfwritable_export')` (write) or `(FORMATTER='pxfwritable_import')` (read). |
+| DISTRIBUTED BY | If you want to load data from an existing Apache Cloudberry table into the writable external table, consider specifying the same distribution policy or `<column_name>` on both tables. Doing so will avoid extra motion of data between segments on the load operation. Use the `EXPLAIN` command to analyze the query execution plan and verify that the distribution policy minimizes data movement between segments. |
+
+### Custom Options
+
+For complex types, the PXF `hdfs:avro` profile inserts default delimiters between collection items and values before display. You can use non-default delimiter characters by identifying values for specific `hdfs:avro` custom options in the `CREATE EXTERNAL TABLE` command. 
+
+The `hdfs:avro` profile supports the following \<custom-option\>s:
+
+| Option Keyword   | Description       
+|---------------|--------------------|                                                                                        
+| COLLECTION_DELIM | The delimiter character(s) placed between entries in a top-level array, map, or record field when PXF maps an Avro complex data type to a text column. The default is the comma (`,`) character. (Read)|
+| MAPKEY_DELIM | The delimiter character(s) placed between the key and value of a map entry when PXF maps an Avro complex data type to a text column. The default is the colon `:` character. (Read)|
+| RECORDKEY_DELIM | The delimiter character(s) placed between the field name and value of a record entry when PXF maps an Avro complex data type to a text column. The default is the colon `:` character. (Read)|
+| SCHEMA | The absolute path to the Avro schema file on the Apache Cloudberry host or on HDFS, or the relative path to the schema file on the host. (Read and Write)|
+| IGNORE_MISSING_PATH | A Boolean value that specifies the action to take when \<path-to-hdfs-file\> is missing or invalid. The default value is `false`, PXF returns an error in this situation. When the value is `true`, PXF ignores missing path errors and returns an empty fragment. (Read) |
+
+The PXF `hdfs:avro` profile supports encoding- and compression-related write options. You specify these write options in the `CREATE WRITABLE EXTERNAL TABLE` `LOCATION` clause. The `hdfs:avro` profile supports the following custom write options:
+
+| Write Option  | Value Description |
+|-------|-------------------------------------|
+| COMPRESSION_CODEC    | The compression codec alias. Supported compression codecs for writing Avro data include: `bzip2`, `xz`, `snappy`, `deflate`, `zstandard` and `uncompressed` . If this option is not provided, PXF compresses the data using `deflate` compression. |
+| CODEC_LEVEL    | The compression level (applicable to the `deflate`, `zstandard` and `xz` codecs only). This level controls the trade-off between speed and compression. Valid values are 1 (fastest) to 9 (most compressed). The default compression level is 6. |
+
+## Creating the Foreign Table
+
+Use one of the following foreign data wrappers with `format 'avro'`.
+
+| Object Store  | Foreign Data Wrapper |
+|-------|-------------------------------------|
+| Azure Blob Storage   | wasbs_pxf_fdw |
+| Azure Data Lake Storage Gen2    | abfss_pxf_fdw |
+| Google Cloud Storage    | gs_pxf_fdw |
+| MinIO    | s3_pxf_fdw |
+| S3    | s3_pxf_fdw |
+
+The following syntax creates an Apache Cloudberry foreign table that references an Avro-format file:
+
+``` sql
+CREATE SERVER <foreign_server> FOREIGN DATA WRAPPER <store>_pxf_fdw;
+CREATE USER MAPPING FOR <user_name> SERVER <foreign_server>;
+
+CREATE FOREIGN TABLE [ IF NOT EXISTS ] <table_name>
+    ( <column_name> <data_type> [, ...] | LIKE <other_table> )
+  SERVER <foreign_server>
+  OPTIONS ( resource '<path-to-file>', format 'avro' [, <custom-option> '<value>'[...]]);
+```
+
+| Keyword  | Value |
+|-------|-------------------------------------|
+| \<foreign_server\>    | The named server configuration that PXF uses to access the data. You can override credentials in `CREATE SERVER` statement as described in [Overriding the S3 Server Configuration for External Tables](../access-objectstores/access_s3.md#overriding-the-s3-server-configuration-for-foreign-tables) |
+| resource \<path&#8209;to&#8209;file\>    | The path to the directory or file in the object store. When the `<server_name>` configuration includes a [`pxf.fs.basePath`](../administering/configuring/cfg_server.md#about-the-pxffsbasepath-property) property setting, PXF considers \<path&#8209;to&#8209;file\> to be relative to the base path specified. Otherwise, PXF considers it to be an absolute path. \<path&#8209;to&#8209;file\> must not specify a relative path nor include the dollar sign (`$`) character. |
+| format 'avro'  | File format specification. |
+| \<custom&#8209;option\>=\<value\> | Avro-specific custom options are described [above](./hdfs_avro.md#custom-options). |
+
+## Example: Reading Avro Data
+
+The examples in this section will operate on Avro data with the following field name and data type record schema:
+
+- id - long
+- username - string
+- followers - array of string (string[])
+- fmap - map of long
+- relationship - enumerated type
+- address - record comprised of street number (int), street name (string), and city (string)
+
+You create an Avro schema and data file, and then create a readable external table to read the data.
+
+### Create Schema
+
+Perform the following operations to create an Avro schema to represent the example schema described above.
+
+1. Create a file named `avro_schema.avsc`:
+
+    ``` shell
+    $ vi /tmp/avro_schema.avsc
+    ```
+
+2. Copy and paste the following text into `avro_schema.avsc`:
+
+    ``` json
+    {
+    "type" : "record",
+      "name" : "example_schema",
+      "namespace" : "com.example",
+      "fields" : [ {
+        "name" : "id",
+        "type" : "long",
+        "doc" : "Id of the user account"
+      }, {
+        "name" : "username",
+        "type" : "string",
+        "doc" : "Name of the user account"
+      }, {
+        "name" : "followers",
+        "type" : {"type": "array", "items": "string"},
+        "doc" : "Users followers"
+      }, {
+        "name": "fmap",
+        "type": {"type": "map", "values": "long"}
+      }, {
+        "name": "relationship",
+        "type": {
+            "type": "enum",
+            "name": "relationshipEnum",
+            "symbols": ["MARRIED","LOVE","FRIEND","COLLEAGUE","STRANGER","ENEMY"]
+        }
+      }, {
+        "name": "address",
+        "type": {
+            "type": "record",
+            "name": "addressRecord",
+            "fields": [
+                {"name":"number", "type":"int"},
+                {"name":"street", "type":"string"},
+                {"name":"city", "type":"string"}]
+        }
+      } ],
+      "doc:" : "A basic schema for storing messages"
+    }
+    ```
+
+### Create Avro Data File (JSON)
+
+Perform the following steps to create a sample Avro data file conforming to the above schema.
+
+1.  Create a text file named `pxf_avro.txt`:
+
+    ``` shell
+    $ vi /tmp/pxf_avro.txt
+    ```
+
+2. Enter the following data into `pxf_avro.txt`:
+
+    ``` pre
+    {"id":1, "username":"john","followers":["kate", "santosh"], "relationship": "FRIEND", "fmap": {"kate":10,"santosh":4}, "address":{"number":1, "street":"renaissance drive", "city":"san jose"}}
+    
+    {"id":2, "username":"jim","followers":["john", "pam"], "relationship": "COLLEAGUE", "fmap": {"john":3,"pam":3}, "address":{"number":9, "street":"deer creek", "city":"palo alto"}}
+    ```
+
+    The sample data uses a comma (`,`) to separate top level records and a colon `:` to separate map/key values and record field name/values.
+
+3. Convert the text file to Avro format. There are various ways to perform the conversion, both programmatically and via the command line. In this example, we use the Java Avro tools.
+
+    1. Download the most recent version of the Avro tools jar from http://avro.apache.org/releases.html to the current working directory.
+
+    1. Convert the file:
+
+        ``` shell
+        $ java -jar ./avro-tools-1.11.0.jar fromjson --schema-file /tmp/avro_schema.avsc /tmp/pxf_avro.txt > /tmp/pxf_avro.avro
+        ```
+
+        The generated Avro binary data file is written to `/tmp/pxf_avro.avro`. 
+    
+4. Copy the generated Avro file to HDFS:
+
+    ``` shell
+    $ hdfs dfs -put /tmp/pxf_avro.avro /data/pxf_examples/
+    ```
+    
+### Reading Avro Data
+
+Perform the following operations to create and query an external table that references the `pxf_avro.avro` file that you added to HDFS in the previous section. When creating the table:
+
+-  Use the PXF default server.
+-  Map the top-level primitive fields, `id` (type long) and `username` (type string), to their equivalent Apache Cloudberry types (bigint and text). 
+-  Map the `followers` field to a text array (text[]).
+-  Map the remaining complex fields to type text.
+-  Explicitly set the record, map, and collection delimiters using the `hdfs:avro` profile custom options.
+
+1. Use the `hdfs:avro` profile to create a queryable external table from the `pxf_avro.avro` file:
+
+    ``` sql
+    postgres=# CREATE EXTERNAL TABLE pxf_hdfs_avro(id bigint, username text, followers text[], fmap text, relationship text, address text)
+                LOCATION ('pxf://data/pxf_examples/pxf_avro.avro?PROFILE=hdfs:avro&COLLECTION_DELIM=,&MAPKEY_DELIM=:&RECORDKEY_DELIM=:')
+              FORMAT 'CUSTOM' (FORMATTER='pxfwritable_import');
+    ```
+
+2. Perform a simple query of the `pxf_hdfs_avro` table:
+
+    ``` sql
+    postgres=# SELECT * FROM pxf_hdfs_avro;
+    ```
+
+    ``` pre
+     id | username |   followers    |        fmap         | relationship |                      address                      
+    ----+----------+----------------+--------------------+--------------+---------------------------------------------------
+      1 | john     | {kate,santosh} | {kate:10,santosh:4} | FRIEND       | {number:1,street:renaissance drive,city:san jose}
+      2 | jim      | {john,pam}     | {pam:3,john:3}      | COLLEAGUE    | {number:9,street:deer creek,city:palo alto}
+    (2 rows)
+    ```
+
+    The simple query of the external table shows the components of the complex type data separated with the delimiters specified in the `CREATE EXTERNAL TABLE` call.
+
+3. Query the table, displaying the `id` and the first element of the `followers` text array:
+
+    ``` sql
+    postgres=# SELECT id, followers[1] FROM pxf_hdfs_avro;
+     id | followers 
+    ----+-----------
+      1 | kate
+      2 | john
+    ```
+
+## Writing Avro Data
+
+The PXF HDFS connector `hdfs:avro` profile supports writing Avro data to HDFS. When you create a writable external table to write Avro data, you specify the name of a directory on HDFS. When you insert records into the writable external table, the block(s) of data that you insert are written to one or more files in the directory that you specify.
+
+When you create a writable external table to write data to an Avro file, each table row is an Avro record and each table column is an Avro field.
+
+If you do not specify a `SCHEMA` file, PXF generates a schema for the Avro file based on the Apache Cloudberry external table definition. PXF assigns the name of the external table column to the Avro field name. Because Avro has a `null` type and Apache Cloudberry external tables do not support the `NOT NULL` column qualifier, PXF wraps each data type in an Avro `union` of the mapped type and `null`. For example, for a writable external table column that you define with the Apache Cloudberry `text` data type, PXF generates the following schema element:
+
+``` pre
+["string", "null"]
+```
+
+PXF returns an error if you provide a schema that does not include a `union` of the field data type with `null`, and PXF encounters a NULL data field.
+
+PXF supports writing only Avro primitive data types and Avro Arrays of the types identified in [Data Type Write Mapping](#write-mapping). PXF does not support writing complex types to Avro:
+
+- When you specify a `SCHEMA` file in the `LOCATION`, the schema must include only primitive data types.
+- When PXF generates the schema, it writes any complex type that you specify in the writable external table column definition to the Avro file as a single Avro `string` type. For example, if you write an array of the Apache Cloudberry `numeric` type, PXF converts the array to a `string`, and you must read this data with an Apache Cloudberry `text`-type column.
+
+### Example: Writing Avro Data
+
+In this example, you create an external table that writes to an Avro file on HDFS, letting PXF generate the Avro schema. After you insert some data into the file, you create a readable external table to query the Avro data.
+
+The Avro file that you create and read in this example includes the following fields:
+
+- id:  `int`
+- username:  `text`
+- followers:  `text[]`
+
+Example procedure:
+
+1. Create the writable external table:
+
+    ``` sql
+    postgres=# CREATE WRITABLE EXTERNAL TABLE pxf_avrowrite(id int, username text, followers text[])
+                LOCATION ('pxf://data/pxf_examples/pxfwrite.avro?PROFILE=hdfs:avro')
+              FORMAT 'CUSTOM' (FORMATTER='pxfwritable_export');
+
+2. Insert some data into the `pxf_avrowrite` table:
+
+    ``` sql
+    postgres=# INSERT INTO pxf_avrowrite VALUES (33, 'oliver', ARRAY['alex','frank']);
+    postgres=# INSERT INTO pxf_avrowrite VALUES (77, 'lisa', ARRAY['tom','mary']);
+    ```
+
+    PXF uses the external table definition to generate the Avro schema.
+
+3. Create an external table to read the Avro data that you just inserted into the table:
+
+    ``` sql
+    postgres=# CREATE EXTERNAL TABLE read_pxfwrite(id int, username text, followers text[])
+                LOCATION ('pxf://data/pxf_examples/pxfwrite.avro?PROFILE=hdfs:avro')
+              FORMAT 'CUSTOM' (FORMATTER='pxfwritable_import');
+    ```
+
+4. Read the Avro data by querying the `read_pxfwrite` table:
+
+    ``` sql
+    postgres=# SELECT id, followers, followers[1], followers[2] FROM read_pxfwrite ORDER BY id;
+    ```
+
+    ``` pre
+     id |  followers   | followers | followers 
+    ----+--------------+-----------+-----------
+     33 | {alex,frank} | alex      | frank
+     77 | {tom,mary}   | tom       | mary
+    (2 rows)
+    ```

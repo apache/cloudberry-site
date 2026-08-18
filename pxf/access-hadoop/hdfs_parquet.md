@@ -1,0 +1,318 @@
+---
+title: "Reading and Writing HDFS Parquet Data"
+description: "Reading and writing Parquet data in HDFS via PXF."
+source: https://cloudberry.apache.org/pxf/access-hadoop/hdfs_parquet
+---
+
+# Reading and Writing HDFS Parquet Data
+
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+Use the PXF HDFS connector to read and write Parquet-format data. This section describes how to read and write HDFS files that are stored in Parquet format, including how to create, query, and insert into external tables that reference files in the HDFS data store.
+
+PXF supports reading or writing Parquet files compressed with these codecs: `snappy`, `gzip`, 'lz4_raw' and `zstd`.
+
+PXF currently supports reading and writing primitive Parquet data types only.
+
+## Prerequisites
+
+Ensure that you have met the PXF Hadoop [Prerequisites](./access_hdfs.md#prerequisites) before you attempt to read data from or write data to HDFS.
+
+## Data Type Mapping
+
+To read and write Parquet primitive data types in Apache Cloudberry, map Parquet data values to Apache Cloudberry columns of the same type.
+
+Parquet supports a small set of primitive data types, and uses metadata annotations to extend the data types that it supports. These annotations specify how to interpret the primitive type. For example, Parquet stores both `INTEGER` and `DATE` types as the `INT32` primitive type. An annotation identifies the original type as a `DATE`.
+
+### Read Mapping
+
+<a id="p2g_type_mapping_table"></a>
+
+PXF uses the following data type mapping when reading Parquet data:
+
+| Parquet Physical Type | Parquet Logical Type | PXF/Cloudberry Data Type |
+|-------------------|---------------|--------------------------|
+| boolean | -- | Boolean |
+| binary \(byte\_array\) | -- | Bytea |
+| binary \(byte\_array\) | Date | Date |
+| binary \(byte\_array\) | Timestamp_millis | Timestamp |
+| binary \(byte\_array\) | UTF8 | Text |
+| double | -- | Float8 |
+| fixed\_len\_byte\_array | Decimal | Numeric |
+| float | -- | Real |
+| int32 | int_8 | Smallint |
+| int32 | Date | Date |
+| int32 | Decimal | Numeric |
+| int32 | -- | Integer |
+| int64 | Decimal | Numeric |
+| int64 | -- | Bigint |
+| int96 | -- | Timestamp |
+
+**Note**: PXF supports filter predicate pushdown on all parquet data types listed above, *except* the `fixed_len_byte_array` and `int96` types.
+
+PXF can read a Parquet `LIST` nested type when it represents a one-dimensional array of certain Parquet types. The supported mappings follow:
+
+| Parquet Data Type | PXF/Cloudberry Data Type |
+|-------------------|-------------------------|
+| list of \<boolean> | Boolean[] |
+| list of \<binary>  | Bytea[] |
+| list of \<binary> (Date) | Date[] |
+| list of \<binary> (Timestamp_millis) | Timestamp[] |
+| list of \<binary> (UTF8) | Text[] |
+| list of \<double> | Float8[] |
+| list of \<fixed\_len\_byte\_array> (Decimal) | Numeric[] |
+| list of \<float> | Real[] |
+| list of \<int32> (int_8) | Smallint[] |
+| list of \<int32> (Date) | Date[] |
+| list of \<int32> (Decimal) | Numeric[] |
+| list of \<int32> | Integer[] |
+| list of \<int64> (Decimal) | Numeric[] |
+| list of \<int64> | Bigint[] |
+| list of \<int96> | Timestamp[] |
+
+### Write Mapping
+
+PXF uses the following data type mapping when writing Parquet data:
+
+| PXF/Cloudberry Data Type | Parquet Physical Type | Parquet Logical Type |
+|-------------------|---------------|--------------------------|
+| Bigint | int64 | -- |
+| Boolean | boolean | -- |
+| Bpchar<sup>1</sup> |  binary (byte\_array) | UTF8 |
+| Bytea | binary (byte\_array) | -- |
+| Date |  int32 | Date |
+| Float8 | double | -- |
+| Integer | int32 | -- |
+| Numeric/Decimal | fixed\_len\_byte\_array | Decimal |
+| Real | float | -- |
+| SmallInt | int32 | int\_8 |
+| Text | binary (byte\_array) | UTF8 |
+| Timestamp<sup>2</sup> | int96 | -- |
+| Timestamptz<sup>3</sup> | int96 | -- |
+| Varchar | binary (byte\_array) | UTF8 |
+| OTHERS | UNSUPPORTED | -- |
+
+<br/><sup>1</sup>&nbsp;Because Parquet does not save the field length, a Bpchar that PXF writes to Parquet will be a text of undefined length.
+<br/><sup>2</sup>&nbsp;PXF localizes a `Timestamp` to the current system time zone and converts it to universal time (UTC) before finally converting to `int96`.
+<br/><sup>3</sup>&nbsp;PXF converts a `Timestamptz` to a UTC `timestamp` and then converts to `int96`. PXF loses the time zone information during this conversion.
+
+PXF can write a one-dimensional `LIST` of certain Parquet data types. The supported mappings follow:
+
+| PXF/Cloudberry Data Type |  Parquet Data Type |
+|-------------------|--------------------------|
+| Bigint[] | list of \<int64> |
+| Boolean[] | list of \<boolean> |
+| Bpchar[]<sup>1</sup> |  list of \<binary> (UTF8) |
+| Bytea[] | list of \<binary> |
+| Date[] | list of \<int32> (Date) |
+| Float8[] | list of \<double> |
+| Integer[] | list of \<int32> |
+| Numeric[]/Decimal[] | list of \<fixed\_len\_byte\_array> (Decimal) |
+| Real[] | list of \<float> |
+| SmallInt[] | list of \<int32> (int_8) |
+| Text[] |  list of \<binary> (UTF8) |
+| Timestamp[]<sup>2</sup> | list of \<int96> |
+| Timestamptz[]<sup>3</sup> | list of \<int96> |
+| Varchar[] | list of \<binary> (UTF8) |
+| OTHERS | UNSUPPORTED |
+
+### About Parquet Schemas and Data
+
+Parquet is a columnar storage format. A Parquet data file contains a compact binary representation of the data. The *schema* defines the structure of the data, and is composed of the same primitive and complex types identified in the data type mapping section above.
+
+A Parquet data file includes an embedded schema. You can choose to provide the schema that PXF uses to write the data to HDFS via the `SCHEMA` custom option in the `CREATE WRITABLE EXTERNAL TABLE` `LOCATION` clause \(described below\):
+
+| External Table Type  | `SCHEMA` Specified? | Behaviour |
+|-------|--------------------------|-----------|
+| writable   | yes | PXF uses the specified schema. |
+| writable   | no | PXF creates the Parquet schema based on the external table definition. |
+
+When you provide the Parquet schema file to PXF, you must specify the absolute path to the file, and the file must reside on the Hadoop file system.
+
+## Creating the External Table
+
+The PXF HDFS connector `hdfs:parquet` profile supports reading and writing HDFS data in Parquet-format. When you insert records into a writable external table, the block(s) of data that you insert are written to one or more files in the directory that you specified.
+
+Use the following syntax to create an Apache Cloudberry external table that references an HDFS directory:
+
+``` sql
+CREATE [WRITABLE] EXTERNAL TABLE <table_name>
+    ( <column_name> <data_type> [, ...] | LIKE <other_table> )
+LOCATION ('pxf://<path-to-hdfs-dir>
+    ?PROFILE=hdfs:parquet[&SERVER=<server_name>][&<custom-option>=<value>[...]]')
+FORMAT 'CUSTOM' (FORMATTER='pxfwritable_import'|'pxfwritable_export')
+[DISTRIBUTED BY (<column_name> [, ... ] ) | DISTRIBUTED RANDOMLY];
+```
+
+The specific keywords and values used in the Apache Cloudberry [CREATE EXTERNAL TABLE](https://cloudberry.apache.org/docs/sql-stmts/create-external-table/) command are described in the table below.
+
+| Keyword  | Value |
+|-------|-------------------------------------|
+| \<path&#8209;to&#8209;hdfs&#8209;file\>    | The path to the directory in the HDFS data store. When the `<server_name>` configuration includes a [`pxf.fs.basePath`](../administering/configuring/cfg_server.md#about-the-pxffsbasepath-property) property setting, PXF considers \<path&#8209;to&#8209;hdfs&#8209;file\> to be relative to the base path specified. Otherwise, PXF considers it to be an absolute path. \<path&#8209;to&#8209;hdfs&#8209;file\> must not specify a relative path nor include the dollar sign (`$`) character. |
+| PROFILE    | The `PROFILE` keyword must specify `hdfs:parquet`. |
+| SERVER=\<server_name\>    | The named server configuration that PXF uses to access the data. PXF uses the `default` server if not specified. |
+| \<custom&#8209;option\>  | \<custom-option\>s are described below.|
+| FORMAT 'CUSTOM' | Use `FORMAT` '`CUSTOM`' with `(FORMATTER='pxfwritable_export')` (write) or `(FORMATTER='pxfwritable_import')` (read). |
+| DISTRIBUTED BY    | If you want to load data from an existing Apache Cloudberry table into the writable external table, consider specifying the same distribution policy or `<column_name>` on both tables. Doing so will avoid extra motion of data between segments on the load operation. |
+
+## Creating the Foreign Table
+
+The PXF HDFS `hdfs_pxf_fdw` foreign data wrapper supports reading and writing Parquet-formatted HDFS files. When you insert records into a foreign table, the block(s) of data that you insert are written to one file per segment in the directory that you specified in the `resource` clause.
+
+Use the following syntax to create an Apache Cloudberry foreign table that references an HDFS file or directory:
+
+``` sql
+CREATE SERVER <foreign_server> FOREIGN DATA WRAPPER hdfs_pxf_fdw;
+CREATE USER MAPPING FOR <user_name> SERVER <foreign_server>;
+
+CREATE FOREIGN TABLE [ IF NOT EXISTS ] <table_name>
+    ( <column_name> <data_type> [, ...] | LIKE <other_table> )
+  SERVER <foreign_server>
+  OPTIONS ( resource '<path-to-file>', format 'parquet' [, <custom-option> '<value>'[...]]);
+```
+
+The specific keywords and values used in the Apache Cloudberry [CREATE FOREIGN TABLE](https://cloudberry.apache.org/docs/sql-stmts/create-foreign-table) command are described below.
+
+| Keyword  | Value |
+|-------|-------------------------------------|
+| \<foreign_server\>    | The named server configuration that PXF uses to access the data. You can override credentials in `CREATE SERVER` statement as described in [Overriding the S3 Server Configuration for Foreign Tables](../access-objectstores/access_s3.md#overriding-the-s3-server-configuration-for-foreign-tables) |
+| \<path&#8209;to&#8209;hdfs&#8209;file\>    | The path to the directory in the HDFS data store. When the `<server_name>` configuration includes a [`pxf.fs.basePath`](../administering/configuring/cfg_server.md#about-the-pxffsbasepath-property) property setting, PXF considers \<path&#8209;to&#8209;hdfs&#8209;file\> to be relative to the base path specified. Otherwise, PXF considers it to be an absolute path. \<path&#8209;to&#8209;hdfs&#8209;file\> must not specify a relative path nor include the dollar sign (`$`) character. |
+| format    | The file format; specify `'parquet'` for Parquet-formatted data. |
+| \<custom-option\>    | \<custom-option\>s are described below. |
+
+### Custom Options
+
+The PXF `hdfs:parquet` profile supports the following read option:
+
+| Read Option  | Value Description |
+|-------|-------------------------------------|
+| IGNORE_MISSING_PATH | A Boolean value that specifies the action to take when \<path-to-hdfs-file\> is missing or invalid. The default value is `false`, PXF returns an error in this situation. When the value is `true`, PXF ignores missing path errors and returns an empty fragment. |
+
+The PXF `hdfs:parquet` profile supports encoding- and compression-related write options. You specify these write options in the `CREATE WRITABLE EXTERNAL TABLE` `LOCATION` clause. The `hdfs:parquet` profile supports the following custom write options:
+
+| Write Option  | Value Description |
+|-------|-------------------------------------|
+| COMPRESSION_CODEC    | The compression codec alias. Supported compression codecs for writing Parquet data include: `snappy`, `gzip`, `lz4_raw`, `zstd`, and `uncompressed` . If this option is not provided, PXF compresses the data using `snappy` compression. |
+| ROWGROUP_SIZE | A Parquet file consists of one or more row groups, a logical partitioning of the data into rows. `ROWGROUP_SIZE` identifies the size (in bytes) of the row group. The default row group size is `8 * 1024 * 1024` bytes. |
+| PAGE_SIZE | A row group consists of column chunks that are divided up into pages. `PAGE_SIZE` is the size (in bytes) of such a page. The default page size is `1 * 1024 * 1024` bytes. |
+| ENABLE\_DICTIONARY | A boolean value that specifies whether or not to enable dictionary encoding. The default value is `true`; dictionary encoding is enabled when PXF writes Parquet files. |
+| DICTIONARY\_PAGE\_SIZE | When dictionary encoding is enabled, there is a single dictionary page per column, per row group. `DICTIONARY_PAGE_SIZE` is similar to `PAGE_SIZE`, but for the dictionary. The default dictionary page size is `1 * 1024 * 1024` bytes. |
+| PARQUET_VERSION | The Parquet version; PXF supports the values `v1` and `v2` for this option. The default Parquet version is `v1`. |
+| SCHEMA | The absolute path to the Parquet schema file on the Cloudberry PXF host or on HDFS. |
+
+**Note**: You must explicitly specify `uncompressed` if you do not want PXF to compress the data.
+
+Parquet files that you write to HDFS with PXF have the following naming format: `<file>.<compress_extension>.parquet`, for example `1547061635-0000004417_0.gz.parquet`.
+
+## Example
+
+This example utilizes the data schema introduced in [Example: Reading Text Data on HDFS](./hdfs_text.md#example-reading-text-data-on-hdfs) and adds a new column, `item_quantity_per_order`, an array with length equal to `number_of_orders`, that identifies the number of items in each order.
+
+| Column Name  | Data Type |
+|-------|-------------------------------------|
+| location | text |
+| month | text |
+| number\_of\_orders | int |
+| item\_quantity\_per\_order | int[] |
+| total\_sales | float8 |
+
+In this example, you create a Parquet-format writable external table that uses the default PXF server to reference Parquet-format data in HDFS, insert some data into the table, and then create a readable external table to read the data.
+
+1. Apache Cloudberry does not support both reading and writing single external table. Create two table - one for read and one for write referencing same HDFS directory:
+
+    ``` sql
+    postgres=# CREATE WRITABLE EXTERNAL TABLE pxf_tbl_parquet (location text, month text, number_of_orders int, item_quantity_per_order int[], total_sales double precision)
+        LOCATION ('pxf://data/pxf_examples/pxf_parquet?PROFILE=hdfs:parquet')
+      FORMAT 'CUSTOM' (FORMATTER='pxfwritable_export');
+
+    postgres=# CREATE EXTERNAL TABLE read_pxf_parquet(location text, month text, number_of_orders int, item_quantity_per_order int[], total_sales double precision)
+        LOCATION ('pxf://data/pxf_examples/pxf_parquet?PROFILE=hdfs:parquet')
+      FORMAT 'CUSTOM' (FORMATTER='pxfwritable_import');
+    ```
+
+    OR create single foreign table to read and write operations:
+
+    ```
+        testdb=# CREATE SERVER example_parquet FOREIGN DATA WRAPPER hdfs_pxf_fdw;
+        testdb=# CREATE USER MAPPING FOR CURRENT_USER SERVER example_parquet;
+        testdb=# CREATE FOREIGN TABLE pxf_tbl_parquet(location text, month text, number_of_orders int, item_quantity_per_order int[], total_sales double precision)
+                   SERVER example_parquet
+                   OPTIONS (
+                   	resource 'data/pxf_examples/pxf_parquet',
+                   	format 'parquet'
+                   );
+    ```
+
+2. Write a few records to the `pxf_parquet` HDFS directory by inserting directly into the `pxf_tbl_parquet` table. For example:
+
+    ``` sql
+    postgres=# INSERT INTO pxf_tbl_parquet VALUES ( 'Frankfurt', 'Mar', 3, '{1,11,111}', 3956.98 );
+    postgres=# INSERT INTO pxf_tbl_parquet VALUES ( 'Cleveland', 'Oct', 2, '{3333,7777}', 96645.37 );
+    ```
+
+3. Query the readable external table `read_pxf_parquet`:
+
+    ``` sql
+    postgres=# SELECT * FROM read_pxf_parquet ORDER BY total_sales;
+    ```
+    ``` pre
+     location  | month | number_of_orders | item_quantity_per_order | total_sales
+    -----------+-------+------------------+-------------------------+-------------
+     Frankfurt | Mar   |              777 | {1,11,111}              |     3956.98
+     Cleveland | Oct   |             3812 | {3333,7777}             |    96645.4
+    (2 rows)
+    ```
+
+    OR query the same foreign table `pxf_tbl_parquet`:
+
+    ``` sql
+    postgres=# SELECT * FROM pxf_tbl_parquet ORDER BY total_sales;
+    ```
+    ``` pre
+     location  | month | number_of_orders | item_quantity_per_order | total_sales
+    -----------+-------+------------------+-------------------------+-------------
+     Frankfurt | Mar   |              777 | {1,11,111}              |     3956.98
+     Cleveland | Oct   |             3812 | {3333,7777}             |    96645.4
+    (2 rows)
+    ```
+
+## Understanding Overflow Conditions When Writing Numeric Data
+
+PXF uses the `HiveDecimal` class to write numeric Parquet data. `HiveDecimal` limits both the precision and the scale of a numeric type to a maximum of 38.
+
+When you define a `NUMERIC` column in an external table without specifying a precision or scale, PXF internally maps the column to a `DECIMAL(38, 18)`.
+
+PXF handles the following precision overflow conditions:
+
+- You define a `NUMERIC` column in the external table, and the integer digit count of a value exceeds the maximum supported precision of 38. For example, `1234567890123456789012345678901234567890.12345`, which has an integer digit count of 45.
+- You define a `NUMERIC(<precision>)` column with a `<precision>` greater than 38. For example, `NUMERIC(55)`.
+- You define a `NUMERIC` column in the external table, and the integer digit count of a value is greater than 20 (38-18). For example, `123456789012345678901234567890.12345`, which has an integer digit count of 30.
+
+If you define a `NUMERIC(<precision>, <scale>)` column and the integer digit count of a value is greater than `<precision> - <scale>`, PXF returns an error. For example, you define a `NUMERIC(20,4)` column and the value is `12345678901234567.12`, which has an integer digit count of 19, which is greater than 20-4=16.
+
+PXF can take one of three actions when it detects an overflow while writing numeric data to a Parquet file: round the value (the default), return an error, or ignore the overflow. The `pxf.parquet.write.decimal.overflow` property in the `pxf-site.xml` server configuration governs PXF's action in this circumstance; valid values for this property follow:
+
+| Value  | PXF Action |
+|-------|-------------------------------------|
+| `round` | When PXF encounters an overflow, it attempts to round the value to meet both precision and scale requirements before writing. PXF reports an error if rounding fails. This may potentially leave an incomplete data set in the external system.  `round` is the default. |
+| `error` | PXF reports an error when it encounters an overflow, and the transaction fails. |
+| `ignore` | PXF attempts to round the value to meet both precision and scale requirements; otherwise PXF writes a NULL value. (This was PXF's behavior prior to version 6.6.0.) |
+
+PXF logs a warning when it detects an overflow and the `pxf.parquet.write.decimal.overflow` property is set to `ignore`.

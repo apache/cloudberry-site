@@ -1,0 +1,514 @@
+---
+title: "Reading and Writing HDFS Text Data"
+description: "Reading and writing text data in HDFS via PXF."
+source: https://cloudberry.apache.org/pxf/access-hadoop/hdfs_text
+---
+
+# Reading and Writing HDFS Text Data
+
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+The PXF HDFS Connector supports plain delimited and comma-separated value form text data. This section describes how to use PXF to access HDFS text data, including how to create, query, and insert data into an external table that references files in the HDFS data store.
+
+PXF supports reading or writing text files compressed with the `default`, `bzip2`, and `gzip` codecs.
+
+## Prerequisites
+
+Ensure that you have met the PXF Hadoop [Prerequisites](./access_hdfs.md#prerequisites) before you attempt to read data from or write data to HDFS.
+
+## Reading Text Data
+
+Use the `hdfs:text` profile when you read plain text delimited, and `hdfs:csv` when reading .csv data where each row is a single record. The following syntax creates an Apache Cloudberry readable external table that references such a text file on HDFS: 
+
+``` sql
+CREATE EXTERNAL TABLE <table_name> 
+    ( <column_name> <data_type> [, ...] | LIKE <other_table> )
+LOCATION ('pxf://<path-to-hdfs-file>?PROFILE=hdfs:text|csv[&SERVER=<server_name>][&IGNORE_MISSING_PATH=<boolean>][&SKIP_HEADER_COUNT=<numlines>]')
+FORMAT '[TEXT|CSV]' (delimiter[=|<space>][E]'<delim_value>');
+```
+
+The specific keywords and values used in the Apache Cloudberry [CREATE EXTERNAL TABLE](https://cloudberry.apache.org/docs/sql-stmts/create-external-table) command are described in the table below.
+
+| Keyword  | Value |
+|-------|-------------------------------------|
+| \<path&#8209;to&#8209;hdfs&#8209;file\>    | The path to the directory or file in the HDFS data store. When the `<server_name>` configuration includes a [`pxf.fs.basePath`](../administering/configuring/cfg_server.md#about-the-pxffsbasepath-property) property setting, PXF considers \<path&#8209;to&#8209;hdfs&#8209;file\> to be relative to the base path specified. Otherwise, PXF considers it to be an absolute path. \<path&#8209;to&#8209;hdfs&#8209;file\> must not specify a relative path nor include the dollar sign (`$`) character. |
+| PROFILE    | Use `PROFILE` `hdfs:text` when \<path-to-hdfs-file\> references plain text delimited data.<br/> Use `PROFILE` `hdfs:csv` when \<path-to-hdfs-file\> references comma-separated value data. |
+| SERVER=\<server_name\>    | The named server configuration that PXF uses to access the data. PXF uses the `default` server if not specified. |
+| IGNORE_MISSING_PATH=\<boolean\> | Specify the action to take when \<path-to-hdfs-file\> is missing or invalid. The default value is `false`, PXF returns an error in this situation. When the value is `true`, PXF ignores missing path errors and returns an empty fragment. |
+| SKIP_HEADER_COUNT=\<numlines\> | Specify the number of header lines that PXF should skip in the first split of each \<hdfs-file\> before reading the data. The default value is 0, do not skip any lines. |
+| FORMAT | Use `FORMAT` `'TEXT'` when \<path-to-hdfs-file\> references plain text delimited data.<br/> Use `FORMAT` `'CSV'`  when \<path-to-hdfs-file\> references comma-separated value data.  |
+| delimiter    | The delimiter character in the data. For `FORMAT` `'CSV'`, the default \<delim_value\> is a comma (`,`). Preface the \<delim_value\> with an `E` when the value is an escape sequence. Examples: `(delimiter=E'\t')`, `(delimiter ':')`. |
+
+**Note**: PXF does not support the `(HEADER)` formatter option in the `CREATE EXTERNAL TABLE` command. If your text file includes header line(s), use `SKIP_HEADER_COUNT` to specify the number of lines that PXF should skip at the beginning of the first split of each file.
+
+### Example: Reading Text Data on HDFS
+
+Perform the following procedure to create a sample text file, copy the file to HDFS, and use the `hdfs:text` and `hdfs:csv` profiles and the default PXF server to create two PXF external tables to query the data:
+
+1. Create an HDFS directory for PXF example data files. For example:
+
+    ``` shell
+    $ hdfs dfs -mkdir -p /data/pxf_examples
+    ```
+
+2. Create a delimited plain text data file named `pxf_hdfs_simple.txt`:
+
+    ``` shell
+    $ echo 'Prague,Jan,101,4875.33
+    Rome,Mar,87,1557.39
+    Bangalore,May,317,8936.99
+    Beijing,Jul,411,11600.67' > /tmp/pxf_hdfs_simple.txt
+    ```
+
+    Note the use of the comma (`,`) to separate the four data fields.
+
+4. Add the data file to HDFS:
+
+    ``` shell
+    $ hdfs dfs -put /tmp/pxf_hdfs_simple.txt /data/pxf_examples/
+    ```
+
+5. Display the contents of the `pxf_hdfs_simple.txt` file stored in HDFS:
+
+    ``` shell
+    $ hdfs dfs -cat /data/pxf_examples/pxf_hdfs_simple.txt
+    ```
+
+4. Start the `psql` subsystem:
+
+    ``` shell
+    $ psql -d postgres
+    ```
+
+1. Use the PXF `hdfs:text` profile to create an Apache Cloudberry external table that references the `pxf_hdfs_simple.txt` file that you just created and added to HDFS:
+
+    ``` sql
+    postgres=# CREATE EXTERNAL TABLE pxf_hdfs_textsimple(location text, month text, num_orders int, total_sales float8)
+                LOCATION ('pxf://data/pxf_examples/pxf_hdfs_simple.txt?PROFILE=hdfs:text')
+              FORMAT 'TEXT' (delimiter=E',');
+    ```
+              
+2. Query the external table:
+
+    ``` sql
+    postgres=# SELECT * FROM pxf_hdfs_textsimple;          
+    ```
+
+    ``` pre
+       location    | month | num_orders | total_sales 
+    ---------------+-------+------------+-------------
+     Prague        | Jan   |        101 |     4875.33
+     Rome          | Mar   |         87 |     1557.39
+     Bangalore     | May   |        317 |     8936.99
+     Beijing       | Jul   |        411 |    11600.67
+    (4 rows)
+    ```
+
+2. Create a second external table that references `pxf_hdfs_simple.txt`, this time specifying the `hdfs:csv` `PROFILE` and the `CSV` `FORMAT`:
+
+    ``` sql
+    postgres=# CREATE EXTERNAL TABLE pxf_hdfs_textsimple_csv(location text, month text, num_orders int, total_sales float8)
+                LOCATION ('pxf://data/pxf_examples/pxf_hdfs_simple.txt?PROFILE=hdfs:csv')
+              FORMAT 'CSV';
+    postgres=# SELECT * FROM pxf_hdfs_textsimple_csv;          
+    ```
+
+    When you specify `FORMAT 'CSV'` for comma-separated value data, no `delimiter` formatter option is required because comma is the default delimiter value.
+
+## Reading Text Data with Quoted Linefeeds
+
+Use the `hdfs:text:multi` profile to read plain text data with delimited single- or multi- line records that include embedded (quoted) linefeed characters. The following syntax creates an Apache Cloudberry readable external table that references such a text file on HDFS:
+
+``` sql
+CREATE EXTERNAL TABLE <table_name>
+    ( <column_name> <data_type> [, ...] | LIKE <other_table> )
+LOCATION ('pxf://<path-to-hdfs-file>?PROFILE=hdfs:text:multi[&SERVER=<server_name>][&IGNORE_MISSING_PATH=<boolean>][&SKIP_HEADER_COUNT=<numlines>]')
+FORMAT '[TEXT|CSV]' (delimiter[=|<space>][E]'<delim_value>');
+```
+
+The specific keywords and values used in the [CREATE EXTERNAL TABLE](https://cloudberry.apache.org/docs/sql-stmts/create-external-table) command are described in the table below.
+
+| Keyword  | Value |
+|-------|-------------------------------------|
+| \<path&#8209;to&#8209;hdfs&#8209;file\>    | The path to the directory or file in the HDFS data store. When the `<server_name>` configuration includes a [`pxf.fs.basePath`](../administering/configuring/cfg_server.md#about-the-pxffsbasepath-property) property setting, PXF considers \<path&#8209;to&#8209;hdfs&#8209;file\> to be relative to the base path specified. Otherwise, PXF considers it to be an absolute path. \<path&#8209;to&#8209;hdfs&#8209;file\> must not specify a relative path nor include the dollar sign (`$`) character. |
+| PROFILE    | The `PROFILE` keyword must specify `hdfs:text:multi`. |
+| SERVER=\<server_name\>    | The named server configuration that PXF uses to access the data. PXF uses the `default` server if not specified. |
+| IGNORE_MISSING_PATH=\<boolean\> | Specify the action to take when \<path-to-hdfs-file\> is missing or invalid. The default value is `false`, PXF returns an error in this situation. When the value is `true`, PXF ignores missing path errors and returns an empty fragment. |
+| SKIP_HEADER_COUNT=\<numlines\> | Specify the number of header lines that PXF should skip in the first split of each \<hdfs-file\> before reading the data. The default value is 0, do not skip any lines. |
+| FORMAT | Use `FORMAT` `'TEXT'` when \<path-to-hdfs-file\> references plain text delimited data.<br/> Use `FORMAT` `'CSV'` when \<path-to-hdfs-file\> references comma-separated value data.  |
+| delimiter    | The delimiter character in the data. For `FORMAT` `'CSV'`, the default \<delim_value\> is a comma (`,`). Preface the \<delim_value\> with an `E` when the value is an escape sequence. Examples: `(delimiter=E'\t')`, `(delimiter ':')`. |
+
+**Note**: PXF does not support the `(HEADER)` formatter option in the `CREATE EXTERNAL TABLE` command. If your text file includes header line(s), use `SKIP_HEADER_COUNT` to specify the number of lines that PXF should skip at the beginning of the first split of each file.
+
+### Example: Reading Multi-Line Text Data on HDFS
+
+Perform the following steps to create a sample text file, copy the file to HDFS, and use the PXF `hdfs:text:multi` profile and the default PXF server to create an Apache Cloudberry readable external table to query the data:
+
+1. Create a second delimited plain text file:
+
+    ``` shell
+    $ vi /tmp/pxf_hdfs_multi.txt
+    ```
+
+2. Copy/paste the following data into `pxf_hdfs_multi.txt`:
+
+    ``` pre
+    "4627 Star Rd.
+    San Francisco, CA  94107":Sept:2017
+    "113 Moon St.
+    San Diego, CA  92093":Jan:2018
+    "51 Belt Ct.
+    Denver, CO  90123":Dec:2016
+    "93114 Radial Rd.
+    Chicago, IL  60605":Jul:2017
+    "7301 Brookview Ave.
+    Columbus, OH  43213":Dec:2018
+    ```
+
+    Notice the use of the colon `:` to separate the three fields. Also notice the quotes around the first (address) field. This field includes an embedded line feed separating the street address from the city and state.
+
+3. Copy the text file to HDFS:
+
+    ``` shell
+    $ hdfs dfs -put /tmp/pxf_hdfs_multi.txt /data/pxf_examples/
+    ```
+
+4. Use the `hdfs:text:multi` profile to create an external table that references the `pxf_hdfs_multi.txt` HDFS file, making sure to identify the `:` (colon) as the field separator:
+
+    ``` sql
+    postgres=# CREATE EXTERNAL TABLE pxf_hdfs_textmulti(address text, month text, year int)
+                LOCATION ('pxf://data/pxf_examples/pxf_hdfs_multi.txt?PROFILE=hdfs:text:multi')
+              FORMAT 'CSV' (delimiter ':');
+    ```
+    
+    Notice the alternate syntax for specifying the `delimiter`.
+    
+2. Query the `pxf_hdfs_textmulti` table:
+
+    ``` sql
+    postgres=# SELECT * FROM pxf_hdfs_textmulti;
+    ```
+
+    ``` pre
+             address          | month | year 
+    --------------------------+-------+------
+     4627 Star Rd.            | Sept  | 2017
+     San Francisco, CA  94107           
+     113 Moon St.             | Jan   | 2018
+     San Diego, CA  92093               
+     51 Belt Ct.              | Dec   | 2016
+     Denver, CO  90123                  
+     93114 Radial Rd.         | Jul   | 2017
+     Chicago, IL  60605                 
+     7301 Brookview Ave.      | Dec   | 2018
+     Columbus, OH  43213                
+    (5 rows)
+    ```
+
+## Writing Text Data to HDFS
+
+The PXF HDFS connector profiles `hdfs:text` and `hdfs:csv` support writing single line plain text data to HDFS. When you create a writable external table with the PXF HDFS connector, you specify the name of a directory on HDFS. When you insert records into a writable external table, the block(s) of data that you insert are written to one or more files in the directory that you specified.
+
+**Note**: External tables that you create with a writable profile can only be used for `INSERT` operations. If you want to query the data that you inserted, you must create a separate readable external table that references the HDFS directory.
+
+Use the following syntax to create an Apache Cloudberry writable external table that references an HDFS directory: 
+
+``` sql
+CREATE WRITABLE EXTERNAL TABLE <table_name> 
+    ( <column_name> <data_type> [, ...] | LIKE <other_table> )
+LOCATION ('pxf://<path-to-hdfs-dir>
+    ?PROFILE=hdfs:text|csv[&SERVER=<server_name>][&<custom-option>=<value>[...]]')
+FORMAT '[TEXT|CSV]' (delimiter[=|<space>][E]'<delim_value>');
+[DISTRIBUTED BY (<column_name> [, ... ] ) | DISTRIBUTED RANDOMLY];
+```
+
+The specific keywords and values used in the [CREATE EXTERNAL TABLE](https://cloudberry.apache.org/docs/sql-stmts/create-external-table) command are described in the table below.
+
+| Keyword  | Value |
+|-------|-------------------------------------|
+| \<path&#8209;to&#8209;hdfs&#8209;dir\>    | The path to the directory in the HDFS data store. When the `<server_name>` configuration includes a [`pxf.fs.basePath`](../administering/configuring/cfg_server.md#about-the-pxffsbasepath-property) property setting, PXF considers \<path&#8209;to&#8209;hdfs&#8209;dir\> to be relative to the base path specified. Otherwise, PXF considers it to be an absolute path. \<path&#8209;to&#8209;hdfs&#8209;dir\> must not specify a relative path nor include the dollar sign (`$`) character. |
+| PROFILE    | Use `PROFILE` `hdfs:text` to write plain, delimited text to \<path-to-hdfs-file\>.<br/> Use `PROFILE` `hdfs:csv` to write comma-separated value text to \<path-to-hdfs-dir\>. |
+| SERVER=\<server_name\>    | The named server configuration that PXF uses to access the data. PXF uses the `default` server if not specified. |
+| \<custom&#8209;option\>  | \<custom-option\>s are described below.|
+| FORMAT | Use `FORMAT` `'TEXT'` to write plain, delimited text to \<path-to-hdfs-dir\>.<br/> Use `FORMAT` `'CSV'` to write comma-separated value text to \<path-to-hdfs-dir\>. |
+| delimiter    | The delimiter character in the data. For `FORMAT` `'CSV'`, the default \<delim_value\> is a comma (`,`). Preface the \<delim_value\> with an `E` when the value is an escape sequence. Examples: `(delimiter=E'\t')`, `(delimiter ':')`. |
+| DISTRIBUTED BY    | If you want to load data from an existing Apache Cloudberry table into the writable external table, consider specifying the same distribution policy or `<column_name>` on both tables. Doing so will avoid extra motion of data between segments on the load operation. |
+
+Writable external tables that you create using the `hdfs:text` or the `hdfs:csv` profiles can optionally use record or block compression. You specify the compression codec via a custom option in the `CREATE EXTERNAL TABLE` `LOCATION` clause. The `hdfs:text` and `hdfs:csv` profiles support the following custom write option:
+
+| Option  | Value Description |
+|-------|-------------------------------------|
+| COMPRESSION_CODEC    | The compression codec alias. Supported compression codecs for writing text data include: `default`, `bzip2`, `gzip`, and `uncompressed`. If this option is not provided, Apache Cloudberry performs no data compression. |
+
+### Example: Writing Text Data to HDFS
+
+This example utilizes the data schema introduced in [Example: Reading Text Data on HDFS](#example-reading-text-data-on-hdfs). 
+
+| Column Name  | Data Type |
+|-------|-------------------------------------|
+| location | text |
+| month | text |
+| number\_of\_orders | int |
+| total\_sales | float8 |
+
+This example also optionally uses the Apache Cloudberry external table named `pxf_hdfs_textsimple` that you created in that exercise.
+
+#### Procedure
+
+Perform the following procedure to create Apache Cloudberry writable external tables utilizing the same data schema as described above, one of which will employ compression. You will use the PXF `hdfs:text` profile and the default PXF server to write data to the underlying HDFS directory. You will also create a separate, readable external table to read the data that you wrote to the HDFS directory.
+
+1. Create an Apache Cloudberry writable external table utilizing the data schema described above. Write to the HDFS directory `/data/pxf_examples/pxfwritable_hdfs_textsimple1`. Create the table specifying a comma (`,`) as the delimiter:
+
+    ``` sql
+    postgres=# CREATE WRITABLE EXTERNAL TABLE pxf_hdfs_writabletbl_1(location text, month text, num_orders int, total_sales float8)
+                LOCATION ('pxf://data/pxf_examples/pxfwritable_hdfs_textsimple1?PROFILE=hdfs:text')
+              FORMAT 'TEXT' (delimiter=',');
+    ```
+    
+    You specify the `FORMAT` subclause `delimiter` value as the single ascii comma character `,`.
+
+2. Write a few individual records to the `pxfwritable_hdfs_textsimple1` HDFS directory by invoking the SQL `INSERT` command on `pxf_hdfs_writabletbl_1`:
+
+    ``` sql
+    postgres=# INSERT INTO pxf_hdfs_writabletbl_1 VALUES ( 'Frankfurt', 'Mar', 777, 3956.98 );
+    postgres=# INSERT INTO pxf_hdfs_writabletbl_1 VALUES ( 'Cleveland', 'Oct', 3812, 96645.37 );
+    ```
+
+3. (Optional) Insert the data from the `pxf_hdfs_textsimple` table that you created in [Example: Reading Text Data on HDFS] (#example-reading-text-data-on-hdfs) into `pxf_hdfs_writabletbl_1`:
+
+    ``` sql
+    postgres=# INSERT INTO pxf_hdfs_writabletbl_1 SELECT * FROM pxf_hdfs_textsimple;
+    ```
+
+4. In another terminal window, display the data that you just added to HDFS:
+
+    ``` shell
+    $ hdfs dfs -cat /data/pxf_examples/pxfwritable_hdfs_textsimple1/*
+    Frankfurt,Mar,777,3956.98
+    Cleveland,Oct,3812,96645.37
+    Prague,Jan,101,4875.33
+    Rome,Mar,87,1557.39
+    Bangalore,May,317,8936.99
+    Beijing,Jul,411,11600.67
+    ```
+
+    Because you specified comma (`,`) as the delimiter when you created the writable external table, this character is the field separator used in each record of the HDFS data.
+
+5. Apache Cloudberry does not support directly querying a writable external table. To query the data that you just added to HDFS, you must create a readable external Apache Cloudberry table that references the HDFS directory:
+
+    ``` sql
+    postgres=# CREATE EXTERNAL TABLE pxf_hdfs_textsimple_r1(location text, month text, num_orders int, total_sales float8)
+                LOCATION ('pxf://data/pxf_examples/pxfwritable_hdfs_textsimple1?PROFILE=hdfs:text')
+			    FORMAT 'CSV';
+    ```
+
+    You specify the `'CSV'` `FORMAT` when you create the readable external table because you created the writable table with a comma (`,`) as the delimiter character, the default delimiter for `'CSV'` `FORMAT`.
+
+6. Query the readable external table:
+
+    ``` sql
+    postgres=# SELECT * FROM pxf_hdfs_textsimple_r1 ORDER BY total_sales;
+    ```
+
+    ``` pre
+     location  | month | num_orders | total_sales 
+    -----------+-------+------------+-------------
+     Rome      | Mar   |         87 |     1557.39
+     Frankfurt | Mar   |        777 |     3956.98
+     Prague    | Jan   |        101 |     4875.33
+     Bangalore | May   |        317 |     8936.99
+     Beijing   | Jul   |        411 |    11600.67
+     Cleveland | Oct   |       3812 |    96645.37
+    (6 rows)
+    ```
+
+    The `pxf_hdfs_textsimple_r1` table includes the records you individually inserted, as well as the full contents of the `pxf_hdfs_textsimple` table if you performed the optional step.
+
+7. Create a second Apache Cloudberry writable external table, this time using Gzip compression and employing a colon `:` as the delimiter:
+
+    ``` sql
+    postgres=# CREATE WRITABLE EXTERNAL TABLE pxf_hdfs_writabletbl_2 (location text, month text, num_orders int, total_sales float8)
+                LOCATION ('pxf://data/pxf_examples/pxfwritable_hdfs_textsimple2?PROFILE=hdfs:text&COMPRESSION_CODEC=gzip')
+              FORMAT 'TEXT' (delimiter=':');
+    ```
+
+8. Write a few records to the `pxfwritable_hdfs_textsimple2` HDFS directory by inserting directly into the `pxf_hdfs_writabletbl_2` table:
+
+    ``` sql
+    gpadmin=# INSERT INTO pxf_hdfs_writabletbl_2 VALUES ( 'Frankfurt', 'Mar', 777, 3956.98 );
+    gpadmin=# INSERT INTO pxf_hdfs_writabletbl_2 VALUES ( 'Cleveland', 'Oct', 3812, 96645.37 );
+    ```
+
+9. In another terminal window, display the contents of the data that you added to HDFS; use the `-text` option to `hdfs dfs` to view the compressed data as text:
+
+    ``` shell
+    $ hdfs dfs -text /data/pxf_examples/pxfwritable_hdfs_textsimple2/*
+    Frankfurt:Mar:777:3956.98
+    Cleveland:Oct:3812:96645.3
+    ```
+
+    Notice that the colon `:` is the field separator in this HDFS data.
+
+    To query data from the newly-created HDFS directory named `pxfwritable_hdfs_textsimple2`, you can create a readable external Apache Cloudberry table as described above that references this HDFS directory and specifies `FORMAT 'CSV' (delimiter=':')`.
+
+## About Setting the External Table Encoding
+
+When the external file encoding differs from the database encoding, you must set the external table `ENCODING` to match that of the data file. For example, if the database encoding is `UTF8` and the file encoding is `LATIN1`, create the external table as follows:
+
+```
+CREATE EXTERNAL TABLE pxf_csv_latin1(location text, month text, num_orders int, total_sales float8)
+  LOCATION ('pxf://data/pxf_examples/pxf_hdfs_simple.txt?PROFILE=hdfs:csv')
+FORMAT 'CSV' ENCODING 'LATIN1';
+```
+
+## About Reading Data Containing Multi-Byte or Multi-Character Delimiters
+
+You can use only a `*:csv` PXF profile to read data that contains a multi-byte delimiter or multiple delimiter characters. The syntax for creating a readable external table for such data follows:
+
+``` sql
+CREATE EXTERNAL TABLE <table_name>
+    ( <column_name> <data_type> [, ...] | LIKE <other_table> )
+LOCATION ('pxf://<path-to-hdfs-file>?PROFILE=hdfs:csv[&SERVER=<server_name>][&IGNORE_MISSING_PATH=<boolean>][&SKIP_HEADER_COUNT=<numlines>][&NEWLINE=<bytecode>]')
+FORMAT 'CUSTOM' (FORMATTER='pxfdelimited_import' <option>[=|<space>][E]'<value>');
+```
+
+Note the `FORMAT` line in the syntax block. While the syntax is similar to that of reading CSV, PXF requires a custom formatter to read data containing a multi-byte or multi-character delimiter. You must specify the `'CUSTOM'` format and the `pxfdelimited_import` formatter. You must also specify a delimiter in the formatter options.
+
+PXF recognizes the following formatter options when reading data that contains a multi-byte or multi-character delimiter:
+
+| Option Name  | Value Description | Default Value |
+|-------|---------------|---------------|
+| DELIMITER=\<delim_string\> | The single-byte or multi-byte delimiter string that separates columns. The string may be up to 32 bytes in length, and may not contain quote or escape characters. **Required** | None |
+| QUOTE=\<char\> | The single one-byte ASCII quotation character for all columns. | None |
+| ESCAPE=\<char\> | The single one-byte ASCII character used to escape special characters (for example, the `DELIM`, `QUOTE`,  or `NEWLINE` value, or the `ESCAPE` value itself). | None, or the `QUOTE` value if that is set |
+| NEWLINE=\<bytecode\> | The end-of-line indicator that designates the end of a row. Valid values are `LF` (line feed), `CR` (carriage return), or `CRLF` (carriage return plus line feed. | `LF` |
+
+The following sections provide further information about, and examples for, specifying the delimiter, quote, escape, and new line options.
+
+### Specifying the Delimiter
+
+You must directly specify the delimiter or provide its byte representation. For example, given the following sample data that uses a `¤` currency symbol delimiter:
+
+```
+133¤Austin¤USA
+321¤Boston¤USA
+987¤Paris¤France
+```
+
+Create the external table as follows:
+
+```
+CREATE READABLE EXTERNAL TABLE mbyte_delim (id int, city text, country text)
+  LOCATION ('pxf://multibyte_currency?PROFILE=hdfs:csv')
+FORMAT 'CUSTOM' (FORMATTER='pxfdelimited_import', DELIMITER='¤'); 
+```
+
+#### About Specifying the Byte Representation of the Delimiter
+
+You can directly specify the delimiter or provide its byte representation. If you choose to specify the byte representation of the delimiter:
+
+- You must specify the byte representation of the delimiter in `E'<value>'` format.
+- Because some characters have different byte representations in different encodings, you must specify the byte representation of the delimiter in the *database encoding*.
+
+For example, if the database encoding is `UTF8`, the file encoding is `LATIN1`, and the delimiter is the `¤` currency symbol, you must specify the `UTF8` byte representation for `¤`, which is `\xC2\xA4`:
+
+```
+CREATE READABLE EXTERNAL TABLE byterep_delim (id int, city text, country text)
+  LOCATION ('pxf://multibyte_example?PROFILE=hdfs:csv')
+FORMAT 'CUSTOM' (FORMATTER='pxfdelimited_import', DELIMITER=E'\xC2\xA4') ENCODING 'LATIN1';
+```
+
+### About Specifying Quote and Escape Characters
+
+When PXF reads data that contains a multi-byte or multi-character delimiter, its behavior depends on the quote and escape character settings:
+
+| QUOTE Set? | ESCAPE Set? | PXF Behaviour |
+|-------------|--------------|----------|
+| No<sup>1</sup> | No | PXF reads the data as-is. |
+| Yes<sup>2</sup> | Yes | PXF reads the data between quote characters as-is and un-escapes only the quote and escape characters. |
+| Yes<sup>2</sup> | No (`ESCAPE 'OFF'`) | PXF reads the data between quote characters as-is. |
+| No<sup>1</sup> | Yes | PXF reads the data as-is and un-escapes only the delimiter, newline, and escape itself. |
+
+<sup>1</sup> All data columns must be un-quoted when you do not specify a quote character.
+
+<sup>2</sup> All data columns must quoted when you specify a quote character.
+
+> **Note** PXF expects that there are no extraneous characters between the quote value and the delimiter value, nor between the quote value and the end-of-line value. Additionally, there must be no white space between delimiters and quotes.
+
+### About the NEWLINE Options
+
+PXF requires that every line in the file be terminated with the same new line value.
+
+By default, PXF uses the line feed character (`LF`) for the new line delimiter. When the new line delimiter for the external file is also a line feed, you need not specify the `NEWLINE` formatter option.
+
+If the `NEWLINE` formatter option is provided and contains `CR` or `CRLF`, you must also specify the same `NEWLINE` option in the external table `LOCATION` URI. For example, if the new line delimiter is `CRLF`, create the external table as follows:
+
+```
+CREATE READABLE EXTERNAL TABLE mbyte_newline_crlf (id int, city text, country text)
+  LOCATION ('pxf://multibyte_example_crlf?PROFILE=hdfs:csv&NEWLINE=CRLF')
+FORMAT 'CUSTOM' (FORMATTER='pxfdelimited_import', DELIMITER='¤', NEWLINE='CRLF');
+```
+
+### Examples
+
+#### Delimiter with Quoted Data
+
+Given the following sample data that uses the double-quote (`"`) quote character and the delimiter `¤`:
+
+```
+"133"¤"Austin"¤"USA"
+"321"¤"Boston"¤"USA"
+"987"¤"Paris"¤"France"
+```
+
+Create the external table as follows:
+
+```
+CREATE READABLE EXTERNAL TABLE mbyte_delim_quoted (id int, city text, country text)
+  LOCATION ('pxf://multibyte_q?PROFILE=hdfs:csv')
+FORMAT 'CUSTOM' (FORMATTER='pxfdelimited_import', DELIMITER='¤', QUOTE '"'); 
+```
+
+#### Delimiter with Quoted and Escaped Data
+
+Given the following sample data that uses the quote character `"`, the escape character `\`, and the delimiter `¤`:
+
+```
+"\"hello, my name is jane\" she said. let's escape something \\"¤"123"
+```
+
+Create the external table as follows:
+
+```
+CREATE READABLE EXTERNAL TABLE mybte_delim_quoted_escaped (sentence text, num int)
+  LOCATION ('pxf://multibyte_qe?PROFILE=hdfs:csv')
+FORMAT 'CUSTOM' (FORMATTER='pxfdelimited_import', DELIMITER='¤', QUOTE '"', ESCAPE '\');
+```
+
+With this external table definition, PXF reads the `sentence` text field as:
+
+```
+SELECT sentence FROM mbyte_delim_quoted_escaped;
+
+                          sentence 
+-------------------------------------------------------------
+ "hello, my name is jane" she said. let's escape something \
+(1 row)
+```

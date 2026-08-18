@@ -1,0 +1,404 @@
+---
+title: "Configuring the JDBC Connector (Optional)"
+description: "Configuring the PXF JDBC connector."
+source: https://cloudberry.apache.org/pxf/administering/configuring/jdbc-connector/jdbc_cfg
+---
+
+# Configuring the JDBC Connector (Optional)
+
+You can use PXF to access an external SQL database including MySQL, ORACLE, Microsoft SQL Server, DB2, PostgreSQL, Hive, and Apache Ignite. This topic describes how to configure the PXF JDBC Connector to access these external data sources.
+
+*If you do not plan to use the PXF JDBC Connector, then you do not need to perform this procedure.*
+
+## About JDBC Configuration
+
+To access data in an external SQL database with the PXF JDBC Connector, you must:
+
+- Register a compatible JDBC driver JAR file
+- Specify the JDBC driver class name, database URL, and client credentials
+
+You can supply the JDBC driver class name, database URL, and client credentials in either of two ways: as options in the `CREATE EXTERNAL TABLE`/`CREATE SERVER` command, or in a file-based PXF server configuration for the JDBC Connector. The sections below describe the file-based approach.
+
+## JDBC Driver JAR Registration
+
+PXF is bundled with the `postgresql-42.7.2.jar` JAR file. If you require a different JDBC driver, ensure that you install the JDBC driver JAR file for the external SQL database in the `$PXF_BASE/lib` directory on each Apache Cloudberry host. Be sure to install JDBC driver JAR files that are compatible with your JRE version. See [Registering PXF Library Dependencies](../../../administering/reg_jar_depend.md) for additional information.
+
+## JDBC Server Configuration
+
+When you configure the PXF JDBC Connector, you add at least one named PXF server configuration for the connector as described in [Configuring PXF Servers](../cfg_server.md). You can also configure one or more statically-defined queries to run against the remote SQL database.
+
+PXF provides a template configuration file for the JDBC Connector. This server template configuration file, located in `<PXF_INSTALL_DIR>/templates/jdbc-site.xml`, identifies properties that you can configure to establish a connection to the external SQL database. The template also includes optional properties that you can set before running query or insert commands in the external database session.
+
+The required properties in the `jdbc-site.xml` server template file follow:
+
+| Property       | Description                                | Value |
+|----------------|--------------------------------------------|-------|
+| jdbc.driver | Class name of the JDBC driver. | The JDBC driver Java class name; for example `org.postgresql.Driver`. |
+| jdbc.url | The URL that the JDBC driver uses to connect to the database. | The database connection URL (database-specific); for example `jdbc:postgresql://phost:pport/pdatabase`. |
+| jdbc.user | The database user name. | The user name for connecting to the database. |
+| jdbc.password | The password for `jdbc.user`. | The password for connecting to the database. |
+
+> <b>Note:</b> When you configure a PXF JDBC server, you specify the external database user credentials to PXF in clear text in a configuration file.
+
+### Connection-Level Properties
+
+To set additional JDBC connection-level properties, add `jdbc.connection.property.<CPROP_NAME>` properties to `jdbc-site.xml`. PXF passes these properties to the JDBC driver when it establishes the connection to the external SQL database (`DriverManager.getConnection()`).
+
+Replace `<CPROP_NAME>` with the connection property name and specify its value:
+
+| Property       | Description                                | Value |
+|----------------|--------------------------------------------|-------|
+| jdbc.connection.property.\<CPROP_NAME\> | The name of a property (\<CPROP_NAME\>) to pass to the JDBC driver when PXF establishes the connection to the external SQL database.  | The value of the \<CPROP_NAME\> property. |
+
+Example: To set the `createDatabaseIfNotExist` connection property on a JDBC connection to a PostgreSQL database, include the following property block in `jdbc-site.xml`:
+
+``` xml
+<property>
+    <name>jdbc.connection.property.createDatabaseIfNotExist</name>
+    <value>true</value>
+ </property>
+```
+
+Ensure that the JDBC driver for the external SQL database supports any connection-level property that you specify.
+
+### Connection Transaction Isolation Property
+
+The SQL standard defines four transaction isolation levels. The level that you specify for a given connection to an external SQL database determines how and when the changes made by one transaction run on the connection are visible to another.
+
+The PXF JDBC Connector exposes an optional server configuration property named `jdbc.connection.transactionIsolation` that enables you to specify the transaction isolation level. PXF sets the level (`setTransactionIsolation()`) just after establishing the connection to the external SQL database.
+
+The JDBC Connector supports the following `jdbc.connection.transactionIsolation` property values:
+
+| SQL Level      | PXF Property Value      |
+|----------------|-------------------------|
+| Read uncommitted | READ_UNCOMMITTED |
+| Read committed | READ_COMMITTED |
+| Repeatable Read | REPEATABLE_READ |
+| Serializable | SERIALIZABLE |
+
+For example, to set the transaction isolation level to *Read uncommitted*, add the following property block to the `jdbc-site.xml` file:
+
+``` xml
+<property>
+    <name>jdbc.connection.transactionIsolation</name>
+    <value>READ_UNCOMMITTED</value>
+</property>
+```
+
+Different SQL databases support different transaction isolation levels. Ensure that the external database supports the level that you specify.
+
+### Statement-Level Properties
+
+The PXF JDBC Connector runs a query or insert command on an external SQL database table in a *statement*. The Connector exposes properties that enable you to configure certain aspects of the statement before the command is run in the external database. The Connector supports the following statement-level properties:
+
+| Property       | Description                                | Value |
+|----------------|--------------------------------------------|-------|
+| jdbc.statement.batchSize | The number of rows to write to the external database table in a batch. | The number of rows. The default write batch size is 100. |
+| jdbc.statement.fetchSize | The number of rows to fetch/buffer when reading from the external database table. | The number of rows. The default read fetch size for MySQL is `-2147483648` (`Integer.MIN_VALUE`). The default read fetch size for all other databases is 1000. |
+| jdbc.statement.queryTimeout | The amount of time (in seconds) the JDBC driver waits for a statement to run. This timeout applies to statements created for both read and write operations. | The timeout duration in seconds. The default wait time is unlimited. |
+
+PXF uses the default value for any statement-level property that you do not explicitly configure.
+
+Example: To set the read fetch size to 5000, add the following property block to `jdbc-site.xml`:
+
+``` xml
+<property>
+    <name>jdbc.statement.fetchSize</name>
+    <value>5000</value>
+</property>
+```
+
+Ensure that the JDBC driver for the external SQL database supports any statement-level property that you specify.
+
+### Prepared Statements
+
+By default, the PXF JDBC Connector reads from an external data source using a JDBC `Statement`.
+
+The PXF `jdbc.read.prepared-statement` property governs the use of `PreparedStatements` by the connector. If the JDBC driver that you are using to access the external data source requires the use of a `PreparedStatement`, set the property to `true`:
+
+| Property       | Description                                | Default Value |
+|----------------|--------------------------------------------|---------------|
+| jdbc.read.prepared-statement | Use a `PreparedStatement` instead of a `Statement` when reading from the external data source. | false |
+
+### Session-Level Properties
+
+To set session-level properties, add the `jdbc.session.property.<SPROP_NAME>` property to `jdbc-site.xml`. PXF will `SET` these properties in the external database before running a query.
+
+ Replace `<SPROP_NAME>` with the session property name and specify its value:
+
+| Property       | Description                                | Value |
+|----------------|--------------------------------------------|-------|
+| jdbc.session.property.\<SPROP_NAME\> | The name of a session property (\<SPROP_NAME\>) to set before PXF runs the query. | The value of the \<SPROP_NAME\> property. |
+
+**Note**: The PXF JDBC Connector passes both the session property name and property value to the external SQL database exactly as specified in the `jdbc-site.xml` server configuration file. To limit the potential threat of SQL injection, the Connector rejects any property name or value that contains the `;`, `\n`, `\b`, or `\0` characters.
+
+The PXF JDBC Connector handles the session property `SET` syntax for all supported external SQL databases.
+
+Example: To set the `search_path` parameter before running a query in a PostgreSQL database, add the following property block to `jdbc-site.xml`:
+
+``` xml
+<property>
+    <name>jdbc.session.property.search_path</name>
+    <value>public</value>
+</property>
+```
+
+Ensure that the JDBC driver for the external SQL database supports any property that you specify.
+
+### Other Properties
+
+Other properties supported by the PXF JDBC Connector:
+
+| Property       | Description                                | Default Value |
+|----------------|--------------------------------------------|---------------|
+| jdbc.date.wideRange | Boolean that enables special parsing of dates when the year contains more than four alphanumeric characters. When set to `true`, PXF uses extended classes to parse dates, and recognizes years that specify `BC` or `AD`. | false |
+
+### About JDBC Connection Pooling
+
+The PXF JDBC Connector uses JDBC connection pooling implemented by [HikariCP](https://github.com/brettwooldridge/HikariCP). When a user queries or writes to an external table, the Connector establishes a connection pool for the associated server configuration the first time that it encounters a unique combination of `jdbc.url`, `jdbc.user`, `jdbc.password`, connection property, and pool property settings. The Connector reuses connections in the pool subject to certain connection and timeout settings.
+
+One or more connection pools may exist for a given server configuration, and user access to different external tables specifying the same server may share a connection pool.
+
+**Note**: If you have activated JDBC user impersonation in a server configuration, the JDBC Connector creates a separate connection pool for each Apache Cloudberry user that accesses any external table specifying that server configuration.
+
+The `jdbc.pool.enabled` property governs JDBC connection pooling for a server configuration. Connection pooling is activated by default. To deactive JDBC connection pooling for a server configuration, set the property to false:
+
+``` xml
+<property>
+    <name>jdbc.pool.enabled</name>
+    <value>false</value>
+</property>
+```
+
+If you deactive JDBC connection pooling for a server configuration, PXF does not reuse JDBC connections for that server. PXF creates a connection to the remote database for every partition of a query, and closes the connection when the query for that partition completes.
+
+PXF exposes connection pooling properties that you can configure in a JDBC server definition. These properties are named with the `jdbc.pool.property.` prefix and *apply to each PXF JVM*. The JDBC Connector automatically sets the following connection pool properties and default values:
+
+| Property       | Description                                | Default Value |
+|----------------|--------------------------------------------|-------|
+| jdbc.pool.property.maximumPoolSize | The maximum number of connections to the database backend. | 15 |
+| jdbc.pool.property.connectionTimeout | The maximum amount of time, in milliseconds, to wait for a connection from the pool. | 30000 |
+| jdbc.pool.property.idleTimeout | The maximum amount of time, in milliseconds, after which an inactive connection is considered idle. | 30000 |
+| jdbc.pool.property.minimumIdle | The minimum number of idle connections maintained in the connection pool. | 0 |
+
+You can set other HikariCP-specific connection pooling properties for a server configuration by specifying `jdbc.pool.property.<HIKARICP_PROP_NAME>` and the desired value in the `jdbc-site.xml` configuration file for the server. Also note that the JDBC Connector passes along any property that you specify with a `jdbc.connection.property.` prefix when it requests a connection from the JDBC `DriverManager`. Refer to [Connection-Level Properties](#connection-level-properties) above.
+
+#### Tuning the Maximum Connection Pool Size
+
+To not exceed the maximum number of connections allowed by the target database, and at the same time ensure that each PXF JVM services a fair share of the JDBC connections, determine the maximum value of `maximumPoolSize` based on the size of the Apache Cloudberry cluster as follows:
+
+``` pre
+max_conns_allowed_by_remote_db / #_cloudberry_segment_hosts
+```
+
+For example, if your Apache Cloudberry cluster has 16 segment hosts and the target database allows 160 concurrent connections, calculate `maximumPoolSize` as follows:
+
+``` pre
+160 / 16 = 10
+```
+
+In practice, you may choose to set `maximumPoolSize` to a lower value, since the number of concurrent connections per JDBC query depends on the number of partitions used in the query. When a query uses no partitions, a single PXF JVM services the query. If a query uses 12 partitions, PXF establishes 12 concurrent JDBC connections to the remote database. Ideally, these connections are distributed equally among the PXF JVMs, but that is not guaranteed.
+
+## JDBC User Impersonation
+
+The PXF JDBC Connector uses the `jdbc.user` setting or information in the `jdbc.url` to determine the identity of the user to connect to the external data store. When PXF JDBC user impersonation is deactivated (the default), the behavior of the JDBC Connector is further dependent upon the external data store. For example, if you are using the JDBC Connector to access Hive, the Connector uses the settings of certain Hive authentication and impersonation properties to determine the user. You may be required to provide a `jdbc.user` setting, or add properties to the `jdbc.url` setting in the server `jdbc-site.xml` file. Refer to [Configuring Hive Access via the JDBC Connector](./hive_jdbc_cfg.md) for more information on this procedure.
+
+When you activate PXF JDBC user impersonation, the PXF JDBC Connector accesses the external data store on behalf of an Apache Cloudberry end user. The Connector uses the name of the Apache Cloudberry user that accesses the PXF external table to try to connect to the external data store.
+
+When you activate JDBC user impersonation for a PXF server, PXF overrides the value of a `jdbc.user` property setting defined in either `jdbc-site.xml` or `<cloudberry_user_name>-user.xml`, or specified in the external table DDL, with the Apache Cloudberry user name. For user impersonation to work effectively when the external data store requires passwords to authenticate connecting users, you must specify the `jdbc.password` setting for each user that can be impersonated in that user's `<cloudberry_user_name>-user.xml` property override file. Refer to [Configuring a PXF User](../cfg_server.md#configuring-a-pxf-user) for more information about per-server, per-Cloudberry-user configuration.
+
+The `pxf.service.user.impersonation` property in the `jdbc-site.xml` configuration file governs JDBC user impersonation.
+
+### Example Configuration Procedure
+
+By default, PXF JDBC user impersonation is deactivated.  Perform the following procedure to turn PXF user impersonation on or off for a JDBC server configuration.
+
+1. Log in to your Apache Cloudberry coordinator host as the administrative user:
+
+    ``` shell
+    $ ssh gpadmin@<coordinator>
+    ```
+
+2. Identify the name of the PXF JDBC server configuration that you want to update.
+
+3. Navigate to the server configuration directory. For example, if the server is named `mysqldb`:
+
+    ```shell
+    gpadmin@coordinator$ cd $PXF_BASE/servers/mysqldb
+    ```
+
+5. Open the `jdbc-site.xml` file in the editor of your choice, and add or uncomment the user impersonation property and setting. For example, if you require user impersonation for this server configuration, set the `pxf.service.user.impersonation` property to `true`:
+
+    ``` xml
+    <property>
+        <name>pxf.service.user.impersonation</name>
+        <value>true</value>
+    </property>
+    ```
+
+7. Save the `jdbc-site.xml` file and exit the editor.
+
+8. Use the `pxf cluster sync` command to synchronize the PXF JDBC server configuration to your Apache Cloudberry cluster:
+
+    ``` shell
+    gpadmin@coordinator$ pxf cluster sync
+    ```
+
+## About Session Authorization
+
+Certain SQL databases, including PostgreSQL and DB2, allow a privileged user to change the effective database user that runs commands in a session. You might take advantage of this feature if, for example, you connect to the remote database as a proxy user and want to switch session authorization after establishing the database connection.
+
+In databases that support it, you can configure a session property to switch the effective user. For example, in DB2, you use the `SET SESSION_USER <username>` command to switch the effective DB2 user. If you configure the DB2 `session_user` variable via a PXF session-level property (`jdbc.session.property.<SPROP_NAME>`) in your `jdbc-site.xml` file, PXF runs this command for you.
+
+For example, to switch the effective DB2 user to the user named `bill`, you configure your `jdbc-site.xml` as follows:
+
+``` xml
+<property>
+    <name>jdbc.session.property.session_user</name>
+    <value>bill</value>
+</property>
+```
+
+After establishing the database connection, PXF implicitly runs the following command to set the `session_user` DB2 session variable to the value that you configured:
+
+``` sql
+SET SESSION_USER = bill
+```
+
+PXF recognizes a synthetic property value, `${pxf.session.user}`, that identifies the Apache Cloudberry user name. You may choose to use this value when you configure a property that requires a value that changes based on the Cloudberry user running the session.
+
+A scenario where you might use `${pxf.session.user}` is when you authenticate to the remote SQL database with Kerberos, the primary component of the Kerberos principal identifies the Apache Cloudberry user name, and you want to run queries in the remote database using this effective user name. For example, if you are accessing DB2, you would configure your `jdbc-site.xml` to specify the Kerberos `securityMechanism` and `KerberosServerPrincipal`, and then set the `session_user` variable as follows:
+
+``` xml
+<property>
+    <name>jdbc.session.property.session_user</name>
+    <value>${pxf.session.user}</value>
+</property>
+```
+
+With this configuration, PXF `SET`s the DB2 `session_user` variable to the current Apache Cloudberry user name, and runs subsequent operations on the DB2 table as that user.
+
+### Session Authorization Considerations for Connection Pooling
+
+When PXF performs session authorization on your behalf and JDBC connection pooling is activated (the default), you may choose to set the `jdbc.pool.qualifier` property. Setting this property instructs PXF to include the property value in the criteria that it uses to create and reuse connection pools. In practice, you would not set this to a fixed value, but rather to a value that changes based on the user/session/transaction, etc. When you set this property to `${pxf.session.user}`, PXF includes the Apache Cloudberry user name in the criteria that it uses to create and re-use connection pools. The default setting is no qualifier.
+
+To make use of this feature, add or uncomment the following property block in `jdbc-site.xml` to prompt PXF to include the Cloudberry user name in connection pool creation/reuse criteria:
+
+``` xml
+<property>
+    <name>jdbc.pool.qualifier</name>
+    <value>${pxf.session.user}</value>
+</property>
+```
+
+## JDBC Named Query Configuration
+
+A PXF *named query* is a static query that you configure, and that PXF runs in the remote SQL database.
+
+To configure and use a PXF JDBC named query:
+
+1. You [define the query](#defining-a-named-query) in a text file.
+2. You provide the [query name](#query-naming) to Apache Cloudberry users.
+3. The Apache Cloudberry user [references the query](#referencing-a-named-query) in an Apache Cloudberry external table definition.
+
+PXF runs the query each time the user invokes a `SELECT` command on the Apache Cloudberry external table.
+
+### Defining a Named Query
+
+You create a named query by adding the query statement to a text file that has the following naming format: `<query_name>.sql`. You can define one or more named queries for a JDBC server configuration. Each query must reside in a separate text file.
+
+You must place a query text file in the PXF JDBC server configuration directory from which it will be accessed. If you want to make the query available to more than one JDBC server configuration, you must copy the query text file to the configuration directory for each JDBC server.
+
+The query text file must contain a single query that you want to run in the remote SQL database. You must construct the query in accordance with the syntax supported by the database.
+
+For example, if a MySQL database has a `customers` table and an `orders` table, you could include the following SQL statement in a query text file:
+
+``` sql
+SELECT c.name, c.city, sum(o.amount) AS total, o.month
+  FROM customers c JOIN orders o ON c.id = o.customer_id
+  WHERE c.state = 'CO'
+GROUP BY c.name, c.city, o.month
+```
+
+You may optionally provide the ending semicolon (`;`) for the SQL statement.
+
+### Query Naming
+
+The Apache Cloudberry user references a named query by specifying the query file name without the extension. For example, if you define a query in a file named `report.sql`, the name of that query is `report`.
+
+Named queries are associated with a specific JDBC server configuration. You will provide the available query names to the Apache Cloudberry users that you allow to create external tables using the server configuration.
+
+#### Referencing a Named Query
+
+The Apache Cloudberry user specifies `query:<query_name>` rather than the name of a remote SQL database table when they create the external/foreign table. For example, if the query is defined in the file `$PXF_BASE/servers/mydb/report.sql`, the `CREATE EXTERNAL TABLE` `LOCATION` clause would include the following components:
+
+``` sql
+LOCATION ('pxf://query:report?PROFILE=jdbc&SERVER=mydb ...')
+```
+
+Refer to [About Using Named Queries](../../../access-jdbc/jdbc_pxf.md#about-using-named-queries) for information about using PXF JDBC named queries.
+
+## Overriding the JDBC Server Configuration
+
+You can override the JDBC server configuration by directly specifying certain JDBC properties via custom options in the `CREATE EXTERNAL TABLE` command `LOCATION` clause. Refer to [Overriding the JDBC Server Configuration via DDL](../../../access-jdbc/jdbc_pxf.md#overriding-the-jdbc-server-configuration-with-ddl) for additional information.
+
+## Configuring Access to Hive
+
+You can use the JDBC Connector to access Hive. Refer to [Configuring the JDBC Connector for Hive Access](./hive_jdbc_cfg.md) for detailed information on this configuration procedure.
+
+## Example Configuration Procedure
+
+In this procedure, you name and add a PXF JDBC server configuration for a PostgreSQL database and synchronize the server configuration(s) to the Apache Cloudberry cluster.
+
+1. Log in to your Apache Cloudberry coordinator host:
+
+    ``` shell
+    $ ssh gpadmin@<coordinator>
+    ```
+
+2. Choose a name for the JDBC server. You will provide the name to Cloudberry users that you choose to allow to reference tables in the external SQL database as the configured user.
+
+    **Note**: The server name `default` is reserved.
+
+3. Create the `$PXF_BASE/servers/<server_name>` directory. For example, use the following command to create a JDBC server configuration named `pg_user1_testdb`:
+
+    ``` shell
+    gpadmin@coordinator$ mkdir $PXF_BASE/servers/pg_user1_testdb
+    ````
+
+4. Copy the PXF JDBC server template file to the server configuration directory. For example:
+
+    ``` shell
+    gpadmin@coordinator$ cp <PXF_INSTALL_DIR>/templates/jdbc-site.xml $PXF_BASE/servers/pg_user1_testdb/
+    ```
+        
+5. Open the template server configuration file in the editor of your choice, and provide appropriate property values for your environment. For example, if you are configuring access to a PostgreSQL database named `testdb` on a PostgreSQL instance running on the host named `pgserverhost` for the user named `user1`:
+
+    ``` xml
+    <?xml version="1.0" encoding="UTF-8"?>
+    <configuration>
+        <property>
+            <name>jdbc.driver</name>
+            <value>org.postgresql.Driver</value>
+        </property>
+        <property>
+            <name>jdbc.url</name>
+            <value>jdbc:postgresql://pgserverhost:5432/testdb</value>
+        </property>
+        <property>
+            <name>jdbc.user</name>
+            <value>user1</value>
+        </property>
+        <property>
+            <name>jdbc.password</name>
+            <value>changeme</value>
+        </property>
+    </configuration>
+    ```
+6. Save your changes and exit the editor.
+
+7. Use the `pxf cluster sync` command to copy the new server configuration to the Apache Cloudberry cluster:
+    
+    ``` shell
+    gpadmin@coordinator$ pxf cluster sync
+    ```

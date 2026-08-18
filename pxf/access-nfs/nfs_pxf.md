@@ -1,0 +1,222 @@
+---
+title: "Accessing Files on a Network File System"
+description: "Accessing files on a network file system with PXF."
+source: https://cloudberry.apache.org/pxf/access-nfs/nfs_pxf
+---
+
+# Accessing Files on a Network File System
+
+You can use PXF to read data that resides on a network file system mounted on your Apache Cloudberry hosts. PXF supports reading and writing the following file types from a network file system:
+
+| File Type | Profile Name | Operations Supported |
+|-------------|--------------|------------|
+| delimited single line text | file:text | read, write |
+| delimited single line comma-separated values of text | file:csv | read, write |
+| delimited text with quoted linefeeds | file:text:multi | read |
+| fixed width single line text | file:fixedwidth | read, write |
+| Avro | file:avro | read, write |
+| JSON | file:json | read, write |
+| ORC | file:orc | read, write |
+| Parquet | file:parquet | read, write |
+
+PXF does not support user impersonation when you access a network file system. PXF accesses a file as the operating system user that started the PXF process, usually `gpadmin`.
+
+> <b>Note:</b> Reading from, and writing to (where supported), a file of these types on a network file system is similar to reading/writing the file type on Hadoop.
+
+## Prerequisites
+
+Before you use PXF to access files on a network file system, ensure that:
+
+- You can identify the PXF runtime configuration directory (`$PXF_BASE`).
+- You have configured PXF, and PXF is running on each Apache Cloudberry host. See [Configuring PXF](../administering/configuring/instcfg_pxf.md) for additional information.
+- All files are accessible by `gpadmin` or by the operating system user that started the PXF process.
+- The network file system is correctly mounted at the same local mount point on every Apache Cloudberry host.
+- You can identify the mount or share point of the network file system.
+- You have created one or more named PXF server configurations as described in [Configuring a PXF Network File System Server](#configuring-a-pxf-network-file-system-server).
+
+## Configuring a PXF Network File System Server
+
+Before you use PXF to access a file on a network file system, you must create a server configuration and then synchronize the PXF configuration to all Apache Cloudberry hosts.  This procedure will typically be performed by the Apache Cloudberry administrator.
+
+Use the server template configuration file `<PXF_INSTALL_DIR>/templates/pxf-site.xml` when you configure a network file system server for PXF. This template file includes the mandatory property `pxf.fs.basePath` that you configure to identify the network file system share path. PXF considers the file path that you specify in a `CREATE EXTERNAL TABLE` `LOCATION` clause that uses this server to be relative to this share path.
+
+PXF does not support user impersonation when you access a network file system; you must explicitly turn off user impersonation in a network file system server configuration.
+
+1. Log in to the Apache Cloudberry coordinator host:
+
+    ``` shell
+    $ ssh gpadmin@<coordinator>
+    ```
+
+2. Choose a name for the file system server. You will provide the name to Apache Cloudberry users that you choose to allow to read from or write to files on the network file system.
+
+    **Note**: The server name `default` is reserved.
+
+3. Create the `$PXF_BASE/servers/<server_name>` directory. For example, use the following command to create a file system server configuration named `nfssrvcfg`:
+
+    ``` shell
+    gpadmin@coordinator$ mkdir $PXF_BASE/servers/nfssrvcfg
+    ````
+
+4. Copy the PXF `pxf-site.xml` template file to the `nfssrvcfg` server configuration directory. For example:
+
+    ``` shell
+    gpadmin@coordinator$ cp <PXF_INSTALL_DIR>/templates/pxf-site.xml $PXF_BASE/servers/nfssrvcfg/
+    ```
+
+5. Open the template server configuration file in the editor of your choice, and uncomment and provide property values appropriate for your environment. For example, if the file system share point is the directory named `/mnt/extdata/pxffs`, uncomment and set these server properties:
+
+    ``` xml
+    <?xml version="1.0" encoding="UTF-8"?>
+    <configuration>
+    ...
+        <property>
+            <name>pxf.service.user.impersonation</name>
+            <value>false</value>
+        </property>
+
+        <property>
+            <name>pxf.fs.basePath</name>
+            <value>/mnt/extdata/pxffs</value>
+        </property>
+    ...
+    </configuration>
+    ```
+
+6. Save your changes and exit the editor.
+
+7. Synchronize the PXF server configuration to the Apache Cloudberry cluster:
+
+    ``` shell
+    gpadmin@coordinator$ pxf cluster sync
+    ``` 
+
+## Creating the External Table
+
+The following syntax creates an Apache Cloudberry external table that references a file on a network file system. Use the appropriate `file:*` profile for the file type that you want to access.
+
+<pre>
+CREATE [READABLE | WRITABLE] EXTERNAL TABLE &lt;table_name>
+    ( &lt;column_name> &lt;data_type> [, ...] | LIKE &lt;other_table> )
+LOCATION ('pxf://&lt;file-path>?PROFILE=file:&lt;file-type>[&SERVER=&lt;server_name>][&&lt;custom-option>=&lt;value>[...]]')
+FORMAT '[TEXT|CSV|CUSTOM]' (&lt;formatting-properties>);
+</pre>
+
+The specific keywords and values used in the Apache Cloudberry [CREATE EXTERNAL TABLE](https://cloudberry.apache.org/docs/sql-stmts/create-external-table) command are described in the table below.
+
+| Keyword  | Value |
+|-------|-------------------------------------|
+| \<file&#8209;path\>    | The path to a directory or file on the network file system. PXF considers this file or path as being relative to the [`pxf.fs.basePath`](../administering/configuring/cfg_server.md#about-the-pxffsbasepath-property) property value specified in \<server_name\>'s server configuration.  \<file&#8209;path\> must not specify a relative path nor include the dollar sign (`$`) character. |
+| PROFILE    | The `PROFILE` keyword value must specify a `file:<file-type>` identified in the table above. |
+| SERVER=\<server_name\>   | The named server configuration that PXF uses to access the network file system. PXF uses the `default` server if not specified. |
+| \<custom&#8209;option\>=\<value\>  | \<custom-option\> is profile-specific.|
+| FORMAT&nbsp;\<value\>| PXF profiles support the `TEXT`, `CSV`, and `CUSTOM` formats.  |
+| \<formatting&#8209;properties\> | Formatting properties supported by the profile; for example, the `FORMATTER` or `delimiter`. |
+
+> <b>Note:</b> The &lt;custom-option>s, FORMAT, and &lt;formatting&#8209;properties> that you specify when accessing a file on a network file system are dependent on the &lt;file-type>. Refer to the <a href="../access-hadoop/access_hdfs.md#connectors-data-formats-and-profiles">Hadoop documentation</a> for the &lt;file-type> of interest for these settings.
+
+## Example: Reading From and Writing to a CSV File on a Network File System
+
+This example assumes that you have configured and mounted a network file system with the share point `/mnt/extdata/pxffs` on the Apache Cloudberry coordinator host, the standby coordinator host, and on each segment host.
+
+In this example, you:
+
+- Create a CSV file on the network file system and add data to the file.
+- Configure a network file system server for the share point.
+- Create a PXF readable external table that references the directory containing the CSV file, and read the data.
+- Create a PXF writable external table that references the directory containing the CSV file, and write some data.
+- Read from the original readable external table again.
+
+### Create a CSV File
+
+1.  Create a directory (relative to the network file system share point) named `/mnt/extdata/pxffs/ex1`:
+
+    ``` shell
+    gpadmin@coordinator$ mkdir -p /mnt/extdata/pxffs/ex1
+    ````
+
+2. Create a CSV file named `somedata.csv` in the directory:
+
+    ``` shell
+    $ echo 'Prague,Jan,101,4875.33
+    Rome,Mar,87,1557.39
+    Bangalore,May,317,8936.99
+    Beijing,Jul,411,11600.67' > /mnt/extdata/pxffs/ex1/somedata.csv
+    ```
+
+### Create the Network File System Server
+
+Create a server configuration named `nfssrvcfg` with share point `/mnt/extdata/pxffs` as described in [Configuring a PXF Network File System Server](#configuring-a-pxf-network-file-system-server).
+
+### Read Data
+
+Perform the following procedure to create a PXF external table that references the `ex1` directory that you created in a previous section, and then read the data in the `somedata.csv` file in that directory:
+
+1. Create a PXF external table that references `ex1` and that specifies the `file:text` profile. For example:
+
+    ``` sql
+    gpadmin=# CREATE EXTERNAL TABLE pxf_read_nfs(location text, month text, num_orders int, total_sales float8)
+                LOCATION ('pxf://ex1/?PROFILE=file:text&SERVER=nfssrvcfg')
+                FORMAT 'CSV';
+    ```
+
+    Because the `nfssrvcfg` server configuration `pxf.fs.basePath` property value is `/mnt/exdata/pxffs`, PXF constructs the path `/mnt/extdata/pxffs/ex1` to read the file.
+
+2. Display all rows of the `pxf_read_nfs` table:
+
+    ``` sql
+    gpadmin=# SELECT * FROM pxf_read_nfs ORDER BY num_orders DESC;
+     location  | month | num_orders | total_sales 
+    -----------+-------+------------+-------------
+     Beijing   | Jul   |        411 |    11600.67
+     Bangalore | May   |        317 |     8936.99
+     Prague    | Jan   |        101 |     4875.33
+     Rome      | Mar   |         87 |     1557.39
+    (4 rows)
+    ```
+
+### Write Data and Read Again
+
+Perform the following procedure to insert some data into the `ex1` directory and then read the data again. You must create a new external table for the write operation.
+
+1. Create a writable PXF external table that references `ex1` and that specifies the `file:text` profile. For example:
+
+    ``` sql
+    gpadmin=# CREATE WRITABLE EXTERNAL TABLE pxf_write_nfs(location text, month text, num_orders int, total_sales float8)
+                LOCATION ('pxf://ex1/?PROFILE=file:text&SERVER=nfssrvcfg')
+              FORMAT 'CSV' (delimiter=',');
+    ```
+
+4. Insert some data into the `pxf_write_nfs` table. For example:
+
+    ``` sql
+    gpadmin=# INSERT INTO pxf_write_nfs VALUES ( 'Frankfurt', 'Mar', 777, 3956.98 );
+    INSERT 0 1
+    gpadmin=# INSERT INTO pxf_write_nfs VALUES ( 'Cleveland', 'Oct', 3812, 96645.37 );
+    INSERT 0 1
+    ```
+
+    PXF writes one or more files to the `ex1/` directory when you insert into the `pxf_write_nfs` table.
+
+5. Use the `pxf_read_nfs` readable external table that you created in the previous section to view the new data you inserted into the `pxf_write_nfs` table:
+
+    ``` sql
+    gpadmin=# SELECT * FROM pxf_read_nfs ORDER BY num_orders DESC;
+     location  | month | num_orders | total_sales 
+    -----------+-------+------------+-------------
+     Cleveland | Oct   |       3812 |    96645.37
+     Frankfurt | Mar   |        777 |     3956.98
+     Beijing   | Jul   |        411 |    11600.67
+     Bangalore | May   |        317 |     8936.99
+     Prague    | Jan   |        101 |     4875.33
+     Rome      | Mar   |         87 |     1557.39
+    (6 rows)
+    ```
+
+    When you select from the `pxf_read_nfs` table here, PXF reads the `somedata.csv` file and the new files that it added to the `ex1/` directory in the previous step.
+
+## About Specifying a Parquet Schema File Location
+
+If you use the `file:parquet` profile to write to an external table that references a Parquet file and you want to provide the Parquet schema, specify the `SCHEMA` custom option in the `LOCATION` clause when you create the writable external table. Refer to the [Creating the External Table](../access-hadoop/hdfs_parquet.md#creating-the-external-table) discussion in the PXF HDFS Parquet documentation for more information on the options available when you create an external table.
+
+You must set `SCHEMA` to the location of the Parquet schema file on the file system of the specified `SERVER=<server_name>`. When the `<server_name>` configuration includes a [`pxf.fs.basePath`](../administering/configuring/cfg_server.md#about-the-pxffsbasepath-property) property setting, PXF considers the schema file that you specify to be relative to the mount point specified.
