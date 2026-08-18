@@ -9,6 +9,8 @@ import BlogItemDesc from "./components/Desc";
 import BlogItemTags from "./components/Tags";
 import BlogItemTitle from "./components/Title";
 
+import AiActions from "@site/src/components/common/AiActions";
+import MarkdownAlternate from "@site/src/components/common/markdownTwin";
 import LinkWithBaseUrl from "@site/src/components/common/LinkWithBaseUrl";
 import styles from "./styles.module.scss";
 
@@ -36,11 +38,21 @@ const BlogListItem = () => {
   );
 };
 const BlogDetailItem = ({ children }) => {
+  const {
+    metadata: { permalink },
+  } = useBlogPost();
+
   return (
     <BlogPostItemContainer className={styles["blogDetail"]}>
+      <MarkdownAlternate permalink={permalink} />
       <header>
         <BlogItemTitle />
         <BlogPostItemAuthors />
+        <AiActions
+          permalink={permalink}
+          align="start"
+          className={styles["blogAiActions"]}
+        />
       </header>
       {/* only show blog detail */}
       <BlogPostItemContent>{children}</BlogPostItemContent>
