@@ -308,12 +308,12 @@ const sidebars: SidebarsConfig = {
         {
           type: 'category',
           label: 'SQL Clients',
-          items: ['ecosystem/sql-clients/dbeaver']
+          items: ['ecosystem/sql-clients/dbeaver', 'ecosystem/sql-clients/clouddm']
         },
         {
           type: 'category',
           label: 'Data Integration',
-          items: ['ecosystem/data-integration/seatunnel']
+          items: ['ecosystem/data-integration/seatunnel', 'ecosystem/data-integration/bladepipe']
         },
         {
           type: 'category',
