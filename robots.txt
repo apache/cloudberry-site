@@ -1,0 +1,64 @@
+# Apache Cloudberry (Incubating) - https://cloudberry.apache.org
+#
+# This file governs crawling of https://cloudberry.apache.org.
+# An LLM-oriented index of this site is available at /llms.txt.
+
+User-agent: *
+Allow: /
+
+# --- AI assistants / answer engines -------------------------------------
+# Apache Cloudberry is open documentation released under the Apache
+# License 2.0. These crawlers are explicitly welcomed so AI assistants and
+# answer engines can index, quote, and cite the docs, blog, and community
+# pages.
+
+User-agent: GPTBot
+User-agent: ChatGPT-User
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ClaudeBot
+User-agent: Claude-User
+User-agent: Claude-SearchBot
+User-agent: Claude-Web
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Google-Extended
+User-agent: GoogleOther
+Allow: /
+
+User-agent: Applebot
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Meta-ExternalAgent
+User-agent: Meta-ExternalFetcher
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: YouBot
+Allow: /
+
+User-agent: DuckAssistBot
+Allow: /
+
+Sitemap: https://cloudberry.apache.org/sitemap.xml
