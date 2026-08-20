@@ -7,6 +7,10 @@ source: https://cloudberry.apache.org/docs/deployment/capacity_planning
 
 To estimate how much data your Apache Cloudberry system can accommodate, use these measurements as guidelines. Also keep in mind that you may want to have extra space for landing backup files and data load files on each segment host.
 
+:::tip
+For a quick starting point, try the [Sizing Calculator](/sizing/). Enter your data size and infrastructure type (physical, VM, or cloud) and it suggests node counts and per-node specs. Results are estimates — validate with a POC before final sizing.
+:::
+
 ## Calculating usable disk capacity
 
 Start with the raw capacity of the physical disks on a segment host that are available for data storage:
