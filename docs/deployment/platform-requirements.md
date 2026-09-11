@@ -126,9 +126,9 @@ mount /dev/data/data2 /data2/
 
 Apache Cloudberry supports the following operating systems:
 
-- Rocky Linux 8/9
-- Ubuntu 22.04
-- RHEL 8/9 and compatible distributions (Oracle Linux, AlmaLinux, etc.)
+- Rocky Linux 8/9/10 (**Rocky Linux 10 is supported starting from Cloudberry 2.2**)
+- Ubuntu 22.04/24.04 (**Ubuntu 24.04 is supported starting from Cloudberry 2.2**)
+- RHEL 8/9/10 and compatible distributions (Oracle Linux, AlmaLinux, etc.)
 
 ### Software dependencies
 

@@ -5,6 +5,33 @@ source: https://cloudberry.apache.org/docs/build/configure
 
 # Configure Apache Cloudberry Build
 
+## Pre-stage the Python packages for `--with-pythonsrc-ext`
+
+:::note
+This step is only required starting from Apache Cloudberry 2.2.
+:::
+
+The Python source packages used by `--with-pythonsrc-ext` are not bundled in the repository. They have been removed since Apache Cloudberry 2.0 to comply with the Apache release policy, and used to be downloaded on the fly during the build. Starting from Apache Cloudberry 2.2, they are downloaded ahead of the build instead, so pre-stage them before you run `configure`.
+
+Building PyYAML requires Cython earlier than 3.0. On Ubuntu, install the matching distribution package first:
+
+```bash
+# For Ubuntu 22.04, cython3 is 0.29.x
+sudo apt install -y cython3
+
+# For Ubuntu 24.04, cython3 is 3.x and cannot build PyYAML, so use cython3-legacy instead
+sudo apt install -y cython3-legacy
+```
+
+On Rocky Linux 8 and 9, `python3-Cython` has already been installed in [Install required packages](./install-required-packages). On Rocky Linux 10, the distribution only ships Cython 3.x, so the following command installs a compatible version through `pip3` for you.
+
+Then download the packages:
+
+```bash
+cd ~/cloudberry
+make -C gpMgmt/bin download-python-deps
+```
+
 ##  Configure the build process
 
 **For Rocky Linux 8+**
@@ -26,6 +53,44 @@ sudo chown -R gpadmin:gpadmin /usr/local/cloudberry-db
 ### Run `configure`
 
 The `configure` command sets up the build environment for Apache Cloudberry. This configuration includes several development features and extensions.
+
+:::note
+Starting from Apache Cloudberry 2.2, new extensions are available, including `diskquota`, `gp_stats_collector`, and `yezzey`. Use the corresponding `configure` options to enable them.
+:::
+
+**Cloudberry 2.2**
+
+```bash
+cd ~/cloudberry
+export LD_LIBRARY_PATH=/usr/local/cloudberry-db/lib:${LD_LIBRARY_PATH:-""}
+./configure --prefix=/usr/local/cloudberry-db \
+            --disable-external-fts \
+            --enable-gpcloud \
+            --enable-ic-proxy \
+            --enable-mapreduce \
+            --enable-orafce \
+            --enable-orca \
+            --enable-pax \
+            --disable-pxf \
+            --enable-tap-tests \
+            --with-diskquota \
+            --with-gp-stats-collector \
+            --with-gssapi \
+            --with-ldap \
+            --with-libxml \
+            --with-lz4 \
+            --with-pam \
+            --with-perl \
+            --with-pgport=5432 \
+            --with-python \
+            --with-pythonsrc-ext \
+            --with-ssl=openssl \
+            --with-uuid=e2fs \
+            --with-yezzey \
+            --with-includes=/usr/local/xerces-c/include \
+            --with-libraries=/usr/local/cloudberry-db/lib
+```
+**Cloudberry 2.0/2.1**
 
 ```bash
 cd ~/cloudberry
@@ -54,7 +119,7 @@ export LD_LIBRARY_PATH=/usr/local/cloudberry-db/lib:${LD_LIBRARY_PATH:-""}
             --with-includes=/usr/local/xerces-c/include \
             --with-libraries=/usr/local/cloudberry-db/lib
 ```
-**For Ubuntu 20.04+**
+**For Ubuntu 22.04+**
 
 ### Prepare environment
 
@@ -70,6 +135,42 @@ sudo chown -R gpadmin:gpadmin /usr/local/cloudberry-db
 ### Run `configure`
 
 The `configure` command sets up the build environment for Apache Cloudberry. This configuration includes several development features and extensions.
+
+:::note
+Starting from Apache Cloudberry 2.2, new extensions are available, including `diskquota`, `gp_stats_collector`, and `yezzey`. Use the corresponding `configure` options to enable them.
+:::
+
+**Cloudberry 2.2**
+
+```bash
+cd ~/cloudberry
+./configure --prefix=/usr/local/cloudberry-db \
+            --disable-external-fts \
+            --enable-gpcloud \
+            --enable-ic-proxy \
+            --enable-mapreduce \
+            --enable-orafce \
+            --enable-orca \
+            --enable-pax \
+            --disable-pxf \
+            --enable-tap-tests \
+            --with-diskquota \
+            --with-gp-stats-collector \
+            --with-gssapi \
+            --with-ldap \
+            --with-libxml \
+            --with-lz4 \
+            --with-pam \
+            --with-perl \
+            --with-pgport=5432 \
+            --with-python \
+            --with-pythonsrc-ext \
+            --with-ssl=openssl \
+            --with-uuid=e2fs \
+            --with-yezzey \
+            --with-includes=/usr/include/xercesc
+```
+**Cloudberry 2.0/2.1**
 
 ```bash
 cd ~/cloudberry
@@ -140,3 +241,6 @@ Also, some packages names vary between different Linux distributions.
 |  `--with-libxml`          | Build with libxml2, enabling SQL/XML support.|This requires libxml2 to be installed.|
 |  `--with-lz4`             | Build with LZ4 compression support |This allows the use of LZ4 for compression of table data and lz4 library is required to be installed.|
 |  `--with-ssl=LIB`         | Build with support for SSL (encrypted) connections. | The only LIBRARY supported is openssl, so `--with-ssl=openssl` is used in this guide. This requires the OpenSSL package to be installed. |
+|  `--with-diskquota`       | Build with diskquota extension. | Diskquota is an extension that provides disk usage enforcement for database objects in Apache Cloudberry. **Since Cloudberry 2.2**|
+|  `--with-gp-stats-collector`      | Build with stats collector extension. | An extension for collecting query execution metrics and reporting them to an external agent. **Since Cloudberry 2.2**|
+|  `--with-yezzey`       | Build with Yezzey extension. | Yezzey is an extension for offloading data from Cloudberry to S3-compatible external storage. This option builds the extension only. You do not need a proxy if there are only a few requests to S3, but many parallel data exchange streams can exhaust CPU and network on the cluster host. For better performance under heavy traffic, additionally deploy [YProxy](https://github.com/open-gpdb/yproxy), which pools connections to S3 and schedules the requests. **Since Cloudberry 2.2**|

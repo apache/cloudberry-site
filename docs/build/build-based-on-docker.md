@@ -26,11 +26,25 @@ docker run --name cbdb-dev -it --rm -h cdw --shm-size=2gb apache/incubator-cloud
 ```bash
 docker run --name cbdb-dev -it --rm -h cdw --shm-size=2gb apache/incubator-cloudberry:cbdb-build-rocky9-latest
 ```
+**Rocky Linux 10**
+
+```bash
+docker run --name cbdb-dev -it --rm -h cdw --shm-size=2gb apache/incubator-cloudberry:cbdb-build-rocky10-latest
+```
 **Ubuntu 22.04**
 
 ```bash
 docker run --name cbdb-dev -it --rm -h cdw --shm-size=2gb apache/incubator-cloudberry:cbdb-build-ubuntu22.04-latest
 ```
+**Ubuntu 24.04**
+
+```bash
+docker run --name cbdb-dev -it --rm -h cdw --shm-size=2gb apache/incubator-cloudberry:cbdb-build-ubuntu24.04-latest
+```
+
+:::note
+Rocky Linux 10 and Ubuntu 24.04 are supported starting from Apache Cloudberry 2.2.
+:::
 
 Explaination:
 - `--name=cbdb-dev` will set the name of the container to `cbdb-dev`. You can change it to any name you prefer.
@@ -110,6 +124,10 @@ cd /home/gpadmin/cloudberry
 ## Set up the SRC_DIR environment variable and create a directory for build logs
 export SRC_DIR=/home/gpadmin/cloudberry
 mkdir -p ${SRC_DIR}/build-logs
+
+# Since Cloudberry 2.2
+# Pre-stage the Python packages for `--with-pythonsrc-ext` before building
+make -C gpMgmt/bin download-python-deps
 
 ## Configure, build, and install Cloudberry
 ./devops/build/automation/cloudberry/scripts/configure-cloudberry.sh

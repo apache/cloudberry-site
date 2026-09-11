@@ -14,7 +14,7 @@ If `sudo` & `git` command is not already installed, run the following command to
 ```bash
 dnf install -y sudo git
 ```
-**For Ubuntu 20.04+**
+**For Ubuntu 22.04+**
 
 ```bash
 apt update && apt install -y sudo git
@@ -58,7 +58,7 @@ This script performs three main tasks as the `gpadmin` user:
 
 The script uses a heredoc (EOF) block to execute multiple commands under the `gpadmin` user context. This will be used multiple time throughout these instructions.
 
-**Apache Cloudberry 2.1.0**
+**Apache Cloudberry 2.1.0+**
 
 ```bash
 sudo -u gpadmin bash <<'EOF'

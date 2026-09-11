@@ -40,11 +40,11 @@ Please note that the  `greenplum_path.sh` has changed to `cloudberry-env.sh` sin
 Load Cloudberry environment variables that set up paths for binaries, libraries, and other essential components:
 
 ```bash
+# For Apache Cloudberry 2.1.0+
+source /usr/local/cloudberry-db/cloudberry-env.sh
+
 # For Apache Cloudberry 2.0.0
 source /usr/local/cloudberry-db/greenplum_path.sh
-
-# For Apache Cloudberry 2.1.0
-source /usr/local/cloudberry-db/cloudberry-env.sh
 ```
 
 ## Create development cluster

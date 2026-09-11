@@ -9,11 +9,192 @@ In the following sections, we'll provide detailed, step-by-step instructions for
 
 By this, you will get an Apache Cloudberry environment with a demo cluster ready for testing and development.
 
-**For Rocky Linux 8/9**
+**For Rocky Linux 8/9/10**
 
-Below are the instructions for building Apache Cloudberry 2.0.0 and Apache Cloudberry 2.1.0 from source code on Rocky Linux 8/9:
-- [For Apache Cloudberry 2.1.0](#for-apache-cloudberry-210)
-- [For Apache Cloudberry 2.0.0](#for-apache-cloudberry-200)
+Below are the instructions for building Apache Cloudberry from source code on Rocky Linux 8/9/10:
+- [For Apache Cloudberry 2.2.0](#for-apache-cloudberry-220) (Rocky Linux 8/9/10)
+- [For Apache Cloudberry 2.1.0](#for-apache-cloudberry-210) (Rocky Linux 8/9)
+- [For Apache Cloudberry 2.0.0](#for-apache-cloudberry-200) (Rocky Linux 8/9)
+
+### For Apache Cloudberry 2.2.0
+
+```bash
+# Install sudo & git
+dnf install -y sudo git
+
+# Create and configure the gpadmin user
+sudo useradd -U -m -s /bin/bash gpadmin
+echo 'gpadmin ALL=(ALL) NOPASSWD:ALL' | sudo tee /etc/sudoers.d/90-gpadmin
+sudo -u gpadmin sudo whoami # if the output is root, the configuration is correct
+
+# Required configuration for gpadmin user
+sudo -u gpadmin bash <<'EOF'
+## Add Cloudberry environment setup to .bashrc
+echo -e '\n# Add Cloudberry entries
+if [ -f /usr/local/cloudberry-db/cloudberry-env.sh ]; then
+  source /usr/local/cloudberry-db/cloudberry-env.sh
+fi
+## US English with UTF-8 character encoding
+export LANG=en_US.UTF-8
+' >> /home/gpadmin/.bashrc
+## Set up SSH for passwordless access
+mkdir -p /home/gpadmin/.ssh
+if [ ! -f /home/gpadmin/.ssh/id_rsa ]; then
+  ssh-keygen -t rsa -b 2048 -C 'apache-cloudberry-dev' -f /home/gpadmin/.ssh/id_rsa -N ""
+fi
+cat /home/gpadmin/.ssh/id_rsa.pub >> /home/gpadmin/.ssh/authorized_keys
+## Set proper SSH directory permissions
+chmod 700 /home/gpadmin/.ssh
+chmod 600 /home/gpadmin/.ssh/authorized_keys
+chmod 644 /home/gpadmin/.ssh/id_rsa.pub
+EOF
+
+# Configure system settings
+sudo tee /etc/security/limits.d/90-db-limits.conf << 'EOF'
+## Core dump file size limits for gpadmin
+gpadmin soft core unlimited
+gpadmin hard core unlimited
+## Open file limits for gpadmin
+gpadmin soft nofile 524288
+gpadmin hard nofile 524288
+## Process limits for gpadmin
+gpadmin soft nproc 131072
+gpadmin hard nproc 131072
+EOF
+
+# Verify resource limits.
+sudo -u gpadmin bash -c "ulimit -a"
+
+# Install required packages
+sudo dnf install -y apr-devel \
+  bison \
+  bzip2-devel \
+  curl \
+  cmake3 \
+  diffutils \
+  flex \
+  gcc \
+  gcc-c++ \
+  glibc-langpack-en \
+  glibc-locale-source \
+  iproute \
+  krb5-devel \
+  libcurl-devel \
+  libevent-devel \
+  libxml2-devel \
+  libuuid-devel \
+  libzstd-devel \
+  lz4-devel \
+  net-tools \
+  openldap-devel \
+  openssl-devel \
+  openssh-server \
+  pam-devel \
+  perl \
+  perl-ExtUtils-Embed \
+  perl-Test-Simple \
+  perl-Env \
+  python3-devel \
+  python3-pip \
+  python3-setuptools \
+  readline-devel \
+  rsync \
+  wget \
+  which \
+  zlib-devel
+
+# Enable additional development tools and libraries
+## For Rocky Linux 8
+sudo dnf install -y --enablerepo=devel liburing-devel libuv-devel libyaml-devel perl-IPC-Run protobuf-devel python3-wheel python3-Cython
+## For Rocky Linux 9
+sudo dnf install -y --enablerepo=crb liburing-devel libuv-devel libyaml-devel perl-IPC-Run protobuf-devel python3-wheel python3-Cython
+## For Rocky Linux 10
+sudo dnf install -y --enablerepo=crb liburing-devel libuv-devel libyaml-devel perl-IPC-Run protobuf-devel python3-wheel
+
+# Build Xerces-C source code
+XERCES_LATEST_RELEASE=3.3.0
+XERCES_INSTALL_PREFIX="/usr/local/xerces-c"
+wget -nv "https://dlcdn.apache.org//xerces/c/3/sources/xerces-c-${XERCES_LATEST_RELEASE}.tar.gz"
+echo "$(curl -sL https://dlcdn.apache.org//xerces/c/3/sources/xerces-c-${XERCES_LATEST_RELEASE}.tar.gz.sha256)" | sha256sum -c -
+tar xf "xerces-c-${XERCES_LATEST_RELEASE}.tar.gz"
+rm "xerces-c-${XERCES_LATEST_RELEASE}.tar.gz"
+cd xerces-c-${XERCES_LATEST_RELEASE}
+./configure --prefix="${XERCES_INSTALL_PREFIX}-${XERCES_LATEST_RELEASE}"
+make -j$(nproc)
+make check
+sudo make install
+sudo ln -s ${XERCES_INSTALL_PREFIX}-${XERCES_LATEST_RELEASE} ${XERCES_INSTALL_PREFIX}
+
+# Switch to the gpadmin user from now on
+su - gpadmin
+
+# Download Source Code (2.x branch)
+git clone https://github.com/apache/cloudberry.git ~/cloudberry
+cd ~/cloudberry
+git fetch --tags
+git checkout tags/2.2.0-incubating
+git submodule update --init --recursive
+
+# Prepare the build environment for Apache Cloudberry
+sudo rm -rf /usr/local/cloudberry-db
+sudo chmod a+w /usr/local
+mkdir -p /usr/local/cloudberry-db/lib
+sudo cp -v /usr/local/xerces-c/lib/libxerces-c.so \
+           /usr/local/xerces-c/lib/libxerces-c-3.*.so \
+           /usr/local/cloudberry-db/lib
+sudo chown -R gpadmin:gpadmin /usr/local/cloudberry-db
+
+# Pre-stage the Python packages for `--with-pythonsrc-ext` before building
+cd ~/cloudberry
+make -C gpMgmt/bin download-python-deps
+
+# Run configure
+export LD_LIBRARY_PATH=/usr/local/cloudberry-db/lib:${LD_LIBRARY_PATH:-""}
+./configure --prefix=/usr/local/cloudberry-db \
+            --disable-external-fts \
+            --enable-gpcloud \
+            --enable-ic-proxy \
+            --enable-mapreduce \
+            --enable-orafce \
+            --enable-orca \
+            --enable-pax \
+            --disable-pxf \
+            --enable-tap-tests \
+            --with-diskquota \
+            --with-gp-stats-collector \
+            --with-gssapi \
+            --with-ldap \
+            --with-libxml \
+            --with-lz4 \
+            --with-pam \
+            --with-perl \
+            --with-pgport=5432 \
+            --with-python \
+            --with-pythonsrc-ext \
+            --with-ssl=openssl \
+            --with-uuid=e2fs \
+            --with-yezzey \
+            --with-includes=/usr/local/xerces-c/include \
+            --with-libraries=/usr/local/cloudberry-db/lib
+
+# Build and install Cloudberry and its contrib modules
+make -j$(nproc) -C ~/cloudberry
+make -j$(nproc) -C ~/cloudberry/contrib
+make install -C ~/cloudberry
+make install -C ~/cloudberry/contrib
+
+# Verify the installation
+/usr/local/cloudberry-db/bin/postgres --gp-version
+/usr/local/cloudberry-db/bin/postgres --version
+ldd /usr/local/cloudberry-db/bin/postgres
+
+# Set up a Cloudberry demo cluster
+source /usr/local/cloudberry-db/cloudberry-env.sh
+make create-demo-cluster -C ~/cloudberry
+source ~/cloudberry/gpAux/gpdemo/gpdemo-env.sh
+psql -P pager=off template1 -c 'SELECT * from gp_segment_configuration'
+psql template1 -c 'SELECT version()'
+```
 
 ### For Apache Cloudberry 2.1.0
 
@@ -364,12 +545,174 @@ source ~/cloudberry/gpAux/gpdemo/gpdemo-env.sh
 psql -P pager=off template1 -c 'SELECT * from gp_segment_configuration'
 psql template1 -c 'SELECT version()'
 ```
-**For Ubuntu 20.04/22.04**
+**For Ubuntu 20.04/22.04/24.04**
 
-Below are the instructions for building Apache Cloudberry 2.0.0 and Apache Cloudberry 2.1.0 from source code on Ubuntu 20.04/22.04:
+Below are the instructions for building Apache Cloudberry from source code on Ubuntu 20.04/22.04/24.04:
 
-- [For Apache Cloudberry 2.1.0](#for-apache-cloudberry-210-1)
-- [For Apache Cloudberry 2.0.0](#for-apache-cloudberry-200-1)
+- [For Apache Cloudberry 2.2.0](#for-apache-cloudberry-220-1) (Ubuntu 22.04/24.04)
+- [For Apache Cloudberry 2.1.0](#for-apache-cloudberry-210-1) (Ubuntu 20.04/22.04)
+- [For Apache Cloudberry 2.0.0](#for-apache-cloudberry-200-1) (Ubuntu 20.04/22.04)
+
+### For Apache Cloudberry 2.2.0
+
+```bash
+# Install sudo & git
+apt update && apt install -y sudo git
+
+# Create and configure the gpadmin user
+sudo useradd -U -m -s /bin/bash gpadmin
+echo 'gpadmin ALL=(ALL) NOPASSWD:ALL' | sudo tee /etc/sudoers.d/90-gpadmin
+sudo -u gpadmin sudo whoami # if the output is root, the configuration is correct
+
+# Required configuration
+sudo -u gpadmin bash <<'EOF'
+## Add Cloudberry environment setup to .bashrc
+echo -e '\n# Add Cloudberry entries
+if [ -f /usr/local/cloudberry-db/cloudberry-env.sh ]; then
+  source /usr/local/cloudberry-db/cloudberry-env.sh
+fi
+## US English with UTF-8 character encoding
+export LANG=en_US.UTF-8
+' >> /home/gpadmin/.bashrc
+## Set up SSH for passwordless access
+mkdir -p /home/gpadmin/.ssh
+if [ ! -f /home/gpadmin/.ssh/id_rsa ]; then
+  ssh-keygen -t rsa -b 2048 -C 'apache-cloudberry-dev' -f /home/gpadmin/.ssh/id_rsa -N ""
+fi
+cat /home/gpadmin/.ssh/id_rsa.pub >> /home/gpadmin/.ssh/authorized_keys
+## Set proper SSH directory permissions
+chmod 700 /home/gpadmin/.ssh
+chmod 600 /home/gpadmin/.ssh/authorized_keys
+chmod 644 /home/gpadmin/.ssh/id_rsa.pub
+EOF
+
+# Configure system settings
+sudo tee /etc/security/limits.d/90-db-limits.conf << 'EOF'
+## Core dump file size limits for gpadmin
+gpadmin soft core unlimited
+gpadmin hard core unlimited
+## Open file limits for gpadmin
+gpadmin soft nofile 524288
+gpadmin hard nofile 524288
+## Process limits for gpadmin
+gpadmin soft nproc 131072
+gpadmin hard nproc 131072
+EOF
+
+# Verify resource limits
+sudo -u gpadmin bash -c "ulimit -a"
+
+# Install basic system packages
+sudo apt install -y bison \
+  bzip2 \
+  cmake \
+  curl \
+  flex \
+  gcc \
+  g++ \
+  iproute2 \
+  iputils-ping \
+  language-pack-en \
+  locales \
+  libapr1-dev \
+  libbz2-dev \
+  libcurl4-gnutls-dev \
+  libevent-dev \
+  libkrb5-dev \
+  libipc-run-perl \
+  libldap2-dev \
+  libpam0g-dev \
+  libprotobuf-dev \
+  libreadline-dev \
+  libssl-dev \
+  libuv1-dev \
+  liburing-dev \
+  liblz4-dev \
+  libxerces-c-dev \
+  libxml2-dev \
+  libyaml-dev \
+  libzstd-dev \
+  libperl-dev \
+  make \
+  pkg-config \
+  protobuf-compiler \
+  python3-dev \
+  python3-pip \
+  python3-setuptools \
+  python3-wheel \
+  rsync
+
+# Use the gpadmin user from now on
+sudo su - gpadmin
+
+# Clone the Apache Cloudberry repository (2.x branch)
+git clone https://github.com/apache/cloudberry.git ~/cloudberry
+cd ~/cloudberry
+git fetch --tags
+git checkout tags/2.2.0-incubating
+git submodule update --init --recursive
+
+# Prepare the build environment for Apache Cloudberry
+sudo rm -rf /usr/local/cloudberry-db
+sudo chmod a+w /usr/local
+mkdir -p /usr/local/cloudberry-db
+sudo chown -R gpadmin:gpadmin /usr/local/cloudberry-db
+
+# Pre-stage the Python packages for `--with-pythonsrc-ext` before building
+cd ~/cloudberry
+# Building PyYAML requires Cython earlier than 3.0
+# For Ubuntu 22.04, cython3 is 0.29.x
+sudo apt install -y cython3
+# For Ubuntu 24.04, cython3 is 3.x, so use cython3-legacy instead
+sudo apt install -y cython3-legacy
+# For Ubuntu 22.04 & 24.04
+make -C gpMgmt/bin download-python-deps
+
+# Run configure
+./configure --prefix=/usr/local/cloudberry-db \
+            --disable-external-fts \
+            --enable-gpcloud \
+            --enable-ic-proxy \
+            --enable-mapreduce \
+            --enable-orafce \
+            --enable-orca \
+            --enable-pax \
+            --disable-pxf \
+            --enable-tap-tests \
+            --with-diskquota \
+            --with-gp-stats-collector \
+            --with-gssapi \
+            --with-ldap \
+            --with-libxml \
+            --with-lz4 \
+            --with-pam \
+            --with-perl \
+            --with-pgport=5432 \
+            --with-python \
+            --with-pythonsrc-ext \
+            --with-ssl=openssl \
+            --with-uuid=e2fs \
+            --with-yezzey \
+            --with-includes=/usr/include/xercesc
+
+# Build and install Cloudberry and its contrib modules
+make -j$(nproc) -C ~/cloudberry
+make -j$(nproc) -C ~/cloudberry/contrib
+make install -C ~/cloudberry
+make install -C ~/cloudberry/contrib
+
+# Verify the installation
+/usr/local/cloudberry-db/bin/postgres --gp-version
+/usr/local/cloudberry-db/bin/postgres --version
+ldd /usr/local/cloudberry-db/bin/postgres
+
+# Set up a Cloudberry demo cluster
+source /usr/local/cloudberry-db/cloudberry-env.sh
+make create-demo-cluster -C ~/cloudberry
+source ~/cloudberry/gpAux/gpdemo/gpdemo-env.sh
+psql -P pager=off template1 -c 'SELECT * from gp_segment_configuration'
+psql template1 -c 'SELECT version()'
+```
 
 ### For Apache Cloudberry 2.1.0
 
