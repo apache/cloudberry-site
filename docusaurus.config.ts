@@ -16,11 +16,17 @@ const config: Config = {
   onBrokenLinks: "ignore",
 
   markdown: {
+    // The Core Internals handbook draws 113 of its diagrams as `mermaid`
+    // fenced blocks. Without this they render as code blocks; nothing else
+    // on the site uses mermaid today.
+    mermaid: true,
     hooks: {
       onBrokenMarkdownLinks: "warn",
     },
   },
-  
+
+  themes: ["@docusaurus/theme-mermaid"],
+
   plugins: [
     "docusaurus-plugin-sass",
     'docusaurus-plugin-matomo',
@@ -63,6 +69,21 @@ const config: Config = {
         routeBasePath: 'pxf',
         sidebarPath: './sidebarsPxf.ts',
         editUrl: ({ docPath }) => `https://github.com/apache/cloudberry-pxf/edit/main/docs/${docPath}`,
+        // Exclude repo-level non-doc files from being rendered as pages
+        exclude: ['README.md'],
+      },
+    ],
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'core-internals',
+        // The submodule is the engine repository, checked out sparsely: only
+        // `docs/core-internals` is on disk. See scripts/setup-doc-submodules.sh.
+        path: 'core-internals/docs/core-internals',
+        routeBasePath: 'core-internals',
+        sidebarPath: './sidebarsCoreInternals.ts',
+        editUrl: ({ docPath }) =>
+          `https://github.com/apache/cloudberry/edit/main/docs/core-internals/${docPath}`,
         // Exclude repo-level non-doc files from being rendered as pages
         exclude: ['README.md'],
       },
@@ -186,6 +207,16 @@ const config: Config = {
               {
                 label: "1.x",
                 to: "docs/1.x",
+              },
+              // Not a version of the docs above but a separate handbook, so
+              // it sits below a rule rather than in the version list.
+              {
+                type: "html",
+                value: '<hr class="dropdown-separator">',
+              },
+              {
+                label: "Core Internals",
+                to: "core-internals/",
               },
             ],
         },

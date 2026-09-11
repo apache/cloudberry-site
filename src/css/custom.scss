@@ -389,3 +389,51 @@ pre,
 samp {
   font-family: var(--font-family-mono);
 }
+
+/* ---------------------------------------------------------------------------
+   Core Internals handbook figures
+
+   The handbook's 101 figures -- 64 inlined SVGs and 37 laid out in HTML by its
+   RawFigure component -- are drawn on a light canvas: light fills, dark ink,
+   and several `<text>` elements with no fill at all, which default to black.
+   The site defaults to dark mode, where that canvas is missing and the figures
+   are read against pure black.
+
+   Two things follow, both scoped to the handbook's docs instance so nothing
+   else on the site is touched:
+
+   1. The HTML figures reach for four custom properties (--fg, --muted,
+      --border, --soft) that belong to the handbook's standalone stylesheet and
+      are not defined here. An undefined var takes the whole declaration with
+      it, so `.bk-lbl b { color: var(--fg) }` fell through to the site's light
+      grey -- unreadable on the near-white band behind it. They are given the
+      handbook's own light values rather than site tokens, because the surface
+      they sit on is light in either colour mode.
+
+   2. Both kinds of figure get that light canvas back explicitly, so the black
+      ink inside them always has something to be black against.
+
+   Point 1 belongs upstream really: `var(--fg, #1f2328)` in RawFigure.css would
+   make the component as self-contained as its README claims. Drop the block
+   when that lands.
+--------------------------------------------------------------------------- */
+
+html.plugin-id-core-internals {
+  .book-figure {
+    --fg: #1f2328;
+    --muted: #656d76;
+    --border: #d0d7de;
+    --soft: #f6f8fa;
+  }
+
+  /* The HTML figures, and the SVG ones -- which Markdown leaves as a bare
+     `<img>` in a paragraph of its own. */
+  .book-figure > div,
+  .theme-doc-markdown p > img:only-child {
+    display: block;
+    background: #ffffff;
+    border: 1px solid #d0d7de;
+    border-radius: var(--radius-sm, 6px);
+    padding: 12px;
+  }
+}

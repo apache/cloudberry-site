@@ -50,7 +50,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          submodules: 'recursive'
+          # Submodules are left to the setup script below. One of them is the
+          # engine repository, checked out for a single docs directory; letting
+          # this step clone it would pull the whole tree before anything had a
+          # chance to narrow it.
+          submodules: false
       - uses: actions/setup-node@v4
         with:
           node-version: 20
@@ -61,20 +65,10 @@ jobs:
       
       - name: Initialize submodules
         run: |
-          echo "Initializing git submodules..."
-          git submodule update --init --recursive
-          echo "Submodules initialized"
-          
-          # Configure sparse checkout for PXF submodule
-          if [ -f "scripts/setup-pxf-submodule.sh" ]; then
-            echo "Configuring sparse checkout for PXF submodule..."
-            chmod +x scripts/setup-pxf-submodule.sh
-            ./scripts/setup-pxf-submodule.sh
-            echo "Sparse checkout configured"
-          else
-            echo "WARNING: setup-pxf-submodule.sh not found, continuing without sparse checkout configuration"
-          fi
-        
+          echo "Initializing documentation submodules..."
+          chmod +x scripts/setup-doc-submodules.sh
+          ./scripts/setup-doc-submodules.sh
+
       - name: Build site
         run: |
           echo "🏗️ Building Docusaurus site..."
