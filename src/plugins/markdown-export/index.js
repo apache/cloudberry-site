@@ -63,6 +63,21 @@ const STRUCTURAL_INLINE_RE = new RegExp(
 );
 
 /**
+ * The Core Internals handbook's `RawFigure`: a figure laid out in HTML and CSS
+ * and handed to the component as a string, because MDX will not parse it as
+ * JSX. Neither `STRUCTURAL_TAGS` nor `OPAQUE_TAGS` can reach it -- their
+ * pattern stops at the first `>`, and the markup is full of them -- and it
+ * would be wrong to drop the whole call anyway: the `caption` prop is ordinary
+ * prose describing the figure, and it is the only part of a RawFigure worth
+ * reading in Markdown.
+ *
+ * Matches the one-line form the handbook uses. A call broken across lines
+ * would survive into the twin and be reported as a leak.
+ */
+const RAW_FIGURE_RE = /^\s*<RawFigure\b.*\/>\s*$/;
+const RAW_FIGURE_CAPTION_RE = /\bcaption=\{"((?:[^"\\]|\\.)*)"\}/;
+
+/**
  * ESM imports only. Deliberately requires a `from "..."` clause (or a bare
  * side-effect import) so that Java's `import java.sql.Connection;` and
  * Python's `import pyodbc` are never matched -- those appear in code samples.
@@ -213,6 +228,17 @@ function sanitizeBody(body) {
       /<TabItem\b[^>]*\blabel=(["'])(.*?)\1[^>]*>/g,
       (_all, _quote, label) => `**${label}**\n`,
     );
+    if (RAW_FIGURE_RE.test(text)) {
+      const caption = text.match(RAW_FIGURE_CAPTION_RE);
+      if (caption) {
+        // The prop is a JS string literal, so its quotes and backslashes are
+        // escaped; the prose underneath is what we want.
+        const captionLine = `*${caption[1].replace(/\\(["\\])/g, "$1")}*`;
+        out.push(captionLine);
+        prose.push(captionLine);
+      }
+      continue;
+    }
     if (DROP_TAG_RE.test(text)) {
       continue;
     }

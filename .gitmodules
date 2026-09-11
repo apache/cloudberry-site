@@ -2,3 +2,9 @@
 	path = pxf
 	url = https://github.com/apache/cloudberry-pxf.git
 	sparse-checkout = docs/
+[submodule "core-internals"]
+	path = core-internals
+	url = https://github.com/my-ship-it/cloudberry.git
+	branch = doc/core-internals-handbook
+	shallow = true
+	sparse-checkout = docs/core-internals/

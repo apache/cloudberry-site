@@ -73,16 +73,29 @@ sure no errors when building.
 $ npm install
 ```
 
-3. Initialize submodules (required for PXF documentation)
+3. Initialize submodules (required for the PXF and Core Internals documentation)
 
-This repository uses git submodules to include PXF documentation. After cloning, run:
+Two sets of documentation live in other repositories and are pulled in as git
+submodules:
+
+| Submodule | Upstream | Served at |
+|---|---|---|
+| `pxf` | [`apache/cloudberry-pxf`](https://github.com/apache/cloudberry-pxf) (`docs/`) | `/pxf` |
+| `core-internals` | [`apache/cloudberry`](https://github.com/apache/cloudberry) (`docs/core-internals/`) | `/core-internals` |
+
+After cloning, run:
 
 ```
-$ git submodule update --init --recursive
-$ ./scripts/setup-pxf-submodule.sh
+$ ./scripts/setup-doc-submodules.sh
 ```
 
-The setup script configures sparse checkout to only include the `docs/` directory from the PXF submodule.
+The script initializes both submodules and configures sparse checkout so that
+only the documentation directory of each one is written to disk. It clones
+shallow and blobless, which matters for `core-internals`: its upstream is the
+engine repository, so a full clone would cost about a gigabyte to read a few
+megabytes of Markdown.
+
+Re-run the script after a `git pull` that moves either submodule pointer.
 
 4. Build and run
 
