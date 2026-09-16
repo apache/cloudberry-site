@@ -308,7 +308,7 @@ const sidebars: SidebarsConfig = {
         {
           type: 'category',
           label: 'SQL Clients',
-          items: ['ecosystem/sql-clients/dbeaver', 'ecosystem/sql-clients/clouddm', 'ecosystem/sql-clients/libredb-studio']
+          items: ['ecosystem/sql-clients/dbeaver', 'ecosystem/sql-clients/clouddm', 'ecosystem/sql-clients/libredb-studio', 'ecosystem/sql-clients/tabularis']
         },
         {
           type: 'category',
