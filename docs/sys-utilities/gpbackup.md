@@ -60,6 +60,14 @@ When a back up operation completes, `gpbackup` returns a status code.
 
 The `gpbackup` utility cannot be run while `gpexpand` is initializing new segments. Backups created before the expansion cannot be restored with `gprestore` after the cluster expansion is completed.
 
+Each backup is identified by a timestamp in the `YYYYMMDDHHMMSS` format, which has a granularity of one second. The timestamp is also used for the backup directory and the backup lock file. Therefore, you cannot start more than one `gpbackup` operation within the same second. If you start another backup in the same second (for example, when running `gpbackup` in a loop from a script, or running multiple `gpbackup` processes concurrently), the later backup fails with an error similar to the following:
+
+```
+[CRITICAL]:-A backup with timestamp 20260502005451 is already in progress. Wait 1 second and try the backup again.
+```
+
+To avoid this error, wait at least one second between `gpbackup` operations (for example, add `sleep 1` between commands in your script), or back up multiple schemas or tables in a single `gpbackup` operation with repeated `--include-schema`/`--include-table` options or with `--include-schema-file`/`--include-table-file`.
+
 `gpbackup` can send status email notifications after a back up operation completes. You specify when the utility sends the mail and the email recipients in a configuration file.
 
 **Note**: This utility uses secure shell (SSH) connections between systems to perform its tasks. In large Apache Cloudberry deployments, cloud deployments, or deployments with a large number of segments per host, this utility may exceed the host's maximum threshold for unauthenticated connections. Consider updating the SSH `MaxStartups` and `MaxSessions` configuration parameters to increase this threshold. For more information about SSH configuration options, refer to the SSH documentation for your Linux distribution.
