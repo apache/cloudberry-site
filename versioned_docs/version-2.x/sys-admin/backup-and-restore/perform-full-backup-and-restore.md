@@ -209,6 +209,10 @@ If you have a large number of schemas, you can list the schemas in a text file a
 $ gpbackup --dbname test_04 --include-schema-file /home/gpadmin/backup-schemas.txt --backup-dir /home/gpadmin/backups
 ```
 
+:::tip
+The backup timestamp (`YYYYMMDDHHMMSS`) has a granularity of one second, and `gpbackup` cannot start two backups with the same timestamp. If you back up schemas one by one in a script, a new backup that starts within the same second as the previous one fails with the error `A backup with timestamp <timestamp> is already in progress. Wait 1 second and try the backup again.` To avoid this, add a delay (for example, `sleep 1`) between `gpbackup` commands, or include all target schemas in a single `gpbackup` command as shown above.
+:::
+
 ### Filter by table
 
 To filter the individual tables that are included in a backup set, or excluded from a backup set, specify individual tables with the `--include-table` option or the `--exclude-table` option. The table must be schema qualified, `<schema-name>.<table-name>`. The individual table filtering options can be specified multiple times. However, `--include-table` and `--exclude-table` cannot both be used in the same command.
