@@ -17,7 +17,7 @@ export default function HCard() {
       </h1>
       <p className={styles.description}>
         Apache Cloudberry is an advanced and mature open-source Massively Parallel Processing (MPP) database, 
-        derived from the open-source version of the Pivotal Greenplum Database® but built on a more modern 
+        derived from the open-source Greenplum® Database but built on a more modern 
         PostgreSQL kernel and with more advanced enterprise capabilities. Cloudberry can serve as a data 
         warehouse and can also be used for large-scale analytics and AI/ML workloads.
       </p>
