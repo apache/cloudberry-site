@@ -1,0 +1,37 @@
+#
+# Licensed to the Apache Software Foundation (ASF) under one or more
+# contributor license agreements.  See the NOTICE file distributed with
+# this work for additional information regarding copyright ownership.
+# The ASF licenses this file to You under the Apache License, Version 2.0
+# (the "License"); you may not use this file except in compliance with
+# the License.  You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+# Content-Security-Policy for cloudberry.apache.org.
+#
+# ASF infra sends a default policy that only allows *.apache.org and a few
+# other hosts. Setting the header here replaces it entirely, so the policy
+# below keeps the ASF default sources (*.apache.org covers Matomo on
+# analytics.apache.org) and adds the hosts the kapa.ai "Ask AI" widget needs.
+# The ASF default's Scarf host is left out because nothing here uses Scarf.
+#
+#   script-src   https://widget.kapa.ai (the widget), hCaptcha
+#   connect-src  https://proxy.kapa.ai, https://metrics.kapa.ai and Kapa's
+#                Cloud Run proxy (the chat API), hCaptcha
+#   style-src    hCaptcha
+#   frame-src    hCaptcha (the challenge iframe)
+#
+# When adding another third-party service, append its hosts to the matching
+# directive(s) below. The policy must stay on one line: .htaccess cannot use
+# Define, and Apache has no string concatenation.
+<IfModule mod_headers.c>
+    Header set Content-Security-Policy "default-src 'self' data: blob: 'unsafe-inline' 'unsafe-eval' https://www.apachecon.com/ https://www.communityovercode.org/ https://*.apache.org/ https://apache.org/; script-src 'self' data: blob: 'unsafe-inline' 'unsafe-eval' https://www.apachecon.com/ https://www.communityovercode.org/ https://*.apache.org/ https://apache.org/ https://widget.kapa.ai https://hcaptcha.com https://*.hcaptcha.com; connect-src 'self' data: blob: 'unsafe-inline' 'unsafe-eval' https://www.apachecon.com/ https://www.communityovercode.org/ https://*.apache.org/ https://apache.org/ https://proxy.kapa.ai https://metrics.kapa.ai https://kapa-widget-proxy-la7dkmplpq-uc.a.run.app https://hcaptcha.com https://*.hcaptcha.com; style-src 'self' data: blob: 'unsafe-inline' 'unsafe-eval' https://www.apachecon.com/ https://www.communityovercode.org/ https://*.apache.org/ https://apache.org/ https://hcaptcha.com https://*.hcaptcha.com; frame-src 'self' data: blob: 'unsafe-inline' 'unsafe-eval' https://www.apachecon.com/ https://www.communityovercode.org/ https://*.apache.org/ https://apache.org/ https://hcaptcha.com https://*.hcaptcha.com; frame-ancestors 'self'; worker-src 'self' data: blob:;"
+</IfModule>
