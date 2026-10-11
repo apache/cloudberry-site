@@ -77,7 +77,7 @@ This document lists the configuration parameters (GUC) of Apache Cloudberry data
 - Default Value: 5
 - Value Range: [1,2147483647]
 - Setting Category: user
-- Description: Sets the maximum number of idle segment worker processes (QEs) per segment that a session keeps cached for reuse by later statements. When a reader worker is released and the per-segment free list already holds this many workers, the worker is destroyed instead of cached. The session's writer worker does not count against this limit, and workers on the coordinator are capped at 1 regardless of this setting.
+- Description: Sets the maximum number of idle segment worker processes (QEs) per segment that a session keeps cached for reuse by later statements. When a reader worker is released and the per-segment free list already holds this many workers, the worker is destroyed instead of cached. The session's writer worker is never destroyed because of this limit, but it takes a place in the same free list, so while it is cached at most one less than this many reader workers stay cached. Workers on the coordinator are capped at 1 regardless of this setting.
 
 ## gp_command_count
 
@@ -190,7 +190,7 @@ This document lists the configuration parameters (GUC) of Apache Cloudberry data
 - Variable Type: Bool
 - Default Value: off
 - Setting Category: superuser
-- Description: Logs details of the ANALYZE operations issued by automatic statistics collection (see `gp_autostats_mode`). When enabled, the server log records which command on which table caused an automatic ANALYZE, and also when an automatic ANALYZE was skipped because the user does not own the table.
+- Description: Logs details of the ANALYZE operations issued by automatic statistics collection (see `gp_autostats_mode`). When enabled, the server log records which command on which table caused an automatic ANALYZE, and also when an automatic ANALYZE was skipped because the user does not own the table (this check is made only while `gp_autostats_allow_nonowner` is off, which is the default).
 
 ## log_autovacuum_min_duration
 
@@ -200,6 +200,13 @@ This document lists the configuration parameters (GUC) of Apache Cloudberry data
 - Value Range: [-1,2147483647]
 - Setting Category: sighup
 - Description: Sets the minimum execution time above which autovacuum actions are logged. A value of 0 logs all autovacuum actions, and -1 turns autovacuum logging off. It can also be set per table with the `log_autovacuum_min_duration` storage parameter.
+
+## log_btree_build_stats
+
+- Variable Type: Bool
+- Default Value: off
+- Setting Category: superuser
+- Description: Writes system resource usage statistics (memory and CPU) for various B-tree operations to the server log. This is a developer option. It exists only when the server is built with the `BTREE_BUILD_STATS` macro defined, which is not the default.
 
 ## log_checkpoints
 
@@ -215,12 +222,19 @@ This document lists the configuration parameters (GUC) of Apache Cloudberry data
 - Setting Category: superuser-backend
 - Description: Writes a line to the server log for each connection attempt, and for each successful client authentication. Some client programs, such as psql, try to connect twice while determining whether a password is required, so duplicate "connection received" messages do not always indicate a problem.
 
+## log_destination
+
+- Variable Type: String
+- Default Value: stderr
+- Setting Category: sighup
+- Description: Sets the destinations for server log output, as a comma-separated list of `stderr`, `csvlog`, `jsonlog`, `syslog` and `eventlog`. `syslog` is available only on platforms that support it, and `eventlog` only on Windows. `csvlog` and `jsonlog` require `logging_collector` to be on. When `stderr` is included, `logging_collector` is on and `gp_log_format` is `csv` (the default), every message is written to the log file in CSV format and nothing is sent to the other destinations in the list. To use `csvlog`, `jsonlog`, `syslog` or `eventlog`, remove `stderr` from the list or set `gp_log_format` to `text`. This parameter is hidden from `SHOW ALL`. The source code labels it as defunct, but the server still uses it.
+
 ## log_directory
 
 - Variable Type: String
 - Default Value: log
 - Setting Category: sighup
-- Description: Sets the directory where server log files are written when the logging collector is enabled. It can be an absolute path or a path relative to the data directory. This parameter is hidden from `SHOW ALL` and can be viewed only by superusers and members of `pg_read_all_settings`.
+- Description: Sets the directory where server log files are written when the logging collector is enabled. It can be an absolute path or a path relative to the data directory. This parameter is hidden from `SHOW ALL` and can be viewed only by superusers and members of `pg_read_all_settings`. The source code labels it as defunct, but the server still uses it.
 
 ## log_disconnections
 
@@ -228,6 +242,13 @@ This document lists the configuration parameters (GUC) of Apache Cloudberry data
 - Default Value: off
 - Setting Category: superuser-backend
 - Description: Writes a line to the server log when a client session ends, including the duration of the session.
+
+## log_dispatch_stats
+
+- Variable Type: Bool
+- Default Value: off
+- Setting Category: superuser
+- Description: Writes dispatcher performance statistics for each statement to the server log. It cannot be turned on while any of `log_statement_stats`, `log_parser_stats`, `log_planner_stats` or `log_executor_stats` is on.
 
 ## log_duration
 
@@ -242,7 +263,22 @@ This document lists the configuration parameters (GUC) of Apache Cloudberry data
 - Default Value: default
 - Value Range: terse, default, verbose
 - Setting Category: superuser
-- Description: Controls the amount of detail written to the server log for each message that is logged. `terse` omits the DETAIL, HINT, QUERY and CONTEXT fields, and `verbose` adds the SQLSTATE error code and the source file name, function name and line number that generated the message. It applies only when `gp_log_format` is `text` or when `log_destination` includes `csvlog` or `jsonlog`. With the default `gp_log_format` of `csv`, every server log entry already includes all of these fields.
+- Description: Controls the amount of detail written to the server log for each message that is logged. `terse` omits the DETAIL, HINT, QUERY and CONTEXT fields, and `verbose` adds the SQLSTATE error code and the source file name, function name and line number that generated the message. It has no effect on messages that Cloudberry writes in its own CSV format, which happens when `log_destination` includes `stderr`, `logging_collector` is on and `gp_log_format` is `csv`, which are all defaults. In `csvlog` and `jsonlog` output it controls only whether the source file name, function name and line number are written.
+
+## log_executor_stats
+
+- Variable Type: Bool
+- Default Value: off
+- Setting Category: superuser
+- Description: Writes executor performance statistics for each statement to the server log. It cannot be turned on while `log_statement_stats` is on.
+
+## log_file_mode
+
+- Variable Type: Integer
+- Default Value: 0600
+- Value Range: [0000,0777]
+- Setting Category: sighup
+- Description: Sets the permissions of the log files created when `logging_collector` is on. The value is a numeric mode in the form accepted by the `chmod` and `umask` system calls. To use the usual octal format, the number must start with a 0 (zero).
 
 ## log_filename
 
@@ -257,6 +293,29 @@ This document lists the configuration parameters (GUC) of Apache Cloudberry data
 - Default Value: off
 - Setting Category: sighup
 - Description: By default, connection log messages only show the IP address of the connecting host. Turning this on also logs the host name, which requires a reverse DNS lookup for each connection and can impose a non-negligible performance penalty depending on your host name resolution setup.
+
+## log_line_prefix
+
+- Variable Type: String
+- Default Value: `'%m [%p] '`
+- Setting Category: sighup
+- Description: Sets a printf-style string that is written at the start of each log line. `%` escapes such as `%m` (time stamp with milliseconds) and `%p` (process ID) are replaced with status information. An empty value means no prefix. The prefix is not used for messages that Cloudberry writes in its own CSV format, which happens when `log_destination` includes `stderr`, `logging_collector` is on and `gp_log_format` is `csv`, which are all defaults. This parameter is hidden from `SHOW ALL`. The source code labels it as defunct, but the server still uses it.
+
+## log_lock_waits
+
+- Variable Type: Bool
+- Default Value: off
+- Setting Category: superuser
+- Description: Writes a log message when a session waits longer than `deadlock_timeout` to acquire a lock.
+
+## log_min_duration_sample
+
+- Variable Type: Integer
+- Default Value: -1
+- Unit: ms
+- Value Range: [-1,2147483647]
+- Setting Category: superuser
+- Description: Logs a sample of the completed statements that ran for at least the specified amount of time, together with their duration. `log_statement_sample_rate` sets the fraction that is logged. `0` samples all statements, and `-1` disables this feature. Statements that exceed `log_min_duration_statement` are always logged.
 
 ## log_min_duration_statement
 
@@ -283,6 +342,52 @@ This document lists the configuration parameters (GUC) of Apache Cloudberry data
 - Setting Category: superuser
 - Description: Controls which message levels are written to the server log. Each level includes all the levels that follow it; the later the level, the fewer messages are sent to the log.
 
+## log_parameter_max_length
+
+- Variable Type: Integer
+- Default Value: -1
+- Unit: B
+- Value Range: [-1,1073741823]
+- Setting Category: superuser
+- Description: Sets the maximum number of bytes of each bind parameter value written to the server log together with logged statements. `-1` logs the values in full, and `0` turns off logging of bind parameter values for these messages.
+
+## log_parameter_max_length_on_error
+
+- Variable Type: Integer
+- Default Value: 0
+- Unit: B
+- Value Range: [-1,1073741823]
+- Setting Category: user
+- Description: Sets the maximum number of bytes of each bind parameter value written to error messages. `-1` logs the values in full, and `0` (the default) turns off logging of bind parameter values in error messages.
+
+## log_parser_stats
+
+- Variable Type: Bool
+- Default Value: off
+- Setting Category: superuser
+- Description: Writes parser performance statistics for each statement to the server log. It cannot be turned on while `log_statement_stats` is on.
+
+## log_planner_stats
+
+- Variable Type: Bool
+- Default Value: off
+- Setting Category: superuser
+- Description: Writes planner performance statistics for each statement to the server log. It cannot be turned on while `log_statement_stats` is on.
+
+## log_recovery_conflict_waits
+
+- Variable Type: Bool
+- Default Value: off
+- Setting Category: sighup
+- Description: Writes a log message when the startup process on a standby waits longer than `deadlock_timeout` for a recovery conflict.
+
+## log_replication_commands
+
+- Variable Type: Bool
+- Default Value: off
+- Setting Category: superuser
+- Description: Writes each replication command to the server log.
+
 ## log_rotation_age
 
 - Variable Type: Integer
@@ -301,6 +406,15 @@ This document lists the configuration parameters (GUC) of Apache Cloudberry data
 - Setting Category: sighup
 - Description: Sets the size a log file can reach before the logging collector closes it and starts a new one. The default of 1048576 kB is 1 GB. Set to 0 to turn off size-based log rotation.
 
+## log_startup_progress_interval
+
+- Variable Type: Integer
+- Default Value: 10000
+- Unit: ms
+- Value Range: [0,2147483647]
+- Setting Category: sighup
+- Description: Sets the time between the progress messages that the startup process writes during long-running operations. `0` turns these messages off.
+
 ## log_statement
 
 - Variable Type: Enum
@@ -308,6 +422,14 @@ This document lists the configuration parameters (GUC) of Apache Cloudberry data
 - Value Range: none, ddl, mod, all
 - Setting Category: superuser
 - Description: Controls which SQL statements are written to the server log. `ddl` logs data definition statements such as CREATE, ALTER and DROP, `mod` logs those plus data-modifying statements such as INSERT, UPDATE, DELETE, TRUNCATE and COPY FROM, and `all` logs every statement. The built-in default is `none`, but `gpinitsystem` writes `log_statement=all` into the coordinator's `postgresql.conf`.
+
+## log_statement_sample_rate
+
+- Variable Type: Real
+- Default Value: 1
+- Value Range: [0,1]
+- Setting Category: superuser
+- Description: Sets the fraction of the statements that exceed `log_min_duration_sample` to log. `0` logs none of them, and `1` logs all of them.
 
 ## log_statement_stats
 
@@ -324,6 +446,21 @@ This document lists the configuration parameters (GUC) of Apache Cloudberry data
 - Value Range: [-1,2147483647]
 - Setting Category: superuser
 - Description: Logs the name and size of each temporary file whose size is equal to or larger than this value when the file is deleted. Set to 0 to log all temporary files, or -1 (the default) to turn this logging off.
+
+## log_timezone
+
+- Variable Type: String
+- Default Value: GMT
+- Setting Category: sighup
+- Description: Sets the time zone used for the time stamps written to the server log. `initdb` sets it in `postgresql.conf` to the time zone of its environment.
+
+## log_transaction_sample_rate
+
+- Variable Type: Real
+- Default Value: 0
+- Value Range: [0,1]
+- Setting Category: superuser
+- Description: Sets the fraction of transactions whose statements are all logged, regardless of their duration. `0` logs none, and `1` logs the statements of all transactions.
 
 ## log_truncate_on_rotation
 
