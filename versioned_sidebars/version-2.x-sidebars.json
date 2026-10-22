@@ -375,7 +375,8 @@
             "ecosystem/sql-clients/dbeaver",
             "ecosystem/sql-clients/clouddm",
             "ecosystem/sql-clients/libredb-studio",
-            "ecosystem/sql-clients/tabularis"
+            "ecosystem/sql-clients/tabularis",
+            "ecosystem/sql-clients/visualeaf"
           ]
         },
         {
