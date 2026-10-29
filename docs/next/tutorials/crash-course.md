@@ -718,7 +718,7 @@ select tablename from pg_tables where schemaname='pg_catalog';
 
 In the coordinator instance, the data directory is located at `/data0/database/coordinator/gpseg-1`.
 
-The following are the contents in the data directory of the coordinator instance and coordinator instance:
+The following are the contents in the data directory of the coordinator instance:
 
 ```shell
 [gpadmin@cdw gpseg-1]$ ls -tlr
