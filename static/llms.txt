@@ -59,6 +59,7 @@ This file follows the `/llms.txt` convention (see https://llmstxt.org) to help A
 - [Security Guide](https://cloudberry.apache.org/docs/security/): Authentication, encryption, and row-level security.
 - [Query Performance](https://cloudberry.apache.org/docs/performance/optimize-queries/): Tuning and troubleshooting query performance.
 - [PXF (Platform Extension Framework)](https://cloudberry.apache.org/pxf/overview_pxf/): Framework for connecting Cloudberry to external data sources such as S3, HDFS, and JDBC sources.
+- [Core Internals](https://cloudberry.apache.org/core-internals/): Developer handbook for the Cloudberry kernel — storage and data layout, transactions and MVCC, query planning and execution (PostgreSQL planner and ORCA), HA and recovery, resource management.
 - [Quick Trial Lessons](https://cloudberry.apache.org/docs/tutorials/quick-trial-lessons/): Hands-on tutorials for learning Cloudberry step by step.
 
 ## Migrate from Greenplum Database to Apache Cloudberry

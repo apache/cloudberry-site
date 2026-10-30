@@ -19,6 +19,7 @@
     "@docusaurus/module-type-aliases": "^3.10.2",
     "@docusaurus/plugin-client-redirects": "^3.10.2",
     "@docusaurus/preset-classic": "^3.10.2",
+    "@docusaurus/theme-mermaid": "^3.10.2",
     "@easyops-cn/docusaurus-search-local": "^0.40.1",
     "@floating-ui/react": "^0.26.6",
     "@mdx-js/react": "^3.0.0",
