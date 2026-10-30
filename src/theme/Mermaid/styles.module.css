@@ -1,0 +1,10 @@
+/* Same two rules the stock @theme/Mermaid container carries: keep a wide
+   diagram inside the content column instead of widening the page. */
+
+.container {
+  max-width: 100%;
+}
+
+.container > svg {
+  max-width: 100%;
+}
