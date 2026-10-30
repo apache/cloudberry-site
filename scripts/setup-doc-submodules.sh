@@ -67,6 +67,17 @@ for name in $names; do
     # would, so `git submodule status` and friends behave normally afterwards.
     git submodule init -- "$path"
 
+    gitdir=".git/modules/${name}"
+
+    if [ ! -e "${path}/.git" ] && [ -d "$gitdir" ]; then
+        # The working tree is gone but its git directory survived -- a branch
+        # switch across the commit that added the submodule does that. Reconnect
+        # to it rather than cloning again: the objects and the sparse pattern
+        # are still there, and a second clone would have nowhere to be absorbed
+        # to.
+        git submodule update --init -- "$path"
+    fi
+
     if [ ! -e "${path}/.git" ]; then
         # --sparse starts the working tree at the top-level files only, so the
         # narrowing below is applied to almost nothing rather than undoing a
@@ -94,6 +105,23 @@ for name in $names; do
         git -C "$path" fetch --quiet --depth 1 origin "$sha"
     fi
     git -C "$path" checkout --quiet --detach "$sha"
+
+    # A sparse pattern that moved -- upstream renaming docs/ to doc/, say --
+    # leaves the files it used to cover behind: they are outside the new
+    # pattern, so checkout does not touch them, and Docusaurus would go on
+    # seeing a stale copy. These checkouts are read-only inputs to the build,
+    # so there is nothing of value to preserve.
+    git -C "$path" clean -ffdq
+
+    # If the pinned commit and the sparse pattern disagree -- upstream moved
+    # the directory and .gitmodules still names the old one -- the checkout
+    # succeeds and produces nothing. Say so here rather than let Docusaurus
+    # fail later on a path that does not exist.
+    if [ -n "$sparse" ] && [ ! -e "${path}/${sparse%/}" ]; then
+        echo "ERROR: ${name} has no '${sparse}' at ${sha:0:12}." >&2
+        echo "       The submodule moved it, or .gitmodules names the wrong path." >&2
+        exit 1
+    fi
 
     echo "    at ${sha:0:12}: $(ls "$path" | tr '\n' ' ')"
 done

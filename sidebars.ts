@@ -751,6 +751,11 @@ const sidebars: SidebarsConfig = {
       type: 'link',
       label: 'Platform Extension Framework (PXF)',
       href: '/pxf/',
+    },
+    {
+      type: 'link',
+      label: 'Apache Cloudberry Core Internals',
+      href: '/core-internals/',
     }
   ]
 }
