@@ -7,4 +7,4 @@
 	url = https://github.com/my-ship-it/cloudberry.git
 	branch = doc/core-internals-handbook
 	shallow = true
-	sparse-checkout = docs/core-internals/
+	sparse-checkout = doc/core-internals/

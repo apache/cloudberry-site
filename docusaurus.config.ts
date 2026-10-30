@@ -78,12 +78,12 @@ const config: Config = {
       {
         id: 'core-internals',
         // The submodule is the engine repository, checked out sparsely: only
-        // `docs/core-internals` is on disk. See scripts/setup-doc-submodules.sh.
-        path: 'core-internals/docs/core-internals',
+        // `doc/core-internals` is on disk. See scripts/setup-doc-submodules.sh.
+        path: 'core-internals/doc/core-internals',
         routeBasePath: 'core-internals',
         sidebarPath: './sidebarsCoreInternals.ts',
         editUrl: ({ docPath }) =>
-          `https://github.com/apache/cloudberry/edit/main/docs/core-internals/${docPath}`,
+          `https://github.com/apache/cloudberry/edit/main/doc/core-internals/${docPath}`,
         // Exclude repo-level non-doc files from being rendered as pages
         exclude: ['README.md'],
       },
@@ -207,16 +207,6 @@ const config: Config = {
               {
                 label: "1.x",
                 to: "docs/1.x",
-              },
-              // Not a version of the docs above but a separate handbook, so
-              // it sits below a rule rather than in the version list.
-              {
-                type: "html",
-                value: '<hr class="dropdown-separator">',
-              },
-              {
-                label: "Core Internals",
-                to: "core-internals/",
               },
             ],
         },
