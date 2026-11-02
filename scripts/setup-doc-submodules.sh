@@ -23,7 +23,7 @@
 # Two submodules feed the site today:
 #
 #   pxf             apache/cloudberry-pxf   ->  docs/
-#   core-internals  apache/cloudberry       ->  docs/core-internals/
+#   core-internals  apache/cloudberry       ->  doc/core-internals/
 #
 # The directory to check out is read from the `sparse-checkout` key each
 # submodule carries in .gitmodules. Git itself ignores that key; it is written
