@@ -63,6 +63,22 @@ This document lists the configuration parameters (GUC) of Apache Cloudberry data
 - Setting Category: user
 - Description: Controls whether autostats automatically generated `ANALYZE` waits for lock acquisition.
 
+## gp_autostats_mode
+
+- Variable Type: Enum
+- Default Value: none
+- Value Range: none, on_change, onchange, on_no_stats
+- Setting Category: user
+- Description: Controls whether the coordinator runs an automatic `ANALYZE` on a table after a statement modifies it outside of a function (statements inside functions use `gp_autostats_mode_in_functions`). `on_change` analyzes after `CREATE TABLE AS`, `INSERT`, `UPDATE`, `DELETE` or `COPY FROM` when the number of affected rows exceeds `gp_autostats_on_change_threshold`; `on_no_stats` analyzes after `CREATE TABLE AS`, and after `INSERT` or `COPY FROM` into a table that has no statistics yet; `none` turns automatic analysis off, and `onchange` is accepted as another spelling of `on_change`. Views and partitioned parent tables are never analyzed this way.
+
+## gp_cached_segworkers_threshold
+
+- Variable Type: Integer
+- Default Value: 5
+- Value Range: [1,2147483647]
+- Setting Category: user
+- Description: Sets the maximum number of idle segment worker processes (QEs) per segment that a session keeps cached for reuse by later statements. When a reader worker is released and the per-segment free list already holds this many workers, the worker is destroyed instead of cached. The session's writer worker is never destroyed because of this limit, but it takes a place in the same free list, so while it is cached at most one less than this many reader workers stay cached. Workers on the coordinator are capped at 1 regardless of this setting.
+
 ## gp_command_count
 
 - Variable Type: Integer
@@ -100,6 +116,23 @@ This document lists the configuration parameters (GUC) of Apache Cloudberry data
 - Setting Category: superuser
 - Description: Sets the maximum allowed partition level when creating partitioned tables using classic syntax.
 
+## gp_max_plan_size
+
+- Variable Type: Integer
+- Default Value: 0
+- Unit: kB
+- Value Range: [0,2147483647]
+- Setting Category: superuser
+- Description: Sets the maximum size of an uncompressed serialized query plan that the coordinator dispatches to the segments. A query whose plan exceeds this size fails with a "Query plan size limit exceeded" error. A value of 0 means no limit.
+
+## gp_max_slices
+
+- Variable Type: Integer
+- Default Value: 0
+- Value Range: [0,2147483647]
+- Setting Category: user
+- Description: Sets the maximum number of slices allowed in a single query plan. A query with more slices than this fails at executor start with an error. A value of 0 means no limit.
+
 ## gp_resource_manager
 
 - Value Range: none, group, group-v2, queue
@@ -128,6 +161,14 @@ This document lists the configuration parameters (GUC) of Apache Cloudberry data
 - Setting Category: backend
 - Description: Used to uniquely identify a session in the Apache Cloudberry cluster.
 
+## gp_vmem_protect_limit
+
+- Variable Type: Integer
+- Default Value: 8192
+- Value Range: [0,1073741823]
+- Setting Category: postmaster
+- Description: Sets, in megabytes, the amount of memory that all database sessions on one segment instance together can reserve through the Cloudberry memory tracker. The value is a plain number of MB with no unit attached, so give it as for example `8192` rather than `8GB`. When a query process on a segment would push the segment total past this limit, its allocation fails with an "Out of memory" error whose detail starts with "Vmem limit reached". The limit applies under every `gp_resource_manager` setting, and `runaway_detector_activation_percent` is calculated as a percentage of it.
+
 ## krb_server_keyfile
 
 - Variable Type: string
@@ -135,12 +176,289 @@ This document lists the configuration parameters (GUC) of Apache Cloudberry data
 - Setting Category: sighup
 - Description: Sets the location of the Kerberos server key file.
 
+## lock_timeout
+
+- Variable Type: Integer
+- Default Value: 0
+- Unit: ms
+- Value Range: [0,2147483647]
+- Setting Category: user
+- Description: Sets the maximum time any statement waits to acquire a lock on a table, index, row, or other database object. If the wait exceeds this time, the statement is aborted with an error. A value of 0 turns off the timeout.
+
+## log_autostats
+
+- Variable Type: Bool
+- Default Value: off
+- Setting Category: superuser
+- Description: Logs details of the ANALYZE operations issued by automatic statistics collection (see `gp_autostats_mode`). When enabled, the server log records which command on which table caused an automatic ANALYZE, and also when an automatic ANALYZE was skipped because the user does not own the table (this check is made only while `gp_autostats_allow_nonowner` is off, which is the default).
+
+## log_autovacuum_min_duration
+
+- Variable Type: Integer
+- Default Value: -1
+- Unit: ms
+- Value Range: [-1,2147483647]
+- Setting Category: sighup
+- Description: Sets the minimum execution time above which autovacuum actions are logged. A value of 0 logs all autovacuum actions, and -1 turns autovacuum logging off. It can also be set per table with the `log_autovacuum_min_duration` storage parameter.
+
+## log_btree_build_stats
+
+- Variable Type: Bool
+- Default Value: off
+- Setting Category: superuser
+- Description: Writes system resource usage statistics (memory and CPU) for various B-tree operations to the server log. This is a developer option. It exists only when the server is built with the `BTREE_BUILD_STATS` macro defined, which is not the default.
+
 ## log_checkpoints
 
 - Value Range: Boolean
 - Default Value: on
 - Setting Category: local, system, reload
 - Description: Writes checkpoint and restartpoint information to the server log. The log messages include statistics such as the number of buffers written and the time taken to write them.
+
+## log_connections
+
+- Variable Type: Bool
+- Default Value: off
+- Setting Category: superuser-backend
+- Description: Writes a line to the server log for each connection attempt, and for each successful client authentication. Some client programs, such as psql, try to connect twice while determining whether a password is required, so duplicate "connection received" messages do not always indicate a problem.
+
+## log_destination
+
+- Variable Type: String
+- Default Value: stderr
+- Setting Category: sighup
+- Description: Sets the destinations for server log output, as a comma-separated list of `stderr`, `csvlog`, `syslog` and `eventlog`. `syslog` is available only on platforms that support it, and `eventlog` only on Windows. `csvlog` requires `logging_collector` to be on. When `stderr` is included, `logging_collector` is on and `gp_log_format` is `csv` (the default), every message is written to the log file in CSV format and nothing is sent to the other destinations in the list. To use `csvlog`, `syslog` or `eventlog`, remove `stderr` from the list or set `gp_log_format` to `text`. This parameter is hidden from `SHOW ALL`. The source code labels it as defunct, but the server still uses it.
+
+## log_directory
+
+- Variable Type: String
+- Default Value: log
+- Setting Category: sighup
+- Description: Sets the directory where server log files are written when the logging collector is enabled. It can be an absolute path or a path relative to the data directory. This parameter is hidden from `SHOW ALL` and can be viewed only by superusers and members of `pg_read_all_settings`. The source code labels it as defunct, but the server still uses it.
+
+## log_disconnections
+
+- Variable Type: Bool
+- Default Value: off
+- Setting Category: superuser-backend
+- Description: Writes a line to the server log when a client session ends, including the duration of the session.
+
+## log_dispatch_stats
+
+- Variable Type: Bool
+- Default Value: off
+- Setting Category: superuser
+- Description: Writes dispatcher performance statistics for each statement to the server log. It cannot be turned on while any of `log_statement_stats`, `log_parser_stats`, `log_planner_stats` or `log_executor_stats` is on.
+
+## log_duration
+
+- Variable Type: Bool
+- Default Value: off
+- Setting Category: superuser
+- Description: Logs the duration of each completed SQL statement.
+
+## log_error_verbosity
+
+- Variable Type: Enum
+- Default Value: default
+- Value Range: terse, default, verbose
+- Setting Category: superuser
+- Description: Controls the amount of detail written to the server log for each message that is logged. `terse` omits the DETAIL, HINT, QUERY and CONTEXT fields, and `verbose` adds the SQLSTATE error code and the source file name, function name and line number that generated the message. It has no effect on messages that Cloudberry writes in its own CSV format, which happens when `log_destination` includes `stderr`, `logging_collector` is on and `gp_log_format` is `csv`, which are all defaults. In `csvlog` output it controls only whether the source file name, function name and line number are written.
+
+## log_executor_stats
+
+- Variable Type: Bool
+- Default Value: off
+- Setting Category: superuser
+- Description: Writes executor performance statistics for each statement to the server log. It cannot be turned on while `log_statement_stats` is on.
+
+## log_file_mode
+
+- Variable Type: Integer
+- Default Value: 0600
+- Value Range: [0000,0777]
+- Setting Category: sighup
+- Description: Sets the permissions of the log files created when `logging_collector` is on. The value is a numeric mode in the form accepted by the `chmod` and `umask` system calls. To use the usual octal format, the number must start with a 0 (zero).
+
+## log_filename
+
+- Variable Type: String
+- Default Value: gpdb-%Y-%m-%d_%H%M%S.csv
+- Setting Category: sighup
+- Description: Sets the file name pattern for server log files, treated as a `strftime` pattern. The file suffix follows `gp_log_format`: with the default CSV format a name that does not end in `.csv` gets its last four characters replaced with `.csv`, and with TEXT format a trailing `.csv` is replaced with `.log`. Only superusers and members of `pg_read_all_settings` can view this parameter, and it is not shown by `SHOW ALL`.
+
+## log_hostname
+
+- Variable Type: Bool
+- Default Value: off
+- Setting Category: sighup
+- Description: By default, connection log messages only show the IP address of the connecting host. Turning this on also logs the host name, which requires a reverse DNS lookup for each connection and can impose a non-negligible performance penalty depending on your host name resolution setup.
+
+## log_line_prefix
+
+- Variable Type: String
+- Default Value: `'%m [%p] '`
+- Setting Category: sighup
+- Description: Sets a printf-style string that is written at the start of each log line. `%` escapes such as `%m` (time stamp with milliseconds) and `%p` (process ID) are replaced with status information. An empty value means no prefix. The prefix is not used for messages that Cloudberry writes in its own CSV format, which happens when `log_destination` includes `stderr`, `logging_collector` is on and `gp_log_format` is `csv`, which are all defaults. This parameter is hidden from `SHOW ALL`. The source code labels it as defunct, but the server still uses it.
+
+## log_lock_waits
+
+- Variable Type: Bool
+- Default Value: off
+- Setting Category: superuser
+- Description: Writes a log message when a session waits longer than `deadlock_timeout` to acquire a lock.
+
+## log_min_duration_sample
+
+- Variable Type: Integer
+- Default Value: -1
+- Unit: ms
+- Value Range: [-1,2147483647]
+- Setting Category: superuser
+- Description: Logs a sample of the completed statements that ran for at least the specified amount of time, together with their duration. `log_statement_sample_rate` sets the fraction that is logged. `0` samples all statements, and `-1` disables this feature. Statements that exceed `log_min_duration_statement` are always logged.
+
+## log_min_duration_statement
+
+- Variable Type: Integer
+- Default Value: -1
+- Unit: ms
+- Value Range: [-1,2147483647]
+- Setting Category: superuser
+- Description: Logs each completed statement together with its duration if it ran for at least the specified amount of time. `0` logs all statements and their durations, and `-1` disables this feature.
+
+## log_min_error_statement
+
+- Variable Type: Enum
+- Default Value: error
+- Value Range: debug5, debug4, debug3, debug2, debug1, info, notice, warning, error, log, fatal, panic
+- Setting Category: superuser
+- Description: Causes the SQL statement that caused an error to be written to the server log when the message severity is at or above this level. Each level includes all the levels that follow it; the later the level, the fewer statements are logged.
+
+## log_min_messages
+
+- Variable Type: Enum
+- Default Value: warning
+- Value Range: debug5, debug4, debug3, debug2, debug1, info, notice, warning, error, log, fatal, panic
+- Setting Category: superuser
+- Description: Controls which message levels are written to the server log. Each level includes all the levels that follow it; the later the level, the fewer messages are sent to the log.
+
+## log_parameter_max_length
+
+- Variable Type: Integer
+- Default Value: -1
+- Unit: B
+- Value Range: [-1,1073741823]
+- Setting Category: superuser
+- Description: Sets the maximum number of bytes of each bind parameter value written to the server log together with logged statements. `-1` logs the values in full, and `0` turns off logging of bind parameter values for these messages.
+
+## log_parameter_max_length_on_error
+
+- Variable Type: Integer
+- Default Value: 0
+- Unit: B
+- Value Range: [-1,1073741823]
+- Setting Category: user
+- Description: Sets the maximum number of bytes of each bind parameter value written to error messages. `-1` logs the values in full, and `0` (the default) turns off logging of bind parameter values in error messages.
+
+## log_parser_stats
+
+- Variable Type: Bool
+- Default Value: off
+- Setting Category: superuser
+- Description: Writes parser performance statistics for each statement to the server log. It cannot be turned on while `log_statement_stats` is on.
+
+## log_planner_stats
+
+- Variable Type: Bool
+- Default Value: off
+- Setting Category: superuser
+- Description: Writes planner performance statistics for each statement to the server log. It cannot be turned on while `log_statement_stats` is on.
+
+## log_recovery_conflict_waits
+
+- Variable Type: Bool
+- Default Value: off
+- Setting Category: sighup
+- Description: Writes a log message when the startup process on a standby waits longer than `deadlock_timeout` for a recovery conflict.
+
+## log_replication_commands
+
+- Variable Type: Bool
+- Default Value: off
+- Setting Category: superuser
+- Description: Writes each replication command to the server log.
+
+## log_rotation_age
+
+- Variable Type: Integer
+- Default Value: 1440
+- Unit: min
+- Value Range: [0,35791394]
+- Setting Category: sighup
+- Description: Sets the age a log file can reach before the logging collector closes it and starts a new one. The default of 1440 minutes (1d) creates a new log file every 24 hours. Set to 0 to turn off time-based log rotation.
+
+## log_rotation_size
+
+- Variable Type: Integer
+- Default Value: 1048576
+- Unit: kB
+- Value Range: [0,2097151]
+- Setting Category: sighup
+- Description: Sets the size a log file can reach before the logging collector closes it and starts a new one. The default of 1048576 kB is 1 GB. Set to 0 to turn off size-based log rotation.
+
+## log_statement
+
+- Variable Type: Enum
+- Default Value: none
+- Value Range: none, ddl, mod, all
+- Setting Category: superuser
+- Description: Controls which SQL statements are written to the server log. `ddl` logs data definition statements such as CREATE, ALTER and DROP, `mod` logs those plus data-modifying statements such as INSERT, UPDATE, DELETE, TRUNCATE and COPY FROM, and `all` logs every statement. The built-in default is `none`, but `gpinitsystem` writes `log_statement=all` into the coordinator's `postgresql.conf`.
+
+## log_statement_sample_rate
+
+- Variable Type: Real
+- Default Value: 1
+- Value Range: [0,1]
+- Setting Category: superuser
+- Description: Sets the fraction of the statements that exceed `log_min_duration_sample` to log. `0` logs none of them, and `1` logs all of them.
+
+## log_statement_stats
+
+- Variable Type: Bool
+- Default Value: off
+- Setting Category: superuser
+- Description: Writes cumulative performance statistics (parser, planner and executor combined) for each statement to the server log. It cannot be turned on while any of `log_parser_stats`, `log_planner_stats`, `log_dispatch_stats` or `log_executor_stats` is on.
+
+## log_temp_files
+
+- Variable Type: Integer
+- Default Value: -1
+- Unit: kB
+- Value Range: [-1,2147483647]
+- Setting Category: superuser
+- Description: Logs the name and size of each temporary file whose size is equal to or larger than this value when the file is deleted. Set to 0 to log all temporary files, or -1 (the default) to turn this logging off.
+
+## log_timezone
+
+- Variable Type: String
+- Default Value: GMT
+- Setting Category: sighup
+- Description: Sets the time zone used for the time stamps written to the server log. `initdb` sets it in `postgresql.conf` to the time zone of its environment.
+
+## log_transaction_sample_rate
+
+- Variable Type: Real
+- Default Value: 0
+- Value Range: [0,1]
+- Setting Category: superuser
+- Description: Sets the fraction of transactions whose statements are all logged, regardless of their duration. `0` logs none, and `1` logs the statements of all transactions.
+
+## log_truncate_on_rotation
+
+- Variable Type: Bool
+- Default Value: off
+- Setting Category: sighup
+- Description: When on, the logging collector truncates (overwrites) an existing log file of the same name instead of appending to it. Truncation happens only on time-based rotation when the new file name differs from the current one; size-based rotation and server start always append.
 
 ## max_connections
 
@@ -153,6 +471,14 @@ This document lists the configuration parameters (GUC) of Apache Cloudberry data
 
     The larger this parameter value, the more shared memory Apache Cloudberry requires.
 
+## max_locks_per_transaction
+
+- Variable Type: Integer
+- Default Value: 128
+- Value Range: [10,2147483647]
+- Setting Category: postmaster
+- Description: Controls the size of the shared lock table, which is sized on the assumption that at most `max_locks_per_transaction` objects per server process or prepared transaction need to be locked at any one time. The table has room for `max_locks_per_transaction` * (`max_connections` + `max_prepared_transactions` + other background processes) lock entries, so a single transaction can lock more objects than this as long as the table has free space. Raise it if queries touch many tables or partitions and fail with out-of-shared-memory errors.
+
 ## max_replication_slots
 
 - Variable Type: Integer
@@ -160,6 +486,24 @@ This document lists the configuration parameters (GUC) of Apache Cloudberry data
 - Value Range: [0,262143]
 - Setting Category: postmaster
 - Description: Sets the maximum number of replication slots that can be defined simultaneously.
+
+## max_slot_wal_keep_size
+
+- Variable Type: Integer
+- Default Value: -1
+- Unit: MB
+- Value Range: [-1,2147483647]
+- Setting Category: sighup
+- Description: Sets the maximum amount of WAL that replication slots can retain on disk. If a slot holds back more WAL than this, the slot is marked as invalid and the WAL segments are released for deletion or recycling. A value of -1 means replication slots can retain an unlimited amount of WAL.
+
+## max_statement_mem
+
+- Variable Type: Integer
+- Default Value: 2048000
+- Unit: kB
+- Value Range: [32768,2147483647]
+- Setting Category: superuser
+- Description: Sets the upper bound for `statement_mem`: any attempt to set `statement_mem` to a value equal to or greater than `max_statement_mem` is rejected. It bounds `gp_resgroup_memory_query_fixed_mem` the same way. The default of `2048000` kB is 2000MB.
 
 ## optimizer_array_constraints
 
@@ -417,6 +761,15 @@ This document lists the configuration parameters (GUC) of Apache Cloudberry data
 - Value Range: [0,2147483647]
 - Setting Category: user
 - Description: Limits the maximum number of bindings that can be generated for each transformation rule (xform) on each group expression. Setting to `0` means this limit is not enabled.
+
+## statement_mem
+
+- Variable Type: Integer
+- Default Value: 128000
+- Unit: kB
+- Value Range: [1000,2147483647]
+- Setting Category: user
+- Description: Sets the amount of memory reserved for a query. The default of `128000` kB is 125MB. How much memory a query actually receives also depends on the resource manager: the resource queue's `MEMORY_LIMIT`, or the resource group's `MEMORY_QUOTA` and `gp_resgroup_memory_query_fixed_mem`. The value must be less than `max_statement_mem`.
 
 ## superuser_reserved_connections
 
