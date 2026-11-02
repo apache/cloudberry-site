@@ -389,3 +389,28 @@ pre,
 samp {
   font-family: var(--font-family-mono);
 }
+
+/* ---------------------------------------------------------------------------
+   Mermaid labels keep Mermaid's own line metrics
+
+   Mermaid lays out a flowchart node by measuring its label, then sizes the
+   node's box to what it measured. It does that at the line-height it sets
+   inline on the label wrapper (1.5), and it only resets `margin` on the `<p>`
+   it puts inside -- not `line-height`.
+
+   `.main-wrapper p { line-height: 1.75 }` in design-style.scss is prose
+   typography, but it also matches that `<p>`, so every rendered line comes out
+   4px taller than the line the box was measured for. One or two lines go
+   unnoticed; a label of a dozen wrapped lines overflows its node by 30-45px
+   and runs over whatever is drawn below it.
+
+   Give the label back the metrics Mermaid measured with. Not scoped to one
+   docs instance: any page that draws a Mermaid diagram wants this. The
+   `foreignObject` in the selector is there to out-specify `.main-wrapper p`,
+   which custom.scss cannot do on equal specificity -- design-style.scss is
+   loaded after it.
+--------------------------------------------------------------------------- */
+
+.docusaurus-mermaid-container foreignObject p {
+  line-height: inherit;
+}

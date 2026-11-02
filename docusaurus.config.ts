@@ -17,11 +17,17 @@ const config: Config = {
   onBrokenLinks: "ignore",
 
   markdown: {
+    // The Core Internals handbook draws 113 of its diagrams as `mermaid`
+    // fenced blocks. Without this they render as code blocks; nothing else
+    // on the site uses mermaid today.
+    mermaid: true,
     hooks: {
       onBrokenMarkdownLinks: "warn",
     },
   },
-  
+
+  themes: ["@docusaurus/theme-mermaid"],
+
   plugins: [
     "docusaurus-plugin-sass",
     'docusaurus-plugin-matomo',
@@ -64,6 +70,21 @@ const config: Config = {
         routeBasePath: 'pxf',
         sidebarPath: './sidebarsPxf.ts',
         editUrl: ({ docPath }) => `https://github.com/apache/cloudberry-pxf/edit/main/docs/${docPath}`,
+        // Exclude repo-level non-doc files from being rendered as pages
+        exclude: ['README.md'],
+      },
+    ],
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'core-internals',
+        // The submodule is the engine repository, checked out sparsely: only
+        // `doc/core-internals` is on disk. See scripts/setup-doc-submodules.sh.
+        path: 'core-internals/doc/core-internals',
+        routeBasePath: 'core-internals',
+        sidebarPath: './sidebarsCoreInternals.ts',
+        editUrl: ({ docPath }) =>
+          `https://github.com/apache/cloudberry/edit/main/doc/core-internals/${docPath}`,
         // Exclude repo-level non-doc files from being rendered as pages
         exclude: ['README.md'],
       },
