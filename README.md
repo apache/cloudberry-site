@@ -81,7 +81,7 @@ submodules:
 | Submodule | Upstream | Served at |
 |---|---|---|
 | `pxf` | [`apache/cloudberry-pxf`](https://github.com/apache/cloudberry-pxf) (`docs/`) | `/pxf` |
-| `core-internals` | [`apache/cloudberry`](https://github.com/apache/cloudberry) (`docs/core-internals/`) | `/core-internals` |
+| `core-internals` | [`apache/cloudberry`](https://github.com/apache/cloudberry) (`doc/core-internals/`) | `/core-internals` |
 
 After cloning, run:
 
