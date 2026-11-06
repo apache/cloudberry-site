@@ -9,7 +9,7 @@ export default function CommonLayout({ children }: IProps): JSX.Element {
   return (
     <Layout
       title={`${siteConfig.title}`}
-      description="Apache Cloudberry ships with PostgreSQL 14.4 as the kernel. It is 100% open source and helps you leverage the value of your data."
+      description="Apache Cloudberry is an advanced and mature open-source MPP database built on PostgreSQL, and the open-source alternative to Greenplum for large-scale analytics and data warehousing."
     >
       {/* The main tag is used for special handling of layout styles, and cannot be a div tag here */}
       <main>{children}</main>
