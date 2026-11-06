@@ -26,7 +26,7 @@ Convenience binaries for Cloudberry have been available since version 2.1.0. You
 <tbody>
 <tr>
 <td rowSpan="4">2.2.0-incubating <strong>(Latest)</strong></td>
-<td rowSpan="4">November 3, 2026</td>
+<td rowSpan="4">November 6, 2026</td>
 <td rowSpan="4">PostgreSQL 14.10</td>
 <td><a href="https://www.apache.org/dyn/closer.lua/incubator/cloudberry/2.2.0-incubating/apache-cloudberry-2.2.0-incubating-src.tar.gz?action=download">apache-cloudberry-2.2.0-incubating-src.tar.gz</a></td>
 <td><a href="https://downloads.apache.org/incubator/cloudberry/2.2.0-incubating/apache-cloudberry-2.2.0-incubating-src.tar.gz.asc">.asc</a>, <a href="https://downloads.apache.org/incubator/cloudberry/2.2.0-incubating/apache-cloudberry-2.2.0-incubating-src.tar.gz.sha512">.sha512</a></td>
