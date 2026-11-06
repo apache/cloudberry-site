@@ -2,11 +2,68 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://cloudberry.apache.org/blog</id>
     <title>Apache Cloudberry (Incubating) is one advanced and mature open-source MPP (Massively Parallel Processing) databases available.</title>
-    <updated>2026-10-27T00:00:00.000Z</updated>
+    <updated>2026-11-06T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://cloudberry.apache.org/blog"/>
     <subtitle>Apache Cloudberry (Incubating) Blog</subtitle>
     <icon>https://cloudberry.apache.org/img/favicon.ico</icon>
+    <entry>
+        <title type="html"><![CDATA[Apache Cloudberry (Incubating) 2.2.0 Released]]></title>
+        <id>https://cloudberry.apache.org/blog/announce-apache-cloudberry-2.2.0</id>
+        <link href="https://cloudberry.apache.org/blog/announce-apache-cloudberry-2.2.0"/>
+        <updated>2026-11-06T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[Apache Cloudberry 2.2.0 moves the kernel to PostgreSQL 14.10, adds six new extensions, broadens platform support, and ships coordinated releases of PXF, Backup, and Go Libs.]]></summary>
+        <content type="html"><![CDATA[<div class="theme-admonition theme-admonition-note admonition_xJq3 alert alert--secondary"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M6.3 5.69a.942.942 0 0 1-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 0 1-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"></path></svg></span>note</div><div class="admonitionContent_BuS1"><p>See the official announcement on the <a href="https://lists.apache.org/thread/k0dsc67f4sqjmn75df1226f6k2pv3n1c" target="_blank" rel="noopener noreferrer" class="">Apache Cloudberry Dev mailing list</a>.</p></div></div>
+<p>The Apache Cloudberry (Incubating) community is pleased to announce the release of Apache Cloudberry (Incubating) version 2.2.0.</p>
+<p>Apache Cloudberry (Incubating) is a Massively Parallel Processing (MPP) database for large-scale data analytics, derived from PostgreSQL and the last open-source version of Greenplum Database. It is designed to support both on-premise and cloud deployments, providing a scalable foundation for data warehousing and advanced analytics.</p>
+<p>This release covers the main Cloudberry project and the components cloudberry-backup, cloudberry-pxf, and, for the first time, cloudberry-go-libs.</p>
+<p>We'd like to express our gratitude to all contributors to this release, as well as to the mentors and the Apache Incubator community for their invaluable support. This release continues the project's work on tracking upstream PostgreSQL, expanding the extension ecosystem, and ASF-oriented release engineering.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="release-highlights">Release highlights<a href="https://cloudberry.apache.org/blog/announce-apache-cloudberry-2.2.0#release-highlights" class="hash-link" aria-label="Direct link to Release highlights" title="Direct link to Release highlights" translate="no">​</a></h2>
+<p>Apache Cloudberry 2.2.0 includes significant updates across the core database, Apache Cloudberry PXF, Apache Cloudberry Backup, and Apache Cloudberry Go Libs:</p>
+<ul>
+<li class=""><strong>Tracking upstream PostgreSQL:</strong> The kernel moves from PostgreSQL 14.4 to 14.10, absorbing upstream optimizations, fixes, and hardening one minor release at a time</li>
+<li class=""><strong>Security fixes:</strong> Dozens of upstream PostgreSQL CVE fixes, including targeted cherry-picks of advisories published after 14.10</li>
+<li class=""><strong>Six new extensions:</strong> <code>diskquota</code>, <code>gp_stats_collector</code>, <code>gp_relsizes_stats</code>, <code>reject_partition_fullscan</code>, <code>try_convert</code>, and <code>yezzey</code></li>
+<li class=""><strong>Query processing and observability:</strong> Interconnect statistics views, intra-segment parallel table scan in ORCA, parallel Hash Full Join and Right Join, and AQUMV support for multi-table joins</li>
+<li class=""><strong>Platform coverage:</strong> Rocky Linux 8, 9, and 10 and Ubuntu 22.04 and 24.04 are supported and tested in CI; Ubuntu 20.04 is dropped</li>
+<li class=""><strong>Packaging:</strong> Automated DEB and RPM builds for x86_64 and ARM64, and relocatable RPMs that let multiple Cloudberry major versions coexist</li>
+<li class=""><strong>PXF observability and toolchain:</strong> <code>pxf_stat_activity</code> with <code>pxf_cancel_backend</code> and <code>pxf_interrupt_backend</code>, Java 17 support, and broader connector testing</li>
+<li class=""><strong>Backup tooling:</strong> New <code>gpbackman</code> command for managing backups and <code>gpbackup_exporter</code> for Prometheus monitoring</li>
+<li class=""><strong>Go Libs:</strong> First release of <code>cloudberry-go-libs</code> as a versioned, ASF-compliant artifact for downstream components</li>
+</ul>
+<p>For more highlights, see the <a class="" href="https://cloudberry.apache.org/blog/apache-cloudberry-2.2.0-preview">Apache Cloudberry 2.2.0 preview blog post</a> and the <a class="" href="https://cloudberry.apache.org/releases/2.2.0-incubating">changelog</a>.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="download">Download<a href="https://cloudberry.apache.org/blog/announce-apache-cloudberry-2.2.0#download" class="hash-link" aria-label="Direct link to Download" title="Direct link to Download" translate="no">​</a></h2>
+<ul>
+<li class="">Download the release: <a href="https://cloudberry.apache.org/releases" target="_blank" rel="noopener noreferrer" class="">https://cloudberry.apache.org/releases</a></li>
+<li class="">Changelog for 2.2.0: <a href="https://cloudberry.apache.org/releases/2.2.0-incubating" target="_blank" rel="noopener noreferrer" class="">https://cloudberry.apache.org/releases/2.2.0-incubating</a></li>
+<li class="">For documentation, visit: <a href="https://cloudberry.apache.org/docs/" target="_blank" rel="noopener noreferrer" class="">https://cloudberry.apache.org/docs/</a></li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="contributors-team">Contributors team<a href="https://cloudberry.apache.org/blog/announce-apache-cloudberry-2.2.0#contributors-team" class="hash-link" aria-label="Direct link to Contributors team" title="Direct link to Contributors team" translate="no">​</a></h2>
+<p>We would like to thank all contributors who made this release possible:</p>
+<blockquote>
+<p><strong>cloudberry:</strong> @leborchuk, @shaohuaxi, @tuhaihe, @Alena0704, @Smyatkin-Maxim, @fanfuxiaoran, @ZTE-EBASE, @MisterRaindrop, @krylosov-aa, @andr-sokolov, @yjhjstz, @fairyfar, @reshke, @congxuebin, @roaldm153, @Vlasdislav, @gongxun0928, @chenjinbao1989, @lqriu, @gfphoenix78, @avamingli, @lss602726449, @MutableFire, @my-ship-it, @zhangyue1818, @04cb, @ostinru, @AndrewOvvv, @x4m, @robozmey, @aviralgarg05, @woblerr, @jangjang0401, @Jaroslavian, @pjfanning</p>
+<p><strong>cloudberry-pxf:</strong> @ostinru, @tuhaihe, @leborchuk, @MisterRaindrop, @Mulily0513</p>
+<p><strong>cloudberry-backup:</strong> @tuhaihe, @woblerr, @talmacschen2022, @my-ship-it</p>
+<p><strong>cloudberry-go-libs:</strong> @tuhaihe, @serprex, @robertmu, @gfphoenix78</p>
+</blockquote>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="join-us">Join us<a href="https://cloudberry.apache.org/blog/announce-apache-cloudberry-2.2.0#join-us" class="hash-link" aria-label="Direct link to Join us" title="Direct link to Join us" translate="no">​</a></h2>
+<p>We are eager to expand our community and extend an invitation to new contributors. We genuinely welcome the opportunity to collaborate with individuals who share our passion and expertise.</p>
+<ul>
+<li class="">Website: <a href="https://cloudberry.apache.org/" target="_blank" rel="noopener noreferrer" class="">https://cloudberry.apache.org</a></li>
+<li class="">Repository: <a href="https://github.com/apache/cloudberry" target="_blank" rel="noopener noreferrer" class="">https://github.com/apache/cloudberry</a></li>
+<li class="">Discussions: <a href="https://github.com/apache/cloudberry/discussions" target="_blank" rel="noopener noreferrer" class="">https://github.com/apache/cloudberry/discussions</a></li>
+<li class="">Issue tracker: <a href="https://github.com/apache/cloudberry/issues" target="_blank" rel="noopener noreferrer" class="">https://github.com/apache/cloudberry/issues</a></li>
+<li class="">Mailing list: <a href="https://lists.apache.org/list.html?dev@cloudberry.apache.org" target="_blank" rel="noopener noreferrer" class="">https://lists.apache.org/list.html?dev@cloudberry.apache.org</a></li>
+<li class="">Slack channel: <a href="https://join.slack.com/t/asf-cloudberry/shared_invite/zt-3um34r7hf-Sh~6jG6hVxlQJo1tbhK2sw" target="_blank" rel="noopener noreferrer" class="">https://join.slack.com/t/asf-cloudberry/shared_invite/zt-3um34r7hf-Sh~6jG6hVxlQJo1tbhK2sw</a></li>
+<li class="">Discord server: <a href="https://discord.com/invite/GJrz3Fxf6y" target="_blank" rel="noopener noreferrer" class="">https://discord.com/invite/GJrz3Fxf6y</a></li>
+</ul>
+<div class="theme-admonition theme-admonition-note admonition_xJq3 alert alert--secondary"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M6.3 5.69a.942.942 0 0 1-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 0 1-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"></path></svg></span>note</div><div class="admonitionContent_BuS1"><p>Disclaimer:
+Apache Cloudberry is an effort undergoing incubation at the Apache Software Foundation (ASF), sponsored by the Apache Incubator PMC. Incubation is required of all newly accepted projects until a review by the Incubator PMC demonstrates that the project has met the ASF's requirements for community and process. While incubation status is not necessarily a reflection of the project's stability or readiness for production, it does indicate that the project is working towards compliance with ASF processes and governance.</p></div></div>]]></content>
+        <author>
+            <name>Apache Cloudberry</name>
+        </author>
+        <category label="Release" term="Release"/>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Apache Cloudberry: Two Years in the Apache Incubator]]></title>
         <id>https://cloudberry.apache.org/blog/apache-cloudberry-two-years-in-apache-incubator</id>
@@ -89,6 +146,7 @@
 <p>This article is a preview rather than an official release announcement, so it focuses on the changes users and developers are most likely to notice instead of a complete changelog.</p>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="apache-cloudberry-core-apachecloudberry">Apache Cloudberry Core (<code>apache/cloudberry</code>)<a href="https://cloudberry.apache.org/blog/apache-cloudberry-2.2.0-preview#apache-cloudberry-core-apachecloudberry" class="hash-link" aria-label="Direct link to apache-cloudberry-core-apachecloudberry" title="Direct link to apache-cloudberry-core-apachecloudberry" translate="no">​</a></h2>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="tracking-upstream-postgresql-144-to-149">Tracking upstream PostgreSQL: 14.4 to 14.9<a href="https://cloudberry.apache.org/blog/apache-cloudberry-2.2.0-preview#tracking-upstream-postgresql-144-to-149" class="hash-link" aria-label="Direct link to Tracking upstream PostgreSQL: 14.4 to 14.9" title="Direct link to Tracking upstream PostgreSQL: 14.4 to 14.9" translate="no">​</a></h3>
+<div class="theme-admonition theme-admonition-note admonition_xJq3 alert alert--secondary"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M6.3 5.69a.942.942 0 0 1-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 0 1-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"></path></svg></span>note</div><div class="admonitionContent_BuS1"><p>The final Apache Cloudberry 2.2.0 release is based on PostgreSQL 14.10. The PostgreSQL 14.9 to 14.10 changes landed after this preview was written. See the <a class="" href="https://cloudberry.apache.org/blog/announce-apache-cloudberry-2.2.0">2.2.0 release announcement</a> and the <a class="" href="https://cloudberry.apache.org/releases/2.2.0-incubating">changelog</a>.</p></div></div>
 <p>The single most consequential change in 2.2.0 is not a feature. It is a change in posture.</p>
 <p>Cloudberry now actively tracks upstream PostgreSQL 14 minor releases, absorbing the optimizations, fixes, and hardening that come with each one. The kernel has moved from PostgreSQL 14.4 to 14.9 in this release, and the work continues one minor version at a time until PostgreSQL 14 reaches the end of its upstream life.</p>
 <p>This is an ongoing, reviewable effort rather than a one-time jump. If you want to help, the tracking board is open: <a href="https://github.com/orgs/apache/projects/572" target="_blank" rel="noopener noreferrer" class="">https://github.com/orgs/apache/projects/572</a></p>
@@ -1331,23 +1389,6 @@ Following the successful vote, the project completed the migration of its source
 <p>Becoming a committer recognizes both Leonid's past contributions and the community's trust in his continued involvement. Committers play a vital role in shaping the project by reviewing and merging contributions, participating in design decisions, and helping guide the project's growth.</p>
 <p>Please join us in congratulating Leonid Borchuk on this well-deserved recognition. We look forward to his continued contributions and collaboration within the Apache Cloudberry community!</p>
 <p>You can find the official announcement on the <a href="https://lists.apache.org/thread/129x1k8l10rbvtqtpf5gclft6j3wwn2j" target="_blank" rel="noopener noreferrer" class="">Apache mailing list</a>.</p>]]></content>
-        <author>
-            <name>Apache Cloudberry</name>
-        </author>
-        <category label="Announcement" term="Announcement"/>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Welcoming Xun Gong as a New Apache Cloudberry Committer]]></title>
-        <id>https://cloudberry.apache.org/blog/welcoming-xungong-as-a-new-apache-cloudberry-committer</id>
-        <link href="https://cloudberry.apache.org/blog/welcoming-xungong-as-a-new-apache-cloudberry-committer"/>
-        <updated>2025-09-18T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[Becoming a committer demonstrates a strong commitment to the community.]]></summary>
-        <content type="html"><![CDATA[<p>We're excited to welcome Xun Gong (GitHub ID: gongxun0928) as Apache Cloudberry's newest committer! 🎉</p>
-<p>Xun has been a valuable contributor to the project, focusing on performance improvements and system reliability. His work spans query optimization, bug resolution, and enhancing core database features. Check out his contributions: <a href="https://github.com/apache/cloudberry/commits?author=gongxun0928" target="_blank" rel="noopener noreferrer" class="">Xun's GitHub Activity</a>.</p>
-<p>What sets Xun apart is his thoughtful approach to code reviews and his ability to identify optimization opportunities that benefit the entire community. He brings both technical depth and a collaborative spirit that strengthens our development process.</p>
-<p>Becoming a committer is a recognition of both Xun's past contributions and the community's trust in his continued involvement. Committers play an important role in shaping the project by reviewing and merging contributions, participating in design decisions, and helping guide the project's growth.</p>
-<p>Please join us in congratulating Xun on this well-deserved recognition. We look forward to his continued contributions and collaboration within the Apache Cloudberry community!</p>
-<p>You can find the official announcement on the <a href="https://lists.apache.org/thread/vn8k3dy2j11nv5bk3kryhjowv20ct73n" target="_blank" rel="noopener noreferrer" class="">Apache mailing list</a>.</p>]]></content>
         <author>
             <name>Apache Cloudberry</name>
         </author>

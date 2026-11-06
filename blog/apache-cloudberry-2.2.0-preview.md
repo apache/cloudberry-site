@@ -18,6 +18,10 @@ This article is a preview rather than an official release announcement, so it fo
 
 ### Tracking upstream PostgreSQL: 14.4 to 14.9
 
+:::note
+The final Apache Cloudberry 2.2.0 release is based on PostgreSQL 14.10. The PostgreSQL 14.9 to 14.10 changes landed after this preview was written. See the [2.2.0 release announcement](/blog/announce-apache-cloudberry-2.2.0) and the [changelog](/releases/2.2.0-incubating).
+:::
+
 The single most consequential change in 2.2.0 is not a feature. It is a change in posture.
 
 Cloudberry now actively tracks upstream PostgreSQL 14 minor releases, absorbing the optimizations, fixes, and hardening that come with each one. The kernel has moved from PostgreSQL 14.4 to 14.9 in this release, and the work continues one minor version at a time until PostgreSQL 14 reaches the end of its upstream life.
