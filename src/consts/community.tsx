@@ -79,6 +79,16 @@ let COMMUNITY_PAGE: CommunityPageConfig = {
               },
             },
             {
+              icon: <EventsIcon fill="#fff" />,
+              title: "Bi-weekly Meetings",
+              content:
+                "Join the bi-weekly community meeting online, or catch up on past meetings through their minutes and recordings.",
+              link: {
+                text: "See the meetings",
+                href: "/community/bi-weekly-meetings",
+              },
+            },
+            {
               icon: <ReportBugsIcon fill={"#fff"} />,
               title: "Report bugs",
               content:

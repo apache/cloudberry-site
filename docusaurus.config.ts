@@ -262,6 +262,10 @@ const config: Config = {
               to: "/community/events",
             },
             {
+              label: "Bi-weekly Meetings",
+              to: "/community/bi-weekly-meetings",
+            },
+            {
               label: "Mailing Lists",
               to: "/community/mailing-lists",
             },
