@@ -81,6 +81,7 @@ The listing includes new committers, excluding PPMC members above:
 | Robert Mu | robertmu@apache.org | robertmu | Individual |
 | Anton Kurochkin | woblerr@apache.org | woblerr | Individual |
 | Liu Shengsong | liushengsong@apache.org | lss602726449 | HashData |
+| Alena Rybakina | alenarybakina@apache.org | Alena0704 | Yandex Cloud |
 
 ## Contributors wall
 
