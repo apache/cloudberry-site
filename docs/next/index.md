@@ -5,7 +5,7 @@ source: https://cloudberry.apache.org/docs/next/
 
 # Apache Cloudberry Feature Overview
 
-Apache Cloudberry, built on the latest PostgreSQL 14.4 kernel, is one of the most advanced and mature open-source MPP databases available. It comes with multiple features, including high concurrency and high availability. It can perform quick and efficient computing for complex tasks, meeting the demands of managing and computing vast amounts of data. It is widely applied in multiple fields.
+Apache Cloudberry, built on the PostgreSQL 16 kernel, is one of the most advanced and mature open-source MPP databases available. It comes with multiple features, including high concurrency and high availability. It can perform quick and efficient computing for complex tasks, meeting the demands of managing and computing vast amounts of data. It is widely applied in multiple fields.
 
 This document gives a general introduction to the features of Apache Cloudberry.
 
@@ -141,7 +141,7 @@ The compatibility of Apache Cloudberry is reflected in multiple aspects such as 
 
 - **SQL compatibility**: Apache Cloudberry is compatible with PostgreSQL and Greenplum syntax, supports SQL-92, SQL-99, and SQL 2003 standards, including SQL 2003 OLAP extensions, such as window functions, `rollup`, and `cube`.
 
-- **Component compatibility**: Based on the PostgreSQL 14.4 kernel, Apache Cloudberry is compatible with most of the PostgreSQL components and extensions commonly used.
+- **Component compatibility**: Based on the PostgreSQL 16 kernel, Apache Cloudberry is compatible with most of the PostgreSQL components and extensions commonly used.
 
 - **Tool and program compatibility**: Good connectivity with various BI tools, mining forecasting tools, ETL tools, and J2EE/.NET applications.
 
