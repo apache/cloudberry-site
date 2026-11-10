@@ -13,6 +13,7 @@ This page chronicles the key milestones in the development of Apache Cloudberry,
 
 Apache Cloudberry submits regular incubation reports to the Apache Incubator PMC. These reports provide detailed updates on community growth, release progress, and project maturity.
 
+- [August 2026](/blog/apache-cloudberry-incubation-report-202608)
 - [May 2026](/blog/apache-cloudberry-incubation-report-202605)
 - [February 2026](/blog/apache-cloudberry-incubation-report-202602)
 - [November 2025](/blog/apache-cloudberry-incubation-report-202511)
