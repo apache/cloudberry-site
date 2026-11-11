@@ -29,10 +29,10 @@ Each Podling Project Management Committee (PPMC) helps its Podling learn how to 
 | Max Yang | maxyang@apache.org | my-ship-it | HashData |
 | Maxim Smyatkin | smyatkin@apache.org | Smyatkin-Maxim | Yandex Cloud |
 | Roman Shaposhnik *(Mentor)* | rvs@apache.org | rvs | Ainekko |
-| Sen Hu | senhu@apache.org | HuSen8891 | HashData |
+| Sen Hu | senhu@apache.org | HuSen8891 | Individual |
 | Shine Zhang | zhang75033us@apache.org | xinzweb | Synx Data Labs |
 | Tushar Pednekar | tushar_pednekar@apache.org | 2shar-p | Synx Data Labs |
-| Weinan WANG | wangwn@apache.org | weinan003 | HashData |
+| Weinan WANG | wangwn@apache.org | weinan003 | Individual |
 | Willem Jiang *(Mentor)*| ningjiang@apache.org | WillemJiang | Apache Member, ByteDance |
 | Xiaoran Wang | fanfuxiaoran@apache.org | fanfuxiaoran | ByteDance |
 | Xin (Alwin) Tang | alwintang@apache.org | xtangcode | Synx Data Labs |
@@ -76,7 +76,7 @@ The listing includes new committers, excluding PPMC members above:
 | Name | Email | GitHub ID | Organization |
 |--|--|--|--|
 | Xiong Tong | tomshawn@apache.org | TomShawn | HashData |
-| Wenchao Zhang | zhangwenchao@apache.org | zhangwenchao-123 | HashData |
+| Wenchao Zhang | zhangwenchao@apache.org | zhangwenchao-123 | VexDB |
 | Xun Gong | gongxun@apache.org | gongxun0928 | Kwai |
 | Rose Duan | roseduan@apache.org | roseduan | HashData |
 | Xiaoyu Liu | liuxiaoyu@apache.org | MisterRaindrop | HashData |
