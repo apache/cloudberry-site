@@ -29,7 +29,7 @@ Each Podling Project Management Committee (PPMC) helps its Podling learn how to 
 | Sen Hu | senhu@apache.org | HuSen8891 | Individual |
 | Shine Zhang | zhang75033us@apache.org | xinzweb | Synx Data Labs |
 | Tushar Pednekar | tushar_pednekar@apache.org | 2shar-p | Synx Data Labs |
-| Weinan WANG | wangwn@apache.org | weinan003 | ~~HashData~~ |
+| Weinan WANG | wangwn@apache.org | weinan003 | Individual |
 | Willem Jiang *(Mentor)*| ningjiang@apache.org | WillemJiang | Apache Member, ByteDance |
 | Xiaoran Wang | fanfuxiaoran@apache.org | fanfuxiaoran | ByteDance |
 | Xin (Alwin) Tang | alwintang@apache.org | xtangcode | Synx Data Labs |
