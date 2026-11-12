@@ -19,7 +19,42 @@ This procedure applies only when the cluster was initialized with an Apache Clou
 - **All hosts.** You must replace the software on the coordinator host, the standby coordinator host, and every segment host.
 - **Same build options.** If you build Apache Cloudberry from source, use the same `configure` options that you used for the current installation. For example, do not change the block size.
 - **Previous package.** Keep the package file of the release that you run now. You need it if you must roll back, because the installation of the new package removes the files of the previous release.
+- **Host health.** Make sure that the hardware of all hosts is healthy and that the hosts still meet the [software and hardware requirements](../../deployment/platform-requirements.md).
 - **Release notes.** Read the [release notes](/releases) of the target release. A new 2.x release can include a later PostgreSQL 14 minor version. For example, 2.2 moves the kernel from PostgreSQL 14.4 to 14.10.
+
+## Check the system catalog before the upgrade day
+
+Run the `gpcheckcat` utility some days or weeks before the upgrade, during a maintenance period. Then you have time to correct the problems that the utility finds before the scheduled upgrade.
+
+1. Start the cluster in restricted mode. In this mode, only superusers can connect, so that other activity does not cause false reports.
+
+    ```shell
+    gpstop -a
+    gpstart -a -R
+    ```
+
+2. Check the system catalog of all databases.
+
+    ```shell
+    gpcheckcat -A
+    ```
+
+3. If `gpcheckcat` reports inconsistencies, run it again with the `-g` option. The utility then writes SQL scripts that repair the inconsistencies into the directory that you specify.
+
+    ```shell
+    gpcheckcat -A -g <directory for the repair scripts>
+    ```
+
+    Run the SQL scripts, then run `gpcheckcat` again. Repeat these steps until the utility reports no inconsistencies.
+
+4. Start the cluster in the usual mode again.
+
+    ```shell
+    gpstop -a
+    gpstart -a
+    ```
+
+If you cannot restrict the access to the cluster, run `gpcheckcat -A -O`. With the `-O` option, the utility runs only the tests that are safe while the cluster is in use. For more information, see [gpcheckcat](../../sys-utilities/gpcheckcat.md).
 
 ## Step 1. Check the current cluster
 
@@ -54,7 +89,15 @@ Do these steps as the `gpadmin` user on the coordinator host.
     ls -ld /usr/local/cloudberry-db*
     ```
 
-6. Create a file with the name `hostfile_all` in the home directory of the `gpadmin` user. The file lists every host in the cluster, one host name on each line. The `gpssh` commands in this guide use this file.
+6. Save a copy of the environment file outside the installation directory. The installation of the new package removes or replaces this file, and the changes that you made to it are lost.
+
+    ```shell
+    cp $GPHOME/cloudberry-env.sh ~/cloudberry-env.sh.before-upgrade
+    ```
+
+    If you upgrade from 2.0, the name of the file is `greenplum_path.sh`. If you changed the file on other hosts too, save a copy on each of those hosts.
+
+7. Create a file with the name `hostfile_all` in the home directory of the `gpadmin` user. The file lists every host in the cluster, one host name on each line. The `gpssh` commands in this guide use this file.
 
     ```shell
     psql -d postgres -Atc "SELECT DISTINCT hostname FROM gp_segment_configuration ORDER BY 1;" > ~/hostfile_all
@@ -63,13 +106,20 @@ Do these steps as the `gpadmin` user on the coordinator host.
 
 ## Step 2. Stop the cluster
 
-1. Make sure that no client sessions are connected, then stop the cluster.
+1. Stop the services and the jobs that connect to the cluster, so that they do not fail or start during the upgrade. Examples are:
+
+    - Scheduled jobs of the `gpadmin` user, such as `cron` jobs for backup, `VACUUM`, or `ANALYZE`.
+    - Data loading jobs, and the `gpfdist` processes that they use.
+    - The PXF service, if you use PXF. Run `pxf cluster stop` on the coordinator host.
+    - Monitoring tools and applications.
+
+2. Make sure that no client sessions are connected, then stop the cluster. The `gpstop -a` command does a smart shutdown: it waits and then fails if a client is still connected.
 
     ```shell
     gpstop -a
     ```
 
-2. Make sure that no `postgres` process is left on any host.
+3. Make sure that no `postgres` process is left on any host.
 
     ```shell
     gpssh -f ~/hostfile_all -e 'pgrep -u gpadmin -l postgres || echo "no postgres process"'
@@ -155,11 +205,25 @@ The DEB package installs the software into `/usr/cloudberry-db`, which is not a 
     sudo ln -sfn /usr/local/cloudberry-db-<version> /usr/local/cloudberry-db
     ```
 
+### Update the environment file
+
+The new installation has a new `cloudberry-env.sh` file. If you changed the environment file of the previous release, compare the new file with the copy that you saved in [Step 1](#step-1-check-the-current-cluster), then make the same changes in the new file. Do this on every host on which you changed the file. These are some examples of such changes:
+
+- If the cluster uses LDAP authentication, a line such as `export LDAPCONF=/etc/openldap/ldap.conf`.
+- If the cluster uses PL/Java, the `JAVA_HOME` and `LD_LIBRARY_PATH` variables.
+
+```shell
+diff ~/cloudberry-env.sh.before-upgrade /usr/local/cloudberry-db/cloudberry-env.sh
+```
+
+Some extension packages also change the environment file when you install them. Thus the previous file can contain lines that you did not add yourself.
+
 ### Add the files that are not part of the package
 
 The new installation directory contains only the files of the Apache Cloudberry package. If you added files to the previous installation directory, add them to the new directory on every host. Examples are:
 
 - Extensions that you built and installed separately, such as PXF or other third-party extensions. Build them again with the new release, or install the packages that match the new release.
+- Files that the extensions use, such as JAR files, shared object files, and libraries.
 - Custom libraries, JDBC drivers, or scripts that you copied into `$GPHOME`.
 
 After an RPM upgrade, you can find such files in the directory of the previous release, for example `/usr/local/cloudberry-db-2.1.0`.
@@ -204,7 +268,12 @@ After an RPM upgrade, you can find such files in the directory of the previous r
     gpstate -e
     ```
 
-4. Run some of your usual queries.
+4. Make sure that the features that you use work as expected. For example:
+
+    - Run some of your usual queries.
+    - Call your user-defined functions.
+    - Use the extensions that you installed, such as PostGIS or MADlib.
+    - Do a backup and a restore of a small table.
 
 ## Step 6. Do the post-upgrade tasks
 
@@ -229,7 +298,9 @@ After an RPM upgrade, you can find such files in the directory of the previous r
     analyzedb -a -d <database name>
     ```
 
-3. When you are sure that you do not need to roll back, remove the directory or the package of the previous release from every host.
+3. Start the services and the jobs that you stopped in [Step 2](#step-2-stop-the-cluster) again, for example the `cron` jobs and the PXF service (`pxf cluster start`).
+
+4. When you are sure that you do not need to roll back, remove the directory or the package of the previous release from every host.
 
 ## Roll back
 
@@ -335,3 +406,12 @@ Some hosts still run the previous release. Do [Step 3](#step-3-install-the-new-r
 ```shell
 gpssh -f ~/hostfile_all -e 'ls -ld /usr/local/cloudberry-db; /usr/local/cloudberry-db/bin/postgres --gp-version'
 ```
+
+### Get help
+
+If you cannot solve a problem, ask the community. See [Support](/support) for the channels, such as the mailing list and GitHub. Give this information in your report:
+
+- The release that you upgraded from, the release that you upgraded to, the operating system, and the type of package.
+- The steps of this guide that you completed, and the step that failed.
+- The full error message, and the log files of the `gpstop`, `gpstart`, and `gpcheckcat` utilities. These log files are in the `~/gpAdminLogs` directory of the `gpadmin` user on the coordinator host.
+- The log file of the instance that did not start. It is in the `log` directory (or `pg_log` on some installations) of the data directory of that instance.
