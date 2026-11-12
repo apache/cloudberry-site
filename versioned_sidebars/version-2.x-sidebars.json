@@ -331,6 +331,7 @@
           "label": "Migration and Upgrade",
           "items": [
             "sys-admin/migration-and-upgrade/migration-and-upgrade",
+            "sys-admin/migration-and-upgrade/upgrade-within-2x",
             "sys-admin/migration-and-upgrade/backward-incompatible-changes-from-greenplum-6"
           ]
         },
