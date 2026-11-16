@@ -425,7 +425,7 @@ const config: Config = {
       <p>
         Copyright © ${new Date().getFullYear()} The Apache Software Foundation, Licensed under the Apache License, Version 2.0.</p>
       <p>
-        Apache®, the names of Apache projects, and the feather logo are either registered trademarks or trademarks of the Apache Software Foundation in the United States and/or other countries.
+        Apache Cloudberry, Cloudberry, Apache, the Apache logo, and the Apache Cloudberry project logo are either registered trademarks or trademarks of The Apache Software Foundation in the United States and other countries. All other marks mentioned may be trademarks or registered trademarks of their respective owners.
       </p>
       `,
       links: [
