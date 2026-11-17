@@ -22,7 +22,7 @@ CREATE EXTENSION dblink;
 
 ## MPP considerations
 
-- A named or implicit (unnamed) `dblink` connection exists only in the coordinator process that serves your session. A statement that modifies table data, such as `INSERT INTO ... SELECT ... FROM dblink(...)`, runs the `dblink()` call in a different process, which cannot see that connection. In such statements, pass the connection string directly to `dblink()`:
+- A named or implicit (unnamed) `dblink` connection exists only in the coordinator process that serves your session. A statement that modifies table data, such as `INSERT INTO ... SELECT ... FROM dblink(...)`, runs the `dblink()` call in a different process, which cannot see that connection. In such statements, pass the connection string directly to `dblink()`. The following example reads the `testdblink` table that is created in step 1 of [Use dblink](#use-dblink):
 
     ```sql
     CREATE TABLE testdbllocal (a int, b text) DISTRIBUTED BY (a);

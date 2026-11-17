@@ -24,13 +24,7 @@ The module does not require `shared_preload_libraries` or a restart.
 
 ## Usage
 
-The single-argument aggregate function has the following signature:
-
-```sql
-string_agg(text)
-```
-
-The function concatenates the non-null input values into a string without a delimiter. Each aggregate result (each group) raises a deprecation warning. The result is `NULL` when there are no non-null input values. For example:
+The module adds one aggregate function, `string_agg(text)`. It concatenates the non-null input values into a string without a delimiter. Each aggregate result (each group) raises a deprecation warning. The result is `NULL` when there are no non-null input values. For example:
 
 ```sql
 SELECT string_agg(a) FROM (VALUES('aaaa'),('bbbb'),('cccc'),(NULL)) g(a);
@@ -62,17 +56,19 @@ WARNING:  Deprecated call to string_agg(text), use string_agg(text, text) instea
 
 ## Migrate to the two-argument string_agg() function
 
-The built-in aggregate function takes a delimiter as its second argument:
+The built-in `string_agg(text, text)` aggregate function takes a delimiter as its second argument. A call with an empty delimiter is equivalent to the single-argument function that this module provides, so replace each `string_agg(a)` call with `string_agg(a, '')`. For example, rewrite this query, which uses the function of this module:
 
 ```sql
-string_agg(text, text)
+SELECT string_agg(a) FROM (VALUES('aaaa'),('bbbb'),('cccc'),(NULL)) g(a);
 ```
 
-A call with an empty delimiter is equivalent to the single-argument function that this module provides. For example, replace `string_agg(a)` with:
+as follows:
 
 ```sql
-string_agg(a, '')
+SELECT string_agg(a, '') FROM (VALUES('aaaa'),('bbbb'),('cccc'),(NULL)) g(a);
 ```
+
+Both queries return `aaaabbbbcccc`. The second query uses the built-in function, so it does not raise the deprecation warning.
 
 After you convert all the calls, you can drop the extension:
 
