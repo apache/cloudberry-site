@@ -601,6 +601,45 @@
         "config-params-guc-list",
         {
           "type": "category",
+          "label": "Extension Modules",
+          "link": {
+            "type": "doc",
+            "id": "modules/index"
+          },
+          "items": [
+            "modules/auto-explain",
+            "modules/btree-gin",
+            "modules/citext",
+            "modules/dblink",
+            "modules/diskquota",
+            "modules/fuzzystrmatch",
+            "modules/gp-distribution-policy",
+            "modules/gp-exttable-fdw",
+            "modules/gp-internal-tools",
+            "modules/gp-legacy-string-agg",
+            "modules/gp-relsizes-stats",
+            "modules/gp-sparse-vector",
+            "modules/gp-stats-collector",
+            "modules/hstore",
+            "modules/isn",
+            "modules/ltree",
+            "modules/orafce",
+            "modules/pageinspect",
+            "modules/pg-buffercache",
+            "modules/pg-trgm",
+            "modules/pgcrypto",
+            "modules/postgres-fdw",
+            "modules/reject-partition-fullscan",
+            "modules/sslinfo",
+            "modules/tablefunc",
+            "modules/tsm-system-rows",
+            "modules/tsm-system-time",
+            "modules/uuid-ossp",
+            "modules/yezzey"
+          ]
+        },
+        {
+          "type": "category",
           "label": "Built-in Functions",
           "link": {
             "type": "doc",
