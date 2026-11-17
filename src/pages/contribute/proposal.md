@@ -51,11 +51,11 @@ in the proposal.
 ## Proposal lifecycle
 
 ```plain-text
-                            --> Accepted --> In Progress --> Completed
-                            |                     v
-Draft --> Discuss --> Vote -|                  Inactive
-                            |                     v
-                            --> Rejected       Abandoned
+                                --> Accepted --> In Progress --> Completed
+                                |                     v
+Draft --> Discuss --> Decision -|                  Inactive
+                                |                     v
+                                --> Rejected       Abandoned
 ```
 
 ### Draft
@@ -90,22 +90,55 @@ The duration of your proposal is at least 3 days, allowing community members
 from various timezones to view and participate in discussions until
 all concerns have been addressed.
 
-### Vote
+### Decision
 
 Once you or someone else feels like there’s a rough consensus on the
 idea and there’s no strong opposition after the `Discussion`, you can
-move your proposal to the `Vote` phase.
+move your proposal to a decision.
 
-For this, you will comment on your proposal's GitHub Discussions to
-start the `Vote`. We follow a vote on code modifications for Apache
-projects as described
-[here](https://www.apache.org/foundation/voting.html#votes-on-code-modification).
+Most proposals are decided by [lazy
+consensus](https://www.apache.org/foundation/voting.html#LazyConsensus):
+comment on your proposal's GitHub Discussions that the proposal will be
+considered accepted if no one objects within at least 72 hours. If no
+one objects in that time, the proposal is accepted.
+
+A formal vote is needed only when there is disagreement that further
+discussion cannot resolve, for example when someone objects to the
+lazy consensus. In that case, comment on your proposal's GitHub
+Discussions to start a vote.
+
+Apache Cloudberry follows the [Apache Software Foundation voting
+process](https://www.apache.org/foundation/voting.html) and does not
+define voting rules of its own. Where this page and the ASF rules
+differ, the ASF rules apply. In short, this is how they apply here:
+
+- **A vote on a proposal, when one is called, is a procedural vote.**
+  Under the ASF rules,
+  procedural votes follow simple majority: the proposal passes if there
+  are more +1 votes than -1 votes, and a -1 is a vote against, not a
+  veto. If the number of votes seems too small to be representative of
+  the community, the proposal is typically not pursued. PPMC members
+  have [binding votes](https://www.apache.org/foundation/voting.html#binding-votes),
+  but everyone in the community is encouraged to vote.
+- **Code changes follow the ASF rules for [votes on code
+  modification](https://www.apache.org/foundation/voting.html#votes-on-code-modification).**
+  This includes the pull requests that implement an accepted proposal:
+  accepting a proposal does not approve its code in advance. A -1 on a
+  code change from a committer is a
+  [veto](https://www.apache.org/foundation/voting.html#Veto). It stops
+  the change until the committer withdraws it, and it cannot be
+  overridden by a majority. A veto is valid only if it comes with a
+  technical justification showing why the change is bad; a veto without
+  one is invalid and has no weight. When a code change is put to a
+  formal vote, it needs three +1 votes and no -1 votes to pass, unless
+  the proposer declares lazy consensus.
+
 Votes are represented as numbers between -1 and +1, with '-1' meaning
-'no' and '+1' meaning 'yes.'
-
-The in-between values indicate how strongly the voting individual
-feels. Here are some examples of fractional votes and what the voter
-might be communicating with them:
+'no' and '+1' meaning 'yes.' The in-between values indicate how
+strongly the voting individual feels. Here are some examples of
+fractional votes and what the voter might be communicating with them,
+taken from the [ASF voting
+process](https://www.apache.org/foundation/voting.html#expressing-votes-1-0-1-and-fractions):
 
 - +0: 'I don't feel strongly about it, but I'm okay with this.'
 - -0: 'I won't get in the way, but I'd rather we didn't do this.'
@@ -114,8 +147,12 @@ might be communicating with them:
 - ++1: 'Wow! I like this! Let's do it!'
 - -0.9: 'I really don't like this, but I'm not going to stand in the
   way if everyone else wants to go ahead with it.'
-- +0.9: 'This is a cool idea and I like it, but I don't have the
+- +0.9: 'This is a cool idea and I like it, but I don't have
   time/the skills necessary to help out.'
+
+For votes on code changes, the ASF recommends whole numbers, because
+the opinion being expressed is simply 'I approve' or 'I do not
+approve'.
 
 The voting has to run for at least 72 hours to provide an opportunity
 for all concerned persons to participate, regardless of their
@@ -130,9 +167,6 @@ their concerns and that nobody feels strongly enough to block the
 group from moving forward. Consensus-seeking emphasizes discussion
 over enumeration: _Rough consensus is achieved when all issues are
 addressed, but not necessarily accommodated._”
-
-For the vote, we are used to `majority approval`, that is, there must
-be more positive than negative votes.
 
 ### Accepted
 
