@@ -277,6 +277,10 @@ const config: Config = {
               label: "Security Policy",
               to: "/community/security",
             },
+            {
+              label: "Graduation Checklist",
+              to: "/community/graduation-checklist",
+            },
            ],
         },
         {
