@@ -42,7 +42,13 @@ const PLUGIN_NAME = "markdown-export";
 /** Components that carry no prose of their own; drop the tag, keep children. */
 const STRUCTURAL_TAGS = ["Tabs", "TabItem"];
 /** Components whose content lives in JS, not Markdown; nothing to salvage. */
-const OPAQUE_TAGS = ["DocCardList", "Timeline", "Contributors"];
+const OPAQUE_TAGS = [
+  "DocCardList",
+  "Timeline",
+  "Contributors",
+  "TeamTable",
+  "CoreContributors",
+];
 
 const DROP_TAG_RE = new RegExp(
   `^\\s*</?(?:${[...STRUCTURAL_TAGS, ...OPAQUE_TAGS].join("|")})\\b[^>]*/?>\\s*$`,

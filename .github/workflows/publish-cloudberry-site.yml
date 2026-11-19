@@ -48,16 +48,16 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           # Submodules are left to the setup script below. One of them is the
           # engine repository, checked out for a single docs directory; letting
           # this step clone it would pull the whole tree before anything had a
           # chance to narrow it.
           submodules: false
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
-          node-version: 20
+          node-version: 24
       
       # Install dependencies and build site
       - name: Install dependencies
