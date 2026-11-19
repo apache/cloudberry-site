@@ -41,12 +41,12 @@
   }
 }
 .light-active-color {
-  color: #fff;
+  color: #000;
+  padding: 0px 5px;
   cursor: pointer;
   font-weight: 600;
   &:hover {
     text-decoration: underline;
-    color: inherit;
   }
 }
 
