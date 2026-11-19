@@ -17,6 +17,10 @@ Each Podling Project Management Committee (PPMC) helps its Podling learn how to 
 
 - [Inviting New PPMC Members](./team/new-ppmc-member)
 
+### Community Accounts
+
+PPMC members and volunteer committers manage the community's official public accounts (X, YouTube, LinkedIn, Slack, Discord, and more). See [Official Community Accounts](/community/accounts) for the list of accounts and their managers.
+
 ## Committers
 
 Committers are contributors who have shown sustained commitment to the project through ongoing contributions of high quality and have been granted write access to the project repositories.
