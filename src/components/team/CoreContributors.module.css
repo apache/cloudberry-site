@@ -1,0 +1,58 @@
+/* Sizes follow Infima's avatar scale (the `avatar__photo--lg` size, 4rem);
+   colors, borders and shadows use the site tokens from src/css/custom.scss.
+   Selectors use two classes so they win over the site-wide `.markdown img`
+   and `.markdown a` rules. */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(104px, 1fr));
+  gap: 20px 12px;
+  margin-top: 20px;
+}
+
+.grid .card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 0;
+  text-align: center;
+  color: inherit;
+  text-decoration: none;
+}
+
+.grid .card:hover {
+  color: inherit;
+  text-decoration: none;
+}
+
+.card .avatar {
+  width: 4rem;
+  height: 4rem;
+  margin: 0 0 8px;
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+  box-shadow: var(--shadow-xs);
+  background: var(--color-bg-muted);
+  object-fit: cover;
+  transition: box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.card:hover .avatar {
+  border-color: var(--ifm-color-primary);
+  box-shadow: 0 0 0 2px var(--ifm-color-primary);
+}
+
+.card .name {
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 1.3;
+  color: var(--color-text);
+}
+
+.card .login {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 12px;
+  color: var(--color-text-soft);
+}
