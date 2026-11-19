@@ -227,7 +227,7 @@ let COMMUNITY_PAGE: CommunityPageConfig = {
       title: "Guidelines and Policy",
       cardLines: [
         {
-          style: { height: 182 },
+          style: { height: 'auto' },
           cards: [
             {
               title: "Code of Conduct",
@@ -245,6 +245,15 @@ let COMMUNITY_PAGE: CommunityPageConfig = {
               link: {
                 text: "Discover the guideline",
                 href: "/community/brand",
+              },
+            },
+            {
+              title: "Official Accounts",
+              content:
+                "The list of the community's official public accounts and the PPMC members and committers who manage them.",
+              link: {
+                text: "View the accounts",
+                href: "/community/accounts",
               },
             },
             {

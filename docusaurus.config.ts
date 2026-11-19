@@ -274,6 +274,10 @@ const config: Config = {
               to: "/community/brand",
             },
             {
+              label: "Official Accounts",
+              to: "/community/accounts",
+            },
+            {
               label: "Security Policy",
               to: "/community/security",
             },
