@@ -1,0 +1,1 @@
+"use strict";(globalThis.webpackChunkApache_Cloudberry_Incubating_website=globalThis.webpackChunkApache_Cloudberry_Incubating_website||[]).push([[13192],{13192(e,c,a){a.d(c,{createArchitectureServices:()=>b.S});var b=a(84549);a(80184)}}]);

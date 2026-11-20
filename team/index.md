@@ -11,8 +11,6 @@ The Apache Cloudberry (Incubating) team works on developing the core database ke
 ## Podling PMC
 Each Podling Project Management Committee (PPMC) helps its Podling learn how to govern itself. It works like a PMC but reports to the Incubator PMC instead of to the ASF Board. Initially, it is composed of the Podling’s mentors and the initial committers. The PPMC is directly responsible for the oversight of the podling, and it also decides who to add as a PPMC member.
 
-<TeamTable members={ppmcMembers} />
-
 ### New PPMC Members
 
 - [Inviting New PPMC Members](./team/new-ppmc-member)
@@ -51,10 +49,6 @@ Committer status recognizes your contributions and grants you additional respons
 
 The listing includes new committers, excluding PPMC members above:
 
-<TeamTable members={committers} />
-
 ## Core Contributors
 
 Our journey began in 2022, built on the foundation of PostgreSQL and Greenplum Database, and we thank both communities for their invaluable contributions. Today, Apache Cloudberry (Incubating) is driven forward by the PPMC members and committers below.
-
-<CoreContributors />
